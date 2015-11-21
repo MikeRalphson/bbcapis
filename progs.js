@@ -12,7 +12,7 @@ var common = require('./common');
 var programme_cache = [];
 var download_history = [];
 var domain = 'radio';
-const displayDomain = domain;
+var displayDomain = domain;
 var pid = '';
 
 var debuglog = util.debuglog('bbc');
@@ -139,11 +139,16 @@ var hidden = 0;
 			}
 
 			console.log(p.pid+' '+p.type+' '+(ownership ? ownership.service.type : displayDomain)+' '+
-			  ((p.is_available || p.is_available_mediaset_pc_sd) ? 'Available' : 'Unavailable')+' '+title);
+			  ((p.is_available===false||p.is_available_mediaset_pc_sd===false) ? 'Unavailable' : 'Available')+'  '+title);
 
 			len = p.duration ? p.duration : 0;
-			if ((p.versions) && (p.versions[0].duration)) {
-				len = p.versions[0].duration;
+			if (p.versions) {
+				if (!len && (p.versions[0].duration)) {
+					len = p.versions[0].duration;
+				}
+				for (var i in p.versions) {
+					parents += '\n vPID='+p.versions[i].pid+'('+p.versions[i].types[0]+')';
+				}
 			}
 
 			suffix = 's';
@@ -318,7 +323,7 @@ else {
 	else {
 		obj = [];
 		obj.pid = pid; // create a programme object stub
-		pid_list('toplevel',obj,false);
+		common.pid_list('toplevel',obj,false,add_programme);
 	}
 }
 

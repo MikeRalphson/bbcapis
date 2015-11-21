@@ -77,17 +77,19 @@ function processPid(type,parent,obj,callback) {
 		}
 	}
 	else if (obj.version) {
-		console.log('Version PIDs are only partially supported');
+		console.log();
 		for (var i in obj.version.contributors) {
-			console.log(obj.version.contributors[i]);
+			cont = obj.version.contributors[i];
+			console.log(' '+(cont.character_name ? cont.character_name : cont.role)+' - '+
+				cont.name);
 		}
 		for (var i in obj.version.broadcasts) {
-			console.log(obj.version.broadcasts[i]);
+			debuglog(obj.version.broadcasts[i]);
 		}
 		for (var i in obj.version.availabilities) {
-			console.log(obj.version.availabilities[i]);
+			debuglog(obj.version.availabilities[i]);
 		}
-		console.log(obj.version.parent);
+		debuglog(obj.version.parent);
 		ep = obj.version.parent.programme;
 		ep.duration = obj.version.duration; //?
 		callback(ep);
@@ -135,10 +137,10 @@ function pidList(type,obj,single,callback) {
 					child = JSON.parse(list);
 					//debuglog(child);
 					if (type=='toplevel') {
-						console.log(child);
+						debuglog(child);
 						if (child.programme && child.programme.versions) {
-							console.log('  versions:');
-							console.log(child.programme.versions);
+							debuglog('  versions:');
+							debuglog(child.programme.versions);
 						}
 					}
 					series_cache.push(obj.pid);
