@@ -16,6 +16,7 @@ const domain = '/nitro';
 var page = '/api/programmes';
 var api_key = '';
 var service = 'radio';
+var media_type = 'audio';
 
 var debuglog = util.debuglog('bbc');
 
@@ -102,8 +103,9 @@ href="/nitro/api/programmes?duration=short" />
 <sort_direction name="sort_direction" value="ascending" is_default="false"
  href="/nitro/api/programmes?sort=views&sort_direction=ascending" />
 
-<mixin name="people" title="mixin to return information about contributors to a programme" 
-release_status="supported" href="/nitro/api/programmes?mixin=people" /> 
+<n:mixin name="people" title="mixin to return information about contributors to a programme"
+release_status="deprecated" deprecated="true" deprecated_since="2014-05-02"
+replaced_by="contributions" href="/nitro/api/programmes?mixin=people"/>
 
 Most important to notice here are the hrefs: these are links that go directly to the feed with those
 filters/sorts/mixins applied. (You should follow the hrefs where possible, as we reserve the right
@@ -128,8 +130,10 @@ function atoz_list(obj) {
 			}
 			else if ((p.type == 'series') || (p.type == 'brand')) {
 				path = domain+page;
-				querystring = '&children_of='+p.pid+'&availability=available&mediaset=pc';
-				// service_type ??
+				querystring = '&descendants_of='+p.pid+'&availability=available&mediaset=pc';
+				if (media_type) {
+					querystring +='&media_type='+media_type;
+				}
 				make_request(host,path,api_key,querystring,this);
 			}
 			else {
@@ -141,8 +145,8 @@ function atoz_list(obj) {
 	// if we need to go somewhere after all pages received set callback and/or path+querystring
 	// dest = [];
 	// dest.path = domain+page;
-	// dest.querystring = '&pid='+p.pid+'&children_of'); //service_type
-	// dest.callback = this;	
+	// dest.querystring = '...'
+	// dest.callback = this; // or (inline) function
 	return [];
 }
 
@@ -396,33 +400,50 @@ var pid = '';
 if (process.argv.length>2) {
 	category = escape(process.argv[2]);
 }
-querystring = '&genre='+category;
 
 if (process.argv.length>3) {
 	service = process.argv[3];
+	if (service == 'tv') {
+		media_type = 'audio-video';
+	}
+	else if (service_type == 'both') {
+		media_type = '';
+	}
 }
 
 if (process.argv.length>4) {
 	if (process.argv[4] == 'search') {
 		querystring = '&q=title:'+escape(category)+'&sort=title&sort_direction=ascending';
 	}
+	else if (process.argv[4] == 'format') {
+		querystring = '&format='+category;
+	}
+	else {
+		querystring = '&genre='+category;
+	}
 }
 
 if (process.argv.length>5) {
 	pid = process.argv[5];
 }
+else {
+	querystring += '&availability=available&mediaset_pc';
+	if (media_type) {
+		querystring +='&media_type='+media_type;
+	}
+}
 
-if (category.indexOf('-h')>0) {
-	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID]');
+if (category.indexOf('-h')>=0) {
+	console.log('Usage: '+process.argv[1]+' category service_type format|genre|search [PID]');
 	console.log();
 	console.log('Category defaults to '+defcat);
-	console.log('Service defaults to '+service);
+	console.log('Service_type defaults to '+service+' values radio|tv|both');
 	console.log('Aggregation defaults to genre');
 	console.log('PID defaults to all PIDS');
 }
 else {
 	if (pid) {
-		querystring = '&programme='+pid+'&mixin=ancestor_titles&mixin=people';
+		querystring = '&programme='+pid+'&mixin=ancestor_titles&mixin=contributions'; //mixin=duration ?
 	}
 	var path = domain+page;
 
