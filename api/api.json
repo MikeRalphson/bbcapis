@@ -1,37 +1,30 @@
 {
   "n:feeds": {
+    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
     "xmlns:n": "http://www.bbc.co.uk/nitro/",
+    "xsi:schemaLocation": "http://www.bbc.co.uk/nitro/ https://nitro.api.bbci.co.uk/nitro/api/schema",
     "n:feed": [
       {
-        "title": "Fetch metadata about Programmes (brands, series, episodes, clips). By applying different filter restrictions this feed can be used in many ways, for example to retrieve all series belonging to a brand, all the episodes and/or clips for a specific series, or any TLEO objects for a masterbrand. Other filters permit restricting to specific formats and/or genres, and you can request specific versions (for example Signed or Audio-Described). Parameters may be combined in any way suitable for your application.",
+        "title": "Start here for programmes metadata: Brands, Series, Episodes and Clips",
         "href": "/nitro/api/programmes",
         "rel": "feed",
+        "release_status": "supported",
         "name": "Programmes",
         "n:filters": {
           "n:filter": [
             {
-              "title": "which page of results to return",
-              "name": "page",
-              "min_value": "1",
-              "type": "integer"
-            },
-            {
-              "title": "number of results in each page",
-              "name": "page_size",
-              "min_value": "0",
-              "type": "integer",
-              "max_value": "300"
-            },
-            {
               "title": "filter for subset of programmes that are audio-described",
+              "type": "boolean",
+              "release_status": "supported",
               "name": "audio_described",
-              "type": "string",
               "n:option": [
                 {
+                  "title": "filter for programmes that are audio-described",
                   "href": "/nitro/api/programmes?audio_described=true",
                   "value": "true"
                 },
                 {
+                  "title": "filter for programmes that are not audio-described",
                   "href": "/nitro/api/programmes?audio_described=false",
                   "value": "false"
                 }
@@ -39,64 +32,91 @@
             },
             {
               "title": "filter for subset of programmes that have availability",
-              "name": "availability",
               "type": "string",
-              "n:option": {
-                "href": "/nitro/api/programmes?availability=available",
-                "value": "available"
-              }
-            },
-            {
-              "title": "filter for subset of programmes that are available after or at the specified datetime",
-              "name": "availability_from",
-              "type": "datetime"
-            },
-            {
-              "title": "filter for subset of programmes that are available before the specified datetime",
-              "name": "availability_to",
-              "type": "datetime"
+              "release_status": "supported",
+              "name": "availability",
+              "multiple_values": "true",
+              "n:option": [
+                {
+                  "title": "filter for programmes that are available",
+                  "href": "/nitro/api/programmes?availability=available",
+                  "release_status": "supported",
+                  "value": "available"
+                },
+                {
+                  "title": "filter for programmes that are expected to become available imminently",
+                  "href": "/nitro/api/programmes?availability=pending",
+                  "release_status": "supported",
+                  "value": "pending"
+                }
+              ]
             },
             {
               "title": "additional filter when availability=available",
-              "name": "availability_entity_type",
               "type": "string",
+              "release_status": "supported",
+              "name": "availability_entity_type",
               "n:option": [
                 {
+                  "title": "filter for programmes with available episodes",
                   "href": "/nitro/api/programmes?availability_entity_type=episode",
                   "value": "episode"
                 },
                 {
+                  "title": "filter for programmes with available clips",
                   "href": "/nitro/api/programmes?availability_entity_type=clip",
                   "value": "clip"
                 }
               ]
             },
             {
+              "title": "filter for subset of programmes that are available after or at the specified datetime",
+              "type": "datetime",
+              "release_status": "deprecated",
+              "name": "availability_from",
+              "deprecated_since": "2014-01-22",
+              "deprecated": "true"
+            },
+            {
+              "title": "filter for subset of programmes that are available before the specified datetime",
+              "type": "datetime",
+              "release_status": "deprecated",
+              "name": "availability_to",
+              "deprecated_since": "2014-01-22",
+              "deprecated": "true"
+            },
+            {
               "title": "filter for subset of programmes that have PID as immediate parent",
-              "name": "children_of",
               "type": "PID",
+              "release_status": "supported",
+              "name": "children_of",
               "multiple_values": "true"
             },
             {
               "title": "filter for subset of programmes that have PID as ancestor",
-              "name": "descendants_of",
               "type": "PID",
+              "release_status": "supported",
+              "name": "descendants_of",
               "multiple_values": "true"
             },
             {
               "title": "filter for subset of programmes that have given duration",
-              "name": "duration",
               "type": "string",
+              "release_status": "supported",
+              "name": "duration",
               "n:option": [
                 {
+                  "title": "filter for programmes that have short duration (< 5m)",
                   "href": "/nitro/api/programmes?duration=short",
                   "value": "short"
                 },
                 {
+                  "title": "filter for programmes that have medium duration (5m - 30m)",
                   "href": "/nitro/api/programmes?duration=medium",
                   "value": "medium"
                 },
                 {
+                  "title": "filter for programmes that have long duration (> 30m)",
                   "href": "/nitro/api/programmes?duration=long",
                   "value": "long"
                 }
@@ -104,23 +124,28 @@
             },
             {
               "title": "filter for subset of programmes that have given entity type",
-              "name": "entity_type",
               "type": "string",
+              "release_status": "supported",
+              "name": "entity_type",
               "multiple_values": "true",
               "n:option": [
                 {
+                  "title": "filter for programmes that are brands",
                   "href": "/nitro/api/programmes?entity_type=brand",
                   "value": "brand"
                 },
                 {
+                  "title": "filter for programmes that are series",
                   "href": "/nitro/api/programmes?entity_type=series",
                   "value": "series"
                 },
                 {
+                  "title": "filter for programmes that are episodes",
                   "href": "/nitro/api/programmes?entity_type=episode",
                   "value": "episode"
                 },
                 {
+                  "title": "filter for programmes that are clips",
                   "href": "/nitro/api/programmes?entity_type=clip",
                   "value": "clip"
                 }
@@ -128,103 +153,237 @@
             },
             {
               "title": "filter for subset of programmes with format",
-              "name": "format",
               "type": "string",
+              "release_status": "supported",
+              "name": "format",
               "multiple_values": "true"
             },
             {
               "title": "filter for subset of programmes with genre",
-              "name": "genre",
               "type": "string",
+              "release_status": "supported",
+              "name": "genre",
               "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of programmes which belong to the given group pid",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "group"
+            },
+            {
+              "title": "filter for subset of programmes with title beginning with initial letter librarian style (ignoring leading 'The', 'An' (Welsh), etc) 0-9 a-z",
+              "type": "character",
+              "release_status": "supported",
+              "name": "initial_letter"
+            },
+            {
+              "title": "Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range",
+              "type": "character",
+              "release_status": "supported",
+              "name": "initial_letter_end"
+            },
+            {
+              "title": "Programmes with (librarian) titles whose initial letter is equal/after given letter. Use with initial_letter_end for range.",
+              "type": "character",
+              "release_status": "supported",
+              "name": "initial_letter_start"
+            },
+            {
+              "title": "Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range",
+              "type": "character",
+              "release_status": "deprecated",
+              "name": "initial_letter_stop",
+              "deprecated_since": "2014-01-22",
+              "deprecated": "true",
+              "replaced_by": "initial_letter_end"
             },
             {
               "title": "filter for subset of programmes with title beginning with initial letter",
-              "name": "initial_letter",
               "type": "character",
+              "release_status": "supported",
+              "name": "initial_letter_strict",
               "multiple_values": "true"
             },
             {
-              "title": "deprecated, please use 'master_brand' filter instead",
-              "name": "masterbrand",
-              "type": "string",
-              "multiple_values": "true",
-              "guaranteed-until": "2013-07-31",
-              "deprecated-since": "2013-05-22",
-              "deprecated": "true"
+              "title": "filter for subset of programmes with linked to versions which have the given item pids",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "item",
+              "multiple_values": "true"
             },
             {
-              "title": "filter for subset of programmes with masterbrand",
-              "name": "master_brand",
+              "title": "filter for subset of programmes with master_brand",
               "type": "string",
+              "release_status": "supported",
+              "name": "master_brand",
               "multiple_values": "true"
             },
             {
               "title": "filter for subset of programmes with media set",
-              "name": "media_set",
-              "type": "string"
+              "type": "string",
+              "release_status": "supported",
+              "name": "media_set"
             },
             {
               "title": "filter for subset of programmes with media type",
-              "name": "media_type",
               "type": "string",
+              "release_status": "supported",
+              "name": "media_type",
               "n:option": [
                 {
+                  "title": "filter for programmes that are audio only",
                   "href": "/nitro/api/programmes?media_type=audio",
                   "value": "audio"
                 },
                 {
+                  "title": "filter for programmes that are video only",
                   "href": "/nitro/api/programmes?media_type=audio_video",
                   "value": "audio_video"
                 }
               ]
             },
             {
-              "title": "filter for subset of programmes having given PID",
-              "name": "pid",
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for programmes by partner ID",
               "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for programmes by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of programmes with contributions by given people PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "people"
+            },
+            {
+              "title": "filter for subset of programmes having given PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "pid",
               "multiple_values": "true"
             },
             {
-              "title": "filter for subset of programmes that are signed",
-              "name": "signed",
+              "title": "filter for subset of programmes which are promoted for given service",
               "type": "string",
+              "release_status": "supported",
+              "name": "promoted_for"
+            },
+            {
+              "title": "filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            },
+            {
+              "title": "filter for subset of programmes that are signed",
+              "type": "string",
+              "release_status": "supported",
+              "name": "signed",
               "n:option": [
                 {
+                  "title": "filter for programmes that are signed",
                   "href": "/nitro/api/programmes?signed=exclusive",
                   "value": "exclusive"
                 },
                 {
+                  "title": "filter for programmes regardless of signedness",
                   "href": "/nitro/api/programmes?signed=inclusive",
                   "value": "inclusive"
                 },
                 {
+                  "title": "filter for programmes that are not signed",
                   "href": "/nitro/api/programmes?signed=exclude",
                   "value": "exclude"
                 }
               ]
             },
             {
+              "title": "filter for subset of programmes with tag",
+              "type": "string",
+              "release_status": "supported",
+              "name": "tag_name"
+            },
+            {
+              "title": "filter for subset of programmes with a tag",
+              "type": "string",
+              "release_status": "supported",
+              "name": "tag_scheme"
+            },
+            {
               "title": "filter for subset of programmes that are TLEOs",
-              "name": "tleo",
               "type": "boolean",
+              "release_status": "supported",
+              "name": "tleo",
               "n:option": [
                 {
+                  "title": "filter for programmes that are TLEOs",
                   "href": "/nitro/api/programmes?tleo=true",
                   "value": "true"
                 },
                 {
+                  "title": "filter for programmes that are not TLEOs",
                   "href": "/nitro/api/programmes?tleo=false",
                   "value": "false"
                 }
               ]
+            },
+            {
+              "title": "filter for subset of programmes with given PID as one of their versions",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "version",
+              "multiple_values": "true"
             }
           ]
         },
         "n:sorts": {
           "n:sort": [
             {
+              "title": "sort numerically by position in group, ascending",
+              "release_status": "supported",
+              "name": "group_position",
+              "is_default": "false",
+              "n:sort_direction": {
+                "href": "/nitro/api/programmes?sort=group_position&sort_direction=ascending",
+                "name": "sort_direction",
+                "value": "ascending",
+                "is_default": "true"
+              }
+            },
+            {
+              "title": "sort numerically by popularity (most popular first)",
+              "release_status": "deprecated",
               "name": "most_popular",
+              "deprecated_since": "2013-11-11",
+              "deprecated": "true",
+              "replaced_by": "views",
               "is_default": "false",
               "n:sort_direction": [
                 {
@@ -242,6 +401,8 @@
               ]
             },
             {
+              "title": "sort alphabetically by PID, descending",
+              "release_status": "supported",
               "name": "pid",
               "is_default": "true",
               "n:sort_direction": [
@@ -260,6 +421,8 @@
               ]
             },
             {
+              "title": "sort numerically by position, ascending",
+              "release_status": "supported",
               "name": "position",
               "is_default": "false",
               "n:sort_direction": [
@@ -278,6 +441,14 @@
               ]
             },
             {
+              "title": "sort by promotion rank, ascending",
+              "release_status": "supported",
+              "name": "promotion",
+              "is_default": "false"
+            },
+            {
+              "title": "sort chronologically by release date, descending",
+              "release_status": "supported",
               "name": "release_date",
               "is_default": "false",
               "n:sort_direction": [
@@ -296,6 +467,14 @@
               ]
             },
             {
+              "title": "sort by weighting of search term (use with q parameter)",
+              "release_status": "supported",
+              "name": "relevance",
+              "is_default": "false"
+            },
+            {
+              "title": "sort chronologically by scheduled start time/date, ascending",
+              "release_status": "supported",
               "name": "scheduled_start",
               "is_default": "false",
               "n:sort_direction": [
@@ -314,6 +493,8 @@
               ]
             },
             {
+              "title": "sort alphabetically by title, ascending",
+              "release_status": "supported",
               "name": "strict_title",
               "is_default": "false",
               "n:sort_direction": [
@@ -332,6 +513,8 @@
               ]
             },
             {
+              "title": "sort by title librarian style (ignoring leading 'The', 'A', etc), ascending",
+              "release_status": "supported",
               "name": "title",
               "is_default": "false",
               "n:sort_direction": [
@@ -350,6 +533,28 @@
               ]
             },
             {
+              "title": "sort by root pid and then preorder tree sort. Requires entities to have release date.",
+              "release_status": "supported",
+              "name": "tree",
+              "is_default": "false",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/programmes?sort=tree&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "false"
+                },
+                {
+                  "href": "/nitro/api/programmes?sort=tree&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "true"
+                }
+              ]
+            },
+            {
+              "title": "sort numerically by number of views (most popular first - faster most_popular)",
+              "release_status": "supported",
               "name": "views",
               "is_default": "false",
               "n:sort_direction": [
@@ -372,131 +577,451 @@
         "n:mixins": {
           "n:mixin": [
             {
+              "title": "mixin to return the alternate images for a programme",
+              "release_status": "supported",
+              "name": "alternate_images",
+              "n:dependency_on": {
+                "value": "true",
+                "filter": "tleo"
+              }
+            },
+            {
               "title": "mixin to return ancestor programme titles",
-              "href": "/nitro/api/programmes?mixin=titles",
-              "name": "titles"
+              "href": "/nitro/api/programmes?mixin=ancestor_titles",
+              "release_status": "supported",
+              "name": "ancestor_titles"
+            },
+            {
+              "title": "mixin to return programme availability information",
+              "release_status": "supported",
+              "name": "availability",
+              "depends_on": "availability"
+            },
+            {
+              "title": "mixin to return information about contributors to a programme",
+              "href": "/nitro/api/programmes?mixin=contributions",
+              "release_status": "supported",
+              "name": "contributions"
             },
             {
               "title": "mixin to return original version duration in programme concept entities",
               "href": "/nitro/api/programmes?mixin=duration",
+              "release_status": "supported",
               "name": "duration"
+            },
+            {
+              "title": "mixin to return list of genre groupings",
+              "href": "/nitro/api/programmes?mixin=genre_groupings",
+              "release_status": "supported",
+              "name": "genre_groupings",
+              "n:prohibits": {
+                "n:mixin": { "name": "genre_groups" }
+              }
+            },
+            {
+              "title": "mixin to return list of genre groups",
+              "href": "/nitro/api/programmes?mixin=genre_groups",
+              "release_status": "deprecated",
+              "name": "genre_groups",
+              "deprecated_since": "2015-03-19",
+              "deprecated": "true",
+              "replaced_by": "genre_groupings",
+              "n:prohibits": {
+                "n:mixin": { "name": "genre_groupings" }
+              }
+            },
+            {
+              "title": "mixin to add image information for a programme",
+              "href": "/nitro/api/programmes?mixin=images",
+              "release_status": "supported",
+              "name": "images"
+            },
+            {
+              "title": "mixin to add embeddable information for a programme",
+              "href": "/nitro/api/programmes?mixin=is_embeddable",
+              "release_status": "supported",
+              "name": "is_embeddable"
+            },
+            {
+              "title": "mixin to return information about contributors to a programme",
+              "href": "/nitro/api/programmes?mixin=people",
+              "release_status": "deprecated",
+              "name": "people",
+              "deprecated_since": "2014-05-02",
+              "deprecated": "true",
+              "replaced_by": "contributions"
+            },
+            {
+              "title": "mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)",
+              "release_status": "supported",
+              "name": "previous_next",
+              "n:dependency_on": [
+                { "filter": "children_of" },
+                { "filter": "group" },
+                { "filter": "promoted_for" }
+              ]
+            },
+            {
+              "title": "mixin to return information about related links to a programme",
+              "href": "/nitro/api/programmes?mixin=related_links",
+              "release_status": "supported",
+              "name": "related_links"
+            },
+            {
+              "title": "mixin to return ancestor programme titles",
+              "href": "/nitro/api/programmes?mixin=titles",
+              "release_status": "deprecated",
+              "name": "titles",
+              "deprecated_since": "2013-11-14",
+              "deprecated": "true",
+              "replaced_by": "ancestor_titles"
+            },
+            {
+              "title": "mixin to return information about programmes that are currently available",
+              "href": "/nitro/api/programmes?mixin=versions_availability",
+              "release_status": "supported",
+              "name": "versions_availability"
+            }
+          ]
+        },
+        "n:deprecations": {
+          "n:deprecated": [
+            {
+              "type": "filter",
+              "name": "availability_from",
+              "deprecated_since": "2014-01-22"
+            },
+            {
+              "type": "filter",
+              "name": "availability_to",
+              "deprecated_since": "2014-01-22"
+            },
+            {
+              "type": "filter",
+              "name": "initial_letter_stop",
+              "deprecated_since": "2014-01-22",
+              "replaced_by": "initial_letter_end",
+              "replacement_type": "filter"
+            },
+            {
+              "type": "sort",
+              "name": "most_popular",
+              "deprecated_since": "2013-11-11",
+              "replaced_by": "views",
+              "replacement_type": "sort"
+            },
+            {
+              "type": "mixin",
+              "name": "people",
+              "deprecated_since": "2014-05-02",
+              "replaced_by": "contributions",
+              "replacement_type": "mixin"
+            },
+            {
+              "type": "mixin",
+              "name": "titles",
+              "deprecated_since": "2013-11-14",
+              "replaced_by": "ancestor_titles",
+              "replacement_type": "mixin"
+            },
+            {
+              "type": "mixin",
+              "name": "genre_groups",
+              "deprecated_since": "2015-03-19",
+              "replaced_by": "genre_groupings",
+              "replacement_type": "mixin"
+            },
+            {
+              "type": "element",
+              "name": "n:formats",
+              "deprecated_since": "2015-03-23",
+              "replaced_by": "n:programme_formats",
+              "replacement_type": "element"
+            },
+            {
+              "type": "element",
+              "name": "n:genre_groups",
+              "deprecated_since": "2015-03-23",
+              "replaced_by": "n:genre_groupings",
+              "replacement_type": "element"
+            },
+            {
+              "type": "element",
+              "name": "n:image",
+              "deprecated_since": "2014-07-09",
+              "replaced_by": "images",
+              "replacement_type": "mixin"
+            },
+            {
+              "type": "element",
+              "name": "n:availability_start",
+              "deprecated_since": "2015-10-06",
+              "replaced_by": "n:scheduled_start",
+              "replacement_type": "element"
+            },
+            {
+              "type": "element",
+              "name": "n:availability_end",
+              "deprecated_since": "2015-10-06",
+              "replaced_by": "n:scheduled_end",
+              "replacement_type": "element"
             }
           ]
         }
       },
       {
-        "title": "Fetch metadata about linear Broadcasts and Services, allowing the generation of Television and Radio schedules and other datasets for broadcast items.",
-        "href": "/nitro/api/broadcasts",
+        "title": "Discover details of on-demand availability for programmes and their versions",
+        "href": "/nitro/api/availabilities",
         "rel": "feed",
-        "name": "Broadcasts",
+        "release_status": "supported",
+        "name": "Availability",
         "n:filters": {
           "n:filter": [
             {
-              "title": "filter for subset of broadcasts that end on or later than the specified datetime",
-              "name": "end_from",
-              "type": "datetime"
-            },
-            {
-              "title": "filter for subset of broadcasts that end on or earlier than the specified datetime",
-              "name": "end_to",
-              "type": "datetime"
-            },
-            {
-              "title": "filter for subset of broadcasts that are classified in the given format ID",
-              "name": "format",
+              "title": "filter for subset of availabilities",
               "type": "string",
+              "release_status": "supported",
+              "name": "availability",
+              "n:option": {
+                "title": "filter for availabilities that are available",
+                "href": "/nitro/api/availabilities?availability=available",
+                "value": "available"
+              }
+            },
+            {
+              "title": "filter for subset of availabilities that have PID as ancestor",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "descendants_of",
               "multiple_values": "true"
             },
             {
-              "title": "filter for subset of broadcasts that are classified in the given genre ID",
-              "name": "genre",
+              "title": "filter for subset of availabilities with media set",
               "type": "string",
-              "multiple_values": "true"
-            },
-            {
-              "title": "filter for subset of broadcasts that have given identifier",
-              "name": "id",
-              "type": "string",
-              "multiple_values": "true"
-            },
-            {
-              "title": "filter for subset of broadcasts that have given authority",
-              "name": "authority",
-              "type": "string",
+              "release_status": "supported",
+              "name": "media_set",
               "multiple_values": "true"
             },
             {
               "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
               "name": "page",
-              "min_value": "1",
-              "type": "integer"
+              "default": "1",
+              "min_value": "1"
             },
             {
               "title": "number of results in each page",
-              "name": "page_size",
-              "min_value": "0",
               "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
               "max_value": "300"
             },
             {
-              "title": "filter for subset of broadcasts having given PID",
-              "name": "pid",
-              "type": "PID",
+              "title": "filter for availabilities in given territory",
+              "type": "string",
+              "release_status": "supported",
+              "name": "territory",
+              "n:option": [
+                {
+                  "title": "filter for only UK availabilities",
+                  "href": "/nitro/api/availabilities?territory=uk",
+                  "value": "uk"
+                },
+                {
+                  "title": "filter for only non-UK availabilities",
+                  "href": "/nitro/api/availabilities?territory=nonuk",
+                  "value": "nonuk"
+                },
+                {
+                  "title": "filter for global availabilities",
+                  "href": "/nitro/api/availabilities?territory=world",
+                  "value": "world"
+                }
+              ]
+            }
+          ]
+        },
+        "n:sorts": {
+          "n:sort": {
+            "title": "sort chronologically by scheduled start time/date, ascending",
+            "release_status": "supported",
+            "name": "scheduled_start",
+            "is_default": "true",
+            "n:sort_direction": [
+              {
+                "href": "/nitro/api/availabilities?sort=scheduled_start&sort_direction=ascending",
+                "name": "sort_direction",
+                "value": "ascending",
+                "is_default": "false"
+              },
+              {
+                "href": "/nitro/api/availabilities?sort=scheduled_start&sort_direction=descending",
+                "name": "sort_direction",
+                "value": "descending",
+                "is_default": "true"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "title": "Build schedules and find metadata for TV and radio broadcasts",
+        "href": "/nitro/api/broadcasts",
+        "rel": "feed",
+        "release_status": "supported",
+        "name": "Broadcasts",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "filter for subset of broadcasts that have given authority",
+              "type": "string",
+              "release_status": "supported",
+              "name": "authority",
               "multiple_values": "true"
             },
             {
+              "title": "filter for subset of broadcasts that are descendants of the given programme PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "descendants_of",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts that end on or later than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "end_from"
+            },
+            {
+              "title": "filter for subset of broadcasts that end on or earlier than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "end_to"
+            },
+            {
+              "title": "filter for subset of broadcasts that are classified in the given format ID",
+              "type": "string",
+              "release_status": "supported",
+              "name": "format",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts that are classified in the given genre ID",
+              "type": "string",
+              "release_status": "supported",
+              "name": "genre",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts that have given identifier",
+              "type": "string",
+              "release_status": "supported",
+              "name": "id",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts with the given item performed on it",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "item",
+              "multiple_values": "true"
+            },
+            {
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for subset of broadcasts that have given contributor",
+              "type": "string",
+              "release_status": "supported",
+              "name": "people"
+            },
+            {
+              "title": "filter for subset of broadcasts having given PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "pid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            },
+            {
               "title": "filter for subset of broadcasts that start on the specified day (BBC time)",
-              "name": "schedule_day",
-              "type": "date"
+              "type": "date",
+              "release_status": "supported",
+              "name": "schedule_day"
             },
             {
               "title": "filter for subset of broadcasts that start on or after the specified day (BBC time)",
-              "name": "schedule_day_from",
-              "type": "date"
+              "type": "date",
+              "release_status": "supported",
+              "name": "schedule_day_from"
             },
             {
               "title": "filter for subset of broadcasts that start on or before the specified day (BBC time)",
-              "name": "schedule_day_to",
-              "type": "date"
+              "type": "date",
+              "release_status": "supported",
+              "name": "schedule_day_to"
             },
             {
-              "title": "filter for subset of broadcasts that are descendants of the given programme PID",
-              "name": "descendants_of",
-              "type": "PID",
+              "title": "filter for subset of broadcasts with given service master brand",
+              "type": "string",
+              "release_status": "supported",
+              "name": "service_master_brand",
               "multiple_values": "true"
             },
             {
               "title": "filter for subset of broadcasts that are on the specified linear service",
-              "name": "sid",
               "type": "string",
+              "release_status": "supported",
+              "name": "sid",
               "multiple_values": "true"
             },
             {
               "title": "filter for subset of broadcasts that start on or later than the specified datetime",
-              "name": "start_from",
-              "type": "datetime"
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "start_from"
             },
             {
               "title": "filter for subset of broadcasts that start on or earlier than the specified datetime",
-              "name": "start_to",
-              "type": "datetime"
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "start_to"
             },
             {
               "title": "filter for subset of broadcasts with given PID as their parent version",
-              "name": "version",
               "type": "PID",
-              "multiple_values": "true"
-            },
-            {
-              "title": "filter for subset of broadcasts with given service master brand",
-              "name": "service_master_brand",
-              "type": "string",
+              "release_status": "supported",
+              "name": "version",
               "multiple_values": "true"
             }
           ]
         },
         "n:sorts": {
           "n:sort": {
+            "title": "sort chronologically by scheduled start time/date, ascending",
+            "release_status": "supported",
             "name": "start_date",
             "is_default": "true",
             "n:sort_direction": [
@@ -519,148 +1044,641 @@
           "n:mixin": {
             "title": "return ancestor programme titles",
             "href": "/nitro/api/broadcasts?mixin=titles",
+            "release_status": "supported",
             "name": "titles"
+          }
+        },
+        "n:deprecations": {
+          "n:deprecated": {
+            "type": "element",
+            "name": "n:image",
+            "deprecated_since": "2014-07-09",
+            "replaced_by": "images",
+            "replacement_type": "mixin"
           }
         }
       },
       {
-        "title": "Fetch metadata about Linear Services",
-        "href": "/nitro/api/services",
+        "title": "Find metadata for curated groups: seasons, collections, galleries or franchises",
+        "href": "/nitro/api/groups",
         "rel": "feed",
-        "name": "Services",
+        "release_status": "supported",
+        "name": "Groups",
         "n:filters": {
           "n:filter": [
             {
-              "title": "which page of results to return",
-              "name": "page",
-              "min_value": "1",
-              "type": "integer"
+              "title": "filter for groups related to given programme or its descendants",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "for_descendants_of"
             },
             {
-              "title": "number of results in each page",
-              "name": "page_size",
-              "min_value": "0",
-              "type": "integer",
-              "max_value": "300"
+              "title": "filter for subset of groups directly related to a given programme",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "for_programme"
             },
             {
-              "title": "filter for specified linear service",
-              "name": "sid",
+              "title": "filter for subset of groups which belong to the given group pid",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "group"
+            },
+            {
+              "title": "filter for subset of groups that have the given group type",
               "type": "string",
-              "multiple_values": "true"
-            },
-            {
-              "title": "filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio",
-              "name": "service_type",
-              "type": "string",
+              "release_status": "supported",
+              "name": "group_type",
               "multiple_values": "true",
               "n:option": [
                 {
-                  "href": "/nitro/api/services?service_type=TV",
-                  "value": "TV"
+                  "title": "filter for groups that are collections",
+                  "href": "/nitro/api/groups?group_type=collection",
+                  "value": "collection"
                 },
                 {
-                  "href": "/nitro/api/services?service_type=Local+Radio",
-                  "value": "Local Radio"
+                  "title": "filter for groups that are franchises",
+                  "href": "/nitro/api/groups?group_type=franchise",
+                  "value": "franchise"
                 },
                 {
-                  "href": "/nitro/api/services?service_type=National+Radio",
-                  "value": "National Radio"
+                  "title": "filter for groups that are galleries",
+                  "href": "/nitro/api/groups?group_type=gallery",
+                  "value": "gallery"
                 },
                 {
-                  "href": "/nitro/api/services?service_type=Regional+Radio",
-                  "value": "Regional Radio"
+                  "title": "filter for groups that are seasons",
+                  "href": "/nitro/api/groups?group_type=season",
+                  "value": "season"
                 }
               ]
             },
             {
-              "title": "Return services that start on or later than the specified datetime",
-              "name": "start_from",
-              "type": "datetime"
+              "title": "filter for subset of groups which contain an entity with the given pid as a member",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "member"
             },
-            {
-              "title": "Return services that start earlier than the specified datetime",
-              "name": "start_to",
-              "type": "datetime"
-            },
-            {
-              "title": "Return services that end on or later than the specified datetime",
-              "name": "end_from",
-              "type": "datetime"
-            },
-            {
-              "title": "filter for subset of broadcasts that end on or earlier than the specified datetime",
-              "name": "end_to",
-              "type": "datetime"
-            }
-          ]
-        }
-      },
-      {
-        "title": "Fetch metadata about Versions",
-        "href": "/nitro/api/versions",
-        "rel": "feed",
-        "name": "Versions",
-        "n:filters": {
-          "n:filter": [
             {
               "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
               "name": "page",
-              "min_value": "1",
-              "type": "integer"
+              "default": "1",
+              "min_value": "1"
             },
             {
               "title": "number of results in each page",
-              "name": "page_size",
-              "min_value": "0",
               "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
               "max_value": "300"
             },
             {
-              "title": "filter for subset of versions having given PID",
-              "name": "pid",
+              "title": "filter for groups by partner ID",
               "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for groups by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of seasons, collections, galleries or franchises having given PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "pid",
               "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of groups matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            }
+          ]
+        },
+        "n:sorts": {
+          "n:sort": {
+            "title": "sort alphabetically by PID",
+            "release_status": "supported",
+            "name": "pid",
+            "is_default": "true",
+            "n:sort_direction": {
+              "href": "/nitro/api/groups?sort=pid&sort_direction=descending",
+              "name": "sort_direction",
+              "value": "descending",
+              "is_default": "true"
+            }
+          }
+        },
+        "n:mixins": {
+          "n:mixin": [
+            {
+              "title": "mixin to return the alternate images for a group",
+              "href": "/nitro/api/groups?mixin=alternate_images",
+              "release_status": "supported",
+              "name": "alternate_images"
+            },
+            {
+              "title": "mixin to return links to programme entities that group belongs to",
+              "href": "/nitro/api/groups?mixin=group_for",
+              "release_status": "supported",
+              "name": "group_for"
+            },
+            {
+              "title": "mixin to add image information for a group",
+              "href": "/nitro/api/groups?mixin=images",
+              "release_status": "supported",
+              "name": "images"
+            },
+            {
+              "title": "mixin to return related links for the group",
+              "href": "/nitro/api/groups?mixin=related_links",
+              "release_status": "supported",
+              "name": "related_links"
+            }
+          ]
+        },
+        "n:deprecations": {
+          "n:deprecated": {
+            "type": "element",
+            "name": "n:image",
+            "deprecated_since": "2014-07-09",
+            "replaced_by": "images",
+            "replacement_type": "mixin"
+          }
+        }
+      },
+      {
+        "title": "Find metadata for images",
+        "href": "/nitro/api/images",
+        "rel": "feed",
+        "release_status": "supported",
+        "name": "Images",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "filter for images belonging to the given group (i.e. Gallery)",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "group",
+              "n:prohibits": {
+                "n:filter": [
+                  { "name": "is_image_for" },
+                  { "name": "is_alternate_image_for" }
+                ]
+              }
+            },
+            {
+              "title": "filter for images by type",
+              "type": "string",
+              "release_status": "supported",
+              "name": "image_type",
+              "multiple_values": "true",
+              "n:option": [
+                {
+                  "title": "select standard type images",
+                  "href": "/nitro/api/images?image_type=standard",
+                  "value": "standard"
+                },
+                {
+                  "title": "select podcast type images",
+                  "href": "/nitro/api/images?image_type=podcast",
+                  "value": "podcast"
+                },
+                {
+                  "title": "select store type images",
+                  "href": "/nitro/api/images?image_type=store",
+                  "value": "store"
+                },
+                {
+                  "title": "select portrait type images",
+                  "href": "/nitro/api/images?image_type=portrait",
+                  "value": "portrait"
+                },
+                {
+                  "title": "select letterbox type images",
+                  "href": "/nitro/api/images?image_type=letterbox",
+                  "value": "letterbox"
+                }
+              ]
+            },
+            {
+              "title": "filter for alternate images by entity PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "is_alternate_image_for",
+              "n:prohibits": {
+                "n:filter": [
+                  { "name": "is_image_for" },
+                  { "name": "group" }
+                ]
+              }
+            },
+            {
+              "title": "filter for images by entity PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "is_image_for",
+              "n:prohibits": {
+                "n:filter": [
+                  { "name": "group" },
+                  { "name": "is_alternate_image_for" }
+                ]
+              }
+            },
+            {
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for images by partner ID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for images by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of images having given PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "pid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of images matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            }
+          ]
+        },
+        "n:sorts": {
+          "n:sort": [
+            {
+              "title": "sort numerically by position, ascending only",
+              "release_status": "supported",
+              "name": "group_position",
+              "is_default": "false",
+              "n:sort_direction": {
+                "href": "/nitro/api/images?sort=group_position&sort_direction=ascending",
+                "name": "sort_direction",
+                "value": "ascending",
+                "is_default": "true"
+              }
+            },
+            {
+              "title": "sort alphabetically by PID",
+              "release_status": "supported",
+              "name": "pid",
+              "is_default": "true",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/images?sort=pid&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "false"
+                },
+                {
+                  "href": "/nitro/api/images?sort=pid&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "true"
+                }
+              ]
             }
           ]
         }
       },
       {
-        "title": "Fetch metadata about People (talent, cast, crew, etc)",
+        "title": "Look inside programmes to find segments: chapters, tracks and more",
+        "href": "/nitro/api/items",
+        "rel": "feed",
+        "name": "Items",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "filter for subset of items that have an ID issued by the given authority",
+              "type": "string",
+              "release_status": "supported",
+              "name": "authority"
+            },
+            {
+              "title": "filter for subset of items having given ID",
+              "type": "ID",
+              "release_status": "supported",
+              "name": "id",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of items that have given an ID of the given type",
+              "type": "string",
+              "release_status": "supported",
+              "name": "id_type"
+            },
+            {
+              "title": "filter for specific type(s) of items",
+              "type": "string",
+              "release_status": "supported",
+              "name": "item_type",
+              "multiple_values": "true",
+              "n:option": [
+                {
+                  "title": "filter for only chapter items",
+                  "href": "/nitro/api/items?item_type=chapter",
+                  "value": "chapter"
+                },
+                {
+                  "title": "filter for only highlight items",
+                  "href": "/nitro/api/items?item_type=highlight",
+                  "value": "highlight"
+                },
+                {
+                  "title": "filter for only music items",
+                  "href": "/nitro/api/items?item_type=music",
+                  "value": "music"
+                },
+                {
+                  "title": "filter for only speech items",
+                  "href": "/nitro/api/items?item_type=speech",
+                  "value": "speech"
+                },
+                {
+                  "title": "filter for only other items",
+                  "href": "/nitro/api/items?item_type=other",
+                  "value": "other"
+                }
+              ]
+            },
+            {
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for items by partner ID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for items by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of items that have specified person involved",
+              "type": "string",
+              "release_status": "supported",
+              "name": "people"
+            },
+            {
+              "title": "filter for subset of items matching one of the given PIDs",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "pid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of items that are part of the given programme",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "programme"
+            },
+            {
+              "title": "filter for subset of items matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            },
+            {
+              "title": "filter for item with the given segment_event",
+              "type": "string",
+              "release_status": "supported",
+              "name": "segment_event"
+            }
+          ]
+        },
+        "n:sorts": {
+          "n:sort": {
+            "title": "sort by pid, descending",
+            "release_status": "supported",
+            "name": "pid",
+            "is_default": "true",
+            "n:sort_direction": {
+              "href": "/nitro/api/items?sort=pid&sort_direction=descending",
+              "name": "sort_direction",
+              "value": "descending",
+              "is_default": "true"
+            }
+          }
+        },
+        "n:mixins": {
+          "n:mixin": [
+            {
+              "title": "mixin to return information about contributors to items",
+              "href": "/nitro/api/items?mixin=contributions",
+              "release_status": "supported",
+              "name": "contributions"
+            },
+            {
+              "title": "mixin to add image information for an item",
+              "href": "/nitro/api/items?mixin=images",
+              "release_status": "supported",
+              "name": "images"
+            },
+            {
+              "title": "mixin to return programme segment offsets, works in conjunction with programme filter",
+              "release_status": "deprecated",
+              "name": "offset",
+              "deprecated_since": "2014-05-06",
+              "deprecated": "true",
+              "replaced_by": "play_event",
+              "depends_on": "programme"
+            },
+            {
+              "title": "mixin to return programme segment events, works in conjunction with programme or segment_event filters",
+              "name": "play_event",
+              "n:dependency_on": [
+                { "filter": "programme" },
+                { "filter": "segment_event" }
+              ]
+            }
+          ]
+        },
+        "n:deprecations": {
+          "n:deprecated": [
+            {
+              "type": "mixin",
+              "name": "offset",
+              "deprecated_since": "2014-05-06",
+              "replaced_by": "play_event",
+              "replacement_type": "mixin"
+            },
+            {
+              "type": "element",
+              "name": "n:image",
+              "deprecated_since": "2014-07-09",
+              "replaced_by": "images",
+              "replacement_type": "mixin"
+            }
+          ]
+        }
+      },
+      {
+        "title": "List all Master Brands",
+        "href": "/nitro/api/master_brands",
+        "rel": "feed",
+        "name": "MasterBrands",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "filter for subset of masterbrands that have given identifier",
+              "type": "string",
+              "release_status": "supported",
+              "name": "mid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for masterbrands by partner ID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for masterbrands by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of masterbrands matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            }
+          ]
+        },
+        "n:sorts": {
+          "n:sort": {
+            "title": "sort by mid, ascending",
+            "release_status": "supported",
+            "name": "mid",
+            "is_default": "true",
+            "n:sort_direction": {
+              "href": "/nitro/api/master_brands?sort=mid&sort_direction=ascending",
+              "name": "sort_direction",
+              "value": "ascending",
+              "is_default": "true"
+            }
+          }
+        },
+        "n:mixins": {
+          "n:mixin": {
+            "title": "mixin to add image information for a masterbrand",
+            "href": "/nitro/api/master_brands?mixin=images",
+            "release_status": "supported",
+            "name": "images"
+          }
+        }
+      },
+      {
+        "title": "Find the people behind and in programmes: cast, crew, guests and more",
         "href": "/nitro/api/people",
         "rel": "feed",
+        "release_status": "supported",
         "name": "People",
         "n:filters": {
           "n:filter": [
             {
-              "title": "which page of results to return",
-              "name": "page",
-              "min_value": "1",
-              "type": "integer"
-            },
-            {
-              "title": "number of results in each page",
-              "name": "page_size",
-              "min_value": "0",
-              "type": "integer",
-              "max_value": "300"
-            },
-            {
-              "title": "filter for subset of people having given PID",
-              "name": "pid",
-              "type": "PID",
-              "multiple_values": "true"
+              "title": "filter for subset of people that have an ID issued by the given authority",
+              "type": "string",
+              "release_status": "supported",
+              "name": "authority"
             },
             {
               "title": "filter for people who have an external identifier",
-              "name": "has_external_id",
               "type": "boolean",
+              "release_status": "supported",
+              "name": "has_external_id",
               "n:option": [
                 {
+                  "title": "filter for people who have an external identifier",
                   "href": "/nitro/api/people?has_external_id=true",
                   "value": "true"
                 },
                 {
+                  "title": "filter for people who do not have an external identifier",
                   "href": "/nitro/api/people?has_external_id=false",
                   "value": "false"
                 }
@@ -668,55 +1686,659 @@
             },
             {
               "title": "filter for subset of people having given ID",
-              "name": "id",
               "type": "ID",
+              "release_status": "supported",
+              "name": "id",
               "multiple_values": "true"
             },
             {
-              "title": "filter for subset of people that have an ID issued by the given authority",
-              "name": "authority",
-              "type": "string"
+              "title": "filter for subset of people that have given an ID of the given type",
+              "type": "string",
+              "release_status": "supported",
+              "name": "id_type"
             },
             {
-              "title": "filter for subset of people that have given an ID of the given type",
-              "name": "id_type",
-              "type": "string"
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for people by partner ID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for people by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of people having given PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "pid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of people that have contributed to the given programme pid",
+              "type": "string",
+              "release_status": "supported",
+              "name": "programme"
+            },
+            {
+              "title": "filter for subset of people matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
             }
           ]
         }
       },
       {
-        "title": "Fetch metadata about on-demand availability of Programmes, Versions, etc",
-        "href": "/nitro/api/availabilities",
+        "title": "Look inside pips entities",
+        "href": "/nitro/api/pips",
         "rel": "feed",
-        "name": "Availability",
+        "release_status": "supported",
+        "name": "Pips",
         "n:filters": {
           "n:filter": [
             {
               "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
               "name": "page",
-              "min_value": "1",
-              "type": "integer"
+              "default": "1",
+              "min_value": "1"
             },
             {
               "title": "number of results in each page",
-              "name": "page_size",
-              "min_value": "0",
               "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
               "max_value": "300"
             },
             {
-              "title": "filter for subset of availabilities with media set",
-              "name": "media_set",
-              "type": "string"
+              "title": "filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Discover metadata for content promotions",
+        "href": "/nitro/api/promotions",
+        "rel": "feed",
+        "release_status": "supported",
+        "name": "Promotions",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "filter for subset of promotions belonging to a given context",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "context",
+              "multiple_values": "false"
             },
             {
-              "title": "filter for subset of availabilities that have PID as ancestor",
-              "name": "descendants_of",
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for promotions by partner ID",
               "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for promotions by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of promotions having given PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "pid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of promotions having given promoted by",
+              "type": "string",
+              "release_status": "supported",
+              "name": "promoted_by",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of promotions having given promoted for",
+              "type": "string",
+              "release_status": "supported",
+              "name": "promoted_for",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of promotions matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            },
+            {
+              "title": "filter for subset of promotions with status",
+              "type": "string",
+              "release_status": "supported",
+              "name": "status",
+              "n:option": {
+                "title": "filter current promotions",
+                "href": "/nitro/api/promotions?status=current",
+                "value": "current"
+              }
+            }
+          ]
+        },
+        "n:mixins": {
+          "n:mixin": {
+            "title": "mixin to return information about related links to a promotion",
+            "href": "/nitro/api/promotions?mixin=related_links",
+            "release_status": "supported",
+            "name": "related_links"
+          }
+        }
+      },
+      {
+        "title": "Build schedules and find metadata for TV and radio broadcasts and webcasts",
+        "href": "/nitro/api/schedules",
+        "rel": "feed",
+        "release_status": "supported",
+        "name": "Schedules",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "filter for subset of broadcasts and webcasts that have given authority",
+              "type": "string",
+              "release_status": "supported",
+              "name": "authority",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that are descendants of the given programme PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "descendants_of",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that end on or later than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "end_from"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that end on or earlier than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "end_to"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that are classified in the given format ID",
+              "type": "string",
+              "release_status": "supported",
+              "name": "format",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that are classified in the given genre ID",
+              "type": "string",
+              "release_status": "supported",
+              "name": "genre",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that have programmes in the given group",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "group"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that have given identifier",
+              "type": "string",
+              "release_status": "supported",
+              "name": "id",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that have given id type",
+              "type": "string",
+              "release_status": "supported",
+              "name": "id_type",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts with the given item performed on it",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "item",
+              "multiple_values": "true"
+            },
+            {
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for broadcasts and webcasts by partner ID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for broadcasts and webcasts by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that have given contributor",
+              "type": "string",
+              "release_status": "supported",
+              "name": "people"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts having given PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "pid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            },
+            {
+              "title": "filter to show either only repeats or non-repeats",
+              "type": "boolean",
+              "release_status": "supported",
+              "name": "repeat"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that start on the specified day (BBC time)",
+              "type": "date",
+              "release_status": "supported",
+              "name": "schedule_day"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that start on or after the specified day (BBC time)",
+              "type": "date",
+              "release_status": "supported",
+              "name": "schedule_day_from"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that start on or before the specified day (BBC time)",
+              "type": "date",
+              "release_status": "supported",
+              "name": "schedule_day_to"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts with given service master brand",
+              "type": "string",
+              "release_status": "supported",
+              "name": "service_master_brand",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that are on the specified linear service",
+              "type": "string",
+              "release_status": "supported",
+              "name": "sid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that start on or later than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "start_from"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts that start on or earlier than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "start_to"
+            },
+            {
+              "title": "filter for subset of broadcasts and webcasts with given PID as their parent version",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "version",
               "multiple_values": "true"
             }
           ]
+        },
+        "n:sorts": {
+          "n:sort": {
+            "title": "sort chronologically by scheduled start time/date, ascending",
+            "release_status": "supported",
+            "name": "start_date",
+            "is_default": "true",
+            "n:sort_direction": [
+              {
+                "href": "/nitro/api/schedules?sort=start_date&sort_direction=ascending",
+                "name": "sort_direction",
+                "value": "ascending",
+                "is_default": "true"
+              },
+              {
+                "href": "/nitro/api/schedules?sort=start_date&sort_direction=descending",
+                "name": "sort_direction",
+                "value": "descending",
+                "is_default": "false"
+              }
+            ]
+          }
+        },
+        "n:mixins": {
+          "n:mixin": [
+            {
+              "title": "return ancestor programme titles",
+              "href": "/nitro/api/schedules?mixin=ancestor_titles",
+              "release_status": "supported",
+              "name": "ancestor_titles"
+            },
+            {
+              "title": "mixin to add image information for broadcasts and webcasts",
+              "href": "/nitro/api/schedules?mixin=images",
+              "release_status": "supported",
+              "name": "images"
+            },
+            {
+              "title": "return ancestor programme titles",
+              "href": "/nitro/api/schedules?mixin=titles",
+              "release_status": "deprecated",
+              "name": "titles",
+              "deprecated_since": "2014-01-31",
+              "replaced_by": "ancestor_titles"
+            }
+          ]
+        },
+        "n:deprecations": {
+          "n:deprecated": [
+            {
+              "type": "mixin",
+              "name": "titles",
+              "deprecated_since": "2014-01-31",
+              "replaced_by": "ancestor_titles",
+              "replacement_type": "mixin"
+            },
+            {
+              "type": "element",
+              "name": "n:image",
+              "deprecated_since": "2014-07-09",
+              "replaced_by": "images",
+              "replacement_type": "mixin"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Information about the linear services used for broadcast transmissions",
+        "href": "/nitro/api/services",
+        "rel": "feed",
+        "release_status": "supported",
+        "name": "Services",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "Return services that end on or later than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "end_from"
+            },
+            {
+              "title": "filter for subset of broadcasts that end on or earlier than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "end_to"
+            },
+            {
+              "title": "filter for services by masterbrand MID",
+              "type": "string",
+              "release_status": "supported",
+              "name": "mid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for services by partner ID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for services by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of services matching supplied keyword/phrase (boolean operators permitted)",
+              "type": "string",
+              "release_status": "supported",
+              "name": "q"
+            },
+            {
+              "title": "filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio",
+              "type": "string",
+              "release_status": "supported",
+              "name": "service_type",
+              "multiple_values": "true",
+              "n:option": [
+                {
+                  "title": "Return only TV services",
+                  "href": "/nitro/api/services?service_type=TV",
+                  "value": "TV"
+                },
+                {
+                  "title": "Return only Local Radio services",
+                  "href": "/nitro/api/services?service_type=Local+Radio",
+                  "value": "Local Radio"
+                },
+                {
+                  "title": "Return only National Radio services",
+                  "href": "/nitro/api/services?service_type=National+Radio",
+                  "value": "National Radio"
+                },
+                {
+                  "title": "Return only Regional Radio services",
+                  "href": "/nitro/api/services?service_type=Regional+Radio",
+                  "value": "Regional Radio"
+                },
+                {
+                  "title": "Return only Interactive services",
+                  "href": "/nitro/api/services?service_type=Interactive",
+                  "value": "Interactive"
+                }
+              ]
+            },
+            {
+              "title": "filter for specified linear service",
+              "type": "string",
+              "release_status": "supported",
+              "name": "sid",
+              "multiple_values": "true"
+            },
+            {
+              "title": "Return services that start on or later than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "start_from"
+            },
+            {
+              "title": "Return services that start earlier than the specified datetime",
+              "type": "datetime",
+              "release_status": "supported",
+              "name": "start_to"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Metadata on editorial programme versions: original, signed, audio-described, etc",
+        "href": "/nitro/api/versions",
+        "rel": "feed",
+        "release_status": "supported",
+        "name": "Versions",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "filter for subset of versions that have availability",
+              "type": "string",
+              "release_status": "supported",
+              "name": "availability",
+              "n:option": {
+                "title": "filter for versions that are available",
+                "href": "/nitro/api/versions?availability=available",
+                "value": "available"
+              }
+            },
+            {
+              "title": "filter for subset of versions having given programme PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "descendants_of",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of versions with availability in the given media set",
+              "type": "string",
+              "release_status": "supported",
+              "name": "media_set",
+              "multiple_values": "true"
+            },
+            {
+              "title": "which page of results to return",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page",
+              "default": "1",
+              "min_value": "1"
+            },
+            {
+              "title": "number of results in each page",
+              "type": "integer",
+              "release_status": "supported",
+              "name": "page_size",
+              "default": "10",
+              "min_value": "0",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for versions by partner ID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_id",
+              "multiple_values": "true",
+              "prefer": "partner_pid"
+            },
+            {
+              "title": "filter for versions by partner PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "partner_pid",
+              "multiple_values": "true",
+              "default": "s0000001"
+            },
+            {
+              "title": "filter for subset of versions having given PID",
+              "type": "PID",
+              "release_status": "supported",
+              "name": "pid",
+              "multiple_values": "true"
+            }
+          ]
+        },
+        "n:deprecations": {
+          "n:deprecated": {
+            "type": "element",
+            "name": "n:version_types",
+            "deprecated_since": "2015-05-05",
+            "replaced_by": "n:types",
+            "replacement_type": "element"
+          }
         }
       }
     ]
