@@ -1,0 +1,724 @@
+{
+  "n:feeds": {
+    "xmlns:n": "http://www.bbc.co.uk/nitro/",
+    "n:feed": [
+      {
+        "title": "Fetch metadata about Programmes (brands, series, episodes, clips). By applying different filter restrictions this feed can be used in many ways, for example to retrieve all series belonging to a brand, all the episodes and/or clips for a specific series, or any TLEO objects for a masterbrand. Other filters permit restricting to specific formats and/or genres, and you can request specific versions (for example Signed or Audio-Described). Parameters may be combined in any way suitable for your application.",
+        "href": "/nitro/api/programmes",
+        "rel": "feed",
+        "name": "Programmes",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "which page of results to return",
+              "name": "page",
+              "min_value": "1",
+              "type": "integer"
+            },
+            {
+              "title": "number of results in each page",
+              "name": "page_size",
+              "min_value": "0",
+              "type": "integer",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for subset of programmes that are audio-described",
+              "name": "audio_described",
+              "type": "string",
+              "n:option": [
+                {
+                  "href": "/nitro/api/programmes?audio_described=true",
+                  "value": "true"
+                },
+                {
+                  "href": "/nitro/api/programmes?audio_described=false",
+                  "value": "false"
+                }
+              ]
+            },
+            {
+              "title": "filter for subset of programmes that have availability",
+              "name": "availability",
+              "type": "string",
+              "n:option": {
+                "href": "/nitro/api/programmes?availability=available",
+                "value": "available"
+              }
+            },
+            {
+              "title": "filter for subset of programmes that are available after or at the specified datetime",
+              "name": "availability_from",
+              "type": "datetime"
+            },
+            {
+              "title": "filter for subset of programmes that are available before the specified datetime",
+              "name": "availability_to",
+              "type": "datetime"
+            },
+            {
+              "title": "additional filter when availability=available",
+              "name": "availability_entity_type",
+              "type": "string",
+              "n:option": [
+                {
+                  "href": "/nitro/api/programmes?availability_entity_type=episode",
+                  "value": "episode"
+                },
+                {
+                  "href": "/nitro/api/programmes?availability_entity_type=clip",
+                  "value": "clip"
+                }
+              ]
+            },
+            {
+              "title": "filter for subset of programmes that have PID as immediate parent",
+              "name": "children_of",
+              "type": "PID",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of programmes that have PID as ancestor",
+              "name": "descendants_of",
+              "type": "PID",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of programmes that have given duration",
+              "name": "duration",
+              "type": "string",
+              "n:option": [
+                {
+                  "href": "/nitro/api/programmes?duration=short",
+                  "value": "short"
+                },
+                {
+                  "href": "/nitro/api/programmes?duration=medium",
+                  "value": "medium"
+                },
+                {
+                  "href": "/nitro/api/programmes?duration=long",
+                  "value": "long"
+                }
+              ]
+            },
+            {
+              "title": "filter for subset of programmes that have given entity type",
+              "name": "entity_type",
+              "type": "string",
+              "multiple_values": "true",
+              "n:option": [
+                {
+                  "href": "/nitro/api/programmes?entity_type=brand",
+                  "value": "brand"
+                },
+                {
+                  "href": "/nitro/api/programmes?entity_type=series",
+                  "value": "series"
+                },
+                {
+                  "href": "/nitro/api/programmes?entity_type=episode",
+                  "value": "episode"
+                },
+                {
+                  "href": "/nitro/api/programmes?entity_type=clip",
+                  "value": "clip"
+                }
+              ]
+            },
+            {
+              "title": "filter for subset of programmes with format",
+              "name": "format",
+              "type": "string",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of programmes with genre",
+              "name": "genre",
+              "type": "string",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of programmes with title beginning with initial letter",
+              "name": "initial_letter",
+              "type": "character",
+              "multiple_values": "true"
+            },
+            {
+              "title": "deprecated, please use 'master_brand' filter instead",
+              "name": "masterbrand",
+              "type": "string",
+              "multiple_values": "true",
+              "guaranteed-until": "2013-07-31",
+              "deprecated-since": "2013-05-22",
+              "deprecated": "true"
+            },
+            {
+              "title": "filter for subset of programmes with masterbrand",
+              "name": "master_brand",
+              "type": "string",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of programmes with media set",
+              "name": "media_set",
+              "type": "string"
+            },
+            {
+              "title": "filter for subset of programmes with media type",
+              "name": "media_type",
+              "type": "string",
+              "n:option": [
+                {
+                  "href": "/nitro/api/programmes?media_type=audio",
+                  "value": "audio"
+                },
+                {
+                  "href": "/nitro/api/programmes?media_type=audio_video",
+                  "value": "audio_video"
+                }
+              ]
+            },
+            {
+              "title": "filter for subset of programmes having given PID",
+              "name": "pid",
+              "type": "PID",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of programmes that are signed",
+              "name": "signed",
+              "type": "string",
+              "n:option": [
+                {
+                  "href": "/nitro/api/programmes?signed=exclusive",
+                  "value": "exclusive"
+                },
+                {
+                  "href": "/nitro/api/programmes?signed=inclusive",
+                  "value": "inclusive"
+                },
+                {
+                  "href": "/nitro/api/programmes?signed=exclude",
+                  "value": "exclude"
+                }
+              ]
+            },
+            {
+              "title": "filter for subset of programmes that are TLEOs",
+              "name": "tleo",
+              "type": "boolean",
+              "n:option": [
+                {
+                  "href": "/nitro/api/programmes?tleo=true",
+                  "value": "true"
+                },
+                {
+                  "href": "/nitro/api/programmes?tleo=false",
+                  "value": "false"
+                }
+              ]
+            }
+          ]
+        },
+        "n:sorts": {
+          "n:sort": [
+            {
+              "name": "most_popular",
+              "is_default": "false",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/programmes?sort=most_popular&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "false"
+                },
+                {
+                  "href": "/nitro/api/programmes?sort=most_popular&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "true"
+                }
+              ]
+            },
+            {
+              "name": "pid",
+              "is_default": "true",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/programmes?sort=pid&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "false"
+                },
+                {
+                  "href": "/nitro/api/programmes?sort=pid&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "true"
+                }
+              ]
+            },
+            {
+              "name": "position",
+              "is_default": "false",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/programmes?sort=position&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "true"
+                },
+                {
+                  "href": "/nitro/api/programmes?sort=position&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "false"
+                }
+              ]
+            },
+            {
+              "name": "release_date",
+              "is_default": "false",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/programmes?sort=release_date&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "false"
+                },
+                {
+                  "href": "/nitro/api/programmes?sort=release_date&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "true"
+                }
+              ]
+            },
+            {
+              "name": "scheduled_start",
+              "is_default": "false",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/programmes?sort=scheduled_start&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "true"
+                },
+                {
+                  "href": "/nitro/api/programmes?sort=scheduled_start&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "false"
+                }
+              ]
+            },
+            {
+              "name": "strict_title",
+              "is_default": "false",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/programmes?sort=strict_title&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "true"
+                },
+                {
+                  "href": "/nitro/api/programmes?sort=strict_title&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "false"
+                }
+              ]
+            },
+            {
+              "name": "title",
+              "is_default": "false",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/programmes?sort=title&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "true"
+                },
+                {
+                  "href": "/nitro/api/programmes?sort=title&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "false"
+                }
+              ]
+            },
+            {
+              "name": "views",
+              "is_default": "false",
+              "n:sort_direction": [
+                {
+                  "href": "/nitro/api/programmes?sort=views&sort_direction=ascending",
+                  "name": "sort_direction",
+                  "value": "ascending",
+                  "is_default": "false"
+                },
+                {
+                  "href": "/nitro/api/programmes?sort=views&sort_direction=descending",
+                  "name": "sort_direction",
+                  "value": "descending",
+                  "is_default": "true"
+                }
+              ]
+            }
+          ]
+        },
+        "n:mixins": {
+          "n:mixin": [
+            {
+              "title": "mixin to return ancestor programme titles",
+              "href": "/nitro/api/programmes?mixin=titles",
+              "name": "titles"
+            },
+            {
+              "title": "mixin to return original version duration in programme concept entities",
+              "href": "/nitro/api/programmes?mixin=duration",
+              "name": "duration"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Fetch metadata about linear Broadcasts and Services, allowing the generation of Television and Radio schedules and other datasets for broadcast items.",
+        "href": "/nitro/api/broadcasts",
+        "rel": "feed",
+        "name": "Broadcasts",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "filter for subset of broadcasts that end on or later than the specified datetime",
+              "name": "end_from",
+              "type": "datetime"
+            },
+            {
+              "title": "filter for subset of broadcasts that end on or earlier than the specified datetime",
+              "name": "end_to",
+              "type": "datetime"
+            },
+            {
+              "title": "filter for subset of broadcasts that are classified in the given format ID",
+              "name": "format",
+              "type": "string",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts that are classified in the given genre ID",
+              "name": "genre",
+              "type": "string",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts that have given identifier",
+              "name": "id",
+              "type": "string",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts that have given authority",
+              "name": "authority",
+              "type": "string",
+              "multiple_values": "true"
+            },
+            {
+              "title": "which page of results to return",
+              "name": "page",
+              "min_value": "1",
+              "type": "integer"
+            },
+            {
+              "title": "number of results in each page",
+              "name": "page_size",
+              "min_value": "0",
+              "type": "integer",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for subset of broadcasts having given PID",
+              "name": "pid",
+              "type": "PID",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts that start on the specified day (BBC time)",
+              "name": "schedule_day",
+              "type": "date"
+            },
+            {
+              "title": "filter for subset of broadcasts that start on or after the specified day (BBC time)",
+              "name": "schedule_day_from",
+              "type": "date"
+            },
+            {
+              "title": "filter for subset of broadcasts that start on or before the specified day (BBC time)",
+              "name": "schedule_day_to",
+              "type": "date"
+            },
+            {
+              "title": "filter for subset of broadcasts that are descendants of the given programme PID",
+              "name": "descendants_of",
+              "type": "PID",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts that are on the specified linear service",
+              "name": "sid",
+              "type": "string",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts that start on or later than the specified datetime",
+              "name": "start_from",
+              "type": "datetime"
+            },
+            {
+              "title": "filter for subset of broadcasts that start on or earlier than the specified datetime",
+              "name": "start_to",
+              "type": "datetime"
+            },
+            {
+              "title": "filter for subset of broadcasts with given PID as their parent version",
+              "name": "version",
+              "type": "PID",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of broadcasts with given service master brand",
+              "name": "service_master_brand",
+              "type": "string",
+              "multiple_values": "true"
+            }
+          ]
+        },
+        "n:sorts": {
+          "n:sort": {
+            "name": "start_date",
+            "is_default": "true",
+            "n:sort_direction": [
+              {
+                "href": "/nitro/api/broadcasts?sort=start_date&sort_direction=ascending",
+                "name": "sort_direction",
+                "value": "ascending",
+                "is_default": "true"
+              },
+              {
+                "href": "/nitro/api/broadcasts?sort=start_date&sort_direction=descending",
+                "name": "sort_direction",
+                "value": "descending",
+                "is_default": "false"
+              }
+            ]
+          }
+        },
+        "n:mixins": {
+          "n:mixin": {
+            "title": "return ancestor programme titles",
+            "href": "/nitro/api/broadcasts?mixin=titles",
+            "name": "titles"
+          }
+        }
+      },
+      {
+        "title": "Fetch metadata about Linear Services",
+        "href": "/nitro/api/services",
+        "rel": "feed",
+        "name": "Services",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "which page of results to return",
+              "name": "page",
+              "min_value": "1",
+              "type": "integer"
+            },
+            {
+              "title": "number of results in each page",
+              "name": "page_size",
+              "min_value": "0",
+              "type": "integer",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for specified linear service",
+              "name": "sid",
+              "type": "string",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio",
+              "name": "service_type",
+              "type": "string",
+              "multiple_values": "true",
+              "n:option": [
+                {
+                  "href": "/nitro/api/services?service_type=TV",
+                  "value": "TV"
+                },
+                {
+                  "href": "/nitro/api/services?service_type=Local+Radio",
+                  "value": "Local Radio"
+                },
+                {
+                  "href": "/nitro/api/services?service_type=National+Radio",
+                  "value": "National Radio"
+                },
+                {
+                  "href": "/nitro/api/services?service_type=Regional+Radio",
+                  "value": "Regional Radio"
+                }
+              ]
+            },
+            {
+              "title": "Return services that start on or later than the specified datetime",
+              "name": "start_from",
+              "type": "datetime"
+            },
+            {
+              "title": "Return services that start earlier than the specified datetime",
+              "name": "start_to",
+              "type": "datetime"
+            },
+            {
+              "title": "Return services that end on or later than the specified datetime",
+              "name": "end_from",
+              "type": "datetime"
+            },
+            {
+              "title": "filter for subset of broadcasts that end on or earlier than the specified datetime",
+              "name": "end_to",
+              "type": "datetime"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Fetch metadata about Versions",
+        "href": "/nitro/api/versions",
+        "rel": "feed",
+        "name": "Versions",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "which page of results to return",
+              "name": "page",
+              "min_value": "1",
+              "type": "integer"
+            },
+            {
+              "title": "number of results in each page",
+              "name": "page_size",
+              "min_value": "0",
+              "type": "integer",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for subset of versions having given PID",
+              "name": "pid",
+              "type": "PID",
+              "multiple_values": "true"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Fetch metadata about People (talent, cast, crew, etc)",
+        "href": "/nitro/api/people",
+        "rel": "feed",
+        "name": "People",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "which page of results to return",
+              "name": "page",
+              "min_value": "1",
+              "type": "integer"
+            },
+            {
+              "title": "number of results in each page",
+              "name": "page_size",
+              "min_value": "0",
+              "type": "integer",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for subset of people having given PID",
+              "name": "pid",
+              "type": "PID",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for people who have an external identifier",
+              "name": "has_external_id",
+              "type": "boolean",
+              "n:option": [
+                {
+                  "href": "/nitro/api/people?has_external_id=true",
+                  "value": "true"
+                },
+                {
+                  "href": "/nitro/api/people?has_external_id=false",
+                  "value": "false"
+                }
+              ]
+            },
+            {
+              "title": "filter for subset of people having given ID",
+              "name": "id",
+              "type": "ID",
+              "multiple_values": "true"
+            },
+            {
+              "title": "filter for subset of people that have an ID issued by the given authority",
+              "name": "authority",
+              "type": "string"
+            },
+            {
+              "title": "filter for subset of people that have given an ID of the given type",
+              "name": "id_type",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Fetch metadata about on-demand availability of Programmes, Versions, etc",
+        "href": "/nitro/api/availabilities",
+        "rel": "feed",
+        "name": "Availability",
+        "n:filters": {
+          "n:filter": [
+            {
+              "title": "which page of results to return",
+              "name": "page",
+              "min_value": "1",
+              "type": "integer"
+            },
+            {
+              "title": "number of results in each page",
+              "name": "page_size",
+              "min_value": "0",
+              "type": "integer",
+              "max_value": "300"
+            },
+            {
+              "title": "filter for subset of availabilities with media set",
+              "name": "media_set",
+              "type": "string"
+            },
+            {
+              "title": "filter for subset of availabilities that have PID as ancestor",
+              "name": "descendants_of",
+              "type": "PID",
+              "multiple_values": "true"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

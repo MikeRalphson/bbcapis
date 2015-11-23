@@ -1,3 +1,6 @@
-{ 
-  "download_history": "c:/users/mike/.get_iplayer/download_history"
+{
+  "download_history": "c:/users/mike/.get_iplayer/download_history",
+  "nitro": {
+	  "api_key": "JUSTTESTING"
+  }
 }
