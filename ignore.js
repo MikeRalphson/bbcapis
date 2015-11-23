@@ -13,25 +13,28 @@ var newstr = [];
 var dlh_locn;
 
 var add_entry = function(ep) {
-	entry = ep.pid+'|'+ep.title+'|';
-	if ((ep.programme) && (ep.programme.title)) {
-		entry += ep.programme.title+'|';
+	if (common.binarySearch(download_history,ep.pid)<0) {
+		entry = ep.pid+'|';
+		if (newstr.indexOf(entry)<0) {
+			entry+=ep.title+'|';
+			if ((ep.programme) && (ep.programme.title)) {
+				entry += ep.programme.title+'|';
+			}
+			newstr.push(entry);
+		}
 	}
-	newstr.push(entry);
 }
 
 //-----------------------------------------------------------------------------
 
 function update(pid,quick) {
+	obj = [];
+	obj.pid = pid; // create a programme object stub
 	if (quick) {
-		entry = pid+'|';
-		if (newstr.indexOf(entry)<0) {
-			newstr.push(entry);
-		}
+		obj.title = '';
+		add_entry(obj);
 	}
 	else {
-		obj = [];
-		obj.pid = pid; // create a programme object stub
 		common.pid_list('toplevel',obj,false,add_entry);
 	}
 }

@@ -23,16 +23,39 @@ module.exports = {
 			}
 			download_history.push(temppid);
 		}
-		download_history.sort();
+		download_history.sort(); // so we can binary search it later
 		console.log('There are '+download_history.length+' entries in the download_history');
 		return download_history;
-  },
-  process_pid: function (type,parent,obj,callback) {
-	processPid(type,parent,obj,callback);
-  },
-  pid_list: function(type,obj,single,callback) {
-	  pidList(type,obj,single,callback);
-  }
+	},
+	binarySearch: function (list, item) {
+		var min = 0;
+		var max = list.length - 1;
+		var guess;
+
+		while (min <= max) {
+			guess = Math.floor((min + max) / 2);
+
+			if (list[guess] === item) {
+				return guess;
+			}
+			else {
+				if (list[guess] < item) {
+					min = guess + 1;
+				}
+				else {
+					max = guess - 1;
+				}
+			}
+		}
+
+		return -1;
+	},
+	process_pid: function (type,parent,obj,callback) {
+		processPid(type,parent,obj,callback);
+	},
+	pid_list: function (type,obj,single,callback) {
+		pidList(type,obj,single,callback);
+	}
   
 };
 
@@ -95,7 +118,7 @@ function processPid(type,parent,obj,callback) {
 		callback(ep);
 	}
 	else {
-		console.log('Nothing found in this '+type)
+		console.log('Nothing found in this '+type);
 	}
 }
 

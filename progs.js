@@ -31,7 +31,8 @@ function cat_slice_dump(obj) {
 	for (var i in obj.category_slice.programmes) {
 		p = obj.category_slice.programmes[i];
 		if ((p.type == 'episode') || (p.type == 'clip'))  {
-			add_programme(p);
+			//add_programme(p); //? not enough info available
+			common.pid_list(p.type,p,true,add_programme);
 		}
 		else if ((p.type == 'series') || (p.type == 'brand')) {
 			common.pid_list(p.type,p,false,add_programme);
@@ -45,15 +46,15 @@ function cat_slice_dump(obj) {
 //-----------------------------------------------------------------------------
 
 function cat_page_list(obj) {
-    console.log(obj);
+    debuglog(obj);
 	console.log('* Category_page list');
 	console.log(obj.category_page.category.key+' = '+obj.category_page.category.title);
 	var len = obj.category_page.available_programmes.length;
-	console.log('Contains '+len+' entries');
+	//console.log('Contains '+len+' entries');
 	for (var i in obj.category_page.available_programmes) {
 		p = obj.category_page.available_programmes[i];
 		if ((p.type == 'episode') || (p.type == 'clip'))  {
-			add_programme(p);
+			add_programme(p); //? faster than querying each PID
 		}
 		else if ((p.type == 'series') || (p.type == 'brand')) {
 			common.pid_list(p.type,p,false,add_programme);
@@ -111,7 +112,7 @@ var hidden = 0;
 	console.log('\n* Programme Cache:');
 	for (var i in programme_cache) {
 		p = programme_cache[i];
-		if (download_history.indexOf(p.pid) == -1) {
+		if (common.binarySearch(download_history,p.pid)<0) {
 			title = (p.display_title ? p.display_title.title+
 				(p.display_title.subtitle ? '/' : '')+p.display_title.subtitle : p.title);
 
@@ -135,11 +136,13 @@ var hidden = 0;
 					ownership = subp.ownership;
 				}
 				title = subp.title+'/'+title;
-				parents += ' '+subp.type+'='+subp.pid+'('+subp.title+')';
+				parents += '  '+subp.type+'= '+subp.pid+' ('+subp.title+')';
 			}
 
-			console.log(p.pid+' '+p.type+' '+(ownership ? ownership.service.type : displayDomain)+' '+
-			  ((p.is_available===false||p.is_available_mediaset_pc_sd===false) ? 'Unavailable' : 'Available')+'  '+title);
+			console.log(p.pid+' '+p.type+' '+(ownership && ownership.service && ownership.service.type ?
+			  ownership.service.type : displayDomain)+' '+
+			  ((p.is_available===false||p.is_available_mediaset_pc_sd===false) ? 'Unavailable' : 'Available')+
+			  '  '+title);
 
 			len = p.duration ? p.duration : 0;
 			if (p.versions) {
@@ -147,7 +150,7 @@ var hidden = 0;
 					len = p.versions[0].duration;
 				}
 				for (var i in p.versions) {
-					parents += '\n vPID='+p.versions[i].pid+'('+p.versions[i].types[0]+')';
+					parents += (parents ? '\n' : '')+'  vPID= '+p.versions[i].pid+' ('+p.versions[i].types[0]+')';
 				}
 			}
 
@@ -163,7 +166,7 @@ var hidden = 0;
 
 			console.log('  '+len+suffix+' S'+pad(series,'00')+'E'+pad(position,'00')+
 				'/'+pad(totaleps,'00')+' '+(p.short_synopsis ? p.short_synopsis : 'No description'));
-			if (parents) console.log('   '+parents);
+			if (parents) console.log(parents);
 
 		}
 		else {

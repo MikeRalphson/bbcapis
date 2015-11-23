@@ -38,7 +38,7 @@ function check(pathspec,pid_pref) {
 		pid = name[0].split('_')[0];
 		pid = pid_pref+pid;
 
-		if (download_history.indexOf(pid)<0) {
+		if (common.binarySearch(download_history,pid)<0) {
 
 			suffix = name[1];
 			if ((suffix=='mp4') || (suffix=='mov')) {
@@ -53,7 +53,7 @@ function check(pathspec,pid_pref) {
 			entry = pid+'|'+series+'|'+episode+'|'+type+'|'+stat.mtime.getTime()/1000+
 			  '|hlsaacstd1|'+pathspec+'|default,original|1800||||||||||';
 			console.log(pid+'|'+series+'|'+episode+'|'+type+'|'+stat.mtime.getTime()/1000);
-			download_history.push(pid);
+			download_history.push(pid); //tail end is no longer sorted
 
 			entries.push(entry);
 

@@ -5,4 +5,4 @@ A nodejs-based replacement for the missing category searches in recent versions 
 * show genres/formats for the radio player and iPlayer (categories.js)
 * show programme,brand or series information by category or searching (progs.js)
 * ignore programmes,brands or series by adding PIDs to the get_iplayer download_history (ignore.js)
-* populate the get_iplayer download_history from existing files (populate_download_history)
+* populate the get_iplayer download_history from existing files (populate_download_history.js)
