@@ -131,9 +131,15 @@ function atoz_list(obj) {
 			}
 			else if ((p.type == 'series') || (p.type == 'brand')) {
 				path = domain+page;
-				querystring = '&descendants_of='+p.pid+'&availability=available&mediaset=pc';
+				querystring = '';
+				querystring = api.fProgrammesDescendantsOf(querystring,p.pid);
+				querystring = api.fProgrammesAvailability(querystring,'available');
+				querystring = api.fProgrammesMediaSet(querystring,'pc');
+				//querystring = '&descendants_of='+p.pid+'&availability=available&mediaset=pc';
+				
 				if (media_type) {
-					querystring +='&media_type='+media_type;
+					//querystring +='&media_type='+media_type;
+					querystring = api.fProgrammesMediaType(querystring,media_type);
 				}
 				make_request(host,path,api_key,querystring,this);
 			}
@@ -414,13 +420,16 @@ if (process.argv.length>3) {
 
 if (process.argv.length>4) {
 	if (process.argv[4] == 'search') {
-		querystring = '&q=title:'+escape(category)+'&sort=title&sort_direction=ascending';
+		querystring = '&q=title:'+escape(category); //?
+		querystring = api.sProgrammesTitleAscending(querystring);
 	}
 	else if (process.argv[4] == 'format') {
-		querystring = '&format='+category;
+		querystring = api.fProgrammesFormat(querystring,category);
+		//querystring = '&format='+category;
 	}
 	else {
-		querystring = '&genre='+category;
+		querystring = api.fProgrammesGenre(querystring,category);
+		//querystring = '&genre='+category;
 	}
 }
 
@@ -428,9 +437,12 @@ if (process.argv.length>5) {
 	pid = process.argv[5];
 }
 else {
-	querystring += '&availability=available&mediaset=pc';
+	//querystring += '&availability=available&mediaset=pc';
+	querystring = api.fProgrammesAvailability(querystring,'available');
+	querystring = api.fProgrammesMediaSet(querystring,'pc');
 	if (media_type) {
-		querystring +='&media_type='+media_type;
+		//querystring +='&media_type='+media_type;
+		querystring = api.fProgrammesMediaType(querystring,media_type);
 	}
 }
 
@@ -444,7 +456,11 @@ if (category.indexOf('-h')>=0) {
 }
 else {
 	if (pid) {
-		querystring = '&programme='+pid+'&mixin=ancestor_titles&mixin=contributions'; //mixin=duration ?
+		//querystring = '&programme='+pid+'&mixin=ancestor_titles&mixin=contributions'; //mixin=duration ?
+		querystring = api.fProgrammesProgramme(querystring,pid);
+		querystring = api.mProgrammesAncestorTitles(querystring);
+		querystring = api.mProgrammesContributions(querystring);
+		//querystring = api.mProgrammesDuration(querystring);
 	}
 	var path = domain+page;
 
