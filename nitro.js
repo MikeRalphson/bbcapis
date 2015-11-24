@@ -8,6 +8,7 @@ var http = require('http');
 var fs = require('fs');
 var util = require('util');
 var common = require('./common');
+var api = require('./nitroApi');
 
 var programme_cache = [];
 var download_history = [];
@@ -427,7 +428,7 @@ if (process.argv.length>5) {
 	pid = process.argv[5];
 }
 else {
-	querystring += '&availability=available&mediaset_pc';
+	querystring += '&availability=available&mediaset=pc';
 	if (media_type) {
 		querystring +='&media_type='+media_type;
 	}
