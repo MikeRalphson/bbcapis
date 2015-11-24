@@ -2,30 +2,35 @@ module.exports = {
 sProgrammesGroupPositionAscending : function sProgrammesGroupPositionAscending(qs){
   // sort numerically by position in group, ascending
   // /nitro/api/programmes?sort=group_position&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=group_position&sort-direction=ascending';
   return qs;
 },
 sProgrammesPidAscending : function sProgrammesPidAscending(qs){
   // sort alphabetically by PID, descending
   // /nitro/api/programmes?sort=pid&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=pid&sort-direction=ascending';
   return qs;
 },
 sProgrammesPidDescending : function sProgrammesPidDescending(qs){
   // sort alphabetically by PID, descending
   // /nitro/api/programmes?sort=pid&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=pid&sort-direction=descending';
   return qs;
 },
 sProgrammesPositionAscending : function sProgrammesPositionAscending(qs){
   // sort numerically by position, ascending
   // /nitro/api/programmes?sort=position&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=position&sort-direction=ascending';
   return qs;
 },
 sProgrammesPositionDescending : function sProgrammesPositionDescending(qs){
   // sort numerically by position, ascending
   // /nitro/api/programmes?sort=position&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=position&sort-direction=descending';
   return qs;
 },
@@ -38,12 +43,14 @@ sProgrammesPromotion : function sProgrammesPromotion(qs){
 sProgrammesReleaseDateAscending : function sProgrammesReleaseDateAscending(qs){
   // sort chronologically by release date, descending
   // /nitro/api/programmes?sort=release_date&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=release_date&sort-direction=ascending';
   return qs;
 },
 sProgrammesReleaseDateDescending : function sProgrammesReleaseDateDescending(qs){
   // sort chronologically by release date, descending
   // /nitro/api/programmes?sort=release_date&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=release_date&sort-direction=descending';
   return qs;
 },
@@ -56,60 +63,70 @@ sProgrammesRelevance : function sProgrammesRelevance(qs){
 sProgrammesScheduledStartAscending : function sProgrammesScheduledStartAscending(qs){
   // sort chronologically by scheduled start time/date, ascending
   // /nitro/api/programmes?sort=scheduled_start&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=scheduled_start&sort-direction=ascending';
   return qs;
 },
 sProgrammesScheduledStartDescending : function sProgrammesScheduledStartDescending(qs){
   // sort chronologically by scheduled start time/date, ascending
   // /nitro/api/programmes?sort=scheduled_start&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=scheduled_start&sort-direction=descending';
   return qs;
 },
 sProgrammesStrictTitleAscending : function sProgrammesStrictTitleAscending(qs){
   // sort alphabetically by title, ascending
   // /nitro/api/programmes?sort=strict_title&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=strict_title&sort-direction=ascending';
   return qs;
 },
 sProgrammesStrictTitleDescending : function sProgrammesStrictTitleDescending(qs){
   // sort alphabetically by title, ascending
   // /nitro/api/programmes?sort=strict_title&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=strict_title&sort-direction=descending';
   return qs;
 },
 sProgrammesTitleAscending : function sProgrammesTitleAscending(qs){
   // sort by title librarian style (ignoring leading 'The', 'A', etc), ascending
   // /nitro/api/programmes?sort=title&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=title&sort-direction=ascending';
   return qs;
 },
 sProgrammesTitleDescending : function sProgrammesTitleDescending(qs){
   // sort by title librarian style (ignoring leading 'The', 'A', etc), ascending
   // /nitro/api/programmes?sort=title&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=title&sort-direction=descending';
   return qs;
 },
 sProgrammesTreeAscending : function sProgrammesTreeAscending(qs){
   // sort by root pid and then preorder tree sort. Requires entities to have release date.
   // /nitro/api/programmes?sort=tree&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=tree&sort-direction=ascending';
   return qs;
 },
 sProgrammesTreeDescending : function sProgrammesTreeDescending(qs){
   // sort by root pid and then preorder tree sort. Requires entities to have release date.
   // /nitro/api/programmes?sort=tree&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=tree&sort-direction=descending';
   return qs;
 },
 sProgrammesViewsAscending : function sProgrammesViewsAscending(qs){
   // sort numerically by number of views (most popular first - faster most_popular)
   // /nitro/api/programmes?sort=views&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=views&sort-direction=ascending';
   return qs;
 },
 sProgrammesViewsDescending : function sProgrammesViewsDescending(qs){
   // sort numerically by number of views (most popular first - faster most_popular)
   // /nitro/api/programmes?sort=views&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=views&sort-direction=descending';
   return qs;
 },
@@ -178,6 +195,7 @@ mProgrammesVersionsAvailability : function mProgrammesVersionsAvailability(qs){
 },
 fProgrammesAudioDescribed : function fProgrammesAudioDescribed(qs,value){
   // filter for subset of programmes that are audio-described
+  // type = boolean
   // filter for programmes that are audio-described
   // /nitro/api/programmes?audio_described=true
   // filter for programmes that are not audio-described
@@ -187,6 +205,7 @@ fProgrammesAudioDescribed : function fProgrammesAudioDescribed(qs,value){
 },
 fProgrammesAvailability : function fProgrammesAvailability(qs,value){
   // filter for subset of programmes that have availability
+  // type = string
   // filter for programmes that are available
   // /nitro/api/programmes?availability=available
   // filter for programmes that are expected to become available imminently
@@ -196,6 +215,7 @@ fProgrammesAvailability : function fProgrammesAvailability(qs,value){
 },
 fProgrammesAvailabilityEntityType : function fProgrammesAvailabilityEntityType(qs,value){
   // additional filter when availability=available
+  // type = string
   // filter for programmes with available episodes
   // /nitro/api/programmes?availability_entity_type=episode
   // filter for programmes with available clips
@@ -205,16 +225,19 @@ fProgrammesAvailabilityEntityType : function fProgrammesAvailabilityEntityType(q
 },
 fProgrammesChildrenOf : function fProgrammesChildrenOf(qs,value){
   // filter for subset of programmes that have PID as immediate parent
+  // type = PID
   qs=qs+'&children_of='+value;
   return qs;
 },
 fProgrammesDescendantsOf : function fProgrammesDescendantsOf(qs,value){
   // filter for subset of programmes that have PID as ancestor
+  // type = PID
   qs=qs+'&descendants_of='+value;
   return qs;
 },
 fProgrammesDuration : function fProgrammesDuration(qs,value){
   // filter for subset of programmes that have given duration
+  // type = string
   // filter for programmes that have short duration (< 5m)
   // /nitro/api/programmes?duration=short
   // filter for programmes that have medium duration (5m - 30m)
@@ -226,6 +249,7 @@ fProgrammesDuration : function fProgrammesDuration(qs,value){
 },
 fProgrammesEntityType : function fProgrammesEntityType(qs,value){
   // filter for subset of programmes that have given entity type
+  // type = string
   // filter for programmes that are brands
   // /nitro/api/programmes?entity_type=brand
   // filter for programmes that are series
@@ -239,56 +263,67 @@ fProgrammesEntityType : function fProgrammesEntityType(qs,value){
 },
 fProgrammesFormat : function fProgrammesFormat(qs,value){
   // filter for subset of programmes with format
+  // type = string
   qs=qs+'&format='+value;
   return qs;
 },
 fProgrammesGenre : function fProgrammesGenre(qs,value){
   // filter for subset of programmes with genre
+  // type = string
   qs=qs+'&genre='+value;
   return qs;
 },
 fProgrammesGroup : function fProgrammesGroup(qs,value){
   // filter for subset of programmes which belong to the given group pid
+  // type = PID
   qs=qs+'&group='+value;
   return qs;
 },
 fProgrammesInitialLetter : function fProgrammesInitialLetter(qs,value){
   // filter for subset of programmes with title beginning with initial letter librarian style (ignoring leading 'The', 'An' (Welsh), etc) 0-9 a-z
+  // type = character
   qs=qs+'&initial_letter='+value;
   return qs;
 },
 fProgrammesInitialLetterEnd : function fProgrammesInitialLetterEnd(qs,value){
   // Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range
+  // type = character
   qs=qs+'&initial_letter_end='+value;
   return qs;
 },
 fProgrammesInitialLetterStart : function fProgrammesInitialLetterStart(qs,value){
   // Programmes with (librarian) titles whose initial letter is equal/after given letter. Use with initial_letter_end for range.
+  // type = character
   qs=qs+'&initial_letter_start='+value;
   return qs;
 },
 fProgrammesInitialLetterStrict : function fProgrammesInitialLetterStrict(qs,value){
   // filter for subset of programmes with title beginning with initial letter
+  // type = character
   qs=qs+'&initial_letter_strict='+value;
   return qs;
 },
 fProgrammesItem : function fProgrammesItem(qs,value){
   // filter for subset of programmes with linked to versions which have the given item pids
+  // type = PID
   qs=qs+'&item='+value;
   return qs;
 },
 fProgrammesMasterBrand : function fProgrammesMasterBrand(qs,value){
   // filter for subset of programmes with master_brand
+  // type = string
   qs=qs+'&master_brand='+value;
   return qs;
 },
 fProgrammesMediaSet : function fProgrammesMediaSet(qs,value){
   // filter for subset of programmes with media set
+  // type = string
   qs=qs+'&media_set='+value;
   return qs;
 },
 fProgrammesMediaType : function fProgrammesMediaType(qs,value){
   // filter for subset of programmes with media type
+  // type = string
   // filter for programmes that are audio only
   // /nitro/api/programmes?media_type=audio
   // filter for programmes that are video only
@@ -298,46 +333,61 @@ fProgrammesMediaType : function fProgrammesMediaType(qs,value){
 },
 fProgrammesPage : function fProgrammesPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fProgrammesPageSize : function fProgrammesPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fProgrammesPartnerId : function fProgrammesPartnerId(qs,value){
   // filter for programmes by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fProgrammesPartnerPid : function fProgrammesPartnerPid(qs,value){
   // filter for programmes by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fProgrammesPeople : function fProgrammesPeople(qs,value){
   // filter for subset of programmes with contributions by given people PID
+  // type = PID
   qs=qs+'&people='+value;
   return qs;
 },
 fProgrammesPid : function fProgrammesPid(qs,value){
   // filter for subset of programmes having given PID
+  // type = PID
   qs=qs+'&pid='+value;
   return qs;
 },
 fProgrammesPromotedFor : function fProgrammesPromotedFor(qs,value){
   // filter for subset of programmes which are promoted for given service
+  // type = string
   qs=qs+'&promoted_for='+value;
   return qs;
 },
 fProgrammesQ : function fProgrammesQ(qs,value){
   // filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 fProgrammesSigned : function fProgrammesSigned(qs,value){
   // filter for subset of programmes that are signed
+  // type = string
   // filter for programmes that are signed
   // /nitro/api/programmes?signed=exclusive
   // filter for programmes regardless of signedness
@@ -349,16 +399,19 @@ fProgrammesSigned : function fProgrammesSigned(qs,value){
 },
 fProgrammesTagName : function fProgrammesTagName(qs,value){
   // filter for subset of programmes with tag
+  // type = string
   qs=qs+'&tag_name='+value;
   return qs;
 },
 fProgrammesTagScheme : function fProgrammesTagScheme(qs,value){
   // filter for subset of programmes with a tag
+  // type = string
   qs=qs+'&tag_scheme='+value;
   return qs;
 },
 fProgrammesTleo : function fProgrammesTleo(qs,value){
   // filter for subset of programmes that are TLEOs
+  // type = boolean
   // filter for programmes that are TLEOs
   // /nitro/api/programmes?tleo=true
   // filter for programmes that are not TLEOs
@@ -368,23 +421,27 @@ fProgrammesTleo : function fProgrammesTleo(qs,value){
 },
 fProgrammesVersion : function fProgrammesVersion(qs,value){
   // filter for subset of programmes with given PID as one of their versions
+  // type = PID
   qs=qs+'&version='+value;
   return qs;
 },
 sAvailabilityScheduledStartAscending : function sAvailabilityScheduledStartAscending(qs){
   // sort chronologically by scheduled start time/date, ascending
   // /nitro/api/availabilities?sort=scheduled_start&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=scheduled_start&sort-direction=ascending';
   return qs;
 },
 sAvailabilityScheduledStartDescending : function sAvailabilityScheduledStartDescending(qs){
   // sort chronologically by scheduled start time/date, ascending
   // /nitro/api/availabilities?sort=scheduled_start&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=scheduled_start&sort-direction=descending';
   return qs;
 },
 fAvailabilityAvailability : function fAvailabilityAvailability(qs,value){
   // filter for subset of availabilities
+  // type = string
   // filter for availabilities that are available
   // /nitro/api/availabilities?availability=available
   qs=qs+'&availability='+value;
@@ -392,26 +449,36 @@ fAvailabilityAvailability : function fAvailabilityAvailability(qs,value){
 },
 fAvailabilityDescendantsOf : function fAvailabilityDescendantsOf(qs,value){
   // filter for subset of availabilities that have PID as ancestor
+  // type = PID
   qs=qs+'&descendants_of='+value;
   return qs;
 },
 fAvailabilityMediaSet : function fAvailabilityMediaSet(qs,value){
   // filter for subset of availabilities with media set
+  // type = string
   qs=qs+'&media_set='+value;
   return qs;
 },
 fAvailabilityPage : function fAvailabilityPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fAvailabilityPageSize : function fAvailabilityPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fAvailabilityTerritory : function fAvailabilityTerritory(qs,value){
   // filter for availabilities in given territory
+  // type = string
   // filter for only UK availabilities
   // /nitro/api/availabilities?territory=uk
   // filter for only non-UK availabilities
@@ -424,12 +491,14 @@ fAvailabilityTerritory : function fAvailabilityTerritory(qs,value){
 sBroadcastsStartDateAscending : function sBroadcastsStartDateAscending(qs){
   // sort chronologically by scheduled start time/date, ascending
   // /nitro/api/broadcasts?sort=start_date&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=start_date&sort-direction=ascending';
   return qs;
 },
 sBroadcastsStartDateDescending : function sBroadcastsStartDateDescending(qs){
   // sort chronologically by scheduled start time/date, ascending
   // /nitro/api/broadcasts?sort=start_date&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=start_date&sort-direction=descending';
   return qs;
 },
@@ -441,112 +510,139 @@ mBroadcastsTitles : function mBroadcastsTitles(qs){
 },
 fBroadcastsAuthority : function fBroadcastsAuthority(qs,value){
   // filter for subset of broadcasts that have given authority
+  // type = string
   qs=qs+'&authority='+value;
   return qs;
 },
 fBroadcastsDescendantsOf : function fBroadcastsDescendantsOf(qs,value){
   // filter for subset of broadcasts that are descendants of the given programme PID
+  // type = PID
   qs=qs+'&descendants_of='+value;
   return qs;
 },
 fBroadcastsEndFrom : function fBroadcastsEndFrom(qs,value){
   // filter for subset of broadcasts that end on or later than the specified datetime
+  // type = datetime
   qs=qs+'&end_from='+value;
   return qs;
 },
 fBroadcastsEndTo : function fBroadcastsEndTo(qs,value){
   // filter for subset of broadcasts that end on or earlier than the specified datetime
+  // type = datetime
   qs=qs+'&end_to='+value;
   return qs;
 },
 fBroadcastsFormat : function fBroadcastsFormat(qs,value){
   // filter for subset of broadcasts that are classified in the given format ID
+  // type = string
   qs=qs+'&format='+value;
   return qs;
 },
 fBroadcastsGenre : function fBroadcastsGenre(qs,value){
   // filter for subset of broadcasts that are classified in the given genre ID
+  // type = string
   qs=qs+'&genre='+value;
   return qs;
 },
 fBroadcastsId : function fBroadcastsId(qs,value){
   // filter for subset of broadcasts that have given identifier
+  // type = string
   qs=qs+'&id='+value;
   return qs;
 },
 fBroadcastsItem : function fBroadcastsItem(qs,value){
   // filter for subset of broadcasts with the given item performed on it
+  // type = PID
   qs=qs+'&item='+value;
   return qs;
 },
 fBroadcastsPage : function fBroadcastsPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fBroadcastsPageSize : function fBroadcastsPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fBroadcastsPeople : function fBroadcastsPeople(qs,value){
   // filter for subset of broadcasts that have given contributor
+  // type = string
   qs=qs+'&people='+value;
   return qs;
 },
 fBroadcastsPid : function fBroadcastsPid(qs,value){
   // filter for subset of broadcasts having given PID
+  // type = PID
   qs=qs+'&pid='+value;
   return qs;
 },
 fBroadcastsQ : function fBroadcastsQ(qs,value){
   // filter for subset of broadcasts matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 fBroadcastsScheduleDay : function fBroadcastsScheduleDay(qs,value){
   // filter for subset of broadcasts that start on the specified day (BBC time)
+  // type = date
   qs=qs+'&schedule_day='+value;
   return qs;
 },
 fBroadcastsScheduleDayFrom : function fBroadcastsScheduleDayFrom(qs,value){
   // filter for subset of broadcasts that start on or after the specified day (BBC time)
+  // type = date
   qs=qs+'&schedule_day_from='+value;
   return qs;
 },
 fBroadcastsScheduleDayTo : function fBroadcastsScheduleDayTo(qs,value){
   // filter for subset of broadcasts that start on or before the specified day (BBC time)
+  // type = date
   qs=qs+'&schedule_day_to='+value;
   return qs;
 },
 fBroadcastsServiceMasterBrand : function fBroadcastsServiceMasterBrand(qs,value){
   // filter for subset of broadcasts with given service master brand
+  // type = string
   qs=qs+'&service_master_brand='+value;
   return qs;
 },
 fBroadcastsSid : function fBroadcastsSid(qs,value){
   // filter for subset of broadcasts that are on the specified linear service
+  // type = string
   qs=qs+'&sid='+value;
   return qs;
 },
 fBroadcastsStartFrom : function fBroadcastsStartFrom(qs,value){
   // filter for subset of broadcasts that start on or later than the specified datetime
+  // type = datetime
   qs=qs+'&start_from='+value;
   return qs;
 },
 fBroadcastsStartTo : function fBroadcastsStartTo(qs,value){
   // filter for subset of broadcasts that start on or earlier than the specified datetime
+  // type = datetime
   qs=qs+'&start_to='+value;
   return qs;
 },
 fBroadcastsVersion : function fBroadcastsVersion(qs,value){
   // filter for subset of broadcasts with given PID as their parent version
+  // type = PID
   qs=qs+'&version='+value;
   return qs;
 },
 sGroupsPidDescending : function sGroupsPidDescending(qs){
   // sort alphabetically by PID
   // /nitro/api/groups?sort=pid&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=pid&sort-direction=descending';
   return qs;
 },
@@ -576,21 +672,25 @@ mGroupsRelatedLinks : function mGroupsRelatedLinks(qs){
 },
 fGroupsForDescendantsOf : function fGroupsForDescendantsOf(qs,value){
   // filter for groups related to given programme or its descendants
+  // type = PID
   qs=qs+'&for_descendants_of='+value;
   return qs;
 },
 fGroupsForProgramme : function fGroupsForProgramme(qs,value){
   // filter for subset of groups directly related to a given programme
+  // type = PID
   qs=qs+'&for_programme='+value;
   return qs;
 },
 fGroupsGroup : function fGroupsGroup(qs,value){
   // filter for subset of groups which belong to the given group pid
+  // type = PID
   qs=qs+'&group='+value;
   return qs;
 },
 fGroupsGroupType : function fGroupsGroupType(qs,value){
   // filter for subset of groups that have the given group type
+  // type = string
   // filter for groups that are collections
   // /nitro/api/groups?group_type=collection
   // filter for groups that are franchises
@@ -604,64 +704,82 @@ fGroupsGroupType : function fGroupsGroupType(qs,value){
 },
 fGroupsMember : function fGroupsMember(qs,value){
   // filter for subset of groups which contain an entity with the given pid as a member
+  // type = PID
   qs=qs+'&member='+value;
   return qs;
 },
 fGroupsPage : function fGroupsPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fGroupsPageSize : function fGroupsPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fGroupsPartnerId : function fGroupsPartnerId(qs,value){
   // filter for groups by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fGroupsPartnerPid : function fGroupsPartnerPid(qs,value){
   // filter for groups by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fGroupsPid : function fGroupsPid(qs,value){
   // filter for subset of seasons, collections, galleries or franchises having given PID
+  // type = PID
   qs=qs+'&pid='+value;
   return qs;
 },
 fGroupsQ : function fGroupsQ(qs,value){
   // filter for subset of groups matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 sImagesGroupPositionAscending : function sImagesGroupPositionAscending(qs){
   // sort numerically by position, ascending only
   // /nitro/api/images?sort=group_position&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=group_position&sort-direction=ascending';
   return qs;
 },
 sImagesPidAscending : function sImagesPidAscending(qs){
   // sort alphabetically by PID
   // /nitro/api/images?sort=pid&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=pid&sort-direction=ascending';
   return qs;
 },
 sImagesPidDescending : function sImagesPidDescending(qs){
   // sort alphabetically by PID
   // /nitro/api/images?sort=pid&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=pid&sort-direction=descending';
   return qs;
 },
 fImagesGroup : function fImagesGroup(qs,value){
   // filter for images belonging to the given group (i.e. Gallery)
+  // type = PID
   qs=qs+'&group='+value;
   return qs;
 },
 fImagesImageType : function fImagesImageType(qs,value){
   // filter for images by type
+  // type = string
   // select standard type images
   // /nitro/api/images?image_type=standard
   // select podcast type images
@@ -677,47 +795,62 @@ fImagesImageType : function fImagesImageType(qs,value){
 },
 fImagesIsAlternateImageFor : function fImagesIsAlternateImageFor(qs,value){
   // filter for alternate images by entity PID
+  // type = PID
   qs=qs+'&is_alternate_image_for='+value;
   return qs;
 },
 fImagesIsImageFor : function fImagesIsImageFor(qs,value){
   // filter for images by entity PID
+  // type = PID
   qs=qs+'&is_image_for='+value;
   return qs;
 },
 fImagesPage : function fImagesPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fImagesPageSize : function fImagesPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fImagesPartnerId : function fImagesPartnerId(qs,value){
   // filter for images by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fImagesPartnerPid : function fImagesPartnerPid(qs,value){
   // filter for images by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fImagesPid : function fImagesPid(qs,value){
   // filter for subset of images having given PID
+  // type = PID
   qs=qs+'&pid='+value;
   return qs;
 },
 fImagesQ : function fImagesQ(qs,value){
   // filter for subset of images matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 sItemsPidDescending : function sItemsPidDescending(qs){
   // sort by pid, descending
   // /nitro/api/items?sort=pid&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=pid&sort-direction=descending';
   return qs;
 },
@@ -740,21 +873,25 @@ mItemsPlayEvent : function mItemsPlayEvent(qs){
 },
 fItemsAuthority : function fItemsAuthority(qs,value){
   // filter for subset of items that have an ID issued by the given authority
+  // type = string
   qs=qs+'&authority='+value;
   return qs;
 },
 fItemsId : function fItemsId(qs,value){
   // filter for subset of items having given ID
+  // type = ID
   qs=qs+'&id='+value;
   return qs;
 },
 fItemsIdType : function fItemsIdType(qs,value){
   // filter for subset of items that have given an ID of the given type
+  // type = string
   qs=qs+'&id_type='+value;
   return qs;
 },
 fItemsItemType : function fItemsItemType(qs,value){
   // filter for specific type(s) of items
+  // type = string
   // filter for only chapter items
   // /nitro/api/items?item_type=chapter
   // filter for only highlight items
@@ -770,52 +907,68 @@ fItemsItemType : function fItemsItemType(qs,value){
 },
 fItemsPage : function fItemsPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fItemsPageSize : function fItemsPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fItemsPartnerId : function fItemsPartnerId(qs,value){
   // filter for items by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fItemsPartnerPid : function fItemsPartnerPid(qs,value){
   // filter for items by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fItemsPeople : function fItemsPeople(qs,value){
   // filter for subset of items that have specified person involved
+  // type = string
   qs=qs+'&people='+value;
   return qs;
 },
 fItemsPid : function fItemsPid(qs,value){
   // filter for subset of items matching one of the given PIDs
+  // type = PID
   qs=qs+'&pid='+value;
   return qs;
 },
 fItemsProgramme : function fItemsProgramme(qs,value){
   // filter for subset of items that are part of the given programme
+  // type = PID
   qs=qs+'&programme='+value;
   return qs;
 },
 fItemsQ : function fItemsQ(qs,value){
   // filter for subset of items matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 fItemsSegmentEvent : function fItemsSegmentEvent(qs,value){
   // filter for item with the given segment_event
+  // type = string
   qs=qs+'&segment_event='+value;
   return qs;
 },
 sMasterbrandsMidAscending : function sMasterbrandsMidAscending(qs){
   // sort by mid, ascending
   // /nitro/api/master_brands?sort=mid&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=mid&sort-direction=ascending';
   return qs;
 },
@@ -827,41 +980,55 @@ mMasterbrandsImages : function mMasterbrandsImages(qs){
 },
 fMasterbrandsMid : function fMasterbrandsMid(qs,value){
   // filter for subset of masterbrands that have given identifier
+  // type = string
   qs=qs+'&mid='+value;
   return qs;
 },
 fMasterbrandsPage : function fMasterbrandsPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fMasterbrandsPageSize : function fMasterbrandsPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fMasterbrandsPartnerId : function fMasterbrandsPartnerId(qs,value){
   // filter for masterbrands by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fMasterbrandsPartnerPid : function fMasterbrandsPartnerPid(qs,value){
   // filter for masterbrands by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fMasterbrandsQ : function fMasterbrandsQ(qs,value){
   // filter for subset of masterbrands matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 fPeopleAuthority : function fPeopleAuthority(qs,value){
   // filter for subset of people that have an ID issued by the given authority
+  // type = string
   qs=qs+'&authority='+value;
   return qs;
 },
 fPeopleHasExternalId : function fPeopleHasExternalId(qs,value){
   // filter for people who have an external identifier
+  // type = boolean
   // filter for people who have an external identifier
   // /nitro/api/people?has_external_id=true
   // filter for people who do not have an external identifier
@@ -871,61 +1038,84 @@ fPeopleHasExternalId : function fPeopleHasExternalId(qs,value){
 },
 fPeopleId : function fPeopleId(qs,value){
   // filter for subset of people having given ID
+  // type = ID
   qs=qs+'&id='+value;
   return qs;
 },
 fPeopleIdType : function fPeopleIdType(qs,value){
   // filter for subset of people that have given an ID of the given type
+  // type = string
   qs=qs+'&id_type='+value;
   return qs;
 },
 fPeoplePage : function fPeoplePage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fPeoplePageSize : function fPeoplePageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fPeoplePartnerId : function fPeoplePartnerId(qs,value){
   // filter for people by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fPeoplePartnerPid : function fPeoplePartnerPid(qs,value){
   // filter for people by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fPeoplePid : function fPeoplePid(qs,value){
   // filter for subset of people having given PID
+  // type = PID
   qs=qs+'&pid='+value;
   return qs;
 },
 fPeopleProgramme : function fPeopleProgramme(qs,value){
   // filter for subset of people that have contributed to the given programme pid
+  // type = string
   qs=qs+'&programme='+value;
   return qs;
 },
 fPeopleQ : function fPeopleQ(qs,value){
   // filter for subset of people matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 fPipsPage : function fPipsPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fPipsPageSize : function fPipsPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fPipsQ : function fPipsQ(qs,value){
   // filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
@@ -937,51 +1127,67 @@ mPromotionsRelatedLinks : function mPromotionsRelatedLinks(qs){
 },
 fPromotionsContext : function fPromotionsContext(qs,value){
   // filter for subset of promotions belonging to a given context
+  // type = PID
   qs=qs+'&context='+value;
   return qs;
 },
 fPromotionsPage : function fPromotionsPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fPromotionsPageSize : function fPromotionsPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fPromotionsPartnerId : function fPromotionsPartnerId(qs,value){
   // filter for promotions by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fPromotionsPartnerPid : function fPromotionsPartnerPid(qs,value){
   // filter for promotions by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fPromotionsPid : function fPromotionsPid(qs,value){
   // filter for subset of promotions having given PID
+  // type = PID
   qs=qs+'&pid='+value;
   return qs;
 },
 fPromotionsPromotedBy : function fPromotionsPromotedBy(qs,value){
   // filter for subset of promotions having given promoted by
+  // type = string
   qs=qs+'&promoted_by='+value;
   return qs;
 },
 fPromotionsPromotedFor : function fPromotionsPromotedFor(qs,value){
   // filter for subset of promotions having given promoted for
+  // type = string
   qs=qs+'&promoted_for='+value;
   return qs;
 },
 fPromotionsQ : function fPromotionsQ(qs,value){
   // filter for subset of promotions matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 fPromotionsStatus : function fPromotionsStatus(qs,value){
   // filter for subset of promotions with status
+  // type = string
   // filter current promotions
   // /nitro/api/promotions?status=current
   qs=qs+'&status='+value;
@@ -990,12 +1196,14 @@ fPromotionsStatus : function fPromotionsStatus(qs,value){
 sSchedulesStartDateAscending : function sSchedulesStartDateAscending(qs){
   // sort chronologically by scheduled start time/date, ascending
   // /nitro/api/schedules?sort=start_date&sort_direction=ascending
+  // isDefault
   qs=qs+'&sort=start_date&sort-direction=ascending';
   return qs;
 },
 sSchedulesStartDateDescending : function sSchedulesStartDateDescending(qs){
   // sort chronologically by scheduled start time/date, ascending
   // /nitro/api/schedules?sort=start_date&sort_direction=descending
+  // isDefault
   qs=qs+'&sort=start_date&sort-direction=descending';
   return qs;
 },
@@ -1013,176 +1221,223 @@ mSchedulesImages : function mSchedulesImages(qs){
 },
 fSchedulesAuthority : function fSchedulesAuthority(qs,value){
   // filter for subset of broadcasts and webcasts that have given authority
+  // type = string
   qs=qs+'&authority='+value;
   return qs;
 },
 fSchedulesDescendantsOf : function fSchedulesDescendantsOf(qs,value){
   // filter for subset of broadcasts and webcasts that are descendants of the given programme PID
+  // type = PID
   qs=qs+'&descendants_of='+value;
   return qs;
 },
 fSchedulesEndFrom : function fSchedulesEndFrom(qs,value){
   // filter for subset of broadcasts and webcasts that end on or later than the specified datetime
+  // type = datetime
   qs=qs+'&end_from='+value;
   return qs;
 },
 fSchedulesEndTo : function fSchedulesEndTo(qs,value){
   // filter for subset of broadcasts and webcasts that end on or earlier than the specified datetime
+  // type = datetime
   qs=qs+'&end_to='+value;
   return qs;
 },
 fSchedulesFormat : function fSchedulesFormat(qs,value){
   // filter for subset of broadcasts and webcasts that are classified in the given format ID
+  // type = string
   qs=qs+'&format='+value;
   return qs;
 },
 fSchedulesGenre : function fSchedulesGenre(qs,value){
   // filter for subset of broadcasts and webcasts that are classified in the given genre ID
+  // type = string
   qs=qs+'&genre='+value;
   return qs;
 },
 fSchedulesGroup : function fSchedulesGroup(qs,value){
   // filter for subset of broadcasts and webcasts that have programmes in the given group
+  // type = PID
   qs=qs+'&group='+value;
   return qs;
 },
 fSchedulesId : function fSchedulesId(qs,value){
   // filter for subset of broadcasts and webcasts that have given identifier
+  // type = string
   qs=qs+'&id='+value;
   return qs;
 },
 fSchedulesIdType : function fSchedulesIdType(qs,value){
   // filter for subset of broadcasts and webcasts that have given id type
+  // type = string
   qs=qs+'&id_type='+value;
   return qs;
 },
 fSchedulesItem : function fSchedulesItem(qs,value){
   // filter for subset of broadcasts and webcasts with the given item performed on it
+  // type = PID
   qs=qs+'&item='+value;
   return qs;
 },
 fSchedulesPage : function fSchedulesPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fSchedulesPageSize : function fSchedulesPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fSchedulesPartnerId : function fSchedulesPartnerId(qs,value){
   // filter for broadcasts and webcasts by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fSchedulesPartnerPid : function fSchedulesPartnerPid(qs,value){
   // filter for broadcasts and webcasts by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fSchedulesPeople : function fSchedulesPeople(qs,value){
   // filter for subset of broadcasts and webcasts that have given contributor
+  // type = string
   qs=qs+'&people='+value;
   return qs;
 },
 fSchedulesPid : function fSchedulesPid(qs,value){
   // filter for subset of broadcasts and webcasts having given PID
+  // type = PID
   qs=qs+'&pid='+value;
   return qs;
 },
 fSchedulesQ : function fSchedulesQ(qs,value){
   // filter for subset of broadcasts and webcasts matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 fSchedulesRepeat : function fSchedulesRepeat(qs,value){
   // filter to show either only repeats or non-repeats
+  // type = boolean
   qs=qs+'&repeat='+value;
   return qs;
 },
 fSchedulesScheduleDay : function fSchedulesScheduleDay(qs,value){
   // filter for subset of broadcasts and webcasts that start on the specified day (BBC time)
+  // type = date
   qs=qs+'&schedule_day='+value;
   return qs;
 },
 fSchedulesScheduleDayFrom : function fSchedulesScheduleDayFrom(qs,value){
   // filter for subset of broadcasts and webcasts that start on or after the specified day (BBC time)
+  // type = date
   qs=qs+'&schedule_day_from='+value;
   return qs;
 },
 fSchedulesScheduleDayTo : function fSchedulesScheduleDayTo(qs,value){
   // filter for subset of broadcasts and webcasts that start on or before the specified day (BBC time)
+  // type = date
   qs=qs+'&schedule_day_to='+value;
   return qs;
 },
 fSchedulesServiceMasterBrand : function fSchedulesServiceMasterBrand(qs,value){
   // filter for subset of broadcasts and webcasts with given service master brand
+  // type = string
   qs=qs+'&service_master_brand='+value;
   return qs;
 },
 fSchedulesSid : function fSchedulesSid(qs,value){
   // filter for subset of broadcasts and webcasts that are on the specified linear service
+  // type = string
   qs=qs+'&sid='+value;
   return qs;
 },
 fSchedulesStartFrom : function fSchedulesStartFrom(qs,value){
   // filter for subset of broadcasts and webcasts that start on or later than the specified datetime
+  // type = datetime
   qs=qs+'&start_from='+value;
   return qs;
 },
 fSchedulesStartTo : function fSchedulesStartTo(qs,value){
   // filter for subset of broadcasts and webcasts that start on or earlier than the specified datetime
+  // type = datetime
   qs=qs+'&start_to='+value;
   return qs;
 },
 fSchedulesVersion : function fSchedulesVersion(qs,value){
   // filter for subset of broadcasts and webcasts with given PID as their parent version
+  // type = PID
   qs=qs+'&version='+value;
   return qs;
 },
 fServicesEndFrom : function fServicesEndFrom(qs,value){
   // Return services that end on or later than the specified datetime
+  // type = datetime
   qs=qs+'&end_from='+value;
   return qs;
 },
 fServicesEndTo : function fServicesEndTo(qs,value){
   // filter for subset of broadcasts that end on or earlier than the specified datetime
+  // type = datetime
   qs=qs+'&end_to='+value;
   return qs;
 },
 fServicesMid : function fServicesMid(qs,value){
   // filter for services by masterbrand MID
+  // type = string
   qs=qs+'&mid='+value;
   return qs;
 },
 fServicesPage : function fServicesPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fServicesPageSize : function fServicesPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fServicesPartnerId : function fServicesPartnerId(qs,value){
   // filter for services by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fServicesPartnerPid : function fServicesPartnerPid(qs,value){
   // filter for services by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fServicesQ : function fServicesQ(qs,value){
   // filter for subset of services matching supplied keyword/phrase (boolean operators permitted)
+  // type = string
   qs=qs+'&q='+value;
   return qs;
 },
 fServicesServiceType : function fServicesServiceType(qs,value){
   // filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio
+  // type = string
   // Return only TV services
   // /nitro/api/services?service_type=TV
   // Return only Local Radio services
@@ -1198,21 +1453,25 @@ fServicesServiceType : function fServicesServiceType(qs,value){
 },
 fServicesSid : function fServicesSid(qs,value){
   // filter for specified linear service
+  // type = string
   qs=qs+'&sid='+value;
   return qs;
 },
 fServicesStartFrom : function fServicesStartFrom(qs,value){
   // Return services that start on or later than the specified datetime
+  // type = datetime
   qs=qs+'&start_from='+value;
   return qs;
 },
 fServicesStartTo : function fServicesStartTo(qs,value){
   // Return services that start earlier than the specified datetime
+  // type = datetime
   qs=qs+'&start_to='+value;
   return qs;
 },
 fVersionsAvailability : function fVersionsAvailability(qs,value){
   // filter for subset of versions that have availability
+  // type = string
   // filter for versions that are available
   // /nitro/api/versions?availability=available
   qs=qs+'&availability='+value;
@@ -1220,36 +1479,49 @@ fVersionsAvailability : function fVersionsAvailability(qs,value){
 },
 fVersionsDescendantsOf : function fVersionsDescendantsOf(qs,value){
   // filter for subset of versions having given programme PID
+  // type = PID
   qs=qs+'&descendants_of='+value;
   return qs;
 },
 fVersionsMediaSet : function fVersionsMediaSet(qs,value){
   // filter for subset of versions with availability in the given media set
+  // type = string
   qs=qs+'&media_set='+value;
   return qs;
 },
 fVersionsPage : function fVersionsPage(qs,value){
   // which page of results to return
+  // type = integer
+  // default = 1
+  // min_value = 1
   qs=qs+'&page='+value;
   return qs;
 },
 fVersionsPageSize : function fVersionsPageSize(qs,value){
   // number of results in each page
+  // type = integer
+  // default = 10
+  // min_value = 0
+  // max_value = 300
   qs=qs+'&page_size='+value;
   return qs;
 },
 fVersionsPartnerId : function fVersionsPartnerId(qs,value){
   // filter for versions by partner ID
+  // type = PID
   qs=qs+'&partner_id='+value;
   return qs;
 },
 fVersionsPartnerPid : function fVersionsPartnerPid(qs,value){
   // filter for versions by partner PID
+  // type = PID
+  // default = s0000001
   qs=qs+'&partner_pid='+value;
   return qs;
 },
 fVersionsPid : function fVersionsPid(qs,value){
   // filter for subset of versions having given PID
+  // type = PID
   qs=qs+'&pid='+value;
   return qs;
 },

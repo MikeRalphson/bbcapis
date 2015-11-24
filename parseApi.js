@@ -43,6 +43,9 @@ function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 	if (sortDirection.href) {
 		s += '  // ' +sortDirection.href+'\n';
 	}
+	if (sortDirection.is_default) {
+		s += '  // isDefault\n';
+	}
 	s += "  qs=qs+'&sort="+sort.name+"&sort-direction="+sortDirection.value+"';\n";
 	s += '  return qs;\n';
 	s += '},\n';
@@ -125,6 +128,18 @@ function exportFilter(feed,filter,filterName) {
 	s += '  // '+filter.title+'\n';
 	if (filter.href) {
 		s += '  // '+filter.href+'\n';
+	}
+	if (filter.type) {
+		s += '  // type = '+filter.type+'\n';
+	}
+	if (filter.default) {
+		s += '  // default = '+filter.default+'\n';
+	}
+	if (filter.min_value) {
+		s += '  // min_value = '+filter.min_value+'\n';
+	}
+	if (filter.max_value) {
+		s += '  // max_value = '+filter.max_value+'\n';
 	}
 	
 	if (filter.option) {
@@ -216,12 +231,8 @@ s.on('end', function() {
 
 for (var f in api.feeds.feed) {
 	feed = api.feeds.feed[f];
-	console.log('----------------------');
 	if (feed.name) {
-		console.log(('-'+feed.name).toCamelCase()+'  '+feed.title);
-		//if (feed.name.toLowerCase()=='items') {
 		processFeed(feed);
-		//}
 	}
 	else {
 		console.log(feed);
