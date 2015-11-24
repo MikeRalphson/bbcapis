@@ -140,7 +140,7 @@ function exportFilter(feed,filter,filterName) {
 		}
 	}
 	
-	s += "  qs=qs+'&"+filter.name+"=value';\n";
+	s += "  qs=qs+'&"+filter.name+"='+value;\n";
 	s += '  return qs;\n';
 	s += '},\n';
 	fs.appendFileSync(apijs, s, 'utf8');
