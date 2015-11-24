@@ -1,23 +1,20 @@
 {
-  "n:feeds": {
-    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-    "xmlns:n": "http://www.bbc.co.uk/nitro/",
-    "xsi:schemaLocation": "http://www.bbc.co.uk/nitro/ https://nitro.api.bbci.co.uk/nitro/api/schema",
-    "n:feed": [
+  "feeds": {
+    "feed": [
       {
         "title": "Start here for programmes metadata: Brands, Series, Episodes and Clips",
         "href": "/nitro/api/programmes",
         "rel": "feed",
         "release_status": "supported",
         "name": "Programmes",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for subset of programmes that are audio-described",
               "type": "boolean",
               "release_status": "supported",
               "name": "audio_described",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for programmes that are audio-described",
                   "href": "/nitro/api/programmes?audio_described=true",
@@ -36,7 +33,7 @@
               "release_status": "supported",
               "name": "availability",
               "multiple_values": "true",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for programmes that are available",
                   "href": "/nitro/api/programmes?availability=available",
@@ -56,7 +53,7 @@
               "type": "string",
               "release_status": "supported",
               "name": "availability_entity_type",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for programmes with available episodes",
                   "href": "/nitro/api/programmes?availability_entity_type=episode",
@@ -104,7 +101,7 @@
               "type": "string",
               "release_status": "supported",
               "name": "duration",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for programmes that have short duration (< 5m)",
                   "href": "/nitro/api/programmes?duration=short",
@@ -128,7 +125,7 @@
               "release_status": "supported",
               "name": "entity_type",
               "multiple_values": "true",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for programmes that are brands",
                   "href": "/nitro/api/programmes?entity_type=brand",
@@ -230,7 +227,7 @@
               "type": "string",
               "release_status": "supported",
               "name": "media_type",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for programmes that are audio only",
                   "href": "/nitro/api/programmes?media_type=audio",
@@ -306,7 +303,7 @@
               "type": "string",
               "release_status": "supported",
               "name": "signed",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for programmes that are signed",
                   "href": "/nitro/api/programmes?signed=exclusive",
@@ -341,7 +338,7 @@
               "type": "boolean",
               "release_status": "supported",
               "name": "tleo",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for programmes that are TLEOs",
                   "href": "/nitro/api/programmes?tleo=true",
@@ -363,14 +360,14 @@
             }
           ]
         },
-        "n:sorts": {
-          "n:sort": [
+        "sorts": {
+          "sort": [
             {
               "title": "sort numerically by position in group, ascending",
               "release_status": "supported",
               "name": "group_position",
               "is_default": "false",
-              "n:sort_direction": {
+              "sort_direction": {
                 "href": "/nitro/api/programmes?sort=group_position&sort_direction=ascending",
                 "name": "sort_direction",
                 "value": "ascending",
@@ -385,7 +382,7 @@
               "deprecated": "true",
               "replaced_by": "views",
               "is_default": "false",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/programmes?sort=most_popular&sort_direction=ascending",
                   "name": "sort_direction",
@@ -405,7 +402,7 @@
               "release_status": "supported",
               "name": "pid",
               "is_default": "true",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/programmes?sort=pid&sort_direction=ascending",
                   "name": "sort_direction",
@@ -425,7 +422,7 @@
               "release_status": "supported",
               "name": "position",
               "is_default": "false",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/programmes?sort=position&sort_direction=ascending",
                   "name": "sort_direction",
@@ -451,7 +448,7 @@
               "release_status": "supported",
               "name": "release_date",
               "is_default": "false",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/programmes?sort=release_date&sort_direction=ascending",
                   "name": "sort_direction",
@@ -477,7 +474,7 @@
               "release_status": "supported",
               "name": "scheduled_start",
               "is_default": "false",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/programmes?sort=scheduled_start&sort_direction=ascending",
                   "name": "sort_direction",
@@ -497,7 +494,7 @@
               "release_status": "supported",
               "name": "strict_title",
               "is_default": "false",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/programmes?sort=strict_title&sort_direction=ascending",
                   "name": "sort_direction",
@@ -517,7 +514,7 @@
               "release_status": "supported",
               "name": "title",
               "is_default": "false",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/programmes?sort=title&sort_direction=ascending",
                   "name": "sort_direction",
@@ -537,7 +534,7 @@
               "release_status": "supported",
               "name": "tree",
               "is_default": "false",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/programmes?sort=tree&sort_direction=ascending",
                   "name": "sort_direction",
@@ -557,7 +554,7 @@
               "release_status": "supported",
               "name": "views",
               "is_default": "false",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/programmes?sort=views&sort_direction=ascending",
                   "name": "sort_direction",
@@ -574,13 +571,13 @@
             }
           ]
         },
-        "n:mixins": {
-          "n:mixin": [
+        "mixins": {
+          "mixin": [
             {
               "title": "mixin to return the alternate images for a programme",
               "release_status": "supported",
               "name": "alternate_images",
-              "n:dependency_on": {
+              "dependency_on": {
                 "value": "true",
                 "filter": "tleo"
               }
@@ -614,8 +611,8 @@
               "href": "/nitro/api/programmes?mixin=genre_groupings",
               "release_status": "supported",
               "name": "genre_groupings",
-              "n:prohibits": {
-                "n:mixin": { "name": "genre_groups" }
+              "prohibits": {
+                "mixin": { "name": "genre_groups" }
               }
             },
             {
@@ -626,8 +623,8 @@
               "deprecated_since": "2015-03-19",
               "deprecated": "true",
               "replaced_by": "genre_groupings",
-              "n:prohibits": {
-                "n:mixin": { "name": "genre_groupings" }
+              "prohibits": {
+                "mixin": { "name": "genre_groupings" }
               }
             },
             {
@@ -655,7 +652,7 @@
               "title": "mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)",
               "release_status": "supported",
               "name": "previous_next",
-              "n:dependency_on": [
+              "dependency_on": [
                 { "filter": "children_of" },
                 { "filter": "group" },
                 { "filter": "promoted_for" }
@@ -684,8 +681,8 @@
             }
           ]
         },
-        "n:deprecations": {
-          "n:deprecated": [
+        "deprecations": {
+          "deprecated": [
             {
               "type": "filter",
               "name": "availability_from",
@@ -733,37 +730,37 @@
             },
             {
               "type": "element",
-              "name": "n:formats",
+              "name": "formats",
               "deprecated_since": "2015-03-23",
-              "replaced_by": "n:programme_formats",
+              "replaced_by": "programme_formats",
               "replacement_type": "element"
             },
             {
               "type": "element",
-              "name": "n:genre_groups",
+              "name": "genre_groups",
               "deprecated_since": "2015-03-23",
-              "replaced_by": "n:genre_groupings",
+              "replaced_by": "genre_groupings",
               "replacement_type": "element"
             },
             {
               "type": "element",
-              "name": "n:image",
+              "name": "image",
               "deprecated_since": "2014-07-09",
               "replaced_by": "images",
               "replacement_type": "mixin"
             },
             {
               "type": "element",
-              "name": "n:availability_start",
+              "name": "availability_start",
               "deprecated_since": "2015-10-06",
-              "replaced_by": "n:scheduled_start",
+              "replaced_by": "scheduled_start",
               "replacement_type": "element"
             },
             {
               "type": "element",
-              "name": "n:availability_end",
+              "name": "availability_end",
               "deprecated_since": "2015-10-06",
-              "replaced_by": "n:scheduled_end",
+              "replaced_by": "scheduled_end",
               "replacement_type": "element"
             }
           ]
@@ -775,14 +772,14 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "Availability",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for subset of availabilities",
               "type": "string",
               "release_status": "supported",
               "name": "availability",
-              "n:option": {
+              "option": {
                 "title": "filter for availabilities that are available",
                 "href": "/nitro/api/availabilities?availability=available",
                 "value": "available"
@@ -824,7 +821,7 @@
               "type": "string",
               "release_status": "supported",
               "name": "territory",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for only UK availabilities",
                   "href": "/nitro/api/availabilities?territory=uk",
@@ -844,13 +841,13 @@
             }
           ]
         },
-        "n:sorts": {
-          "n:sort": {
+        "sorts": {
+          "sort": {
             "title": "sort chronologically by scheduled start time/date, ascending",
             "release_status": "supported",
             "name": "scheduled_start",
             "is_default": "true",
-            "n:sort_direction": [
+            "sort_direction": [
               {
                 "href": "/nitro/api/availabilities?sort=scheduled_start&sort_direction=ascending",
                 "name": "sort_direction",
@@ -873,8 +870,8 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "Broadcasts",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for subset of broadcasts that have given authority",
               "type": "string",
@@ -1018,13 +1015,13 @@
             }
           ]
         },
-        "n:sorts": {
-          "n:sort": {
+        "sorts": {
+          "sort": {
             "title": "sort chronologically by scheduled start time/date, ascending",
             "release_status": "supported",
             "name": "start_date",
             "is_default": "true",
-            "n:sort_direction": [
+            "sort_direction": [
               {
                 "href": "/nitro/api/broadcasts?sort=start_date&sort_direction=ascending",
                 "name": "sort_direction",
@@ -1040,18 +1037,18 @@
             ]
           }
         },
-        "n:mixins": {
-          "n:mixin": {
+        "mixins": {
+          "mixin": {
             "title": "return ancestor programme titles",
             "href": "/nitro/api/broadcasts?mixin=titles",
             "release_status": "supported",
             "name": "titles"
           }
         },
-        "n:deprecations": {
-          "n:deprecated": {
+        "deprecations": {
+          "deprecated": {
             "type": "element",
-            "name": "n:image",
+            "name": "image",
             "deprecated_since": "2014-07-09",
             "replaced_by": "images",
             "replacement_type": "mixin"
@@ -1064,8 +1061,8 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "Groups",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for groups related to given programme or its descendants",
               "type": "PID",
@@ -1090,7 +1087,7 @@
               "release_status": "supported",
               "name": "group_type",
               "multiple_values": "true",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for groups that are collections",
                   "href": "/nitro/api/groups?group_type=collection",
@@ -1167,13 +1164,13 @@
             }
           ]
         },
-        "n:sorts": {
-          "n:sort": {
+        "sorts": {
+          "sort": {
             "title": "sort alphabetically by PID",
             "release_status": "supported",
             "name": "pid",
             "is_default": "true",
-            "n:sort_direction": {
+            "sort_direction": {
               "href": "/nitro/api/groups?sort=pid&sort_direction=descending",
               "name": "sort_direction",
               "value": "descending",
@@ -1181,8 +1178,8 @@
             }
           }
         },
-        "n:mixins": {
-          "n:mixin": [
+        "mixins": {
+          "mixin": [
             {
               "title": "mixin to return the alternate images for a group",
               "href": "/nitro/api/groups?mixin=alternate_images",
@@ -1209,10 +1206,10 @@
             }
           ]
         },
-        "n:deprecations": {
-          "n:deprecated": {
+        "deprecations": {
+          "deprecated": {
             "type": "element",
-            "name": "n:image",
+            "name": "image",
             "deprecated_since": "2014-07-09",
             "replaced_by": "images",
             "replacement_type": "mixin"
@@ -1225,15 +1222,15 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "Images",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for images belonging to the given group (i.e. Gallery)",
               "type": "PID",
               "release_status": "supported",
               "name": "group",
-              "n:prohibits": {
-                "n:filter": [
+              "prohibits": {
+                "filter": [
                   { "name": "is_image_for" },
                   { "name": "is_alternate_image_for" }
                 ]
@@ -1245,7 +1242,7 @@
               "release_status": "supported",
               "name": "image_type",
               "multiple_values": "true",
-              "n:option": [
+              "option": [
                 {
                   "title": "select standard type images",
                   "href": "/nitro/api/images?image_type=standard",
@@ -1278,8 +1275,8 @@
               "type": "PID",
               "release_status": "supported",
               "name": "is_alternate_image_for",
-              "n:prohibits": {
-                "n:filter": [
+              "prohibits": {
+                "filter": [
                   { "name": "is_image_for" },
                   { "name": "group" }
                 ]
@@ -1290,8 +1287,8 @@
               "type": "PID",
               "release_status": "supported",
               "name": "is_image_for",
-              "n:prohibits": {
-                "n:filter": [
+              "prohibits": {
+                "filter": [
                   { "name": "group" },
                   { "name": "is_alternate_image_for" }
                 ]
@@ -1345,14 +1342,14 @@
             }
           ]
         },
-        "n:sorts": {
-          "n:sort": [
+        "sorts": {
+          "sort": [
             {
               "title": "sort numerically by position, ascending only",
               "release_status": "supported",
               "name": "group_position",
               "is_default": "false",
-              "n:sort_direction": {
+              "sort_direction": {
                 "href": "/nitro/api/images?sort=group_position&sort_direction=ascending",
                 "name": "sort_direction",
                 "value": "ascending",
@@ -1364,7 +1361,7 @@
               "release_status": "supported",
               "name": "pid",
               "is_default": "true",
-              "n:sort_direction": [
+              "sort_direction": [
                 {
                   "href": "/nitro/api/images?sort=pid&sort_direction=ascending",
                   "name": "sort_direction",
@@ -1387,8 +1384,8 @@
         "href": "/nitro/api/items",
         "rel": "feed",
         "name": "Items",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for subset of items that have an ID issued by the given authority",
               "type": "string",
@@ -1414,7 +1411,7 @@
               "release_status": "supported",
               "name": "item_type",
               "multiple_values": "true",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for only chapter items",
                   "href": "/nitro/api/items?item_type=chapter",
@@ -1508,13 +1505,13 @@
             }
           ]
         },
-        "n:sorts": {
-          "n:sort": {
+        "sorts": {
+          "sort": {
             "title": "sort by pid, descending",
             "release_status": "supported",
             "name": "pid",
             "is_default": "true",
-            "n:sort_direction": {
+            "sort_direction": {
               "href": "/nitro/api/items?sort=pid&sort_direction=descending",
               "name": "sort_direction",
               "value": "descending",
@@ -1522,8 +1519,8 @@
             }
           }
         },
-        "n:mixins": {
-          "n:mixin": [
+        "mixins": {
+          "mixin": [
             {
               "title": "mixin to return information about contributors to items",
               "href": "/nitro/api/items?mixin=contributions",
@@ -1548,15 +1545,15 @@
             {
               "title": "mixin to return programme segment events, works in conjunction with programme or segment_event filters",
               "name": "play_event",
-              "n:dependency_on": [
+              "dependency_on": [
                 { "filter": "programme" },
                 { "filter": "segment_event" }
               ]
             }
           ]
         },
-        "n:deprecations": {
-          "n:deprecated": [
+        "deprecations": {
+          "deprecated": [
             {
               "type": "mixin",
               "name": "offset",
@@ -1566,7 +1563,7 @@
             },
             {
               "type": "element",
-              "name": "n:image",
+              "name": "image",
               "deprecated_since": "2014-07-09",
               "replaced_by": "images",
               "replacement_type": "mixin"
@@ -1579,8 +1576,8 @@
         "href": "/nitro/api/master_brands",
         "rel": "feed",
         "name": "MasterBrands",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for subset of masterbrands that have given identifier",
               "type": "string",
@@ -1629,13 +1626,13 @@
             }
           ]
         },
-        "n:sorts": {
-          "n:sort": {
+        "sorts": {
+          "sort": {
             "title": "sort by mid, ascending",
             "release_status": "supported",
             "name": "mid",
             "is_default": "true",
-            "n:sort_direction": {
+            "sort_direction": {
               "href": "/nitro/api/master_brands?sort=mid&sort_direction=ascending",
               "name": "sort_direction",
               "value": "ascending",
@@ -1643,8 +1640,8 @@
             }
           }
         },
-        "n:mixins": {
-          "n:mixin": {
+        "mixins": {
+          "mixin": {
             "title": "mixin to add image information for a masterbrand",
             "href": "/nitro/api/master_brands?mixin=images",
             "release_status": "supported",
@@ -1658,8 +1655,8 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "People",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for subset of people that have an ID issued by the given authority",
               "type": "string",
@@ -1671,7 +1668,7 @@
               "type": "boolean",
               "release_status": "supported",
               "name": "has_external_id",
-              "n:option": [
+              "option": [
                 {
                   "title": "filter for people who have an external identifier",
                   "href": "/nitro/api/people?has_external_id=true",
@@ -1758,8 +1755,8 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "Pips",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "which page of results to return",
               "type": "integer",
@@ -1792,8 +1789,8 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "Promotions",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for subset of promotions belonging to a given context",
               "type": "PID",
@@ -1866,7 +1863,7 @@
               "type": "string",
               "release_status": "supported",
               "name": "status",
-              "n:option": {
+              "option": {
                 "title": "filter current promotions",
                 "href": "/nitro/api/promotions?status=current",
                 "value": "current"
@@ -1874,8 +1871,8 @@
             }
           ]
         },
-        "n:mixins": {
-          "n:mixin": {
+        "mixins": {
+          "mixin": {
             "title": "mixin to return information about related links to a promotion",
             "href": "/nitro/api/promotions?mixin=related_links",
             "release_status": "supported",
@@ -1889,8 +1886,8 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "Schedules",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for subset of broadcasts and webcasts that have given authority",
               "type": "string",
@@ -2069,13 +2066,13 @@
             }
           ]
         },
-        "n:sorts": {
-          "n:sort": {
+        "sorts": {
+          "sort": {
             "title": "sort chronologically by scheduled start time/date, ascending",
             "release_status": "supported",
             "name": "start_date",
             "is_default": "true",
-            "n:sort_direction": [
+            "sort_direction": [
               {
                 "href": "/nitro/api/schedules?sort=start_date&sort_direction=ascending",
                 "name": "sort_direction",
@@ -2091,8 +2088,8 @@
             ]
           }
         },
-        "n:mixins": {
-          "n:mixin": [
+        "mixins": {
+          "mixin": [
             {
               "title": "return ancestor programme titles",
               "href": "/nitro/api/schedules?mixin=ancestor_titles",
@@ -2115,8 +2112,8 @@
             }
           ]
         },
-        "n:deprecations": {
-          "n:deprecated": [
+        "deprecations": {
+          "deprecated": [
             {
               "type": "mixin",
               "name": "titles",
@@ -2126,7 +2123,7 @@
             },
             {
               "type": "element",
-              "name": "n:image",
+              "name": "image",
               "deprecated_since": "2014-07-09",
               "replaced_by": "images",
               "replacement_type": "mixin"
@@ -2140,8 +2137,8 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "Services",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "Return services that end on or later than the specified datetime",
               "type": "datetime",
@@ -2206,7 +2203,7 @@
               "release_status": "supported",
               "name": "service_type",
               "multiple_values": "true",
-              "n:option": [
+              "option": [
                 {
                   "title": "Return only TV services",
                   "href": "/nitro/api/services?service_type=TV",
@@ -2262,14 +2259,14 @@
         "rel": "feed",
         "release_status": "supported",
         "name": "Versions",
-        "n:filters": {
-          "n:filter": [
+        "filters": {
+          "filter": [
             {
               "title": "filter for subset of versions that have availability",
               "type": "string",
               "release_status": "supported",
               "name": "availability",
-              "n:option": {
+              "option": {
                 "title": "filter for versions that are available",
                 "href": "/nitro/api/versions?availability=available",
                 "value": "available"
@@ -2331,12 +2328,12 @@
             }
           ]
         },
-        "n:deprecations": {
-          "n:deprecated": {
+        "deprecations": {
+          "deprecated": {
             "type": "element",
-            "name": "n:version_types",
+            "name": "version_types",
             "deprecated_since": "2015-05-05",
-            "replaced_by": "n:types",
+            "replaced_by": "types",
             "replacement_type": "element"
           }
         }
