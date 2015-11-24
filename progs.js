@@ -308,7 +308,7 @@ if (process.argv.length>5) {
 	pid = process.argv[5];
 }
 
-if (category.indexOf('-h')>0) {
+if (category.indexOf('-h')>=0) {
 	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID]');
 	console.log();
 	console.log('Category defaults to '+defcat);
