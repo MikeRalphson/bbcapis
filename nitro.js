@@ -135,10 +135,9 @@ function atoz_list(obj) {
 				querystring = api.fProgrammesDescendantsOf(querystring,p.pid);
 				querystring = api.fProgrammesAvailability(querystring,'available');
 				querystring = api.fProgrammesMediaSet(querystring,'pc');
-				//querystring = '&descendants_of='+p.pid+'&availability=available&mediaset=pc';
+				querystring = api.fProgrammesPageSize(querystring,300);
 				
 				if (media_type) {
-					//querystring +='&media_type='+media_type;
 					querystring = api.fProgrammesMediaType(querystring,media_type);
 				}
 				make_request(host,path,api_key,querystring,this);
@@ -425,11 +424,9 @@ if (process.argv.length>4) {
 	}
 	else if (process.argv[4] == 'format') {
 		querystring = api.fProgrammesFormat(querystring,category);
-		//querystring = '&format='+category;
 	}
 	else {
 		querystring = api.fProgrammesGenre(querystring,category);
-		//querystring = '&genre='+category;
 	}
 }
 
@@ -437,11 +434,10 @@ if (process.argv.length>5) {
 	pid = process.argv[5];
 }
 else {
-	//querystring += '&availability=available&mediaset=pc';
 	querystring = api.fProgrammesAvailability(querystring,'available');
 	querystring = api.fProgrammesMediaSet(querystring,'pc');
+	querystring = api.fProgrammesPageSize(querystring,300);
 	if (media_type) {
-		//querystring +='&media_type='+media_type;
 		querystring = api.fProgrammesMediaType(querystring,media_type);
 	}
 }
@@ -456,7 +452,6 @@ if (category.indexOf('-h')>=0) {
 }
 else {
 	if (pid) {
-		//querystring = '&programme='+pid+'&mixin=ancestor_titles&mixin=contributions'; //mixin=duration ?
 		querystring = api.fProgrammesProgramme(querystring,pid);
 		querystring = api.mProgrammesAncestorTitles(querystring);
 		querystring = api.mProgrammesContributions(querystring);
