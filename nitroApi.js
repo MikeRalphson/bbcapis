@@ -1,1529 +1,1529 @@
+const sProgrammesGroupPositionAscending = 'sort=group_position&sort_direction=ascending';
+const sProgrammesPidAscending = 'sort=pid&sort_direction=ascending';
+const sProgrammesPidDescending = 'sort=pid&sort_direction=descending';
+const sProgrammesPositionAscending = 'sort=position&sort_direction=ascending';
+const sProgrammesPositionDescending = 'sort=position&sort_direction=descending';
+const sProgrammesPromotion = 'sort=promotion';
+const sProgrammesReleaseDateAscending = 'sort=release_date&sort_direction=ascending';
+const sProgrammesReleaseDateDescending = 'sort=release_date&sort_direction=descending';
+const sProgrammesRelevance = 'sort=relevance';
+const sProgrammesScheduledStartAscending = 'sort=scheduled_start&sort_direction=ascending';
+const sProgrammesScheduledStartDescending = 'sort=scheduled_start&sort_direction=descending';
+const sProgrammesStrictTitleAscending = 'sort=strict_title&sort_direction=ascending';
+const sProgrammesStrictTitleDescending = 'sort=strict_title&sort_direction=descending';
+const sProgrammesTitleAscending = 'sort=title&sort_direction=ascending';
+const sProgrammesTitleDescending = 'sort=title&sort_direction=descending';
+const sProgrammesTreeAscending = 'sort=tree&sort_direction=ascending';
+const sProgrammesTreeDescending = 'sort=tree&sort_direction=descending';
+const sProgrammesViewsAscending = 'sort=views&sort_direction=ascending';
+const sProgrammesViewsDescending = 'sort=views&sort_direction=descending';
+const mProgrammesAlternateImages = 'alternate_images';
+const mProgrammesAncestorTitles = 'ancestor_titles';
+const mProgrammesAvailability = 'availability';
+const mProgrammesContributions = 'contributions';
+const mProgrammesDuration = 'duration';
+const mProgrammesGenreGroupings = 'genre_groupings';
+const mProgrammesImages = 'images';
+const mProgrammesIsEmbeddable = 'is_embeddable';
+const mProgrammesPreviousNext = 'previous_next';
+const mProgrammesRelatedLinks = 'related_links';
+const mProgrammesVersionsAvailability = 'versions_availability';
+const fProgrammesAudioDescribed = 'audio_described';
+const fProgrammesAvailability = 'availability';
+const fProgrammesAvailabilityEntityType = 'availability_entity_type';
+const fProgrammesChildrenOf = 'children_of';
+const fProgrammesDescendantsOf = 'descendants_of';
+const fProgrammesDuration = 'duration';
+const fProgrammesEntityType = 'entity_type';
+const fProgrammesFormat = 'format';
+const fProgrammesGenre = 'genre';
+const fProgrammesGroup = 'group';
+const fProgrammesInitialLetter = 'initial_letter';
+const fProgrammesInitialLetterEnd = 'initial_letter_end';
+const fProgrammesInitialLetterStart = 'initial_letter_start';
+const fProgrammesInitialLetterStrict = 'initial_letter_strict';
+const fProgrammesItem = 'item';
+const fProgrammesMasterBrand = 'master_brand';
+const fProgrammesMediaSet = 'media_set';
+const fProgrammesMediaType = 'media_type';
+const fProgrammesPage = 'page';
+const fProgrammesPageSize = 'page_size';
+const fProgrammesPartnerId = 'partner_id';
+const fProgrammesPartnerPid = 'partner_pid';
+const fProgrammesPeople = 'people';
+const fProgrammesPid = 'pid';
+const fProgrammesPromotedFor = 'promoted_for';
+const fProgrammesQ = 'q';
+const fProgrammesSigned = 'signed';
+const fProgrammesTagName = 'tag_name';
+const fProgrammesTagScheme = 'tag_scheme';
+const fProgrammesTleo = 'tleo';
+const fProgrammesVersion = 'version';
+const sAvailabilityScheduledStartAscending = 'sort=scheduled_start&sort_direction=ascending';
+const sAvailabilityScheduledStartDescending = 'sort=scheduled_start&sort_direction=descending';
+const fAvailabilityAvailability = 'availability';
+const fAvailabilityDescendantsOf = 'descendants_of';
+const fAvailabilityMediaSet = 'media_set';
+const fAvailabilityPage = 'page';
+const fAvailabilityPageSize = 'page_size';
+const fAvailabilityTerritory = 'territory';
+const sBroadcastsStartDateAscending = 'sort=start_date&sort_direction=ascending';
+const sBroadcastsStartDateDescending = 'sort=start_date&sort_direction=descending';
+const mBroadcastsTitles = 'titles';
+const fBroadcastsAuthority = 'authority';
+const fBroadcastsDescendantsOf = 'descendants_of';
+const fBroadcastsEndFrom = 'end_from';
+const fBroadcastsEndTo = 'end_to';
+const fBroadcastsFormat = 'format';
+const fBroadcastsGenre = 'genre';
+const fBroadcastsId = 'id';
+const fBroadcastsItem = 'item';
+const fBroadcastsPage = 'page';
+const fBroadcastsPageSize = 'page_size';
+const fBroadcastsPeople = 'people';
+const fBroadcastsPid = 'pid';
+const fBroadcastsQ = 'q';
+const fBroadcastsScheduleDay = 'schedule_day';
+const fBroadcastsScheduleDayFrom = 'schedule_day_from';
+const fBroadcastsScheduleDayTo = 'schedule_day_to';
+const fBroadcastsServiceMasterBrand = 'service_master_brand';
+const fBroadcastsSid = 'sid';
+const fBroadcastsStartFrom = 'start_from';
+const fBroadcastsStartTo = 'start_to';
+const fBroadcastsVersion = 'version';
+const sGroupsPidDescending = 'sort=pid&sort_direction=descending';
+const mGroupsAlternateImages = 'alternate_images';
+const mGroupsGroupFor = 'group_for';
+const mGroupsImages = 'images';
+const mGroupsRelatedLinks = 'related_links';
+const fGroupsForDescendantsOf = 'for_descendants_of';
+const fGroupsForProgramme = 'for_programme';
+const fGroupsGroup = 'group';
+const fGroupsGroupType = 'group_type';
+const fGroupsMember = 'member';
+const fGroupsPage = 'page';
+const fGroupsPageSize = 'page_size';
+const fGroupsPartnerId = 'partner_id';
+const fGroupsPartnerPid = 'partner_pid';
+const fGroupsPid = 'pid';
+const fGroupsQ = 'q';
+const sImagesGroupPositionAscending = 'sort=group_position&sort_direction=ascending';
+const sImagesPidAscending = 'sort=pid&sort_direction=ascending';
+const sImagesPidDescending = 'sort=pid&sort_direction=descending';
+const fImagesGroup = 'group';
+const fImagesImageType = 'image_type';
+const fImagesIsAlternateImageFor = 'is_alternate_image_for';
+const fImagesIsImageFor = 'is_image_for';
+const fImagesPage = 'page';
+const fImagesPageSize = 'page_size';
+const fImagesPartnerId = 'partner_id';
+const fImagesPartnerPid = 'partner_pid';
+const fImagesPid = 'pid';
+const fImagesQ = 'q';
+const sItemsPidDescending = 'sort=pid&sort_direction=descending';
+const mItemsContributions = 'contributions';
+const mItemsImages = 'images';
+const mItemsPlayEvent = 'play_event';
+const fItemsAuthority = 'authority';
+const fItemsId = 'id';
+const fItemsIdType = 'id_type';
+const fItemsItemType = 'item_type';
+const fItemsPage = 'page';
+const fItemsPageSize = 'page_size';
+const fItemsPartnerId = 'partner_id';
+const fItemsPartnerPid = 'partner_pid';
+const fItemsPeople = 'people';
+const fItemsPid = 'pid';
+const fItemsProgramme = 'programme';
+const fItemsQ = 'q';
+const fItemsSegmentEvent = 'segment_event';
+const sMasterbrandsMidAscending = 'sort=mid&sort_direction=ascending';
+const mMasterbrandsImages = 'images';
+const fMasterbrandsMid = 'mid';
+const fMasterbrandsPage = 'page';
+const fMasterbrandsPageSize = 'page_size';
+const fMasterbrandsPartnerId = 'partner_id';
+const fMasterbrandsPartnerPid = 'partner_pid';
+const fMasterbrandsQ = 'q';
+const fPeopleAuthority = 'authority';
+const fPeopleHasExternalId = 'has_external_id';
+const fPeopleId = 'id';
+const fPeopleIdType = 'id_type';
+const fPeoplePage = 'page';
+const fPeoplePageSize = 'page_size';
+const fPeoplePartnerId = 'partner_id';
+const fPeoplePartnerPid = 'partner_pid';
+const fPeoplePid = 'pid';
+const fPeopleProgramme = 'programme';
+const fPeopleQ = 'q';
+const fPipsPage = 'page';
+const fPipsPageSize = 'page_size';
+const fPipsQ = 'q';
+const mPromotionsRelatedLinks = 'related_links';
+const fPromotionsContext = 'context';
+const fPromotionsPage = 'page';
+const fPromotionsPageSize = 'page_size';
+const fPromotionsPartnerId = 'partner_id';
+const fPromotionsPartnerPid = 'partner_pid';
+const fPromotionsPid = 'pid';
+const fPromotionsPromotedBy = 'promoted_by';
+const fPromotionsPromotedFor = 'promoted_for';
+const fPromotionsQ = 'q';
+const fPromotionsStatus = 'status';
+const sSchedulesStartDateAscending = 'sort=start_date&sort_direction=ascending';
+const sSchedulesStartDateDescending = 'sort=start_date&sort_direction=descending';
+const mSchedulesAncestorTitles = 'ancestor_titles';
+const mSchedulesImages = 'images';
+const fSchedulesAuthority = 'authority';
+const fSchedulesDescendantsOf = 'descendants_of';
+const fSchedulesEndFrom = 'end_from';
+const fSchedulesEndTo = 'end_to';
+const fSchedulesFormat = 'format';
+const fSchedulesGenre = 'genre';
+const fSchedulesGroup = 'group';
+const fSchedulesId = 'id';
+const fSchedulesIdType = 'id_type';
+const fSchedulesItem = 'item';
+const fSchedulesPage = 'page';
+const fSchedulesPageSize = 'page_size';
+const fSchedulesPartnerId = 'partner_id';
+const fSchedulesPartnerPid = 'partner_pid';
+const fSchedulesPeople = 'people';
+const fSchedulesPid = 'pid';
+const fSchedulesQ = 'q';
+const fSchedulesRepeat = 'repeat';
+const fSchedulesScheduleDay = 'schedule_day';
+const fSchedulesScheduleDayFrom = 'schedule_day_from';
+const fSchedulesScheduleDayTo = 'schedule_day_to';
+const fSchedulesServiceMasterBrand = 'service_master_brand';
+const fSchedulesSid = 'sid';
+const fSchedulesStartFrom = 'start_from';
+const fSchedulesStartTo = 'start_to';
+const fSchedulesVersion = 'version';
+const fServicesEndFrom = 'end_from';
+const fServicesEndTo = 'end_to';
+const fServicesMid = 'mid';
+const fServicesPage = 'page';
+const fServicesPageSize = 'page_size';
+const fServicesPartnerId = 'partner_id';
+const fServicesPartnerPid = 'partner_pid';
+const fServicesQ = 'q';
+const fServicesServiceType = 'service_type';
+const fServicesSid = 'sid';
+const fServicesStartFrom = 'start_from';
+const fServicesStartTo = 'start_to';
+const fVersionsAvailability = 'availability';
+const fVersionsDescendantsOf = 'descendants_of';
+const fVersionsMediaSet = 'media_set';
+const fVersionsPage = 'page';
+const fVersionsPageSize = 'page_size';
+const fVersionsPartnerId = 'partner_id';
+const fVersionsPartnerPid = 'partner_pid';
+const fVersionsPid = 'pid';
+
 module.exports = {
-sProgrammesGroupPositionAscending : function sProgrammesGroupPositionAscending(qs){
-  // sort numerically by position in group, ascending
-  // /nitro/api/programmes?sort=group_position&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=group_position&sort-direction=ascending';
-  return qs;
-},
-sProgrammesPidAscending : function sProgrammesPidAscending(qs){
-  // sort alphabetically by PID, descending
-  // /nitro/api/programmes?sort=pid&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=pid&sort-direction=ascending';
-  return qs;
-},
-sProgrammesPidDescending : function sProgrammesPidDescending(qs){
-  // sort alphabetically by PID, descending
-  // /nitro/api/programmes?sort=pid&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=pid&sort-direction=descending';
-  return qs;
-},
-sProgrammesPositionAscending : function sProgrammesPositionAscending(qs){
-  // sort numerically by position, ascending
-  // /nitro/api/programmes?sort=position&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=position&sort-direction=ascending';
-  return qs;
-},
-sProgrammesPositionDescending : function sProgrammesPositionDescending(qs){
-  // sort numerically by position, ascending
-  // /nitro/api/programmes?sort=position&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=position&sort-direction=descending';
-  return qs;
-},
-sProgrammesPromotion : function sProgrammesPromotion(qs){
-  // sort by promotion rank, ascending
-  // note that this sort has no sort-direction
-  qs=qs+'&sort=promotion';
-  return qs;
-},
-sProgrammesReleaseDateAscending : function sProgrammesReleaseDateAscending(qs){
-  // sort chronologically by release date, descending
-  // /nitro/api/programmes?sort=release_date&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=release_date&sort-direction=ascending';
-  return qs;
-},
-sProgrammesReleaseDateDescending : function sProgrammesReleaseDateDescending(qs){
-  // sort chronologically by release date, descending
-  // /nitro/api/programmes?sort=release_date&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=release_date&sort-direction=descending';
-  return qs;
-},
-sProgrammesRelevance : function sProgrammesRelevance(qs){
-  // sort by weighting of search term (use with q parameter)
-  // note that this sort has no sort-direction
-  qs=qs+'&sort=relevance';
-  return qs;
-},
-sProgrammesScheduledStartAscending : function sProgrammesScheduledStartAscending(qs){
-  // sort chronologically by scheduled start time/date, ascending
-  // /nitro/api/programmes?sort=scheduled_start&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=scheduled_start&sort-direction=ascending';
-  return qs;
-},
-sProgrammesScheduledStartDescending : function sProgrammesScheduledStartDescending(qs){
-  // sort chronologically by scheduled start time/date, ascending
-  // /nitro/api/programmes?sort=scheduled_start&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=scheduled_start&sort-direction=descending';
-  return qs;
-},
-sProgrammesStrictTitleAscending : function sProgrammesStrictTitleAscending(qs){
-  // sort alphabetically by title, ascending
-  // /nitro/api/programmes?sort=strict_title&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=strict_title&sort-direction=ascending';
-  return qs;
-},
-sProgrammesStrictTitleDescending : function sProgrammesStrictTitleDescending(qs){
-  // sort alphabetically by title, ascending
-  // /nitro/api/programmes?sort=strict_title&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=strict_title&sort-direction=descending';
-  return qs;
-},
-sProgrammesTitleAscending : function sProgrammesTitleAscending(qs){
-  // sort by title librarian style (ignoring leading 'The', 'A', etc), ascending
-  // /nitro/api/programmes?sort=title&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=title&sort-direction=ascending';
-  return qs;
-},
-sProgrammesTitleDescending : function sProgrammesTitleDescending(qs){
-  // sort by title librarian style (ignoring leading 'The', 'A', etc), ascending
-  // /nitro/api/programmes?sort=title&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=title&sort-direction=descending';
-  return qs;
-},
-sProgrammesTreeAscending : function sProgrammesTreeAscending(qs){
-  // sort by root pid and then preorder tree sort. Requires entities to have release date.
-  // /nitro/api/programmes?sort=tree&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=tree&sort-direction=ascending';
-  return qs;
-},
-sProgrammesTreeDescending : function sProgrammesTreeDescending(qs){
-  // sort by root pid and then preorder tree sort. Requires entities to have release date.
-  // /nitro/api/programmes?sort=tree&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=tree&sort-direction=descending';
-  return qs;
-},
-sProgrammesViewsAscending : function sProgrammesViewsAscending(qs){
-  // sort numerically by number of views (most popular first - faster most_popular)
-  // /nitro/api/programmes?sort=views&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=views&sort-direction=ascending';
-  return qs;
-},
-sProgrammesViewsDescending : function sProgrammesViewsDescending(qs){
-  // sort numerically by number of views (most popular first - faster most_popular)
-  // /nitro/api/programmes?sort=views&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=views&sort-direction=descending';
-  return qs;
-},
-mProgrammesAlternateImages : function mProgrammesAlternateImages(qs){
-  // mixin to return the alternate images for a programme
-  qs=qs+'&mixin=alternate_images';
-  return qs;
-},
-mProgrammesAncestorTitles : function mProgrammesAncestorTitles(qs){
-  // mixin to return ancestor programme titles
-  // /nitro/api/programmes?mixin=ancestor_titles
-  qs=qs+'&mixin=ancestor_titles';
-  return qs;
-},
-mProgrammesAvailability : function mProgrammesAvailability(qs){
-  // mixin to return programme availability information
-  qs=qs+'&mixin=availability';
-  return qs;
-},
-mProgrammesContributions : function mProgrammesContributions(qs){
-  // mixin to return information about contributors to a programme
-  // /nitro/api/programmes?mixin=contributions
-  qs=qs+'&mixin=contributions';
-  return qs;
-},
-mProgrammesDuration : function mProgrammesDuration(qs){
-  // mixin to return original version duration in programme concept entities
-  // /nitro/api/programmes?mixin=duration
-  qs=qs+'&mixin=duration';
-  return qs;
-},
-mProgrammesGenreGroupings : function mProgrammesGenreGroupings(qs){
-  // mixin to return list of genre groupings
-  // /nitro/api/programmes?mixin=genre_groupings
-  qs=qs+'&mixin=genre_groupings';
-  return qs;
-},
-mProgrammesImages : function mProgrammesImages(qs){
-  // mixin to add image information for a programme
-  // /nitro/api/programmes?mixin=images
-  qs=qs+'&mixin=images';
-  return qs;
-},
-mProgrammesIsEmbeddable : function mProgrammesIsEmbeddable(qs){
-  // mixin to add embeddable information for a programme
-  // /nitro/api/programmes?mixin=is_embeddable
-  qs=qs+'&mixin=is_embeddable';
-  return qs;
-},
-mProgrammesPreviousNext : function mProgrammesPreviousNext(qs){
-  // mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)
-  qs=qs+'&mixin=previous_next';
-  return qs;
-},
-mProgrammesRelatedLinks : function mProgrammesRelatedLinks(qs){
-  // mixin to return information about related links to a programme
-  // /nitro/api/programmes?mixin=related_links
-  qs=qs+'&mixin=related_links';
-  return qs;
-},
-mProgrammesVersionsAvailability : function mProgrammesVersionsAvailability(qs){
-  // mixin to return information about programmes that are currently available
-  // /nitro/api/programmes?mixin=versions_availability
-  qs=qs+'&mixin=versions_availability';
-  return qs;
-},
-fProgrammesAudioDescribed : function fProgrammesAudioDescribed(qs,value){
-  // filter for subset of programmes that are audio-described
-  // type = boolean
-  // filter for programmes that are audio-described
-  // /nitro/api/programmes?audio_described=true
-  // filter for programmes that are not audio-described
-  // /nitro/api/programmes?audio_described=false
-  qs=qs+'&audio_described='+value;
-  return qs;
-},
-fProgrammesAvailability : function fProgrammesAvailability(qs,value){
-  // filter for subset of programmes that have availability
-  // type = string
-  // filter for programmes that are available
-  // /nitro/api/programmes?availability=available
-  // filter for programmes that are expected to become available imminently
-  // /nitro/api/programmes?availability=pending
-  qs=qs+'&availability='+value;
-  return qs;
-},
-fProgrammesAvailabilityEntityType : function fProgrammesAvailabilityEntityType(qs,value){
-  // additional filter when availability=available
-  // type = string
-  // filter for programmes with available episodes
-  // /nitro/api/programmes?availability_entity_type=episode
-  // filter for programmes with available clips
-  // /nitro/api/programmes?availability_entity_type=clip
-  qs=qs+'&availability_entity_type='+value;
-  return qs;
-},
-fProgrammesChildrenOf : function fProgrammesChildrenOf(qs,value){
-  // filter for subset of programmes that have PID as immediate parent
-  // type = PID
-  qs=qs+'&children_of='+value;
-  return qs;
-},
-fProgrammesDescendantsOf : function fProgrammesDescendantsOf(qs,value){
-  // filter for subset of programmes that have PID as ancestor
-  // type = PID
-  qs=qs+'&descendants_of='+value;
-  return qs;
-},
-fProgrammesDuration : function fProgrammesDuration(qs,value){
-  // filter for subset of programmes that have given duration
-  // type = string
-  // filter for programmes that have short duration (< 5m)
-  // /nitro/api/programmes?duration=short
-  // filter for programmes that have medium duration (5m - 30m)
-  // /nitro/api/programmes?duration=medium
-  // filter for programmes that have long duration (> 30m)
-  // /nitro/api/programmes?duration=long
-  qs=qs+'&duration='+value;
-  return qs;
-},
-fProgrammesEntityType : function fProgrammesEntityType(qs,value){
-  // filter for subset of programmes that have given entity type
-  // type = string
-  // filter for programmes that are brands
-  // /nitro/api/programmes?entity_type=brand
-  // filter for programmes that are series
-  // /nitro/api/programmes?entity_type=series
-  // filter for programmes that are episodes
-  // /nitro/api/programmes?entity_type=episode
-  // filter for programmes that are clips
-  // /nitro/api/programmes?entity_type=clip
-  qs=qs+'&entity_type='+value;
-  return qs;
-},
-fProgrammesFormat : function fProgrammesFormat(qs,value){
-  // filter for subset of programmes with format
-  // type = string
-  qs=qs+'&format='+value;
-  return qs;
-},
-fProgrammesGenre : function fProgrammesGenre(qs,value){
-  // filter for subset of programmes with genre
-  // type = string
-  qs=qs+'&genre='+value;
-  return qs;
-},
-fProgrammesGroup : function fProgrammesGroup(qs,value){
-  // filter for subset of programmes which belong to the given group pid
-  // type = PID
-  qs=qs+'&group='+value;
-  return qs;
-},
-fProgrammesInitialLetter : function fProgrammesInitialLetter(qs,value){
-  // filter for subset of programmes with title beginning with initial letter librarian style (ignoring leading 'The', 'An' (Welsh), etc) 0-9 a-z
-  // type = character
-  qs=qs+'&initial_letter='+value;
-  return qs;
-},
-fProgrammesInitialLetterEnd : function fProgrammesInitialLetterEnd(qs,value){
-  // Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range
-  // type = character
-  qs=qs+'&initial_letter_end='+value;
-  return qs;
-},
-fProgrammesInitialLetterStart : function fProgrammesInitialLetterStart(qs,value){
-  // Programmes with (librarian) titles whose initial letter is equal/after given letter. Use with initial_letter_end for range.
-  // type = character
-  qs=qs+'&initial_letter_start='+value;
-  return qs;
-},
-fProgrammesInitialLetterStrict : function fProgrammesInitialLetterStrict(qs,value){
-  // filter for subset of programmes with title beginning with initial letter
-  // type = character
-  qs=qs+'&initial_letter_strict='+value;
-  return qs;
-},
-fProgrammesItem : function fProgrammesItem(qs,value){
-  // filter for subset of programmes with linked to versions which have the given item pids
-  // type = PID
-  qs=qs+'&item='+value;
-  return qs;
-},
-fProgrammesMasterBrand : function fProgrammesMasterBrand(qs,value){
-  // filter for subset of programmes with master_brand
-  // type = string
-  qs=qs+'&master_brand='+value;
-  return qs;
-},
-fProgrammesMediaSet : function fProgrammesMediaSet(qs,value){
-  // filter for subset of programmes with media set
-  // type = string
-  qs=qs+'&media_set='+value;
-  return qs;
-},
-fProgrammesMediaType : function fProgrammesMediaType(qs,value){
-  // filter for subset of programmes with media type
-  // type = string
-  // filter for programmes that are audio only
-  // /nitro/api/programmes?media_type=audio
-  // filter for programmes that are video only
-  // /nitro/api/programmes?media_type=audio_video
-  qs=qs+'&media_type='+value;
-  return qs;
-},
-fProgrammesPage : function fProgrammesPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fProgrammesPageSize : function fProgrammesPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fProgrammesPartnerId : function fProgrammesPartnerId(qs,value){
-  // filter for programmes by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fProgrammesPartnerPid : function fProgrammesPartnerPid(qs,value){
-  // filter for programmes by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fProgrammesPeople : function fProgrammesPeople(qs,value){
-  // filter for subset of programmes with contributions by given people PID
-  // type = PID
-  qs=qs+'&people='+value;
-  return qs;
-},
-fProgrammesPid : function fProgrammesPid(qs,value){
-  // filter for subset of programmes having given PID
-  // type = PID
-  qs=qs+'&pid='+value;
-  return qs;
-},
-fProgrammesPromotedFor : function fProgrammesPromotedFor(qs,value){
-  // filter for subset of programmes which are promoted for given service
-  // type = string
-  qs=qs+'&promoted_for='+value;
-  return qs;
-},
-fProgrammesQ : function fProgrammesQ(qs,value){
-  // filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-fProgrammesSigned : function fProgrammesSigned(qs,value){
-  // filter for subset of programmes that are signed
-  // type = string
-  // filter for programmes that are signed
-  // /nitro/api/programmes?signed=exclusive
-  // filter for programmes regardless of signedness
-  // /nitro/api/programmes?signed=inclusive
-  // filter for programmes that are not signed
-  // /nitro/api/programmes?signed=exclude
-  qs=qs+'&signed='+value;
-  return qs;
-},
-fProgrammesTagName : function fProgrammesTagName(qs,value){
-  // filter for subset of programmes with tag
-  // type = string
-  qs=qs+'&tag_name='+value;
-  return qs;
-},
-fProgrammesTagScheme : function fProgrammesTagScheme(qs,value){
-  // filter for subset of programmes with a tag
-  // type = string
-  qs=qs+'&tag_scheme='+value;
-  return qs;
-},
-fProgrammesTleo : function fProgrammesTleo(qs,value){
-  // filter for subset of programmes that are TLEOs
-  // type = boolean
-  // filter for programmes that are TLEOs
-  // /nitro/api/programmes?tleo=true
-  // filter for programmes that are not TLEOs
-  // /nitro/api/programmes?tleo=false
-  qs=qs+'&tleo='+value;
-  return qs;
-},
-fProgrammesVersion : function fProgrammesVersion(qs,value){
-  // filter for subset of programmes with given PID as one of their versions
-  // type = PID
-  qs=qs+'&version='+value;
-  return qs;
-},
-sAvailabilityScheduledStartAscending : function sAvailabilityScheduledStartAscending(qs){
-  // sort chronologically by scheduled start time/date, ascending
-  // /nitro/api/availabilities?sort=scheduled_start&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=scheduled_start&sort-direction=ascending';
-  return qs;
-},
-sAvailabilityScheduledStartDescending : function sAvailabilityScheduledStartDescending(qs){
-  // sort chronologically by scheduled start time/date, ascending
-  // /nitro/api/availabilities?sort=scheduled_start&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=scheduled_start&sort-direction=descending';
-  return qs;
-},
-fAvailabilityAvailability : function fAvailabilityAvailability(qs,value){
-  // filter for subset of availabilities
-  // type = string
-  // filter for availabilities that are available
-  // /nitro/api/availabilities?availability=available
-  qs=qs+'&availability='+value;
-  return qs;
-},
-fAvailabilityDescendantsOf : function fAvailabilityDescendantsOf(qs,value){
-  // filter for subset of availabilities that have PID as ancestor
-  // type = PID
-  qs=qs+'&descendants_of='+value;
-  return qs;
-},
-fAvailabilityMediaSet : function fAvailabilityMediaSet(qs,value){
-  // filter for subset of availabilities with media set
-  // type = string
-  qs=qs+'&media_set='+value;
-  return qs;
-},
-fAvailabilityPage : function fAvailabilityPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fAvailabilityPageSize : function fAvailabilityPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fAvailabilityTerritory : function fAvailabilityTerritory(qs,value){
-  // filter for availabilities in given territory
-  // type = string
-  // filter for only UK availabilities
-  // /nitro/api/availabilities?territory=uk
-  // filter for only non-UK availabilities
-  // /nitro/api/availabilities?territory=nonuk
-  // filter for global availabilities
-  // /nitro/api/availabilities?territory=world
-  qs=qs+'&territory='+value;
-  return qs;
-},
-sBroadcastsStartDateAscending : function sBroadcastsStartDateAscending(qs){
-  // sort chronologically by scheduled start time/date, ascending
-  // /nitro/api/broadcasts?sort=start_date&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=start_date&sort-direction=ascending';
-  return qs;
-},
-sBroadcastsStartDateDescending : function sBroadcastsStartDateDescending(qs){
-  // sort chronologically by scheduled start time/date, ascending
-  // /nitro/api/broadcasts?sort=start_date&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=start_date&sort-direction=descending';
-  return qs;
-},
-mBroadcastsTitles : function mBroadcastsTitles(qs){
-  // return ancestor programme titles
-  // /nitro/api/broadcasts?mixin=titles
-  qs=qs+'&mixin=titles';
-  return qs;
-},
-fBroadcastsAuthority : function fBroadcastsAuthority(qs,value){
-  // filter for subset of broadcasts that have given authority
-  // type = string
-  qs=qs+'&authority='+value;
-  return qs;
-},
-fBroadcastsDescendantsOf : function fBroadcastsDescendantsOf(qs,value){
-  // filter for subset of broadcasts that are descendants of the given programme PID
-  // type = PID
-  qs=qs+'&descendants_of='+value;
-  return qs;
-},
-fBroadcastsEndFrom : function fBroadcastsEndFrom(qs,value){
-  // filter for subset of broadcasts that end on or later than the specified datetime
-  // type = datetime
-  qs=qs+'&end_from='+value;
-  return qs;
-},
-fBroadcastsEndTo : function fBroadcastsEndTo(qs,value){
-  // filter for subset of broadcasts that end on or earlier than the specified datetime
-  // type = datetime
-  qs=qs+'&end_to='+value;
-  return qs;
-},
-fBroadcastsFormat : function fBroadcastsFormat(qs,value){
-  // filter for subset of broadcasts that are classified in the given format ID
-  // type = string
-  qs=qs+'&format='+value;
-  return qs;
-},
-fBroadcastsGenre : function fBroadcastsGenre(qs,value){
-  // filter for subset of broadcasts that are classified in the given genre ID
-  // type = string
-  qs=qs+'&genre='+value;
-  return qs;
-},
-fBroadcastsId : function fBroadcastsId(qs,value){
-  // filter for subset of broadcasts that have given identifier
-  // type = string
-  qs=qs+'&id='+value;
-  return qs;
-},
-fBroadcastsItem : function fBroadcastsItem(qs,value){
-  // filter for subset of broadcasts with the given item performed on it
-  // type = PID
-  qs=qs+'&item='+value;
-  return qs;
-},
-fBroadcastsPage : function fBroadcastsPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fBroadcastsPageSize : function fBroadcastsPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fBroadcastsPeople : function fBroadcastsPeople(qs,value){
-  // filter for subset of broadcasts that have given contributor
-  // type = string
-  qs=qs+'&people='+value;
-  return qs;
-},
-fBroadcastsPid : function fBroadcastsPid(qs,value){
-  // filter for subset of broadcasts having given PID
-  // type = PID
-  qs=qs+'&pid='+value;
-  return qs;
-},
-fBroadcastsQ : function fBroadcastsQ(qs,value){
-  // filter for subset of broadcasts matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-fBroadcastsScheduleDay : function fBroadcastsScheduleDay(qs,value){
-  // filter for subset of broadcasts that start on the specified day (BBC time)
-  // type = date
-  qs=qs+'&schedule_day='+value;
-  return qs;
-},
-fBroadcastsScheduleDayFrom : function fBroadcastsScheduleDayFrom(qs,value){
-  // filter for subset of broadcasts that start on or after the specified day (BBC time)
-  // type = date
-  qs=qs+'&schedule_day_from='+value;
-  return qs;
-},
-fBroadcastsScheduleDayTo : function fBroadcastsScheduleDayTo(qs,value){
-  // filter for subset of broadcasts that start on or before the specified day (BBC time)
-  // type = date
-  qs=qs+'&schedule_day_to='+value;
-  return qs;
-},
-fBroadcastsServiceMasterBrand : function fBroadcastsServiceMasterBrand(qs,value){
-  // filter for subset of broadcasts with given service master brand
-  // type = string
-  qs=qs+'&service_master_brand='+value;
-  return qs;
-},
-fBroadcastsSid : function fBroadcastsSid(qs,value){
-  // filter for subset of broadcasts that are on the specified linear service
-  // type = string
-  qs=qs+'&sid='+value;
-  return qs;
-},
-fBroadcastsStartFrom : function fBroadcastsStartFrom(qs,value){
-  // filter for subset of broadcasts that start on or later than the specified datetime
-  // type = datetime
-  qs=qs+'&start_from='+value;
-  return qs;
-},
-fBroadcastsStartTo : function fBroadcastsStartTo(qs,value){
-  // filter for subset of broadcasts that start on or earlier than the specified datetime
-  // type = datetime
-  qs=qs+'&start_to='+value;
-  return qs;
-},
-fBroadcastsVersion : function fBroadcastsVersion(qs,value){
-  // filter for subset of broadcasts with given PID as their parent version
-  // type = PID
-  qs=qs+'&version='+value;
-  return qs;
-},
-sGroupsPidDescending : function sGroupsPidDescending(qs){
-  // sort alphabetically by PID
-  // /nitro/api/groups?sort=pid&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=pid&sort-direction=descending';
-  return qs;
-},
-mGroupsAlternateImages : function mGroupsAlternateImages(qs){
-  // mixin to return the alternate images for a group
-  // /nitro/api/groups?mixin=alternate_images
-  qs=qs+'&mixin=alternate_images';
-  return qs;
-},
-mGroupsGroupFor : function mGroupsGroupFor(qs){
-  // mixin to return links to programme entities that group belongs to
-  // /nitro/api/groups?mixin=group_for
-  qs=qs+'&mixin=group_for';
-  return qs;
-},
-mGroupsImages : function mGroupsImages(qs){
-  // mixin to add image information for a group
-  // /nitro/api/groups?mixin=images
-  qs=qs+'&mixin=images';
-  return qs;
-},
-mGroupsRelatedLinks : function mGroupsRelatedLinks(qs){
-  // mixin to return related links for the group
-  // /nitro/api/groups?mixin=related_links
-  qs=qs+'&mixin=related_links';
-  return qs;
-},
-fGroupsForDescendantsOf : function fGroupsForDescendantsOf(qs,value){
-  // filter for groups related to given programme or its descendants
-  // type = PID
-  qs=qs+'&for_descendants_of='+value;
-  return qs;
-},
-fGroupsForProgramme : function fGroupsForProgramme(qs,value){
-  // filter for subset of groups directly related to a given programme
-  // type = PID
-  qs=qs+'&for_programme='+value;
-  return qs;
-},
-fGroupsGroup : function fGroupsGroup(qs,value){
-  // filter for subset of groups which belong to the given group pid
-  // type = PID
-  qs=qs+'&group='+value;
-  return qs;
-},
-fGroupsGroupType : function fGroupsGroupType(qs,value){
-  // filter for subset of groups that have the given group type
-  // type = string
-  // filter for groups that are collections
-  // /nitro/api/groups?group_type=collection
-  // filter for groups that are franchises
-  // /nitro/api/groups?group_type=franchise
-  // filter for groups that are galleries
-  // /nitro/api/groups?group_type=gallery
-  // filter for groups that are seasons
-  // /nitro/api/groups?group_type=season
-  qs=qs+'&group_type='+value;
-  return qs;
-},
-fGroupsMember : function fGroupsMember(qs,value){
-  // filter for subset of groups which contain an entity with the given pid as a member
-  // type = PID
-  qs=qs+'&member='+value;
-  return qs;
-},
-fGroupsPage : function fGroupsPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fGroupsPageSize : function fGroupsPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fGroupsPartnerId : function fGroupsPartnerId(qs,value){
-  // filter for groups by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fGroupsPartnerPid : function fGroupsPartnerPid(qs,value){
-  // filter for groups by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fGroupsPid : function fGroupsPid(qs,value){
-  // filter for subset of seasons, collections, galleries or franchises having given PID
-  // type = PID
-  qs=qs+'&pid='+value;
-  return qs;
-},
-fGroupsQ : function fGroupsQ(qs,value){
-  // filter for subset of groups matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-sImagesGroupPositionAscending : function sImagesGroupPositionAscending(qs){
-  // sort numerically by position, ascending only
-  // /nitro/api/images?sort=group_position&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=group_position&sort-direction=ascending';
-  return qs;
-},
-sImagesPidAscending : function sImagesPidAscending(qs){
-  // sort alphabetically by PID
-  // /nitro/api/images?sort=pid&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=pid&sort-direction=ascending';
-  return qs;
-},
-sImagesPidDescending : function sImagesPidDescending(qs){
-  // sort alphabetically by PID
-  // /nitro/api/images?sort=pid&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=pid&sort-direction=descending';
-  return qs;
-},
-fImagesGroup : function fImagesGroup(qs,value){
-  // filter for images belonging to the given group (i.e. Gallery)
-  // type = PID
-  qs=qs+'&group='+value;
-  return qs;
-},
-fImagesImageType : function fImagesImageType(qs,value){
-  // filter for images by type
-  // type = string
-  // select standard type images
-  // /nitro/api/images?image_type=standard
-  // select podcast type images
-  // /nitro/api/images?image_type=podcast
-  // select store type images
-  // /nitro/api/images?image_type=store
-  // select portrait type images
-  // /nitro/api/images?image_type=portrait
-  // select letterbox type images
-  // /nitro/api/images?image_type=letterbox
-  qs=qs+'&image_type='+value;
-  return qs;
-},
-fImagesIsAlternateImageFor : function fImagesIsAlternateImageFor(qs,value){
-  // filter for alternate images by entity PID
-  // type = PID
-  qs=qs+'&is_alternate_image_for='+value;
-  return qs;
-},
-fImagesIsImageFor : function fImagesIsImageFor(qs,value){
-  // filter for images by entity PID
-  // type = PID
-  qs=qs+'&is_image_for='+value;
-  return qs;
-},
-fImagesPage : function fImagesPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fImagesPageSize : function fImagesPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fImagesPartnerId : function fImagesPartnerId(qs,value){
-  // filter for images by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fImagesPartnerPid : function fImagesPartnerPid(qs,value){
-  // filter for images by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fImagesPid : function fImagesPid(qs,value){
-  // filter for subset of images having given PID
-  // type = PID
-  qs=qs+'&pid='+value;
-  return qs;
-},
-fImagesQ : function fImagesQ(qs,value){
-  // filter for subset of images matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-sItemsPidDescending : function sItemsPidDescending(qs){
-  // sort by pid, descending
-  // /nitro/api/items?sort=pid&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=pid&sort-direction=descending';
-  return qs;
-},
-mItemsContributions : function mItemsContributions(qs){
-  // mixin to return information about contributors to items
-  // /nitro/api/items?mixin=contributions
-  qs=qs+'&mixin=contributions';
-  return qs;
-},
-mItemsImages : function mItemsImages(qs){
-  // mixin to add image information for an item
-  // /nitro/api/items?mixin=images
-  qs=qs+'&mixin=images';
-  return qs;
-},
-mItemsPlayEvent : function mItemsPlayEvent(qs){
-  // mixin to return programme segment events, works in conjunction with programme or segment_event filters
-  qs=qs+'&mixin=play_event';
-  return qs;
-},
-fItemsAuthority : function fItemsAuthority(qs,value){
-  // filter for subset of items that have an ID issued by the given authority
-  // type = string
-  qs=qs+'&authority='+value;
-  return qs;
-},
-fItemsId : function fItemsId(qs,value){
-  // filter for subset of items having given ID
-  // type = ID
-  qs=qs+'&id='+value;
-  return qs;
-},
-fItemsIdType : function fItemsIdType(qs,value){
-  // filter for subset of items that have given an ID of the given type
-  // type = string
-  qs=qs+'&id_type='+value;
-  return qs;
-},
-fItemsItemType : function fItemsItemType(qs,value){
-  // filter for specific type(s) of items
-  // type = string
-  // filter for only chapter items
-  // /nitro/api/items?item_type=chapter
-  // filter for only highlight items
-  // /nitro/api/items?item_type=highlight
-  // filter for only music items
-  // /nitro/api/items?item_type=music
-  // filter for only speech items
-  // /nitro/api/items?item_type=speech
-  // filter for only other items
-  // /nitro/api/items?item_type=other
-  qs=qs+'&item_type='+value;
-  return qs;
-},
-fItemsPage : function fItemsPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fItemsPageSize : function fItemsPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fItemsPartnerId : function fItemsPartnerId(qs,value){
-  // filter for items by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fItemsPartnerPid : function fItemsPartnerPid(qs,value){
-  // filter for items by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fItemsPeople : function fItemsPeople(qs,value){
-  // filter for subset of items that have specified person involved
-  // type = string
-  qs=qs+'&people='+value;
-  return qs;
-},
-fItemsPid : function fItemsPid(qs,value){
-  // filter for subset of items matching one of the given PIDs
-  // type = PID
-  qs=qs+'&pid='+value;
-  return qs;
-},
-fItemsProgramme : function fItemsProgramme(qs,value){
-  // filter for subset of items that are part of the given programme
-  // type = PID
-  qs=qs+'&programme='+value;
-  return qs;
-},
-fItemsQ : function fItemsQ(qs,value){
-  // filter for subset of items matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-fItemsSegmentEvent : function fItemsSegmentEvent(qs,value){
-  // filter for item with the given segment_event
-  // type = string
-  qs=qs+'&segment_event='+value;
-  return qs;
-},
-sMasterbrandsMidAscending : function sMasterbrandsMidAscending(qs){
-  // sort by mid, ascending
-  // /nitro/api/master_brands?sort=mid&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=mid&sort-direction=ascending';
-  return qs;
-},
-mMasterbrandsImages : function mMasterbrandsImages(qs){
-  // mixin to add image information for a masterbrand
-  // /nitro/api/master_brands?mixin=images
-  qs=qs+'&mixin=images';
-  return qs;
-},
-fMasterbrandsMid : function fMasterbrandsMid(qs,value){
-  // filter for subset of masterbrands that have given identifier
-  // type = string
-  qs=qs+'&mid='+value;
-  return qs;
-},
-fMasterbrandsPage : function fMasterbrandsPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fMasterbrandsPageSize : function fMasterbrandsPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fMasterbrandsPartnerId : function fMasterbrandsPartnerId(qs,value){
-  // filter for masterbrands by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fMasterbrandsPartnerPid : function fMasterbrandsPartnerPid(qs,value){
-  // filter for masterbrands by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fMasterbrandsQ : function fMasterbrandsQ(qs,value){
-  // filter for subset of masterbrands matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-fPeopleAuthority : function fPeopleAuthority(qs,value){
-  // filter for subset of people that have an ID issued by the given authority
-  // type = string
-  qs=qs+'&authority='+value;
-  return qs;
-},
-fPeopleHasExternalId : function fPeopleHasExternalId(qs,value){
-  // filter for people who have an external identifier
-  // type = boolean
-  // filter for people who have an external identifier
-  // /nitro/api/people?has_external_id=true
-  // filter for people who do not have an external identifier
-  // /nitro/api/people?has_external_id=false
-  qs=qs+'&has_external_id='+value;
-  return qs;
-},
-fPeopleId : function fPeopleId(qs,value){
-  // filter for subset of people having given ID
-  // type = ID
-  qs=qs+'&id='+value;
-  return qs;
-},
-fPeopleIdType : function fPeopleIdType(qs,value){
-  // filter for subset of people that have given an ID of the given type
-  // type = string
-  qs=qs+'&id_type='+value;
-  return qs;
-},
-fPeoplePage : function fPeoplePage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fPeoplePageSize : function fPeoplePageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fPeoplePartnerId : function fPeoplePartnerId(qs,value){
-  // filter for people by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fPeoplePartnerPid : function fPeoplePartnerPid(qs,value){
-  // filter for people by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fPeoplePid : function fPeoplePid(qs,value){
-  // filter for subset of people having given PID
-  // type = PID
-  qs=qs+'&pid='+value;
-  return qs;
-},
-fPeopleProgramme : function fPeopleProgramme(qs,value){
-  // filter for subset of people that have contributed to the given programme pid
-  // type = string
-  qs=qs+'&programme='+value;
-  return qs;
-},
-fPeopleQ : function fPeopleQ(qs,value){
-  // filter for subset of people matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-fPipsPage : function fPipsPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fPipsPageSize : function fPipsPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fPipsQ : function fPipsQ(qs,value){
-  // filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-mPromotionsRelatedLinks : function mPromotionsRelatedLinks(qs){
-  // mixin to return information about related links to a promotion
-  // /nitro/api/promotions?mixin=related_links
-  qs=qs+'&mixin=related_links';
-  return qs;
-},
-fPromotionsContext : function fPromotionsContext(qs,value){
-  // filter for subset of promotions belonging to a given context
-  // type = PID
-  qs=qs+'&context='+value;
-  return qs;
-},
-fPromotionsPage : function fPromotionsPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fPromotionsPageSize : function fPromotionsPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fPromotionsPartnerId : function fPromotionsPartnerId(qs,value){
-  // filter for promotions by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fPromotionsPartnerPid : function fPromotionsPartnerPid(qs,value){
-  // filter for promotions by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fPromotionsPid : function fPromotionsPid(qs,value){
-  // filter for subset of promotions having given PID
-  // type = PID
-  qs=qs+'&pid='+value;
-  return qs;
-},
-fPromotionsPromotedBy : function fPromotionsPromotedBy(qs,value){
-  // filter for subset of promotions having given promoted by
-  // type = string
-  qs=qs+'&promoted_by='+value;
-  return qs;
-},
-fPromotionsPromotedFor : function fPromotionsPromotedFor(qs,value){
-  // filter for subset of promotions having given promoted for
-  // type = string
-  qs=qs+'&promoted_for='+value;
-  return qs;
-},
-fPromotionsQ : function fPromotionsQ(qs,value){
-  // filter for subset of promotions matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-fPromotionsStatus : function fPromotionsStatus(qs,value){
-  // filter for subset of promotions with status
-  // type = string
-  // filter current promotions
-  // /nitro/api/promotions?status=current
-  qs=qs+'&status='+value;
-  return qs;
-},
-sSchedulesStartDateAscending : function sSchedulesStartDateAscending(qs){
-  // sort chronologically by scheduled start time/date, ascending
-  // /nitro/api/schedules?sort=start_date&sort_direction=ascending
-  // isDefault
-  qs=qs+'&sort=start_date&sort-direction=ascending';
-  return qs;
-},
-sSchedulesStartDateDescending : function sSchedulesStartDateDescending(qs){
-  // sort chronologically by scheduled start time/date, ascending
-  // /nitro/api/schedules?sort=start_date&sort_direction=descending
-  // isDefault
-  qs=qs+'&sort=start_date&sort-direction=descending';
-  return qs;
-},
-mSchedulesAncestorTitles : function mSchedulesAncestorTitles(qs){
-  // return ancestor programme titles
-  // /nitro/api/schedules?mixin=ancestor_titles
-  qs=qs+'&mixin=ancestor_titles';
-  return qs;
-},
-mSchedulesImages : function mSchedulesImages(qs){
-  // mixin to add image information for broadcasts and webcasts
-  // /nitro/api/schedules?mixin=images
-  qs=qs+'&mixin=images';
-  return qs;
-},
-fSchedulesAuthority : function fSchedulesAuthority(qs,value){
-  // filter for subset of broadcasts and webcasts that have given authority
-  // type = string
-  qs=qs+'&authority='+value;
-  return qs;
-},
-fSchedulesDescendantsOf : function fSchedulesDescendantsOf(qs,value){
-  // filter for subset of broadcasts and webcasts that are descendants of the given programme PID
-  // type = PID
-  qs=qs+'&descendants_of='+value;
-  return qs;
-},
-fSchedulesEndFrom : function fSchedulesEndFrom(qs,value){
-  // filter for subset of broadcasts and webcasts that end on or later than the specified datetime
-  // type = datetime
-  qs=qs+'&end_from='+value;
-  return qs;
-},
-fSchedulesEndTo : function fSchedulesEndTo(qs,value){
-  // filter for subset of broadcasts and webcasts that end on or earlier than the specified datetime
-  // type = datetime
-  qs=qs+'&end_to='+value;
-  return qs;
-},
-fSchedulesFormat : function fSchedulesFormat(qs,value){
-  // filter for subset of broadcasts and webcasts that are classified in the given format ID
-  // type = string
-  qs=qs+'&format='+value;
-  return qs;
-},
-fSchedulesGenre : function fSchedulesGenre(qs,value){
-  // filter for subset of broadcasts and webcasts that are classified in the given genre ID
-  // type = string
-  qs=qs+'&genre='+value;
-  return qs;
-},
-fSchedulesGroup : function fSchedulesGroup(qs,value){
-  // filter for subset of broadcasts and webcasts that have programmes in the given group
-  // type = PID
-  qs=qs+'&group='+value;
-  return qs;
-},
-fSchedulesId : function fSchedulesId(qs,value){
-  // filter for subset of broadcasts and webcasts that have given identifier
-  // type = string
-  qs=qs+'&id='+value;
-  return qs;
-},
-fSchedulesIdType : function fSchedulesIdType(qs,value){
-  // filter for subset of broadcasts and webcasts that have given id type
-  // type = string
-  qs=qs+'&id_type='+value;
-  return qs;
-},
-fSchedulesItem : function fSchedulesItem(qs,value){
-  // filter for subset of broadcasts and webcasts with the given item performed on it
-  // type = PID
-  qs=qs+'&item='+value;
-  return qs;
-},
-fSchedulesPage : function fSchedulesPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fSchedulesPageSize : function fSchedulesPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fSchedulesPartnerId : function fSchedulesPartnerId(qs,value){
-  // filter for broadcasts and webcasts by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fSchedulesPartnerPid : function fSchedulesPartnerPid(qs,value){
-  // filter for broadcasts and webcasts by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fSchedulesPeople : function fSchedulesPeople(qs,value){
-  // filter for subset of broadcasts and webcasts that have given contributor
-  // type = string
-  qs=qs+'&people='+value;
-  return qs;
-},
-fSchedulesPid : function fSchedulesPid(qs,value){
-  // filter for subset of broadcasts and webcasts having given PID
-  // type = PID
-  qs=qs+'&pid='+value;
-  return qs;
-},
-fSchedulesQ : function fSchedulesQ(qs,value){
-  // filter for subset of broadcasts and webcasts matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-fSchedulesRepeat : function fSchedulesRepeat(qs,value){
-  // filter to show either only repeats or non-repeats
-  // type = boolean
-  qs=qs+'&repeat='+value;
-  return qs;
-},
-fSchedulesScheduleDay : function fSchedulesScheduleDay(qs,value){
-  // filter for subset of broadcasts and webcasts that start on the specified day (BBC time)
-  // type = date
-  qs=qs+'&schedule_day='+value;
-  return qs;
-},
-fSchedulesScheduleDayFrom : function fSchedulesScheduleDayFrom(qs,value){
-  // filter for subset of broadcasts and webcasts that start on or after the specified day (BBC time)
-  // type = date
-  qs=qs+'&schedule_day_from='+value;
-  return qs;
-},
-fSchedulesScheduleDayTo : function fSchedulesScheduleDayTo(qs,value){
-  // filter for subset of broadcasts and webcasts that start on or before the specified day (BBC time)
-  // type = date
-  qs=qs+'&schedule_day_to='+value;
-  return qs;
-},
-fSchedulesServiceMasterBrand : function fSchedulesServiceMasterBrand(qs,value){
-  // filter for subset of broadcasts and webcasts with given service master brand
-  // type = string
-  qs=qs+'&service_master_brand='+value;
-  return qs;
-},
-fSchedulesSid : function fSchedulesSid(qs,value){
-  // filter for subset of broadcasts and webcasts that are on the specified linear service
-  // type = string
-  qs=qs+'&sid='+value;
-  return qs;
-},
-fSchedulesStartFrom : function fSchedulesStartFrom(qs,value){
-  // filter for subset of broadcasts and webcasts that start on or later than the specified datetime
-  // type = datetime
-  qs=qs+'&start_from='+value;
-  return qs;
-},
-fSchedulesStartTo : function fSchedulesStartTo(qs,value){
-  // filter for subset of broadcasts and webcasts that start on or earlier than the specified datetime
-  // type = datetime
-  qs=qs+'&start_to='+value;
-  return qs;
-},
-fSchedulesVersion : function fSchedulesVersion(qs,value){
-  // filter for subset of broadcasts and webcasts with given PID as their parent version
-  // type = PID
-  qs=qs+'&version='+value;
-  return qs;
-},
-fServicesEndFrom : function fServicesEndFrom(qs,value){
-  // Return services that end on or later than the specified datetime
-  // type = datetime
-  qs=qs+'&end_from='+value;
-  return qs;
-},
-fServicesEndTo : function fServicesEndTo(qs,value){
-  // filter for subset of broadcasts that end on or earlier than the specified datetime
-  // type = datetime
-  qs=qs+'&end_to='+value;
-  return qs;
-},
-fServicesMid : function fServicesMid(qs,value){
-  // filter for services by masterbrand MID
-  // type = string
-  qs=qs+'&mid='+value;
-  return qs;
-},
-fServicesPage : function fServicesPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fServicesPageSize : function fServicesPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fServicesPartnerId : function fServicesPartnerId(qs,value){
-  // filter for services by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fServicesPartnerPid : function fServicesPartnerPid(qs,value){
-  // filter for services by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fServicesQ : function fServicesQ(qs,value){
-  // filter for subset of services matching supplied keyword/phrase (boolean operators permitted)
-  // type = string
-  qs=qs+'&q='+value;
-  return qs;
-},
-fServicesServiceType : function fServicesServiceType(qs,value){
-  // filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio
-  // type = string
-  // Return only TV services
-  // /nitro/api/services?service_type=TV
-  // Return only Local Radio services
-  // /nitro/api/services?service_type=Local+Radio
-  // Return only National Radio services
-  // /nitro/api/services?service_type=National+Radio
-  // Return only Regional Radio services
-  // /nitro/api/services?service_type=Regional+Radio
-  // Return only Interactive services
-  // /nitro/api/services?service_type=Interactive
-  qs=qs+'&service_type='+value;
-  return qs;
-},
-fServicesSid : function fServicesSid(qs,value){
-  // filter for specified linear service
-  // type = string
-  qs=qs+'&sid='+value;
-  return qs;
-},
-fServicesStartFrom : function fServicesStartFrom(qs,value){
-  // Return services that start on or later than the specified datetime
-  // type = datetime
-  qs=qs+'&start_from='+value;
-  return qs;
-},
-fServicesStartTo : function fServicesStartTo(qs,value){
-  // Return services that start earlier than the specified datetime
-  // type = datetime
-  qs=qs+'&start_to='+value;
-  return qs;
-},
-fVersionsAvailability : function fVersionsAvailability(qs,value){
-  // filter for subset of versions that have availability
-  // type = string
-  // filter for versions that are available
-  // /nitro/api/versions?availability=available
-  qs=qs+'&availability='+value;
-  return qs;
-},
-fVersionsDescendantsOf : function fVersionsDescendantsOf(qs,value){
-  // filter for subset of versions having given programme PID
-  // type = PID
-  qs=qs+'&descendants_of='+value;
-  return qs;
-},
-fVersionsMediaSet : function fVersionsMediaSet(qs,value){
-  // filter for subset of versions with availability in the given media set
-  // type = string
-  qs=qs+'&media_set='+value;
-  return qs;
-},
-fVersionsPage : function fVersionsPage(qs,value){
-  // which page of results to return
-  // type = integer
-  // default = 1
-  // min_value = 1
-  qs=qs+'&page='+value;
-  return qs;
-},
-fVersionsPageSize : function fVersionsPageSize(qs,value){
-  // number of results in each page
-  // type = integer
-  // default = 10
-  // min_value = 0
-  // max_value = 300
-  qs=qs+'&page_size='+value;
-  return qs;
-},
-fVersionsPartnerId : function fVersionsPartnerId(qs,value){
-  // filter for versions by partner ID
-  // type = PID
-  qs=qs+'&partner_id='+value;
-  return qs;
-},
-fVersionsPartnerPid : function fVersionsPartnerPid(qs,value){
-  // filter for versions by partner PID
-  // type = PID
-  // default = s0000001
-  qs=qs+'&partner_pid='+value;
-  return qs;
-},
-fVersionsPid : function fVersionsPid(qs,value){
-  // filter for subset of versions having given PID
-  // type = PID
-  qs=qs+'&pid='+value;
-  return qs;
-},
-nop : function nop() {}
+/**
+* sort numerically by position in group, ascending
+* /nitro/api/programmes?sort=group_position&sort_direction=ascending
+* isDefault
+*/
+sProgrammesGroupPositionAscending : sProgrammesGroupPositionAscending,
+/**
+* sort alphabetically by PID, descending
+* /nitro/api/programmes?sort=pid&sort_direction=ascending
+* isDefault
+*/
+sProgrammesPidAscending : sProgrammesPidAscending,
+/**
+* sort alphabetically by PID, descending
+* /nitro/api/programmes?sort=pid&sort_direction=descending
+* isDefault
+*/
+sProgrammesPidDescending : sProgrammesPidDescending,
+/**
+* sort numerically by position, ascending
+* /nitro/api/programmes?sort=position&sort_direction=ascending
+* isDefault
+*/
+sProgrammesPositionAscending : sProgrammesPositionAscending,
+/**
+* sort numerically by position, ascending
+* /nitro/api/programmes?sort=position&sort_direction=descending
+* isDefault
+*/
+sProgrammesPositionDescending : sProgrammesPositionDescending,
+/**
+* sort by promotion rank, ascending
+* note that this sort has no sort-direction
+*/
+sProgrammesPromotion : sProgrammesPromotion,
+/**
+* sort chronologically by release date, descending
+* /nitro/api/programmes?sort=release_date&sort_direction=ascending
+* isDefault
+*/
+sProgrammesReleaseDateAscending : sProgrammesReleaseDateAscending,
+/**
+* sort chronologically by release date, descending
+* /nitro/api/programmes?sort=release_date&sort_direction=descending
+* isDefault
+*/
+sProgrammesReleaseDateDescending : sProgrammesReleaseDateDescending,
+/**
+* sort by weighting of search term (use with q parameter)
+* note that this sort has no sort-direction
+*/
+sProgrammesRelevance : sProgrammesRelevance,
+/**
+* sort chronologically by scheduled start time/date, ascending
+* /nitro/api/programmes?sort=scheduled_start&sort_direction=ascending
+* isDefault
+*/
+sProgrammesScheduledStartAscending : sProgrammesScheduledStartAscending,
+/**
+* sort chronologically by scheduled start time/date, ascending
+* /nitro/api/programmes?sort=scheduled_start&sort_direction=descending
+* isDefault
+*/
+sProgrammesScheduledStartDescending : sProgrammesScheduledStartDescending,
+/**
+* sort alphabetically by title, ascending
+* /nitro/api/programmes?sort=strict_title&sort_direction=ascending
+* isDefault
+*/
+sProgrammesStrictTitleAscending : sProgrammesStrictTitleAscending,
+/**
+* sort alphabetically by title, ascending
+* /nitro/api/programmes?sort=strict_title&sort_direction=descending
+* isDefault
+*/
+sProgrammesStrictTitleDescending : sProgrammesStrictTitleDescending,
+/**
+* sort by title librarian style (ignoring leading 'The', 'A', etc), ascending
+* /nitro/api/programmes?sort=title&sort_direction=ascending
+* isDefault
+*/
+sProgrammesTitleAscending : sProgrammesTitleAscending,
+/**
+* sort by title librarian style (ignoring leading 'The', 'A', etc), ascending
+* /nitro/api/programmes?sort=title&sort_direction=descending
+* isDefault
+*/
+sProgrammesTitleDescending : sProgrammesTitleDescending,
+/**
+* sort by root pid and then preorder tree sort. Requires entities to have release date.
+* /nitro/api/programmes?sort=tree&sort_direction=ascending
+* isDefault
+*/
+sProgrammesTreeAscending : sProgrammesTreeAscending,
+/**
+* sort by root pid and then preorder tree sort. Requires entities to have release date.
+* /nitro/api/programmes?sort=tree&sort_direction=descending
+* isDefault
+*/
+sProgrammesTreeDescending : sProgrammesTreeDescending,
+/**
+* sort numerically by number of views (most popular first - faster most_popular)
+* /nitro/api/programmes?sort=views&sort_direction=ascending
+* isDefault
+*/
+sProgrammesViewsAscending : sProgrammesViewsAscending,
+/**
+* sort numerically by number of views (most popular first - faster most_popular)
+* /nitro/api/programmes?sort=views&sort_direction=descending
+* isDefault
+*/
+sProgrammesViewsDescending : sProgrammesViewsDescending,
+/**
+* mixin to return the alternate images for a programme
+*/
+mProgrammesAlternateImages : mProgrammesAlternateImages,
+/**
+* mixin to return ancestor programme titles
+* /nitro/api/programmes?mixin=ancestor_titles
+*/
+mProgrammesAncestorTitles : mProgrammesAncestorTitles,
+/**
+* mixin to return programme availability information
+*/
+mProgrammesAvailability : mProgrammesAvailability,
+/**
+* mixin to return information about contributors to a programme
+* /nitro/api/programmes?mixin=contributions
+*/
+mProgrammesContributions : mProgrammesContributions,
+/**
+* mixin to return original version duration in programme concept entities
+* /nitro/api/programmes?mixin=duration
+*/
+mProgrammesDuration : mProgrammesDuration,
+/**
+* mixin to return list of genre groupings
+* /nitro/api/programmes?mixin=genre_groupings
+*/
+mProgrammesGenreGroupings : mProgrammesGenreGroupings,
+/**
+* mixin to add image information for a programme
+* /nitro/api/programmes?mixin=images
+*/
+mProgrammesImages : mProgrammesImages,
+/**
+* mixin to add embeddable information for a programme
+* /nitro/api/programmes?mixin=is_embeddable
+*/
+mProgrammesIsEmbeddable : mProgrammesIsEmbeddable,
+/**
+* mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)
+*/
+mProgrammesPreviousNext : mProgrammesPreviousNext,
+/**
+* mixin to return information about related links to a programme
+* /nitro/api/programmes?mixin=related_links
+*/
+mProgrammesRelatedLinks : mProgrammesRelatedLinks,
+/**
+* mixin to return information about programmes that are currently available
+* /nitro/api/programmes?mixin=versions_availability
+*/
+mProgrammesVersionsAvailability : mProgrammesVersionsAvailability,
+/**
+* filter for subset of programmes that are audio-described
+* type = boolean
+* option: true, filter for programmes that are audio-described
+* /nitro/api/programmes?audio_described=true
+* option: false, filter for programmes that are not audio-described
+* /nitro/api/programmes?audio_described=false
+*/
+fProgrammesAudioDescribed : fProgrammesAudioDescribed,
+/**
+* filter for subset of programmes that have availability
+* type = string
+* option: available, filter for programmes that are available
+* /nitro/api/programmes?availability=available
+* option: pending, filter for programmes that are expected to become available imminently
+* /nitro/api/programmes?availability=pending
+*/
+fProgrammesAvailability : fProgrammesAvailability,
+/**
+* additional filter when availability=available
+* type = string
+* option: episode, filter for programmes with available episodes
+* /nitro/api/programmes?availability_entity_type=episode
+* option: clip, filter for programmes with available clips
+* /nitro/api/programmes?availability_entity_type=clip
+*/
+fProgrammesAvailabilityEntityType : fProgrammesAvailabilityEntityType,
+/**
+* filter for subset of programmes that have PID as immediate parent
+* type = PID
+*/
+fProgrammesChildrenOf : fProgrammesChildrenOf,
+/**
+* filter for subset of programmes that have PID as ancestor
+* type = PID
+*/
+fProgrammesDescendantsOf : fProgrammesDescendantsOf,
+/**
+* filter for subset of programmes that have given duration
+* type = string
+* option: short, filter for programmes that have short duration (< 5m)
+* /nitro/api/programmes?duration=short
+* option: medium, filter for programmes that have medium duration (5m - 30m)
+* /nitro/api/programmes?duration=medium
+* option: long, filter for programmes that have long duration (> 30m)
+* /nitro/api/programmes?duration=long
+*/
+fProgrammesDuration : fProgrammesDuration,
+/**
+* filter for subset of programmes that have given entity type
+* type = string
+* option: brand, filter for programmes that are brands
+* /nitro/api/programmes?entity_type=brand
+* option: series, filter for programmes that are series
+* /nitro/api/programmes?entity_type=series
+* option: episode, filter for programmes that are episodes
+* /nitro/api/programmes?entity_type=episode
+* option: clip, filter for programmes that are clips
+* /nitro/api/programmes?entity_type=clip
+*/
+fProgrammesEntityType : fProgrammesEntityType,
+/**
+* filter for subset of programmes with format
+* type = string
+*/
+fProgrammesFormat : fProgrammesFormat,
+/**
+* filter for subset of programmes with genre
+* type = string
+*/
+fProgrammesGenre : fProgrammesGenre,
+/**
+* filter for subset of programmes which belong to the given group pid
+* type = PID
+*/
+fProgrammesGroup : fProgrammesGroup,
+/**
+* filter for subset of programmes with title beginning with initial letter librarian style (ignoring leading 'The', 'An' (Welsh), etc) 0-9 a-z
+* type = character
+*/
+fProgrammesInitialLetter : fProgrammesInitialLetter,
+/**
+* Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range
+* type = character
+*/
+fProgrammesInitialLetterEnd : fProgrammesInitialLetterEnd,
+/**
+* Programmes with (librarian) titles whose initial letter is equal/after given letter. Use with initial_letter_end for range.
+* type = character
+*/
+fProgrammesInitialLetterStart : fProgrammesInitialLetterStart,
+/**
+* filter for subset of programmes with title beginning with initial letter
+* type = character
+*/
+fProgrammesInitialLetterStrict : fProgrammesInitialLetterStrict,
+/**
+* filter for subset of programmes with linked to versions which have the given item pids
+* type = PID
+*/
+fProgrammesItem : fProgrammesItem,
+/**
+* filter for subset of programmes with master_brand
+* type = string
+*/
+fProgrammesMasterBrand : fProgrammesMasterBrand,
+/**
+* filter for subset of programmes with media set
+* type = string
+*/
+fProgrammesMediaSet : fProgrammesMediaSet,
+/**
+* filter for subset of programmes with media type
+* type = string
+* option: audio, filter for programmes that are audio only
+* /nitro/api/programmes?media_type=audio
+* option: audio_video, filter for programmes that are video only
+* /nitro/api/programmes?media_type=audio_video
+*/
+fProgrammesMediaType : fProgrammesMediaType,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fProgrammesPage : fProgrammesPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fProgrammesPageSize : fProgrammesPageSize,
+/**
+* filter for programmes by partner ID
+* type = PID
+*/
+fProgrammesPartnerId : fProgrammesPartnerId,
+/**
+* filter for programmes by partner PID
+* type = PID
+* default = s0000001
+*/
+fProgrammesPartnerPid : fProgrammesPartnerPid,
+/**
+* filter for subset of programmes with contributions by given people PID
+* type = PID
+*/
+fProgrammesPeople : fProgrammesPeople,
+/**
+* filter for subset of programmes having given PID
+* type = PID
+*/
+fProgrammesPid : fProgrammesPid,
+/**
+* filter for subset of programmes which are promoted for given service
+* type = string
+*/
+fProgrammesPromotedFor : fProgrammesPromotedFor,
+/**
+* filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fProgrammesQ : fProgrammesQ,
+/**
+* filter for subset of programmes that are signed
+* type = string
+* option: exclusive, filter for programmes that are signed
+* /nitro/api/programmes?signed=exclusive
+* option: inclusive, filter for programmes regardless of signedness
+* /nitro/api/programmes?signed=inclusive
+* option: exclude, filter for programmes that are not signed
+* /nitro/api/programmes?signed=exclude
+*/
+fProgrammesSigned : fProgrammesSigned,
+/**
+* filter for subset of programmes with tag
+* type = string
+*/
+fProgrammesTagName : fProgrammesTagName,
+/**
+* filter for subset of programmes with a tag
+* type = string
+*/
+fProgrammesTagScheme : fProgrammesTagScheme,
+/**
+* filter for subset of programmes that are TLEOs
+* type = boolean
+* option: true, filter for programmes that are TLEOs
+* /nitro/api/programmes?tleo=true
+* option: false, filter for programmes that are not TLEOs
+* /nitro/api/programmes?tleo=false
+*/
+fProgrammesTleo : fProgrammesTleo,
+/**
+* filter for subset of programmes with given PID as one of their versions
+* type = PID
+*/
+fProgrammesVersion : fProgrammesVersion,
+/**
+* sort chronologically by scheduled start time/date, ascending
+* /nitro/api/availabilities?sort=scheduled_start&sort_direction=ascending
+* isDefault
+*/
+sAvailabilityScheduledStartAscending : sAvailabilityScheduledStartAscending,
+/**
+* sort chronologically by scheduled start time/date, ascending
+* /nitro/api/availabilities?sort=scheduled_start&sort_direction=descending
+* isDefault
+*/
+sAvailabilityScheduledStartDescending : sAvailabilityScheduledStartDescending,
+/**
+* filter for subset of availabilities
+* type = string
+* option: available, filter for availabilities that are available
+* /nitro/api/availabilities?availability=available
+*/
+fAvailabilityAvailability : fAvailabilityAvailability,
+/**
+* filter for subset of availabilities that have PID as ancestor
+* type = PID
+*/
+fAvailabilityDescendantsOf : fAvailabilityDescendantsOf,
+/**
+* filter for subset of availabilities with media set
+* type = string
+*/
+fAvailabilityMediaSet : fAvailabilityMediaSet,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fAvailabilityPage : fAvailabilityPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fAvailabilityPageSize : fAvailabilityPageSize,
+/**
+* filter for availabilities in given territory
+* type = string
+* option: uk, filter for only UK availabilities
+* /nitro/api/availabilities?territory=uk
+* option: nonuk, filter for only non-UK availabilities
+* /nitro/api/availabilities?territory=nonuk
+* option: world, filter for global availabilities
+* /nitro/api/availabilities?territory=world
+*/
+fAvailabilityTerritory : fAvailabilityTerritory,
+/**
+* sort chronologically by scheduled start time/date, ascending
+* /nitro/api/broadcasts?sort=start_date&sort_direction=ascending
+* isDefault
+*/
+sBroadcastsStartDateAscending : sBroadcastsStartDateAscending,
+/**
+* sort chronologically by scheduled start time/date, ascending
+* /nitro/api/broadcasts?sort=start_date&sort_direction=descending
+* isDefault
+*/
+sBroadcastsStartDateDescending : sBroadcastsStartDateDescending,
+/**
+* return ancestor programme titles
+* /nitro/api/broadcasts?mixin=titles
+*/
+mBroadcastsTitles : mBroadcastsTitles,
+/**
+* filter for subset of broadcasts that have given authority
+* type = string
+*/
+fBroadcastsAuthority : fBroadcastsAuthority,
+/**
+* filter for subset of broadcasts that are descendants of the given programme PID
+* type = PID
+*/
+fBroadcastsDescendantsOf : fBroadcastsDescendantsOf,
+/**
+* filter for subset of broadcasts that end on or later than the specified datetime
+* type = datetime
+*/
+fBroadcastsEndFrom : fBroadcastsEndFrom,
+/**
+* filter for subset of broadcasts that end on or earlier than the specified datetime
+* type = datetime
+*/
+fBroadcastsEndTo : fBroadcastsEndTo,
+/**
+* filter for subset of broadcasts that are classified in the given format ID
+* type = string
+*/
+fBroadcastsFormat : fBroadcastsFormat,
+/**
+* filter for subset of broadcasts that are classified in the given genre ID
+* type = string
+*/
+fBroadcastsGenre : fBroadcastsGenre,
+/**
+* filter for subset of broadcasts that have given identifier
+* type = string
+*/
+fBroadcastsId : fBroadcastsId,
+/**
+* filter for subset of broadcasts with the given item performed on it
+* type = PID
+*/
+fBroadcastsItem : fBroadcastsItem,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fBroadcastsPage : fBroadcastsPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fBroadcastsPageSize : fBroadcastsPageSize,
+/**
+* filter for subset of broadcasts that have given contributor
+* type = string
+*/
+fBroadcastsPeople : fBroadcastsPeople,
+/**
+* filter for subset of broadcasts having given PID
+* type = PID
+*/
+fBroadcastsPid : fBroadcastsPid,
+/**
+* filter for subset of broadcasts matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fBroadcastsQ : fBroadcastsQ,
+/**
+* filter for subset of broadcasts that start on the specified day (BBC time)
+* type = date
+*/
+fBroadcastsScheduleDay : fBroadcastsScheduleDay,
+/**
+* filter for subset of broadcasts that start on or after the specified day (BBC time)
+* type = date
+*/
+fBroadcastsScheduleDayFrom : fBroadcastsScheduleDayFrom,
+/**
+* filter for subset of broadcasts that start on or before the specified day (BBC time)
+* type = date
+*/
+fBroadcastsScheduleDayTo : fBroadcastsScheduleDayTo,
+/**
+* filter for subset of broadcasts with given service master brand
+* type = string
+*/
+fBroadcastsServiceMasterBrand : fBroadcastsServiceMasterBrand,
+/**
+* filter for subset of broadcasts that are on the specified linear service
+* type = string
+*/
+fBroadcastsSid : fBroadcastsSid,
+/**
+* filter for subset of broadcasts that start on or later than the specified datetime
+* type = datetime
+*/
+fBroadcastsStartFrom : fBroadcastsStartFrom,
+/**
+* filter for subset of broadcasts that start on or earlier than the specified datetime
+* type = datetime
+*/
+fBroadcastsStartTo : fBroadcastsStartTo,
+/**
+* filter for subset of broadcasts with given PID as their parent version
+* type = PID
+*/
+fBroadcastsVersion : fBroadcastsVersion,
+/**
+* sort alphabetically by PID
+* /nitro/api/groups?sort=pid&sort_direction=descending
+* isDefault
+*/
+sGroupsPidDescending : sGroupsPidDescending,
+/**
+* mixin to return the alternate images for a group
+* /nitro/api/groups?mixin=alternate_images
+*/
+mGroupsAlternateImages : mGroupsAlternateImages,
+/**
+* mixin to return links to programme entities that group belongs to
+* /nitro/api/groups?mixin=group_for
+*/
+mGroupsGroupFor : mGroupsGroupFor,
+/**
+* mixin to add image information for a group
+* /nitro/api/groups?mixin=images
+*/
+mGroupsImages : mGroupsImages,
+/**
+* mixin to return related links for the group
+* /nitro/api/groups?mixin=related_links
+*/
+mGroupsRelatedLinks : mGroupsRelatedLinks,
+/**
+* filter for groups related to given programme or its descendants
+* type = PID
+*/
+fGroupsForDescendantsOf : fGroupsForDescendantsOf,
+/**
+* filter for subset of groups directly related to a given programme
+* type = PID
+*/
+fGroupsForProgramme : fGroupsForProgramme,
+/**
+* filter for subset of groups which belong to the given group pid
+* type = PID
+*/
+fGroupsGroup : fGroupsGroup,
+/**
+* filter for subset of groups that have the given group type
+* type = string
+* option: collection, filter for groups that are collections
+* /nitro/api/groups?group_type=collection
+* option: franchise, filter for groups that are franchises
+* /nitro/api/groups?group_type=franchise
+* option: gallery, filter for groups that are galleries
+* /nitro/api/groups?group_type=gallery
+* option: season, filter for groups that are seasons
+* /nitro/api/groups?group_type=season
+*/
+fGroupsGroupType : fGroupsGroupType,
+/**
+* filter for subset of groups which contain an entity with the given pid as a member
+* type = PID
+*/
+fGroupsMember : fGroupsMember,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fGroupsPage : fGroupsPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fGroupsPageSize : fGroupsPageSize,
+/**
+* filter for groups by partner ID
+* type = PID
+*/
+fGroupsPartnerId : fGroupsPartnerId,
+/**
+* filter for groups by partner PID
+* type = PID
+* default = s0000001
+*/
+fGroupsPartnerPid : fGroupsPartnerPid,
+/**
+* filter for subset of seasons, collections, galleries or franchises having given PID
+* type = PID
+*/
+fGroupsPid : fGroupsPid,
+/**
+* filter for subset of groups matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fGroupsQ : fGroupsQ,
+/**
+* sort numerically by position, ascending only
+* /nitro/api/images?sort=group_position&sort_direction=ascending
+* isDefault
+*/
+sImagesGroupPositionAscending : sImagesGroupPositionAscending,
+/**
+* sort alphabetically by PID
+* /nitro/api/images?sort=pid&sort_direction=ascending
+* isDefault
+*/
+sImagesPidAscending : sImagesPidAscending,
+/**
+* sort alphabetically by PID
+* /nitro/api/images?sort=pid&sort_direction=descending
+* isDefault
+*/
+sImagesPidDescending : sImagesPidDescending,
+/**
+* filter for images belonging to the given group (i.e. Gallery)
+* type = PID
+*/
+fImagesGroup : fImagesGroup,
+/**
+* filter for images by type
+* type = string
+* option: standard, select standard type images
+* /nitro/api/images?image_type=standard
+* option: podcast, select podcast type images
+* /nitro/api/images?image_type=podcast
+* option: store, select store type images
+* /nitro/api/images?image_type=store
+* option: portrait, select portrait type images
+* /nitro/api/images?image_type=portrait
+* option: letterbox, select letterbox type images
+* /nitro/api/images?image_type=letterbox
+*/
+fImagesImageType : fImagesImageType,
+/**
+* filter for alternate images by entity PID
+* type = PID
+*/
+fImagesIsAlternateImageFor : fImagesIsAlternateImageFor,
+/**
+* filter for images by entity PID
+* type = PID
+*/
+fImagesIsImageFor : fImagesIsImageFor,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fImagesPage : fImagesPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fImagesPageSize : fImagesPageSize,
+/**
+* filter for images by partner ID
+* type = PID
+*/
+fImagesPartnerId : fImagesPartnerId,
+/**
+* filter for images by partner PID
+* type = PID
+* default = s0000001
+*/
+fImagesPartnerPid : fImagesPartnerPid,
+/**
+* filter for subset of images having given PID
+* type = PID
+*/
+fImagesPid : fImagesPid,
+/**
+* filter for subset of images matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fImagesQ : fImagesQ,
+/**
+* sort by pid, descending
+* /nitro/api/items?sort=pid&sort_direction=descending
+* isDefault
+*/
+sItemsPidDescending : sItemsPidDescending,
+/**
+* mixin to return information about contributors to items
+* /nitro/api/items?mixin=contributions
+*/
+mItemsContributions : mItemsContributions,
+/**
+* mixin to add image information for an item
+* /nitro/api/items?mixin=images
+*/
+mItemsImages : mItemsImages,
+/**
+* mixin to return programme segment events, works in conjunction with programme or segment_event filters
+*/
+mItemsPlayEvent : mItemsPlayEvent,
+/**
+* filter for subset of items that have an ID issued by the given authority
+* type = string
+*/
+fItemsAuthority : fItemsAuthority,
+/**
+* filter for subset of items having given ID
+* type = ID
+*/
+fItemsId : fItemsId,
+/**
+* filter for subset of items that have given an ID of the given type
+* type = string
+*/
+fItemsIdType : fItemsIdType,
+/**
+* filter for specific type(s) of items
+* type = string
+* option: chapter, filter for only chapter items
+* /nitro/api/items?item_type=chapter
+* option: highlight, filter for only highlight items
+* /nitro/api/items?item_type=highlight
+* option: music, filter for only music items
+* /nitro/api/items?item_type=music
+* option: speech, filter for only speech items
+* /nitro/api/items?item_type=speech
+* option: other, filter for only other items
+* /nitro/api/items?item_type=other
+*/
+fItemsItemType : fItemsItemType,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fItemsPage : fItemsPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fItemsPageSize : fItemsPageSize,
+/**
+* filter for items by partner ID
+* type = PID
+*/
+fItemsPartnerId : fItemsPartnerId,
+/**
+* filter for items by partner PID
+* type = PID
+* default = s0000001
+*/
+fItemsPartnerPid : fItemsPartnerPid,
+/**
+* filter for subset of items that have specified person involved
+* type = string
+*/
+fItemsPeople : fItemsPeople,
+/**
+* filter for subset of items matching one of the given PIDs
+* type = PID
+*/
+fItemsPid : fItemsPid,
+/**
+* filter for subset of items that are part of the given programme
+* type = PID
+*/
+fItemsProgramme : fItemsProgramme,
+/**
+* filter for subset of items matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fItemsQ : fItemsQ,
+/**
+* filter for item with the given segment_event
+* type = string
+*/
+fItemsSegmentEvent : fItemsSegmentEvent,
+/**
+* sort by mid, ascending
+* /nitro/api/master_brands?sort=mid&sort_direction=ascending
+* isDefault
+*/
+sMasterbrandsMidAscending : sMasterbrandsMidAscending,
+/**
+* mixin to add image information for a masterbrand
+* /nitro/api/master_brands?mixin=images
+*/
+mMasterbrandsImages : mMasterbrandsImages,
+/**
+* filter for subset of masterbrands that have given identifier
+* type = string
+*/
+fMasterbrandsMid : fMasterbrandsMid,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fMasterbrandsPage : fMasterbrandsPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fMasterbrandsPageSize : fMasterbrandsPageSize,
+/**
+* filter for masterbrands by partner ID
+* type = PID
+*/
+fMasterbrandsPartnerId : fMasterbrandsPartnerId,
+/**
+* filter for masterbrands by partner PID
+* type = PID
+* default = s0000001
+*/
+fMasterbrandsPartnerPid : fMasterbrandsPartnerPid,
+/**
+* filter for subset of masterbrands matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fMasterbrandsQ : fMasterbrandsQ,
+/**
+* filter for subset of people that have an ID issued by the given authority
+* type = string
+*/
+fPeopleAuthority : fPeopleAuthority,
+/**
+* filter for people who have an external identifier
+* type = boolean
+* option: true, filter for people who have an external identifier
+* /nitro/api/people?has_external_id=true
+* option: false, filter for people who do not have an external identifier
+* /nitro/api/people?has_external_id=false
+*/
+fPeopleHasExternalId : fPeopleHasExternalId,
+/**
+* filter for subset of people having given ID
+* type = ID
+*/
+fPeopleId : fPeopleId,
+/**
+* filter for subset of people that have given an ID of the given type
+* type = string
+*/
+fPeopleIdType : fPeopleIdType,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fPeoplePage : fPeoplePage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fPeoplePageSize : fPeoplePageSize,
+/**
+* filter for people by partner ID
+* type = PID
+*/
+fPeoplePartnerId : fPeoplePartnerId,
+/**
+* filter for people by partner PID
+* type = PID
+* default = s0000001
+*/
+fPeoplePartnerPid : fPeoplePartnerPid,
+/**
+* filter for subset of people having given PID
+* type = PID
+*/
+fPeoplePid : fPeoplePid,
+/**
+* filter for subset of people that have contributed to the given programme pid
+* type = string
+*/
+fPeopleProgramme : fPeopleProgramme,
+/**
+* filter for subset of people matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fPeopleQ : fPeopleQ,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fPipsPage : fPipsPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fPipsPageSize : fPipsPageSize,
+/**
+* filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fPipsQ : fPipsQ,
+/**
+* mixin to return information about related links to a promotion
+* /nitro/api/promotions?mixin=related_links
+*/
+mPromotionsRelatedLinks : mPromotionsRelatedLinks,
+/**
+* filter for subset of promotions belonging to a given context
+* type = PID
+*/
+fPromotionsContext : fPromotionsContext,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fPromotionsPage : fPromotionsPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fPromotionsPageSize : fPromotionsPageSize,
+/**
+* filter for promotions by partner ID
+* type = PID
+*/
+fPromotionsPartnerId : fPromotionsPartnerId,
+/**
+* filter for promotions by partner PID
+* type = PID
+* default = s0000001
+*/
+fPromotionsPartnerPid : fPromotionsPartnerPid,
+/**
+* filter for subset of promotions having given PID
+* type = PID
+*/
+fPromotionsPid : fPromotionsPid,
+/**
+* filter for subset of promotions having given promoted by
+* type = string
+*/
+fPromotionsPromotedBy : fPromotionsPromotedBy,
+/**
+* filter for subset of promotions having given promoted for
+* type = string
+*/
+fPromotionsPromotedFor : fPromotionsPromotedFor,
+/**
+* filter for subset of promotions matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fPromotionsQ : fPromotionsQ,
+/**
+* filter for subset of promotions with status
+* type = string
+* option: current, filter current promotions
+* /nitro/api/promotions?status=current
+*/
+fPromotionsStatus : fPromotionsStatus,
+/**
+* sort chronologically by scheduled start time/date, ascending
+* /nitro/api/schedules?sort=start_date&sort_direction=ascending
+* isDefault
+*/
+sSchedulesStartDateAscending : sSchedulesStartDateAscending,
+/**
+* sort chronologically by scheduled start time/date, ascending
+* /nitro/api/schedules?sort=start_date&sort_direction=descending
+* isDefault
+*/
+sSchedulesStartDateDescending : sSchedulesStartDateDescending,
+/**
+* return ancestor programme titles
+* /nitro/api/schedules?mixin=ancestor_titles
+*/
+mSchedulesAncestorTitles : mSchedulesAncestorTitles,
+/**
+* mixin to add image information for broadcasts and webcasts
+* /nitro/api/schedules?mixin=images
+*/
+mSchedulesImages : mSchedulesImages,
+/**
+* filter for subset of broadcasts and webcasts that have given authority
+* type = string
+*/
+fSchedulesAuthority : fSchedulesAuthority,
+/**
+* filter for subset of broadcasts and webcasts that are descendants of the given programme PID
+* type = PID
+*/
+fSchedulesDescendantsOf : fSchedulesDescendantsOf,
+/**
+* filter for subset of broadcasts and webcasts that end on or later than the specified datetime
+* type = datetime
+*/
+fSchedulesEndFrom : fSchedulesEndFrom,
+/**
+* filter for subset of broadcasts and webcasts that end on or earlier than the specified datetime
+* type = datetime
+*/
+fSchedulesEndTo : fSchedulesEndTo,
+/**
+* filter for subset of broadcasts and webcasts that are classified in the given format ID
+* type = string
+*/
+fSchedulesFormat : fSchedulesFormat,
+/**
+* filter for subset of broadcasts and webcasts that are classified in the given genre ID
+* type = string
+*/
+fSchedulesGenre : fSchedulesGenre,
+/**
+* filter for subset of broadcasts and webcasts that have programmes in the given group
+* type = PID
+*/
+fSchedulesGroup : fSchedulesGroup,
+/**
+* filter for subset of broadcasts and webcasts that have given identifier
+* type = string
+*/
+fSchedulesId : fSchedulesId,
+/**
+* filter for subset of broadcasts and webcasts that have given id type
+* type = string
+*/
+fSchedulesIdType : fSchedulesIdType,
+/**
+* filter for subset of broadcasts and webcasts with the given item performed on it
+* type = PID
+*/
+fSchedulesItem : fSchedulesItem,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fSchedulesPage : fSchedulesPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fSchedulesPageSize : fSchedulesPageSize,
+/**
+* filter for broadcasts and webcasts by partner ID
+* type = PID
+*/
+fSchedulesPartnerId : fSchedulesPartnerId,
+/**
+* filter for broadcasts and webcasts by partner PID
+* type = PID
+* default = s0000001
+*/
+fSchedulesPartnerPid : fSchedulesPartnerPid,
+/**
+* filter for subset of broadcasts and webcasts that have given contributor
+* type = string
+*/
+fSchedulesPeople : fSchedulesPeople,
+/**
+* filter for subset of broadcasts and webcasts having given PID
+* type = PID
+*/
+fSchedulesPid : fSchedulesPid,
+/**
+* filter for subset of broadcasts and webcasts matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fSchedulesQ : fSchedulesQ,
+/**
+* filter to show either only repeats or non-repeats
+* type = boolean
+*/
+fSchedulesRepeat : fSchedulesRepeat,
+/**
+* filter for subset of broadcasts and webcasts that start on the specified day (BBC time)
+* type = date
+*/
+fSchedulesScheduleDay : fSchedulesScheduleDay,
+/**
+* filter for subset of broadcasts and webcasts that start on or after the specified day (BBC time)
+* type = date
+*/
+fSchedulesScheduleDayFrom : fSchedulesScheduleDayFrom,
+/**
+* filter for subset of broadcasts and webcasts that start on or before the specified day (BBC time)
+* type = date
+*/
+fSchedulesScheduleDayTo : fSchedulesScheduleDayTo,
+/**
+* filter for subset of broadcasts and webcasts with given service master brand
+* type = string
+*/
+fSchedulesServiceMasterBrand : fSchedulesServiceMasterBrand,
+/**
+* filter for subset of broadcasts and webcasts that are on the specified linear service
+* type = string
+*/
+fSchedulesSid : fSchedulesSid,
+/**
+* filter for subset of broadcasts and webcasts that start on or later than the specified datetime
+* type = datetime
+*/
+fSchedulesStartFrom : fSchedulesStartFrom,
+/**
+* filter for subset of broadcasts and webcasts that start on or earlier than the specified datetime
+* type = datetime
+*/
+fSchedulesStartTo : fSchedulesStartTo,
+/**
+* filter for subset of broadcasts and webcasts with given PID as their parent version
+* type = PID
+*/
+fSchedulesVersion : fSchedulesVersion,
+/**
+* Return services that end on or later than the specified datetime
+* type = datetime
+*/
+fServicesEndFrom : fServicesEndFrom,
+/**
+* filter for subset of broadcasts that end on or earlier than the specified datetime
+* type = datetime
+*/
+fServicesEndTo : fServicesEndTo,
+/**
+* filter for services by masterbrand MID
+* type = string
+*/
+fServicesMid : fServicesMid,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fServicesPage : fServicesPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fServicesPageSize : fServicesPageSize,
+/**
+* filter for services by partner ID
+* type = PID
+*/
+fServicesPartnerId : fServicesPartnerId,
+/**
+* filter for services by partner PID
+* type = PID
+* default = s0000001
+*/
+fServicesPartnerPid : fServicesPartnerPid,
+/**
+* filter for subset of services matching supplied keyword/phrase (boolean operators permitted)
+* type = string
+*/
+fServicesQ : fServicesQ,
+/**
+* filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio
+* type = string
+* option: TV, Return only TV services
+* /nitro/api/services?service_type=TV
+* option: Local Radio, Return only Local Radio services
+* /nitro/api/services?service_type=Local+Radio
+* option: National Radio, Return only National Radio services
+* /nitro/api/services?service_type=National+Radio
+* option: Regional Radio, Return only Regional Radio services
+* /nitro/api/services?service_type=Regional+Radio
+* option: Interactive, Return only Interactive services
+* /nitro/api/services?service_type=Interactive
+*/
+fServicesServiceType : fServicesServiceType,
+/**
+* filter for specified linear service
+* type = string
+*/
+fServicesSid : fServicesSid,
+/**
+* Return services that start on or later than the specified datetime
+* type = datetime
+*/
+fServicesStartFrom : fServicesStartFrom,
+/**
+* Return services that start earlier than the specified datetime
+* type = datetime
+*/
+fServicesStartTo : fServicesStartTo,
+/**
+* filter for subset of versions that have availability
+* type = string
+* option: available, filter for versions that are available
+* /nitro/api/versions?availability=available
+*/
+fVersionsAvailability : fVersionsAvailability,
+/**
+* filter for subset of versions having given programme PID
+* type = PID
+*/
+fVersionsDescendantsOf : fVersionsDescendantsOf,
+/**
+* filter for subset of versions with availability in the given media set
+* type = string
+*/
+fVersionsMediaSet : fVersionsMediaSet,
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+fVersionsPage : fVersionsPage,
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* min_value = 0
+* max_value = 300
+*/
+fVersionsPageSize : fVersionsPageSize,
+/**
+* filter for versions by partner ID
+* type = PID
+*/
+fVersionsPartnerId : fVersionsPartnerId,
+/**
+* filter for versions by partner PID
+* type = PID
+* default = s0000001
+*/
+fVersionsPartnerPid : fVersionsPartnerPid,
+/**
+* filter for subset of versions having given PID
+* type = PID
+*/
+fVersionsPid : fVersionsPid,
 }

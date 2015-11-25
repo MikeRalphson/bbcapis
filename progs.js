@@ -302,7 +302,7 @@ if (process.argv.length>4) {
 		}
 	}
 }
-category = cat_prefix + escape(category);
+category = cat_prefix + encodeURIComponent(category);
 
 if (process.argv.length>5) {
 	pid = process.argv[5];

@@ -8,7 +8,7 @@ var api = JSON.parse(apistr);
 var apijs = './nitroApi.js';
 var api_fh = fs.openSync(apijs,'w');
 
-fs.appendFileSync(apijs, 'module.exports = {\n', 'utf8');
+var cache = [];
 
 //__________________________________________________________________
 
@@ -37,19 +37,32 @@ function toArray(item) {
 }
 
 //__________________________________________________________________
+function checkHref(href,name) {
+	return (href.indexOf(encodeURIComponent(name))>=0);
+}
+
+//__________________________________________________________________
 function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
-	s = sortDirectionName+' : function '+sortDirectionName+'(qs){\n';
-	s += '  // '+sort.title+'\n';
+	//s = sortDirectionName+' : function '+sortDirectionName+'(qs){\n';
+	s = '/**\n';
+	s += '* '+sort.title+'\n';
 	if (sortDirection.href) {
-		s += '  // ' +sortDirection.href+'\n';
+		s += '* ' +sortDirection.href+'\n';
+		if (!checkHref(sortDirection.href,sortDirection.value)) {
+			console.log('! sort '+sortDirectionName+'('+sortDirection.value+') does not exist in');
+			console.log('  '+sortDirection.href);
+		}
 	}
 	if (sortDirection.is_default) {
-		s += '  // isDefault\n';
+		s += '* isDefault\n';
 	}
-	s += "  qs=qs+'&sort="+sort.name+"&sort-direction="+sortDirection.value+"';\n";
-	s += '  return qs;\n';
-	s += '},\n';
-	fs.appendFileSync(apijs, s, 'utf8');
+	s += '*/\n';
+	//s += "  qs=qs+'&sort="+sort.name+"&sort-direction="+sortDirection.value+"';\n";
+	//s += '  return qs;\n';
+	//s += '},\n';
+	s += sortDirectionName+' : '+sortDirectionName+',\n';
+	fs.appendFileSync(apijs, 'const '+sortDirectionName+" = 'sort="+sort.name+'&'+sortDirection.name+'='+sortDirection.value+"';\n", 'utf8');
+	cache.push(s);
 	return s;
 }
 
@@ -61,16 +74,24 @@ function processSortDirection(feed,sort,sortDirection,sortDirectionName) {
 
 //__________________________________________________________________
 function exportSort(feed,sort,sortName) {
-	s = sortName + ' : function '+sortName+'(qs){\n';
-	s += '  // '+sort.title+'\n';
-	s += '  // note that this sort has no sort-direction\n';
+	//s = sortName + ' : function '+sortName+'(qs){\n';
+	s = '/**\n';
+	s += '* '+sort.title+'\n';
+	s += '* note that this sort has no sort-direction\n';
 	if (sort.href) {
-		s += '  // ' +sort.href+'\n';
+		s += '* ' +sort.href+'\n';
+		if (!checkHref(sort.href,sort.name)) {
+			console.log('! sort '+sortName+'('+sort.name+') does not exist in');
+			console.log('  '+sort.href);
+		}
 	}
-	s += "  qs=qs+'&sort="+sort.name+"';\n";
-	s += '  return qs;\n';
-	s += '},\n';
-	fs.appendFileSync(apijs, s, 'utf8');
+	s += '*/\n';
+	//s += "  qs=qs+'&sort="+sort.name+"';\n";
+	//s += '  return qs;\n';
+	//s += '},\n';
+	s += sortName+' : '+sortName+',\n';
+	fs.appendFileSync(apijs, 'const '+sortName+" = 'sort="+sort.name+"';\n", 'utf8');
+	cache.push(s);
 	return s;
 }
 
@@ -99,15 +120,23 @@ function processSort(feed,sort,sortName) {
 
 //__________________________________________________________________
 function exportMixin(feed,mixin,mixinName) {
-	s = mixinName+' : function '+mixinName+'(qs){\n';
-	s += '  // '+mixin.title+'\n';
+	//s = mixinName+' : function '+mixinName+'(qs){\n';
+	s = '/**\n';
+	s += '* '+mixin.title+'\n';
 	if (mixin.href) {
-		s += '  // ' +mixin.href+'\n';
+		s += '* '+mixin.href+'\n';
+		if (!checkHref(mixin.href,mixin.name)) {
+			console.log('! Mixin '+mixinName+'('+mixin.name+') does not appear in');
+			console.log('  '+mixin.href);
+		}
 	}
-	s += "  qs=qs+'&mixin="+mixin.name+"';\n";
-	s += '  return qs;\n';
-	s += '},\n';
-	fs.appendFileSync(apijs, s, 'utf8');
+	s += '*/\n';
+	s += mixinName+' : '+mixinName+',\n';
+	//s += "  qs=qs+'&mixin="+mixin.name+"';\n";
+	//s += '  return qs;\n';
+	//s += '},\n';
+	fs.appendFileSync(apijs, 'const '+mixinName+" = '"+mixin.name+"';\n", 'utf8');
+	cache.push(s);
 	return s;
 }
 
@@ -124,41 +153,53 @@ function processMixin(feed,mixin,mixinName) {
 
 //__________________________________________________________________
 function exportFilter(feed,filter,filterName) {
-	s = filterName + ' : function '+filterName+'(qs,value){\n';
-	s += '  // '+filter.title+'\n';
+	//s = filterName + ' : function '+filterName+'(qs,value){\n';
+	s = '/**\n';
+	s += '* '+filter.title+'\n';
 	if (filter.href) {
-		s += '  // '+filter.href+'\n';
+		if (!checkHref(filter.href,filter.name)) {
+			console.log('! filter '+filterName+'('+filter.name+') does not appear in');
+			console.log('  '+filter.href);
+		}
+		s += '* '+filter.href+'\n';
 	}
 	if (filter.type) {
-		s += '  // type = '+filter.type+'\n';
+		s += '* type = '+filter.type+'\n';
 	}
 	if (filter.default) {
-		s += '  // default = '+filter.default+'\n';
+		s += '* default = '+filter.default+'\n';
 	}
 	if (filter.min_value) {
-		s += '  // min_value = '+filter.min_value+'\n';
+		s += '* min_value = '+filter.min_value+'\n';
 	}
 	if (filter.max_value) {
-		s += '  // max_value = '+filter.max_value+'\n';
+		s += '* max_value = '+filter.max_value+'\n';
 	}
-	
+
 	if (filter.option) {
 		filter.option = toArray(filter.option);
 		for (i in filter.option) {
 			option=filter.option[i];
 			if (option.title) {
-				s += '  // '+option.title+'\n';
+				s += '* option: '+option.value+', '+option.title+'\n';
 			}
 			if (option.href) {
-				s += '  // '+option.href+'\n';
+				s += '* '+option.href+'\n';
+				if (!checkHref(option.href,option.value)) {
+					console.log('! option '+filterName+'('+option.value+') does not exist in');
+					console.log('  '+option.href);
+				}
 			}
 		}
 	}
-	
-	s += "  qs=qs+'&"+filter.name+"='+value;\n";
-	s += '  return qs;\n';
-	s += '},\n';
-	fs.appendFileSync(apijs, s, 'utf8');
+	s += '*/\n';
+
+	//s += "  qs=qs+'&"+filter.name+"='+value;\n";
+	// s += '  return qs;\n';
+	// s += '},\n';
+	s += filterName + ' : '+filterName +',\n';
+	fs.appendFileSync(apijs, 'const '+filterName+" = '"+filter.name+"';\n", 'utf8');
+	cache.push(s);
 	return s;
 }
 
@@ -240,8 +281,12 @@ for (var f in api.feeds.feed) {
 }
 
 process.on('exit',function(){
-	fs.appendFileSync(apijs, 'nop : function nop() {}\n', 'utf8');
-	fs.appendFileSync(apijs, '}', 'utf8');
+	fs.appendFileSync(apijs, '\nmodule.exports = {\n');
+	for (var i in cache) {
+		fs.appendFileSync(apijs, cache[i]);
+	}
+	fs.appendFileSync(apijs, '}\n', 'utf8');
+
 	fs.closeSync(api_fh);
 
 	console.log();

@@ -8,6 +8,7 @@ var http = require('http');
 var fs = require('fs');
 var util = require('util');
 var common = require('./common');
+var helper = require('./apiHelper');
 var api = require('./nitroApi');
 
 var programme_cache = [];
@@ -37,52 +38,6 @@ function logFault(fault) {
 
 var add_programme = function(obj) {
 	programme_cache.push(obj);
-}
-
-//-----------------------------------------------------------------------------
-
-function cat_slice_dump(obj) {
-	console.log('* Category_slice dump');
-	console.log(obj.category_slice.category.key+' = '+obj.category_slice.category.title);
-	var len = obj.category_slice.programmes.length;
-	//console.log('Contains '+len+' entries');
-	for (var i in obj.category_slice.programmes) {
-		p = obj.category_slice.programmes[i];
-		if ((p.type == 'episode') || (p.type == 'clip'))  {
-			//add_programme(p); //? not enough info available
-			common.pid_list(p.type,p,true,add_programme);
-		}
-		else if ((p.type == 'series') || (p.type == 'brand')) {
-			common.pid_list(p.type,p,false,add_programme);
-		}
-		else {
-			console.log('Unhandled type: '+p.type);
-		}
-	}
-}
-
-//-----------------------------------------------------------------------------
-
-function cat_page_list(obj) {
-    debuglog(obj);
-	console.log('* Category_page list');
-	console.log(obj.category_page.category.key+' = '+obj.category_page.category.title);
-	var len = obj.category_page.available_programmes.length;
-	//console.log('Contains '+len+' entries');
-	for (var i in obj.category_page.available_programmes) {
-		p = obj.category_page.available_programmes[i];
-		if ((p.type == 'episode') || (p.type == 'clip'))  {
-			add_programme(p); //? faster than querying each PID
-		}
-		else if ((p.type == 'series') || (p.type == 'brand')) {
-			common.pid_list(p.type,p,false,add_programme);
-		}
-		else {
-			console.log('Unhandled type: '+p.type);
-			console.log(p);
-		}
-
-	}
 }
 
 /*
@@ -131,16 +86,15 @@ function atoz_list(obj) {
 			}
 			else if ((p.type == 'series') || (p.type == 'brand')) {
 				path = domain+page;
-				querystring = '';
-				querystring = api.fProgrammesDescendantsOf(querystring,p.pid);
-				querystring = api.fProgrammesAvailability(querystring,'available');
-				querystring = api.fProgrammesMediaSet(querystring,'pc');
-				querystring = api.fProgrammesPageSize(querystring,300);
+				query = newQuery(fProgrammesDescendantsOf,p.pid,true)
+					.add(api.fProgrammesAvailability,'available')
+					.add(api.fProgrammesMediaSet,'pc')
+					.add(api.fProgrammesPageSize,300);
 				
 				if (media_type) {
-					querystring = api.fProgrammesMediaType(querystring,media_type);
+					query.add(api.fProgrammesMediaType,media_type);
 				}
-				make_request(host,path,api_key,querystring,this);
+				make_request(host,path,api_key,query,this);
 			}
 			else {
 				console.log('Unhandled type: '+p.type);
@@ -148,10 +102,10 @@ function atoz_list(obj) {
 			}
 		}
 	}
-	// if we need to go somewhere after all pages received set callback and/or path+querystring
+	// if we need to go somewhere, e.g. next page, or after all pages received set callback and/or query
 	// dest = [];
 	// dest.path = domain+page;
-	// dest.querystring = '...'
+	// dest.query = query
 	// dest.callback = this; // or (inline) function
 	return [];
 }
@@ -285,12 +239,12 @@ Pagination
 
 */
 
-function make_request(host,path,key,querystring,callback) {
-	console.log(host+path+'?K'+querystring);
+function make_request(host,path,key,query,callback) {
+	console.log(host+path+'?K'+query.querystring);
 	var options = {
 	  hostname: host
 	  ,port: 80
-	  ,path: path+'?api_key='+key
+	  ,path: path+'?api_key='+key+query.querystring
 	  ,method: 'GET'
 	  ,headers: { 'Content-Type': 'application/json' }
 	};
@@ -309,7 +263,7 @@ function make_request(host,path,key,querystring,callback) {
 			var location = res.headers[hasHeader('location', res.headers)];
 			path = location.split('.co.uk')[1];
 			host = location.split('://')[1].split('/')[0];
-			make_request(host,path,key,querystring,callback);
+			make_request(host,path,key,query,callback);
 		}
 		else if (res.statusCode >= 400 && res.statusCode < 500) {
 			console.log(res.statusCode+' '+res.statusMessage);
@@ -340,7 +294,7 @@ function make_request(host,path,key,querystring,callback) {
 				// call the callback's next required destination
 				// e.g. programme=pid getting a brand or series and calling children_of
 				if (destination.path) {
-					make_request(host,destination.path,key,destination.querystring,destination.callback);
+					make_request(host,destination.path,key,destination.query,destination.callback);
 				}
 				else {
 					destination.callback(); //pass the last page back in?
@@ -400,11 +354,11 @@ api_key = config.nitro.api_key;
 
 var defcat = 'drama/scifiandfantasy';
 var category = defcat;
-var querystring = '';
+var query = helper.newQuery();
 var pid = '';
 
 if (process.argv.length>2) {
-	category = escape(process.argv[2]);
+	category = process.argv[2];
 }
 
 if (process.argv.length>3) {
@@ -412,33 +366,40 @@ if (process.argv.length>3) {
 	if (service == 'tv') {
 		media_type = 'audio-video';
 	}
-	else if (service_type == 'both') {
+	else if (service == 'both') {
 		media_type = '';
 	}
 }
 
+query = helper.newQuery();
 if (process.argv.length>4) {
 	if (process.argv[4] == 'search') {
-		querystring = '&q=title:'+escape(category); //?
-		querystring = api.sProgrammesTitleAscending(querystring);
+		//? title: or synopses: keywords, boolean operators
+		query.add(api.fProgrammesQ,category,true).add(api.sProgrammesTitleAscending);
 	}
 	else if (process.argv[4] == 'format') {
-		querystring = api.fProgrammesFormat(querystring,category);
+		query.add(api.fProgrammesFormat,category,true);
 	}
 	else {
-		querystring = api.fProgrammesGenre(querystring,category);
+		query.add(api.fProgrammesGenre,category,true);
 	}
+}
+else {
+	query.add(api.fProgrammesGenre,category,true);
 }
 
 if (process.argv.length>5) {
 	pid = process.argv[5];
+	query.add(api.fProgrammesProgramme,pid).add(api.mProgrammesAncestorTitles)
+		.add(api.mProgrammesContributions).add(api.mProgrammesVersionsAvailability);
+	//add.(api.mProgrammesDuration) //?
 }
 else {
-	querystring = api.fProgrammesAvailability(querystring,'available');
-	querystring = api.fProgrammesMediaSet(querystring,'pc');
-	querystring = api.fProgrammesPageSize(querystring,300);
+	query.add(api.fProgrammesAvailability,'available')
+		.add(api.fProgrammesMediaSet,'pc')
+		.add(api.fProgrammesPageSize,300);
 	if (media_type) {
-		querystring = api.fProgrammesMediaType(querystring,media_type);
+		query.add(api.fProgrammesMediaType,media_type);
 	}
 }
 
@@ -449,18 +410,13 @@ if (category.indexOf('-h')>=0) {
 	console.log('Service_type defaults to '+service+' values radio|tv|both');
 	console.log('Aggregation defaults to genre');
 	console.log('PID defaults to all PIDS');
+	console.log(api.fProgrammesPageSize)
 }
 else {
-	if (pid) {
-		querystring = api.fProgrammesProgramme(querystring,pid);
-		querystring = api.mProgrammesAncestorTitles(querystring);
-		querystring = api.mProgrammesContributions(querystring);
-		//querystring = api.mProgrammesDuration(querystring);
-	}
 	var path = domain+page;
 
 	//http://nitro.stage.api.bbci.co.uk/nitro/api/
-	make_request(host,path,api_key,querystring,function(obj){
+	make_request(host,path,api_key,query,function(obj){
 		if (obj.programmes) {
 			atoz_list(obj); //tleo_titles
 		}
