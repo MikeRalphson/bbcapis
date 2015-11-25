@@ -372,36 +372,38 @@ if (process.argv.length>3) {
 }
 
 query = helper.newQuery();
-if (process.argv.length>4) {
-	if (process.argv[4] == 'search') {
-		//? title: or synopses: keywords, boolean operators
-		query.add(api.fProgrammesQ,category,true).add(api.sProgrammesTitleAscending);
-	}
-	else if (process.argv[4] == 'format') {
-		query.add(api.fProgrammesFormat,category,true);
+if (process.argv.length<6) {
+	if (process.argv.length>4) {
+		if (process.argv[4] == 'search') {
+			//? title: or synopses: keywords, boolean operators
+			query.add(api.fProgrammesQ,category,true).add(api.sProgrammesTitleAscending);
+		}
+		else if (process.argv[4] == 'format') {
+			query.add(api.fProgrammesFormat,category,true);
+		}
+		else {
+			query.add(api.fProgrammesGenre,category,true);
+		}
 	}
 	else {
 		query.add(api.fProgrammesGenre,category,true);
 	}
 }
-else {
-	query.add(api.fProgrammesGenre,category,true);
-}
 
 if (process.argv.length>5) {
 	pid = process.argv[5];
-	query.add(api.fProgrammesProgramme,pid).add(api.mProgrammesAncestorTitles)
+	query.add(api.fProgrammesPid,pid).add(api.mProgrammesAncestorTitles)
 		.add(api.mProgrammesContributions).add(api.mProgrammesVersionsAvailability);
 	//add.(api.mProgrammesDuration) //?
 }
 else {
 	query.add(api.fProgrammesAvailability,'available')
-		.add(api.fProgrammesMediaSet,'pc')
-		.add(api.fProgrammesPageSize,300);
+		.add(api.fProgrammesMediaSet,'pc');
 	if (media_type) {
 		query.add(api.fProgrammesMediaType,media_type);
 	}
 }
+query.add(api.fProgrammesPageSize,300);
 
 if (category.indexOf('-h')>=0) {
 	console.log('Usage: '+process.argv[1]+' category service_type format|genre|search [PID]');
