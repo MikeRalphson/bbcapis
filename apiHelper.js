@@ -2,13 +2,12 @@
 Nitro API helper functions
 */
 
-//foo = require('./nitroApi');
 
 function query() {
 	this.querystring = '';
 	this.add = function(param,value,previous) {
 		this.querystring += (this.querystring || previous===true ? '&' : '?')+param;
-		if (value) this.querystring += '=' + escape(value);
+		if (value) this.querystring += '=' + encodeURIComponent(value);
 		return this;
 	}
 	this.reset = function() {

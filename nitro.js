@@ -9,7 +9,7 @@ var fs = require('fs');
 var util = require('util');
 var common = require('./common');
 var helper = require('./apiHelper');
-var api = require('./nitroApi');
+var api = require('./nitroApi/api');
 
 var programme_cache = [];
 var download_history = [];
@@ -27,8 +27,8 @@ var debuglog = util.debuglog('bbc');
 function logFault(fault) {
 /*
 { "fault": {
-	"faultstring": "Rate limit quota violation. Quota limit : 0 exceeded by 1. Total violation count : 1. Identifier : YOUR-API-KEY-HERE",     
-	"detail": 
+	"faultstring": "Rate limit quota violation. Quota limit : 0 exceeded by 1. Total violation count : 1. Identifier : YOUR-API-KEY-HERE",
+	"detail":
 		{"errorcode": “policies.ratelimit.QuotaViolation"}
 	}
 }
@@ -43,14 +43,14 @@ var add_programme = function(obj) {
 /*
 Examples include:
 
-<feed name="Programmes" rel="feed" href="/nitro/api/programmes" 
+<feed name="Programmes" rel="feed" href="/nitro/api/programmes"
 title="Start here for programmes metadata: Brands, Series, Episodes and Clips" release_status="supported">
 
 
-<filter name="duration" type="string" title="filter for subset of programmes that have given duration" 
+<filter name="duration" type="string" title="filter for subset of programmes that have given duration"
 release_status="supported">
 
-<option value="short" title="filter for programmes that have short duration (< 5m)" 
+<option value="short" title="filter for programmes that have short duration (< 5m)"
 href="/nitro/api/programmes?duration=short" />
 
 <sort name="views" is_default="false" title="sort numerically by number of views (most popular first - faster most_popular)"
@@ -82,7 +82,7 @@ function atoz_list(obj) {
 			p = title.programme;
 			debuglog(p);
 			if ((p.type == 'episode') || (p.type == 'clip'))  {
-				add_programme(p);				
+				add_programme(p);
 			}
 			else if ((p.type == 'series') || (p.type == 'brand')) {
 				path = domain+page;
@@ -90,7 +90,7 @@ function atoz_list(obj) {
 					.add(api.fProgrammesAvailability,'available')
 					.add(api.fProgrammesMediaSet,'pc')
 					.add(api.fProgrammesPageSize,300);
-				
+
 				if (media_type) {
 					query.add(api.fProgrammesMediaType,media_type);
 				}
@@ -158,7 +158,7 @@ var hidden = 0;
 				parents += '  '+subp.type+'= '+subp.pid+' ('+subp.title+')';
 			}
 
-			console.log(p.pid+' '+p.type+' '+(ownership && ownership.service && ownership.service.type ? 
+			console.log(p.pid+' '+p.type+' '+(ownership && ownership.service && ownership.service.type ?
 			  ownership.service.type : service)+' '+
 			  ((p.is_available===false||p.is_available_mediaset_pc_sd===false) ? 'Unavailable' : 'Available')+
 			  '  '+title);
@@ -224,18 +224,18 @@ Filter
  Filters let you narrow down the request and are the core function of Nitro. To use a feed, you will virtually
  always have to filter it. (Generally speaking, performance improves as you add filters and narrow down the
  amount of data Nitro has to process. In broadcasts especially, providing a date range filter can dramatically
- improve speed.) 
+ improve speed.)
 Sort
- Sorts order the data, including by properties calculated by Nitro, such as the view counts used to drive the 
- "most_popular" sort of programmes. 
+ Sorts order the data, including by properties calculated by Nitro, such as the view counts used to drive the
+ "most_popular" sort of programmes.
 Mixin
  Mixins allow you to specify optional elements you would like included in the output, on the understanding that
  they will impact performance (but save you making additional Nitro calls). For instance, the ancestor_titles
- mixin exposes all the titles and pids of the ancestors of a given object. 
+ mixin exposes all the titles and pids of the ancestors of a given object.
 Pagination
  Nitro output is paginated. You can request how many items you want returned, but Nitro does not guarantee to
  honour this, only to return as many as possible. The results expose the page size. A page size of 0 is a special
- case that only returns you a count of the objects matching your filters. 
+ case that only returns you a count of the objects matching your filters.
 
 */
 
@@ -319,29 +319,29 @@ function make_request(host,path,key,query,callback) {
 //------------------------------------------------------------------------[main]
 
 /*
-The starting point for using Nitro is always to work out what type of thing you're trying to find. 
+The starting point for using Nitro is always to work out what type of thing you're trying to find.
 That determines which feed you use:
 
 Programmes Find and navigate brands, series, episodes and clips
- /nitro/api/programmes 
+ /nitro/api/programmes
 Schedules Dates, Times, Schedules: when and where are programmes being shown?
- /nitro/api/schedules 
+ /nitro/api/schedules
 Versions Helps you handle the editorial "versions" of episodes (eg signed, cut for language, regional variations, etc)
- /nitro/api/versions 
+ /nitro/api/versions
 Services Exposes both live and historical BBC services, across TV and Radio.
- /nitro/api/services 
+ /nitro/api/services
 People Find the People PIPs knows about: casts, crews, contributors, guests, artists, singers, bands ...
- /nitro/api/people 
+ /nitro/api/people
 Items Step inside programmes to find tracklists, chapters, segments, songs, highlights and more
- /nitro/api/items 
+ /nitro/api/items
 Availabilities For advanced users only: get specific details around when programmes and clips are available to play
- /nitro/api/availabilities 
+ /nitro/api/availabilities
 Images Find images, particularly those in galleries
- /nitro/api/images 
+ /nitro/api/images
 Promotions Details of short-term editorially curated "promotions", for instance those programmes featured on iPlayer today
- /nitro/api/promotions 
+ /nitro/api/promotions
 Groups Long-lived collections of programmes and more, including Collections, Seasons and Galleries
- /nitro/api/groups 
+ /nitro/api/groups
 
 */
 
@@ -410,7 +410,6 @@ if (category.indexOf('-h')>=0) {
 	console.log('Service_type defaults to '+service+' values radio|tv|both');
 	console.log('Aggregation defaults to genre');
 	console.log('PID defaults to all PIDS');
-	console.log(api.fProgrammesPageSize)
 }
 else {
 	var path = domain+page;
@@ -424,7 +423,7 @@ else {
 			logFault(obj);
 		}
 		else {
-			console.log(obj);				
+			console.log(obj);
 		}
 		return [];
 	});

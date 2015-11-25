@@ -220,6 +220,7 @@ const fVersionsPageSize = 'page_size';
 const fVersionsPartnerId = 'partner_id';
 const fVersionsPartnerPid = 'partner_pid';
 const fVersionsPid = 'pid';
+const apiHash = 'cd10bdf160f65ad8562610f10228c9fbfbfc1b5d3f008230588e4a8622f0e803';
 
 module.exports = {
 /**
@@ -1526,4 +1527,5 @@ fVersionsPartnerPid : fVersionsPartnerPid,
 * type = PID
 */
 fVersionsPid : fVersionsPid,
+apiHash : apiHash
 }

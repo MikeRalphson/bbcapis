@@ -2,10 +2,10 @@ var fs = require('fs');
 var crypto = require('crypto');
 var stream = require('stream');
 
-var apistr = fs.readFileSync('./api/api.json', 'utf8');
+var apistr = fs.readFileSync('./nitroApi/api.json', 'utf8');
 var api = JSON.parse(apistr);
 
-var apijs = './nitroApi.js';
+var apijs = './nitroApi/api.js';
 var api_fh = fs.openSync(apijs,'w');
 
 var cache = [];
@@ -29,7 +29,6 @@ function toArray(item) {
 		newitem = [];
 		newitem.push(item);
 		return newitem;
-		//item = newitem;
 	}
 	else {
 		return item;
@@ -38,12 +37,12 @@ function toArray(item) {
 
 //__________________________________________________________________
 function checkHref(href,name) {
+	href = href.replace(/\+/g, "%20"); //correct for difference between Java?/Javascript encodings
 	return (href.indexOf(encodeURIComponent(name))>=0);
 }
 
 //__________________________________________________________________
 function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
-	//s = sortDirectionName+' : function '+sortDirectionName+'(qs){\n';
 	s = '/**\n';
 	s += '* '+sort.title+'\n';
 	if (sortDirection.href) {
@@ -57,9 +56,6 @@ function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 		s += '* isDefault\n';
 	}
 	s += '*/\n';
-	//s += "  qs=qs+'&sort="+sort.name+"&sort-direction="+sortDirection.value+"';\n";
-	//s += '  return qs;\n';
-	//s += '},\n';
 	s += sortDirectionName+' : '+sortDirectionName+',\n';
 	fs.appendFileSync(apijs, 'const '+sortDirectionName+" = 'sort="+sort.name+'&'+sortDirection.name+'='+sortDirection.value+"';\n", 'utf8');
 	cache.push(s);
@@ -68,13 +64,11 @@ function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 
 //__________________________________________________________________
 function processSortDirection(feed,sort,sortDirection,sortDirectionName) {
-	//console.log('    sort direction '+sortDirectionName+' '+sortDirection.is_default);
 	exportSortDirection(feed,sort,sortDirection,sortDirectionName);
 }
 
 //__________________________________________________________________
 function exportSort(feed,sort,sortName) {
-	//s = sortName + ' : function '+sortName+'(qs){\n';
 	s = '/**\n';
 	s += '* '+sort.title+'\n';
 	s += '* note that this sort has no sort-direction\n';
@@ -86,9 +80,6 @@ function exportSort(feed,sort,sortName) {
 		}
 	}
 	s += '*/\n';
-	//s += "  qs=qs+'&sort="+sort.name+"';\n";
-	//s += '  return qs;\n';
-	//s += '},\n';
 	s += sortName+' : '+sortName+',\n';
 	fs.appendFileSync(apijs, 'const '+sortName+" = 'sort="+sort.name+"';\n", 'utf8');
 	cache.push(s);
@@ -98,7 +89,6 @@ function exportSort(feed,sort,sortName) {
 //__________________________________________________________________
 function processSort(feed,sort,sortName) {
 	if (sort.release_status!='deprecated') {
-		//console.log('  sort '+sortName+' '+sort.title);
 		if (sort.sort_direction) {
 			sort.sort_direction = toArray(sort.sort_direction); // I expect in the official API this will always be the case
 			for (i in sort.sort_direction) {
@@ -109,8 +99,6 @@ function processSort(feed,sort,sortName) {
 		}
 		else {
 			exportSort(feed,sort,sortName);
-			//sortName = ('s-'+feed.name+'-'+sort.name).toCamelCase();
-			//processSort(feed,sort,sortName);
 		}
 	}
 	else {
@@ -120,7 +108,6 @@ function processSort(feed,sort,sortName) {
 
 //__________________________________________________________________
 function exportMixin(feed,mixin,mixinName) {
-	//s = mixinName+' : function '+mixinName+'(qs){\n';
 	s = '/**\n';
 	s += '* '+mixin.title+'\n';
 	if (mixin.href) {
@@ -132,9 +119,6 @@ function exportMixin(feed,mixin,mixinName) {
 	}
 	s += '*/\n';
 	s += mixinName+' : '+mixinName+',\n';
-	//s += "  qs=qs+'&mixin="+mixin.name+"';\n";
-	//s += '  return qs;\n';
-	//s += '},\n';
 	fs.appendFileSync(apijs, 'const '+mixinName+" = '"+mixin.name+"';\n", 'utf8');
 	cache.push(s);
 	return s;
@@ -143,7 +127,6 @@ function exportMixin(feed,mixin,mixinName) {
 //__________________________________________________________________
 function processMixin(feed,mixin,mixinName) {
 	if (mixin.release_status!='deprecated') {
-		//console.log('  mixin '+mixinName+' '+mixin.title);
 		exportMixin(feed,mixin,mixinName);
 	}
 	else {
@@ -153,7 +136,6 @@ function processMixin(feed,mixin,mixinName) {
 
 //__________________________________________________________________
 function exportFilter(feed,filter,filterName) {
-	//s = filterName + ' : function '+filterName+'(qs,value){\n';
 	s = '/**\n';
 	s += '* '+filter.title+'\n';
 	if (filter.href) {
@@ -194,9 +176,6 @@ function exportFilter(feed,filter,filterName) {
 	}
 	s += '*/\n';
 
-	//s += "  qs=qs+'&"+filter.name+"='+value;\n";
-	// s += '  return qs;\n';
-	// s += '},\n';
 	s += filterName + ' : '+filterName +',\n';
 	fs.appendFileSync(apijs, 'const '+filterName+" = '"+filter.name+"';\n", 'utf8');
 	cache.push(s);
@@ -206,7 +185,6 @@ function exportFilter(feed,filter,filterName) {
 //__________________________________________________________________
 function processFilter(feed,filter,filterName) {
 	if (filter.release_status!='deprecated') {
-		//.log('  filter '+filterName+' '+filter.title);
 		if (!filter.type) {
 			console.log('++++++++++ typeless filter ++++++++ '+filterName);
 		}
@@ -281,14 +259,14 @@ for (var f in api.feeds.feed) {
 }
 
 process.on('exit',function(){
+	fs.appendFileSync(apijs, "const apiHash = '" + digest + "';\n", 'utf8');
 	fs.appendFileSync(apijs, '\nmodule.exports = {\n');
 	for (var i in cache) {
 		fs.appendFileSync(apijs, cache[i]);
 	}
+
+	fs.appendFileSync(apijs, 'apiHash : apiHash\n', 'utf8');
 	fs.appendFileSync(apijs, '}\n', 'utf8');
 
 	fs.closeSync(api_fh);
-
-	console.log();
-	console.log('API hash='+digest);
 });
