@@ -71,14 +71,25 @@ current set of results. This makes it very easy to build up the query you're loo
 
 */
 
-function atoz_list(obj) {
-	console.log('Result page n of m');
-	if (obj.programmes.tleo_titles.length===0) {
+function processResponse(obj) {
+	var nextHref = '';
+	if (obj.nitro.pagination) {
+		nextHref = obj.nitro.pagination.next.href;
+	}
+	morePages = false;
+	page = obj.nitro.results.page;
+	top = obj.nitro.results.total;
+	if (!top) {
+		top = obj.nitro.results.more_than+1;
+	}
+	console.log('page '+page+' of '+top);
+	
+	if (obj.nitro.results.programme.length===0) {
 		console.log(obj);
 	}
 	else {
-		for (var i in obj.programmes.tleo_titles) {
-			title = obj.atoz.tleo_titles[i];
+		for (var i in obj.nitro.results.programme) {
+			title = obj.nitro.results.programme[i];
 			p = title.programme;
 			debuglog(p);
 			if ((p.type == 'episode') || (p.type == 'clip'))  {
@@ -102,11 +113,13 @@ function atoz_list(obj) {
 			}
 		}
 	}
-	// if we need to go somewhere, e.g. next page, or after all pages received set callback and/or query
-	// dest = [];
-	// dest.path = domain+page;
-	// dest.query = query
-	// dest.callback = this; // or (inline) function
+	if (page<top) {
+		dest = {};
+		dest.path = domain+page;
+		dest.query = helper.queryFrom(nextHref,true);
+		dest.callback = this;
+	}
+	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
 	return [];
 }
 
@@ -288,8 +301,6 @@ function make_request(host,path,key,query,callback) {
 		else try {
 			obj = JSON.parse(list);
 			destination = callback(obj);
-			//if (obj.pages...)
-			//	if obj has more pages recurse and call callback again, before we then..
 		    if (destination.callback) {
 				// call the callback's next required destination
 				// e.g. programme=pid getting a brand or series and calling children_of
@@ -297,7 +308,7 @@ function make_request(host,path,key,query,callback) {
 					make_request(host,destination.path,key,destination.query,destination.callback);
 				}
 				else {
-					destination.callback(); //pass the last page back in?
+					destination.callback();
 				}
 			}
 		}
@@ -422,7 +433,7 @@ else {
 	//http://nitro.stage.api.bbci.co.uk/nitro/api/
 	make_request(host,path,api_key,query,function(obj){
 		if (obj.programmes) {
-			atoz_list(obj); //tleo_titles
+			processResponse(obj); //tleo_titles
 		}
 		else if (obj.fault) {
 			logFault(obj);

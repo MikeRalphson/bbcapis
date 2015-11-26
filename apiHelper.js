@@ -22,6 +22,16 @@ module.exports = {
 		if (param) q.add(param,value,previous);
 		return q;
 	},
+	queryFrom : function(uri,previous) {
+		q = new query();
+		if (url.indexOf('?')>=0) {
+			uri = uri.split('?')[1];
+		}
+		else if (url.indexOf('&')>=0) {
+			uri = uri.split('&')[1];
+		}
+		q.querystring = ((previous ? '&' : '?')+uri);
+	},
 	add : function(q,param,value,previous) {
 		return q.add(param,value,previous);
 	},
