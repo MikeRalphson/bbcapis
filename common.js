@@ -106,10 +106,10 @@ function processPid(type,parent,obj,callback) {
 			console.log(' '+(cont.character_name ? cont.character_name : cont.role)+' - '+
 				cont.name);
 		}
-		for (var i in obj.version.broadcasts) {
+		for (i in obj.version.broadcasts) {
 			debuglog(obj.version.broadcasts[i]);
 		}
-		for (var i in obj.version.availabilities) {
+		for (i in obj.version.availabilities) {
 			debuglog(obj.version.availabilities[i]);
 		}
 		debuglog(obj.version.parent);

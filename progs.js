@@ -19,7 +19,7 @@ var debuglog = util.debuglog('bbc');
 
 var add_programme = function(obj) {
 	programme_cache.push(obj);
-}
+};
 
 //-----------------------------------------------------------------------------
 
@@ -69,7 +69,7 @@ function cat_page_list(obj) {
 
 function atoz_list(obj) {
 	console.log('A to Z list');
-	if (obj.atoz.tleo_titles.length==0) {
+	if (obj.atoz.tleo_titles.length===0) {
 		console.log(obj);
 	}
 	else {
@@ -93,13 +93,13 @@ function atoz_list(obj) {
 
 //-----------------------------------------------------------------------------
 
-function pad(str, pad, padRight) {
+function pad(str, padding, padRight) {
 	if (typeof str === 'undefined')
-		return pad;
+		return padding;
 	if (padRight) {
-		return (str + pad).substring(0, pad.length);
+		return (str + padding).substring(0, padding.length);
 	} else {
-		return (pad + str).slice(-pad.length);
+		return (padding + str).slice(-padding.length);
 	}
 }
 
@@ -149,8 +149,8 @@ var hidden = 0;
 				if (!len && (p.versions[0].duration)) {
 					len = p.versions[0].duration;
 				}
-				for (var i in p.versions) {
-					parents += (parents ? '\n' : '')+'  vPID= '+p.versions[i].pid+' ('+p.versions[i].types[0]+')';
+				for (var j in p.versions) {
+					parents += (parents ? '\n' : '')+'  vPID= '+p.versions[j].pid+' ('+p.versions[j].types[0]+')';
 				}
 			}
 
@@ -170,7 +170,6 @@ var hidden = 0;
 
 		}
 		else {
-			//console.log('Hidden '+p.pid);
 			hidden++;
 		}
 	}
@@ -183,7 +182,7 @@ var hidden = 0;
 // snaffled from request module
 function hasHeader(header, headers) {
 	var headers = Object.keys(headers || this.headers),
-		lheaders = headers.map(function (h) {return h.toLowerCase()});
+		lheaders = headers.map(function (h) {return h.toLowerCase();});
 	header = header.toLowerCase();
 	for (var i=0;i<lheaders.length;i++) {
 		if (lheaders[i] === header) return headers[i];
@@ -245,7 +244,7 @@ function request_category(host,path) {
 				console.log(res.headers);
 				console.log('** '+list);
 			}
-		};
+		}
 	   });
 	});
 	req.on('error', function(e) {
@@ -293,7 +292,7 @@ if (process.argv.length>4) {
 	else if (process.argv[4] == 'search') {
 		if (domain=='radio') {
 			//http://www.bbc.co.uk/radio/programmes/a-z/by/doctor%20who/player
-			cat_prefix = 'a-z/by/'
+			cat_prefix = 'a-z/by/';
 			page = '/all';
 		}
 		else {

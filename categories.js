@@ -24,9 +24,9 @@ function category_dump(obj) {
 				}
 			}
 		}
-		else (
-		  console.log('?? '+c.type)
-		)
+		else {
+		  console.log('?? '+c.type);
+		}
 	}
 }
 
@@ -61,7 +61,7 @@ function list_categories(path) {
 					console.log(err);
 					console.log('** '+list);
 			   }
-		   };
+		   }
 	   });
 	});
 	req.on('error', function(e) {

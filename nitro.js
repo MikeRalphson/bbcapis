@@ -38,7 +38,7 @@ function logFault(fault) {
 
 var add_programme = function(obj) {
 	programme_cache.push(obj);
-}
+};
 
 /*
 Examples include:
@@ -73,7 +73,7 @@ current set of results. This makes it very easy to build up the query you're loo
 
 function atoz_list(obj) {
 	console.log('Result page n of m');
-	if (obj.programmes.tleo_titles.length==0) {
+	if (obj.programmes.tleo_titles.length===0) {
 		console.log(obj);
 	}
 	else {
@@ -112,13 +112,13 @@ function atoz_list(obj) {
 
 //-----------------------------------------------------------------------------
 
-function pad(str, pad, padRight) {
+function pad(str, padding, padRight) {
 	if (typeof str === 'undefined')
-		return pad;
+		return padding;
 	if (padRight) {
-		return (str + pad).substring(0, pad.length);
+		return (str + padding).substring(0, padding.length);
 	} else {
-		return (pad + str).slice(-pad.length);
+		return (padding + str).slice(-padding.length);
 	}
 }
 
@@ -168,8 +168,8 @@ var hidden = 0;
 				if (!len && (p.versions[0].duration)) {
 					len = p.versions[0].duration;
 				}
-				for (var i in p.versions) {
-					parents += (parents ? '\n' : '')+'  vPID= '+p.versions[i].pid+' ('+p.versions[i].types[0]+')';
+				for (var v in p.versions) {
+					parents += (parents ? '\n' : '')+'  vPID= '+p.versions[v].pid+' ('+p.versions[v].types[0]+')';
 				}
 			}
 
@@ -202,7 +202,7 @@ var hidden = 0;
 // snaffled from request module
 function hasHeader(header, headers) {
 	var headers = Object.keys(headers || this.headers),
-		lheaders = headers.map(function (h) {return h.toLowerCase()});
+		lheaders = headers.map(function (h) {return h.toLowerCase();});
 	header = header.toLowerCase();
 	for (var i=0;i<lheaders.length;i++) {
 		if (lheaders[i] === header) return headers[i];
@@ -307,7 +307,7 @@ function make_request(host,path,key,query,callback) {
 			console.log(res.statusCode+' '+res.statusMessage);
 			console.log(res.headers);
 			console.log('** '+list);
-		};
+		}
 	   });
 	});
 	req.on('error', function(e) {
@@ -346,6 +346,9 @@ Groups Long-lived collections of programmes and more, including Collections, Sea
 */
 
 // see also https://github.com/mbst/glycerin
+// https://admin.live.bbc.co.uk/nitro/admin/servicestatus
+// https://api.live.bbc.co.uk/nitro/api/schema
+// https://confluence.dev.bbc.co.uk/display/nitro/Nitro+run+book
 
 var configstr = fs.readFileSync('./config.json', 'utf8');
 var config = JSON.parse(configstr);

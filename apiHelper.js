@@ -9,11 +9,11 @@ function query() {
 		this.querystring += (this.querystring || previous===true ? '&' : '?')+param;
 		if (value) this.querystring += '=' + encodeURIComponent(value);
 		return this;
-	}
+	};
 	this.reset = function() {
 		this.querystring = '';
 		return this;
-	}
+	};
 }
 
 module.exports = {
@@ -28,4 +28,4 @@ module.exports = {
 	getQueryString : function(q) {
 		return q.querystring;
 	}
-}
+};
