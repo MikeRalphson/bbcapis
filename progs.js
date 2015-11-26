@@ -290,6 +290,7 @@ if (process.argv.length>4) {
 		cat_prefix = 'formats/';
 	}
 	else if (process.argv[4] == 'search') {
+		category = encodeURIComponent(category);
 		if (domain=='radio') {
 			//http://www.bbc.co.uk/radio/programmes/a-z/by/doctor%20who/player
 			cat_prefix = 'a-z/by/';
@@ -301,7 +302,7 @@ if (process.argv.length>4) {
 		}
 	}
 }
-category = cat_prefix + encodeURIComponent(category);
+category = cat_prefix + category;
 
 if (process.argv.length>5) {
 	pid = process.argv[5];
