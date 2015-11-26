@@ -98,7 +98,7 @@ function processResponse(obj) {
 			else if ((p.type == 'series') || (p.type == 'brand')) {
 				path = domain+page;
 				query = newQuery(fProgrammesDescendantsOf,p.pid,true)
-					.add(api.fProgrammesAvailability,'available')
+					.add(api.fProgrammesAvailabilityAvailable)
 					.add(api.fProgrammesMediaSet,'pc')
 					.add(api.fProgrammesPageSize,300);
 
@@ -197,7 +197,7 @@ var hidden = 0;
 			}
 
 			console.log('  '+len+suffix+' S'+pad(series,'00')+'E'+pad(position,'00')+
-				'/'+pad(totaleps,'00')+' '+(p.short_synopsis ? p.short_synopsis : 'No description'));
+				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.shortS : 'No description'));
 			if (parents) console.log(parents);
 
 		}
@@ -356,6 +356,10 @@ Groups Long-lived collections of programmes and more, including Collections, Sea
 
 */
 
+// https://developer.bbc.co.uk/nitropubliclicence
+
+// http://downloads.bbc.co.uk/rmhttp/academy/collegeoftechnology/docs/j000m977x/Nitro_API.pdf
+
 // see also https://github.com/mbst/glycerin
 // https://admin.live.bbc.co.uk/nitro/admin/servicestatus
 // https://api.live.bbc.co.uk/nitro/api/schema
@@ -411,7 +415,7 @@ if (process.argv.length>5) {
 	//add.(api.mProgrammesDuration) //?
 }
 else {
-	query.add(api.fProgrammesAvailability,'available')
+	query.add(api.fProgrammesAvailabilityAvailable)
 		.add(api.fProgrammesMediaSet,'pc');
 	if (media_type) {
 		query.add(api.fProgrammesMediaType,media_type);

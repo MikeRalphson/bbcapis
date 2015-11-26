@@ -28,12 +28,25 @@ const mProgrammesIsEmbeddable = 'is_embeddable';
 const mProgrammesPreviousNext = 'previous_next';
 const mProgrammesRelatedLinks = 'related_links';
 const mProgrammesVersionsAvailability = 'versions_availability';
+const fProgrammesAudioDescribedTrue = 'audio_described=true';
+const fProgrammesAudioDescribedFalse = 'audio_described=false';
 const fProgrammesAudioDescribed = 'audio_described';
+const fProgrammesAvailabilityAvailable = 'availability=available';
+const fProgrammesAvailabilityPending = 'availability=pending';
 const fProgrammesAvailability = 'availability';
+const fProgrammesAvailabilityEntityTypeEpisode = 'availability_entity_type=episode';
+const fProgrammesAvailabilityEntityTypeClip = 'availability_entity_type=clip';
 const fProgrammesAvailabilityEntityType = 'availability_entity_type';
 const fProgrammesChildrenOf = 'children_of';
 const fProgrammesDescendantsOf = 'descendants_of';
+const fProgrammesDurationShort = 'duration=short';
+const fProgrammesDurationMedium = 'duration=medium';
+const fProgrammesDurationLong = 'duration=long';
 const fProgrammesDuration = 'duration';
+const fProgrammesEntityTypeBrand = 'entity_type=brand';
+const fProgrammesEntityTypeSeries = 'entity_type=series';
+const fProgrammesEntityTypeEpisode = 'entity_type=episode';
+const fProgrammesEntityTypeClip = 'entity_type=clip';
 const fProgrammesEntityType = 'entity_type';
 const fProgrammesFormat = 'format';
 const fProgrammesGenre = 'genre';
@@ -45,6 +58,8 @@ const fProgrammesInitialLetterStrict = 'initial_letter_strict';
 const fProgrammesItem = 'item';
 const fProgrammesMasterBrand = 'master_brand';
 const fProgrammesMediaSet = 'media_set';
+const fProgrammesMediaTypeAudio = 'media_type=audio';
+const fProgrammesMediaTypeAudioVideo = 'media_type=audio_video';
 const fProgrammesMediaType = 'media_type';
 const fProgrammesPage = 'page';
 const fProgrammesPageSize = 'page_size';
@@ -54,18 +69,27 @@ const fProgrammesPeople = 'people';
 const fProgrammesPid = 'pid';
 const fProgrammesPromotedFor = 'promoted_for';
 const fProgrammesQ = 'q';
+const fProgrammesSignedExclusive = 'signed=exclusive';
+const fProgrammesSignedInclusive = 'signed=inclusive';
+const fProgrammesSignedExclude = 'signed=exclude';
 const fProgrammesSigned = 'signed';
 const fProgrammesTagName = 'tag_name';
 const fProgrammesTagScheme = 'tag_scheme';
+const fProgrammesTleoTrue = 'tleo=true';
+const fProgrammesTleoFalse = 'tleo=false';
 const fProgrammesTleo = 'tleo';
 const fProgrammesVersion = 'version';
 const sAvailabilityScheduledStartAscending = 'sort=scheduled_start&sort_direction=ascending';
 const sAvailabilityScheduledStartDescending = 'sort=scheduled_start&sort_direction=descending';
+const fAvailabilityAvailabilityAvailable = 'availability=available';
 const fAvailabilityAvailability = 'availability';
 const fAvailabilityDescendantsOf = 'descendants_of';
 const fAvailabilityMediaSet = 'media_set';
 const fAvailabilityPage = 'page';
 const fAvailabilityPageSize = 'page_size';
+const fAvailabilityTerritoryUk = 'territory=uk';
+const fAvailabilityTerritoryNonuk = 'territory=nonuk';
+const fAvailabilityTerritoryWorld = 'territory=world';
 const fAvailabilityTerritory = 'territory';
 const sBroadcastsStartDateAscending = 'sort=start_date&sort_direction=ascending';
 const sBroadcastsStartDateDescending = 'sort=start_date&sort_direction=descending';
@@ -99,6 +123,10 @@ const mGroupsRelatedLinks = 'related_links';
 const fGroupsForDescendantsOf = 'for_descendants_of';
 const fGroupsForProgramme = 'for_programme';
 const fGroupsGroup = 'group';
+const fGroupsGroupTypeCollection = 'group_type=collection';
+const fGroupsGroupTypeFranchise = 'group_type=franchise';
+const fGroupsGroupTypeGallery = 'group_type=gallery';
+const fGroupsGroupTypeSeason = 'group_type=season';
 const fGroupsGroupType = 'group_type';
 const fGroupsMember = 'member';
 const fGroupsPage = 'page';
@@ -111,6 +139,11 @@ const sImagesGroupPositionAscending = 'sort=group_position&sort_direction=ascend
 const sImagesPidAscending = 'sort=pid&sort_direction=ascending';
 const sImagesPidDescending = 'sort=pid&sort_direction=descending';
 const fImagesGroup = 'group';
+const fImagesImageTypeStandard = 'image_type=standard';
+const fImagesImageTypePodcast = 'image_type=podcast';
+const fImagesImageTypeStore = 'image_type=store';
+const fImagesImageTypePortrait = 'image_type=portrait';
+const fImagesImageTypeLetterbox = 'image_type=letterbox';
 const fImagesImageType = 'image_type';
 const fImagesIsAlternateImageFor = 'is_alternate_image_for';
 const fImagesIsImageFor = 'is_image_for';
@@ -127,6 +160,11 @@ const mItemsPlayEvent = 'play_event';
 const fItemsAuthority = 'authority';
 const fItemsId = 'id';
 const fItemsIdType = 'id_type';
+const fItemsItemTypeChapter = 'item_type=chapter';
+const fItemsItemTypeHighlight = 'item_type=highlight';
+const fItemsItemTypeMusic = 'item_type=music';
+const fItemsItemTypeSpeech = 'item_type=speech';
+const fItemsItemTypeOther = 'item_type=other';
 const fItemsItemType = 'item_type';
 const fItemsPage = 'page';
 const fItemsPageSize = 'page_size';
@@ -146,6 +184,8 @@ const fMasterbrandsPartnerId = 'partner_id';
 const fMasterbrandsPartnerPid = 'partner_pid';
 const fMasterbrandsQ = 'q';
 const fPeopleAuthority = 'authority';
+const fPeopleHasExternalIdTrue = 'has_external_id=true';
+const fPeopleHasExternalIdFalse = 'has_external_id=false';
 const fPeopleHasExternalId = 'has_external_id';
 const fPeopleId = 'id';
 const fPeopleIdType = 'id_type';
@@ -169,6 +209,7 @@ const fPromotionsPid = 'pid';
 const fPromotionsPromotedBy = 'promoted_by';
 const fPromotionsPromotedFor = 'promoted_for';
 const fPromotionsQ = 'q';
+const fPromotionsStatusCurrent = 'status=current';
 const fPromotionsStatus = 'status';
 const sSchedulesStartDateAscending = 'sort=start_date&sort_direction=ascending';
 const sSchedulesStartDateDescending = 'sort=start_date&sort_direction=descending';
@@ -208,10 +249,16 @@ const fServicesPageSize = 'page_size';
 const fServicesPartnerId = 'partner_id';
 const fServicesPartnerPid = 'partner_pid';
 const fServicesQ = 'q';
+const fServicesServiceTypeTv = 'service_type=TV';
+const fServicesServiceTypeLocalRadio = 'service_type=Local%20Radio';
+const fServicesServiceTypeNationalRadio = 'service_type=National%20Radio';
+const fServicesServiceTypeRegionalRadio = 'service_type=Regional%20Radio';
+const fServicesServiceTypeInteractive = 'service_type=Interactive';
 const fServicesServiceType = 'service_type';
 const fServicesSid = 'sid';
 const fServicesStartFrom = 'start_from';
 const fServicesStartTo = 'start_to';
+const fVersionsAvailabilityAvailable = 'availability=available';
 const fVersionsAvailability = 'availability';
 const fVersionsDescendantsOf = 'descendants_of';
 const fVersionsMediaSet = 'media_set';
@@ -391,8 +438,14 @@ mProgrammesVersionsAvailability : mProgrammesVersionsAvailability,
 * filter for subset of programmes that are audio-described
 * type = boolean
 * option: true, filter for programmes that are audio-described
+*/
+fProgrammesAudioDescribedTrue : fProgrammesAudioDescribedTrue,
+/**
 * /nitro/api/programmes?audio_described=true
 * option: false, filter for programmes that are not audio-described
+*/
+fProgrammesAudioDescribedFalse : fProgrammesAudioDescribedFalse,
+/**
 * /nitro/api/programmes?audio_described=false
 */
 fProgrammesAudioDescribed : fProgrammesAudioDescribed,
@@ -400,8 +453,14 @@ fProgrammesAudioDescribed : fProgrammesAudioDescribed,
 * filter for subset of programmes that have availability
 * type = string
 * option: available, filter for programmes that are available
+*/
+fProgrammesAvailabilityAvailable : fProgrammesAvailabilityAvailable,
+/**
 * /nitro/api/programmes?availability=available
 * option: pending, filter for programmes that are expected to become available imminently
+*/
+fProgrammesAvailabilityPending : fProgrammesAvailabilityPending,
+/**
 * /nitro/api/programmes?availability=pending
 */
 fProgrammesAvailability : fProgrammesAvailability,
@@ -409,8 +468,14 @@ fProgrammesAvailability : fProgrammesAvailability,
 * additional filter when availability=available
 * type = string
 * option: episode, filter for programmes with available episodes
+*/
+fProgrammesAvailabilityEntityTypeEpisode : fProgrammesAvailabilityEntityTypeEpisode,
+/**
 * /nitro/api/programmes?availability_entity_type=episode
 * option: clip, filter for programmes with available clips
+*/
+fProgrammesAvailabilityEntityTypeClip : fProgrammesAvailabilityEntityTypeClip,
+/**
 * /nitro/api/programmes?availability_entity_type=clip
 */
 fProgrammesAvailabilityEntityType : fProgrammesAvailabilityEntityType,
@@ -428,10 +493,19 @@ fProgrammesDescendantsOf : fProgrammesDescendantsOf,
 * filter for subset of programmes that have given duration
 * type = string
 * option: short, filter for programmes that have short duration (< 5m)
+*/
+fProgrammesDurationShort : fProgrammesDurationShort,
+/**
 * /nitro/api/programmes?duration=short
 * option: medium, filter for programmes that have medium duration (5m - 30m)
+*/
+fProgrammesDurationMedium : fProgrammesDurationMedium,
+/**
 * /nitro/api/programmes?duration=medium
 * option: long, filter for programmes that have long duration (> 30m)
+*/
+fProgrammesDurationLong : fProgrammesDurationLong,
+/**
 * /nitro/api/programmes?duration=long
 */
 fProgrammesDuration : fProgrammesDuration,
@@ -439,12 +513,24 @@ fProgrammesDuration : fProgrammesDuration,
 * filter for subset of programmes that have given entity type
 * type = string
 * option: brand, filter for programmes that are brands
+*/
+fProgrammesEntityTypeBrand : fProgrammesEntityTypeBrand,
+/**
 * /nitro/api/programmes?entity_type=brand
 * option: series, filter for programmes that are series
+*/
+fProgrammesEntityTypeSeries : fProgrammesEntityTypeSeries,
+/**
 * /nitro/api/programmes?entity_type=series
 * option: episode, filter for programmes that are episodes
+*/
+fProgrammesEntityTypeEpisode : fProgrammesEntityTypeEpisode,
+/**
 * /nitro/api/programmes?entity_type=episode
 * option: clip, filter for programmes that are clips
+*/
+fProgrammesEntityTypeClip : fProgrammesEntityTypeClip,
+/**
 * /nitro/api/programmes?entity_type=clip
 */
 fProgrammesEntityType : fProgrammesEntityType,
@@ -502,8 +588,14 @@ fProgrammesMediaSet : fProgrammesMediaSet,
 * filter for subset of programmes with media type
 * type = string
 * option: audio, filter for programmes that are audio only
+*/
+fProgrammesMediaTypeAudio : fProgrammesMediaTypeAudio,
+/**
 * /nitro/api/programmes?media_type=audio
 * option: audio_video, filter for programmes that are video only
+*/
+fProgrammesMediaTypeAudioVideo : fProgrammesMediaTypeAudioVideo,
+/**
 * /nitro/api/programmes?media_type=audio_video
 */
 fProgrammesMediaType : fProgrammesMediaType,
@@ -557,10 +649,19 @@ fProgrammesQ : fProgrammesQ,
 * filter for subset of programmes that are signed
 * type = string
 * option: exclusive, filter for programmes that are signed
+*/
+fProgrammesSignedExclusive : fProgrammesSignedExclusive,
+/**
 * /nitro/api/programmes?signed=exclusive
 * option: inclusive, filter for programmes regardless of signedness
+*/
+fProgrammesSignedInclusive : fProgrammesSignedInclusive,
+/**
 * /nitro/api/programmes?signed=inclusive
 * option: exclude, filter for programmes that are not signed
+*/
+fProgrammesSignedExclude : fProgrammesSignedExclude,
+/**
 * /nitro/api/programmes?signed=exclude
 */
 fProgrammesSigned : fProgrammesSigned,
@@ -578,8 +679,14 @@ fProgrammesTagScheme : fProgrammesTagScheme,
 * filter for subset of programmes that are TLEOs
 * type = boolean
 * option: true, filter for programmes that are TLEOs
+*/
+fProgrammesTleoTrue : fProgrammesTleoTrue,
+/**
 * /nitro/api/programmes?tleo=true
 * option: false, filter for programmes that are not TLEOs
+*/
+fProgrammesTleoFalse : fProgrammesTleoFalse,
+/**
 * /nitro/api/programmes?tleo=false
 */
 fProgrammesTleo : fProgrammesTleo,
@@ -604,6 +711,9 @@ sAvailabilityScheduledStartDescending : sAvailabilityScheduledStartDescending,
 * filter for subset of availabilities
 * type = string
 * option: available, filter for availabilities that are available
+*/
+fAvailabilityAvailabilityAvailable : fAvailabilityAvailabilityAvailable,
+/**
 * /nitro/api/availabilities?availability=available
 */
 fAvailabilityAvailability : fAvailabilityAvailability,
@@ -636,10 +746,19 @@ fAvailabilityPageSize : fAvailabilityPageSize,
 * filter for availabilities in given territory
 * type = string
 * option: uk, filter for only UK availabilities
+*/
+fAvailabilityTerritoryUk : fAvailabilityTerritoryUk,
+/**
 * /nitro/api/availabilities?territory=uk
 * option: nonuk, filter for only non-UK availabilities
+*/
+fAvailabilityTerritoryNonuk : fAvailabilityTerritoryNonuk,
+/**
 * /nitro/api/availabilities?territory=nonuk
 * option: world, filter for global availabilities
+*/
+fAvailabilityTerritoryWorld : fAvailabilityTerritoryWorld,
+/**
 * /nitro/api/availabilities?territory=world
 */
 fAvailabilityTerritory : fAvailabilityTerritory,
@@ -815,12 +934,24 @@ fGroupsGroup : fGroupsGroup,
 * filter for subset of groups that have the given group type
 * type = string
 * option: collection, filter for groups that are collections
+*/
+fGroupsGroupTypeCollection : fGroupsGroupTypeCollection,
+/**
 * /nitro/api/groups?group_type=collection
 * option: franchise, filter for groups that are franchises
+*/
+fGroupsGroupTypeFranchise : fGroupsGroupTypeFranchise,
+/**
 * /nitro/api/groups?group_type=franchise
 * option: gallery, filter for groups that are galleries
+*/
+fGroupsGroupTypeGallery : fGroupsGroupTypeGallery,
+/**
 * /nitro/api/groups?group_type=gallery
 * option: season, filter for groups that are seasons
+*/
+fGroupsGroupTypeSeason : fGroupsGroupTypeSeason,
+/**
 * /nitro/api/groups?group_type=season
 */
 fGroupsGroupType : fGroupsGroupType,
@@ -892,14 +1023,29 @@ fImagesGroup : fImagesGroup,
 * filter for images by type
 * type = string
 * option: standard, select standard type images
+*/
+fImagesImageTypeStandard : fImagesImageTypeStandard,
+/**
 * /nitro/api/images?image_type=standard
 * option: podcast, select podcast type images
+*/
+fImagesImageTypePodcast : fImagesImageTypePodcast,
+/**
 * /nitro/api/images?image_type=podcast
 * option: store, select store type images
+*/
+fImagesImageTypeStore : fImagesImageTypeStore,
+/**
 * /nitro/api/images?image_type=store
 * option: portrait, select portrait type images
+*/
+fImagesImageTypePortrait : fImagesImageTypePortrait,
+/**
 * /nitro/api/images?image_type=portrait
 * option: letterbox, select letterbox type images
+*/
+fImagesImageTypeLetterbox : fImagesImageTypeLetterbox,
+/**
 * /nitro/api/images?image_type=letterbox
 */
 fImagesImageType : fImagesImageType,
@@ -988,14 +1134,29 @@ fItemsIdType : fItemsIdType,
 * filter for specific type(s) of items
 * type = string
 * option: chapter, filter for only chapter items
+*/
+fItemsItemTypeChapter : fItemsItemTypeChapter,
+/**
 * /nitro/api/items?item_type=chapter
 * option: highlight, filter for only highlight items
+*/
+fItemsItemTypeHighlight : fItemsItemTypeHighlight,
+/**
 * /nitro/api/items?item_type=highlight
 * option: music, filter for only music items
+*/
+fItemsItemTypeMusic : fItemsItemTypeMusic,
+/**
 * /nitro/api/items?item_type=music
 * option: speech, filter for only speech items
+*/
+fItemsItemTypeSpeech : fItemsItemTypeSpeech,
+/**
 * /nitro/api/items?item_type=speech
 * option: other, filter for only other items
+*/
+fItemsItemTypeOther : fItemsItemTypeOther,
+/**
 * /nitro/api/items?item_type=other
 */
 fItemsItemType : fItemsItemType,
@@ -1106,8 +1267,14 @@ fPeopleAuthority : fPeopleAuthority,
 * filter for people who have an external identifier
 * type = boolean
 * option: true, filter for people who have an external identifier
+*/
+fPeopleHasExternalIdTrue : fPeopleHasExternalIdTrue,
+/**
 * /nitro/api/people?has_external_id=true
 * option: false, filter for people who do not have an external identifier
+*/
+fPeopleHasExternalIdFalse : fPeopleHasExternalIdFalse,
+/**
 * /nitro/api/people?has_external_id=false
 */
 fPeopleHasExternalId : fPeopleHasExternalId,
@@ -1242,6 +1409,9 @@ fPromotionsQ : fPromotionsQ,
 * filter for subset of promotions with status
 * type = string
 * option: current, filter current promotions
+*/
+fPromotionsStatusCurrent : fPromotionsStatusCurrent,
+/**
 * /nitro/api/promotions?status=current
 */
 fPromotionsStatus : fPromotionsStatus,
@@ -1453,14 +1623,29 @@ fServicesQ : fServicesQ,
 * filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio
 * type = string
 * option: TV, Return only TV services
+*/
+fServicesServiceTypeTv : fServicesServiceTypeTv,
+/**
 * /nitro/api/services?service_type=TV
 * option: Local Radio, Return only Local Radio services
+*/
+fServicesServiceTypeLocalRadio : fServicesServiceTypeLocalRadio,
+/**
 * /nitro/api/services?service_type=Local+Radio
 * option: National Radio, Return only National Radio services
+*/
+fServicesServiceTypeNationalRadio : fServicesServiceTypeNationalRadio,
+/**
 * /nitro/api/services?service_type=National+Radio
 * option: Regional Radio, Return only Regional Radio services
+*/
+fServicesServiceTypeRegionalRadio : fServicesServiceTypeRegionalRadio,
+/**
 * /nitro/api/services?service_type=Regional+Radio
 * option: Interactive, Return only Interactive services
+*/
+fServicesServiceTypeInteractive : fServicesServiceTypeInteractive,
+/**
 * /nitro/api/services?service_type=Interactive
 */
 fServicesServiceType : fServicesServiceType,
@@ -1483,6 +1668,9 @@ fServicesStartTo : fServicesStartTo,
 * filter for subset of versions that have availability
 * type = string
 * option: available, filter for versions that are available
+*/
+fVersionsAvailabilityAvailable : fVersionsAvailabilityAvailable,
+/**
 * /nitro/api/versions?availability=available
 */
 fVersionsAvailability : fVersionsAvailability,

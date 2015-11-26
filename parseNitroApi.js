@@ -13,7 +13,7 @@ var cache = [];
 //__________________________________________________________________
 
 String.prototype.toCamelCase = function camelize() {
-	return this.toLowerCase().replace(/[-_](.)/g, function(match, group1) {
+	return this.toLowerCase().replace(/[-_ ](.)/g, function(match, group1) {
 		return group1.toUpperCase();
     });
 }
@@ -39,6 +39,11 @@ function toArray(item) {
 function checkHref(href,name) {
 	href = href.replace(/\+/g, "%20"); //correct for difference between Java?/Javascript encodings
 	return (href.indexOf(encodeURIComponent(name))>=0);
+}
+
+//__________________________________________________________________
+function checkReleaseStatus(status) {
+	return ((status!='alpha') && (status!='deprecated'));
 }
 
 //__________________________________________________________________
@@ -88,7 +93,7 @@ function exportSort(feed,sort,sortName) {
 
 //__________________________________________________________________
 function processSort(feed,sort,sortName) {
-	if (sort.release_status!='deprecated') {
+	if (checkReleaseStatus(sort.release_status)) {
 		if (sort.sort_direction) {
 			sort.sort_direction = toArray(sort.sort_direction); // I expect in the official API this will always be the case
 			for (i in sort.sort_direction) {
@@ -126,7 +131,7 @@ function exportMixin(feed,mixin,mixinName) {
 
 //__________________________________________________________________
 function processMixin(feed,mixin,mixinName) {
-	if (mixin.release_status!='deprecated') {
+	if (checkReleaseStatus(mixin.release_status)) {
 		exportMixin(feed,mixin,mixinName);
 	}
 	else {
@@ -164,6 +169,11 @@ function exportFilter(feed,filter,filterName) {
 			option=filter.option[i];
 			if (option.title) {
 				s += '* option: '+option.value+', '+option.title+'\n';
+				s += '*/\n';
+				optionName = filterName+('-'+option.value).toCamelCase();
+				s += optionName+' : '+optionName +',\n';
+				s += '/**\n';
+				fs.appendFileSync(apijs, 'const '+optionName+" = '"+filter.name+'='+encodeURIComponent(option.value)+"';\n", 'utf8');
 			}
 			if (option.href) {
 				s += '* '+option.href+'\n';
@@ -184,7 +194,7 @@ function exportFilter(feed,filter,filterName) {
 
 //__________________________________________________________________
 function processFilter(feed,filter,filterName) {
-	if (filter.release_status!='deprecated') {
+	if (checkReleaseStatus(filter.release_status)) {
 		if (!filter.type) {
 			console.log('++++++++++ typeless filter ++++++++ '+filterName);
 		}
