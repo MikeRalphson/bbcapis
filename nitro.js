@@ -432,8 +432,8 @@ else {
 
 	//http://nitro.stage.api.bbci.co.uk/nitro/api/
 	make_request(host,path,api_key,query,function(obj){
-		if (obj.programmes) {
-			processResponse(obj); //tleo_titles
+		if (obj.nitro) {
+			processResponse(obj);
 		}
 		else if (obj.fault) {
 			logFault(obj);
