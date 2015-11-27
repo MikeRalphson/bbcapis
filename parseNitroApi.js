@@ -124,7 +124,7 @@ function exportMixin(feed,mixin,mixinName) {
 	}
 	s += '*/\n';
 	s += mixinName+' : '+mixinName+',\n';
-	fs.appendFileSync(apijs, 'const '+mixinName+" = '"+mixin.name+"';\n", 'utf8');
+	fs.appendFileSync(apijs, 'const '+mixinName+" = 'mixin="+mixin.name+"';\n", 'utf8');
 	cache.push(s);
 	return s;
 }

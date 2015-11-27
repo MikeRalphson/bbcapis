@@ -13,8 +13,9 @@ var api = require('./nitroApi/api');
 
 var programme_cache = [];
 var download_history = [];
-const host = 'nitro.stage.api.bbci.co.uk';
-const domain = '/nitro';
+//const host = 'nitro.stage.api.bbci.co.uk';
+host = 'd.bbc.co.uk';
+const domain = '/nitro/stage';
 var page = '/api/programmes';
 var api_key = '';
 var service = 'radio';
@@ -83,7 +84,7 @@ function processResponse(obj) {
 		top = obj.nitro.results.more_than+1;
 	}
 	console.log('page '+page+' of '+top);
-	
+
 	if (obj.nitro.results.programme.length===0) {
 		console.log(obj);
 	}
@@ -364,6 +365,7 @@ Groups Long-lived collections of programmes and more, including Collections, Sea
 // https://admin.live.bbc.co.uk/nitro/admin/servicestatus
 // https://api.live.bbc.co.uk/nitro/api/schema
 // https://confluence.dev.bbc.co.uk/display/nitro/Nitro+run+book
+// http://www.bbc.co.uk/academy/technology/article/art20141013145843465
 
 var configstr = fs.readFileSync('./config.json', 'utf8');
 var config = JSON.parse(configstr);
@@ -435,6 +437,10 @@ else {
 	var path = domain+page;
 
 	//http://nitro.stage.api.bbci.co.uk/nitro/api/
+
+	//https://github.com/BBCConnectedStudio/bbcpeople/commits/master/lib/nitro.rb
+	//  http://d.bbc.co.uk/nitro/api/
+	//  http://d.bbc.co.uk/stage/nitro/api/
 	make_request(host,path,api_key,query,function(obj){
 		if (obj.nitro) {
 			processResponse(obj);
