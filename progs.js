@@ -14,6 +14,7 @@ var download_history = [];
 var domain = 'radio';
 var displayDomain = domain;
 var pid = '';
+var availableOnly = false;
 
 var debuglog = util.debuglog('bbc');
 
@@ -32,10 +33,10 @@ function cat_slice_dump(obj) {
 		p = obj.category_slice.programmes[i];
 		if ((p.type == 'episode') || (p.type == 'clip'))  {
 			//add_programme(p); //? not enough info available
-			common.pid_list(p.type,p,true,add_programme);
+			common.pid_list(p.type,p,true,false,add_programme);
 		}
 		else if ((p.type == 'series') || (p.type == 'brand')) {
-			common.pid_list(p.type,p,false,add_programme);
+			common.pid_list(p.type,p,false,false,add_programme);
 		}
 		else {
 			console.log('Unhandled type: '+p.type);
@@ -57,7 +58,7 @@ function cat_page_list(obj) {
 			add_programme(p); //? faster than querying each PID
 		}
 		else if ((p.type == 'series') || (p.type == 'brand')) {
-			common.pid_list(p.type,p,false,add_programme);
+			common.pid_list(p.type,p,false,false,add_programme);
 		}
 		else {
 			console.log('Unhandled type: '+p.type);
@@ -81,7 +82,7 @@ function atoz_list(obj) {
 				add_programme(p);
 			}
 			else if ((p.type == 'series') || (p.type == 'brand')) {
-				common.pid_list(p.type,p,false,add_programme);
+				common.pid_list(p.type,p,false,false,add_programme);
 			}
 			else {
 				console.log('Unhandled type: '+p.type);
@@ -112,37 +113,43 @@ var hidden = 0;
 	console.log('\n* Programme Cache:');
 	for (var i in programme_cache) {
 		p = programme_cache[i];
-		if (common.binarySearch(download_history,p.pid)<0) {
-			title = (p.display_title ? p.display_title.title+
-				(p.display_title.subtitle ? '/' : '')+p.display_title.subtitle : p.title);
+		
+		present = (common.binarySearch(download_history,p.pid)>=0);
+		
+		totaleps = 1;
+		series = 1;
+		parents = '';
+		position = p.position ? p.position : 1;
+		ownership = p.ownership;
 
-			position = p.position ? p.position : 1;
-			totaleps = 1;
-			series = 1;
-			parents = '';
+		title = (p.display_title ? p.display_title.title+
+			(p.display_title.subtitle ? '/' : '')+p.display_title.subtitle : p.title);
+		
+		subp = p;
+		while ((subp.programme) || (subp.parent) && (!present)) {
+			newp = subp.programme;
+			if (!newp) newp = subp.parent.programme;
+			subp = newp;
 
-			ownership = p.ownership;
-
-			subp = p;
-			while ((subp.programme) || (subp.parent)) {
-				newp = subp.programme;
-				if (!newp) newp = subp.parent.programme;
-				subp = newp;
-				if (subp.type == 'series') {
-					if (subp.expected_child_count) totaleps = subp.expected_child_count;
-					if (subp.position) series = subp.position;
-				}
-				if ((!ownership) && (subp.ownership)) {
-					ownership = subp.ownership;
-				}
-				title = subp.title+'/'+title;
-				parents += '  '+subp.type+'= '+subp.pid+' ('+subp.title+')';
+			present = (present || (common.binarySearch(download_history,subp.pid)>=0));
+			
+			if (subp.type == 'series') {
+				if (subp.expected_child_count) totaleps = subp.expected_child_count;
+				if (subp.position) series = subp.position;
 			}
+			if ((!ownership) && (subp.ownership)) {
+				ownership = subp.ownership;
+			}
+			title = subp.title+'/'+title;
+			parents += '  '+subp.type+'= '+subp.pid+' ('+subp.title+')';
+		}
+		
+		available = (!(p.is_available===false||p.is_available_mediaset_pc_sd===false));
 
+		if ((!present) && (available || !availableOnly)) {
 			console.log(p.pid+' '+p.type+' '+(ownership && ownership.service && ownership.service.type ?
 			  ownership.service.type : displayDomain)+' '+
-			  ((p.is_available===false||p.is_available_mediaset_pc_sd===false) ? 'Unavailable' : 'Available')+
-			  '  '+title);
+			  (available ? 'Available' : 'Unavailable')+'  '+title);
 
 			len = p.duration ? p.duration : 0;
 			if (p.versions) {
@@ -272,6 +279,8 @@ var defcat = 'drama/scifiandfantasy';
 var category = defcat;
 var page = '/player';
 
+availableOnly = false;
+
 if (process.argv.length>2) {
 	category = process.argv[2];
 }
@@ -306,15 +315,19 @@ category = cat_prefix + category;
 
 if (process.argv.length>5) {
 	pid = process.argv[5];
+	if (pid=='available') {
+		availableOnly = true;
+		pid = '';
+	}
 }
 
 if (category.indexOf('-h')>=0) {
-	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID]');
+	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID|available]');
 	console.log();
 	console.log('Category defaults to '+defcat);
 	console.log('Domain defaults to '+domain);
 	console.log('Aggregation defaults to genre');
-	console.log('PID defaults to all PIDS');
+	console.log('PID defaults to all PIDS, if available, only available programmes shown');
 }
 else {
 	if (domain) domain = '/'+domain;
@@ -326,7 +339,7 @@ else {
 	else {
 		obj = [];
 		obj.pid = pid; // create a programme object stub
-		common.pid_list('toplevel',obj,false,add_programme);
+		common.pid_list('toplevel',obj,false,false,add_programme);
 	}
 }
 

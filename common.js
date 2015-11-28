@@ -50,21 +50,27 @@ module.exports = {
 
 		return -1;
 	},
-	process_pid: function (type,parent,obj,callback) {
-		processPid(type,parent,obj,callback);
+	process_pid: function (type,parent,obj,updateSeries,callback) {
+		processPid(type,parent,obj,updateSeries,callback);
 	},
-	pid_list: function (type,obj,single,callback) {
-		pidList(type,obj,single,callback);
+	pid_list: function (type,obj,single,updateSeries,callback) {
+		pidList(type,obj,single,updateSeries,callback);
 	}
-  
+
 };
 
 //---------------------------------------------------------------------internal functions
 
 var series_cache = [];
 
-function processPid(type,parent,obj,callback) {
-	//debuglog(obj);
+function processPid(type,parent,obj,updateSeries,callback) {
+
+	if ((obj.type == 'brand') || (obj.type == 'series')) {
+		if (updateSeries) {
+			callback(obj);
+		}
+	}
+
 	if (obj.episodes) {
 		if (obj.episodes.length) {
 			for (var i in obj.episodes) {
@@ -88,10 +94,13 @@ function processPid(type,parent,obj,callback) {
 			callback(obj);
 		}
 		else if ((obj.type == 'brand') || (obj.type == 'series')) {
+			if (updateSeries) {
+				callback(obj);
+			}
 			process.stdout.write('>');
 			if (parent.pid!=obj.pid) {
 				console.log('\nRecursing from '+type+':'+parent.pid+' to '+obj.type+':'+obj.pid);
-				pid_list(obj.type,obj,false);
+				pid_list(obj.type,obj,true,updateSeries,callback);
 			}
 		}
 		else {
@@ -122,11 +131,16 @@ function processPid(type,parent,obj,callback) {
 	}
 }
 
-function pidList(type,obj,single,callback) {
+function pidList(type,obj,single,updateSeries,callback) {
 	// single PID      http://www.bbc.co.uk/programmes/b009szrh.json
 	// brand or series http://www.bbc.co.uk/programmes/b012qq56/episodes/player.json
 
 	debuglog(obj);
+	if ((obj.type == 'brand') || (obj.type == 'series') || (obj.type == 'toplevel')) {
+		if (updateSeries) {
+			callback(obj);
+		}
+	}
 
 	if (series_cache.indexOf(obj.pid)<0) {
 		//console.log('Processing '+obj.type+' '+obj.pid);
@@ -167,12 +181,12 @@ function pidList(type,obj,single,callback) {
 						}
 					}
 					series_cache.push(obj.pid);
-					processPid(type,obj,child,callback);
+					processPid(type,obj,child,updateSeries,callback);
 			   }
 			   catch(err) {
 					if ((res.statusCode>=400) && (res.statusCode<500)) {
 						if (!single) {
-							pidList(type,obj,true,callback);
+							pidList(type,obj,true,updateSeries,callback);
 						}
 						else {
 							console.log(res.statusCode+' '+res.statusMessage);

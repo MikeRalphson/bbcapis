@@ -30,12 +30,13 @@ var add_entry = function(ep) {
 function update(pid,quick) {
 	obj = [];
 	obj.pid = pid; // create a programme object stub
+	obj.type = 'toplevel';
+	obj.title = '';
 	if (quick) {
-		obj.title = '';
 		add_entry(obj);
 	}
 	else {
-		common.pid_list('toplevel',obj,false,add_entry);
+		common.pid_list('toplevel',obj,false,true,add_entry);
 	}
 }
 
