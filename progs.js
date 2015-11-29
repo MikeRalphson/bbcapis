@@ -24,76 +24,6 @@ var add_programme = function(obj) {
 
 //-----------------------------------------------------------------------------
 
-function cat_slice_dump(obj) {
-	console.log('* Category_slice dump');
-	console.log(obj.category_slice.category.key+' = '+obj.category_slice.category.title);
-	var len = obj.category_slice.programmes.length;
-	//console.log('Contains '+len+' entries');
-	for (var i in obj.category_slice.programmes) {
-		p = obj.category_slice.programmes[i];
-		if ((p.type == 'episode') || (p.type == 'clip'))  {
-			//add_programme(p); //? not enough info available
-			common.pid_list(p.type,p,true,false,add_programme);
-		}
-		else if ((p.type == 'series') || (p.type == 'brand')) {
-			common.pid_list(p.type,p,false,false,add_programme);
-		}
-		else {
-			console.log('Unhandled type: '+p.type);
-		}
-	}
-}
-
-//-----------------------------------------------------------------------------
-
-function cat_page_list(obj) {
-    debuglog(obj);
-	console.log('* Category_page list');
-	console.log(obj.category_page.category.key+' = '+obj.category_page.category.title);
-	var len = obj.category_page.available_programmes.length;
-	//console.log('Contains '+len+' entries');
-	for (var i in obj.category_page.available_programmes) {
-		p = obj.category_page.available_programmes[i];
-		if ((p.type == 'episode') || (p.type == 'clip'))  {
-			add_programme(p); //? faster than querying each PID
-		}
-		else if ((p.type == 'series') || (p.type == 'brand')) {
-			common.pid_list(p.type,p,false,false,add_programme);
-		}
-		else {
-			console.log('Unhandled type: '+p.type);
-			console.log(p);
-		}
-
-	}
-}
-
-function atoz_list(obj) {
-	console.log('A to Z list');
-	if (obj.atoz.tleo_titles.length===0) {
-		console.log(obj);
-	}
-	else {
-		for (var i in obj.atoz.tleo_titles) {
-			title = obj.atoz.tleo_titles[i];
-			p = title.programme;
-			debuglog(p);
-			if ((p.type == 'episode') || (p.type == 'clip'))  {
-				add_programme(p);
-			}
-			else if ((p.type == 'series') || (p.type == 'brand')) {
-				common.pid_list(p.type,p,false,false,add_programme);
-			}
-			else {
-				console.log('Unhandled type: '+p.type);
-				console.log(p);
-			}
-		}
-	}	
-}
-
-//-----------------------------------------------------------------------------
-
 function pad(str, padding, padRight) {
 	if (typeof str === 'undefined')
 		return padding;
@@ -113,9 +43,9 @@ var hidden = 0;
 	console.log('\n* Programme Cache:');
 	for (var i in programme_cache) {
 		p = programme_cache[i];
-		
+
 		present = (common.binarySearch(download_history,p.pid)>=0);
-		
+
 		totaleps = 1;
 		series = 1;
 		parents = '';
@@ -124,7 +54,7 @@ var hidden = 0;
 
 		title = (p.display_title ? p.display_title.title+
 			(p.display_title.subtitle ? '/' : '')+p.display_title.subtitle : p.title);
-		
+
 		subp = p;
 		while ((subp.programme) || (subp.parent) && (!present)) {
 			newp = subp.programme;
@@ -132,7 +62,7 @@ var hidden = 0;
 			subp = newp;
 
 			present = (present || (common.binarySearch(download_history,subp.pid)>=0));
-			
+
 			if (subp.type == 'series') {
 				if (subp.expected_child_count) totaleps = subp.expected_child_count;
 				if (subp.position) series = subp.position;
@@ -143,7 +73,7 @@ var hidden = 0;
 			title = subp.title+'/'+title;
 			parents += '  '+subp.type+'= '+subp.pid+' ('+subp.title+')';
 		}
-		
+
 		available = (!(p.is_available===false||p.is_available_mediaset_pc_sd===false));
 
 		if ((!present) && (available || !availableOnly)) {
@@ -184,6 +114,103 @@ var hidden = 0;
 	console.log('Cache has '+programme_cache.length+' entries, '+hidden+' hidden');
 }
 
+//-----------------------------------------------------------------------------
+
+function cat_slice_dump(obj) {
+	console.log('* Category_slice dump');
+	console.log(obj.category_slice.category.key+' = '+obj.category_slice.category.title);
+	var len = obj.category_slice.programmes.length;
+	//console.log('Contains '+len+' entries');
+	for (var i in obj.category_slice.programmes) {
+		p = obj.category_slice.programmes[i];
+		if ((p.type == 'episode') || (p.type == 'clip'))  {
+			//add_programme(p); //? not enough info available
+			common.pid_list(p.type,p,true,false,add_programme);
+		}
+		else if ((p.type == 'series') || (p.type == 'brand')) {
+			common.pid_list(p.type,p,false,false,add_programme);
+		}
+		else {
+			console.log('Unhandled type: '+p.type);
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+
+function cat_page_list(obj) {
+    debuglog(obj);
+	console.log('* Category_page list');
+	console.log(obj.category_page.category.key+' = '+obj.category_page.category.title);
+	//var len = obj.category_page.available_programmes.length;
+	//console.log('Contains '+len+' entries');
+	for (var i in obj.category_page.available_programmes) {
+		p = obj.category_page.available_programmes[i];
+		if ((p.type == 'episode') || (p.type == 'clip'))  {
+			add_programme(p); //? faster than querying each PID
+		}
+		else if ((p.type == 'series') || (p.type == 'brand')) {
+			common.pid_list(p.type,p,false,false,add_programme);
+		}
+		else {
+			console.log('Unhandled type: '+p.type);
+			console.log(p);
+		}
+
+	}
+}
+
+//-------------------------------------------------------------------------------
+
+function atoz_list(obj) {
+	console.log('A to Z list');
+	if (obj.atoz.tleo_titles.length===0) {
+		console.log(obj);
+	}
+	else {
+		for (var i in obj.atoz.tleo_titles) {
+			title = obj.atoz.tleo_titles[i];
+			p = title.programme;
+			debuglog(p);
+			if ((p.type == 'episode') || (p.type == 'clip'))  {
+				add_programme(p);
+			}
+			else if ((p.type == 'series') || (p.type == 'brand')) {
+				common.pid_list(p.type,p,false,false,add_programme);
+			}
+			else {
+				console.log('Unhandled type: '+p.type);
+				console.log(p);
+			}
+		}
+	}
+}
+
+//----------------------------------------------------------------------------------
+
+function episode_list(obj) {
+	console.log('Episodes list');
+	if (!obj.episodes.length) {
+		console.log(obj);
+	}
+	else {
+		for (var i in obj.episodes) {
+			p = obj.episodes[i].programme;
+			debuglog(p);
+			if ((p.type == 'episode') || (p.type == 'clip'))  {
+				add_programme(p);
+			}
+			else if ((p.type == 'series') || (p.type == 'brand')) {
+				common.pid_list(p.type,p,false,false,add_programme);
+			}
+			else {
+				console.log('Unhandled type: '+p.type);
+				console.log(p);
+			}
+		}
+	}
+}
+
 //------------------------------------------------------------------------------
 
 // snaffled from request module
@@ -199,7 +226,7 @@ function hasHeader(header, headers) {
 
 //------------------------------------------------------------------------------
 
-function request_category(host,path) {
+function make_request(host,path) {
 	console.log(host+path);
 	var options = {
 	  hostname: host
@@ -223,21 +250,24 @@ function request_category(host,path) {
 			var location = res.headers[hasHeader('location', res.headers)];
 			path = location.split('bbc.co.uk')[1];
 			host = location.split('://')[1].split('/')[0];
-			request_category(host,path);
+			make_request(host,path);
 		}
 		else if (res.statusCode >= 400 && res.statusCode < 500) {
 			console.log(res.statusCode+' '+res.statusMessage);
 		}
 		else try {
-			cat = JSON.parse(list);
-			if (cat.category_page) {
-				cat_page_list(cat);
+			obj = JSON.parse(list);
+			if (obj.category_page) {
+				cat_page_list(obj);
 			}
-			else if (cat.category_slice) {
-				cat_slice_dump(cat);
+			else if (obj.category_slice) {
+				cat_slice_dump(obj);
+			}
+			else if (obj.episodes) {
+				episode_list(obj);
 			}
 			else {
-				atoz_list(cat); //tleo_titles
+				atoz_list(obj); //tleo_titles
 			}
 		}
 		catch(err) {
@@ -262,17 +292,19 @@ function request_category(host,path) {
 
 //------------------------------------------------------------------------[main]
 
+// radio mode
 // http://www.bbc.co.uk/radio/programmes/genres/drama/scifiandfantasy/player.json
 // http://www.bbc.co.uk/radio/programmes/genres/drama/player.json
 // http://www.bbc.co.uk/radio/programmes/genres/comedy/player.json
+// http://www.bbc.co.uk/radio/programmes/genres/comedy/player/episodes.json TODO by latest
 
-// TV mode (partially supported)
+// TV mode
 // http://bbc.co.uk/programmes/films.json
 // redirects to http://open.live.bbc.co.uk/aps/programmes/a-z/by/films/all.json
 // http://www.bbc.co.uk/programmes/genres/comedy/spoof.json
+// http://www.bbc.co.uk/programmes/genres/comedy/player/episodes.json TODO
 
-var configstr = fs.readFileSync('./config.json', 'utf8');
-var config = JSON.parse(configstr);
+var config = require('./config.json');
 download_history = common.downloadHistory(config.download_history);
 
 var defcat = 'drama/scifiandfantasy';
@@ -319,10 +351,14 @@ if (process.argv.length>5) {
 		availableOnly = true;
 		pid = '';
 	}
+	else if (pid=='latest') {
+		page = '/player/episodes';
+		pid = '';
+	}
 }
 
 if (category.indexOf('-h')>=0) {
-	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID|available]');
+	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID|available|latest]');
 	console.log();
 	console.log('Category defaults to '+defcat);
 	console.log('Domain defaults to '+domain);
@@ -334,7 +370,7 @@ else {
 	var path = domain+'/programmes/'+category+page+'.json';
 
 	if (!pid) {
-		request_category('www.bbc.co.uk',path);
+		make_request('www.bbc.co.uk',path);
 	}
 	else {
 		obj = [];
