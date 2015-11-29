@@ -61,8 +61,7 @@ var quick = false;
 
 if (process.argv.length>2) {
 
-	var configstr = fs.readFileSync('./config.json', 'utf8');
-	var config = JSON.parse(configstr);
+	var config = require('./config.json');
 	dlh_locn = config.download_history;
 	download_history = common.downloadHistory(dlh_locn);
 

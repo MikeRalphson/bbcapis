@@ -72,8 +72,7 @@ var dlh_locn;
 if (process.argv.length>=3) {
 	path = process.argv[2];
 
-	var configstr = fs.readFileSync('./config.json', 'utf8');
-	var config = JSON.parse(configstr);
+	var config = require('./config.json');
 	var dlh_locn = config.download_history;
 	download_history = common.downloadHistory(dlh_locn);
 	console.log('There are '+download_history.length+' entries in the download_history');
