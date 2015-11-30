@@ -6,6 +6,7 @@ List programmes by aggregation (category, format, but not tags, they have been r
 
 var http = require('http');
 var fs = require('fs');
+var url = require('url');
 var util = require('util');
 var common = require('./common');
 
@@ -249,8 +250,9 @@ function make_request(host,path) {
 		if (res.statusCode >= 300 && res.statusCode < 400 && hasHeader('location', res.headers)) {
 			// handle redirects, as per request module
 			var location = res.headers[hasHeader('location', res.headers)];
-			path = location.split('bbc.co.uk')[1];
-			host = location.split('://')[1].split('/')[0];
+			var locUrl = url.parse(location);
+			host = locUrl.host;
+			path = locUrl.path;
 			make_request(host,path);
 		}
 		else if (res.statusCode >= 400 && res.statusCode < 500) {

@@ -8,6 +8,7 @@ var http = require('http');
 //var https = require('https');
 var fs = require('fs');
 var util = require('util');
+var url = require('url');
 var common = require('./common');
 var helper = require('./apiHelper');
 var api = require('./nitroApi/api');
@@ -290,8 +291,9 @@ function make_request(host,path,key,query,callback) {
 		if (res.statusCode >= 300 && res.statusCode < 400 && hasHeader('location', res.headers)) {
 			// handle redirects, as per request module
 			var location = res.headers[hasHeader('location', res.headers)];
-			path = location.split('.co.uk')[1];
-			host = location.split('://')[1].split('/')[0];
+			var locUrl = url.parse(location);
+			path = locUrl.pathname;
+			host = locUrl.host;
 			make_request(host,path,key,query,callback);
 		}
 		else if (res.statusCode >= 400 && res.statusCode < 500) {
