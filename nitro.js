@@ -5,6 +5,7 @@ List programmes by aggregation (category, format, or search)
 */
 
 var http = require('http');
+//var https = require('https');
 var fs = require('fs');
 var util = require('util');
 var common = require('./common');
@@ -13,9 +14,21 @@ var api = require('./nitroApi/api');
 
 var programme_cache = [];
 var download_history = [];
+
+// http://nitro.stage.api.bbci.co.uk/nitro/api/
+//	now getting Unable to identify proxy for host: nitro and url: /nitro/stage/api/programmes
+// http://nitro.api.bbci.co.uk/nitro/api?api_key=q5wcnsqvnacnhjap7gzts9y6
+// http://d.bbc.co.uk/nitro/api/
+// http://d.bbc.co.uk/stage/nitro/api/
+// https://api.live.bbc.co.uk/nitro/api/schedules
+
+// Unable to identify proxy for host: nitro and url: /nitro/stage/api/programmes
+
 //const host = 'nitro.stage.api.bbci.co.uk';
-host = 'd.bbc.co.uk';
-const domain = '/nitro/stage';
+var host = 'd.bbc.co.uk';
+//const domain = '/nitro/stage';
+var domain = '/nitro';
+
 var page = '/api/programmes';
 var api_key = '';
 var service = 'radio';
@@ -260,7 +273,9 @@ function make_request(host,path,key,query,callback) {
 	  ,port: 80
 	  ,path: path+'?api_key='+key+query.querystring
 	  ,method: 'GET'
-	  ,headers: { 'Content-Type': 'application/json' }
+	  ,headers: { 'Content-Type': 'application/json',
+		'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; HTC_DesireZ_A7272 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+	  }
 	};
 
 	var list = '';
@@ -367,9 +382,9 @@ Groups Long-lived collections of programmes and more, including Collections, Sea
 // https://confluence.dev.bbc.co.uk/display/nitro/Nitro+run+book
 // http://www.bbc.co.uk/academy/technology/article/art20141013145843465
 
-var configstr = fs.readFileSync('./config.json', 'utf8');
-var config = JSON.parse(configstr);
+var config = require('./config.json');
 download_history = common.downloadHistory(config.download_history);
+host = config.nitro.host;
 api_key = config.nitro.api_key;
 
 var defcat = 'drama/scifiandfantasy';
@@ -436,11 +451,6 @@ if (category.indexOf('-h')>=0) {
 else {
 	var path = domain+page;
 
-	//http://nitro.stage.api.bbci.co.uk/nitro/api/
-
-	//https://github.com/BBCConnectedStudio/bbcpeople/commits/master/lib/nitro.rb
-	//  http://d.bbc.co.uk/nitro/api/
-	//  http://d.bbc.co.uk/stage/nitro/api/
 	make_request(host,path,api_key,query,function(obj){
 		if (obj.nitro) {
 			processResponse(obj);

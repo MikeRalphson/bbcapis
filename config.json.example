@@ -1,6 +1,7 @@
 {
   "download_history": "c:/users/mike/.get_iplayer/download_history",
   "nitro": {
-	  "api_key": "JUSTTESTING"
+		"host": "nitro.api.bbci.co.uk"
+		"api_key": "JUSTTESTING"
   }
 }
