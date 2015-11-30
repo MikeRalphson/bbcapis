@@ -189,7 +189,7 @@ function atoz_list(obj) {
 //----------------------------------------------------------------------------------
 
 function episode_list(obj) {
-	console.log('Episodes list');
+	//console.log('Episodes list');
 	if (!obj.episodes.length) {
 		console.log(obj);
 	}
@@ -208,6 +208,7 @@ function episode_list(obj) {
 				console.log(p);
 			}
 		}
+		return (obj.offset+obj.episodes.length<obj.total);
 	}
 }
 
@@ -264,7 +265,19 @@ function make_request(host,path) {
 				cat_slice_dump(obj);
 			}
 			else if (obj.episodes) {
-				episode_list(obj);
+				if (episode_list(obj)) {
+					if (path.indexOf('?')>0) {
+						qs = path.split('?')[1];
+						path = path.split('?')[0];
+						page = parseInt(qs.split('=')[1],10);
+					}
+					else {
+						page = 1;
+					}
+					page++;
+					path = path+'?page='+page;
+					make_request(host,path);
+				}
 			}
 			else {
 				atoz_list(obj); //tleo_titles
@@ -296,13 +309,13 @@ function make_request(host,path) {
 // http://www.bbc.co.uk/radio/programmes/genres/drama/scifiandfantasy/player.json
 // http://www.bbc.co.uk/radio/programmes/genres/drama/player.json
 // http://www.bbc.co.uk/radio/programmes/genres/comedy/player.json
-// http://www.bbc.co.uk/radio/programmes/genres/comedy/player/episodes.json TODO by latest
+// http://www.bbc.co.uk/radio/programmes/genres/comedy/player/episodes.json[?page=n]
 
 // TV mode
 // http://bbc.co.uk/programmes/films.json
 // redirects to http://open.live.bbc.co.uk/aps/programmes/a-z/by/films/all.json
 // http://www.bbc.co.uk/programmes/genres/comedy/spoof.json
-// http://www.bbc.co.uk/programmes/genres/comedy/player/episodes.json TODO
+// http://www.bbc.co.uk/programmes/genres/comedy/player/episodes.json[?page=n]
 
 var config = require('./config.json');
 download_history = common.downloadHistory(config.download_history);
