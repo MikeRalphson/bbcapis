@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs');
 var crypto = require('crypto');
 var stream = require('stream');
@@ -21,12 +23,12 @@ String.prototype.toCamelCase = function camelize() {
 //__________________________________________________________________
 function toArray(item) {
 	if (!(item instanceof Array)) {
-		for (j in item) {
+		for (var j in item) {
 			if (item[j].length>1) {
 				toArray(item[j]);
 			}
 		}
-		newitem = [];
+		var newitem = [];
 		newitem.push(item);
 		return newitem;
 	}
@@ -74,7 +76,7 @@ function processSortDirection(feed,sort,sortDirection,sortDirectionName) {
 
 //__________________________________________________________________
 function exportSort(feed,sort,sortName) {
-	s = '/**\n';
+	var s = '/**\n';
 	s += '* '+sort.title+'\n';
 	s += '* note that this sort has no sort-direction\n';
 	if (sort.href) {
@@ -96,9 +98,9 @@ function processSort(feed,sort,sortName) {
 	if (checkReleaseStatus(sort.release_status)) {
 		if (sort.sort_direction) {
 			sort.sort_direction = toArray(sort.sort_direction); // I expect in the official API this will always be the case
-			for (i in sort.sort_direction) {
-				sortDirection = sort.sort_direction[i];
-				sortDirectionName = ('s-'+feed.name+'-'+sort.name+'-'+sortDirection.value).toCamelCase();
+			for (var i in sort.sort_direction) {
+				var sortDirection = sort.sort_direction[i];
+				var sortDirectionName = ('s-'+feed.name+'-'+sort.name+'-'+sortDirection.value).toCamelCase();
 				processSortDirection(feed,sort,sortDirection,sortDirectionName);
 			}
 		}
@@ -113,7 +115,7 @@ function processSort(feed,sort,sortName) {
 
 //__________________________________________________________________
 function exportMixin(feed,mixin,mixinName) {
-	s = '/**\n';
+	var s = '/**\n';
 	s += '* '+mixin.title+'\n';
 	if (mixin.href) {
 		s += '* '+mixin.href+'\n';
@@ -141,7 +143,7 @@ function processMixin(feed,mixin,mixinName) {
 
 //__________________________________________________________________
 function exportFilter(feed,filter,filterName) {
-	s = '/**\n';
+	var s = '/**\n';
 	s += '* '+filter.title+'\n';
 	if (filter.href) {
 		if (!checkHref(filter.href,filter.name)) {
@@ -165,12 +167,12 @@ function exportFilter(feed,filter,filterName) {
 
 	if (filter.option) {
 		filter.option = toArray(filter.option);
-		for (i in filter.option) {
-			option=filter.option[i];
+		for (var i in filter.option) {
+			var option = filter.option[i];
 			if (option.title) {
 				s += '* option: '+option.value+', '+option.title+'\n';
 				s += '*/\n';
-				optionName = filterName+('-'+option.value).toCamelCase();
+				var optionName = filterName+('-'+option.value).toCamelCase();
 				s += optionName+' : '+optionName +',\n';
 				s += '/**\n';
 				fs.appendFileSync(apijs, 'const '+optionName+" = '"+filter.name+'='+encodeURIComponent(option.value)+"';\n", 'utf8');
@@ -210,9 +212,9 @@ function processFeed(feed) {
 	if (feed.sorts) {
 		feed.sorts.sort = toArray(feed.sorts.sort); // I expect in the official API this will always be the case
 		if (feed.sorts.sort instanceof Array) {
-			for (i in feed.sorts.sort) {
-				sort = feed.sorts.sort[i];
-				sortName = ('s-'+feed.name+'-'+sort.name).toCamelCase();
+			for (var i in feed.sorts.sort) {
+				var sort = feed.sorts.sort[i];
+				var sortName = ('s-'+feed.name+'-'+sort.name).toCamelCase();
 				processSort(feed,sort,sortName);
 			}
 		}
@@ -220,18 +222,18 @@ function processFeed(feed) {
 
 	if (feed.mixins) {
 		feed.mixins.mixin = toArray(feed.mixins.mixin); // I expect in the official API this will always be the case
-		for (i in feed.mixins.mixin) {
-			mixin = feed.mixins.mixin[i];
-			mixinName = ('m-'+feed.name+'-'+mixin.name).toCamelCase();
+		for (var i in feed.mixins.mixin) {
+			var mixin = feed.mixins.mixin[i];
+			var mixinName = ('m-'+feed.name+'-'+mixin.name).toCamelCase();
 			processMixin(feed,mixin,mixinName);
 		}
 	}
 
 	if (feed.filters) {
 		feed.filters.filter = toArray(feed.filters.filter); // I expect in the official API this will always be the case
-		for (i in feed.filters.filter) {
-			filter = feed.filters.filter[i];
-			filterName = ('f-'+feed.name+'-'+filter.name).toCamelCase();
+		for (var i in feed.filters.filter) {
+			var filter = feed.filters.filter[i];
+			var filterName = ('f-'+feed.name+'-'+filter.name).toCamelCase();
 			processFilter(feed,filter,filterName);
 		}
 	}
@@ -258,6 +260,7 @@ s.on('end', function() {
   digest = shasum.digest('hex');
 });
 
+var feed;
 for (var f in api.feeds.feed) {
 	feed = api.feeds.feed[f];
 	if (feed.name) {
