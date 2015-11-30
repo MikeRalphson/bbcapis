@@ -373,7 +373,7 @@ if (process.argv.length>5) {
 }
 
 if (category.indexOf('-h')>=0) {
-	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID|available|latest]');
+	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID|@list|available|latest]');
 	console.log();
 	console.log('Category defaults to '+defcat);
 	console.log('Domain defaults to '+domain);
@@ -388,9 +388,23 @@ else {
 		make_request('www.bbc.co.uk',path);
 	}
 	else {
-		obj = [];
-		obj.pid = pid; // create a programme object stub
-		common.pid_list('toplevel',obj,false,false,add_programme);
+		obj = [];  // create a programme object stub
+		if (pid.indexOf('@')===0) {
+			pid = pid.substr(1);
+			var s = fs.readFileSync(pid,'utf8');
+			var pids = s.split('\n');
+			for (var i in pids) {
+				pid = pids[i].split('#')[0].trim();
+				if (pid) {
+					obj.pid = pid;
+					common.pid_list('toplevel',obj,false,false,add_programme);
+				}
+			}
+		}
+		else {
+			obj.pid = pid;
+			common.pid_list('toplevel',obj,false,false,add_programme);
+		}
 	}
 }
 
