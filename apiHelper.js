@@ -31,6 +31,7 @@ module.exports = {
 			url = url.split('&')[1];
 		}
 		q.querystring = ((previous ? '&' : '?')+url);
+		return q;
 	},
 	add : function(q,param,value,previous) {
 		return q.add(param,value,previous);

@@ -18,8 +18,6 @@ var programme_cache = [];
 var download_history = [];
 
 // http://nitro.stage.api.bbci.co.uk/nitro/api/
-//	now getting Unable to identify proxy for host: nitro and url: /nitro/stage/api/programmes
-// http://nitro.api.bbci.co.uk/nitro/api?api_key=q5wcnsqvnacnhjap7gzts9y6
 // http://d.bbc.co.uk/nitro/api/
 // http://d.bbc.co.uk/stage/nitro/api/
 // https://api.live.bbc.co.uk/nitro/api/schedules
@@ -31,7 +29,9 @@ var page = '/api/programmes';
 var api_key = '';
 var service = 'radio';
 var media_type = 'audio';
+const pageSize = 300;
 
+var dest = {};
 var debuglog = util.debuglog('bbc');
 
 //-----------------------------------------------------------------------------
@@ -80,17 +80,20 @@ var hidden = 0;
 			}
 
 			var title = (p.title ? p.title : p.presentation_title);
+			var parents = '';
+			var ancestor_titles = '';
 			for (var at in p.ancestor_titles) {
-				title = p.ancestor_titles[at].title + ' / ' + title;
+				ancestor_titles += p.ancestor_titles[at].title + ' / ';
+				parents += '  ' + p.ancestor_titles[at].pid + ' ('+p.ancestor_titles[at].title+') ';
 			}
+			title = ancestor_titles + title;
 
 			var position = p.episode_of ? p.episode_of.position : 1;
 			var totaleps = 1;
 			var series = 1;
-			var parents = '';
 
+			// 
 			var ownership = p.ownership;
-
 			var subp = p;
 			while ((subp.programme) || (subp.parent)) {
 				var newp = subp.programme;
@@ -103,8 +106,6 @@ var hidden = 0;
 				if ((!ownership) && (subp.ownership)) {
 					ownership = subp.ownership;
 				}
-				title = subp.title+'/'+title;
-				parents += '  '+subp.type+'= '+subp.pid+' ('+subp.title+')';
 			}
 
 			console.log(p.pid+' '+p.item_type+' '+(ownership && ownership.service && ownership.service.type ?
@@ -112,16 +113,15 @@ var hidden = 0;
 			  ((p.is_available===false||p.is_available_mediaset_pc_sd===false) ? 'Unavailable' : 'Available')+
 			  '  '+title);
 
-			var len = (p.version && p.version.duration) ? p.version.duration : '0';
+			var len = (p.version && p.version.duration) ? p.version.duration : '0s';
 			//if (p.versions) {
 			//	for (var v in p.versions.version) {
 			//		console.log(p.versions.version[v]);
 			//	}
 			//}
-			len = len.replace('PT','');
-			var suffix = '';
+			len = len.replace('PT','').toLocaleLowerCase();
 
-			console.log('  '+len+suffix+' S'+pad(series,'00')+'E'+pad(position,'00')+
+			console.log('  '+len+' S'+pad(series,'00')+'E'+pad(position,'00')+
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
 			if (parents) console.log(parents);
 			
@@ -133,7 +133,6 @@ var hidden = 0;
 						cont.contributor.name.given+' '+cont.contributor.name.family);
 				}
 			}
-
 		}
 		else {
 			hidden++;
@@ -146,8 +145,9 @@ var hidden = 0;
 //_____________________________________________________________________________
 var processResponse = function(obj) {
 	var nextHref = '';
-	if (obj.nitro.pagination) {
+	if ((obj.nitro.pagination) && (obj.nitro.pagination.next)) {
 		nextHref = obj.nitro.pagination.next.href;
+		console.log(nextHref);
 	}
 	var morePages = false;
 	var pageNo = obj.nitro.results.page;
@@ -157,6 +157,7 @@ var processResponse = function(obj) {
 	}
 	var last = Math.ceil(top/obj.nitro.results.page_size);
 	//console.log('page '+pageNo+' of '+last);
+	process.stdout.write('.');
 	
 	var length = 0;
 	if (obj.nitro.results.items) {
@@ -178,11 +179,14 @@ var processResponse = function(obj) {
 				var query = helper.newQuery(api.fProgrammesDescendantsOf,p.pid,true)
 					.add(api.fProgrammesAvailabilityAvailable)
 					.add(api.fProgrammesMediaSet,'pc')
-					.add(api.fProgrammesPageSize,300);
+					.add(api.mProgrammesDuration)
+					.add(api.mProgrammesAncestorTitles)
+					.add(api.fProgrammesPageSize,pageSize);
 
 				if (media_type) {
 					query.add(api.fProgrammesMediaType,media_type);
 				}
+				process.stdout.write('>');
 				make_request(host,path,api_key,query,processResponse);
 			}
 			else {
@@ -192,14 +196,17 @@ var processResponse = function(obj) {
 		}
 	}
 
-	var dest = {};
+	dest = {};
 	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
 	if (pageNo<last) {
 		dest.path = domain+page;
 		dest.query = helper.queryFrom(nextHref,true);
 		dest.callback = processResponse;
+		return true;
 	}
-	return dest;
+	else {
+		return false;
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -218,7 +225,7 @@ function hasHeader(header, headers) {
 //------------------------------------------------------------------------------
 
 function make_request(host,path,key,query,callback) {
-	console.log(host+path+'?K'+query.querystring);
+	//console.log(host+path+'?K'+query.querystring);
 	var options = {
 	  hostname: host
 	  ,port: 80
@@ -269,15 +276,15 @@ function make_request(host,path,key,query,callback) {
 		}
 		else try {
 			obj = JSON.parse(list);
-			var destination = callback(obj);
-		    if (destination && destination.callback) {
+			callback(obj);
+		    if (dest.callback) {
 				// call the callback's next required destination
 				// e.g. programme=pid getting a brand or series and calling children_of
-				if (destination.path) {
-					make_request(host,destination.path,key,destination.query,destination.callback);
+				if (dest.path) {
+					make_request(host,dest.path,key,dest.query,dest.callback);
 				}
 				else {
-					destination.callback();
+					dest.callback();
 				}
 			}
 		}
@@ -298,6 +305,38 @@ function make_request(host,path,key,query,callback) {
 
 //------------------------------------------------------------------------[main]
 
+/*
+
+<?xml version="1.0" encoding="UTF-8"?>
+-<nitro xmlns="http://www.bbc.co.uk/nitro/">
+-<results total="1">
+-<genre_group>
+<id>C00035</id>
+<updated_time>2008-12-16T14:46:11+00:00</updated_time>
+<type>iplayer_composite</type>
+-<genres>
+-<genre>
+<id>100003</id>
+<type>iplayer_toplevel</type>
+<title>Drama</title>
+<title_cy>Drama</title_cy>
+<title_gd>Dràma</title_gd>
+</genre>
+-<genre>
+<id>200032</id>
+<type>iplayer_secondlevel</type>
+<title>SciFi & Fantasy</title>
+<title_cy>Ffuglen Wyddonol a Ffantasi</title_cy>
+<title_gd>Ficsean saidheans</title_gd>
+</genre>
+</genres>
+</genre_group>
+</results>
+</nitro>
+
+*/
+
+
 // https://developer.bbc.co.uk/nitropubliclicence
 
 // http://downloads.bbc.co.uk/rmhttp/academy/collegeoftechnology/docs/j000m977x/Nitro_API.pdf
@@ -313,8 +352,9 @@ download_history = common.downloadHistory(config.download_history);
 host = config.nitro.host;
 api_key = config.nitro.api_key;
 
-var defcat = 'drama/scifiandfantasy';
+var defcat = 'C00035'; //'200032'; //'drama/scifiandfantasy'; 100003=Drama
 var category = defcat;
+
 var query = helper.newQuery();
 var pid = '';
 
@@ -362,7 +402,7 @@ else {
 		query.add(api.fProgrammesMediaType,media_type);
 	}
 }
-query.add(api.fProgrammesPageSize,300).add(api.mProgrammesDuration).add(api.mProgrammesAncestorTitles);
+query.add(api.fProgrammesPageSize,pageSize).add(api.mProgrammesDuration).add(api.mProgrammesAncestorTitles);
 
 if (category.indexOf('-h')>=0) {
 	console.log('Usage: '+process.argv[1]+' category service_type format|genre|search [PID]');
