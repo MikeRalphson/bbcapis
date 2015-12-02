@@ -20,6 +20,7 @@ const sProgrammesViewsDescending = 'sort=views&sort_direction=descending';
 const mProgrammesAlternateImages = 'mixin=alternate_images';
 const mProgrammesAncestorTitles = 'mixin=ancestor_titles';
 const mProgrammesAvailability = 'mixin=availability';
+const mProgrammesAvailableVersions = 'mixin=available_versions';
 const mProgrammesContributions = 'mixin=contributions';
 const mProgrammesDuration = 'mixin=duration';
 const mProgrammesGenreGroupings = 'mixin=genre_groupings';
@@ -33,6 +34,7 @@ const fProgrammesAudioDescribedFalse = 'audio_described=false';
 const fProgrammesAudioDescribed = 'audio_described';
 const fProgrammesAvailabilityAvailable = 'availability=available';
 const fProgrammesAvailabilityPending = 'availability=pending';
+const fProgrammesAvailability = 'availability';
 const fProgrammesAvailability = 'availability';
 const fProgrammesAvailabilityEntityTypeEpisode = 'availability_entity_type=episode';
 const fProgrammesAvailabilityEntityTypeClip = 'availability_entity_type=clip';
@@ -267,7 +269,7 @@ const fVersionsPageSize = 'page_size';
 const fVersionsPartnerId = 'partner_id';
 const fVersionsPartnerPid = 'partner_pid';
 const fVersionsPid = 'pid';
-const apiHash = 'cd10bdf160f65ad8562610f10228c9fbfbfc1b5d3f008230588e4a8622f0e803';
+const apiHash = '0d1d688600bdaffdb8a2431ef2992d5fcc822e880ce99805c2584383135e3914';
 
 module.exports = {
 /**
@@ -396,6 +398,11 @@ mProgrammesAncestorTitles : mProgrammesAncestorTitles,
 */
 mProgrammesAvailability : mProgrammesAvailability,
 /**
+* mixin to return information about programmes that are currently available
+* /nitro/api/programmes?mixin=available_versions
+*/
+mProgrammesAvailableVersions : mProgrammesAvailableVersions,
+/**
 * mixin to return information about contributors to a programme
 * /nitro/api/programmes?mixin=contributions
 */
@@ -462,6 +469,11 @@ fProgrammesAvailabilityAvailable : fProgrammesAvailabilityAvailable,
 fProgrammesAvailabilityPending : fProgrammesAvailabilityPending,
 /**
 * /nitro/api/programmes?availability=pending
+*/
+fProgrammesAvailability : fProgrammesAvailability,
+/**
+* filter for programmes that will become available within given duration
+* type = daytime_duration
 */
 fProgrammesAvailability : fProgrammesAvailability,
 /**
@@ -610,7 +622,6 @@ fProgrammesPage : fProgrammesPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fProgrammesPageSize : fProgrammesPageSize,
@@ -738,7 +749,6 @@ fAvailabilityPage : fAvailabilityPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fAvailabilityPageSize : fAvailabilityPageSize,
@@ -830,7 +840,6 @@ fBroadcastsPage : fBroadcastsPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fBroadcastsPageSize : fBroadcastsPageSize,
@@ -971,7 +980,6 @@ fGroupsPage : fGroupsPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fGroupsPageSize : fGroupsPageSize,
@@ -1070,7 +1078,6 @@ fImagesPage : fImagesPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fImagesPageSize : fImagesPageSize,
@@ -1171,7 +1178,6 @@ fItemsPage : fItemsPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fItemsPageSize : fItemsPageSize,
@@ -1238,7 +1244,6 @@ fMasterbrandsPage : fMasterbrandsPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fMasterbrandsPageSize : fMasterbrandsPageSize,
@@ -1299,7 +1304,6 @@ fPeoplePage : fPeoplePage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fPeoplePageSize : fPeoplePageSize,
@@ -1340,7 +1344,6 @@ fPipsPage : fPipsPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fPipsPageSize : fPipsPageSize,
@@ -1370,7 +1373,6 @@ fPromotionsPage : fPromotionsPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fPromotionsPageSize : fPromotionsPageSize,
@@ -1498,7 +1500,6 @@ fSchedulesPage : fSchedulesPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fSchedulesPageSize : fSchedulesPageSize,
@@ -1599,7 +1600,6 @@ fServicesPage : fServicesPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fServicesPageSize : fServicesPageSize,
@@ -1695,7 +1695,6 @@ fVersionsPage : fVersionsPage,
 * number of results in each page
 * type = integer
 * default = 10
-* min_value = 0
 * max_value = 300
 */
 fVersionsPageSize : fVersionsPageSize,
