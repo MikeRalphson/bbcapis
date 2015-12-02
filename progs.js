@@ -3,6 +3,7 @@
 List programmes by aggregation (category, format, but not tags, they have been removed)
 
 */
+'use strict';
 
 var http = require('http');
 var fs = require('fs');
@@ -43,22 +44,22 @@ var hidden = 0;
 
 	console.log('\n* Programme Cache:');
 	for (var i in programme_cache) {
-		p = programme_cache[i];
+		var p = programme_cache[i];
 
-		present = (common.binarySearch(download_history,p.pid)>=0);
+		var present = (common.binarySearch(download_history,p.pid)>=0);
 
-		totaleps = 1;
-		series = 1;
-		parents = '';
-		position = p.position ? p.position : 1;
-		ownership = p.ownership;
+		var totaleps = 1;
+		var series = 1;
+		var parents = '';
+		var position = p.position ? p.position : 1;
+		var ownership = p.ownership;
 
-		title = (p.display_title ? p.display_title.title+
+		var title = (p.display_title ? p.display_title.title+
 			(p.display_title.subtitle ? '/' : '')+p.display_title.subtitle : p.title);
 
-		subp = p;
+		var subp = p;
 		while ((subp.programme) || (subp.parent) && (!present)) {
-			newp = subp.programme;
+			var newp = subp.programme;
 			if (!newp) newp = subp.parent.programme;
 			subp = newp;
 
@@ -75,14 +76,14 @@ var hidden = 0;
 			parents += '  '+subp.type+'= '+subp.pid+' ('+subp.title+')';
 		}
 
-		available = (!(p.is_available===false||p.is_available_mediaset_pc_sd===false));
+		var available = (!(p.is_available===false||p.is_available_mediaset_pc_sd===false));
 
 		if ((!present) && (available || !availableOnly)) {
 			console.log(p.pid+' '+p.type+' '+(ownership && ownership.service && ownership.service.type ?
 			  ownership.service.type : displayDomain)+' '+
 			  (available ? 'Available' : 'Unavailable')+'  '+title);
 
-			len = p.duration ? p.duration : 0;
+			var len = p.duration ? p.duration : 0;
 			if (p.versions) {
 				if (!len && (p.versions[0].duration)) {
 					len = p.versions[0].duration;
@@ -92,7 +93,7 @@ var hidden = 0;
 				}
 			}
 
-			suffix = 's';
+			var suffix = 's';
 			if (len>=60) {
 				len = Math.floor(len/60);
 				suffix = 'm';
@@ -123,7 +124,7 @@ function cat_slice_dump(obj) {
 	var len = obj.category_slice.programmes.length;
 	//console.log('Contains '+len+' entries');
 	for (var i in obj.category_slice.programmes) {
-		p = obj.category_slice.programmes[i];
+		var p = obj.category_slice.programmes[i];
 		if ((p.type == 'episode') || (p.type == 'clip'))  {
 			//add_programme(p); //? not enough info available
 			common.pid_list(p.type,p,true,false,add_programme);
@@ -146,7 +147,7 @@ function cat_page_list(obj) {
 	//var len = obj.category_page.available_programmes.length;
 	//console.log('Contains '+len+' entries');
 	for (var i in obj.category_page.available_programmes) {
-		p = obj.category_page.available_programmes[i];
+		var p = obj.category_page.available_programmes[i];
 		if ((p.type == 'episode') || (p.type == 'clip'))  {
 			add_programme(p); //? faster than querying each PID
 		}
@@ -157,7 +158,6 @@ function cat_page_list(obj) {
 			console.log('Unhandled type: '+p.type);
 			console.log(p);
 		}
-
 	}
 }
 
@@ -170,8 +170,7 @@ function atoz_list(obj) {
 	}
 	else {
 		for (var i in obj.atoz.tleo_titles) {
-			title = obj.atoz.tleo_titles[i];
-			p = title.programme;
+			var p = obj.atoz.tleo_titles[i].programme;
 			debuglog(p);
 			if ((p.type == 'episode') || (p.type == 'clip'))  {
 				add_programme(p);
@@ -196,7 +195,7 @@ function episode_list(obj) {
 	}
 	else {
 		for (var i in obj.episodes) {
-			p = obj.episodes[i].programme;
+			var p = obj.episodes[i].programme;
 			debuglog(p);
 			if ((p.type == 'episode') || (p.type == 'clip'))  {
 				add_programme(p);
@@ -259,7 +258,7 @@ function make_request(host,path) {
 			console.log(res.statusCode+' '+res.statusMessage);
 		}
 		else try {
-			obj = JSON.parse(list);
+			var obj = JSON.parse(list);
 			if (obj.category_page) {
 				cat_page_list(obj);
 			}
@@ -268,13 +267,11 @@ function make_request(host,path) {
 			}
 			else if (obj.episodes) {
 				if (episode_list(obj)) {
+					var page = 1;
 					if (path.indexOf('?')>0) {
-						qs = path.split('?')[1];
+						var qs = path.split('?')[1];
 						path = path.split('?')[0];
 						page = parseInt(qs.split('=')[1],10);
-					}
-					else {
-						page = 1;
 					}
 					page++;
 					path = path+'?page='+page;
@@ -340,7 +337,7 @@ if (process.argv.length>3) {
 	}
 }
 
-cat_prefix = 'genres/';
+var cat_prefix = 'genres/';
 if (process.argv.length>4) {
 	if (process.argv[4] == 'format') {
 		cat_prefix = 'formats/';
@@ -388,7 +385,7 @@ else {
 		make_request('www.bbc.co.uk',path);
 	}
 	else {
-		obj = [];  // create a programme object stub
+		var obj = [];  // create a programme object stub
 		if (pid.indexOf('@')===0) {
 			pid = pid.substr(1);
 			var s = fs.readFileSync(pid,'utf8');
