@@ -3,6 +3,7 @@
 List programmes by aggregation (category, format, or search)
 
 */
+//'use strict';
 
 var http = require('http');
 //var https = require('https');
@@ -55,6 +56,101 @@ var add_programme = function(obj) {
 	programme_cache.push(obj);
 };
 
+//-----------------------------------------------------------------------------
+
+function pad(str, padding, padRight) {
+	if (typeof str === 'undefined')
+		return padding;
+	if (padRight) {
+		return (str + padding).substring(0, padding.length);
+	} else {
+		return (padding + str).slice(-padding.length);
+	}
+}
+
+//-----------------------------------------------------------------------------
+
+function pc_dump() {
+
+var hidden = 0;
+
+	console.log('\n* Programme Cache:');
+	for (var i in programme_cache) {
+		var p = programme_cache[i];
+		if (download_history.indexOf(p.pid) == -1) {
+
+			if (programme_cache.length==1) {
+				console.log(p);
+			}
+
+			var title = (p.title ? p.title : p.presentation_title);
+			for (var at in p.ancestor_titles) {
+				title = p.ancestor_titles[at].title + '/' + title;
+			}
+
+			var position = p.position ? p.position : 1;
+			var totaleps = 1;
+			var series = 1;
+			var parents = '';
+
+			var ownership = p.ownership;
+
+			var subp = p;
+			while ((subp.programme) || (subp.parent)) {
+				var newp = subp.programme;
+				if (!newp) newp = subp.parent.programme;
+				subp = newp;
+				if (subp.type == 'series') {
+					if (subp.expected_child_count) totaleps = subp.expected_child_count;
+					if (subp.position) series = subp.position;
+				}
+				if ((!ownership) && (subp.ownership)) {
+					ownership = subp.ownership;
+				}
+				title = subp.title+'/'+title;
+				parents += '  '+subp.type+'= '+subp.pid+' ('+subp.title+')';
+			}
+
+			console.log(p.pid+' '+p.item_type+' '+(ownership && ownership.service && ownership.service.type ?
+			  ownership.service.type : service)+' '+
+			  ((p.is_available===false||p.is_available_mediaset_pc_sd===false) ? 'Unavailable' : 'Available')+
+			  '  '+title);
+
+			var len = (p.version && p.version.duration) ? p.version.duration : '0';
+			if (p.versions) {
+				//if (!len && (p.versions[0].duration)) {
+				//	len = p.versions[0].duration;
+				//}
+				for (var v in p.versions) {
+					console.log(p.versions[v]);
+					//parents += (parents ? '\n' : '')+'  vPID= '+p.versions[v].pid+' ('+p.versions[v].types[0]+')';
+				}
+			}
+			len = len.replace('PT','');
+			var suffix = '';
+
+			//if (len>=60) {
+			//	len = Math.floor(len/60);
+			//	suffix = 'm';
+			//}
+			//if (len>=100) {
+			//	len = Math.round(len/60);
+			//	suffix = 'h';
+			//}
+
+			console.log('  '+len+suffix+' S'+pad(series,'00')+'E'+pad(position,'00')+
+				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
+			if (parents) console.log(parents);
+
+		}
+		else {
+			hidden++;
+		}
+	}
+	console.log();
+	console.log('Cache has '+programme_cache.length+' entries, '+hidden+' hidden');
+}
+
 /*
 Examples include:
 
@@ -91,28 +187,28 @@ function processResponse(obj) {
 	if (obj.nitro.pagination) {
 		nextHref = obj.nitro.pagination.next.href;
 	}
-	morePages = false;
-	page = obj.nitro.results.page;
-	top = obj.nitro.results.total;
+	var morePages = false;
+	var page = obj.nitro.results.page;
+	var top = obj.nitro.results.total;
 	if (!top) {
 		top = obj.nitro.results.more_than+1;
 	}
-	console.log('page '+page+' of '+top);
+	var last = Math.ceil(top/obj.nitro.results.page_size);
+	console.log('page '+page+' of '+last);
 
-	if (obj.nitro.results.programme.length===0) {
+	if (obj.nitro.results.items.length===0) {
 		console.log(obj);
 	}
 	else {
-		for (var i in obj.nitro.results.programme) {
-			title = obj.nitro.results.programme[i];
-			p = title.programme;
+		for (var i in obj.nitro.results.items) {
+			var p = obj.nitro.results.items[i];
 			debuglog(p);
-			if ((p.type == 'episode') || (p.type == 'clip'))  {
+			if ((p.item_type == 'episode') || (p.item_type == 'clip'))  {
 				add_programme(p);
 			}
-			else if ((p.type == 'series') || (p.type == 'brand')) {
-				path = domain+page;
-				query = newQuery(fProgrammesDescendantsOf,p.pid,true)
+			else if ((p.item_type == 'series') || (p.item_type == 'brand')) {
+				var path = domain+page;
+				var query = helper.newQuery(fProgrammesDescendantsOf,p.pid,true)
 					.add(api.fProgrammesAvailabilityAvailable)
 					.add(api.fProgrammesMediaSet,'pc')
 					.add(api.fProgrammesPageSize,300);
@@ -128,101 +224,14 @@ function processResponse(obj) {
 			}
 		}
 	}
-	if (page<top) {
-		dest = {};
+	if (page<last) {
+		var dest = {};
 		dest.path = domain+page;
 		dest.query = helper.queryFrom(nextHref,true);
 		dest.callback = this;
 	}
 	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
 	return [];
-}
-
-//-----------------------------------------------------------------------------
-
-function pad(str, padding, padRight) {
-	if (typeof str === 'undefined')
-		return padding;
-	if (padRight) {
-		return (str + padding).substring(0, padding.length);
-	} else {
-		return (padding + str).slice(-padding.length);
-	}
-}
-
-//-----------------------------------------------------------------------------
-
-function pc_dump() {
-
-var hidden = 0;
-
-	console.log('\n* Programme Cache:');
-	for (var i in programme_cache) {
-		p = programme_cache[i];
-		if (download_history.indexOf(p.pid) == -1) {
-			title = (p.display_title ? p.display_title.title+
-				(p.display_title.subtitle ? '/' : '')+p.display_title.subtitle : p.title);
-
-			position = p.position ? p.position : 1;
-			totaleps = 1;
-			series = 1;
-			parents = '';
-
-			ownership = p.ownership;
-
-			subp = p;
-			while ((subp.programme) || (subp.parent)) {
-				newp = subp.programme;
-				if (!newp) newp = subp.parent.programme;
-				subp = newp;
-				if (subp.type == 'series') {
-					if (subp.expected_child_count) totaleps = subp.expected_child_count;
-					if (subp.position) series = subp.position;
-				}
-				if ((!ownership) && (subp.ownership)) {
-					ownership = subp.ownership;
-				}
-				title = subp.title+'/'+title;
-				parents += '  '+subp.type+'= '+subp.pid+' ('+subp.title+')';
-			}
-
-			console.log(p.pid+' '+p.type+' '+(ownership && ownership.service && ownership.service.type ?
-			  ownership.service.type : service)+' '+
-			  ((p.is_available===false||p.is_available_mediaset_pc_sd===false) ? 'Unavailable' : 'Available')+
-			  '  '+title);
-
-			len = p.duration ? p.duration : 0;
-			if (p.versions) {
-				if (!len && (p.versions[0].duration)) {
-					len = p.versions[0].duration;
-				}
-				for (var v in p.versions) {
-					parents += (parents ? '\n' : '')+'  vPID= '+p.versions[v].pid+' ('+p.versions[v].types[0]+')';
-				}
-			}
-
-			suffix = 's';
-			if (len>=60) {
-				len = Math.floor(len/60);
-				suffix = 'm';
-			}
-			if (len>=100) {
-				len = Math.round(len/60);
-				suffix = 'h';
-			}
-
-			console.log('  '+len+suffix+' S'+pad(series,'00')+'E'+pad(position,'00')+
-				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.shortS : 'No description'));
-			if (parents) console.log(parents);
-
-		}
-		else {
-			//console.log('Hidden '+p.pid);
-			hidden++;
-		}
-	}
-	console.log();
-	console.log('Cache has '+programme_cache.length+' entries, '+hidden+' hidden');
 }
 
 //------------------------------------------------------------------------------
@@ -275,6 +284,7 @@ function make_request(host,path,key,query,callback) {
 	  ,path: path+'?api_key='+key+query.querystring
 	  ,method: 'GET'
 	  ,headers: { 'Content-Type': 'application/json',
+					'Accept': 'application/json',
 		'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; HTC_DesireZ_A7272 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
 	  }
 	};
@@ -318,8 +328,8 @@ function make_request(host,path,key,query,callback) {
 		}
 		else try {
 			obj = JSON.parse(list);
-			destination = callback(obj);
-		    if (destination.callback) {
+			var destination = callback(obj);
+		    if (destination && destination.callback) {
 				// call the callback's next required destination
 				// e.g. programme=pid getting a brand or series and calling children_of
 				if (destination.path) {
@@ -401,7 +411,7 @@ if (process.argv.length>2) {
 if (process.argv.length>3) {
 	service = process.argv[3];
 	if (service == 'tv') {
-		media_type = 'audio-video';
+		media_type = 'audio_video';
 	}
 	else if (service == 'both') {
 		media_type = '';
@@ -429,9 +439,7 @@ if (process.argv.length<6) {
 
 if (process.argv.length>5) {
 	pid = process.argv[5];
-	query.add(api.fProgrammesPid,pid).add(api.mProgrammesAncestorTitles)
-		.add(api.mProgrammesContributions).add(api.mProgrammesVersionsAvailability);
-	//add.(api.mProgrammesDuration) //?
+	query.add(api.fProgrammesPid,pid,true).add(api.mProgrammesContributions).add(api.mProgrammesVersionsAvailability);
 }
 else {
 	query.add(api.fProgrammesAvailabilityAvailable)
@@ -440,7 +448,7 @@ else {
 		query.add(api.fProgrammesMediaType,media_type);
 	}
 }
-query.add(api.fProgrammesPageSize,300);
+query.add(api.fProgrammesPageSize,300).add(api.mProgrammesDuration).add(api.mProgrammesAncestorTitles);
 
 if (category.indexOf('-h')>=0) {
 	console.log('Usage: '+process.argv[1]+' category service_type format|genre|search [PID]');
