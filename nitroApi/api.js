@@ -35,7 +35,6 @@ const fProgrammesAudioDescribed = 'audio_described';
 const fProgrammesAvailabilityAvailable = 'availability=available';
 const fProgrammesAvailabilityPending = 'availability=pending';
 const fProgrammesAvailability = 'availability';
-const fProgrammesAvailability = 'availability';
 const fProgrammesAvailabilityEntityTypeEpisode = 'availability_entity_type=episode';
 const fProgrammesAvailabilityEntityTypeClip = 'availability_entity_type=clip';
 const fProgrammesAvailabilityEntityType = 'availability_entity_type';
@@ -469,11 +468,6 @@ fProgrammesAvailabilityAvailable : fProgrammesAvailabilityAvailable,
 fProgrammesAvailabilityPending : fProgrammesAvailabilityPending,
 /**
 * /nitro/api/programmes?availability=pending
-*/
-fProgrammesAvailability : fProgrammesAvailability,
-/**
-* filter for programmes that will become available within given duration
-* type = daytime_duration
 */
 fProgrammesAvailability : fProgrammesAvailability,
 /**

@@ -11,6 +11,7 @@ var apijs = './nitroApi/api.js';
 var api_fh = fs.openSync(apijs,'w');
 
 var cache = [];
+var seen = [];
 
 //__________________________________________________________________
 
@@ -197,10 +198,13 @@ function exportFilter(feed,filter,filterName) {
 //__________________________________________________________________
 function processFilter(feed,filter,filterName) {
 	if (checkReleaseStatus(filter.release_status)) {
-		if (!filter.type) {
-			console.log('++++++++++ typeless filter ++++++++ '+filterName);
+		if (seen.indexOf(filterName)<0) {
+			if (!filter.type) {
+				console.log('++++++++++ typeless filter ++++++++ '+filterName);
+			}
+			exportFilter(feed,filter,filterName);
+			seen.push(filterName);
 		}
-		exportFilter(feed,filter,filterName);
 	}
 	else {
 		console.log('Skipping filter '+filterName+' as '+filter.release_status);

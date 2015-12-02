@@ -22,15 +22,15 @@ module.exports = {
 		if (param) q.add(param,value,previous);
 		return q;
 	},
-	queryFrom : function(uri,previous) {
+	queryFrom : function(url,previous) {
 		q = new query();
 		if (url.indexOf('?')>=0) {
-			uri = uri.split('?')[1];
+			url = url.split('?')[1];
 		}
 		else if (url.indexOf('&')>=0) {
-			uri = uri.split('&')[1];
+			url = url.split('&')[1];
 		}
-		q.querystring = ((previous ? '&' : '?')+uri);
+		q.querystring = ((previous ? '&' : '?')+url);
 	},
 	add : function(q,param,value,previous) {
 		return q.add(param,value,previous);
