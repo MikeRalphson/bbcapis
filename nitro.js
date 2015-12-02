@@ -24,11 +24,7 @@ var download_history = [];
 // http://d.bbc.co.uk/stage/nitro/api/
 // https://api.live.bbc.co.uk/nitro/api/schedules
 
-// Unable to identify proxy for host: nitro and url: /nitro/stage/api/programmes
-
-//const host = 'nitro.stage.api.bbci.co.uk';
 var host = 'd.bbc.co.uk';
-//const domain = '/nitro/stage';
 var domain = '/nitro';
 
 var page = '/api/programmes';
@@ -85,10 +81,10 @@ var hidden = 0;
 
 			var title = (p.title ? p.title : p.presentation_title);
 			for (var at in p.ancestor_titles) {
-				title = p.ancestor_titles[at].title + '/' + title;
+				title = p.ancestor_titles[at].title + ' / ' + title;
 			}
 
-			var position = p.position ? p.position : 1;
+			var position = p.episode_of ? p.episode_of.position : 1;
 			var totaleps = 1;
 			var series = 1;
 			var parents = '';
@@ -117,30 +113,26 @@ var hidden = 0;
 			  '  '+title);
 
 			var len = (p.version && p.version.duration) ? p.version.duration : '0';
-			if (p.versions) {
-				//if (!len && (p.versions[0].duration)) {
-				//	len = p.versions[0].duration;
-				//}
-				for (var v in p.versions) {
-					console.log(p.versions[v]);
-					//parents += (parents ? '\n' : '')+'  vPID= '+p.versions[v].pid+' ('+p.versions[v].types[0]+')';
-				}
-			}
+			//if (p.versions) {
+			//	for (var v in p.versions.version) {
+			//		console.log(p.versions.version[v]);
+			//	}
+			//}
 			len = len.replace('PT','');
 			var suffix = '';
-
-			//if (len>=60) {
-			//	len = Math.floor(len/60);
-			//	suffix = 'm';
-			//}
-			//if (len>=100) {
-			//	len = Math.round(len/60);
-			//	suffix = 'h';
-			//}
 
 			console.log('  '+len+suffix+' S'+pad(series,'00')+'E'+pad(position,'00')+
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
 			if (parents) console.log(parents);
+			
+			if (p.contributions) {
+				console.log();
+				for (var c in p.contributions.contribution) {
+					var cont = p.contributions.contribution[c];
+					console.log((cont.character_name ? cont.character_name : cont.credit_role.$)+' - '+
+						cont.contributor.name.given+' '+cont.contributor.name.family);
+				}
+			}
 
 		}
 		else {
@@ -151,52 +143,27 @@ var hidden = 0;
 	console.log('Cache has '+programme_cache.length+' entries, '+hidden+' hidden');
 }
 
-/*
-Examples include:
-
-<feed name="Programmes" rel="feed" href="/nitro/api/programmes"
-title="Start here for programmes metadata: Brands, Series, Episodes and Clips" release_status="supported">
-
-
-<filter name="duration" type="string" title="filter for subset of programmes that have given duration"
-release_status="supported">
-
-<option value="short" title="filter for programmes that have short duration (< 5m)"
-href="/nitro/api/programmes?duration=short" />
-
-<sort name="views" is_default="false" title="sort numerically by number of views (most popular first - faster most_popular)"
- release_status="supported">
-
-<sort_direction name="sort_direction" value="ascending" is_default="false"
- href="/nitro/api/programmes?sort=views&sort_direction=ascending" />
-
-<n:mixin name="people" title="mixin to return information about contributors to a programme"
-release_status="deprecated" deprecated="true" deprecated_since="2014-05-02"
-replaced_by="contributions" href="/nitro/api/programmes?mixin=people"/>
-
-Most important to notice here are the hrefs: these are links that go directly to the feed with those
-filters/sorts/mixins applied. (You should follow the hrefs where possible, as we reserve the right
-to change parameter URIs in future.) As you go deeper into the feeds, you'll see that the number of
-available filters and sorts reduces to only show those that are relevant as further filters on the
-current set of results. This makes it very easy to build up the query you're looking for.
-
-*/
-
-function processResponse(obj) {
+//_____________________________________________________________________________
+var processResponse = function(obj) {
 	var nextHref = '';
 	if (obj.nitro.pagination) {
 		nextHref = obj.nitro.pagination.next.href;
 	}
 	var morePages = false;
-	var page = obj.nitro.results.page;
+	var pageNo = obj.nitro.results.page;
 	var top = obj.nitro.results.total;
 	if (!top) {
 		top = obj.nitro.results.more_than+1;
 	}
 	var last = Math.ceil(top/obj.nitro.results.page_size);
-	console.log('page '+page+' of '+last);
+	//console.log('page '+pageNo+' of '+last);
+	
+	var length = 0;
+	if (obj.nitro.results.items) {
+		length = obj.nitro.results.items.length;
+	}
 
-	if (obj.nitro.results.items.length===0) {
+	if (length==0) {
 		console.log(obj);
 	}
 	else {
@@ -208,7 +175,7 @@ function processResponse(obj) {
 			}
 			else if ((p.item_type == 'series') || (p.item_type == 'brand')) {
 				var path = domain+page;
-				var query = helper.newQuery(fProgrammesDescendantsOf,p.pid,true)
+				var query = helper.newQuery(api.fProgrammesDescendantsOf,p.pid,true)
 					.add(api.fProgrammesAvailabilityAvailable)
 					.add(api.fProgrammesMediaSet,'pc')
 					.add(api.fProgrammesPageSize,300);
@@ -216,7 +183,7 @@ function processResponse(obj) {
 				if (media_type) {
 					query.add(api.fProgrammesMediaType,media_type);
 				}
-				make_request(host,path,api_key,query,this);
+				make_request(host,path,api_key,query,processResponse);
 			}
 			else {
 				console.log('Unhandled type: '+p.type);
@@ -224,14 +191,15 @@ function processResponse(obj) {
 			}
 		}
 	}
-	if (page<last) {
-		var dest = {};
+
+	var dest = {};
+	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
+	if (pageNo<last) {
 		dest.path = domain+page;
 		dest.query = helper.queryFrom(nextHref,true);
-		dest.callback = this;
+		dest.callback = processResponse;
 	}
-	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
-	return [];
+	return dest;
 }
 
 //------------------------------------------------------------------------------
@@ -248,33 +216,6 @@ function hasHeader(header, headers) {
 }
 
 //------------------------------------------------------------------------------
-
-/*
-Once you have the feed, there are four tools for getting what you want:
-
-Tool
-
-Description
-
-
-Filter
- Filters let you narrow down the request and are the core function of Nitro. To use a feed, you will virtually
- always have to filter it. (Generally speaking, performance improves as you add filters and narrow down the
- amount of data Nitro has to process. In broadcasts especially, providing a date range filter can dramatically
- improve speed.)
-Sort
- Sorts order the data, including by properties calculated by Nitro, such as the view counts used to drive the
- "most_popular" sort of programmes.
-Mixin
- Mixins allow you to specify optional elements you would like included in the output, on the understanding that
- they will impact performance (but save you making additional Nitro calls). For instance, the ancestor_titles
- mixin exposes all the titles and pids of the ancestors of a given object.
-Pagination
- Nitro output is paginated. You can request how many items you want returned, but Nitro does not guarantee to
- honour this, only to return as many as possible. The results expose the page size. A page size of 0 is a special
- case that only returns you a count of the objects matching your filters.
-
-*/
 
 function make_request(host,path,key,query,callback) {
 	console.log(host+path+'?K'+query.querystring);
@@ -357,33 +298,6 @@ function make_request(host,path,key,query,callback) {
 
 //------------------------------------------------------------------------[main]
 
-/*
-The starting point for using Nitro is always to work out what type of thing you're trying to find.
-That determines which feed you use:
-
-Programmes Find and navigate brands, series, episodes and clips
- /nitro/api/programmes
-Schedules Dates, Times, Schedules: when and where are programmes being shown?
- /nitro/api/schedules
-Versions Helps you handle the editorial "versions" of episodes (eg signed, cut for language, regional variations, etc)
- /nitro/api/versions
-Services Exposes both live and historical BBC services, across TV and Radio.
- /nitro/api/services
-People Find the People PIPs knows about: casts, crews, contributors, guests, artists, singers, bands ...
- /nitro/api/people
-Items Step inside programmes to find tracklists, chapters, segments, songs, highlights and more
- /nitro/api/items
-Availabilities For advanced users only: get specific details around when programmes and clips are available to play
- /nitro/api/availabilities
-Images Find images, particularly those in galleries
- /nitro/api/images
-Promotions Details of short-term editorially curated "promotions", for instance those programmes featured on iPlayer today
- /nitro/api/promotions
-Groups Long-lived collections of programmes and more, including Collections, Seasons and Galleries
- /nitro/api/groups
-
-*/
-
 // https://developer.bbc.co.uk/nitropubliclicence
 
 // http://downloads.bbc.co.uk/rmhttp/academy/collegeoftechnology/docs/j000m977x/Nitro_API.pdf
@@ -443,7 +357,7 @@ if (process.argv.length>5) {
 }
 else {
 	query.add(api.fProgrammesAvailabilityAvailable)
-		.add(api.fProgrammesMediaSet,'pc');
+		.add(api.fProgrammesMediaSet,'pc').add(api.fProgrammesEntityTypeEpisode);
 	if (media_type) {
 		query.add(api.fProgrammesMediaType,media_type);
 	}
