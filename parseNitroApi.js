@@ -63,6 +63,9 @@ function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 	if (sortDirection.is_default) {
 		s += '* isDefault\n';
 	}
+	if (sortDirection.depends_on) {
+		s += '* depends_on = '+sortDirection.depends_on+'\n';
+	}
 	s += '*/\n';
 	s += sortDirectionName+' : '+sortDirectionName+',\n';
 	fs.appendFileSync(apijs, 'const '+sortDirectionName+" = 'sort="+sort.name+'&'+sortDirection.name+'='+sortDirection.value+"';\n", 'utf8');
@@ -86,6 +89,9 @@ function exportSort(feed,sort,sortName) {
 			console.log('! sort '+sortName+'('+sort.name+') does not exist in');
 			console.log('  '+sort.href);
 		}
+	}
+	if (sort.depends_on) {
+		s += '* depends_on = '+sort.depends_on+'\n';
 	}
 	s += '*/\n';
 	s += sortName+' : '+sortName+',\n';
@@ -127,6 +133,9 @@ function exportMixin(feed,mixin,mixinName) {
 			console.log('  '+mixin.href);
 		}
 	}
+	if (mixin.depends_on) {
+		s += '* depends_on = '+mixin.depends_on+'\n';
+	}
 	s += '*/\n';
 	s += mixinName+' : '+mixinName+',\n';
 	fs.appendFileSync(apijs, 'const '+mixinName+" = 'mixin="+mixin.name+"';\n", 'utf8');
@@ -167,6 +176,9 @@ function exportFilter(feed,filter,filterName) {
 	}
 	if (filter.max_value) {
 		s += '* max_value = '+filter.max_value+'\n';
+	}
+	if (filter.depends_on) {
+		s += '* depends_on = '+filter.depends_on+'\n';
 	}
 
 	if (filter.option) {

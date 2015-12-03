@@ -396,6 +396,7 @@ mProgrammesAlternateImages : mProgrammesAlternateImages,
 mProgrammesAncestorTitles : mProgrammesAncestorTitles,
 /**
 * mixin to return programme availability information
+* depends_on = availability
 */
 mProgrammesAvailability : mProgrammesAvailability,
 /**
@@ -491,6 +492,7 @@ fProgrammesAvailabilityEntityType : fProgrammesAvailabilityEntityType,
 * filter for a subset of programmes that are available for a given type
 * type = string
 * default = ondemand
+* depends_on = availability
 * option: ondemand, filters programmes based on availability type of ondemand
 */
 fProgrammesAvailabilityTypeOndemand : fProgrammesAvailabilityTypeOndemand,
