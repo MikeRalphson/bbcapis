@@ -1,13 +1,10 @@
 /*
 
-Lists categories, formats (but not tags, they have been removed)
-Known to the BBC as aggregations
+Lists Nitro categories, formats (known to the BBC as aggregations)
 
 */
 
 var http = require('http');
-
-//opt = require('node-getopt')...
 
 function category_dump(obj) {
 	console.log('# Category list dump');
@@ -32,7 +29,7 @@ function category_dump(obj) {
 
 function list_categories(path) {
 	var options = {
-	  hostname: 'www.bbc.co.uk'
+	  hostname: 'polling.bbc.co.uk'
 	  ,port: 80
 	  ,path: path
 	  ,method: 'GET'
@@ -73,30 +70,24 @@ function list_categories(path) {
 
 //------------------------------------------------------------------------[main]
 
-// http://www.bbc.co.uk/radio/categories.json
-// http://www.bbc.co.uk/radio/programmes/formats.json
+// http://polling.bbc.co.uk/radio/categories.json
 
-// http://www.bbc.co.uk/programmes/genres.json
-// http://www.bbc.co.uk/programmes/formats.json
-
-// http://www.bbc.co.uk/programmes/tags.json (sadly now removed)
+// ? tv is not where you might have thought
 
 var domain = 'radio';
 if (process.argv.length>2) {
 	domain = process.argv[2];
 }
 if (domain == 'radio') {
-	list_categories('/radio/programmes/formats.json');
 	list_categories('/radio/categories.json');
 }
 else if (domain=='tv') {
-	list_categories('/programmes/formats.json');
-	list_categories('/programmes/genres.json');
+	console.log('Work in progress...');
 }
 else {
 	console.log('Unknown domain');
 }
 
-process.on('exit', function(code) {
-  //console.log('About to exit with code:', code);
-});
+//process.on('exit', function(code) {
+//  console.log('About to exit with code:', code);
+//});
