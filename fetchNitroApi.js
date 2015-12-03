@@ -1,12 +1,13 @@
 'use strict';
 
 var http = require('http');
+var fs = require('fs');
 
 var helper = require('./apiHelper');
 var api_key = '';
 
 //_____________________________________________________________________________
-function make_request(host,path,key,query,callback) {
+function make_request(host,path,key,query,accept,callback) {
 	//console.log(host+path+(key ? '?K' : '')+query.querystring);
 
 	var qs = query.querystring;
@@ -19,8 +20,7 @@ function make_request(host,path,key,query,callback) {
 	  ,port: 80
 	  ,path: path+qs
 	  ,method: 'GET'
-	  ,headers: { 'Content-Type': 'application/json',
-	  					'Accept': 'application/json',
+	  ,headers: {'Accept': accept,
 		'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; HTC_DesireZ_A7272 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
 	  }
 	};
@@ -63,8 +63,14 @@ function make_request(host,path,key,query,callback) {
 			}
 		}
 		else try {
-			obj = JSON.parse(list);
-			var destination = callback(obj);
+			var destination;
+			if (accept=='application/json') {
+				obj = JSON.parse(list);
+				destination = callback(obj);
+			}
+			else {
+				destination = callback(list);
+			}
 		    if (destination && destination.callback) {
 				// call the callback's next required destination
 				// e.g. programme=pid getting a brand or series and calling children_of
@@ -97,8 +103,12 @@ var config = require('./config.json');
 api_key = config.nitro.api_key;
 var query = helper.newQuery();
 
-make_request('d.bbc.co.uk','/nitro/api',api_key,query,function(obj){
-	console.log(JSON.stringify(obj));
+make_request('d.bbc.co.uk','/nitro/api',api_key,query,'application/json',function(obj){
+	fs.writeFileSync('./nitroApi/api.json',JSON.stringify(obj,null,2));
+	return false;
+});
+make_request('d.bbc.co.uk','/nitro/api',api_key,query,'text/xml',function(obj){
+	fs.writeFileSync('./nitroApi/api.xml',obj);
 	return false;
 });
 

@@ -103,10 +103,12 @@ function processSort(feed,sort,sortName) {
 				var sortDirection = sort.sort_direction[i];
 				var sortDirectionName = ('s-'+feed.name+'-'+sort.name+'-'+sortDirection.value).toCamelCase();
 				processSortDirection(feed,sort,sortDirection,sortDirectionName);
+				seen.push(sortDirectionName);
 			}
 		}
 		else {
 			exportSort(feed,sort,sortName);
+			seen.push(sortName);
 		}
 	}
 	else {
@@ -136,6 +138,7 @@ function exportMixin(feed,mixin,mixinName) {
 function processMixin(feed,mixin,mixinName) {
 	if (checkReleaseStatus(mixin.release_status)) {
 		exportMixin(feed,mixin,mixinName);
+		seen.push(mixinName);
 	}
 	else {
 		console.log('Skipping '+mixinName+' as '+mixin.release_status);
