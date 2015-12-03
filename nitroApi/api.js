@@ -38,8 +38,6 @@ const fProgrammesAvailability = 'availability';
 const fProgrammesAvailabilityEntityTypeEpisode = 'availability_entity_type=episode';
 const fProgrammesAvailabilityEntityTypeClip = 'availability_entity_type=clip';
 const fProgrammesAvailabilityEntityType = 'availability_entity_type';
-const fProgrammesAvailabilityTypeOndemand = 'availability_type=ondemand';
-const fProgrammesAvailabilityType = 'availability_type';
 const fProgrammesChildrenOf = 'children_of';
 const fProgrammesDescendantsOf = 'descendants_of';
 const fProgrammesDurationShort = 'duration=short';
@@ -270,7 +268,7 @@ const fVersionsPageSize = 'page_size';
 const fVersionsPartnerId = 'partner_id';
 const fVersionsPartnerPid = 'partner_pid';
 const fVersionsPid = 'pid';
-const apiHash = '62117fd1e608ef495dea990f0af696535256d6ea219a7b145ec836aa7797ab3b';
+const apiHash = '0d1d688600bdaffdb8a2431ef2992d5fcc822e880ce99805c2584383135e3914';
 
 module.exports = {
 /**
@@ -488,17 +486,6 @@ fProgrammesAvailabilityEntityTypeClip : fProgrammesAvailabilityEntityTypeClip,
 * /nitro/api/programmes?availability_entity_type=clip
 */
 fProgrammesAvailabilityEntityType : fProgrammesAvailabilityEntityType,
-/**
-* filter for a subset of programmes that are available for a given type
-* type = string
-* default = ondemand
-* depends_on = availability
-* option: ondemand, filters programmes based on availability type of ondemand
-*/
-fProgrammesAvailabilityTypeOndemand : fProgrammesAvailabilityTypeOndemand,
-/**
-*/
-fProgrammesAvailabilityType : fProgrammesAvailabilityType,
 /**
 * filter for subset of programmes that have PID as immediate parent
 * type = PID

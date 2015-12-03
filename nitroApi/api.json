@@ -90,18 +90,6 @@
               "deprecated_since": "2014-01-22"
             },
             {
-              "name": "availability_type",
-              "type": "string",
-              "title": "filter for a subset of programmes that are available for a given type",
-              "release_status": "supported",
-              "default": "ondemand",
-              "depends_on": "availability",
-              "option": {
-                "value": "ondemand",
-                "title": "filters programmes based on availability type of ondemand"
-              }
-            },
-            {
               "name": "children_of",
               "type": "PID",
               "title": "filter for subset of programmes that have PID as immediate parent",

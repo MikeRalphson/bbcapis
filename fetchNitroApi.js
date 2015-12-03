@@ -4,7 +4,6 @@ var http = require('http');
 var fs = require('fs');
 
 var helper = require('./apiHelper');
-var api_key = '';
 
 //_____________________________________________________________________________
 function make_request(host,path,key,query,accept,callback) {
@@ -100,14 +99,15 @@ function make_request(host,path,key,query,accept,callback) {
 //_____________________________________________________________________________
 
 var config = require('./config.json');
-api_key = config.nitro.api_key;
+var api_key = config.nitro.api_key;
+var host = config.nitro.host;
 var query = helper.newQuery();
 
-make_request('d.bbc.co.uk','/nitro/api',api_key,query,'application/json',function(obj){
+make_request(host,'/nitro/api',api_key,query,'application/json',function(obj){
 	fs.writeFileSync('./nitroApi/api.json',JSON.stringify(obj,null,2));
 	return false;
 });
-make_request('d.bbc.co.uk','/nitro/api',api_key,query,'text/xml',function(obj){
+make_request(host,'/nitro/api',api_key,query,'text/xml',function(obj){
 	fs.writeFileSync('./nitroApi/api.xml',obj);
 	return false;
 });
