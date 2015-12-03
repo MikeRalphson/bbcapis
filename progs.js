@@ -310,11 +310,15 @@ function make_request(host,path) {
 // http://www.bbc.co.uk/radio/programmes/genres/comedy/player.json
 // http://www.bbc.co.uk/radio/programmes/genres/comedy/player/episodes.json[?page=n]
 
+// http://www.bbc.co.uk/radio/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json
+
 // TV mode
 // http://bbc.co.uk/programmes/films.json
 // redirects to http://open.live.bbc.co.uk/aps/programmes/a-z/by/films/all.json
 // http://www.bbc.co.uk/programmes/genres/comedy/spoof.json
 // http://www.bbc.co.uk/programmes/genres/comedy/player/episodes.json[?page=n]
+
+// http://www.bbc.co.uk/tv/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json
 
 var config = require('./config.json');
 download_history = common.downloadHistory(config.download_history);
