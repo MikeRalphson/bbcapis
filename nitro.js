@@ -17,16 +17,17 @@ var api = require('./nitroApi/api');
 var programme_cache = [];
 var download_history = [];
 
+// http://nitro.api.bbci.co.uk
 // http://nitro.stage.api.bbci.co.uk/nitro/api/
 // http://d.bbc.co.uk/nitro/api/
 // http://d.bbc.co.uk/stage/nitro/api/
-// https://api.live.bbc.co.uk/nitro/api/schedules
+// https://api.live.bbc.co.uk/nitro/api/
 
 var host = 'd.bbc.co.uk';
-var domain = '/nitro';
-
-var page = '/api/programmes';
+var domain = '/nitro/api';
+var feed = '/programmes';
 var api_key = '';
+
 var service = 'radio';
 var media_type = 'audio';
 const pageSize = 300;
@@ -73,26 +74,30 @@ var hidden = 0;
 	console.log('\n* Programme Cache:');
 	for (var i in programme_cache) {
 		var p = programme_cache[i];
-		if (download_history.indexOf(p.pid) == -1) {
+
+		var present = download_history.indexOf(p.pid)>=0;
+
+		var title = (p.title ? p.title : p.presentation_title);
+		var parents = '';
+		var ancestor_titles = '';
+		for (var at in p.ancestor_titles) {
+			present = present || (download_history.indexOf(p.ancestor_titles[at].pid)>=0);
+			ancestor_titles += p.ancestor_titles[at].title + ' / ';
+			parents += '  ' + p.ancestor_titles[at].pid + ' ('+p.ancestor_titles[at].title+') ';
+		}
+		title = ancestor_titles + title;
+
+		if (!present) {
 
 			if (programme_cache.length==1) {
 				console.log(p);
 			}
 
-			var title = (p.title ? p.title : p.presentation_title);
-			var parents = '';
-			var ancestor_titles = '';
-			for (var at in p.ancestor_titles) {
-				ancestor_titles += p.ancestor_titles[at].title + ' / ';
-				parents += '  ' + p.ancestor_titles[at].pid + ' ('+p.ancestor_titles[at].title+') ';
-			}
-			title = ancestor_titles + title;
-
 			var position = p.episode_of ? p.episode_of.position : 1;
 			var totaleps = 1;
 			var series = 1;
 
-			// 
+			//
 			var ownership = p.ownership;
 			var subp = p;
 			while ((subp.programme) || (subp.parent)) {
@@ -124,7 +129,7 @@ var hidden = 0;
 			console.log('  '+len+' S'+pad(series,'00')+'E'+pad(position,'00')+
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
 			if (parents) console.log(parents);
-			
+
 			if (p.contributions) {
 				console.log();
 				for (var c in p.contributions.contribution) {
@@ -158,7 +163,7 @@ var processResponse = function(obj) {
 	var last = Math.ceil(top/obj.nitro.results.page_size);
 	//console.log('page '+pageNo+' of '+last);
 	process.stdout.write('.');
-	
+
 	var length = 0;
 	if (obj.nitro.results.items) {
 		length = obj.nitro.results.items.length;
@@ -175,9 +180,10 @@ var processResponse = function(obj) {
 				add_programme(p);
 			}
 			else if ((p.item_type == 'series') || (p.item_type == 'brand')) {
-				var path = domain+page;
+				var path = domain+feed;
 				var query = helper.newQuery(api.fProgrammesDescendantsOf,p.pid,true)
 					.add(api.fProgrammesAvailabilityAvailable)
+					//.add(api.fProgrammesAvailabilityTypeOndemand)
 					.add(api.fProgrammesMediaSet,'pc')
 					.add(api.mProgrammesDuration)
 					.add(api.mProgrammesAncestorTitles)
@@ -199,7 +205,7 @@ var processResponse = function(obj) {
 	dest = {};
 	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
 	if (pageNo<last) {
-		dest.path = domain+page;
+		dest.path = domain+feed;
 		dest.query = helper.queryFrom(nextHref,true);
 		dest.callback = processResponse;
 		return true;
@@ -225,7 +231,7 @@ function hasHeader(header, headers) {
 //------------------------------------------------------------------------------
 
 function make_request(host,path,key,query,callback) {
-	//console.log(host+path+'?K'+query.querystring);
+	console.log(host+path+'?K'+query.querystring);
 	var options = {
 	  hostname: host
 	  ,port: 80
@@ -397,6 +403,7 @@ if (process.argv.length>5) {
 }
 else {
 	query.add(api.fProgrammesAvailabilityAvailable)
+		//.add(api.fProgrammesAvailabilityTypeOndemand)
 		.add(api.fProgrammesMediaSet,'pc').add(api.fProgrammesEntityTypeEpisode);
 	if (media_type) {
 		query.add(api.fProgrammesMediaType,media_type);
@@ -413,7 +420,7 @@ if (category.indexOf('-h')>=0) {
 	console.log('PID defaults to all PIDS');
 }
 else {
-	var path = domain+page;
+	var path = domain+feed;
 
 	make_request(host,path,api_key,query,function(obj){
 		if (obj.nitro) {
