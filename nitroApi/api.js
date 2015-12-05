@@ -415,6 +415,7 @@ mProgrammesDuration : mProgrammesDuration,
 /**
 * mixin to return list of genre groupings
 * /nitro/api/programmes?mixin=genre_groupings
+* Prohibits mixin genre_groups
 */
 mProgrammesGenreGroupings : mProgrammesGenreGroupings,
 /**
@@ -1020,6 +1021,8 @@ sImagesPidDescending : sImagesPidDescending,
 /**
 * filter for images belonging to the given group (i.e. Gallery)
 * type = PID
+* Prohibits filter is_image_for
+* Prohibits filter is_alternate_image_for
 */
 fImagesGroup : fImagesGroup,
 /**
@@ -1055,11 +1058,15 @@ fImagesImageType : fImagesImageType,
 /**
 * filter for alternate images by entity PID
 * type = PID
+* Prohibits filter is_image_for
+* Prohibits filter group
 */
 fImagesIsAlternateImageFor : fImagesIsAlternateImageFor,
 /**
 * filter for images by entity PID
 * type = PID
+* Prohibits filter group
+* Prohibits filter is_alternate_image_for
 */
 fImagesIsImageFor : fImagesIsImageFor,
 /**

@@ -24,13 +24,15 @@ String.prototype.toCamelCase = function camelize() {
 //__________________________________________________________________
 function toArray(item) {
 	if (!(item instanceof Array)) {
-		for (var j in item) {
-			if (item[j].length>1) {
-				toArray(item[j]);
-			}
-		}
+		//for (var j in item) {
+		//	if (item[j].length>1) {
+		//		item[j] = toArray(item[j]);
+		//	}
+		//}
 		var newitem = [];
-		newitem.push(item);
+		if (item) {
+			newitem.push(item);
+		}
 		return newitem;
 	}
 	else {
@@ -50,6 +52,20 @@ function checkReleaseStatus(status) {
 }
 
 //__________________________________________________________________
+function prohibits(p) {
+	var s = '';
+	var m = toArray(p.mixin);
+	for (var i in m) {
+		s += '* Prohibits mixin '+m[i].name+'\n';
+	}
+	var f = toArray(p.filter);
+	for (var i in f) {
+		s += '* Prohibits filter '+f[i].name+'\n';
+	}
+	return s;
+}
+
+//__________________________________________________________________
 function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 	s = '/**\n';
 	s += '* '+sort.title+'\n';
@@ -65,6 +81,9 @@ function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 	}
 	if (sortDirection.depends_on) {
 		s += '* depends_on = '+sortDirection.depends_on+'\n';
+	}
+	if (sortDirection.prohibits) {
+		s += prohibits(sortDirection.prohibits);
 	}
 	s += '*/\n';
 	s += sortDirectionName+' : '+sortDirectionName+',\n';
@@ -93,6 +112,9 @@ function exportSort(feed,sort,sortName) {
 	if (sort.depends_on) {
 		s += '* depends_on = '+sort.depends_on+'\n';
 	}
+	if (sort.prohibits) {
+		s += prohibits(sort.prohibits);
+	}
 	s += '*/\n';
 	s += sortName+' : '+sortName+',\n';
 	fs.appendFileSync(apijs, 'const '+sortName+" = 'sort="+sort.name+"';\n", 'utf8');
@@ -104,21 +126,31 @@ function exportSort(feed,sort,sortName) {
 function processSort(feed,sort,sortName) {
 	if (checkReleaseStatus(sort.release_status)) {
 		if (sort.sort_direction) {
-			sort.sort_direction = toArray(sort.sort_direction); // I expect in the official API this will always be the case
+			sort.sort_direction = toArray(sort.sort_direction); // only necessary if json api converted from xml
 			for (var i in sort.sort_direction) {
 				var sortDirection = sort.sort_direction[i];
 				var sortDirectionName = ('s-'+feed.name+'-'+sort.name+'-'+sortDirection.value).toCamelCase();
-				processSortDirection(feed,sort,sortDirection,sortDirectionName);
-				seen.push(sortDirectionName);
+				if (seen.indexOf(sortDirectionName)<0) {
+					processSortDirection(feed,sort,sortDirection,sortDirectionName);
+					seen.push(sortDirectionName);
+				}
+				else {
+					console.log('* Skipping sort '+sortDirectionName+' as duplicate name');
+				}
 			}
 		}
 		else {
-			exportSort(feed,sort,sortName);
-			seen.push(sortName);
+			if (seen.indexOf(sortName)<0) {
+				exportSort(feed,sort,sortName);
+				seen.push(sortName);
+			}
+			else {
+				console.log('* Skipping sort '+sortName+' as duplicate name');
+			}
 		}
 	}
 	else {
-		console.log('Skipping '+sortName+' as '+sort.release_status);
+		console.log('Skipping sort '+sortName+' as '+sort.release_status);
 	}
 }
 
@@ -136,6 +168,9 @@ function exportMixin(feed,mixin,mixinName) {
 	if (mixin.depends_on) {
 		s += '* depends_on = '+mixin.depends_on+'\n';
 	}
+	if (mixin.prohibits) {
+		s += prohibits(mixin.prohibits);
+	}
 	s += '*/\n';
 	s += mixinName+' : '+mixinName+',\n';
 	fs.appendFileSync(apijs, 'const '+mixinName+" = 'mixin="+mixin.name+"';\n", 'utf8');
@@ -146,16 +181,24 @@ function exportMixin(feed,mixin,mixinName) {
 //__________________________________________________________________
 function processMixin(feed,mixin,mixinName) {
 	if (checkReleaseStatus(mixin.release_status)) {
-		exportMixin(feed,mixin,mixinName);
-		seen.push(mixinName);
+		if (seen.indexOf(mixinName)<0) {
+			exportMixin(feed,mixin,mixinName);
+			seen.push(mixinName);
+		}
+		else {
+			console.log('* Skipping mixin '+mixinName+' as duplicate name');
+		}
 	}
 	else {
-		console.log('Skipping '+mixinName+' as '+mixin.release_status);
+		console.log('Skipping mixin '+mixinName+' as '+mixin.release_status);
 	}
 }
 
 //__________________________________________________________________
 function exportFilter(feed,filter,filterName) {
+
+	var optionCount = 0;
+
 	var s = '/**\n';
 	s += '* '+filter.title+'\n';
 	if (filter.href) {
@@ -180,6 +223,9 @@ function exportFilter(feed,filter,filterName) {
 	if (filter.depends_on) {
 		s += '* depends_on = '+filter.depends_on+'\n';
 	}
+	if (filter.prohibits) {
+		s += prohibits(filter.prohibits);
+	}
 
 	if (filter.option) {
 		filter.option = toArray(filter.option);
@@ -192,6 +238,8 @@ function exportFilter(feed,filter,filterName) {
 				s += optionName+' : '+optionName +',\n';
 				s += '/**\n';
 				fs.appendFileSync(apijs, 'const '+optionName+" = '"+filter.name+'='+encodeURIComponent(option.value)+"';\n", 'utf8');
+				seen.push(optionName);
+				//optionCount++;
 			}
 			if (option.href) {
 				s += '* '+option.href+'\n';
@@ -204,10 +252,12 @@ function exportFilter(feed,filter,filterName) {
 	}
 	s += '*/\n';
 
+	//if (optionCount==0) {
 	s += filterName + ' : '+filterName +',\n';
 	fs.appendFileSync(apijs, 'const '+filterName+" = '"+filter.name+"';\n", 'utf8');
 	cache.push(s);
-	return s;
+	//}
+	return optionCount;
 }
 
 //__________________________________________________________________
@@ -217,8 +267,12 @@ function processFilter(feed,filter,filterName) {
 			if (!filter.type) {
 				console.log('++++++++++ typeless filter ++++++++ '+filterName);
 			}
-			exportFilter(feed,filter,filterName);
-			seen.push(filterName);
+			if (exportFilter(feed,filter,filterName)==0) {
+				seen.push(filterName);
+			}
+		}
+		else {
+			console.log('* Skipping filter '+filterName+' as duplicate name');
 		}
 	}
 	else {
@@ -229,7 +283,7 @@ function processFilter(feed,filter,filterName) {
 //__________________________________________________________________
 function processFeed(feed) {
 	if (feed.sorts) {
-		feed.sorts.sort = toArray(feed.sorts.sort); // I expect in the official API this will always be the case
+		feed.sorts.sort = toArray(feed.sorts.sort); // only necessary if json api converted from xml
 		if (feed.sorts.sort instanceof Array) {
 			for (var i in feed.sorts.sort) {
 				var sort = feed.sorts.sort[i];
@@ -240,7 +294,7 @@ function processFeed(feed) {
 	}
 
 	if (feed.mixins) {
-		feed.mixins.mixin = toArray(feed.mixins.mixin); // I expect in the official API this will always be the case
+		feed.mixins.mixin = toArray(feed.mixins.mixin); // only necessary if json api converted from xml
 		for (var i in feed.mixins.mixin) {
 			var mixin = feed.mixins.mixin[i];
 			var mixinName = ('m-'+feed.name+'-'+mixin.name).toCamelCase();
@@ -249,7 +303,7 @@ function processFeed(feed) {
 	}
 
 	if (feed.filters) {
-		feed.filters.filter = toArray(feed.filters.filter); // I expect in the official API this will always be the case
+		feed.filters.filter = toArray(feed.filters.filter); // only necessary if json api converted from xml
 		for (var i in feed.filters.filter) {
 			var filter = feed.filters.filter[i];
 			var filterName = ('f-'+feed.name+'-'+filter.name).toCamelCase();
