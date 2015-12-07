@@ -212,6 +212,38 @@ function episode_list(obj) {
 	}
 }
 
+//_____________________________________________________________________________
+function broadcast_list(obj) {
+	//console.log('Broadcast list');
+	if (!obj.broadcasts.length) {
+		console.log(obj);
+	}
+	else {
+		for (var i in obj.broadcasts) {
+			var p = obj.broadcasts[i].programme;
+			debuglog(p);
+			if ((p.type == 'episode') || (p.type == 'clip'))  {
+				var present = false;
+				for (var pc in programme_cache) {
+					if (programme_cache[pc].pid == p.pid) {
+						present = true;
+					}
+				}
+				if (!present) add_programme(p); // allow for upcoming repeat broadcasts
+			}
+			else if ((p.type == 'series') || (p.type == 'brand')) {
+				common.pid_list(p.type,p,false,false,add_programme);
+			}
+			else {
+				console.log('Unhandled type: '+p.type);
+				console.log(p);
+			}
+		}
+		return (obj.offset+obj.broadcasts.length<obj.total);
+	}
+}
+
+
 //------------------------------------------------------------------------------
 
 // snaffled from request module
@@ -278,6 +310,19 @@ function make_request(host,path) {
 					make_request(host,path);
 				}
 			}
+			else if (obj.broadcasts) {
+				if (broadcast_list(obj)) {
+					var page = 1;
+					if (path.indexOf('?')>0) {
+						var qs = path.split('?')[1];
+						path = path.split('?')[0];
+						page = parseInt(qs.split('=')[1],10);
+					}
+					page++;
+					path = path+'?page='+page;
+					make_request(host,path);
+				}
+			}
 			else {
 				atoz_list(obj); //tleo_titles
 			}
@@ -309,16 +354,14 @@ function make_request(host,path) {
 // http://www.bbc.co.uk/radio/programmes/genres/drama/player.json
 // http://www.bbc.co.uk/radio/programmes/genres/comedy/player.json
 // http://www.bbc.co.uk/radio/programmes/genres/comedy/player/episodes.json[?page=n]
-
-// http://www.bbc.co.uk/radio/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json
+// http://www.bbc.co.uk/radio/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json[?page=n]
 
 // TV mode
 // http://bbc.co.uk/programmes/films.json
 // redirects to http://open.live.bbc.co.uk/aps/programmes/a-z/by/films/all.json
 // http://www.bbc.co.uk/programmes/genres/comedy/spoof.json
 // http://www.bbc.co.uk/programmes/genres/comedy/player/episodes.json[?page=n]
-
-// http://www.bbc.co.uk/tv/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json
+// http://www.bbc.co.uk/tv/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json[?page=n]
 
 var config = require('./config.json');
 download_history = common.downloadHistory(config.download_history);
@@ -371,10 +414,14 @@ if (process.argv.length>5) {
 		page = '/player/episodes';
 		pid = '';
 	}
+	else if (pid=='upcoming') {
+		page = '/schedules/upcoming';
+		pid = '';
+	}
 }
 
 if (category.indexOf('-h')>=0) {
-	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID|@list|available|latest]');
+	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID|@list|available|latest|upcoming]');
 	console.log();
 	console.log('Category defaults to '+defcat);
 	console.log('Domain defaults to '+domain);
