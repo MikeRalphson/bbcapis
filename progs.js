@@ -355,6 +355,11 @@ function make_request(host,path) {
 // http://www.bbc.co.uk/radio/programmes/genres/comedy/player.json
 // http://www.bbc.co.uk/radio/programmes/genres/comedy/player/episodes.json[?page=n]
 // http://www.bbc.co.uk/radio/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json[?page=n]
+//
+// http://www.bbc.co.uk/radio4/programmes/schedules/fm/this_week.json
+// www.bbc.co.uk/radio4/programmes/schedules/fm/this_week.json
+// www.bbc.co.uk/radio4extra/programmes/schedules/2014/11/1.json
+// www.bbc.co.uk/bbcfour/programmes/schedules/last_week.json
 
 // TV mode
 // http://bbc.co.uk/programmes/films.json

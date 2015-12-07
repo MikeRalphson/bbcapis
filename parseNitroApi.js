@@ -24,11 +24,6 @@ String.prototype.toCamelCase = function camelize() {
 //__________________________________________________________________
 function toArray(item) {
 	if (!(item instanceof Array)) {
-		//for (var j in item) {
-		//	if (item[j].length>1) {
-		//		item[j] = toArray(item[j]);
-		//	}
-		//}
 		var newitem = [];
 		if (item) {
 			newitem.push(item);
