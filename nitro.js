@@ -3,7 +3,7 @@
 List programmes by aggregation (category, format, or search)
 
 */
-//'use strict';
+'use strict';
 
 var http = require('http');
 //var https = require('https');
@@ -16,16 +16,19 @@ var api = require('./nitroApi/api');
 
 var programme_cache = [];
 var download_history = [];
+var showAll = false;
 
 // http://nitro.api.bbci.co.uk
 // http://nitro.stage.api.bbci.co.uk/nitro/api/
 // http://d.bbc.co.uk/nitro/api/
 // http://d.bbc.co.uk/stage/nitro/api/
 // https://api.live.bbc.co.uk/nitro/api/
+// http://nitro-e2e.api.bbci.co.uk/nitro-e2e/api/
 
 var host = 'd.bbc.co.uk';
 var domain = '/nitro/api';
 var feed = '/programmes';
+const mediaSet = 'pc';
 var api_key = '';
 
 var service = 'radio';
@@ -87,7 +90,9 @@ var hidden = 0;
 		}
 		title = ancestor_titles + title;
 
-		if (!present) {
+		var available = (p.versions.available > 0);
+
+		if  ((!present && available) || (programme_cache.length==1) || showAll) {
 
 			if (programme_cache.length==1) {
 				console.log(p);
@@ -98,7 +103,6 @@ var hidden = 0;
 			var series = 1;
 
 			//
-			var ownership = p.ownership;
 			var subp = p;
 			while ((subp.programme) || (subp.parent)) {
 				var newp = subp.programme;
@@ -108,23 +112,26 @@ var hidden = 0;
 					if (subp.expected_child_count) totaleps = subp.expected_child_count;
 					if (subp.position) series = subp.position;
 				}
-				if ((!ownership) && (subp.ownership)) {
-					ownership = subp.ownership;
-				}
 			}
 
-			console.log(p.pid+' '+p.item_type+' '+(ownership && ownership.service && ownership.service.type ?
-			  ownership.service.type : service)+' '+
-			  ((p.is_available===false||p.is_available_mediaset_pc_sd===false) ? 'Unavailable' : 'Available')+
-			  '  '+title);
+			console.log(p.pid+' '+p.item_type+' '+p.media_type+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
 
 			var len = (p.version && p.version.duration) ? p.version.duration : '0s';
-			//if (p.versions) {
-			//	for (var v in p.versions.version) {
-			//		console.log(p.versions.version[v]);
-			//	}
+			len = len.replace('PT','').toLocaleLowerCase(); // ISO 8601 duration
+
+			//for (var v in p.versions.version) {
+			//	console.log(p.versions.version[v]);
+				//for (var va in p.versions.version[v].availabilities) {
+				//	a = p.versions.version[v].availabilities[va];
+				//	// dump mediasets
+				//	for (var vaa in a) {
+				//		var vaaa = a[vaa];
+				//		for (var ms in vaaa.media_sets.media_set) {
+				//			console.log(vaaa.media_sets.media_set[ms]);
+				//		}
+				//	}
+				//}
 			//}
-			len = len.replace('PT','').toLocaleLowerCase();
 
 			console.log('  '+len+' S'+pad(series,'00')+'E'+pad(position,'00')+
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
@@ -170,7 +177,7 @@ var processResponse = function(obj) {
 	}
 
 	if (length==0) {
-		console.log(obj);
+		console.log('No results returned');
 	}
 	else {
 		for (var i in obj.nitro.results.items) {
@@ -184,9 +191,11 @@ var processResponse = function(obj) {
 				var query = helper.newQuery(api.fProgrammesDescendantsOf,p.pid,true)
 					.add(api.fProgrammesAvailabilityAvailable)
 					//.add(api.fProgrammesAvailabilityTypeOndemand)
-					.add(api.fProgrammesMediaSet,'pc')
+					.add(api.fProgrammesMediaSet,mediaSet)
 					.add(api.mProgrammesDuration)
 					.add(api.mProgrammesAncestorTitles)
+					.add(api.mProgrammesAvailability)
+					.add(api.mProgrammesVersionsAvailability)
 					.add(api.fProgrammesPageSize,pageSize);
 
 				if (media_type) {
@@ -311,43 +320,8 @@ function make_request(host,path,key,query,callback) {
 
 //------------------------------------------------------------------------[main]
 
-/*
-
-<?xml version="1.0" encoding="UTF-8"?>
--<nitro xmlns="http://www.bbc.co.uk/nitro/">
--<results total="1">
--<genre_group>
-<id>C00035</id>
-<updated_time>2008-12-16T14:46:11+00:00</updated_time>
-<type>iplayer_composite</type>
--<genres>
--<genre>
-<id>100003</id>
-<type>iplayer_toplevel</type>
-<title>Drama</title>
-<title_cy>Drama</title_cy>
-<title_gd>Dràma</title_gd>
-</genre>
--<genre>
-<id>200032</id>
-<type>iplayer_secondlevel</type>
-<title>SciFi & Fantasy</title>
-<title_cy>Ffuglen Wyddonol a Ffantasi</title_cy>
-<title_gd>Ficsean saidheans</title_gd>
-</genre>
-</genres>
-</genre_group>
-</results>
-</nitro>
-
-*/
-
-
 // https://developer.bbc.co.uk/nitropubliclicence
 
-// http://downloads.bbc.co.uk/rmhttp/academy/collegeoftechnology/docs/j000m977x/Nitro_API.pdf
-
-// see also https://github.com/mbst/glycerin
 // https://admin.live.bbc.co.uk/nitro/admin/servicestatus
 // https://api.live.bbc.co.uk/nitro/api/schema
 // https://confluence.dev.bbc.co.uk/display/nitro/Nitro+run+book
@@ -363,6 +337,7 @@ var category = defcat;
 
 var query = helper.newQuery();
 var pid = '';
+var upcoming = false;
 
 if (process.argv.length>2) {
 	category = process.argv[2];
@@ -378,8 +353,22 @@ if (process.argv.length>3) {
 	}
 }
 
-query = helper.newQuery();
-if (process.argv.length<6) {
+if (process.argv.length>5) {
+	pid = process.argv[5];
+}
+if (pid=='all') {
+	showAll = true;
+	pid = '';
+}
+else if (pid=='upcoming') {
+	upcoming = true;
+	pid = '';
+}
+
+if (pid!='') {
+	query.add(api.fProgrammesPid,pid,true).add(api.mProgrammesContributions);
+}
+else {
 	if (process.argv.length>4) {
 		if (process.argv[4] == 'search') {
 			//? title: or synopses: keywords, boolean operators
@@ -395,24 +384,25 @@ if (process.argv.length<6) {
 	else {
 		query.add(api.fProgrammesGenre,category,true);
 	}
-}
 
-if (process.argv.length>5) {
-	pid = process.argv[5];
-	query.add(api.fProgrammesPid,pid,true).add(api.mProgrammesContributions).add(api.mProgrammesVersionsAvailability);
-}
-else {
-	query.add(api.fProgrammesAvailabilityAvailable)
+	if (upcoming) {
+		query.add(api.fProgrammesAvailabilityPending);		
+	}
+	else {
+		query.add(api.fProgrammesAvailabilityAvailable);
+	}
+	query.add(api.mProgrammesAvailability)
+		.add(api.fProgrammesMediaSet,mediaSet).add(api.fProgrammesEntityTypeEpisode);
 		//.add(api.fProgrammesAvailabilityTypeOndemand)
-		.add(api.fProgrammesMediaSet,'pc').add(api.fProgrammesEntityTypeEpisode);
 	if (media_type) {
 		query.add(api.fProgrammesMediaType,media_type);
 	}
 }
-query.add(api.fProgrammesPageSize,pageSize).add(api.mProgrammesDuration).add(api.mProgrammesAncestorTitles);
+query.add(api.fProgrammesPageSize,pageSize).add(api.mProgrammesDuration).add(api.mProgrammesAncestorTitles)
+	.add(api.mProgrammesVersionsAvailability);
 
 if (category.indexOf('-h')>=0) {
-	console.log('Usage: '+process.argv[1]+' category service_type format|genre|search [PID]');
+	console.log('Usage: '+process.argv[1]+' category service_type format|genre|search [PID|showall|upcoming]');
 	console.log();
 	console.log('Category defaults to '+defcat);
 	console.log('Service_type defaults to '+service+' values radio|tv|both');
