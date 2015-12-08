@@ -17,6 +17,7 @@ var api = require('./nitroApi/api');
 var programme_cache = [];
 var download_history = [];
 var showAll = false;
+var dest = '';
 
 // http://nitro.api.bbci.co.uk
 // http://nitro.stage.api.bbci.co.uk/nitro/api/
@@ -33,9 +34,8 @@ var api_key = '';
 
 var service = 'radio';
 var media_type = 'audio';
-const pageSize = 300;
+const pageSize = 30;
 
-var dest = {};
 var debuglog = util.debuglog('bbc');
 
 //-----------------------------------------------------------------------------
@@ -51,6 +51,15 @@ function logFault(fault) {
 */
 	console.log(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
 }
+
+function logError(error) {
+/*
+{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
+*/
+	console.log(error.errors.error.code+': '+error.errors.error.message);
+}
+
+//----------------------------------------------------------------------------
 
 var add_programme = function(obj) {
 	programme_cache.push(obj);
@@ -85,8 +94,15 @@ var hidden = 0;
 		var ancestor_titles = '';
 		for (var at in p.ancestor_titles) {
 			present = present || (download_history.indexOf(p.ancestor_titles[at].pid)>=0);
-			ancestor_titles += p.ancestor_titles[at].title + ' / ';
-			parents += '  ' + p.ancestor_titles[at].pid + ' ('+p.ancestor_titles[at].title+') ';
+			var t = '';
+			if (p.ancestor_titles[at].title) {
+				t = p.ancestor_titles[at].title;
+			}
+			else if (p.ancestor_titles[at].presentation_title) {
+				t = p.ancestor_titles[at].presentation_title;
+			}
+			ancestor_titles += t + ' / ';
+			parents += '  ' + p.ancestor_titles[at].pid + ' ('+t+') ';
 		}
 		title = ancestor_titles + title;
 
@@ -159,9 +175,8 @@ var processResponse = function(obj) {
 	var nextHref = '';
 	if ((obj.nitro.pagination) && (obj.nitro.pagination.next)) {
 		nextHref = obj.nitro.pagination.next.href;
-		console.log(nextHref);
+		//console.log(nextHref);
 	}
-	var morePages = false;
 	var pageNo = obj.nitro.results.page;
 	var top = obj.nitro.results.total;
 	if (!top) {
@@ -196,6 +211,7 @@ var processResponse = function(obj) {
 					.add(api.mProgrammesAncestorTitles)
 					.add(api.mProgrammesAvailability)
 					.add(api.mProgrammesVersionsAvailability)
+					.add(api.fProgrammesEntityTypeEpisode)
 					.add(api.fProgrammesPageSize,pageSize);
 
 				if (media_type) {
@@ -212,16 +228,13 @@ var processResponse = function(obj) {
 	}
 
 	dest = {};
-	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
 	if (pageNo<last) {
 		dest.path = domain+feed;
 		dest.query = helper.queryFrom(nextHref,true);
 		dest.callback = processResponse;
-		return true;
 	}
-	else {
-		return false;
-	}
+	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
+	return dest;
 }
 
 //------------------------------------------------------------------------------
@@ -269,13 +282,16 @@ function make_request(host,path,key,query,callback) {
 			host = locUrl.host;
 			make_request(host,path,key,query,callback);
 		}
-		else if (res.statusCode >= 400 && res.statusCode < 500) {
+		else if (res.statusCode >= 400 && res.statusCode < 600) {
 			console.log(res.statusCode+' '+res.statusMessage);
 			if (list) {
 				try {
 					obj = JSON.parse(list);
-					if (obj.fault.faultstring) {
+					if (obj.fault) {
 						logFault(obj);
+					}
+					else if (obj.errors) {
+						logError(obj);
 					}
 					else {
 						console.log('Unknown response object');
@@ -291,10 +307,10 @@ function make_request(host,path,key,query,callback) {
 		}
 		else try {
 			obj = JSON.parse(list);
-			callback(obj);
+			var result = callback(obj);
 		    if (dest.callback) {
 				// call the callback's next required destination
-				// e.g. programme=pid getting a brand or series and calling children_of
+				// e.g. second and subsequent pages
 				if (dest.path) {
 					make_request(host,dest.path,key,dest.query,dest.callback);
 				}
@@ -318,6 +334,164 @@ function make_request(host,path,key,query,callback) {
 	req.end();
 }
 
+//_____________________________________________________________________________
+function dispatch(obj) {
+	if (obj.nitro) {
+		processResponse(obj);
+	}
+	else if (obj.fault) {
+		logFault(obj);
+	}
+	else if (obj.errors) {
+		logError(obj);
+	}
+	else {
+		console.log(obj);
+	}
+	return {};
+}
+
+//_____________________________________________________________________________
+function processPid(host,path,api_key,pid) {	
+	var pidList = [];
+	if (pid.indexOf('@')==0) {
+		pid = pid.substr(1);
+		var s = fs.readFileSync(pid,'utf8');
+		pidList = s.split('\n');
+	}
+	else {
+		pidList.push(pid);
+	}
+	for (var p in pidList) {
+		pid = pidList[p].split('#')[0].trim();
+		var query = helper.newQuery();
+		query.add(api.fProgrammesPageSize,pageSize,true)
+			.add(api.mProgrammesContributions)
+			.add(api.mProgrammesDuration)
+			.add(api.mProgrammesAncestorTitles)
+			.add(api.mProgrammesVersionsAvailability)
+			.add(api.fProgrammesPid,pid);
+		make_request(host,path,api_key,query,function(obj){
+			return dispatch(obj);
+		});
+	}
+}
+
+//_____________________________________________________________________________
+var scheduleResponse = function(obj) {
+	var nextHref = '';
+	if ((obj.nitro.pagination) && (obj.nitro.pagination.next)) {
+		nextHref = obj.nitro.pagination.next.href;
+		//console.log(nextHref);
+	}
+	var pageNo = obj.nitro.results.page;
+	var top = obj.nitro.results.total;
+	if (!top) {
+		top = obj.nitro.results.more_than+1;
+	}
+	var last = Math.ceil(top/obj.nitro.results.page_size);
+	//console.log('page '+pageNo+' of '+last);
+	process.stdout.write('.');
+
+	var length = 0;
+	if (obj.nitro.results.items) {
+		length = obj.nitro.results.items.length;
+	}
+
+	if (length==0) {
+		console.log('No results returned');
+	}
+	else {
+		for (var i in obj.nitro.results.items) {
+			var item = obj.nitro.results.items[i];
+			
+			//console.log();
+			//console.log(item);
+			
+			// minimally convert a broadcast into a programme
+			var p = {};
+			p.ancestor_titles = item.ancestor_titles;
+			p.versions = {};
+			p.versions.available = 1;
+			p.version = {};
+			p.version.duration = item.published_time.duration;
+			p.synopses = {};
+			p.media_type = service;
+			
+			for (var b in item.broadcast_of) {
+				var bof = item.broadcast_of[b];
+				if ((bof.result_type == 'episode') || (bof.result_type == 'clip')) {
+					p.item_type = bof.result_type;
+					p.pid = bof.pid;
+				}
+			}
+			for (var a in item.ancestor_titles) {
+				var at = item.ancestor_titles[a];
+				if ((at.ancestor_type == 'episode') || (at.ancestor_type == 'clip')) {
+					p.title = at.title;
+				}
+			}
+			
+			var present = false;
+			for (var pc in programme_cache) {
+				var pci = programme_cache[pc];
+				if (pci.pid == p.pid) present = true;
+			}
+			if (!present) programme_cache.push(p);
+		}
+	}
+	
+	dest = {};
+	if (pageNo<last) {
+		dest.path = '/nitro/api/schedules';
+		dest.query = helper.queryFrom(nextHref,true);
+		dest.callback = scheduleResponse;
+	}
+	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
+	return dest;
+}
+
+//_____________________________________________________________________________
+function processSchedule(host,api_key,category) {
+	var path = '/nitro/api/schedules';
+	var query = helper.newQuery();
+	if (process.argv.length>4) {
+		if (process.argv[4] == 'search') {
+			//? title: or synopses: keywords, boolean operators
+			query.add(api.fSchedulesQ,category,true).add(api.sSchedulesTitleAscending);
+		}
+		else if (process.argv[4] == 'format') {
+			query.add(api.fSchedulesFormat,category,true);
+		}
+		else {
+			query.add(api.fSchedulesGenre,category,true);
+		}
+	}
+	else {
+		query.add(api.fSchedulesGenre,category,true);
+	}
+	
+	var today = new Date();
+	var todayStr = today.toISOString();
+	
+	query.add(api.mSchedulesAncestorTitles);
+	query.add(api.fSchedulesStartFrom,todayStr);
+	
+	make_request(host,path,api_key,query,function(obj){
+		var result = scheduleResponse(obj);
+		if (dest.callback) {
+			// call the callback's next required destination
+			// e.g. second and subsequent pages
+			if (dest.path) {
+				make_request(host,dest.path,api_key,dest.query,dest.callback);
+			}
+			else {
+				dest.callback();
+			}
+		}		
+	});
+}
+
 //------------------------------------------------------------------------[main]
 
 // https://developer.bbc.co.uk/nitropubliclicence
@@ -338,6 +512,7 @@ var category = defcat;
 var query = helper.newQuery();
 var pid = '';
 var upcoming = false;
+var path = domain+feed;
 
 if (process.argv.length>2) {
 	category = process.argv[2];
@@ -366,7 +541,12 @@ else if (pid=='upcoming') {
 }
 
 if (pid!='') {
-	query.add(api.fProgrammesPid,pid,true).add(api.mProgrammesContributions);
+	if (pid=='schedule') {
+		processSchedule(host,api_key,category);
+	}
+	else {
+		processPid(host,path,api_key,pid);
+	}
 }
 else {
 	if (process.argv.length>4) {
@@ -392,38 +572,31 @@ else {
 		query.add(api.fProgrammesAvailabilityAvailable);
 	}
 	query.add(api.mProgrammesAvailability)
-		.add(api.fProgrammesMediaSet,mediaSet).add(api.fProgrammesEntityTypeEpisode);
+		.add(api.fProgrammesMediaSet,mediaSet)
+		.add(api.fProgrammesEntityTypeEpisode);
 		//.add(api.fProgrammesAvailabilityTypeOndemand)
 	if (media_type) {
 		query.add(api.fProgrammesMediaType,media_type);
 	}
-}
-query.add(api.fProgrammesPageSize,pageSize).add(api.mProgrammesDuration).add(api.mProgrammesAncestorTitles)
-	.add(api.mProgrammesVersionsAvailability);
 
-if (category.indexOf('-h')>=0) {
-	console.log('Usage: '+process.argv[1]+' category service_type format|genre|search [PID|showall|upcoming]');
-	console.log();
-	console.log('Category defaults to '+defcat);
-	console.log('Service_type defaults to '+service+' values radio|tv|both');
-	console.log('Aggregation defaults to genre');
-	console.log('PID defaults to all PIDS');
-}
-else {
-	var path = domain+feed;
+	query.add(api.fProgrammesPageSize,pageSize)
+		.add(api.mProgrammesDuration)
+		.add(api.mProgrammesAncestorTitles)
+		.add(api.mProgrammesVersionsAvailability);
 
-	make_request(host,path,api_key,query,function(obj){
-		if (obj.nitro) {
-			processResponse(obj);
-		}
-		else if (obj.fault) {
-			logFault(obj);
-		}
-		else {
-			console.log(obj);
-		}
-		return [];
-	});
+	if (category.indexOf('-h')>=0) {
+		console.log('Usage: '+process.argv[1]+' category service_type format|genre|search [PID|@list|all|upcoming|schedule]');
+		console.log();
+		console.log('Category defaults to '+defcat);
+		console.log('Service_type defaults to '+service+' values radio|tv|both');
+		console.log('Aggregation defaults to genre');
+		console.log('PID defaults to all PIDS');
+	}
+	else {
+		make_request(host,path,api_key,query,function(obj){
+			return dispatch(obj);
+		});
+	}
 }
 
 process.on('exit', function(code) {
