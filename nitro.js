@@ -101,7 +101,12 @@ var hidden = 0;
 			else if (p.ancestor_titles[at].presentation_title) {
 				t = p.ancestor_titles[at].presentation_title;
 			}
-			ancestor_titles += t + ' / ';
+			if (p.ancestor_titles[at].ancestor_type != 'episode') {
+				ancestor_titles += t + ' : ';
+			}
+			else if (!title) {
+				title = t;
+			}
 			parents += '  ' + p.ancestor_titles[at].pid + ' ('+t+') ';
 		}
 		title = ancestor_titles + title;
@@ -152,6 +157,10 @@ var hidden = 0;
 			console.log('  '+len+' S'+pad(series,'00')+'E'+pad(position,'00')+
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
 			if (parents) console.log(parents);
+			if (p.version.start_time) {
+				// only occurs if p converted from a broadcast
+				console.log('  '+p.version.sid+' @ '+p.version.start_time);
+			}
 
 			if (p.contributions) {
 				console.log();
@@ -233,7 +242,7 @@ var processResponse = function(obj) {
 		dest.query = helper.queryFrom(nextHref,true);
 		dest.callback = processResponse;
 	}
-	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
+	// if we need to go somewhere else, e.g. after all pages received set callback and/or path
 	return dest;
 }
 
@@ -253,7 +262,7 @@ function hasHeader(header, headers) {
 //------------------------------------------------------------------------------
 
 function make_request(host,path,key,query,callback) {
-	console.log(host+path+'?K'+query.querystring);
+	//console.log(host+path+'?K'+query.querystring);
 	var options = {
 	  hostname: host
 	  ,port: 80
@@ -408,13 +417,15 @@ var scheduleResponse = function(obj) {
 			//console.log();
 			//console.log(item);
 			
-			// minimally convert a broadcast into a programme
+			// minimally convert a broadcast into a programme for display
 			var p = {};
 			p.ancestor_titles = item.ancestor_titles;
 			p.versions = {};
 			p.versions.available = 1;
 			p.version = {};
 			p.version.duration = item.published_time.duration;
+			p.version.start_time = item.published_time.start;
+			p.version.sid = item.service.sid;
 			p.synopses = {};
 			p.media_type = service;
 			
@@ -432,6 +443,8 @@ var scheduleResponse = function(obj) {
 				}
 			}
 			
+			// item.ids.id is an array of submissions(?) to broadcast schedule services
+			
 			var present = false;
 			for (var pc in programme_cache) {
 				var pci = programme_cache[pc];
@@ -447,7 +460,7 @@ var scheduleResponse = function(obj) {
 		dest.query = helper.queryFrom(nextHref,true);
 		dest.callback = scheduleResponse;
 	}
-	// if we need to go somewhere else, e.g. after all pages received set callback and/or query
+	// if we need to go somewhere else, e.g. after all pages received set callback and/or path
 	return dest;
 }
 
@@ -476,6 +489,7 @@ function processSchedule(host,api_key,category) {
 	
 	query.add(api.mSchedulesAncestorTitles);
 	query.add(api.fSchedulesStartFrom,todayStr);
+	query.add(api.fSchedulesPageSize,30);
 	
 	make_request(host,path,api_key,query,function(obj){
 		var result = scheduleResponse(obj);
