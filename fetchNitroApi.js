@@ -5,6 +5,27 @@ var fs = require('fs');
 
 var helper = require('./apiHelper');
 
+//-----------------------------------------------------------------------------
+
+function logFault(fault) {
+/*
+{ "fault": {
+	"faultstring": "Rate limit quota violation. Quota limit : 0 exceeded by 1. Total violation count : 1. Identifier : YOUR-API-KEY-HERE",
+	"detail":
+		{"errorcode": “policies.ratelimit.QuotaViolation"}
+	}
+}
+*/
+	console.log(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
+}
+
+function logError(error) {
+/*
+{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
+*/
+	console.log(error.errors.error.code+': '+error.errors.error.message);
+}
+
 //_____________________________________________________________________________
 function make_request(host,path,key,query,accept,callback) {
 	//console.log(host+path+(key ? '?K' : '')+query.querystring);
@@ -41,13 +62,16 @@ function make_request(host,path,key,query,accept,callback) {
 			host = locUrl.host;
 			make_request(host,path,key,query,callback);
 		}
-		else if (res.statusCode >= 400 && res.statusCode < 500) {
+		else if (res.statusCode >= 400 && res.statusCode < 600) {
 			console.log(res.statusCode+' '+res.statusMessage);
 			if (list) {
 				try {
 					obj = JSON.parse(list);
-					if (obj.fault && obj.fault.faultstring) {
+					if (obj.fault) {
 						logFault(obj);
+					}
+					else if (obj.errors) {
+						logError(obj);
 					}
 					else {
 						console.log('Unknown response object');
