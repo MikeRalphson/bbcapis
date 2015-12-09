@@ -14,6 +14,11 @@ function query() {
 		this.querystring = '';
 		return this;
 	};
+	this.clone = function() {
+		var newQ = new query();
+		newQ.querystring = this.querystring;
+		return newQ;
+	}
 }
 
 module.exports = {
@@ -38,5 +43,8 @@ module.exports = {
 	},
 	getQueryString : function(q) {
 		return q.querystring;
+	},
+	clone : function(q) {
+		return q.clone();
 	}
 };

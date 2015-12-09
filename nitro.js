@@ -375,16 +375,17 @@ function processPid(host,path,api_key,pid) {
 	else {
 		pidList.push(pid);
 	}
+	var query = helper.newQuery();
+	query.add(api.fProgrammesPageSize,pageSize,true)
+		.add(api.mProgrammesContributions)
+		.add(api.mProgrammesDuration)
+		.add(api.mProgrammesAncestorTitles)
+		.add(api.mProgrammesVersionsAvailability);
 	for (var p in pidList) {
 		pid = pidList[p].split('#')[0].trim();
-		var query = helper.newQuery();
-		query.add(api.fProgrammesPageSize,pageSize,true)
-			.add(api.mProgrammesContributions)
-			.add(api.mProgrammesDuration)
-			.add(api.mProgrammesAncestorTitles)
-			.add(api.mProgrammesVersionsAvailability)
-			.add(api.fProgrammesPid,pid);
-		make_request(host,path,api_key,query,function(obj){
+		var pQuery = query.clone();
+		pQuery.add(api.fProgrammesPid,pid);
+		make_request(host,path,api_key,pQuery,function(obj){
 			return dispatch(obj);
 		});
 	}
