@@ -29,7 +29,7 @@ var dest = '';
 var host = 'd.bbc.co.uk';
 var domain = '/nitro/api';
 var feed = '/programmes';
-const mediaSet = 'pc';
+var mediaSet = 'pc';
 var api_key = '';
 
 var service = 'radio';
@@ -110,6 +110,7 @@ var hidden = 0;
 			parents += '  ' + p.ancestor_titles[at].pid + ' ('+t+') ';
 		}
 		title = ancestor_titles + title;
+		parents += '  ' + p.version.pid + ' (vPID)';
 
 		var available = (p.versions.available > 0);
 
@@ -157,6 +158,9 @@ var hidden = 0;
 			console.log('  '+len+' S'+pad(series,'00')+'E'+pad(position,'00')+
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
 			if (parents) console.log(parents);
+			if (p.master_brand) {
+				console.log('  '+p.master_brand.mid+' @ '+p.release_date);
+			}
 			if (p.version.start_time) {
 				// only occurs if p converted from a broadcast
 				console.log('  '+p.version.sid+' @ '+p.version.start_time);
@@ -414,8 +418,8 @@ var scheduleResponse = function(obj) {
 		for (var i in obj.nitro.results.items) {
 			var item = obj.nitro.results.items[i];
 			
-			//console.log();
-			//console.log(item);
+			console.log();
+			console.log(item);
 			
 			// minimally convert a broadcast into a programme for display
 			var p = {};
@@ -434,6 +438,9 @@ var scheduleResponse = function(obj) {
 				if ((bof.result_type == 'episode') || (bof.result_type == 'clip')) {
 					p.item_type = bof.result_type;
 					p.pid = bof.pid;
+				}
+				else if (bof.result_type == 'version') {
+					p.version.pid = bof.pid;
 				}
 			}
 			for (var a in item.ancestor_titles) {
@@ -519,6 +526,7 @@ var config = require('./config.json');
 download_history = common.downloadHistory(config.download_history);
 host = config.nitro.host;
 api_key = config.nitro.api_key;
+mediaSet = config.nitro.mediaset;
 
 var defcat = 'C00035'; //'200032'; //'drama/scifiandfantasy'; 100003=Drama
 var category = defcat;

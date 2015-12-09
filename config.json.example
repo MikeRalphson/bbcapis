@@ -3,5 +3,6 @@
   "nitro": {
 		"host": "nitro.api.bbci.co.uk"
 		"api_key": "JUSTTESTING"
+		"mediaset": "pc"
   }
 }
