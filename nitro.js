@@ -110,7 +110,9 @@ var hidden = 0;
 			parents += '  ' + p.ancestor_titles[at].pid + ' ('+t+') ';
 		}
 		title = ancestor_titles + title;
-		parents += '  ' + p.version.pid + ' (vPID)';
+		if (p.version.pid) {
+			parents += '  ' + p.version.pid + ' (vPID)';
+		}
 
 		var available = (p.versions.available > 0);
 
@@ -528,8 +530,8 @@ download_history = common.downloadHistory(config.download_history);
 host = config.nitro.host;
 api_key = config.nitro.api_key;
 mediaSet = config.nitro.mediaset;
+var defcat = config.nitro.category;
 
-var defcat = 'C00035'; //'200032'; //'drama/scifiandfantasy'; 100003=Drama
 var category = defcat;
 
 var query = helper.newQuery();
