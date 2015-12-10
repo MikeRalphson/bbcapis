@@ -9,6 +9,7 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 var util = require('util');
+var getopt = require('node-getopt');
 var common = require('./common');
 
 var programme_cache = [];
@@ -266,7 +267,7 @@ function make_request(host,path) {
 	  ,port: 80
 	  ,path: path
 	  ,method: 'GET'
-	  ,headers: { 'Content-Type': 'application/json' }
+	  ,headers: { 'Accept': 'application/json' }
 	};
 
 	var list = '';
@@ -347,6 +348,27 @@ function make_request(host,path) {
 	req.end();
 }
 
+//_____________________________________________________________________________
+function processPid(pid){
+	var obj = [];  // create a programme object stub
+	if (pid.indexOf('@')===0) {
+		pid = pid.substr(1);
+		var s = fs.readFileSync(pid,'utf8');
+		var pids = s.split('\n');
+		for (var i in pids) {
+			pid = pids[i].split('#')[0].trim();
+			if (pid) {
+				obj.pid = pid;
+				common.pid_list('toplevel',obj,false,false,add_programme);
+			}
+		}
+	}
+	else {
+		obj.pid = pid;
+		common.pid_list('toplevel',obj,false,false,add_programme);
+	}
+}
+
 //------------------------------------------------------------------------[main]
 
 // radio mode
@@ -376,89 +398,78 @@ var category = defcat;
 var page = '/player';
 
 availableOnly = false;
+var cat_prefix = 'genres/';
+var mode = 'genre';
 
-if (process.argv.length>2) {
-	category = process.argv[2];
-}
+var options = getopt.create([
+	['h','help','display this help'],
+	['f','format=ARG','Set category type=format and format=ARG'],
+	['g','genre=ARG','Set category type=genre and genre=ARG'],
+	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
+	['d','domain=ARG','Set domain = radio,tv or both'],
+	['l','latest','Use latest feed'],
+	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
+	['a','all','Show programmes only if available'],
+	['u','upcoming','Show programme schedule information not history']
+]);
+options.bindHelp();
 
-if (process.argv.length>3) {
-	domain = process.argv[3];
+options.on('all',function(){
+	availableOnly = true;
+});
+options.on('domain',function(argv,options){
+	domain = options.domain;
 	displayDomain = domain;
 	if (domain=='tv') {
 		domain = '';
 	}
-}
-
-var cat_prefix = 'genres/';
-if (process.argv.length>4) {
-	if (process.argv[4] == 'format') {
-		cat_prefix = 'formats/';
+});
+options.on('latest',function(){
+	page = '/player/episodes';
+});
+options.on('pid',function(argv,options){
+	mode = 'pid';
+	for (var p in options.pid) {
+		processPid(options.pid[p]);
 	}
-	else if (process.argv[4] == 'search') {
-		category = encodeURIComponent(category);
-		if (domain=='radio') {
-			//http://www.bbc.co.uk/radio/programmes/a-z/by/doctor%20who/player
-			cat_prefix = 'a-z/by/';
-			page = '/all';
-		}
-		else {
-			cat_prefix = '';
-			page = '';
-		}
+});
+options.on('upcoming',function(){
+	page = '/schedules/upcoming';
+});
+options.on('search',function(argv,options){
+	category = options.search;
+	mode = 'search';
+});
+options.on('format',function(argv,options){
+	category = options.format;
+	mode = 'format';
+	cat_prefix = 'formats/';
+});
+options.on('genre',function(argv,options){
+	category = options.genre;
+	mode = 'genre';
+});
+var o = options.parseSystem();
+
+if (mode == 'search') {
+	category = encodeURIComponent(category);
+	if (domain=='radio') {
+		//http://www.bbc.co.uk/radio/programmes/a-z/by/doctor%20who/player
+		cat_prefix = 'a-z/by/';
+		page = '/all';
+	}
+	else {
+		cat_prefix = '';
+		page = '';
 	}
 }
 category = cat_prefix + category;
 
-if (process.argv.length>5) {
-	pid = process.argv[5];
-	if (pid=='available') {
-		availableOnly = true;
-		pid = '';
-	}
-	else if (pid=='latest') {
-		page = '/player/episodes';
-		pid = '';
-	}
-	else if (pid=='upcoming') {
-		page = '/schedules/upcoming';
-		pid = '';
-	}
-}
+if (domain) domain = '/'+domain;
+var path = domain+'/programmes/'+category+page+'.json';
 
-if (category.indexOf('-h')>=0) {
-	console.log('Usage: '+process.argv[1]+' category domain format|genre|search [PID|@list|available|latest|upcoming]');
-	console.log();
-	console.log('Category defaults to '+defcat);
-	console.log('Domain defaults to '+domain);
-	console.log('Aggregation defaults to genre');
-	console.log('PID defaults to all PIDS, if available, only available programmes shown');
-}
-else {
-	if (domain) domain = '/'+domain;
-	var path = domain+'/programmes/'+category+page+'.json';
-
-	if (!pid) {
-		make_request('www.bbc.co.uk',path);
-	}
-	else {
-		var obj = [];  // create a programme object stub
-		if (pid.indexOf('@')===0) {
-			pid = pid.substr(1);
-			var s = fs.readFileSync(pid,'utf8');
-			var pids = s.split('\n');
-			for (var i in pids) {
-				pid = pids[i].split('#')[0].trim();
-				if (pid) {
-					obj.pid = pid;
-					common.pid_list('toplevel',obj,false,false,add_programme);
-				}
-			}
-		}
-		else {
-			obj.pid = pid;
-			common.pid_list('toplevel',obj,false,false,add_programme);
-		}
-	}
+if (mode != 'pid') {
+	make_request('www.bbc.co.uk',path);
 }
 
 process.on('exit', function(code) {
