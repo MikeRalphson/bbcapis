@@ -10,6 +10,7 @@ var http = require('http');
 var fs = require('fs');
 var util = require('util');
 var url = require('url');
+var getopt = require('node-getopt');
 var common = require('./common');
 var helper = require('./apiHelper');
 var api = require('./nitroApi/api');
@@ -110,7 +111,7 @@ var hidden = 0;
 			parents += '  ' + p.ancestor_titles[at].pid + ' ('+t+') ';
 		}
 		title = ancestor_titles + title;
-		if (p.version.pid) {
+		if (p.version && p.version.pid) {
 			parents += '  ' + p.version.pid + ' (vPID)';
 		}
 
@@ -125,18 +126,6 @@ var hidden = 0;
 			var position = p.episode_of ? p.episode_of.position : 1;
 			var totaleps = 1;
 			var series = 1;
-
-			//
-			var subp = p;
-			while ((subp.programme) || (subp.parent)) {
-				var newp = subp.programme;
-				if (!newp) newp = subp.parent.programme;
-				subp = newp;
-				if (subp.type == 'series') {
-					if (subp.expected_child_count) totaleps = subp.expected_child_count;
-					if (subp.position) series = subp.position;
-				}
-			}
 
 			console.log(p.pid+' '+p.item_type+' '+p.media_type+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
 
@@ -161,9 +150,9 @@ var hidden = 0;
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
 			if (parents) console.log(parents);
 			if (p.master_brand) {
-				console.log('  '+p.master_brand.mid+' @ '+p.release_date);
+				console.log('  '+p.master_brand.mid+' @ '+(p.release_date ? p.release_date : p.release_year));
 			}
-			if (p.version.start_time) {
+			if (p.version && p.version.start_time) {
 				// only occurs if p converted from a broadcast
 				console.log('  '+p.version.sid+' @ '+p.version.start_time);
 			}
@@ -198,7 +187,6 @@ var processResponse = function(obj) {
 		top = obj.nitro.results.more_than+1;
 	}
 	var last = Math.ceil(top/obj.nitro.results.page_size);
-	//console.log('page '+pageNo+' of '+last);
 	process.stdout.write('.');
 
 	var length = 0;
@@ -268,7 +256,7 @@ function hasHeader(header, headers) {
 //------------------------------------------------------------------------------
 
 function make_request(host,path,key,query,callback) {
-	//console.log(host+path+'?K'+query.querystring);
+	console.log(host+path+'?K'+query.querystring);
 	var options = {
 	  hostname: host
 	  ,port: 80
@@ -475,31 +463,27 @@ var scheduleResponse = function(obj) {
 }
 
 //_____________________________________________________________________________
-function processSchedule(host,api_key,category) {
+function processSchedule(host,api_key,category,mode) {
 	var path = '/nitro/api/schedules';
-	var query = helper.newQuery();
-	if (process.argv.length>4) {
-		if (process.argv[4] == 'search') {
-			//? title: or synopses: keywords, boolean operators
-			query.add(api.fSchedulesQ,category,true).add(api.sSchedulesTitleAscending);
-		}
-		else if (process.argv[4] == 'format') {
-			query.add(api.fSchedulesFormat,category,true);
-		}
-		else {
-			query.add(api.fSchedulesGenre,category,true);
-		}
-	}
-	else {
-		query.add(api.fSchedulesGenre,category,true);
-	}
-	
+
 	var today = new Date();
 	var todayStr = today.toISOString();
 	
-	query.add(api.mSchedulesAncestorTitles);
-	query.add(api.fSchedulesStartFrom,todayStr);
-	query.add(api.fSchedulesPageSize,30);
+	var query = helper.newQuery();
+	query.add(api.fSchedulesStartFrom,todayStr,true);
+
+	if (mode == 'genre') {
+		query.add(api.fSchedulesGenre,category);		
+	}
+	if (mode == 'format') {
+		query.add(api.fSchedulesFormat,category);		
+	}
+	if (mode == 'search') {
+		query.add(api.fSchedulesQ,category);		
+	}
+	
+	query.add(api.mSchedulesAncestorTitles)
+		.add(api.fSchedulesPageSize,pageSize);
 	
 	make_request(host,path,api_key,query,function(obj){
 		var result = scheduleResponse(obj);
@@ -536,88 +520,94 @@ var category = defcat;
 
 var query = helper.newQuery();
 var pid = '';
-var upcoming = false;
+var mode = '';
+var pending = false;
 var path = domain+feed;
 
-if (process.argv.length>2) {
-	category = process.argv[2];
-}
+var options = getopt.create([
+	['h','help','display this help'],
+	['f','format=ARG','Set category type=format and format=ARG'],
+	['g','genre=ARG','Set category type=genre and genre=ARG'],
+	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
+	['d','domain=ARG','Set domain = radio,tv or both'],
+	['i','imminent','Set availability to pending (default is available)'],
+	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
+	['a','all','Show programme regardless of presence in download_history'],
+	['u','upcoming','Show programme schedule information not history']
+]);
+options.bindHelp();
 
-if (process.argv.length>3) {
-	service = process.argv[3];
+query.add(api.fProgrammesMediaSet,mediaSet,true);
+
+options.on('all',function(){
+	showAll = true;
+});
+options.on('imminent',function(){
+	pending = true;
+});
+options.on('domain',function(argv,options){
+	service = options.domain;
 	if (service == 'tv') {
 		media_type = 'audio_video';
 	}
 	else if (service == 'both') {
 		media_type = '';
 	}
-}
-
-if (process.argv.length>5) {
-	pid = process.argv[5];
-}
-if (pid=='all') {
-	showAll = true;
-	pid = '';
-}
-else if (pid=='upcoming') {
-	upcoming = true;
-	pid = '';
-}
-
-if (pid!='') {
-	if (pid=='schedule') {
-		processSchedule(host,api_key,category);
+});
+options.on('pid',function(argv,options){
+	mode = 'pid';
+	for (var p in options.pid) {
+		processPid(host,path,api_key,options.pid[p]);
 	}
-	else {
-		processPid(host,path,api_key,pid);
-	}
+});
+options.on('upcoming',function(){
+	feed = 'schedules';
+});
+options.on('search',function(argv,options){
+	category = options.search;
+	mode = 'search';
+	query.add(api.fProgrammesQ,category,true).add(api.sProgrammesTitleAscending);
+});
+options.on('format',function(argv,options){
+	category = options.format;
+	mode = 'format';
+	query.add(api.fProgrammesFormat,category);
+});
+options.on('genre',function(argv,options){
+	category = options.genre;
+	mode = 'genre';
+	query.add(api.fProgrammesGenre,category);
+});
+var o = options.parseSystem();
+
+if (pending) {
+	query.add(api.fProgrammesAvailabilityPending);		
 }
 else {
-	if (process.argv.length>4) {
-		if (process.argv[4] == 'search') {
-			//? title: or synopses: keywords, boolean operators
-			query.add(api.fProgrammesQ,category,true).add(api.sProgrammesTitleAscending);
-		}
-		else if (process.argv[4] == 'format') {
-			query.add(api.fProgrammesFormat,category,true);
-		}
-		else {
-			query.add(api.fProgrammesGenre,category,true);
-		}
-	}
-	else {
-		query.add(api.fProgrammesGenre,category,true);
-	}
+	query.add(api.fProgrammesAvailabilityAvailable);
+}
+if (media_type) {
+	query.add(api.fProgrammesMediaType,media_type);
+}
 
-	if (upcoming) {
-		query.add(api.fProgrammesAvailabilityPending);		
-	}
-	else {
-		query.add(api.fProgrammesAvailabilityAvailable);
-	}
-	query.add(api.mProgrammesAvailability)
-		.add(api.fProgrammesMediaSet,mediaSet)
-		.add(api.fProgrammesEntityTypeEpisode);
-		//.add(api.fProgrammesAvailabilityTypeOndemand)
-	if (media_type) {
-		query.add(api.fProgrammesMediaType,media_type);
-	}
+query.add(api.mProgrammesAvailability)
+	.add(api.fProgrammesEntityTypeEpisode)
+	.add(api.mProgrammesDuration)
+	.add(api.mProgrammesAncestorTitles)
+	.add(api.mProgrammesVersionsAvailability)
+	.add(api.fProgrammesPageSize,pageSize);
+	//.add(api.fProgrammesAvailabilityTypeOndemand)
+	
+if (mode=='') {
+	mode = 'genre';
+	query.add(api.fProgrammesGenre,category);
+}
 
-	query.add(api.fProgrammesPageSize,pageSize)
-		.add(api.mProgrammesDuration)
-		.add(api.mProgrammesAncestorTitles)
-		.add(api.mProgrammesVersionsAvailability);
-
-	if (category.indexOf('-h')>=0) {
-		console.log('Usage: '+process.argv[1]+' category service_type format|genre|search [PID|@list|all|upcoming|schedule]');
-		console.log();
-		console.log('Category defaults to '+defcat);
-		console.log('Service_type defaults to '+service+' values radio|tv|both');
-		console.log('Aggregation defaults to genre');
-		console.log('PID defaults to all PIDS');
-	}
-	else {
+if (feed == 'schedules') {
+	processSchedule(host,api_key,category,mode);
+}
+else {
+	if (mode=='search' || mode=='genre' || mode=='format') {
 		make_request(host,path,api_key,query,function(obj){
 			return dispatch(obj);
 		});
