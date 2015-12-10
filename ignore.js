@@ -7,9 +7,11 @@ ignore multiple pids by adding them to the download cache
 var http = require('http');
 var fs = require('fs');
 var common = require('./common');
+var getopt = require('node-getopt');
 
 var download_history = [];
 var newstr = [];
+var options = {};
 var dlh_locn;
 
 var add_entry = function(ep) {
@@ -56,30 +58,31 @@ function append_newstr() {
 }
 
 //-----------------------------------------------------------------------------
-
 var quick = false;
 
-if (process.argv.length>2) {
+options = getopt.create([
+	['q','quick','Add pid without looking it up'],
+	['h','help','Display this help']
+]);
+options.bindHelp();
 
-	var config = require('./config.json');
-	dlh_locn = config.download_history;
-	download_history = common.downloadHistory(dlh_locn);
+options.on('quick',function(){
+	quick = true;
+});
 
-	for (var i in process.argv) {
-		if (i>1) {
-			param = process.argv[i];
-			if ((param=='--quick') || (param=='-q')) {
-				quick = true;
-			}
-			else {
-				update(param,quick);
-			}
-		}
+var o = options.parseSystem();
+
+var config = require('./config.json');
+dlh_locn = config.download_history;
+download_history = common.downloadHistory(dlh_locn);
+
+if (o.argv.length>0) {
+	for (var i in o.argv) {
+		update(o.argv[i],quick);
 	}
-
 }
 else {
-	console.log('Usage: '+process.argv[1]+' [--quick|-q] pid [pid...]');
+	options.showHelp();
 }
 
 process.on('exit', function(code) {

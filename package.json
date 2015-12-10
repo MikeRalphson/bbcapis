@@ -1,0 +1,34 @@
+{
+  "name": "bbcparse",
+  "version": "1.0.0",
+  "description": "Nodejs-based parser for the BBC Nitro API",
+  "main": "nitro.js",
+  "directories": {
+    "test": "test"
+  },
+  "engines": {
+    "node": "4.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mermade/bbcparse.git"
+  },
+  "keywords": [
+    "bbc",
+    "nitro",
+    "api",
+    "iplayer"
+  ],
+  "author": "Mike Ralphson",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/Mermade/bbcparse/issues"
+  },
+  "homepage": "https://github.com/Mermade/bbcparse#readme",
+  "dependencies": {
+    "node-getopt": "^0.2.3"
+  }
+}
