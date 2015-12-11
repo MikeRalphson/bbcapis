@@ -5,27 +5,27 @@ List programmes by aggregation (category, format, or search)
 */
 'use strict';
 
-var http = require('http');
-//var https = require('https');
 var fs = require('fs');
 var util = require('util');
 var url = require('url');
 var getopt = require('node-getopt');
 var common = require('./common');
+var nitro = require('./nitroCommon');
 var helper = require('./apiHelper');
 var api = require('./nitroApi/api');
 
 var programme_cache = [];
 var download_history = [];
 var showAll = false;
-var dest = '';
 
 // http://nitro.api.bbci.co.uk
 // http://nitro.stage.api.bbci.co.uk/nitro/api/
 // http://d.bbc.co.uk/nitro/api/
 // http://d.bbc.co.uk/stage/nitro/api/
 // https://api.live.bbc.co.uk/nitro/api/
+// https://api.test.bbc.co.uk/nitro/api/
 // http://nitro-e2e.api.bbci.co.uk/nitro-e2e/api/
+// http://nitro-slave-1.cloud.bbc.co.uk/nitro/api
 
 var host = 'd.bbc.co.uk';
 var domain = '/nitro/api';
@@ -38,27 +38,6 @@ var media_type = 'audio';
 const pageSize = 30;
 
 var debuglog = util.debuglog('bbc');
-
-//-----------------------------------------------------------------------------
-
-function logFault(fault) {
-/*
-{ "fault": {
-	"faultstring": "Rate limit quota violation. Quota limit : 0 exceeded by 1. Total violation count : 1. Identifier : YOUR-API-KEY-HERE",
-	"detail":
-		{"errorcode": “policies.ratelimit.QuotaViolation"}
-	}
-}
-*/
-	console.log(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
-}
-
-function logError(error) {
-/*
-{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
-*/
-	console.log(error.errors.error.code+': '+error.errors.error.message);
-}
 
 //----------------------------------------------------------------------------
 
@@ -208,7 +187,7 @@ var processResponse = function(obj) {
 				var path = domain+feed;
 				var query = helper.newQuery(api.fProgrammesDescendantsOf,p.pid,true)
 					.add(api.fProgrammesAvailabilityAvailable)
-					//.add(api.fProgrammesAvailabilityTypeOndemand)
+					.add(api.fProgrammesAvailabilityTypeOndemand)
 					.add(api.fProgrammesMediaSet,mediaSet)
 					.add(api.mProgrammesDuration)
 					.add(api.mProgrammesAncestorTitles)
@@ -221,7 +200,7 @@ var processResponse = function(obj) {
 					query.add(api.fProgrammesMediaType,media_type);
 				}
 				process.stdout.write('>');
-				make_request(host,path,api_key,query,processResponse);
+				nitro.make_request(host,path,api_key,query,'application/json',processResponse);
 			}
 			else {
 				console.log('Unhandled type: '+p.type);
@@ -230,111 +209,15 @@ var processResponse = function(obj) {
 		}
 	}
 
-	dest = {};
+	var dest = {};
 	if (pageNo<last) {
 		dest.path = domain+feed;
 		dest.query = helper.queryFrom(nextHref,true);
 		dest.callback = processResponse;
 	}
 	// if we need to go somewhere else, e.g. after all pages received set callback and/or path
-	return dest;
-}
-
-//------------------------------------------------------------------------------
-
-// snaffled from request module
-function hasHeader(header, headers) {
-	var headers = Object.keys(headers || this.headers),
-		lheaders = headers.map(function (h) {return h.toLowerCase();});
-	header = header.toLowerCase();
-	for (var i=0;i<lheaders.length;i++) {
-		if (lheaders[i] === header) return headers[i];
-	}
-	return false;
-}
-
-//------------------------------------------------------------------------------
-
-function make_request(host,path,key,query,callback) {
-	console.log(host+path+'?K'+query.querystring);
-	var options = {
-	  hostname: host
-	  ,port: 80
-	  ,path: path+'?api_key='+key+query.querystring
-	  ,method: 'GET'
-	  ,headers: { 'Content-Type': 'application/json',
-					'Accept': 'application/json',
-		'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; HTC_DesireZ_A7272 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
-	  }
-	};
-
-	var list = '';
-	var obj;
-
-	var req = http.request(options, function(res) {
-	  res.setEncoding('utf8');
-	  res.on('data', function (data) {
-		   list += data;
-	  });
-	  res.on('end', function() {
-		if (res.statusCode >= 300 && res.statusCode < 400 && hasHeader('location', res.headers)) {
-			// handle redirects, as per request module
-			var location = res.headers[hasHeader('location', res.headers)];
-			var locUrl = url.parse(location);
-			path = locUrl.pathname;
-			host = locUrl.host;
-			make_request(host,path,key,query,callback);
-		}
-		else if (res.statusCode >= 400 && res.statusCode < 600) {
-			console.log(res.statusCode+' '+res.statusMessage);
-			if (list) {
-				try {
-					obj = JSON.parse(list);
-					if (obj.fault) {
-						logFault(obj);
-					}
-					else if (obj.errors) {
-						logError(obj);
-					}
-					else {
-						console.log('Unknown response object');
-						console.log(obj);
-					}
-				}
-				catch (err) {
-					console.log(err);
-					console.log('Invalid JSON received:');
-					console.log(list);
-				}
-			}
-		}
-		else try {
-			obj = JSON.parse(list);
-			var result = callback(obj);
-		    if (dest.callback) {
-				// call the callback's next required destination
-				// e.g. second and subsequent pages
-				if (dest.path) {
-					make_request(host,dest.path,key,dest.query,dest.callback);
-				}
-				else {
-					dest.callback();
-				}
-			}
-		}
-		catch(err) {
-			console.log('Something went wrong parsing the response JSON');
-			console.log(err);
-			console.log(res.statusCode+' '+res.statusMessage);
-			console.log(res.headers);
-			console.log('** '+list);
-		}
-	   });
-	});
-	req.on('error', function(e) {
-	  console.log('Problem with request: ' + e.message);
-	});
-	req.end();
+	nitro.setReturn(dest);
+	return true;
 }
 
 //_____________________________________________________________________________
@@ -375,7 +258,7 @@ function processPid(host,path,api_key,pid) {
 		pid = pidList[p].split('#')[0].trim();
 		var pQuery = query.clone();
 		pQuery.add(api.fProgrammesPid,pid);
-		make_request(host,path,api_key,pQuery,function(obj){
+		nitro.make_request(host,path,api_key,pQuery,'application/json',function(obj){
 			return dispatch(obj);
 		});
 	}
@@ -452,14 +335,15 @@ var scheduleResponse = function(obj) {
 		}
 	}
 	
-	dest = {};
+	var dest = {};
 	if (pageNo<last) {
 		dest.path = '/nitro/api/schedules';
 		dest.query = helper.queryFrom(nextHref,true);
 		dest.callback = scheduleResponse;
 	}
 	// if we need to go somewhere else, e.g. after all pages received set callback and/or path
-	return dest;
+	nitro.setReturn(dest);
+	return true;
 }
 
 //_____________________________________________________________________________
@@ -485,13 +369,14 @@ function processSchedule(host,api_key,category,mode) {
 	query.add(api.mSchedulesAncestorTitles)
 		.add(api.fSchedulesPageSize,pageSize);
 	
-	make_request(host,path,api_key,query,function(obj){
+	nitro.make_request(host,path,api_key,query,'application/json',function(obj){
 		var result = scheduleResponse(obj);
+		var dest = nitro.getReturn();
 		if (dest.callback) {
 			// call the callback's next required destination
 			// e.g. second and subsequent pages
 			if (dest.path) {
-				make_request(host,dest.path,api_key,dest.query,dest.callback);
+				nitro.make_request(host,dest.path,api_key,dest.query,'application/json',dest.callback);
 			}
 			else {
 				dest.callback();
@@ -595,8 +480,8 @@ query.add(api.mProgrammesAvailability)
 	.add(api.mProgrammesDuration)
 	.add(api.mProgrammesAncestorTitles)
 	.add(api.mProgrammesVersionsAvailability)
-	.add(api.fProgrammesPageSize,pageSize);
-	//.add(api.fProgrammesAvailabilityTypeOndemand)
+	.add(api.fProgrammesPageSize,pageSize)
+	.add(api.fProgrammesAvailabilityTypeOndemand);
 	
 if (mode=='') {
 	mode = 'genre';
@@ -608,7 +493,7 @@ if (feed == 'schedules') {
 }
 else {
 	if (mode=='search' || mode=='genre' || mode=='format') {
-		make_request(host,path,api_key,query,function(obj){
+		nitro.make_request(host,path,api_key,query,'application/json',function(obj){
 			return dispatch(obj);
 		});
 	}
