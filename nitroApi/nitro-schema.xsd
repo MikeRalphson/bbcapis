@@ -1400,6 +1400,7 @@
       <xs:attribute name="release_status" type="release_status_type"/>
       <xs:attribute name="required" type="xs:boolean"/>
       <xs:attribute name="prefer" type="xs:string"/>
+      <xs:attribute name="depends_on" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="unstable_filters">
@@ -1425,7 +1426,7 @@
   </xs:element>
   <xs:element name="option">
     <xs:complexType>
-      <xs:attribute name="href" use="required" type="xs:anyURI"/>
+      <xs:attribute name="href" type="xs:anyURI"/>
       <xs:attribute name="value" use="required" type="xs:string"/>
       <xs:attribute name="title" use="required" type="xs:token"/>
       <xs:attribute name="release_status" type="release_status_type"/>
