@@ -184,7 +184,7 @@ function pidList(type,obj,single,updateSeries,callback) {
 					processPid(type,obj,child,updateSeries,callback);
 			   }
 			   catch(err) {
-					if ((res.statusCode>=400) && (res.statusCode<500)) {
+					if ((res.statusCode>=400) && (res.statusCode<600)) {
 						if (!single) {
 							pidList(type,obj,true,updateSeries,callback);
 						}

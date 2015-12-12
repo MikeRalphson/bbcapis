@@ -287,7 +287,7 @@ function make_request(host,path) {
 			path = locUrl.path;
 			make_request(host,path);
 		}
-		else if (res.statusCode >= 400 && res.statusCode < 500) {
+		else if (res.statusCode >= 400 && res.statusCode < 600) {
 			console.log(res.statusCode+' '+res.statusMessage);
 		}
 		else try {
@@ -329,7 +329,7 @@ function make_request(host,path) {
 			}
 		}
 		catch(err) {
-			if ((res.statusCode>=400) && (res.statusCode<500)) {
+			if ((res.statusCode>=400) && (res.statusCode<600)) {
 				console.log(res.statusCode+' '+res.statusMessage);
 			}
 			else {
