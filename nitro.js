@@ -307,7 +307,7 @@ var scheduleResponse = function(obj) {
 			p.version.start_time = item.published_time.start;
 			p.version.sid = item.service.sid;
 			p.synopses = {};
-			p.media_type = service;
+			p.media_type = (item.service.sid.indexOf('radio')>=0 ? 'Audio' : 'Video');
 			
 			for (var b in item.broadcast_of) {
 				var bof = item.broadcast_of[b];
