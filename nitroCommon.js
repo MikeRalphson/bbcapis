@@ -12,21 +12,35 @@ var debuglog = util.debuglog('bbc');
 
 var dest = {};
 
-function makeRequest(host,path,key,query,accept,callback){
-	debuglog(host+path+'?K'+query.querystring);
+function makeRequest(host,path,key,query,settings,callback){
+	debuglog(host+path+(key ? '?K' : '')+query.querystring);
+
+	var defaults = {
+		Accept: 'application/json',
+		User_Agent: 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; HTC_DesireZ_A7272 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1',
+		api_key_name: 'api_key'
+	}
+
+	settings = Object.assign({},defaults,settings); // merge/extend
+
+	var qs = query.querystring;
+	if (key) {
+		qs = '?' + settings.api_key_name + '=' + key + qs;
+	}
+
 	var options = {
-	  hostname: host
-	  ,port: 80
-	  ,path: path+'?api_key='+key+query.querystring
-	  ,method: 'GET'
-	  ,headers: { 'Accept': accept,
-		'User-Agent': 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; HTC_DesireZ_A7272 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1'
+	  hostname: host,
+	  port: 80,
+	  path: path+qs,
+	  method: 'GET',
+	  headers: { 'Accept': settings.Accept,
+		'User-Agent': settings.User_Agent
 	  }
 	};
 
 	var list = '';
 	var obj;
-	var json = (accept == 'application/json');
+	var json = (settings.Accept == 'application/json');
 
 	var req = http.request(options, function(res) {
 	  res.setEncoding('utf8');
@@ -82,7 +96,7 @@ function makeRequest(host,path,key,query,accept,callback){
 				// call the callback's next required destination
 				// e.g. second and subsequent pages
 				if (dest.path) {
-					makeRequest(host,dest.path,key,dest.query,accept,dest.callback);
+					makeRequest(host,dest.path,key,dest.query,settings,dest.callback);
 				}
 				else {
 					dest.callback();
@@ -109,11 +123,11 @@ module.exports = {
 	setReturn : function(destination) {
 		dest = destination;
 	},
-	
+
 	getReturn : function(){
 		return dest;
 	},
-	
+
 	logFault : function(fault) {
 	/*
 	{ "fault": {
@@ -141,7 +155,7 @@ module.exports = {
 		}
 		return false;
 	},
-	
+
 	make_request : function(host,path,key,query,accept,callback) {
 		makeRequest(host,path,key,query,accept,callback);
 	}

@@ -18,6 +18,8 @@ var programme_cache = [];
 var download_history = [];
 var showAll = false;
 
+// bbc seem to use int(ernal),test,stage and live
+
 // http://nitro.api.bbci.co.uk
 // http://nitro.stage.api.bbci.co.uk/nitro/api/
 // http://d.bbc.co.uk/nitro/api/
@@ -200,7 +202,7 @@ var processResponse = function(obj) {
 					query.add(api.fProgrammesMediaType,media_type);
 				}
 				process.stdout.write('>');
-				nitro.make_request(host,path,api_key,query,'application/json',processResponse);
+				nitro.make_request(host,path,api_key,query,{},processResponse);
 			}
 			else {
 				console.log('Unhandled type: '+p.type);
@@ -258,7 +260,7 @@ function processPid(host,path,api_key,pid) {
 		pid = pidList[p].split('#')[0].trim();
 		var pQuery = query.clone();
 		pQuery.add(api.fProgrammesPid,pid);
-		nitro.make_request(host,path,api_key,pQuery,'application/json',function(obj){
+		nitro.make_request(host,path,api_key,pQuery,{},function(obj){
 			return dispatch(obj);
 		});
 	}
@@ -369,14 +371,14 @@ function processSchedule(host,api_key,category,mode) {
 	query.add(api.mSchedulesAncestorTitles)
 		.add(api.fSchedulesPageSize,pageSize);
 	
-	nitro.make_request(host,path,api_key,query,'application/json',function(obj){
+	nitro.make_request(host,path,api_key,query,{},function(obj){
 		var result = scheduleResponse(obj);
 		var dest = nitro.getReturn();
 		if (dest.callback) {
 			// call the callback's next required destination
 			// e.g. second and subsequent pages
 			if (dest.path) {
-				nitro.make_request(host,dest.path,api_key,dest.query,'application/json',dest.callback);
+				nitro.make_request(host,dest.path,api_key,dest.query,{},dest.callback);
 			}
 			else {
 				dest.callback();
@@ -493,7 +495,7 @@ if (feed == 'schedules') {
 }
 else {
 	if (mode=='search' || mode=='genre' || mode=='format') {
-		nitro.make_request(host,path,api_key,query,'application/json',function(obj){
+		nitro.make_request(host,path,api_key,query,{},function(obj){
 			return dispatch(obj);
 		});
 	}
