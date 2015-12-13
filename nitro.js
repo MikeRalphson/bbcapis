@@ -17,6 +17,7 @@ var api = require('./nitroApi/api');
 var programme_cache = [];
 var download_history = [];
 var showAll = false;
+var dumpMediaSets = false;
 
 // bbc seem to use int(ernal),test,stage and live
 
@@ -101,31 +102,33 @@ var hidden = 0;
 		if  ((!present && available) || (programme_cache.length==1) || showAll) {
 
 			if (programme_cache.length==1) {
-				console.log(p);
+				debuglog(p);
 			}
 
 			var position = p.episode_of ? p.episode_of.position : 1;
 			var totaleps = 1;
 			var series = 1;
 
-			console.log(p.pid+' '+p.item_type+' '+p.media_type+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
+			console.log(p.pid+' '+pad(p.item_type,'       ',true)+' '+p.media_type+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
 
 			var len = (p.version && p.version.duration) ? p.version.duration : '0s';
 			len = len.replace('PT','').toLocaleLowerCase(); // ISO 8601 duration
 
-			//for (var v in p.versions.version) {
-			//	console.log(p.versions.version[v]);
-				//for (var va in p.versions.version[v].availabilities) {
-				//	a = p.versions.version[v].availabilities[va];
-				//	// dump mediasets
-				//	for (var vaa in a) {
-				//		var vaaa = a[vaa];
-				//		for (var ms in vaaa.media_sets.media_set) {
-				//			console.log(vaaa.media_sets.media_set[ms]);
-				//		}
-				//	}
-				//}
-			//}
+			if (dumpMediaSets) {
+				for (var v in p.versions.version) {
+					debuglog(p.versions.version[v]);
+					for (var va in p.versions.version[v].availabilities) {
+						var a = p.versions.version[v].availabilities[va];
+						// dump mediasets
+						for (var vaa in a) {
+							var vaaa = a[vaa];
+							for (var ms in vaaa.media_sets.media_set) {
+								console.log(vaaa.media_sets.media_set[ms]);
+							}
+						}
+					}
+				}
+			}
 
 			console.log('  '+len+' S'+pad(series,'00')+'E'+pad(position,'00')+
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
@@ -240,7 +243,7 @@ function dispatch(obj) {
 }
 
 //_____________________________________________________________________________
-function processPid(host,path,api_key,pid) {	
+function processPid(host,path,api_key,pid) {
 	var pidList = [];
 	if (pid.indexOf('@')==0) {
 		pid = pid.substr(1);
@@ -293,10 +296,10 @@ var scheduleResponse = function(obj) {
 	else {
 		for (var i in obj.nitro.results.items) {
 			var item = obj.nitro.results.items[i];
-			
+
 			console.log();
 			console.log(item);
-			
+
 			// minimally convert a broadcast into a programme for display
 			var p = {};
 			p.ancestor_titles = item.ancestor_titles;
@@ -308,7 +311,7 @@ var scheduleResponse = function(obj) {
 			p.version.sid = item.service.sid;
 			p.synopses = {};
 			p.media_type = (item.service.sid.indexOf('radio')>=0 ? 'Audio' : 'Video');
-			
+
 			for (var b in item.broadcast_of) {
 				var bof = item.broadcast_of[b];
 				if ((bof.result_type == 'episode') || (bof.result_type == 'clip')) {
@@ -325,9 +328,9 @@ var scheduleResponse = function(obj) {
 					p.title = at.title;
 				}
 			}
-			
+
 			// item.ids.id is an array of submissions(?) to broadcast schedule services
-			
+
 			var present = false;
 			for (var pc in programme_cache) {
 				var pci = programme_cache[pc];
@@ -336,7 +339,7 @@ var scheduleResponse = function(obj) {
 			if (!present) programme_cache.push(p);
 		}
 	}
-	
+
 	var dest = {};
 	if (pageNo<last) {
 		dest.path = '/nitro/api/schedules';
@@ -354,23 +357,23 @@ function processSchedule(host,api_key,category,mode) {
 
 	var today = new Date();
 	var todayStr = today.toISOString();
-	
+
 	var query = helper.newQuery();
 	query.add(api.fSchedulesStartFrom,todayStr,true);
 
 	if (mode == 'genre') {
-		query.add(api.fSchedulesGenre,category);		
+		query.add(api.fSchedulesGenre,category);
 	}
 	if (mode == 'format') {
-		query.add(api.fSchedulesFormat,category);		
+		query.add(api.fSchedulesFormat,category);
 	}
 	if (mode == 'search') {
-		query.add(api.fSchedulesQ,category);		
+		query.add(api.fSchedulesQ,category);
 	}
-	
+
 	query.add(api.mSchedulesAncestorTitles)
 		.add(api.fSchedulesPageSize,pageSize);
-	
+
 	nitro.make_request(host,path,api_key,query,{},function(obj){
 		var result = scheduleResponse(obj);
 		var dest = nitro.getReturn();
@@ -383,7 +386,7 @@ function processSchedule(host,api_key,category,mode) {
 			else {
 				dest.callback();
 			}
-		}		
+		}
 	});
 }
 
@@ -418,9 +421,10 @@ var options = getopt.create([
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['d','domain=ARG','Set domain = radio,tv or both'],
 	['i','imminent','Set availability to pending (default is available)'],
+	['u','upcoming','Show programme schedule information not history'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
-	['u','upcoming','Show programme schedule information not history']
+	['m','mediaset','Dump mediaset information, most useful with -p']
 ]);
 options.bindHelp();
 
@@ -465,10 +469,13 @@ options.on('genre',function(argv,options){
 	mode = 'genre';
 	query.add(api.fProgrammesGenre,category);
 });
+options.on('mediaset',function(){
+	dumpMediaSets = true;
+});
 var o = options.parseSystem();
 
 if (pending) {
-	query.add(api.fProgrammesAvailabilityPending);		
+	query.add(api.fProgrammesAvailabilityPending);
 }
 else {
 	query.add(api.fProgrammesAvailabilityAvailable);
@@ -484,7 +491,7 @@ query.add(api.mProgrammesAvailability)
 	.add(api.mProgrammesVersionsAvailability)
 	.add(api.fProgrammesPageSize,pageSize)
 	.add(api.fProgrammesAvailabilityTypeOndemand);
-	
+
 if (mode=='') {
 	mode = 'genre';
 	query.add(api.fProgrammesGenre,category);
