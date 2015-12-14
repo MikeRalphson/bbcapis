@@ -49,10 +49,11 @@ function check(pathspec,pid_pref) {
 			}
 
 			stat = fs.statSync(pathspec);
+			var time = Math.floor(stat.mtime.getTime()/1000);
 
-			entry = pid+'|'+series+'|'+episode+'|'+type+'|'+stat.mtime.getTime()/1000+
+			entry = pid+'|'+series+'|'+episode+'|'+type+'|'+time+
 			  '|hlsaacstd1|'+pathspec+'|default,original|1800||||||||||';
-			console.log(pid+'|'+series+'|'+episode+'|'+type+'|'+stat.mtime.getTime()/1000);
+			console.log(pid+'|'+series+'|'+episode+'|'+type+'|'+time;
 			download_history.push(pid); //tail end is no longer sorted
 
 			entries.push(entry);
