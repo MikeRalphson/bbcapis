@@ -18,6 +18,8 @@ var programme_cache = [];
 var download_history = [];
 var showAll = false;
 var dumpMediaSets = false;
+var upcoming = false;
+var pidList = [];
 
 // bbc seem to use int(ernal),test,stage and live
 
@@ -244,29 +246,27 @@ function dispatch(obj) {
 
 //_____________________________________________________________________________
 function processPid(host,path,api_key,pid) {
-	var pidList = [];
-	if (pid.indexOf('@')==0) {
-		pid = pid.substr(1);
-		var s = fs.readFileSync(pid,'utf8');
-		pidList = s.split('\n');
-	}
-	else {
-		pidList.push(pid);
-	}
 	var query = helper.newQuery();
 	query.add(api.fProgrammesPageSize,pageSize,true)
 		.add(api.mProgrammesContributions)
 		.add(api.mProgrammesDuration)
 		.add(api.mProgrammesAncestorTitles)
 		.add(api.mProgrammesVersionsAvailability);
-	for (var p in pidList) {
-		pid = pidList[p].split('#')[0].trim();
-		var pQuery = query.clone();
-		pQuery.add(api.fProgrammesPid,pid);
-		nitro.make_request(host,path,api_key,pQuery,{},function(obj){
-			return dispatch(obj);
-		});
+	
+	//if (upcoming) {
+	//	query.add(api.fProgrammesAvailabilityPending);
+	//}
+		
+	var pQuery = query.clone();
+	if (upcoming) {
+		pQuery.add(api.fProgrammesChildrenOf,pid);
 	}
+	else {
+		pQuery.add(api.fProgrammesPid,pid);
+	}
+	nitro.make_request(host,path,api_key,pQuery,{},function(obj){
+		return dispatch(obj);
+	});
 }
 
 //_____________________________________________________________________________
@@ -352,7 +352,7 @@ var scheduleResponse = function(obj) {
 }
 
 //_____________________________________________________________________________
-function processSchedule(host,api_key,category,mode) {
+function processSchedule(host,api_key,category,mode,pid) {
 	var path = '/nitro/api/schedules';
 
 	var today = new Date();
@@ -369,6 +369,9 @@ function processSchedule(host,api_key,category,mode) {
 	}
 	if (mode == 'search') {
 		query.add(api.fSchedulesQ,category);
+	}
+	if (mode == 'pid') {
+		query.add(api.fSchedulesDescendantsOf,pid);
 	}
 
 	query.add(api.mSchedulesAncestorTitles)
@@ -416,15 +419,15 @@ var path = domain+feed;
 
 var options = getopt.create([
 	['h','help','display this help'],
+	['d','domain=ARG','Set domain = radio,tv or both'],
 	['f','format=ARG','Set category type=format and format=ARG'],
 	['g','genre=ARG','Set category type=genre and genre=ARG'],
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
-	['d','domain=ARG','Set domain = radio,tv or both'],
 	['i','imminent','Set availability to pending (default is available)'],
-	['u','upcoming','Show programme schedule information not history'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
-	['m','mediaset','Dump mediaset information, most useful with -p']
+	['m','mediaset','Dump mediaset information, most useful with -p'],
+	['u','upcoming','Show programme schedule information not history']
 ]);
 options.bindHelp();
 
@@ -447,12 +450,10 @@ options.on('domain',function(argv,options){
 });
 options.on('pid',function(argv,options){
 	mode = 'pid';
-	for (var p in options.pid) {
-		processPid(host,path,api_key,options.pid[p]);
-	}
 });
 options.on('upcoming',function(){
 	feed = 'schedules';
+	upcoming = true;
 });
 options.on('search',function(argv,options){
 	category = options.search;
@@ -497,7 +498,28 @@ if (mode=='') {
 	query.add(api.fProgrammesGenre,category);
 }
 
-if (feed == 'schedules') {
+if (mode == 'pid') {
+	for (var p in o.options.pid) {
+		pid = o.options.pid[p];
+		if (pid.indexOf('@')==0) {
+			pid = pid.substr(1);
+			var s = fs.readFileSync(pid,'utf8');
+			pidList = pidList.concat(s.split('\n'));
+		}
+		else {
+			pidList.push(pid);
+		}
+	}
+	for (var p in pidList) {
+		if (upcoming) {
+			processSchedule(host,api_key,category,mode,pidList[p]);
+		}
+		else {
+			processPid(host,path,api_key,pidList[p]);
+		}
+	}
+}
+else if (feed == 'schedules') {
 	processSchedule(host,api_key,category,mode);
 }
 else {
