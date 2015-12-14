@@ -50,11 +50,11 @@ module.exports = {
 
 		return -1;
 	},
-	process_pid: function (type,parent,obj,updateSeries,callback) {
-		processPid(type,parent,obj,updateSeries,callback);
+	process_pid: function (type,parent,obj,updateSeries,upcoming,callback) {
+		processPid(type,parent,obj,updateSeries,upcoming,callback);
 	},
-	pid_list: function (type,obj,single,updateSeries,callback) {
-		pidList(type,obj,single,updateSeries,callback);
+	pid_list: function (type,obj,single,updateSeries,upcoming,callback) {
+		pidList(type,obj,single,updateSeries,upcoming,callback);
 	}
 
 };
@@ -63,7 +63,7 @@ module.exports = {
 
 var series_cache = [];
 
-function processPid(type,parent,obj,updateSeries,callback) {
+function processPid(type,parent,obj,updateSeries,upcoming,callback) {
 
 	if ((obj.type == 'brand') || (obj.type == 'series')) {
 		if (updateSeries) {
@@ -126,12 +126,41 @@ function processPid(type,parent,obj,updateSeries,callback) {
 		ep.duration = obj.version.duration; //?
 		callback(ep);
 	}
+	else if (obj.broadcasts) {
+		var seen = [];
+		for (var b in obj.broadcasts) {
+			var broadcast = obj.broadcasts[b];
+			var programme = broadcast.programme;
+			debuglog(programme);
+			if ((programme.type=='episode') || (programme.type=='clip')) {
+				if (seen.indexOf(programme.pid)<0) {
+					seen.push(programme.pid);
+					callback(programme);
+				}
+			}
+			else if ((programme.type == 'brand') || (programme.type == 'series')) {
+				if (updateSeries) {
+					callback(programme);
+				}
+				process.stdout.write('>');
+				if (parent.pid!=programme.pid) {
+					console.log('\nRecursing from '+type+':'+parent.pid+' to '+programme.type+':'+programme.pid);
+					pid_list(programme.type,programme,true,updateSeries,callback);
+				}
+			}
+			else {
+				console.log('Unexpected type...');
+				console.log(obj);
+			}
+		}
+	}
 	else {
 		console.log('Nothing found in this '+type);
+		console.log(JSON.stringify(obj));
 	}
 }
 
-function pidList(type,obj,single,updateSeries,callback) {
+function pidList(type,obj,single,updateSeries,upcoming,callback) {
 	// single PID      http://www.bbc.co.uk/programmes/b009szrh.json
 	// brand or series http://www.bbc.co.uk/programmes/b012qq56/episodes/player.json
 
@@ -148,6 +177,9 @@ function pidList(type,obj,single,updateSeries,callback) {
 
 		if (single) {
 			path = '/programmes/'+obj.pid+'.json';
+		}
+		else if (upcoming) {
+			path = '/programmes/'+obj.pid+'/episodes/upcoming.json';			
 		}
 		else {
 			path = '/programmes/'+obj.pid+'/episodes/player.json';
@@ -181,12 +213,12 @@ function pidList(type,obj,single,updateSeries,callback) {
 						}
 					}
 					series_cache.push(obj.pid);
-					processPid(type,obj,child,updateSeries,callback);
+					processPid(type,obj,child,updateSeries,upcoming,callback);
 			   }
 			   catch(err) {
 					if ((res.statusCode>=400) && (res.statusCode<600)) {
 						if (!single) {
-							pidList(type,obj,true,updateSeries,callback);
+							pidList(type,obj,true,updateSeries,upcoming,callback);
 						}
 						else {
 							console.log(res.statusCode+' '+res.statusMessage);

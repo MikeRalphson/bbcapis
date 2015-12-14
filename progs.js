@@ -1,6 +1,7 @@
 /*
 
 List programmes by aggregation (category, format, but not tags, they have been removed)
+http://www.bbc.co.uk/ontologies/po
 
 */
 'use strict';
@@ -18,6 +19,7 @@ var domain = 'radio';
 var displayDomain = domain;
 var pid = '';
 var availableOnly = false;
+var upcoming = false;
 
 var debuglog = util.debuglog('bbc');
 
@@ -128,10 +130,10 @@ function cat_slice_dump(obj) {
 		var p = obj.category_slice.programmes[i];
 		if ((p.type == 'episode') || (p.type == 'clip'))  {
 			//add_programme(p); //? not enough info available
-			common.pid_list(p.type,p,true,false,add_programme);
+			common.pid_list(p.type,p,true,false,upcoming,add_programme);
 		}
 		else if ((p.type == 'series') || (p.type == 'brand')) {
-			common.pid_list(p.type,p,false,false,add_programme);
+			common.pid_list(p.type,p,false,false,upcoming,add_programme);
 		}
 		else {
 			console.log('Unhandled type: '+p.type);
@@ -153,7 +155,7 @@ function cat_page_list(obj) {
 			add_programme(p); //? faster than querying each PID
 		}
 		else if ((p.type == 'series') || (p.type == 'brand')) {
-			common.pid_list(p.type,p,false,false,add_programme);
+			common.pid_list(p.type,p,false,false,upcoming,add_programme);
 		}
 		else {
 			console.log('Unhandled type: '+p.type);
@@ -177,7 +179,7 @@ function atoz_list(obj) {
 				add_programme(p);
 			}
 			else if ((p.type == 'series') || (p.type == 'brand')) {
-				common.pid_list(p.type,p,false,false,add_programme);
+				common.pid_list(p.type,p,false,false,upcoming,add_programme);
 			}
 			else {
 				console.log('Unhandled type: '+p.type);
@@ -202,7 +204,7 @@ function episode_list(obj) {
 				add_programme(p);
 			}
 			else if ((p.type == 'series') || (p.type == 'brand')) {
-				common.pid_list(p.type,p,false,false,add_programme);
+				common.pid_list(p.type,p,false,false,upcoming,add_programme);
 			}
 			else {
 				console.log('Unhandled type: '+p.type);
@@ -233,7 +235,7 @@ function broadcast_list(obj) {
 				if (!present) add_programme(p); // allow for upcoming repeat broadcasts
 			}
 			else if ((p.type == 'series') || (p.type == 'brand')) {
-				common.pid_list(p.type,p,false,false,add_programme);
+				common.pid_list(p.type,p,false,false,upcoming,add_programme);
 			}
 			else {
 				console.log('Unhandled type: '+p.type);
@@ -359,13 +361,13 @@ function processPid(pid){
 			pid = pids[i].split('#')[0].trim();
 			if (pid) {
 				obj.pid = pid;
-				common.pid_list('toplevel',obj,false,false,add_programme);
+				common.pid_list('toplevel',obj,false,false,upcoming,add_programme);
 			}
 		}
 	}
 	else {
 		obj.pid = pid;
-		common.pid_list('toplevel',obj,false,false,add_programme);
+		common.pid_list('toplevel',obj,false,false,upcoming,add_programme);
 	}
 }
 
@@ -378,10 +380,27 @@ function processPid(pid){
 // http://www.bbc.co.uk/radio/programmes/genres/comedy/player/episodes.json[?page=n]
 // http://www.bbc.co.uk/radio/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json[?page=n]
 //
+// http://www.bbc.co.uk/programmes/{pid]/episodes/upcoming.json
+//
+// http://www.bbc.co.uk/tv/programmes/genres/{genre}/schedules/tomorrow.json
 // http://www.bbc.co.uk/radio4/programmes/schedules/fm/this_week.json
-// www.bbc.co.uk/radio4/programmes/schedules/fm/this_week.json
-// www.bbc.co.uk/radio4extra/programmes/schedules/2014/11/1.json
-// www.bbc.co.uk/bbcfour/programmes/schedules/last_week.json
+// http://www.bbc.co.uk/radio4/programmes/schedules/fm/this_week.json
+// http://www.bbc.co.uk/radio4extra/programmes/schedules/2014/11/1.json
+// http://www.bbc.co.uk/bbcfour/programmes/schedules/last_week.json
+//
+// /:service/programmes/schedules/:outlet
+// /:service/programmes/schedules/{:outlet/}:year/:month/:day 
+// /:service/programmes/schedules/{:outlet/}:year/:month/:day/ataglance 
+// /:service/programmes/schedules/{:outlet/}:year/:week 
+// /:service/programmes/schedules/{:outlet/}yesterday 
+// /:service/programmes/schedules/{:outlet/}today 
+// /:service/programmes/schedules/{:outlet/}tomorrow 
+// /:service/programmes/schedules/{:outlet/}last_week 
+// /:service/programmes/schedules/{:outlet/}this_week 
+// /:service/programmes/schedules/{:outlet/}next_week
+
+// the :outlet part is 'fm' for radio4, 'england' for bbcone and two and
+// not needed for radio 4 extra/bbc four etc.
 
 // TV mode
 // http://bbc.co.uk/programmes/films.json
@@ -389,6 +408,9 @@ function processPid(pid){
 // http://www.bbc.co.uk/programmes/genres/comedy/spoof.json
 // http://www.bbc.co.uk/programmes/genres/comedy/player/episodes.json[?page=n]
 // http://www.bbc.co.uk/tv/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json[?page=n]
+
+// programmes/:id/credits /broadcasts
+
 
 var config = require('./config.json');
 download_history = common.downloadHistory(config.download_history);
@@ -408,9 +430,9 @@ var options = getopt.create([
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['d','domain=ARG','Set domain = radio,tv or both'],
 	['l','latest','Use latest feed'],
+	['u','upcoming','Show programme schedule information not history'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
-	['a','all','Show programmes only if available'],
-	['u','upcoming','Show programme schedule information not history']
+	['a','all','Show programmes only if available']
 ]);
 options.bindHelp();
 
@@ -429,11 +451,9 @@ options.on('latest',function(){
 });
 options.on('pid',function(argv,options){
 	mode = 'pid';
-	for (var p in options.pid) {
-		processPid(options.pid[p]);
-	}
 });
 options.on('upcoming',function(){
+	upcoming = true;
 	page = '/schedules/upcoming';
 });
 options.on('search',function(argv,options){
@@ -468,7 +488,12 @@ category = cat_prefix + category;
 if (domain) domain = '/'+domain;
 var path = domain+'/programmes/'+category+page+'.json';
 
-if (mode != 'pid') {
+if (mode == 'pid') {
+	for (var p in o.options.pid) {
+		processPid(o.options.pid[p]);
+	}
+}
+else {
 	make_request('www.bbc.co.uk',path);
 }
 
