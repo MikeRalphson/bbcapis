@@ -57,7 +57,7 @@ function showRegions() {
 function showChildren(pid) {
 	// http://ibl.api.bbci.co.uk/ibl/v1/episodes/b04nv6kr?rights=mobile&availability=available&api_key=APIKEY
 	var query = helper.newQuery();
-	query.add('lang','en');
+	//query.add('lang','en');
 	query.add('rights','mobile');
 	query.add('availability','available');
 	nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/episodes/'+pid,ibl_key,query,{},function(obj){
@@ -69,6 +69,39 @@ function showChildren(pid) {
 
 // http://polling.bbc.co.uk/appconfig/iplayer/android/4.15.0/config.json
 
+// http://ibl.api.bbci.co.uk/ibl/v1/home/highlights?lang=en&rights=mobile&availability=available&api_key=
+
+/*
+ Highlights Full
+ http://ibl.api.bbci.co.uk/ibl/v1/home/highlights?lang=en&rights=tv&availability=available&api_key=
+ Highlights BBC one
+ http://ibl.api.bbci.co.uk/ibl/v1/channels/bbc_one_london/highlights?lang=en&rights=mobile&availability=available&api_key=
+ Highlights BBC Two
+ http://ibl.api.bbci.co.uk/ibl/v1/channels/bbc_two_england/highlights?lang=en&rights=mobile&availability=available&api_key=
+ Highlights for Arts Category
+ http://ibl.api.bbci.co.uk/ibl/v1/categories/arts/highlights?lang=en&rights=mobile&availability=available&api_key=
+ Highlights for CBBC Category
+ http://ibl.api.bbci.co.uk/ibl/v1/categories/cbbc/highlights?lang=en&rights=mobile&availability=available&api_key=
+
+ Programmes on BBC One
+ http://ibl.api.bbci.co.uk/ibl/v1/channels/bbc_one_london/programmes?lang=en&rights=tv&availability=available&api_key=
+ Programmes on BBC Two
+ http://ibl.api.bbci.co.uk/ibl/v1/channels/bbc_two_england/programmes?lang=en&rights=tv&availability=available&api_key=
+ Programmes Arts Category
+ http://ibl.api.bbci.co.uk/ibl/v1/categories/arts/programmes?lang=en&rights=tv&availability=available&api_key=
+ Programmes CBBC Category
+ http://ibl.api.bbci.co.uk/ibl/v1/categories/cbbc/programmes?lang=en&rights=tv&availability=available&api_key=
+
+ List episodes for show id b04nv6kr
+ http://ibl.api.bbci.co.uk/ibl/v1/episodes/b04nv6kr?rights=mobile&availability=available&api_key=
+ 
+    "mostPopularUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/groups/popular/episodes?rights=web&page=1&per_page=40&initial_child_count=4&sort=title&sort_direction=asc&availability=available&api_key=",
+    "atozUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/atoz/{letter}/programmes?rights=web&page=1&per_page=40&initial_child_count=4&sort=title&sort_direction=asc&availability=available&api_key=",
+    "categoriesUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/categories/{category}/programmes?rights=web&page=1&per_page=40&initial_child_count=4&sort=title&sort_direction=asc&availability=available&api_key=",
+    "channelsUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/channels/{channel_id}/programmes?rights=web&page=1&per_page=40&availability=available&api_key=",
+
+*/
+
 var query = helper.newQuery();
 
 nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.15.0/config.json','',query,{},function(obj){
@@ -76,7 +109,7 @@ nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.15.0/config
 	showCategories();
 	showChannels();
 	showRegions();
-	showChildren('b006q2x0');
+	showChildren('b0072txy');
 	return false;
 });
 

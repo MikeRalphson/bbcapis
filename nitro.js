@@ -252,10 +252,6 @@ function processPid(host,path,api_key,pid) {
 		.add(api.mProgrammesDuration)
 		.add(api.mProgrammesAncestorTitles)
 		.add(api.mProgrammesVersionsAvailability);
-	
-	//if (upcoming) {
-	//	query.add(api.fProgrammesAvailabilityPending);
-	//}
 		
 	var pQuery = query.clone();
 	if (upcoming) {
