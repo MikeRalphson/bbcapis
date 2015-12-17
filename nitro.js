@@ -23,6 +23,7 @@ var pidList = [];
 var indexBase = 10000;
 var channel = '';
 var format = '';
+var search = '';
 
 // bbc seem to use int(ernal),test,stage and live
 
@@ -287,10 +288,10 @@ function dispatch(obj) {
 		processResponse(obj);
 	}
 	else if (obj.fault) {
-		logFault(obj);
+		nitro.logFault(obj);
 	}
 	else if (obj.errors) {
-		logError(obj);
+		nitro.logError(obj);
 	}
 	else {
 		console.log(obj);
@@ -419,8 +420,8 @@ function processSchedule(host,api_key,category,mode,pid) {
 	if (format != '') {
 		query.add(api.fSchedulesFormat,format);
 	}
-	if (mode == 'search') {
-		query.add(api.fSchedulesQ,category);
+	if (search != '') {
+		query.add(api.fSchedulesQ,search);
 	}
 	if (mode == 'pid') {
 		query.add(api.fSchedulesDescendantsOf,pid);
@@ -519,9 +520,8 @@ options.on('channel',function(argv,options){
 	query.add(api.fProgrammesMasterBrand,channel).add(api.sProgrammesTitleAscending);
 });
 options.on('search',function(argv,options){
-	category = options.search;
-	mode = 'search';
-	query.add(api.fProgrammesQ,category).add(api.sProgrammesTitleAscending);
+	search = options.search;
+	query.add(api.fProgrammesQ,search).add(api.sProgrammesTitleAscending);
 });
 options.on('format',function(argv,options){
 	format = options.format;
@@ -590,7 +590,7 @@ else if (feed == 'schedules') {
 	processSchedule(host,api_key,category,mode);
 }
 else {
-	if (mode=='search' || mode=='genre') {
+	if (mode=='genre') {
 		nitro.make_request(host,path,api_key,query,{},function(obj){
 			return dispatch(obj);
 		});
