@@ -20,6 +20,9 @@ var showAll = false;
 var dumpMediaSets = false;
 var upcoming = false;
 var pidList = [];
+var indexBase = 10000;
+var channel = '';
+var format = '';
 
 // bbc seem to use int(ernal),test,stage and live
 
@@ -64,6 +67,57 @@ function pad(str, padding, padRight) {
 
 //-----------------------------------------------------------------------------
 
+function iso8601durationToSeconds(input) {
+	 var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+	  var hours = 0, minutes = 0, seconds = 0, totalseconds;
+
+	 if (reptms.test(input)) {
+		var matches = reptms.exec(input);
+		if (matches[1]) hours = Number(matches[1]);
+		if (matches[2]) minutes = Number(matches[2]);
+		if (matches[3]) seconds = Number(matches[3]);
+		totalseconds = hours * 3600  + minutes * 60 + seconds;
+	 }
+	 return totalseconds;
+}
+
+//-----------------------------------------------------------------------------
+
+function pc_export() {
+
+var hidden = 0;
+
+	console.log('\n* Programme Cache:');
+	var index = indexBase;
+	for (var i in programme_cache) {
+		indexBase++;
+		var p = programme_cache[i];
+		var present = download_history.indexOf(p.pid)>=0;
+		var title = (p.title ? p.title : p.presentation_title);
+		var subtitle = (p.display_titles && p.display_titles.subtitle ? p.display_titles.subtitle : '');
+		var available = (p.versions.available > 0);
+		var position = p.episode_of ? p.episode_of.position : 1;
+		var totaleps = 1;
+		var series = 1;
+		var len = (p.version && p.version.duration) ? iso8601durationToSeconds(p.version.duration) : '0';
+
+		var thumb = p.image.template_url.replace('$recipe','150x84');
+
+//#index|type|name|pid|available|episode|seriesnum|episodenum|versions|duration|desc|channel|categories|thumbnail|timeadded|guidance|web
+
+		if (i==programme_cache.length-1) {
+			console.log(p);
+		}
+
+		console.log(index+'|'+(p.media_type == 'Video' ? 'tv' : 'radio')+'|'+title+'|'+p.pid+'|'+
+			subtitle+(available ? 'Available' : 'Unavailable')+'|'+subtitle+'|'+'|'+series+'|'+position+'|'+'default'+'|'+
+			len+'||'+p.master_brand.mid+'|'+category+'|'+thumb+'|'+Math.floor(Date.now()/1000)+
+			'||'+'http://bbc.co.uk/programmes/'+p.pid+'|');
+	}
+}
+
+//-----------------------------------------------------------------------------
+
 function pc_dump() {
 
 var hidden = 0;
@@ -101,7 +155,7 @@ var hidden = 0;
 
 		var available = (p.versions.available > 0);
 
-		if  ((!present && available) || (programme_cache.length==1) || showAll) {
+		if  ((!present && available) || (pidList.indexOf(p.pid)>=0) || showAll) {
 
 			if (programme_cache.length==1) {
 				debuglog(p);
@@ -252,7 +306,7 @@ function processPid(host,path,api_key,pid) {
 		.add(api.mProgrammesDuration)
 		.add(api.mProgrammesAncestorTitles)
 		.add(api.mProgrammesVersionsAvailability);
-		
+
 	var pQuery = query.clone();
 	if (upcoming) {
 		pQuery.add(api.fProgrammesChildrenOf,pid);
@@ -358,16 +412,22 @@ function processSchedule(host,api_key,category,mode,pid) {
 	query.add(api.fSchedulesStartFrom,todayStr,true);
 
 	if (mode == 'genre') {
-		query.add(api.fSchedulesGenre,category);
+		if (category != '') {
+			query.add(api.fSchedulesGenre,category);
+		}
 	}
-	if (mode == 'format') {
-		query.add(api.fSchedulesFormat,category);
+	if (format != '') {
+		query.add(api.fSchedulesFormat,format);
 	}
 	if (mode == 'search') {
 		query.add(api.fSchedulesQ,category);
 	}
 	if (mode == 'pid') {
 		query.add(api.fSchedulesDescendantsOf,pid);
+	}
+
+	if (channel != '') {
+		query.add(api.fSchedulesServiceMasterBrand,channel);
 	}
 
 	query.add(api.mSchedulesAncestorTitles)
@@ -415,17 +475,20 @@ var path = domain+feed;
 
 var options = getopt.create([
 	['h','help','display this help'],
+	['b','index_base','get_iplayer index base, defaults to 10000'],
+	['c','channel=ARG','Set category type=channel and channel=ARG'],
 	['d','domain=ARG','Set domain = radio,tv or both'],
 	['f','format=ARG','Set category type=format and format=ARG'],
-	['g','genre=ARG','Set category type=genre and genre=ARG'],
+	['g','genre=ARG','Set category type=genre and genre=ARG, all to reset'],
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['i','imminent','Set availability to pending (default is available)'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
+	['o','output','output in get_iplayer cache format'],
 	['u','upcoming','Show programme schedule information not history']
 ]);
-options.bindHelp();
+var o = options.bindHelp();
 
 query.add(api.fProgrammesMediaSet,mediaSet,true);
 
@@ -451,20 +514,28 @@ options.on('upcoming',function(){
 	feed = 'schedules';
 	upcoming = true;
 });
+options.on('channel',function(argv,options){
+	channel = options.channel;
+	query.add(api.fProgrammesMasterBrand,channel).add(api.sProgrammesTitleAscending);
+});
 options.on('search',function(argv,options){
 	category = options.search;
 	mode = 'search';
-	query.add(api.fProgrammesQ,category,true).add(api.sProgrammesTitleAscending);
+	query.add(api.fProgrammesQ,category).add(api.sProgrammesTitleAscending);
 });
 options.on('format',function(argv,options){
-	category = options.format;
-	mode = 'format';
-	query.add(api.fProgrammesFormat,category);
+	format = options.format;
+	query.add(api.fProgrammesFormat,format);
 });
 options.on('genre',function(argv,options){
-	category = options.genre;
 	mode = 'genre';
-	query.add(api.fProgrammesGenre,category);
+	if (options.genre != 'all') {
+		category = options.genre;
+		query.add(api.fProgrammesGenre,category);
+	}
+	else {
+		category = '';
+	}
 });
 options.on('mediaset',function(){
 	dumpMediaSets = true;
@@ -519,7 +590,7 @@ else if (feed == 'schedules') {
 	processSchedule(host,api_key,category,mode);
 }
 else {
-	if (mode=='search' || mode=='genre' || mode=='format') {
+	if (mode=='search' || mode=='genre') {
 		nitro.make_request(host,path,api_key,query,{},function(obj){
 			return dispatch(obj);
 		});
@@ -527,5 +598,10 @@ else {
 }
 
 process.on('exit', function(code) {
-  pc_dump(pid);
+	if (o.options.cache) {
+		pc_export();
+	}
+	else {
+		pc_dump();
+	}
 });
