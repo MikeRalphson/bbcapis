@@ -362,6 +362,9 @@ var scheduleResponse = function(obj) {
 			p.version.sid = item.service.sid;
 			p.synopses = {};
 			p.media_type = (item.service.sid.indexOf('radio')>=0 ? 'Audio' : 'Video');
+			p.image = item.image;
+			p.master_brand = {};
+			p.master_brand.mid = item.service.sid; //!
 
 			for (var b in item.broadcast_of) {
 				var bof = item.broadcast_of[b];
@@ -477,10 +480,10 @@ var path = domain+feed;
 var options = getopt.create([
 	['h','help','display this help'],
 	['b','index_base','get_iplayer index base, defaults to 10000'],
-	['c','channel=ARG','Set category type=channel and channel=ARG'],
+	['c','channel=ARG','Filter by channel id'],
 	['d','domain=ARG','Set domain = radio,tv or both'],
-	['f','format=ARG','Set category type=format and format=ARG'],
-	['g','genre=ARG','Set category type=genre and genre=ARG, all to reset'],
+	['f','format=ARG','Filter by format id'],
+	['g','genre=ARG','Filter by genre id. all to reset'],
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['i','imminent','Set availability to pending (default is available)'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
@@ -598,7 +601,7 @@ else {
 }
 
 process.on('exit', function(code) {
-	if (o.options.cache) {
+	if (o.options.output) {
 		pc_export();
 	}
 	else {
