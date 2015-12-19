@@ -545,6 +545,30 @@ for (var f in api.feeds.feed) {
 	}
 }
 
+var path = swagger.paths['/'] = {};
+path.get = {};
+path.get.description = 'Get API definition';
+path.get.operationId = 'getAPI';
+params = path.get.parameters = [];
+
+path.get.responses = {};
+path.get.responses['200'] = {};
+path.get.responses['200'].description = 'Nitro response';
+path.get.responses.default = {};
+path.get.responses.default.description = 'Unexpected error';
+
+path = swagger.paths['/schema'] = {};
+path.get = {};
+path.get.description = 'Get schema definition';
+path.get.operationId = 'getXSD';
+params = path.get.parameters = [];
+
+path.get.responses = {};
+path.get.responses['200'] = {};
+path.get.responses['200'].description = 'Nitro response';
+path.get.responses.default = {};
+path.get.responses.default.description = 'Unexpected error';
+
 process.on('exit',function(){
 	fs.appendFileSync(apijs, "const apiHash = '" + digest + "';\n", 'utf8');
 	fs.appendFileSync(apijs, '\nmodule.exports = {\n');

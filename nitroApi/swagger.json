@@ -1949,6 +1949,36 @@
 					}
 				}
 			}
+		},
+		"/": {
+			"get": {
+				"description": "Get API definition",
+				"operationId": "getAPI",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/schema": {
+			"get": {
+				"description": "Get schema definition",
+				"operationId": "getXSD",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
 		}
 	}
 }
