@@ -381,9 +381,15 @@ function processPid(pid){
 // http://www.bbc.co.uk/radio/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json[?page=n]
 //
 // http://www.bbc.co.uk/programmes/{pid]/episodes/upcoming.json
+// http://www.bbc.co.uk/radio4extra/programmes/schedules/this_week
+// http://www.bbc.co.uk/radio4extra/programmes/schedules/this_month.json // not much use, just list of days
+// http://www.bbc.co.uk/radio4extra/programmes/schedules/last_month.json // not much use, just list of days
+
+// http://www.bbc.co.uk/programmes/b03vgrvd/credits
+// http://www.bbc.co.uk/programmes/b03tj1t9/segments
+// http://www.bbc.co.uk/programmes/b010t19z/qrcode.png
 //
 // http://www.bbc.co.uk/tv/programmes/genres/{genre}/schedules/tomorrow.json
-// http://www.bbc.co.uk/radio4/programmes/schedules/fm/this_week.json
 // http://www.bbc.co.uk/radio4/programmes/schedules/fm/this_week.json
 // http://www.bbc.co.uk/radio4extra/programmes/schedules/2014/11/1.json
 // http://www.bbc.co.uk/bbcfour/programmes/schedules/last_week.json
