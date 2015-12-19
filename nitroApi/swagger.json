@@ -67,7 +67,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixin",
+						"description": "Mixins:\nmixin to return the alternate images for a programme\nmixin to return ancestor programme titles\nmixin to return programme availability information\nmixin to return information about programmes that are currently available\nmixin to return information about contributors to a programme\nmixin to return original version duration in programme concept entities\nmixin to return list of genre groupings\nmixin to add image information for a programme\nmixin to add embeddable information for a programme\nmixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)\nmixin to return information about related links to a programme\nmixin to return information about programmes that are currently available\n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -536,7 +536,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixin",
+						"description": "Mixins:\nreturn ancestor programme titles\n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -744,7 +744,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixin",
+						"description": "Mixins:\nmixin to return the alternate images for a group\nmixin to return links to programme entities that group belongs to\nmixin to add image information for a group\nmixin to return related links for the group\n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -1013,7 +1013,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixin",
+						"description": "Mixins:\nmixin to return information about contributors to items\nmixin to add image information for an item\nmixin to return programme segment events, works in conjunction with programme or segment_event filters\n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -1172,7 +1172,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixin",
+						"description": "Mixins:\nmixin to add image information for a masterbrand\n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -1396,7 +1396,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixin",
+						"description": "Mixins:\nmixin to return information about related links to a promotion\n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -1529,7 +1529,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixin",
+						"description": "Mixins:\nreturn ancestor programme titles\nmixin to add image information for broadcasts and webcasts\n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {

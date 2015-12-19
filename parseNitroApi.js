@@ -245,7 +245,7 @@ function exportMixin(feed,mixin,mixinName) {
 	if (!param.name) {
 		param.name = 'mixin';
 		param.in = 'query';
-		param.description = 'Mixin';
+		param.description = 'Mixins:\n';
 		param.type = 'array';
 		param.collectionFormat = 'multi';
 		param.items = {};
@@ -255,6 +255,7 @@ function exportMixin(feed,mixin,mixinName) {
 		params.push(param);
 	}
 	param.enum.push(mixin.name);
+	param.description += mixin.title+'\n';
 
 	return s;
 }
