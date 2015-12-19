@@ -221,6 +221,7 @@
 						"in": "query",
 						"description": "filter for subset of programmes with title beginning with initial letter librarian style (ignoring leading 'The', 'An' (Welsh), etc) 0-9 a-z",
 						"type": "string",
+						"maxLength": 1,
 						"required": false
 					},
 					{
@@ -228,6 +229,7 @@
 						"in": "query",
 						"description": "Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range",
 						"type": "string",
+						"maxLength": 1,
 						"required": false
 					},
 					{
@@ -235,6 +237,7 @@
 						"in": "query",
 						"description": "Programmes with (librarian) titles whose initial letter is equal/after given letter. Use with initial_letter_end for range.",
 						"type": "string",
+						"maxLength": 1,
 						"required": false
 					},
 					{
@@ -242,6 +245,7 @@
 						"in": "query",
 						"description": "filter for subset of programmes with title beginning with initial letter",
 						"type": "string",
+						"maxLength": 1,
 						"required": false
 					},
 					{
@@ -284,14 +288,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -306,6 +314,7 @@
 						"in": "query",
 						"description": "filter for programmes by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{
@@ -457,14 +466,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -553,6 +566,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts that end on or later than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -560,6 +574,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts that end on or earlier than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -594,14 +609,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -630,6 +649,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts that start on the specified day (BBC time)",
 						"type": "string",
+						"format": "date",
 						"required": false
 					},
 					{
@@ -637,6 +657,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts that start on or after the specified day (BBC time)",
 						"type": "string",
+						"format": "date",
 						"required": false
 					},
 					{
@@ -644,6 +665,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts that start on or before the specified day (BBC time)",
 						"type": "string",
+						"format": "date",
 						"required": false
 					},
 					{
@@ -665,6 +687,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts that start on or later than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -672,6 +695,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts that start on or earlier than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -783,14 +807,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -805,6 +833,7 @@
 						"in": "query",
 						"description": "filter for groups by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{
@@ -902,14 +931,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -924,6 +957,7 @@
 						"in": "query",
 						"description": "filter for images by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{
@@ -1035,14 +1069,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -1057,6 +1095,7 @@
 						"in": "query",
 						"description": "filter for items by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{
@@ -1155,14 +1194,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -1177,6 +1220,7 @@
 						"in": "query",
 						"description": "filter for masterbrands by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{
@@ -1242,14 +1286,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -1264,6 +1312,7 @@
 						"in": "query",
 						"description": "filter for people by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{
@@ -1307,14 +1356,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -1365,14 +1418,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -1387,6 +1444,7 @@
 						"in": "query",
 						"description": "filter for promotions by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{
@@ -1502,6 +1560,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that end on or later than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -1509,6 +1568,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that end on or earlier than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -1557,14 +1617,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -1579,6 +1643,7 @@
 						"in": "query",
 						"description": "filter for broadcasts and webcasts by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{
@@ -1606,7 +1671,7 @@
 						"name": "repeat",
 						"in": "query",
 						"description": "filter to show either only repeats or non-repeats",
-						"type": "string",
+						"type": "boolean",
 						"required": false
 					},
 					{
@@ -1614,6 +1679,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that start on the specified day (BBC time)",
 						"type": "string",
+						"format": "date",
 						"required": false
 					},
 					{
@@ -1621,6 +1687,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that start on or after the specified day (BBC time)",
 						"type": "string",
+						"format": "date",
 						"required": false
 					},
 					{
@@ -1628,6 +1695,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that start on or before the specified day (BBC time)",
 						"type": "string",
+						"format": "date",
 						"required": false
 					},
 					{
@@ -1649,6 +1717,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that start on or later than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -1656,6 +1725,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that start on or earlier than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -1686,6 +1756,7 @@
 						"in": "query",
 						"description": "Return services that end on or later than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -1693,6 +1764,7 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts that end on or earlier than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -1706,14 +1778,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -1728,6 +1804,7 @@
 						"in": "query",
 						"description": "filter for services by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{
@@ -1767,6 +1844,7 @@
 						"in": "query",
 						"description": "Return services that start on or later than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					},
 					{
@@ -1774,6 +1852,7 @@
 						"in": "query",
 						"description": "Return services that start earlier than the specified datetime",
 						"type": "string",
+						"format": "date-time",
 						"required": false
 					}
 				],
@@ -1824,14 +1903,18 @@
 						"name": "page",
 						"in": "query",
 						"description": "which page of results to return",
-						"type": "string",
+						"type": "integer",
+						"default": "1",
+						"minimum": 1,
 						"required": false
 					},
 					{
 						"name": "page_size",
 						"in": "query",
 						"description": "number of results in each page",
-						"type": "string",
+						"type": "integer",
+						"default": "10",
+						"maximum": 300,
 						"required": false
 					},
 					{
@@ -1846,6 +1929,7 @@
 						"in": "query",
 						"description": "filter for versions by partner PID",
 						"type": "string",
+						"default": "s0000001",
 						"required": false
 					},
 					{

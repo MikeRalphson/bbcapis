@@ -369,7 +369,29 @@ function exportFilter(feed,filter,filterName) {
 			param.name = filter.name;
 			param.in = 'query';
 			param.description = filter.title;
-			param.type = 'string';
+			param.type = (filter.type == 'PID' ? 'string' : filter.type);
+			if (filter.type == 'ID') param.type = 'string';
+			if (filter.type == 'datetime') {
+				param.type = 'string';
+				param.format = 'date-time';
+			}
+			if (filter.type == 'date') {
+				param.type = 'string';
+				param.format = 'date';
+			}
+			if (filter.type == 'character') {
+				param.type = 'string';
+				param.maxLength = 1;
+			}
+			if (filter.default) {
+				param.default = filter.default;
+			}
+			if (filter.min_value) {
+				param.minimum = filter.min_value;
+			}
+			if (filter.max_value) {
+				param.maximum = filter.max_value;
+			}
 			param.required = false;
 			params.push(param);
 		}
@@ -415,24 +437,6 @@ function processFeed(feed) {
 	path.get.description = feed.title;
 	path.get.operationId = 'find'+feed.name;
 	params = path.get.parameters = [];
-
-	// "responses": {
-          // "200": {
-            // "description": "pet response",
-            // "schema": {
-              // "type": "array",
-              // "items": {
-                // "$ref": "#/definitions/Pet"
-              // }
-            // }
-          // },
-          // "default": {
-            // "description": "unexpected error",
-            // "schema": {
-              // "$ref": "#/definitions/Error"
-            // }
-          // }
-        // }
 
 	path.get.responses = {};
 	path.get.responses['200'] = {};
