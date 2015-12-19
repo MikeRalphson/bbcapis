@@ -1,0 +1,527 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "BBC Nitro API",
+		"description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
+		"termsOfService": "http://www.bbc.co.uk/terms/",
+		"contact": {
+			"name": "Nitro Swagger Resource",
+			"email": "mike.ralphson@gmail.com",
+			"url": "http://mermade.github.io/"
+		},
+		"license": {
+			"name": "Nitro Public License",
+			"url": "https://developer.bbc.co.uk/nitropubliclicence/"
+		}
+	},
+	"host": "bbc.co.uk",
+	"basePath": "/nitro/api",
+	"schemes": [
+		"http"
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json",
+		"application/xml"
+	],
+	"paths": {
+		"/programmes": {
+			"get": {
+				"description": "Start here for programmes metadata: Brands, Series, Episodes and Clips",
+				"operationId": "findProgrammes",
+				"parameters": [
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sort",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"group_position",
+							"pid",
+							"position",
+							"promotion",
+							"release_date",
+							"relevance",
+							"scheduled_start",
+							"strict_title",
+							"title",
+							"tree",
+							"views"
+						]
+					},
+					{
+						"name": "sort_direction",
+						"in": "query",
+						"description": "Sort direction",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"ascending",
+							"descending"
+						]
+					},
+					{
+						"name": "mixin",
+						"in": "query",
+						"description": "Mixin",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"alternate_images",
+							"ancestor_titles",
+							"availability",
+							"available_versions",
+							"contributions",
+							"duration",
+							"genre_groupings",
+							"images",
+							"is_embeddable",
+							"previous_next",
+							"related_links",
+							"versions_availability"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/availabilities": {
+			"get": {
+				"description": "Discover details of on-demand availability for programmes and their versions",
+				"operationId": "findAvailability",
+				"parameters": [
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sort",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"scheduled_start"
+						]
+					},
+					{
+						"name": "sort_direction",
+						"in": "query",
+						"description": "Sort direction",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"ascending",
+							"descending"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/broadcasts": {
+			"get": {
+				"description": "Build schedules and find metadata for TV and radio broadcasts",
+				"operationId": "findBroadcasts",
+				"parameters": [
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sort",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"start_date"
+						]
+					},
+					{
+						"name": "sort_direction",
+						"in": "query",
+						"description": "Sort direction",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"ascending",
+							"descending"
+						]
+					},
+					{
+						"name": "mixin",
+						"in": "query",
+						"description": "Mixin",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"titles"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/groups": {
+			"get": {
+				"description": "Find metadata for curated groups: seasons, collections, galleries or franchises",
+				"operationId": "findGroups",
+				"parameters": [
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sort",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"pid"
+						]
+					},
+					{
+						"name": "sort_direction",
+						"in": "query",
+						"description": "Sort direction",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"descending"
+						]
+					},
+					{
+						"name": "mixin",
+						"in": "query",
+						"description": "Mixin",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"alternate_images",
+							"group_for",
+							"images",
+							"related_links"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/images": {
+			"get": {
+				"description": "Find metadata for images",
+				"operationId": "findImages",
+				"parameters": [
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sort",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"group_position",
+							"pid"
+						]
+					},
+					{
+						"name": "sort_direction",
+						"in": "query",
+						"description": "Sort direction",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"ascending",
+							"descending"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/items": {
+			"get": {
+				"description": "Look inside programmes to find segments: chapters, tracks and more",
+				"operationId": "findItems",
+				"parameters": [
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sort",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"pid"
+						]
+					},
+					{
+						"name": "sort_direction",
+						"in": "query",
+						"description": "Sort direction",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"descending"
+						]
+					},
+					{
+						"name": "mixin",
+						"in": "query",
+						"description": "Mixin",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"contributions",
+							"images",
+							"play_event"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/master_brands": {
+			"get": {
+				"description": "List all Master Brands",
+				"operationId": "findMasterbrands",
+				"parameters": [
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sort",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"mid"
+						]
+					},
+					{
+						"name": "sort_direction",
+						"in": "query",
+						"description": "Sort direction",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"ascending"
+						]
+					},
+					{
+						"name": "mixin",
+						"in": "query",
+						"description": "Mixin",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"images"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/people": {
+			"get": {
+				"description": "Find the people behind and in programmes: cast, crew, guests and more",
+				"operationId": "findPeople",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/pips": {
+			"get": {
+				"description": "Look inside pips entities",
+				"operationId": "findPips",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/promotions": {
+			"get": {
+				"description": "Discover metadata for content promotions",
+				"operationId": "findPromotions",
+				"parameters": [
+					{
+						"name": "mixin",
+						"in": "query",
+						"description": "Mixin",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"related_links"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/schedules": {
+			"get": {
+				"description": "Build schedules and find metadata for TV and radio broadcasts and webcasts",
+				"operationId": "findSchedules",
+				"parameters": [
+					{
+						"name": "sort",
+						"in": "query",
+						"description": "Sort",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"start_date"
+						]
+					},
+					{
+						"name": "sort_direction",
+						"in": "query",
+						"description": "Sort direction",
+						"type": "string",
+						"required": false,
+						"enum": [
+							"ascending",
+							"descending"
+						]
+					},
+					{
+						"name": "mixin",
+						"in": "query",
+						"description": "Mixin",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"ancestor_titles",
+							"images"
+						]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/services": {
+			"get": {
+				"description": "Information about the linear services used for broadcast transmissions",
+				"operationId": "findServices",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		},
+		"/versions": {
+			"get": {
+				"description": "Metadata on editorial programme versions: original, signed, audio-described, etc",
+				"operationId": "findVersions",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Nitro response"
+					},
+					"default": {
+						"description": "Unexpected error"
+					}
+				}
+			}
+		}
+	}
+}

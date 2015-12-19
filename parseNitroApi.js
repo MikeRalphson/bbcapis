@@ -375,6 +375,30 @@ function processFeed(feed) {
 	path.get.description = feed.title;
 	path.get.operationId = 'find'+feed.name;
 	params = path.get.parameters = [];
+	
+	// "responses": {
+          // "200": {
+            // "description": "pet response",
+            // "schema": {
+              // "type": "array",
+              // "items": {
+                // "$ref": "#/definitions/Pet"
+              // }
+            // }
+          // },
+          // "default": {
+            // "description": "unexpected error",
+            // "schema": {
+              // "$ref": "#/definitions/Error"
+            // }
+          // }
+        // }
+	
+	path.get.responses = {};
+	path.get.responses['200'] = {};
+	path.get.responses['200'].description = 'Nitro response';
+	path.get.responses.default = {};
+	path.get.responses.default.description = 'Unexpected error';
 
 	if (feed.sorts) {
 		feed.sorts.sort = toArray(feed.sorts.sort); // only necessary if json api converted from xml
