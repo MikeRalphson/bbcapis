@@ -12,6 +12,8 @@ var api_fh = fs.openSync(apijs,'w');
 
 var cache = [];
 var seen = [];
+var swagger = {};
+var params = [];
 
 //__________________________________________________________________
 
@@ -61,6 +63,22 @@ function prohibits(p) {
 }
 
 //__________________________________________________________________
+function depend(p) {
+	var s = '';
+	var a = toArray(p);
+
+	for (var i in a) {
+		if (a[i].filter) {
+			s += '* Dependency on filter '+a[i].filter+(a[i].value ? ' value: '+a[i].value : '')+'\n';
+		}
+		if (a[i].mixin) {
+			s += '* Dependency on mixin '+a[i].mixin+'\n';
+		}
+	}
+	return s;
+}
+
+//__________________________________________________________________
 function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 	s = '/**\n';
 	s += '* '+sort.title+'\n';
@@ -84,6 +102,26 @@ function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 	s += sortDirectionName+' : '+sortDirectionName+',\n';
 	fs.appendFileSync(apijs, 'const '+sortDirectionName+" = 'sort="+sort.name+'&'+sortDirection.name+'='+sortDirection.value+"';\n", 'utf8');
 	cache.push(s);
+
+	var param = {};
+	for (var p in params) {
+		if (params[p].name == 'sort_direction') {
+			param = params[p];
+		}
+	}
+	if (!param.name) {
+		param.name = 'sort_direction';
+		param.in = 'query';
+		param.description = 'Sort direction';
+		param.type = 'string';
+		param.required = false;
+		param.enum = [];
+		params.push(param);
+	}
+	if (param.enum.indexOf(sortDirection.value)<0) {
+		param.enum.push(sortDirection.value);
+	}
+
 	return s;
 }
 
@@ -118,8 +156,29 @@ function exportSort(feed,sort,sortName) {
 }
 
 //__________________________________________________________________
+function swagSort(sort) {
+	var param = {};
+	for (var p in params) {
+		if (params[p].name == 'sort') {
+			param = params[p];
+		}
+	}
+	if (!param.name) {
+		param.name = 'sort';
+		param.in = 'query';
+		param.description = 'Sort';
+		param.type = 'string';
+		param.required = false;
+		param.enum = [];
+		params.push(param);
+	}
+	param.enum.push(sort.name);
+}
+
+//__________________________________________________________________
 function processSort(feed,sort,sortName) {
 	if (checkReleaseStatus(sort.release_status)) {
+		swagSort(sort);
 		if (sort.sort_direction) {
 			sort.sort_direction = toArray(sort.sort_direction); // only necessary if json api converted from xml
 			for (var i in sort.sort_direction) {
@@ -166,10 +225,34 @@ function exportMixin(feed,mixin,mixinName) {
 	if (mixin.prohibits) {
 		s += prohibits(mixin.prohibits);
 	}
+	if (mixin.dependency_on) {
+		s += depend(mixin.dependency_on);
+	}
 	s += '*/\n';
 	s += mixinName+' : '+mixinName+',\n';
 	fs.appendFileSync(apijs, 'const '+mixinName+" = 'mixin="+mixin.name+"';\n", 'utf8');
 	cache.push(s);
+
+	var param = {};
+	for (var p in params) {
+		if (params[p].name == 'mixin') {
+			param = params[p];
+		}
+	}
+	if (!param.name) {
+		param.name = 'mixin';
+		param.in = 'query';
+		param.description = 'Mixin';
+		param.type = 'array';
+		param.collectionFormat = 'multi';
+		param.items = {};
+		param.items.format = 'string';
+		param.required = false;
+		param.enum = [];
+		params.push(param);
+	}
+	param.enum.push(mixin.name);
+
 	return s;
 }
 
@@ -277,6 +360,22 @@ function processFilter(feed,filter,filterName) {
 
 //__________________________________________________________________
 function processFeed(feed) {
+
+	var feedName = ('nitro-'+feed.name).toCamelCase();
+	fs.appendFileSync(apijs, 'const '+feedName+" = '"+feed.href+"';\n", 'utf8');
+	var s = '/**\n';
+	s += '* '+feed.title+'\n';
+	s += '*/\n';
+	s += feedName+' : '+feedName+',\n';
+	cache.push(s);
+
+	var pathname = feed.href.replace('/nitro/api','');
+	var path = swagger.paths[pathname] = {};
+	path.get = {};
+	path.get.description = feed.title;
+	path.get.operationId = 'find'+feed.name;
+	params = path.get.parameters = [];
+
 	if (feed.sorts) {
 		feed.sorts.sort = toArray(feed.sorts.sort); // only necessary if json api converted from xml
 		if (feed.sorts.sort instanceof Array) {
@@ -309,6 +408,42 @@ function processFeed(feed) {
 }
 
 //__________________________________________________________________
+function initSwagger() {
+	return JSON.parse(`{
+	  "swagger": "2.0",
+	  "info": {
+		"version": "1.0.0",
+		"title": "BBC Nitro API",
+		"description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
+		"termsOfService": "http://www.bbc.co.uk/terms/",
+		"contact": {
+		  "name": "Nitro Swagger Resource",
+		  "email": "mike.ralphson@gmail.com",
+		  "url": "http://mermade.github.io/"
+		},
+		"license": {
+		  "name": "Nitro Public License",
+		  "url": "https://developer.bbc.co.uk/nitropubliclicence/"
+		}
+	  },
+	  "host": "bbc.co.uk",
+	  "basePath": "/nitro/api",
+	  "schemes": [
+		"http"
+	  ],
+	  "consumes": [
+		"application/json"
+	  ],
+	  "produces": [
+		"application/json",
+		"application/xml"
+	  ],
+	  "paths": {
+	  }
+	}`);
+}
+
+//__________________________________________________________________
 
 var canonical = JSON.stringify(api);
 
@@ -328,14 +463,16 @@ s.on('end', function() {
   digest = shasum.digest('hex');
 });
 
+swagger = initSwagger();
+
 var feed;
 for (var f in api.feeds.feed) {
 	feed = api.feeds.feed[f];
-	if (feed.name) {
+	if (checkReleaseStatus(feed.release_status)) {
 		processFeed(feed);
 	}
 	else {
-		console.log(feed);
+		console.log('Skipping feed '+feed.name+' as '+feed.release_status);
 	}
 }
 
@@ -350,4 +487,6 @@ process.on('exit',function(){
 	fs.appendFileSync(apijs, '}\n', 'utf8');
 
 	fs.closeSync(api_fh);
+
+	fs.writeFileSync('./nitroApi/swagger.json',JSON.stringify(swagger,null,'\t'));
 });
