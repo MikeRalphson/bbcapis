@@ -15,7 +15,7 @@
 			"url": "https://developer.bbc.co.uk/nitropubliclicence/"
 		}
 	},
-	"host": "bbc.co.uk",
+	"host": "nitro.api.bbci.co.uk",
 	"basePath": "/nitro/api",
 	"schemes": [
 		"http"
@@ -88,6 +88,305 @@
 							"related_links",
 							"versions_availability"
 						]
+					},
+					{
+						"name": "audio_described",
+						"in": "query",
+						"description": "filter for subset of programmes that are audio-described",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"true",
+							"false"
+						]
+					},
+					{
+						"name": "availability",
+						"in": "query",
+						"description": "filter for subset of programmes that have availability",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"available",
+							"pending"
+						]
+					},
+					{
+						"name": "availability_entity_type",
+						"in": "query",
+						"description": "additional filter when availability=available",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"episode",
+							"clip"
+						]
+					},
+					{
+						"name": "availability_type",
+						"in": "query",
+						"description": "filter for a subset of programmes that are available for a given type",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"ondemand"
+						]
+					},
+					{
+						"name": "children_of",
+						"in": "query",
+						"description": "filter for subset of programmes that have PID as immediate parent",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "descendants_of",
+						"in": "query",
+						"description": "filter for subset of programmes that have PID as ancestor",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "duration",
+						"in": "query",
+						"description": "filter for subset of programmes that have given duration",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"short",
+							"medium",
+							"long"
+						]
+					},
+					{
+						"name": "entity_type",
+						"in": "query",
+						"description": "filter for subset of programmes that have given entity type",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"brand",
+							"series",
+							"episode",
+							"clip"
+						]
+					},
+					{
+						"name": "format",
+						"in": "query",
+						"description": "filter for subset of programmes with format",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "genre",
+						"in": "query",
+						"description": "filter for subset of programmes with genre",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "group",
+						"in": "query",
+						"description": "filter for subset of programmes which belong to the given group pid",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "initial_letter",
+						"in": "query",
+						"description": "filter for subset of programmes with title beginning with initial letter librarian style (ignoring leading 'The', 'An' (Welsh), etc) 0-9 a-z",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "initial_letter_end",
+						"in": "query",
+						"description": "Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "initial_letter_start",
+						"in": "query",
+						"description": "Programmes with (librarian) titles whose initial letter is equal/after given letter. Use with initial_letter_end for range.",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "initial_letter_strict",
+						"in": "query",
+						"description": "filter for subset of programmes with title beginning with initial letter",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "item",
+						"in": "query",
+						"description": "filter for subset of programmes with linked to versions which have the given item pids",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "master_brand",
+						"in": "query",
+						"description": "filter for subset of programmes with master_brand",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "media_set",
+						"in": "query",
+						"description": "filter for subset of programmes with media set",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "media_type",
+						"in": "query",
+						"description": "filter for subset of programmes with media type",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"audio",
+							"audio_video"
+						]
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for programmes by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for programmes by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "people",
+						"in": "query",
+						"description": "filter for subset of programmes with contributions by given people PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of programmes having given PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "promoted_for",
+						"in": "query",
+						"description": "filter for subset of programmes which are promoted for given service",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "signed",
+						"in": "query",
+						"description": "filter for subset of programmes that are signed",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"exclusive",
+							"inclusive",
+							"exclude"
+						]
+					},
+					{
+						"name": "tag_name",
+						"in": "query",
+						"description": "filter for subset of programmes with tag",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "tag_scheme",
+						"in": "query",
+						"description": "filter for subset of programmes with a tag",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "tleo",
+						"in": "query",
+						"description": "filter for subset of programmes that are TLEOs",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"true",
+							"false"
+						]
+					},
+					{
+						"name": "version",
+						"in": "query",
+						"description": "filter for subset of programmes with given PID as one of their versions",
+						"type": "string",
+						"required": false
 					}
 				],
 				"responses": {
@@ -124,6 +423,64 @@
 						"enum": [
 							"ascending",
 							"descending"
+						]
+					},
+					{
+						"name": "availability",
+						"in": "query",
+						"description": "filter for subset of availabilities",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"available"
+						]
+					},
+					{
+						"name": "descendants_of",
+						"in": "query",
+						"description": "filter for subset of availabilities that have PID as ancestor",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "media_set",
+						"in": "query",
+						"description": "filter for subset of availabilities with media set",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "territory",
+						"in": "query",
+						"description": "filter for availabilities in given territory",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"uk",
+							"nonuk",
+							"world"
 						]
 					}
 				],
@@ -176,6 +533,153 @@
 						"enum": [
 							"titles"
 						]
+					},
+					{
+						"name": "authority",
+						"in": "query",
+						"description": "filter for subset of broadcasts that have given authority",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "descendants_of",
+						"in": "query",
+						"description": "filter for subset of broadcasts that are descendants of the given programme PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "end_from",
+						"in": "query",
+						"description": "filter for subset of broadcasts that end on or later than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "end_to",
+						"in": "query",
+						"description": "filter for subset of broadcasts that end on or earlier than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "format",
+						"in": "query",
+						"description": "filter for subset of broadcasts that are classified in the given format ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "genre",
+						"in": "query",
+						"description": "filter for subset of broadcasts that are classified in the given genre ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "id",
+						"in": "query",
+						"description": "filter for subset of broadcasts that have given identifier",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "item",
+						"in": "query",
+						"description": "filter for subset of broadcasts with the given item performed on it",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "people",
+						"in": "query",
+						"description": "filter for subset of broadcasts that have given contributor",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of broadcasts having given PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of broadcasts matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "schedule_day",
+						"in": "query",
+						"description": "filter for subset of broadcasts that start on the specified day (BBC time)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "schedule_day_from",
+						"in": "query",
+						"description": "filter for subset of broadcasts that start on or after the specified day (BBC time)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "schedule_day_to",
+						"in": "query",
+						"description": "filter for subset of broadcasts that start on or before the specified day (BBC time)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "service_master_brand",
+						"in": "query",
+						"description": "filter for subset of broadcasts with given service master brand",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "sid",
+						"in": "query",
+						"description": "filter for subset of broadcasts that are on the specified linear service",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "start_from",
+						"in": "query",
+						"description": "filter for subset of broadcasts that start on or later than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "start_to",
+						"in": "query",
+						"description": "filter for subset of broadcasts that start on or earlier than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "version",
+						"in": "query",
+						"description": "filter for subset of broadcasts with given PID as their parent version",
+						"type": "string",
+						"required": false
 					}
 				],
 				"responses": {
@@ -229,6 +733,93 @@
 							"images",
 							"related_links"
 						]
+					},
+					{
+						"name": "for_descendants_of",
+						"in": "query",
+						"description": "filter for groups related to given programme or its descendants",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "for_programme",
+						"in": "query",
+						"description": "filter for subset of groups directly related to a given programme",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "group",
+						"in": "query",
+						"description": "filter for subset of groups which belong to the given group pid",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "group_type",
+						"in": "query",
+						"description": "filter for subset of groups that have the given group type",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"collection",
+							"franchise",
+							"gallery",
+							"season"
+						]
+					},
+					{
+						"name": "member",
+						"in": "query",
+						"description": "filter for subset of groups which contain an entity with the given pid as a member",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for groups by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for groups by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of seasons, collections, galleries or franchises having given PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of groups matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
 					}
 				],
 				"responses": {
@@ -267,6 +858,87 @@
 							"ascending",
 							"descending"
 						]
+					},
+					{
+						"name": "group",
+						"in": "query",
+						"description": "filter for images belonging to the given group (i.e. Gallery)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "image_type",
+						"in": "query",
+						"description": "filter for images by type",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"standard",
+							"podcast",
+							"store",
+							"portrait",
+							"letterbox"
+						]
+					},
+					{
+						"name": "is_alternate_image_for",
+						"in": "query",
+						"description": "filter for alternate images by entity PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "is_image_for",
+						"in": "query",
+						"description": "filter for images by entity PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for images by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for images by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of images having given PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of images matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
 					}
 				],
 				"responses": {
@@ -319,6 +991,108 @@
 							"images",
 							"play_event"
 						]
+					},
+					{
+						"name": "authority",
+						"in": "query",
+						"description": "filter for subset of items that have an ID issued by the given authority",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "id",
+						"in": "query",
+						"description": "filter for subset of items having given ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "id_type",
+						"in": "query",
+						"description": "filter for subset of items that have given an ID of the given type",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "item_type",
+						"in": "query",
+						"description": "filter for specific type(s) of items",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"chapter",
+							"highlight",
+							"music",
+							"speech",
+							"other"
+						]
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for items by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for items by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "people",
+						"in": "query",
+						"description": "filter for subset of items that have specified person involved",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of items matching one of the given PIDs",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "programme",
+						"in": "query",
+						"description": "filter for subset of items that are part of the given programme",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of items matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "segment_event",
+						"in": "query",
+						"description": "filter for item with the given segment_event",
+						"type": "string",
+						"required": false
 					}
 				],
 				"responses": {
@@ -369,6 +1143,48 @@
 						"enum": [
 							"images"
 						]
+					},
+					{
+						"name": "mid",
+						"in": "query",
+						"description": "filter for subset of masterbrands that have given identifier",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for masterbrands by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for masterbrands by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of masterbrands matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
 					}
 				],
 				"responses": {
@@ -385,7 +1201,93 @@
 			"get": {
 				"description": "Find the people behind and in programmes: cast, crew, guests and more",
 				"operationId": "findPeople",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "authority",
+						"in": "query",
+						"description": "filter for subset of people that have an ID issued by the given authority",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "has_external_id",
+						"in": "query",
+						"description": "filter for people who have an external identifier",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"true",
+							"false"
+						]
+					},
+					{
+						"name": "id",
+						"in": "query",
+						"description": "filter for subset of people having given ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "id_type",
+						"in": "query",
+						"description": "filter for subset of people that have given an ID of the given type",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for people by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for people by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of people having given PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "programme",
+						"in": "query",
+						"description": "filter for subset of people that have contributed to the given programme pid",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of people matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Nitro response"
@@ -400,7 +1302,29 @@
 			"get": {
 				"description": "Look inside pips entities",
 				"operationId": "findPips",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Nitro response"
@@ -428,6 +1352,83 @@
 						"required": false,
 						"enum": [
 							"related_links"
+						]
+					},
+					{
+						"name": "context",
+						"in": "query",
+						"description": "filter for subset of promotions belonging to a given context",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for promotions by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for promotions by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of promotions having given PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "promoted_by",
+						"in": "query",
+						"description": "filter for subset of promotions having given promoted by",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "promoted_for",
+						"in": "query",
+						"description": "filter for subset of promotions having given promoted for",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of promotions matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "status",
+						"in": "query",
+						"description": "filter for subset of promotions with status",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"current"
 						]
 					}
 				],
@@ -481,6 +1482,188 @@
 							"ancestor_titles",
 							"images"
 						]
+					},
+					{
+						"name": "authority",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that have given authority",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "descendants_of",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that are descendants of the given programme PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "end_from",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that end on or later than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "end_to",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that end on or earlier than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "format",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that are classified in the given format ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "genre",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that are classified in the given genre ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "group",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that have programmes in the given group",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "id",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that have given identifier",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "id_type",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that have given id type",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "item",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts with the given item performed on it",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for broadcasts and webcasts by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for broadcasts and webcasts by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "people",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that have given contributor",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts having given PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "repeat",
+						"in": "query",
+						"description": "filter to show either only repeats or non-repeats",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "schedule_day",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that start on the specified day (BBC time)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "schedule_day_from",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that start on or after the specified day (BBC time)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "schedule_day_to",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that start on or before the specified day (BBC time)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "service_master_brand",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts with given service master brand",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "sid",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that are on the specified linear service",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "start_from",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that start on or later than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "start_to",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts that start on or earlier than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "version",
+						"in": "query",
+						"description": "filter for subset of broadcasts and webcasts with given PID as their parent version",
+						"type": "string",
+						"required": false
 					}
 				],
 				"responses": {
@@ -497,7 +1680,103 @@
 			"get": {
 				"description": "Information about the linear services used for broadcast transmissions",
 				"operationId": "findServices",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "end_from",
+						"in": "query",
+						"description": "Return services that end on or later than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "end_to",
+						"in": "query",
+						"description": "filter for subset of broadcasts that end on or earlier than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "mid",
+						"in": "query",
+						"description": "filter for services by masterbrand MID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for services by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for services by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "q",
+						"in": "query",
+						"description": "filter for subset of services matching supplied keyword/phrase (boolean operators permitted)",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "service_type",
+						"in": "query",
+						"description": "filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"TV",
+							"Local Radio",
+							"National Radio",
+							"Regional Radio",
+							"Interactive"
+						]
+					},
+					{
+						"name": "sid",
+						"in": "query",
+						"description": "filter for specified linear service",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "start_from",
+						"in": "query",
+						"description": "Return services that start on or later than the specified datetime",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "start_to",
+						"in": "query",
+						"description": "Return services that start earlier than the specified datetime",
+						"type": "string",
+						"required": false
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Nitro response"
@@ -512,7 +1791,71 @@
 			"get": {
 				"description": "Metadata on editorial programme versions: original, signed, audio-described, etc",
 				"operationId": "findVersions",
-				"parameters": [],
+				"parameters": [
+					{
+						"name": "availability",
+						"in": "query",
+						"description": "filter for subset of versions that have availability",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"available"
+						]
+					},
+					{
+						"name": "descendants_of",
+						"in": "query",
+						"description": "filter for subset of versions having given programme PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "media_set",
+						"in": "query",
+						"description": "filter for subset of versions with availability in the given media set",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_id",
+						"in": "query",
+						"description": "filter for versions by partner ID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for versions by partner PID",
+						"type": "string",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of versions having given PID",
+						"type": "string",
+						"required": false
+					}
+				],
 				"responses": {
 					"200": {
 						"description": "Nitro response"

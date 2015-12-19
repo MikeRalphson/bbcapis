@@ -10,6 +10,9 @@ var api = JSON.parse(apistr);
 var apijs = './nitroApi/api.js';
 var api_fh = fs.openSync(apijs,'w');
 
+var config = require('./config.json');
+var host = config.nitro.host;
+
 var cache = [];
 var seen = [];
 var swagger = {};
@@ -326,15 +329,52 @@ function exportFilter(feed,filter,filterName) {
 					console.log('  '+option.href);
 				}
 			}
+
+			var param = {};
+			for (var p in params) {
+				if (params[p].name == filter.name) {
+					param = params[p];
+				}
+			}
+			if (!param.name) {
+				param.name = filter.name;
+				param.in = 'query';
+				param.description = filter.title;
+				param.type = 'array';
+				param.collectionFormat = 'multi';
+				param.items = {};
+				param.items.format = 'string';
+				param.required = false;
+				param.enum = [];
+				params.push(param);
+			}
+			param.enum.push(option.value);
+
 		}
 	}
 	s += '*/\n';
 
-	//if (optionCount==0) {
 	s += filterName + ' : '+filterName +',\n';
 	fs.appendFileSync(apijs, 'const '+filterName+" = '"+filter.name+"';\n", 'utf8');
 	cache.push(s);
-	//}
+
+	if (optionCount<1) {
+		var param = {};
+		for (var p in params) {
+			if (params[p].name == filter.name) {
+				param = params[p];
+			}
+		}
+		if (!param.name) {
+			param.name = filter.name;
+			param.in = 'query';
+			param.description = filter.title;
+			param.type = 'string';
+			param.required = false;
+			params.push(param);
+		}
+	}
+
 	return optionCount;
 }
 
@@ -375,7 +415,7 @@ function processFeed(feed) {
 	path.get.description = feed.title;
 	path.get.operationId = 'find'+feed.name;
 	params = path.get.parameters = [];
-	
+
 	// "responses": {
           // "200": {
             // "description": "pet response",
@@ -393,7 +433,7 @@ function processFeed(feed) {
             // }
           // }
         // }
-	
+
 	path.get.responses = {};
 	path.get.responses['200'] = {};
 	path.get.responses['200'].description = 'Nitro response';
@@ -488,6 +528,7 @@ s.on('end', function() {
 });
 
 swagger = initSwagger();
+swagger.host = host;
 
 var feed;
 for (var f in api.feeds.feed) {

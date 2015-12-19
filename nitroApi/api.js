@@ -1,3 +1,4 @@
+const nitroProgrammes = '/nitro/api/programmes';
 const sProgrammesGroupPositionAscending = 'sort=group_position&sort_direction=ascending';
 const sProgrammesPidAscending = 'sort=pid&sort_direction=ascending';
 const sProgrammesPidDescending = 'sort=pid&sort_direction=descending';
@@ -82,6 +83,7 @@ const fProgrammesTleoTrue = 'tleo=true';
 const fProgrammesTleoFalse = 'tleo=false';
 const fProgrammesTleo = 'tleo';
 const fProgrammesVersion = 'version';
+const nitroAvailability = '/nitro/api/availabilities';
 const sAvailabilityScheduledStartAscending = 'sort=scheduled_start&sort_direction=ascending';
 const sAvailabilityScheduledStartDescending = 'sort=scheduled_start&sort_direction=descending';
 const fAvailabilityAvailabilityAvailable = 'availability=available';
@@ -94,6 +96,7 @@ const fAvailabilityTerritoryUk = 'territory=uk';
 const fAvailabilityTerritoryNonuk = 'territory=nonuk';
 const fAvailabilityTerritoryWorld = 'territory=world';
 const fAvailabilityTerritory = 'territory';
+const nitroBroadcasts = '/nitro/api/broadcasts';
 const sBroadcastsStartDateAscending = 'sort=start_date&sort_direction=ascending';
 const sBroadcastsStartDateDescending = 'sort=start_date&sort_direction=descending';
 const mBroadcastsTitles = 'mixin=titles';
@@ -118,6 +121,7 @@ const fBroadcastsSid = 'sid';
 const fBroadcastsStartFrom = 'start_from';
 const fBroadcastsStartTo = 'start_to';
 const fBroadcastsVersion = 'version';
+const nitroGroups = '/nitro/api/groups';
 const sGroupsPidDescending = 'sort=pid&sort_direction=descending';
 const mGroupsAlternateImages = 'mixin=alternate_images';
 const mGroupsGroupFor = 'mixin=group_for';
@@ -138,6 +142,7 @@ const fGroupsPartnerId = 'partner_id';
 const fGroupsPartnerPid = 'partner_pid';
 const fGroupsPid = 'pid';
 const fGroupsQ = 'q';
+const nitroImages = '/nitro/api/images';
 const sImagesGroupPositionAscending = 'sort=group_position&sort_direction=ascending';
 const sImagesPidAscending = 'sort=pid&sort_direction=ascending';
 const sImagesPidDescending = 'sort=pid&sort_direction=descending';
@@ -156,6 +161,7 @@ const fImagesPartnerId = 'partner_id';
 const fImagesPartnerPid = 'partner_pid';
 const fImagesPid = 'pid';
 const fImagesQ = 'q';
+const nitroItems = '/nitro/api/items';
 const sItemsPidDescending = 'sort=pid&sort_direction=descending';
 const mItemsContributions = 'mixin=contributions';
 const mItemsImages = 'mixin=images';
@@ -178,6 +184,7 @@ const fItemsPid = 'pid';
 const fItemsProgramme = 'programme';
 const fItemsQ = 'q';
 const fItemsSegmentEvent = 'segment_event';
+const nitroMasterbrands = '/nitro/api/master_brands';
 const sMasterbrandsMidAscending = 'sort=mid&sort_direction=ascending';
 const mMasterbrandsImages = 'mixin=images';
 const fMasterbrandsMid = 'mid';
@@ -186,6 +193,7 @@ const fMasterbrandsPageSize = 'page_size';
 const fMasterbrandsPartnerId = 'partner_id';
 const fMasterbrandsPartnerPid = 'partner_pid';
 const fMasterbrandsQ = 'q';
+const nitroPeople = '/nitro/api/people';
 const fPeopleAuthority = 'authority';
 const fPeopleHasExternalIdTrue = 'has_external_id=true';
 const fPeopleHasExternalIdFalse = 'has_external_id=false';
@@ -199,9 +207,11 @@ const fPeoplePartnerPid = 'partner_pid';
 const fPeoplePid = 'pid';
 const fPeopleProgramme = 'programme';
 const fPeopleQ = 'q';
+const nitroPips = '/nitro/api/pips';
 const fPipsPage = 'page';
 const fPipsPageSize = 'page_size';
 const fPipsQ = 'q';
+const nitroPromotions = '/nitro/api/promotions';
 const mPromotionsRelatedLinks = 'mixin=related_links';
 const fPromotionsContext = 'context';
 const fPromotionsPage = 'page';
@@ -214,6 +224,7 @@ const fPromotionsPromotedFor = 'promoted_for';
 const fPromotionsQ = 'q';
 const fPromotionsStatusCurrent = 'status=current';
 const fPromotionsStatus = 'status';
+const nitroSchedules = '/nitro/api/schedules';
 const sSchedulesStartDateAscending = 'sort=start_date&sort_direction=ascending';
 const sSchedulesStartDateDescending = 'sort=start_date&sort_direction=descending';
 const mSchedulesAncestorTitles = 'mixin=ancestor_titles';
@@ -244,6 +255,7 @@ const fSchedulesSid = 'sid';
 const fSchedulesStartFrom = 'start_from';
 const fSchedulesStartTo = 'start_to';
 const fSchedulesVersion = 'version';
+const nitroServices = '/nitro/api/services';
 const fServicesEndFrom = 'end_from';
 const fServicesEndTo = 'end_to';
 const fServicesMid = 'mid';
@@ -261,6 +273,7 @@ const fServicesServiceType = 'service_type';
 const fServicesSid = 'sid';
 const fServicesStartFrom = 'start_from';
 const fServicesStartTo = 'start_to';
+const nitroVersions = '/nitro/api/versions';
 const fVersionsAvailabilityAvailable = 'availability=available';
 const fVersionsAvailability = 'availability';
 const fVersionsDescendantsOf = 'descendants_of';
@@ -273,6 +286,10 @@ const fVersionsPid = 'pid';
 const apiHash = '62117fd1e608ef495dea990f0af696535256d6ea219a7b145ec836aa7797ab3b';
 
 module.exports = {
+/**
+* Start here for programmes metadata: Brands, Series, Episodes and Clips
+*/
+nitroProgrammes : nitroProgrammes,
 /**
 * sort numerically by position in group, ascending
 * /nitro/api/programmes?sort=group_position&sort_direction=ascending
@@ -387,6 +404,7 @@ sProgrammesViewsAscending : sProgrammesViewsAscending,
 sProgrammesViewsDescending : sProgrammesViewsDescending,
 /**
 * mixin to return the alternate images for a programme
+* Dependency on filter tleo value: true
 */
 mProgrammesAlternateImages : mProgrammesAlternateImages,
 /**
@@ -432,6 +450,9 @@ mProgrammesImages : mProgrammesImages,
 mProgrammesIsEmbeddable : mProgrammesIsEmbeddable,
 /**
 * mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)
+* Dependency on filter children_of
+* Dependency on filter group
+* Dependency on filter promoted_for
 */
 mProgrammesPreviousNext : mProgrammesPreviousNext,
 /**
@@ -716,6 +737,10 @@ fProgrammesTleo : fProgrammesTleo,
 */
 fProgrammesVersion : fProgrammesVersion,
 /**
+* Discover details of on-demand availability for programmes and their versions
+*/
+nitroAvailability : nitroAvailability,
+/**
 * sort chronologically by scheduled start time/date, ascending
 * /nitro/api/availabilities?sort=scheduled_start&sort_direction=ascending
 * isDefault
@@ -781,6 +806,10 @@ fAvailabilityTerritoryWorld : fAvailabilityTerritoryWorld,
 * /nitro/api/availabilities?territory=world
 */
 fAvailabilityTerritory : fAvailabilityTerritory,
+/**
+* Build schedules and find metadata for TV and radio broadcasts
+*/
+nitroBroadcasts : nitroBroadcasts,
 /**
 * sort chronologically by scheduled start time/date, ascending
 * /nitro/api/broadcasts?sort=start_date&sort_direction=ascending
@@ -908,6 +937,10 @@ fBroadcastsStartTo : fBroadcastsStartTo,
 */
 fBroadcastsVersion : fBroadcastsVersion,
 /**
+* Find metadata for curated groups: seasons, collections, galleries or franchises
+*/
+nitroGroups : nitroGroups,
+/**
 * sort alphabetically by PID
 * /nitro/api/groups?sort=pid&sort_direction=descending
 * isDefault
@@ -1014,6 +1047,10 @@ fGroupsPid : fGroupsPid,
 */
 fGroupsQ : fGroupsQ,
 /**
+* Find metadata for images
+*/
+nitroImages : nitroImages,
+/**
 * sort numerically by position, ascending only
 * /nitro/api/images?sort=group_position&sort_direction=ascending
 * isDefault
@@ -1118,6 +1155,10 @@ fImagesPid : fImagesPid,
 */
 fImagesQ : fImagesQ,
 /**
+* Look inside programmes to find segments: chapters, tracks and more
+*/
+nitroItems : nitroItems,
+/**
 * sort by pid, descending
 * /nitro/api/items?sort=pid&sort_direction=descending
 * isDefault
@@ -1135,6 +1176,8 @@ mItemsContributions : mItemsContributions,
 mItemsImages : mItemsImages,
 /**
 * mixin to return programme segment events, works in conjunction with programme or segment_event filters
+* Dependency on filter programme
+* Dependency on filter segment_event
 */
 mItemsPlayEvent : mItemsPlayEvent,
 /**
@@ -1233,6 +1276,10 @@ fItemsQ : fItemsQ,
 */
 fItemsSegmentEvent : fItemsSegmentEvent,
 /**
+* List all Master Brands
+*/
+nitroMasterbrands : nitroMasterbrands,
+/**
 * sort by mid, ascending
 * /nitro/api/master_brands?sort=mid&sort_direction=ascending
 * isDefault
@@ -1278,6 +1325,10 @@ fMasterbrandsPartnerPid : fMasterbrandsPartnerPid,
 * type = string
 */
 fMasterbrandsQ : fMasterbrandsQ,
+/**
+* Find the people behind and in programmes: cast, crew, guests and more
+*/
+nitroPeople : nitroPeople,
 /**
 * filter for subset of people that have an ID issued by the given authority
 * type = string
@@ -1349,6 +1400,10 @@ fPeopleProgramme : fPeopleProgramme,
 */
 fPeopleQ : fPeopleQ,
 /**
+* Look inside pips entities
+*/
+nitroPips : nitroPips,
+/**
 * which page of results to return
 * type = integer
 * default = 1
@@ -1367,6 +1422,10 @@ fPipsPageSize : fPipsPageSize,
 * type = string
 */
 fPipsQ : fPipsQ,
+/**
+* Discover metadata for content promotions
+*/
+nitroPromotions : nitroPromotions,
 /**
 * mixin to return information about related links to a promotion
 * /nitro/api/promotions?mixin=related_links
@@ -1432,6 +1491,10 @@ fPromotionsStatusCurrent : fPromotionsStatusCurrent,
 * /nitro/api/promotions?status=current
 */
 fPromotionsStatus : fPromotionsStatus,
+/**
+* Build schedules and find metadata for TV and radio broadcasts and webcasts
+*/
+nitroSchedules : nitroSchedules,
 /**
 * sort chronologically by scheduled start time/date, ascending
 * /nitro/api/schedules?sort=start_date&sort_direction=ascending
@@ -1590,6 +1653,10 @@ fSchedulesStartTo : fSchedulesStartTo,
 */
 fSchedulesVersion : fSchedulesVersion,
 /**
+* Information about the linear services used for broadcast transmissions
+*/
+nitroServices : nitroServices,
+/**
 * Return services that end on or later than the specified datetime
 * type = datetime
 */
@@ -1679,6 +1746,10 @@ fServicesStartFrom : fServicesStartFrom,
 * type = datetime
 */
 fServicesStartTo : fServicesStartTo,
+/**
+* Metadata on editorial programme versions: original, signed, audio-described, etc
+*/
+nitroVersions : nitroVersions,
 /**
 * filter for subset of versions that have availability
 * type = string
