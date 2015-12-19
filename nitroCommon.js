@@ -67,10 +67,10 @@ function makeRequest(host,path,key,query,settings,callback){
 						obj = list;
 					}
 					if (json && obj.fault) {
-						logFault(obj);
+						log_fault(obj);
 					}
 					else if (json && obj.errors) {
-						logError(obj);
+						log_error(obj);
 					}
 					else {
 						console.log('Unknown response object');
@@ -118,6 +118,25 @@ function makeRequest(host,path,key,query,settings,callback){
 	req.end();
 }
 
+function log_fault(fault) {
+	/*
+	{ "fault": {
+		"faultstring": "Rate limit quota violation. Quota limit : 0 exceeded by 1. Total violation count : 1. Identifier : YOUR-API-KEY-HERE",
+		"detail":
+			{"errorcode": “policies.ratelimit.QuotaViolation"}
+		}
+	}
+	*/
+	console.log(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
+}
+
+function log_error(error) {
+	/*
+	{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
+	*/
+	console.log(error.errors.error.code+': '+error.errors.error.message);
+}
+
 module.exports = {
 
 	setReturn : function(destination) {
@@ -127,23 +146,11 @@ module.exports = {
 	getReturn : function(){
 		return dest;
 	},
-
 	logFault : function(fault) {
-	/*
-	{ "fault": {
-		"faultstring": "Rate limit quota violation. Quota limit : 0 exceeded by 1. Total violation count : 1. Identifier : YOUR-API-KEY-HERE",
-		"detail":
-			{"errorcode": “policies.ratelimit.QuotaViolation"}
-		}
-	}
-	*/
-		console.log(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
+		log_fault(fault);
 	},
 	logError : function(error) {
-	/*
-	{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
-	*/
-		console.log(error.errors.error.code+': '+error.errors.error.message);
+		log_error(error);
 	},
 	hasHeader : function (header, headers) {
 		// snaffled from request module
