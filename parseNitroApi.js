@@ -169,13 +169,14 @@ function swagSort(sort) {
 	if (!param.name) {
 		param.name = 'sort';
 		param.in = 'query';
-		param.description = 'Sort';
+		param.description = 'Sorts:\n';
 		param.type = 'string';
 		param.required = false;
 		param.enum = [];
 		params.push(param);
 	}
 	param.enum.push(sort.name);
+	param.description += sort.title+'\n';
 }
 
 //__________________________________________________________________

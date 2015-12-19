@@ -36,7 +36,7 @@
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sort",
+						"description": "Sorts:\nsort numerically by position in group, ascending\nsort alphabetically by PID, descending\nsort numerically by position, ascending\nsort by promotion rank, ascending\nsort chronologically by release date, descending\nsort by weighting of search term (use with q parameter)\nsort chronologically by scheduled start time/date, ascending\nsort alphabetically by title, ascending\nsort by title librarian style (ignoring leading 'The', 'A', etc), ascending\nsort by root pid and then preorder tree sort. Requires entities to have release date.\nsort numerically by number of views (most popular first - faster most_popular)\n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -416,7 +416,7 @@
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sort",
+						"description": "Sorts:\nsort chronologically by scheduled start time/date, ascending\n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -515,7 +515,7 @@
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sort",
+						"description": "Sorts:\nsort chronologically by scheduled start time/date, ascending\n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -724,7 +724,7 @@
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sort",
+						"description": "Sorts:\nsort alphabetically by PID\n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -869,7 +869,7 @@
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sort",
+						"description": "Sorts:\nsort numerically by position, ascending only\nsort alphabetically by PID\n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -993,7 +993,7 @@
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sort",
+						"description": "Sorts:\nsort by pid, descending\n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -1152,7 +1152,7 @@
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sort",
+						"description": "Sorts:\nsort by mid, ascending\n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -1508,7 +1508,7 @@
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sort",
+						"description": "Sorts:\nsort chronologically by scheduled start time/date, ascending\n",
 						"type": "string",
 						"required": false,
 						"enum": [
