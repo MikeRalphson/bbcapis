@@ -371,8 +371,15 @@ function exportFilter(feed,filter,filterName) {
 			param.name = filter.name;
 			param.in = 'query';
 			param.description = filter.title;
-			param.type = (filter.type == 'PID' ? 'string' : filter.type);
-			if (filter.type == 'ID') param.type = 'string';
+			param.type = filter.type;
+			if (filter.type == 'PID') {
+				param.type = 'string';
+				param.minLength = 8;
+				param.pattern = "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$";
+			}
+			if (filter.type == 'ID') {
+				param.type = 'string';
+			}
 			if (filter.type == 'datetime') {
 				param.type = 'string';
 				param.format = 'date-time';
@@ -396,6 +403,20 @@ function exportFilter(feed,filter,filterName) {
 			}
 			if (filter.max_value) {
 				param.maximum = filter.max_value;
+			}
+			if (filter.multiple_values === true) {
+				param.items = {};
+				param.items.type = param.type;
+				param.type = 'array';
+				param.collectionFormat = 'multi';
+				if (param.pattern) {
+					param.items.pattern = param.pattern;
+					delete param.pattern;
+				}
+				if (param.minLength) {
+					param.items.minLength = param.minLength;
+					delete param.minLength;
+				}
 			}
 			param.required = false;
 			params.push(param);
@@ -497,9 +518,9 @@ function initSwagger() {
 		"description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
 		"termsOfService": "http://www.bbc.co.uk/terms/",
 		"contact": {
-		  "name": "Nitro Swagger Resource",
-		  "email": "mike.ralphson@gmail.com",
-		  "url": "http://mermade.github.io/"
+		  "name": "Open Nitro Project",
+		  "email": "Jon.Billings@bbc.co.uk",
+		  "url": "http://developer.bbc.co.uk/"
 		},
 		"license": {
 		  "name": "Nitro Public License",
@@ -539,6 +560,8 @@ function initSwagger() {
 }
 
 //__________________________________________________________________
+
+//https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md
 
 var canonical = JSON.stringify(api);
 

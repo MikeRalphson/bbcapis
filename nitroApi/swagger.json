@@ -6,9 +6,9 @@
 		"description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
 		"termsOfService": "http://www.bbc.co.uk/terms/",
 		"contact": {
-			"name": "Nitro Swagger Resource",
-			"email": "mike.ralphson@gmail.com",
-			"url": "http://mermade.github.io/"
+			"name": "Open Nitro Project",
+			"email": "Jon.Billings@bbc.co.uk",
+			"url": "http://developer.bbc.co.uk/"
 		},
 		"license": {
 			"name": "Nitro Public License",
@@ -166,14 +166,26 @@
 						"name": "children_of",
 						"in": "query",
 						"description": "filter for subset of programmes that have PID as immediate parent",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "descendants_of",
 						"in": "query",
 						"description": "filter for subset of programmes that have PID as ancestor",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -213,14 +225,22 @@
 						"name": "format",
 						"in": "query",
 						"description": "filter for subset of programmes with format",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "genre",
 						"in": "query",
 						"description": "filter for subset of programmes with genre",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -228,6 +248,8 @@
 						"in": "query",
 						"description": "filter for subset of programmes which belong to the given group pid",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -258,22 +280,36 @@
 						"name": "initial_letter_strict",
 						"in": "query",
 						"description": "filter for subset of programmes with title beginning with initial letter",
-						"type": "string",
+						"type": "array",
 						"maxLength": 1,
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "item",
 						"in": "query",
 						"description": "filter for subset of programmes with linked to versions which have the given item pids",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "master_brand",
 						"in": "query",
 						"description": "filter for subset of programmes with master_brand",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -320,15 +356,27 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for programmes by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for programmes by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -336,13 +384,21 @@
 						"in": "query",
 						"description": "filter for subset of programmes with contributions by given people PID",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of programmes having given PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -408,7 +464,13 @@
 						"name": "version",
 						"in": "query",
 						"description": "filter for subset of programmes with given PID as one of their versions",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					}
 				],
@@ -475,14 +537,24 @@
 						"name": "descendants_of",
 						"in": "query",
 						"description": "filter for subset of availabilities that have PID as ancestor",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "media_set",
 						"in": "query",
 						"description": "filter for subset of availabilities with media set",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -583,14 +655,24 @@
 						"name": "authority",
 						"in": "query",
 						"description": "filter for subset of broadcasts that have given authority",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "descendants_of",
 						"in": "query",
 						"description": "filter for subset of broadcasts that are descendants of the given programme PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -613,28 +695,46 @@
 						"name": "format",
 						"in": "query",
 						"description": "filter for subset of broadcasts that are classified in the given format ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "genre",
 						"in": "query",
 						"description": "filter for subset of broadcasts that are classified in the given genre ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "id",
 						"in": "query",
 						"description": "filter for subset of broadcasts that have given identifier",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "item",
 						"in": "query",
 						"description": "filter for subset of broadcasts with the given item performed on it",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -666,7 +766,13 @@
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of broadcasts having given PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -704,14 +810,22 @@
 						"name": "service_master_brand",
 						"in": "query",
 						"description": "filter for subset of broadcasts with given service master brand",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "sid",
 						"in": "query",
 						"description": "filter for subset of broadcasts that are on the specified linear service",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -734,7 +848,13 @@
 						"name": "version",
 						"in": "query",
 						"description": "filter for subset of broadcasts with given PID as their parent version",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					}
 				],
@@ -804,6 +924,8 @@
 						"in": "query",
 						"description": "filter for groups related to given programme or its descendants",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -811,6 +933,8 @@
 						"in": "query",
 						"description": "filter for subset of groups directly related to a given programme",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -818,6 +942,8 @@
 						"in": "query",
 						"description": "filter for subset of groups which belong to the given group pid",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -842,6 +968,8 @@
 						"in": "query",
 						"description": "filter for subset of groups which contain an entity with the given pid as a member",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -866,22 +994,40 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for groups by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for groups by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of seasons, collections, galleries or franchises having given PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -943,6 +1089,8 @@
 						"in": "query",
 						"description": "filter for images belonging to the given group (i.e. Gallery)",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -968,6 +1116,8 @@
 						"in": "query",
 						"description": "filter for alternate images by entity PID",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -975,6 +1125,8 @@
 						"in": "query",
 						"description": "filter for images by entity PID",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -999,22 +1151,40 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for images by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for images by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of images having given PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1096,7 +1266,11 @@
 						"name": "id",
 						"in": "query",
 						"description": "filter for subset of items having given ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1146,15 +1320,27 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for items by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for items by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1168,7 +1354,13 @@
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of items matching one of the given PIDs",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1176,6 +1368,8 @@
 						"in": "query",
 						"description": "filter for subset of items that are part of the given programme",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -1255,7 +1449,11 @@
 						"name": "mid",
 						"in": "query",
 						"description": "filter for subset of masterbrands that have given identifier",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1280,15 +1478,27 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for masterbrands by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for masterbrands by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1349,7 +1559,11 @@
 						"name": "id",
 						"in": "query",
 						"description": "filter for subset of people having given ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1381,22 +1595,40 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for people by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for people by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of people having given PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1507,6 +1739,8 @@
 						"in": "query",
 						"description": "filter for subset of promotions belonging to a given context",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
@@ -1531,36 +1765,62 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for promotions by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for promotions by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of promotions having given PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "promoted_by",
 						"in": "query",
 						"description": "filter for subset of promotions having given promoted by",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "promoted_for",
 						"in": "query",
 						"description": "filter for subset of promotions having given promoted for",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1649,14 +1909,24 @@
 						"name": "authority",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that have given authority",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "descendants_of",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that are descendants of the given programme PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1679,14 +1949,22 @@
 						"name": "format",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that are classified in the given format ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "genre",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that are classified in the given genre ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1694,27 +1972,43 @@
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that have programmes in the given group",
 						"type": "string",
+						"minLength": 8,
+						"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
 						"required": false
 					},
 					{
 						"name": "id",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that have given identifier",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "id_type",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that have given id type",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "item",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts with the given item performed on it",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1739,15 +2033,27 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for broadcasts and webcasts by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for broadcasts and webcasts by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1761,7 +2067,13 @@
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts having given PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1806,14 +2118,22 @@
 						"name": "service_master_brand",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts with given service master brand",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "sid",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts that are on the specified linear service",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1836,7 +2156,13 @@
 						"name": "version",
 						"in": "query",
 						"description": "filter for subset of broadcasts and webcasts with given PID as their parent version",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					}
 				],
@@ -1884,7 +2210,11 @@
 						"name": "mid",
 						"in": "query",
 						"description": "filter for services by masterbrand MID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1909,15 +2239,27 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for services by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for services by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -1949,7 +2291,11 @@
 						"name": "sid",
 						"in": "query",
 						"description": "filter for specified linear service",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -2011,14 +2357,24 @@
 						"name": "descendants_of",
 						"in": "query",
 						"description": "filter for subset of versions having given programme PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "media_set",
 						"in": "query",
 						"description": "filter for subset of versions with availability in the given media set",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string"
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
@@ -2043,22 +2399,40 @@
 						"name": "partner_id",
 						"in": "query",
 						"description": "filter for versions by partner ID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "partner_pid",
 						"in": "query",
 						"description": "filter for versions by partner PID",
-						"type": "string",
+						"type": "array",
 						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					},
 					{
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of versions having given PID",
-						"type": "string",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
 						"required": false
 					}
 				],
