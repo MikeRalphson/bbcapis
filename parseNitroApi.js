@@ -176,7 +176,7 @@ function swagSort(sort) {
 		params.push(param);
 	}
 	param.enum.push(sort.name);
-	param.description += sort.title+'  \n';
+	param.description += '---\n'+sort.title+'  \n';
 }
 
 //__________________________________________________________________
@@ -256,7 +256,7 @@ function exportMixin(feed,mixin,mixinName) {
 		params.push(param);
 	}
 	param.enum.push(mixin.name);
-	param.description += mixin.title+'  \n';
+	param.description += '---\n'+mixin.title+'  \n';
 
 	return s;
 }
@@ -431,7 +431,7 @@ function processFilter(feed,filter,filterName) {
 	if (checkReleaseStatus(filter.release_status)) {
 		if (seen.indexOf(filterName)<0) {
 			if (!filter.type) {
-				console.log('++++++++++ typeless filter ++++++++ '+filterName);
+				console.log('+ typeless filter: '+filterName);
 			}
 			if (exportFilter(feed,filter,filterName)==0) {
 				seen.push(filterName);
@@ -463,7 +463,7 @@ function processFeed(feed) {
 	path.get.description = feed.title;
 	path.get.tags = ['feeds'];
 	path.get.summary = feed.title;
-	path.get.operationId = 'find'+feed.name;
+	path.get.operationId = 'list'+feed.name;
 	params = path.get.parameters = [];
 
 	path.get.responses = {};
@@ -471,11 +471,6 @@ function processFeed(feed) {
 	path.get.responses['200'].description = 'Nitro response';
 	path.get.responses.default = {};
 	path.get.responses.default.description = 'Unexpected error';
-
-	path.get.security = [];
-	var sec = {};
-	sec.api_key = [];
-	path.get.security.push(sec);
 
 	if (feed.sorts) {
 		feed.sorts.sort = toArray(feed.sorts.sort); // only necessary if json api converted from xml
@@ -555,7 +550,10 @@ function initSwagger() {
 			"name" : "api_key",
 			"in" : "query"
 		}
-	  }
+	  },
+	  "security": [{
+		  "api_key" : []
+	  }]
 	}`);
 }
 
@@ -608,11 +606,6 @@ path.get.responses['200'].description = 'Nitro response';
 path.get.responses.default = {};
 path.get.responses.default.description = 'Unexpected error';
 
-path.get.security = [];
-var sec = {};
-sec.api_key = [];
-path.get.security.push(sec);
-
 path = swagger.paths['/schema'] = {};
 path.get = {};
 path.get.summary = path.get.description = 'Get schema definition';
@@ -625,11 +618,6 @@ path.get.responses['200'] = {};
 path.get.responses['200'].description = 'Nitro response';
 path.get.responses.default = {};
 path.get.responses.default.description = 'Unexpected error';
-
-path.get.security = [];
-sec = {};
-sec.api_key = [];
-path.get.security.push(sec);
 
 process.on('exit',function(){
 	fs.appendFileSync(apijs, "const apiHash = '" + digest + "';\n", 'utf8');
