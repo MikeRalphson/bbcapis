@@ -510,6 +510,8 @@ function initSwagger() {
 	  "info": {
 		"version": "1.0.0",
 		"title": "BBC Nitro API",
+		"x-logo": "https://developer.bbc.co.uk/sites/default/files/Nitro%20On%20White.png",
+		"x-getApiKey": "https://developer.bbc.co.uk/user/register",
 		"description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
 		"termsOfService": "http://www.bbc.co.uk/terms/",
 		"contact": {
@@ -521,6 +523,10 @@ function initSwagger() {
 		  "name": "Nitro Public License",
 		  "url": "https://developer.bbc.co.uk/nitropubliclicence/"
 		}
+	  },
+	  "externalDocs": {
+		"description": "Nitro for developers",
+		"url": "https://developer.bbc.co.uk/nitro"
 	  },
 	  "host": "bbc.co.uk",
 	  "basePath": "/nitro/api",
