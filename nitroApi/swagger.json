@@ -17,6 +17,16 @@
 	},
 	"host": "nitro.api.bbci.co.uk",
 	"basePath": "/nitro/api",
+	"tags": [
+		{
+			"name": "feeds",
+			"description": "Nitro data feeds"
+		},
+		{
+			"name": "schema",
+			"description": "Nitro metadata"
+		}
+	],
 	"schemes": [
 		"http"
 	],
@@ -31,12 +41,16 @@
 		"/programmes": {
 			"get": {
 				"description": "Start here for programmes metadata: Brands, Series, Episodes and Clips",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Start here for programmes metadata: Brands, Series, Episodes and Clips",
 				"operationId": "findProgrammes",
 				"parameters": [
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sorts:\nsort numerically by position in group, ascending\nsort alphabetically by PID, descending\nsort numerically by position, ascending\nsort by promotion rank, ascending\nsort chronologically by release date, descending\nsort by weighting of search term (use with q parameter)\nsort chronologically by scheduled start time/date, ascending\nsort alphabetically by title, ascending\nsort by title librarian style (ignoring leading 'The', 'A', etc), ascending\nsort by root pid and then preorder tree sort. Requires entities to have release date.\nsort numerically by number of views (most popular first - faster most_popular)\n",
+						"description": "Sorts:  \nsort numerically by position in group, ascending  \nsort alphabetically by PID, descending  \nsort numerically by position, ascending  \nsort by promotion rank, ascending  \nsort chronologically by release date, descending  \nsort by weighting of search term (use with q parameter)  \nsort chronologically by scheduled start time/date, ascending  \nsort alphabetically by title, ascending  \nsort by title librarian style (ignoring leading 'The', 'A', etc), ascending  \nsort by root pid and then preorder tree sort. Requires entities to have release date.  \nsort numerically by number of views (most popular first - faster most_popular)  \n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -67,7 +81,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixins:\nmixin to return the alternate images for a programme\nmixin to return ancestor programme titles\nmixin to return programme availability information\nmixin to return information about programmes that are currently available\nmixin to return information about contributors to a programme\nmixin to return original version duration in programme concept entities\nmixin to return list of genre groupings\nmixin to add image information for a programme\nmixin to add embeddable information for a programme\nmixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)\nmixin to return information about related links to a programme\nmixin to return information about programmes that are currently available\n",
+						"description": "Mixins:  \nmixin to return the alternate images for a programme  \nmixin to return ancestor programme titles  \nmixin to return programme availability information  \nmixin to return information about programmes that are currently available  \nmixin to return information about contributors to a programme  \nmixin to return original version duration in programme concept entities  \nmixin to return list of genre groupings  \nmixin to add image information for a programme  \nmixin to add embeddable information for a programme  \nmixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)  \nmixin to return information about related links to a programme  \nmixin to return information about programmes that are currently available  \n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -411,12 +425,16 @@
 		"/availabilities": {
 			"get": {
 				"description": "Discover details of on-demand availability for programmes and their versions",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Discover details of on-demand availability for programmes and their versions",
 				"operationId": "findAvailability",
 				"parameters": [
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sorts:\nsort chronologically by scheduled start time/date, ascending\n",
+						"description": "Sorts:  \nsort chronologically by scheduled start time/date, ascending  \n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -510,12 +528,16 @@
 		"/broadcasts": {
 			"get": {
 				"description": "Build schedules and find metadata for TV and radio broadcasts",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Build schedules and find metadata for TV and radio broadcasts",
 				"operationId": "findBroadcasts",
 				"parameters": [
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sorts:\nsort chronologically by scheduled start time/date, ascending\n",
+						"description": "Sorts:  \nsort chronologically by scheduled start time/date, ascending  \n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -536,7 +558,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixins:\nreturn ancestor programme titles\n",
+						"description": "Mixins:  \nreturn ancestor programme titles  \n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -719,12 +741,16 @@
 		"/groups": {
 			"get": {
 				"description": "Find metadata for curated groups: seasons, collections, galleries or franchises",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Find metadata for curated groups: seasons, collections, galleries or franchises",
 				"operationId": "findGroups",
 				"parameters": [
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sorts:\nsort alphabetically by PID\n",
+						"description": "Sorts:  \nsort alphabetically by PID  \n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -744,7 +770,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixins:\nmixin to return the alternate images for a group\nmixin to return links to programme entities that group belongs to\nmixin to add image information for a group\nmixin to return related links for the group\n",
+						"description": "Mixins:  \nmixin to return the alternate images for a group  \nmixin to return links to programme entities that group belongs to  \nmixin to add image information for a group  \nmixin to return related links for the group  \n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -864,12 +890,16 @@
 		"/images": {
 			"get": {
 				"description": "Find metadata for images",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Find metadata for images",
 				"operationId": "findImages",
 				"parameters": [
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sorts:\nsort numerically by position, ascending only\nsort alphabetically by PID\n",
+						"description": "Sorts:  \nsort numerically by position, ascending only  \nsort alphabetically by PID  \n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -988,12 +1018,16 @@
 		"/items": {
 			"get": {
 				"description": "Look inside programmes to find segments: chapters, tracks and more",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Look inside programmes to find segments: chapters, tracks and more",
 				"operationId": "findItems",
 				"parameters": [
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sorts:\nsort by pid, descending\n",
+						"description": "Sorts:  \nsort by pid, descending  \n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -1013,7 +1047,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixins:\nmixin to return information about contributors to items\nmixin to add image information for an item\nmixin to return programme segment events, works in conjunction with programme or segment_event filters\n",
+						"description": "Mixins:  \nmixin to return information about contributors to items  \nmixin to add image information for an item  \nmixin to return programme segment events, works in conjunction with programme or segment_event filters  \n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -1147,12 +1181,16 @@
 		"/master_brands": {
 			"get": {
 				"description": "List all Master Brands",
+				"tags": [
+					"feeds"
+				],
+				"summary": "List all Master Brands",
 				"operationId": "findMasterbrands",
 				"parameters": [
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sorts:\nsort by mid, ascending\n",
+						"description": "Sorts:  \nsort by mid, ascending  \n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -1172,7 +1210,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixins:\nmixin to add image information for a masterbrand\n",
+						"description": "Mixins:  \nmixin to add image information for a masterbrand  \n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -1244,6 +1282,10 @@
 		"/people": {
 			"get": {
 				"description": "Find the people behind and in programmes: cast, crew, guests and more",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Find the people behind and in programmes: cast, crew, guests and more",
 				"operationId": "findPeople",
 				"parameters": [
 					{
@@ -1350,6 +1392,10 @@
 		"/pips": {
 			"get": {
 				"description": "Look inside pips entities",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Look inside pips entities",
 				"operationId": "findPips",
 				"parameters": [
 					{
@@ -1391,12 +1437,16 @@
 		"/promotions": {
 			"get": {
 				"description": "Discover metadata for content promotions",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Discover metadata for content promotions",
 				"operationId": "findPromotions",
 				"parameters": [
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixins:\nmixin to return information about related links to a promotion\n",
+						"description": "Mixins:  \nmixin to return information about related links to a promotion  \n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -1503,12 +1553,16 @@
 		"/schedules": {
 			"get": {
 				"description": "Build schedules and find metadata for TV and radio broadcasts and webcasts",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Build schedules and find metadata for TV and radio broadcasts and webcasts",
 				"operationId": "findSchedules",
 				"parameters": [
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sorts:\nsort chronologically by scheduled start time/date, ascending\n",
+						"description": "Sorts:  \nsort chronologically by scheduled start time/date, ascending  \n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -1529,7 +1583,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixins:\nreturn ancestor programme titles\nmixin to add image information for broadcasts and webcasts\n",
+						"description": "Mixins:  \nreturn ancestor programme titles  \nmixin to add image information for broadcasts and webcasts  \n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -1749,6 +1803,10 @@
 		"/services": {
 			"get": {
 				"description": "Information about the linear services used for broadcast transmissions",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Information about the linear services used for broadcast transmissions",
 				"operationId": "findServices",
 				"parameters": [
 					{
@@ -1869,6 +1927,10 @@
 		"/versions": {
 			"get": {
 				"description": "Metadata on editorial programme versions: original, signed, audio-described, etc",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Metadata on editorial programme versions: original, signed, audio-described, etc",
 				"operationId": "findVersions",
 				"parameters": [
 					{
@@ -1953,6 +2015,10 @@
 		"/": {
 			"get": {
 				"description": "Get API definition",
+				"summary": "Get API definition",
+				"tags": [
+					"schema"
+				],
 				"operationId": "getAPI",
 				"parameters": [],
 				"responses": {
@@ -1968,6 +2034,10 @@
 		"/schema": {
 			"get": {
 				"description": "Get schema definition",
+				"summary": "Get schema definition",
+				"tags": [
+					"schema"
+				],
 				"operationId": "getXSD",
 				"parameters": [],
 				"responses": {

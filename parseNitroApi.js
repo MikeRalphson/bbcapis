@@ -169,14 +169,14 @@ function swagSort(sort) {
 	if (!param.name) {
 		param.name = 'sort';
 		param.in = 'query';
-		param.description = 'Sorts:\n';
+		param.description = 'Sorts:  \n';
 		param.type = 'string';
 		param.required = false;
 		param.enum = [];
 		params.push(param);
 	}
 	param.enum.push(sort.name);
-	param.description += sort.title+'\n';
+	param.description += sort.title+'  \n';
 }
 
 //__________________________________________________________________
@@ -246,7 +246,7 @@ function exportMixin(feed,mixin,mixinName) {
 	if (!param.name) {
 		param.name = 'mixin';
 		param.in = 'query';
-		param.description = 'Mixins:\n';
+		param.description = 'Mixins:  \n';
 		param.type = 'array';
 		param.collectionFormat = 'multi';
 		param.items = {};
@@ -256,7 +256,7 @@ function exportMixin(feed,mixin,mixinName) {
 		params.push(param);
 	}
 	param.enum.push(mixin.name);
-	param.description += mixin.title+'\n';
+	param.description += mixin.title+'  \n';
 
 	return s;
 }
@@ -437,6 +437,8 @@ function processFeed(feed) {
 	var path = swagger.paths[pathname] = {};
 	path.get = {};
 	path.get.description = feed.title;
+	path.get.tags = ['feeds'];
+	path.get.summary = feed.title;
 	path.get.operationId = 'find'+feed.name;
 	params = path.get.parameters = [];
 
@@ -498,6 +500,14 @@ function initSwagger() {
 	  },
 	  "host": "bbc.co.uk",
 	  "basePath": "/nitro/api",
+	  "tags" : [{
+			"name" : "feeds",
+			"description" : "Nitro data feeds"
+		}, {
+			"name" : "schema",
+			"description" : "Nitro metadata"
+		}
+	  ],
 	  "schemes": [
 		"http"
 	  ],
@@ -549,7 +559,8 @@ for (var f in api.feeds.feed) {
 
 var path = swagger.paths['/'] = {};
 path.get = {};
-path.get.description = 'Get API definition';
+path.get.summary = path.get.description = 'Get API definition';
+path.get.tags = ['schema'];
 path.get.operationId = 'getAPI';
 params = path.get.parameters = [];
 
@@ -561,7 +572,8 @@ path.get.responses.default.description = 'Unexpected error';
 
 path = swagger.paths['/schema'] = {};
 path.get = {};
-path.get.description = 'Get schema definition';
+path.get.summary = path.get.description = 'Get schema definition';
+path.get.tags = ['schema'];
 path.get.operationId = 'getXSD';
 params = path.get.parameters = [];
 
