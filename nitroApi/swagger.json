@@ -3,8 +3,12 @@
 	"info": {
 		"version": "1.0.0",
 		"title": "BBC Nitro API",
-		"x-logo": "https://developer.bbc.co.uk/sites/default/files/Nitro%20On%20White.png",
-		"x-getApiKey": "https://developer.bbc.co.uk/user/register",
+		"x-logo": {
+			"url": "https://developer.bbc.co.uk/sites/default/files/Nitro%20On%20White.png"
+		},
+		"x-apiClientRegistration": {
+			"url": "https://developer.bbc.co.uk/user/register"
+		},
 		"description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
 		"termsOfService": "http://www.bbc.co.uk/terms/",
 		"contact": {
