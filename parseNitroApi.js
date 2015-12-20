@@ -387,6 +387,9 @@ function exportFilter(feed,filter,filterName) {
 			}
 			if (filter.default) {
 				param.default = filter.default;
+				if (param.type == 'integer') {
+					param.default = parseInt(filter.default,10);
+				}
 			}
 			if (filter.min_value) {
 				param.minimum = filter.min_value;
@@ -447,6 +450,11 @@ function processFeed(feed) {
 	path.get.responses['200'].description = 'Nitro response';
 	path.get.responses.default = {};
 	path.get.responses.default.description = 'Unexpected error';
+
+	path.get.security = [];
+	var sec = {};
+	sec.api_key = [];
+	path.get.security.push(sec);
 
 	if (feed.sorts) {
 		feed.sorts.sort = toArray(feed.sorts.sort); // only necessary if json api converted from xml
@@ -519,6 +527,13 @@ function initSwagger() {
 		"application/xml"
 	  ],
 	  "paths": {
+	  },
+      "securityDefinitions" : {
+		"api_key" : {
+			"type" : "apiKey",
+			"name" : "api_key",
+			"in" : "query"
+		}
 	  }
 	}`);
 }
@@ -570,6 +585,11 @@ path.get.responses['200'].description = 'Nitro response';
 path.get.responses.default = {};
 path.get.responses.default.description = 'Unexpected error';
 
+path.get.security = [];
+var sec = {};
+sec.api_key = [];
+path.get.security.push(sec);
+
 path = swagger.paths['/schema'] = {};
 path.get = {};
 path.get.summary = path.get.description = 'Get schema definition';
@@ -582,6 +602,11 @@ path.get.responses['200'] = {};
 path.get.responses['200'].description = 'Nitro response';
 path.get.responses.default = {};
 path.get.responses.default.description = 'Unexpected error';
+
+path.get.security = [];
+sec = {};
+sec.api_key = [];
+path.get.security.push(sec);
 
 process.on('exit',function(){
 	fs.appendFileSync(apijs, "const apiHash = '" + digest + "';\n", 'utf8');
