@@ -22,7 +22,6 @@ var upcoming = false;
 var pidList = [];
 var indexBase = 10000;
 var channel = '';
-var format = '';
 var search = '';
 
 // bbc seem to use int(ernal),test,stage and live
@@ -69,17 +68,17 @@ function pad(str, padding, padRight) {
 //-----------------------------------------------------------------------------
 
 function iso8601durationToSeconds(input) {
-	 var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
-	  var hours = 0, minutes = 0, seconds = 0, totalseconds;
+	var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+	var hours = 0, minutes = 0, seconds = 0, totalseconds;
 
-	 if (reptms.test(input)) {
+	if (reptms.test(input)) {
 		var matches = reptms.exec(input);
 		if (matches[1]) hours = Number(matches[1]);
 		if (matches[2]) minutes = Number(matches[2]);
 		if (matches[3]) seconds = Number(matches[3]);
 		totalseconds = hours * 3600  + minutes * 60 + seconds;
-	 }
-	 return totalseconds;
+	}
+	return totalseconds;
 }
 
 //-----------------------------------------------------------------------------
@@ -91,11 +90,11 @@ var hidden = 0;
 	console.log('\n* Programme Cache:');
 	var index = indexBase;
 	for (var i in programme_cache) {
-		indexBase++;
+		index++;
 		var p = programme_cache[i];
 		var present = download_history.indexOf(p.pid)>=0;
-		var title = (p.title ? p.title : p.presentation_title);
-		var subtitle = (p.display_titles && p.display_titles.subtitle ? p.display_titles.subtitle : '');
+		var title = p.title;
+		var subtitle = (p.display_titles && p.display_titles.subtitle ? p.display_titles.subtitle : p.presentation_title);
 		var available = (p.versions.available > 0);
 		var position = p.episode_of ? p.episode_of.position : 1;
 		var totaleps = 1;
@@ -107,12 +106,12 @@ var hidden = 0;
 //#index|type|name|pid|available|episode|seriesnum|episodenum|versions|duration|desc|channel|categories|thumbnail|timeadded|guidance|web
 
 		if (i==programme_cache.length-1) {
-			console.log(p);
+			debuglog(p);
 		}
 
 		console.log(index+'|'+(p.media_type == 'Video' ? 'tv' : 'radio')+'|'+title+'|'+p.pid+'|'+
-			subtitle+(available ? 'Available' : 'Unavailable')+'|'+subtitle+'|'+'|'+series+'|'+position+'|'+'default'+'|'+
-			len+'||'+p.master_brand.mid+'|'+category+'|'+thumb+'|'+Math.floor(Date.now()/1000)+
+			(available ? 'Available' : 'Unavailable')+'|'+subtitle+'|'+'|'+series+'|'+position+'|'+'default'+'|'+
+			len+'||'+p.master_brand.mid+'|'+category[0]+'|'+thumb+'|'+Math.floor(Date.now()/1000)+
 			'||'+'http://bbc.co.uk/programmes/'+p.pid+'|');
 	}
 }
@@ -406,7 +405,7 @@ var scheduleResponse = function(obj) {
 }
 
 //_____________________________________________________________________________
-function processSchedule(host,api_key,category,mode,pid) {
+function processSchedule(host,api_key,category,format,mode,pid) {
 	var path = '/nitro/api/schedules';
 
 	var today = new Date();
@@ -416,12 +415,12 @@ function processSchedule(host,api_key,category,mode,pid) {
 	query.add(api.fSchedulesStartFrom,todayStr,true);
 
 	if (mode == 'genre') {
-		if (category != '') {
-			query.add(api.fSchedulesGenre,category);
+		for (var c in category) {
+			query.add(api.fSchedulesGenre,category[c]);
 		}
 	}
-	if (format != '') {
-		query.add(api.fSchedulesFormat,format);
+	for (var f in format) {
+		query.add(api.fSchedulesFormat,format[f]);
 	}
 	if (search != '') {
 		query.add(api.fSchedulesQ,search);
@@ -469,7 +468,8 @@ api_key = config.nitro.api_key;
 mediaSet = config.nitro.mediaset;
 var defcat = config.nitro.category;
 
-var category = defcat;
+var category = [];
+var format = [];
 
 var query = helper.newQuery();
 var pid = '';
@@ -482,8 +482,8 @@ var options = getopt.create([
 	['b','index_base','get_iplayer index base, defaults to 10000'],
 	['c','channel=ARG','Filter by channel id'],
 	['d','domain=ARG','Set domain = radio,tv or both'],
-	['f','format=ARG','Filter by format id'],
-	['g','genre=ARG','Filter by genre id. all to reset'],
+	['f','format=ARG+','Filter by format id'],
+	['g','genre=ARG+','Filter by genre id. all to reset'],
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['i','imminent','Set availability to pending (default is available)'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
@@ -528,16 +528,21 @@ options.on('search',function(argv,options){
 });
 options.on('format',function(argv,options){
 	format = options.format;
-	query.add(api.fProgrammesFormat,format);
+	for (var f in format) {
+		query.add(api.fProgrammesFormat,format[f]);
+	}
 });
 options.on('genre',function(argv,options){
 	mode = 'genre';
-	if (options.genre != 'all') {
-		category = options.genre;
-		query.add(api.fProgrammesGenre,category);
-	}
-	else {
-		category = '';
+	for (var g in options.genre) {
+		var genre = options.genre[g];
+		if (genre == 'all') {
+			category = [];
+		}
+		else {
+			category.push(genre);
+			query.add(api.fProgrammesGenre,genre);
+		}
 	}
 });
 options.on('mediaset',function(){
@@ -565,7 +570,8 @@ query.add(api.mProgrammesAvailability)
 
 if (mode=='') {
 	mode = 'genre';
-	query.add(api.fProgrammesGenre,category);
+	category.push(defcat);
+	query.add(api.fProgrammesGenre,defcat);
 }
 
 if (mode == 'pid') {
@@ -582,7 +588,7 @@ if (mode == 'pid') {
 	}
 	for (var p in pidList) {
 		if (upcoming) {
-			processSchedule(host,api_key,category,mode,pidList[p]);
+			processSchedule(host,api_key,category,format,mode,pidList[p]);
 		}
 		else {
 			processPid(host,path,api_key,pidList[p]);
@@ -590,7 +596,7 @@ if (mode == 'pid') {
 	}
 }
 else if (feed == 'schedules') {
-	processSchedule(host,api_key,category,mode);
+	processSchedule(host,api_key,category,format,mode);
 }
 else {
 	if (mode=='genre') {
