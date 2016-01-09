@@ -110,6 +110,7 @@ nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.15.0/config
 	showChannels();
 	showRegions();
 	showChildren('b0072txy');
+	console.log(ibl_key);
 	return false;
 });
 

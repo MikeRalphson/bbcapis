@@ -35,6 +35,7 @@ nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vp
 
 	nitro.make_request('open.live.bbc.co.uk','/axs/open/authxml','',q2,
 		{'Accept': 'text/html,application/xhtml+xml,application/xml'},function(obj){
+		console.log('Converted from XML');
 		console.log(xmlToJson.convert(obj));
 	});
 
