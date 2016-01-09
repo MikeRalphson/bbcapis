@@ -17,7 +17,7 @@ function makeRequest(host,path,key,query,settings,callback){
 
 	var defaults = {
 		Accept: 'application/json',
-		User_Agent: 'Mozilla/5.0 (Linux; U; Android 2.2.1; en-gb; HTC_DesireZ_A7272 Build/FRG83D) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1',
+		User_Agent: 'BBCiPlayerRadio/1.6.1.1522345 (SM-N900; Android 4.4.2)',
 		api_key_name: 'api_key'
 	}
 
