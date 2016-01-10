@@ -26,10 +26,13 @@ var search = '';
 
 // bbc seem to use int(ernal),test,stage and live
 
-// http://nitro.api.bbci.co.uk
+// http://programmes.api.bbc.com
+// http://nitro.api.bbci.co.uk - deprecated since 24/12/2015
 // http://nitro.stage.api.bbci.co.uk/nitro/api/
-// http://d.bbc.co.uk/nitro/api/
+// http://d.bbc.co.uk/nitro/api/ - deprecated since 24/12/2015
 // http://d.bbc.co.uk/stage/nitro/api/
+// http://data.bbc.co.uk/nitro/api/ - deprecated since 24/12/2015
+
 // https://api.live.bbc.co.uk/nitro/api/
 // https://api.test.bbc.co.uk/nitro/api/
 // http://nitro-e2e.api.bbci.co.uk/nitro-e2e/api/

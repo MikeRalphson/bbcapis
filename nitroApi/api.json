@@ -711,7 +711,7 @@
             {
               "name": "versions_availability",
               "title": "mixin to return information about programmes that are currently available",
-              "release_status": "supported",
+              "release_status": "deprecated",
               "href": "/nitro/api/programmes?mixin=versions_availability"
             }
           ]
@@ -1074,13 +1074,15 @@
           }
         },
         "deprecations": {
-          "deprecated": {
-            "name": "n:image",
-            "type": "element",
-            "deprecated_since": "2014-07-09",
-            "replaced_by": "images",
-            "replacement_type": "mixin"
-          }
+          "deprecated": [
+            {
+              "name": "n:image",
+              "type": "element",
+              "deprecated_since": "2014-07-09",
+              "replaced_by": "images",
+              "replacement_type": "mixin"
+            }
+          ]
         }
       },
       {
@@ -1235,13 +1237,15 @@
           ]
         },
         "deprecations": {
-          "deprecated": {
-            "name": "n:image",
-            "type": "element",
-            "deprecated_since": "2014-07-09",
-            "replaced_by": "images",
-            "replacement_type": "mixin"
-          }
+          "deprecated": [
+            {
+              "name": "n:image",
+              "type": "element",
+              "deprecated_since": "2014-07-09",
+              "replaced_by": "images",
+              "replacement_type": "mixin"
+            }
+          ]
         }
       },
       {
@@ -2373,15 +2377,42 @@
           ]
         },
         "deprecations": {
-          "deprecated": {
-            "name": "n:version_types",
-            "type": "element",
-            "deprecated_since": "2015-05-05",
-            "replaced_by": "n:types",
-            "replacement_type": "element"
-          }
+          "deprecated": [
+            {
+              "name": "n:version_types",
+              "type": "element",
+              "deprecated_since": "2015-05-05",
+              "replaced_by": "n:types",
+              "replacement_type": "element"
+            }
+          ]
         }
       }
-    ]
+    ],
+    "deprecations": {
+      "deprecated": [
+        {
+          "name": "nitro.api.bbci.co.uk",
+          "type": "host",
+          "deprecated_since": "2015-12-24",
+          "replaced_by": "programmes.api.bbc.com",
+          "replacement_type": "host"
+        },
+        {
+          "name": "data.bbc.co.uk",
+          "type": "host",
+          "deprecated_since": "2015-12-24",
+          "replaced_by": "programmes.api.bbc.com",
+          "replacement_type": "host"
+        },
+        {
+          "name": "d.bbc.co.uk",
+          "type": "host",
+          "deprecated_since": "2015-12-24",
+          "replaced_by": "programmes.api.bbc.com",
+          "replacement_type": "host"
+        }
+      ]
+    }
   }
 }

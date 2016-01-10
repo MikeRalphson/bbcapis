@@ -169,14 +169,14 @@ function swagSort(sort) {
 	if (!param.name) {
 		param.name = 'sort';
 		param.in = 'query';
-		param.description = 'Sorts:  \n';
+		param.description = 'Sorts:\n';
 		param.type = 'string';
 		param.required = false;
 		param.enum = [];
 		params.push(param);
 	}
 	param.enum.push(sort.name);
-	param.description += '---\n'+sort.title+'  \n';
+	param.description += '* '+sort.title+'\n';
 }
 
 //__________________________________________________________________
@@ -246,7 +246,7 @@ function exportMixin(feed,mixin,mixinName) {
 	if (!param.name) {
 		param.name = 'mixin';
 		param.in = 'query';
-		param.description = 'Mixins:  \n';
+		param.description = 'Mixins:\n';
 		param.type = 'array';
 		param.collectionFormat = 'multi';
 		param.items = {};
@@ -256,7 +256,7 @@ function exportMixin(feed,mixin,mixinName) {
 		params.push(param);
 	}
 	param.enum.push(mixin.name);
-	param.description += '---\n'+mixin.title+'  \n';
+	param.description += '* '+mixin.title+'\n';
 
 	return s;
 }
@@ -390,6 +390,7 @@ function exportFilter(feed,filter,filterName) {
 			}
 			if (filter.type == 'character') {
 				param.type = 'string';
+				param.minLength = 1;
 				param.maxLength = 1;
 			}
 			if (filter.default) {
@@ -416,6 +417,10 @@ function exportFilter(feed,filter,filterName) {
 				if (param.minLength) {
 					param.items.minLength = param.minLength;
 					delete param.minLength;
+				}
+				if (param.maxLength) {
+					param.items.maxLength = param.maxLength;
+					delete param.maxLength;
 				}
 			}
 			param.required = false;
@@ -471,6 +476,8 @@ function processFeed(feed) {
 	path.get.responses['200'].description = 'Nitro response';
 	path.get.responses.default = {};
 	path.get.responses.default.description = 'Unexpected error';
+	path.get.responses.default.schema = {};
+	path.get.responses.default.schema['$ref'] = '#/definitions/ErrorModel';
 
 	if (feed.sorts) {
 		feed.sorts.sort = toArray(feed.sorts.sort); // only necessary if json api converted from xml
@@ -554,6 +561,29 @@ function initSwagger() {
 	  ],
 	  "paths": {
 	  },
+	  "definitions": {
+		"ErrorModel": {
+			"type": "object",
+			"properties": {
+				"fault": {
+					"type": "object",
+					"properties": {
+						"faultString": {
+							"type": "string"
+						},
+						"detail": {
+							"type": "object",
+							"properties": {
+								"errorcode": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	  },
       "securityDefinitions" : {
 		"api_key" : {
 			"type" : "apiKey",
@@ -565,6 +595,39 @@ function initSwagger() {
 		  "api_key" : []
 	  }]
 	}`);
+}
+
+	/*
+	{ "fault": {
+		"faultstring": "Rate limit quota violation. Quota limit : 0 exceeded by 1. Total violation count : 1. Identifier : YOUR-API-KEY-HERE",
+		"detail":
+			{"errorcode": “policies.ratelimit.QuotaViolation"}
+		}
+	}
+	*/
+	/*
+	{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
+	*/
+
+
+//__________________________________________________________________
+function definePath(desc,id) {
+	var path = {};
+	path.get = {};
+	path.get.summary = path.get.description = desc;
+	path.get.tags = ['schema'];
+	path.get.operationId = id;
+	params = path.get.parameters = [];
+
+	path.get.responses = {};
+	path.get.responses['200'] = {};
+	path.get.responses['200'].description = 'Nitro response';
+	path.get.responses.default = {};
+	path.get.responses.default.description = 'Unexpected error';
+	path.get.responses.default.schema = {};
+	path.get.responses.default.schema['$ref'] = '#/definitions/ErrorModel';
+
+	return path;
 }
 
 //__________________________________________________________________
@@ -603,31 +666,8 @@ for (var f in api.feeds.feed) {
 	}
 }
 
-var path = swagger.paths['/'] = {};
-path.get = {};
-path.get.summary = path.get.description = 'Get API definition';
-path.get.tags = ['schema'];
-path.get.operationId = 'getAPI';
-params = path.get.parameters = [];
-
-path.get.responses = {};
-path.get.responses['200'] = {};
-path.get.responses['200'].description = 'Nitro response';
-path.get.responses.default = {};
-path.get.responses.default.description = 'Unexpected error';
-
-path = swagger.paths['/schema'] = {};
-path.get = {};
-path.get.summary = path.get.description = 'Get schema definition';
-path.get.tags = ['schema'];
-path.get.operationId = 'getXSD';
-params = path.get.parameters = [];
-
-path.get.responses = {};
-path.get.responses['200'] = {};
-path.get.responses['200'].description = 'Nitro response';
-path.get.responses.default = {};
-path.get.responses.default.description = 'Unexpected error';
+swagger.paths['/'] = definePath('Get API definition','getAPI');
+swagger.paths['/schema'] = definePath('Get Schema definition','getXSD');
 
 process.on('exit',function(){
 	fs.appendFileSync(apijs, "const apiHash = '" + digest + "';\n", 'utf8');

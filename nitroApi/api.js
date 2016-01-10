@@ -29,7 +29,6 @@ const mProgrammesImages = 'mixin=images';
 const mProgrammesIsEmbeddable = 'mixin=is_embeddable';
 const mProgrammesPreviousNext = 'mixin=previous_next';
 const mProgrammesRelatedLinks = 'mixin=related_links';
-const mProgrammesVersionsAvailability = 'mixin=versions_availability';
 const fProgrammesAudioDescribedTrue = 'audio_described=true';
 const fProgrammesAudioDescribedFalse = 'audio_described=false';
 const fProgrammesAudioDescribed = 'audio_described';
@@ -283,7 +282,7 @@ const fVersionsPageSize = 'page_size';
 const fVersionsPartnerId = 'partner_id';
 const fVersionsPartnerPid = 'partner_pid';
 const fVersionsPid = 'pid';
-const apiHash = '62117fd1e608ef495dea990f0af696535256d6ea219a7b145ec836aa7797ab3b';
+const apiHash = '1a8d9f989bdf847b16986672f9b237a890335443112220146036f2bdce1f0a2f';
 
 module.exports = {
 /**
@@ -460,11 +459,6 @@ mProgrammesPreviousNext : mProgrammesPreviousNext,
 * /nitro/api/programmes?mixin=related_links
 */
 mProgrammesRelatedLinks : mProgrammesRelatedLinks,
-/**
-* mixin to return information about programmes that are currently available
-* /nitro/api/programmes?mixin=versions_availability
-*/
-mProgrammesVersionsAvailability : mProgrammesVersionsAvailability,
 /**
 * filter for subset of programmes that are audio-described
 * type = boolean

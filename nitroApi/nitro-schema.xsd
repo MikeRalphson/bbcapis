@@ -1331,6 +1331,7 @@
     <xs:complexType>
       <xs:sequence>
 	<xs:element minOccurs="0" maxOccurs="unbounded" ref="feed"/>
+	<xs:element minOccurs="0" maxOccurs="1" ref="deprecations"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
