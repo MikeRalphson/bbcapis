@@ -98,7 +98,7 @@ var hidden = 0;
 		var present = download_history.indexOf(p.pid)>=0;
 		var title = p.title;
 		var subtitle = (p.display_titles && p.display_titles.subtitle ? p.display_titles.subtitle : p.presentation_title);
-		var available = (p.versions.available > 0);
+		var available = (p.available_versions.available > 0);
 		var position = p.episode_of ? p.episode_of.position : 1;
 		var totaleps = 1;
 		var series = 1;
@@ -109,7 +109,7 @@ var hidden = 0;
 //#index|type|name|pid|available|episode|seriesnum|episodenum|versions|duration|desc|channel|categories|thumbnail|timeadded|guidance|web
 
 		if (i==programme_cache.length-1) {
-			debuglog(p);
+			debuglog(JSON.stringify(p,null,2));
 		}
 
 		console.log(index+'|'+(p.media_type == 'Video' ? 'tv' : 'radio')+'|'+title+'|'+p.pid+'|'+
@@ -156,12 +156,12 @@ var hidden = 0;
 			parents += '  ' + p.version.pid + ' (vPID)';
 		}
 
-		var available = (p.versions.available > 0);
+		var available = (p.available_versions.available > 0);
 
 		if  ((!present && available) || (pidList.indexOf(p.pid)>=0) || showAll) {
 
 			if (programme_cache.length==1) {
-				debuglog(p);
+				debuglog(JSON.stringify(p,null,2));
 			}
 
 			var position = p.episode_of ? p.episode_of.position : 1;
@@ -174,15 +174,14 @@ var hidden = 0;
 			len = len.replace('PT','').toLocaleLowerCase(); // ISO 8601 duration
 
 			if (dumpMediaSets) {
-				for (var v in p.versions.version) {
-					debuglog(p.versions.version[v]);
-					for (var va in p.versions.version[v].availabilities) {
-						var a = p.versions.version[v].availabilities[va];
+				for (var v in p.available_versions.version) {
+					for (var va in p.available_versions.version[v].availabilities) {
+						var a = p.available_versions.version[v].availabilities[va];
 						// dump mediasets
 						for (var vaa in a) {
 							var vaaa = a[vaa];
 							for (var ms in vaaa.media_sets.media_set) {
-								console.log(vaaa.media_sets.media_set[ms]);
+								console.log(p.available_versions.version[v].pid+' '+vaaa.status+' '+vaaa.media_sets.media_set[ms].name);
 							}
 						}
 					}
@@ -194,10 +193,6 @@ var hidden = 0;
 			if (parents) console.log(parents);
 			if (p.master_brand) {
 				console.log('  '+p.master_brand.mid+' @ '+(p.release_date ? p.release_date : p.release_year));
-			}
-			if (p.version && p.version.start_time) {
-				// only occurs if p converted from a broadcast
-				console.log('  '+p.version.sid+' @ '+p.version.start_time);
 			}
 
 			if (p.contributions) {
@@ -243,7 +238,7 @@ var processResponse = function(obj) {
 	else {
 		for (var i in obj.nitro.results.items) {
 			var p = obj.nitro.results.items[i];
-			debuglog(p);
+			//debuglog(JSON.stringify(p,null,2));
 			if ((p.item_type == 'episode') || (p.item_type == 'clip'))  {
 				add_programme(p);
 			}
@@ -256,7 +251,7 @@ var processResponse = function(obj) {
 					.add(api.mProgrammesDuration)
 					.add(api.mProgrammesAncestorTitles)
 					.add(api.mProgrammesAvailability)
-					.add(api.mProgrammesVersionsAvailability)
+					.add(api.mProgrammesAvailableVersions)
 					.add(api.fProgrammesEntityTypeEpisode)
 					.add(api.fProgrammesPageSize,pageSize);
 
@@ -308,16 +303,18 @@ function processPid(host,path,api_key,pid) {
 		.add(api.mProgrammesContributions)
 		.add(api.mProgrammesDuration)
 		.add(api.mProgrammesAncestorTitles)
-		.add(api.mProgrammesVersionsAvailability);
+		.add(api.mProgrammesAvailableVersions)
+		.add(api.mProgrammesAvailability); // has a dependency on 'availability'
 
-	var pQuery = query.clone();
 	if (upcoming) {
-		pQuery.add(api.fProgrammesChildrenOf,pid);
+		query.add(api.fProgrammesChildrenOf,pid)
+		.add(api.fProgrammesAvailabilityPending);
 	}
 	else {
-		pQuery.add(api.fProgrammesPid,pid);
+		query.add(api.fProgrammesPid,pid)
+		.add(api.fProgrammesAvailabilityAvailable);
 	}
-	nitro.make_request(host,path,api_key,pQuery,{},function(obj){
+	nitro.make_request(host,path,api_key,query,{},function(obj){
 		return dispatch(obj);
 	});
 }
@@ -356,17 +353,17 @@ var scheduleResponse = function(obj) {
 			// minimally convert a broadcast into a programme for display
 			var p = {};
 			p.ancestor_titles = item.ancestor_titles;
-			p.versions = {};
-			p.versions.available = 1;
+			p.available_versions = {};
+			p.available_versions.available = 1;
+
 			p.version = {};
 			p.version.duration = item.published_time.duration;
-			p.version.start_time = item.published_time.start;
-			p.version.sid = item.service.sid;
 			p.synopses = {};
 			p.media_type = (item.service.sid.indexOf('radio')>=0 ? 'Audio' : 'Video');
 			p.image = item.image;
 			p.master_brand = {};
 			p.master_brand.mid = item.service.sid; //!
+			p.release_date = item.published_time.start;
 
 			for (var b in item.broadcast_of) {
 				var bof = item.broadcast_of[b];
@@ -567,7 +564,7 @@ query.add(api.mProgrammesAvailability)
 	.add(api.fProgrammesEntityTypeEpisode)
 	.add(api.mProgrammesDuration)
 	.add(api.mProgrammesAncestorTitles)
-	.add(api.mProgrammesVersionsAvailability)
+	.add(api.mProgrammesAvailableVersions)
 	.add(api.fProgrammesPageSize,pageSize)
 	.add(api.fProgrammesAvailabilityTypeOndemand);
 
