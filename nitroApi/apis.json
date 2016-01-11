@@ -17,7 +17,16 @@
         "television",
         "radio"
       ],
-      "properties": [],
+      "properties": [ 
+         { 
+           "type": "X-signup", 
+           "url": "https://developer.bbc.co.uk/user/register" 
+         }, 
+         { 
+           "type": "Swagger", 
+           "url": "http://raw.githubusercontent.com/Mermade/bbcparse/master/nitroApi/swagger.json" 
+         }
+	  ],
       "contact": [
         {
           "FN": "Jon Billings",
