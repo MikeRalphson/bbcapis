@@ -38,7 +38,7 @@ var search = '';
 // http://nitro-e2e.api.bbci.co.uk/nitro-e2e/api/
 // http://nitro-slave-1.cloud.bbc.co.uk/nitro/api
 
-var host = 'd.bbc.co.uk';
+var host = 'programmes.api.bbc.com';
 var domain = '/nitro/api';
 var feed = '/programmes';
 var mediaSet = 'pc';

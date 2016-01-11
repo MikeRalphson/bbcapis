@@ -1,0 +1,46 @@
+{
+  "name": "BBC Nitro",
+  "description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
+  "url": "http://raw.githubusercontent.com/Mermade/bbcparse/master/nitroApi/apis.json",
+  "image": "https://developer.bbc.co.uk/sites/default/files/Nitro%20On%20White.png",
+  "specificationVersion": "0.14",
+  "apis": [
+    {
+      "name": "BBC Nitro",
+      "description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
+      "image": "https://developer.bbc.co.uk/sites/default/files/Nitro%20On%20White.png",
+      "baseURL": "http://programmes.api.bbc.com/nitro/api",
+      "humanURL": "http://developer.bbc.co.uk",
+      "tags": [
+        "bbc",
+        "nitro",
+        "television",
+        "radio"
+      ],
+      "properties": [],
+      "contact": [
+        {
+          "FN": "Jon Billings",
+          "email": "Jon.Billings@bbc.co.uk",
+          "organizationName": "British Broadcasting Corporation",
+          "adr": "London, W1A 1AA",
+          "X-twitter": "bbc",
+          "X-github": ""
+        }
+      ]
+    }
+  ],
+  "maintainers": [
+    {
+      "FN": "Mike Ralphson",
+      "email": "mike.ralphson@gmail.com",
+      "organizationName": "Mermade software",
+      "X-twitter": "PermittedSoc",
+      "X-github": "MikeRalphson"
+    }
+  ],
+  "tags": [],
+  "include": [],
+  "created": "2016-01-11",
+  "modified": "2016-01-11"
+}
