@@ -468,6 +468,39 @@ function processFeed(feed) {
 	path.get.description = feed.title;
 	path.get.tags = ['feeds'];
 	path.get.summary = feed.title;
+	
+	// a long time ago, in a galaxy far, far away, the API had longer descriptions
+	if (feed.name == 'Programmes') {
+		path.get.description = 'Fetch metadata about Programmes (brands, series, episodes, clips). By applying different filter restrictions this feed can be used in many ways, for example to retrieve all series belonging to a brand, all the episodes and/or clips for a specific series, or any TLEO objects for a masterbrand. Other filters permit restricting to specific formats and/or genres, and you can request specific versions (for example Signed or Audio-Described). Parameters may be combined in any way suitable for your application.';
+	}
+	else if (feed.name == 'Broadcasts') {
+		path.get.description = 'Fetch metadata about linear Broadcasts and Services, allowing the generation of Television and Radio schedules and other datasets for broadcast items.';
+	}
+	else if (feed.name == 'Schedules') {
+		path.get.description = 'Dates, Times, Schedules: when and where are programmes being shown?';
+	}
+	else if (feed.name == 'Versions') {
+		path.get.description = 'Helps you handle the editorial "versions" of episodes (eg signed, cut for language, regional variations, etc)';
+	}
+	else if (feed.name == 'Services') {
+		path.get.description = 'Exposes both live and historical BBC services, across TV and Radio.';
+	}
+	else if (feed.name == 'People') {
+		path.get.description = 'Find the People PIPs knows about: casts, crews, contributors, guests, artists, singers, bands ...';
+	}
+	else if (feed.name == 'Availabilities') {
+		path.get.description = 'For advanced users only: get specific details around when programmes and clips are available to play';
+	}
+	else if (feed.name == 'Images') {
+		path.get.description = 'Find images, particularly those in galleries';
+	}
+	else if (feed.name == 'Promotions') {
+		path.get.description = 'Details of short-term editorially curated "promotions", for instance those programmes featured on iPlayer today';
+	}
+	else if (feed.name == 'Groups') {
+		path.get.description = 'Long-lived collections of programmes and more, including Collections, Seasons and Galleries';
+	}
+
 	path.get.operationId = 'list'+feed.name;
 	params = path.get.parameters = [];
 
@@ -478,6 +511,10 @@ function processFeed(feed) {
 	path.get.responses.default.description = 'Unexpected error';
 	path.get.responses.default.schema = {};
 	path.get.responses.default.schema['$ref'] = '#/definitions/ErrorModel';
+	
+	if (feed.release_status == 'deprecated') {
+		path.get.deprecated = true;
+	}
 
 	if (feed.sorts) {
 		feed.sorts.sort = toArray(feed.sorts.sort); // only necessary if json api converted from xml
