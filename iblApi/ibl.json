@@ -1,0 +1,1265 @@
+{
+	"$schema" : "http://json-schema.org/draft-04/schema#",
+	"id" : "#root",
+	"title" : "iBL v1 Schema",
+	"type" : "object",
+	"properties" : {
+		"version" : {
+			"type" : "string"
+		},
+		"schema" : {
+			"type" : "string"
+		},
+		"categories" : {
+			"id" : "#categories",
+			"type" : "array",
+			"description" : "The feed listing all the category entities available in iPlayer.",
+			"items" : {
+				"$ref" : "#/category"
+			},
+			"minItems" : 1,
+			"uniqueItems" : true
+		},
+		"category_highlights" : {
+			"id" : "#category_highlights",
+			"type" : "object",
+			"description" : "The highlights feed of a given category.",
+			"extends" : "#list",
+			"properties" : {
+				"category" : {
+					"$ref" : "#/category"
+				},
+				"elements" : {
+					"$ref" : "#/list_highlights"
+				}
+			},
+			"required" : ["category", "elements"]
+		},
+		"category_programmes" : {
+			"id" : "#category_programmes",
+			"type" : "object",
+			"description" : "The programmes feed of a given category.",
+			"extends" : "#list",
+			"properties" : {
+				"category" : {
+					"$ref" : "#/category"
+				},
+				"elements" : {
+					"$ref" : "#/list_programmes_large"
+				}
+			},
+			"required" : ["category", "elements"]
+		},
+		"category_totals" : {
+			"id" : "#category_totals",
+			"type" : "object",
+			"description" : "The totals feed of a given category.",
+			"extends" : "#list",
+			"properties" : {
+				"category" : {
+					"$ref" : "#/category"
+				},
+				"elements" : {
+					"$ref" : "#/list_totals"
+				}
+			},
+			"required" : ["category", "elements"]
+		},
+		"channels" : {
+			"id" : "#channels",
+			"type" : "array",
+			"description" : "The feed listing all the channels available in iPlayer.",
+			"items" : {
+				"$ref" : "#/channel"
+			},
+			"minItems" : 1,
+			"uniqueItems" : true
+		},
+		"regions" : {
+			"id" : "#regions",
+			"type" : "array",
+			"description" : "The feed listing all the regions available in iPlayer.",
+			"items" : {
+				"$ref" : "#/region"
+			},
+			"minItems" : 1,
+			"uniqueItems" : true
+		},
+		"region" : {
+			"id" : "#region",
+			"type" : "object",
+			"properties" : {
+				"id" : {
+					"type" : "string"
+				},
+				"title" : {
+					"type" : "string"
+				},
+				"type" : {
+					"type" : "string",
+					"enum" : ["region"]
+				},
+				"kind" : {
+					"type" : "string",
+					"enum" : ["regional", "national"]
+				}
+			},
+			"required" : ["id", "title", "type", "kind"]
+		},
+		"channel_highlights" : {
+			"id" : "#channel_highlights",
+			"type" : "object",
+			"description" : "The highlights feed of a given channel.",
+			"extends" : "#list",
+			"properties" : {
+				"channel" : {
+					"$ref" : "#/channel"
+				},
+				"elements" : {
+					"$ref" : "#/list_highlights"
+				}
+			},
+			"required" : ["channel", "elements"]
+		},
+		"channel_programmes" : {
+			"id" : "#channel_programmes",
+			"type" : "object",
+			"description" : "The programmes feed of a given channel.",
+			"extends" : "#list",
+			"properties" : {
+				"channel" : {
+					"$ref" : "#/channel"
+				},
+				"elements" : {
+					"$ref" : "#/list_programmes_large"
+				}
+			},
+			"required" : ["channel", "elements"]
+		},
+		"home_highlights" : {
+			"id" : "#home_highlights",
+			"type" : "object",
+			"description" : "The feed listing all the highlight content for the iPlayer home.",
+			"allOf" : [{
+					"properties" : {
+						"elements" : {
+							"$ref" : "#/list_highlights"
+						}
+					},
+					"required" : ["elements"]
+				}
+			]
+		},
+		"tv_highlights" : {
+			"id" : "#tv_highlights",
+			"type" : "object",
+			"description" : "The feed lists all promotions for the tv highlights",
+			"allOf" : [{
+					"properties" : {
+						"elements" : {
+							"$ref" : "#/list_highlights"
+						}
+					},
+					"required" : ["elements"]
+				}
+			]
+		},
+		"schedule" : {
+			"id" : "#schedule",
+			"type" : "object",
+			"description" : "The list of broadcasts for a given channel and a given BBC date (6 to 6).",
+			"allOf" : [{
+					"properties" : {
+						"channel" : {
+							"$ref" : "#/channel"
+						},
+						"elements" : {
+							"type" : "array",
+							"items" : {
+								"$ref" : "#/broadcast"
+							}
+						}
+					},
+					"required" : ["channel", "elements"]
+				}
+			]
+		},
+		"atoz_programmes" : {
+			"id" : "#atoz_programmes",
+			"type" : "object",
+			"description" : "The list of programmes that start with this character.",
+			"extends" : "#list",
+			"properties" : {
+				"character" : {
+					"type" : "string"
+				},
+				"elements" : {
+					"$ref" : "#/list_programmes_large"
+				}
+			},
+			"required" : ["character", "elements"]
+		},
+		"group_episodes" : {
+			"id" : "#group_episodes",
+			"type" : "object",
+			"description" : "The feed listing all the episodes in a given group.",
+			"extends" : "#list",
+			"properties" : {
+				"group" : {
+					"$ref" : "#/group"
+				},
+				"elements" : {
+					"$ref" : "#/list_episodes"
+				}
+			},
+			"required" : ["group", "elements"]
+		},
+		"group_playlist" : {
+			"type" : "object",
+			"description" : "The playlist for the given group. Following EMP Schema.",
+			"properties" : {
+				"elements" : {
+					"type" : "array"
+				}
+			},
+			"required" : ["elements"]
+		},
+		"programmes" : {
+			"id" : "#programmes",
+			"type" : "object",
+			"description" : "The feed returning one or more large programmes entities.",
+			"$ref" : "#/list_programmes_large"
+		},
+		"programme_episodes" : {
+			"id" : "#programme_episodes",
+			"description" : "The feed listing all the episodes in the given programme.",
+			"extends" : "#list",
+			"type" : "object",
+			"properties" : {
+				"programme" : {
+					"$ref" : "#/programme"
+				},
+				"elements" : {
+					"$ref" : "#/list_episodes"
+				}
+			},
+			"required" : ["elements"]
+		},
+		"programme_playlist" : {
+			"id" : "#programme_playlist",
+			"type" : "object",
+			"description" : "The playlist for the given programme. Following EMP Schema."
+		},
+		"episodes" : {
+			"id" : "#episodes",
+			"type" : "object",
+			"description" : "The feed returning one or more large episode entities.",
+			"$ref" : "#/list_episodes_large"
+		},
+		"episode_recommendations" : {
+			"id" : "#episode_recommendations",
+			"type" : "object",
+			"description" : "The feed returning recommendations specific to a given episode."
+		},
+		"episode_playlist" : {
+			"id" : "#episode_playlist",
+			"type" : "object",
+			"description" : "The playlist for the given episode. Following EMP Schema."
+		},
+		"watching" : {
+			"id" : "#watching",
+			"type" : "object",
+			"description" : "The feed returning recommendations specific to a given episode.",
+			"properties" : {
+				"elements" : {
+					"$ref" : "#/list_watching_elements"
+				},
+				"count" : {
+					"type" : "number"
+				}
+			},
+			"required" : ["elements", "count"]
+		},
+		"search" : {
+			"id" : "#search",
+			"type" : "object",
+			"description" : "The feed returning search results for a given query.",
+			"properties" : {
+				"results" : {
+					"$ref" : "#/list_search_results"
+				},
+				"count" : {
+					"type" : "number"
+				},
+				"page" : {
+					"type" : "number"
+				},
+				"per_page" : {
+					"type" : "number"
+				},
+				"query" : {
+					"type" : "string"
+				}
+			},
+			"required" : ["results", "count", "page", "per_page", "query"]
+		},
+		"status" : {
+			"id" : "#status",
+			"type" : "object",
+			"description" : "The status feed, displaying core information about the installation.",
+			"properties" : {
+				"build_version" : {
+					"type" : "string"
+				},
+				"build_number" : {
+					"type" : "string"
+				}
+			},
+			"required" : ["build_version", "build_number"]
+		},
+		"error" : {
+			"id" : "#error",
+			"type" : "object",
+			"description" : "An error response, displaying details of an internal or external error.",
+			"properties" : {
+				"id" : {
+					"type" : "number",
+					"description" : "A numeric error code"
+				},
+				"details" : {
+					"type" : "string",
+					"description" : "A human-readable description of the error"
+				},
+				"http_response_code" : {
+					"type" : "number",
+					"description" : "HTTP response code"
+				}
+			},
+			"required" : ["id", "details", "http_response_code"]
+		},
+		"versions" : {
+			"id" : "#versions",
+			"type" : "object",
+			"description" : "The feed returning store versions.",
+			"$ref" : "#/list_store_versions"
+		},
+		"_profile" : {
+			"$ref" : "#/_profile"
+		}
+	},
+	"required" : ["version", "schema"],
+	"additionalProperties" : false,
+	"entity" : {
+		"id" : "#entity",
+		"description" : "The core entity, mirroring the standard PIPS entity object.",
+		"type" : "object",
+		"properties" : {
+			"id" : {
+				"$ref" : "#/pid"
+			},
+			"title" : {
+				"type" : "string"
+			},
+			"synopses" : {
+				"extends" : "#synopses",
+				"required" : ["small"]
+			},
+			"images" : {
+				"$ref" : "#/image"
+			}
+		},
+		"required" : ["id", "title", "synopses", "images"]
+	},
+	"programme" : {
+		"id" : "#programme",
+		"type" : "object",
+		"description" : "A programme entity, containing 1 or more child episodes.",
+		"extends" : "#entity",
+		"properties" : {
+			"type" : {
+				"type" : "string",
+				"enum" : ["programme"]
+			},
+			"synopses" : {
+				"$ref" : "#/synopses",
+				"required" : ["small"]
+			},
+			"master_brand" : {
+				"$ref" : "#/master_brand"
+			},
+			"status" : {
+				"enum" : ["available", "unavailable"]
+			},
+			"tleo_type" : {
+				"enum" : ["brand", "series", "episode"]
+			}
+		},
+		"required" : ["type"]
+	},
+	"programme_large" : {
+		"id" : "#programme_large",
+		"type" : "object",
+		"description" : "A large programme entity, containing a list of initial child episodes.",
+		"extends" : "#programme",
+		"properties" : {
+			"synopses" : {
+				"$ref" : "#/synopses",
+				"required" : ["small", "medium", "large"]
+			},
+			"type" : {
+				"type" : "string",
+				"enum" : ["programme_large"]
+			},
+			"initial_children" : {
+				"type" : "array",
+				"items" : {
+					"$ref" : "#/episode"
+				},
+				"minItems" : 0,
+				"maxItems" : 5,
+				"uniqueItems" : true
+			},
+			"count" : {
+				"type" : "number"
+			}
+		},
+		"required" : ["type"]
+	},
+	"episode" : {
+		"id" : "#episode",
+		"description" : "An episode of a programme.",
+		"type" : "object",
+		"extends" : "#entity",
+		"properties" : {
+			"type" : {
+				"type" : "string",
+				"enum" : ["episode"]
+			},
+			"subtitle" : {
+				"type" : "string"
+			},
+			"labels" : {
+				"type" : "object",
+				"properties" : {
+					"time" : {
+						"type" : "string"
+					},
+					"editorial" : {
+						"type" : "string"
+					}
+				}
+			},
+			"synopses" : {
+				"extends" : "#synopses",
+				"required" : ["small", "medium"]
+			},
+			"versions" : {
+				"type" : "array",
+				"items" : {
+					"$ref" : "#/version"
+				}
+			},
+			"stacked" : {
+				"type" : "boolean"
+			},
+			"next_broadcast" : {
+				"type" : "object",
+				"properties" : {
+					"channel_title" : {
+						"type" : "string"
+					},
+					"scheduled_start" : {
+						"type" : "string"
+					}
+				},
+				"required" : ["scheduled_start"]
+			},
+			"suppliers" : {
+				"type" : "array",
+				"items" : {
+					"type" : "string"
+				},
+				"minItems" : 0
+			},
+			"guidance" : {
+				"type" : "boolean"
+			},
+			"duration" : {
+				"type" : "string"
+			},
+			"next_broadcast_date" : {
+				"type" : "string"
+			},
+			"tleo_id" : {
+				"$ref" : "#/pid"
+			},
+			"release_date" : {
+				"type" : "string"
+			},
+			"master_brand" : {
+				"$ref" : "#/master_brand"
+			},
+			"status" : {
+				"enum" : ["available", "unavailable"]
+			},
+			"external_link" : {
+				"type" : "string"
+			}
+		},
+		"required" : ["type", "synopses"]
+	},
+	"episode_large" : {
+		"id" : "#episode_large",
+		"description" : "A large episode entity.",
+		"extends" : "#episode",
+		"properties" : {
+			"type" : {
+				"type" : "string",
+				"enum" : ["episode_large"]
+			},
+			"guidance_text" : {
+				"type" : "string"
+			},
+			"versions" : {
+				"type" : "array",
+				"items" : {
+					"$ref" : "#/version_large"
+				}
+			},
+			"synopses" : {
+				"extends" : "#synopses",
+				"required" : ["small", "medium", "large"]
+			},
+			"broadcasts" : {
+				"type" : "array",
+				"items" : {
+					"$ref" : "#/broadcast"
+				}
+			}
+		},
+		"required" : ["type", "synopses"]
+	},
+	"watching_element" : {
+		"id" : "#watching_element",
+		"description" : "A watching element, which is a container for a programme and an episode.",
+		"type" : "object",
+		"properties" : {
+			"type" : {
+				"type" : "string",
+				"enum" : ["watching"]
+			},
+			"programme" : {
+				"$ref" : "#programme"
+			},
+			"episode" : {
+				"$ref" : "#episode"
+			},
+			"status" : {
+				"type" : "string",
+				"enum" : ["current", "next"]
+			},
+			"offset" : {
+				"type" : "number"
+			}
+		},
+		"required" : ["programme", "episode", "status", "type"]
+	},
+	"search_group" : {
+		"id" : "#search_group",
+		"type" : "object",
+		"description" : "An ad-hoc group of search results.",
+		"properties" : {
+			"type" : {
+				"type" : "string",
+				"enum" : ["search_group"]
+			},
+			"episode" : {
+				"$ref" : "#/episode_large"
+			}
+		},
+		"required" : ["type", "episode"]
+	},
+	"group" : {
+		"id" : "#group",
+		"description" : "A group entity, acting as a container.",
+		"type" : "object",
+		"extends" : "#entity",
+		"properties" : {
+			"type" : {
+				"type" : "string",
+				"enum" : ["group"]
+			},
+			"labels" : {
+				"$ref" : "#/labels"
+			},
+			"stacked" : {
+				"type" : "boolean"
+			},
+			"master_brand" : {
+				"$ref" : "#/master_brand"
+			},
+			"related_links" : {
+				"$ref" : "#/list_links"
+			}
+		},
+		"required" : ["type"]
+	},
+	"group_large" : {
+		"id" : "#group_large",
+		"description" : "A group large entity.",
+		"type" : "object",
+		"extends" : "#group",
+		"properties" : {
+			"type" : {
+				"type" : "string",
+				"enum" : ["group_large"]
+			},
+			"initial_children" : {
+				"type" : "array",
+				"items" : {
+					"$ref" : "#/episode"
+				},
+				"minItems" : 2,
+				"maxItems" : 8
+			},
+			"count" : {
+				"type" : "number"
+			}
+		},
+		"required" : ["initial_children", "count"]
+	},
+	"broadcast" : {
+		"id" : "#broadcast",
+		"type" : "object",
+		"properties" : {
+			"id" : {
+				"$ref" : "#/pid"
+			},
+			"type" : {
+				"type" : "string",
+				"enum" : ["broadcast"]
+			},
+			"scheduled_start" : {
+				"type" : "string"
+			},
+			"scheduled_end" : {
+				"type" : "string"
+			},
+			"transmission_start" : {
+				"type" : "string"
+			},
+			"transmission_end" : {
+				"type" : "string"
+			},
+			"blanked" : {
+				"type" : "boolean"
+			},
+			"repeat" : {
+				"type" : "boolean"
+			}
+		},
+		"required" : ["id", "type", "scheduled_start", "scheduled_end", "blanked", "repeat", "episode"]
+	},
+	"broadcast_large" : {
+		"id" : "#broadcast_large",
+		"type" : "object",
+		"extends" : "#broadcast",
+		"properties" : {
+			"episode" : {
+				"$ref" : "#/episode"
+			}
+		},
+		"required" : ["episode"]
+	},
+	"broadcasts" : {
+		"id" : "#broadcasts",
+		"type" : "object",
+		"description" : "The list of broadcasts.",
+		"extends" : "#list",
+		"properties" : {
+			"broadcast" : {
+				"$ref" : "#/broadcast_large"
+			}
+		},
+		"required" : ["broadcast"]
+	},
+	"promotion" : {
+		"id" : "#promotion",
+		"type" : "object",
+		"properties" : {
+			"id" : {
+				"$ref" : "#/pid"
+			},
+			"type" : {
+				"type" : "string",
+				"enum" : ["promotion"]
+			},
+			"synopses" : {
+				"extends" : "#synopses",
+				"required" : ["small"]
+			},
+			"programme" : {
+				"$ref" : "#/programme"
+			},
+			"url" : {
+				"type" : "string"
+			},
+			"images" : {
+				"$ref" : "#/image"
+			},
+			"labels" : {
+				"$ref" : "#/labels"
+			}
+		},
+		"required" : ["type", "synopses"]
+	},
+	"featured" : {
+		"id" : "#featured",
+		"description" : "A promoted episode of a programme.",
+		"type" : "object",
+		"allOf" : [{
+				"$ref" : "#/episode"
+			}, {
+				"properties" : {
+					"promoted" : {
+						"type" : "boolean"
+					}
+				},
+				"required" : ["promoted", "title", "synopses", "images", "tleo_id"]
+			}
+		]
+	},
+	"category" : {
+		"id" : "#category",
+		"type" : "object",
+		"properties" : {
+			"id" : {
+				"type" : "string"
+			},
+			"title" : {
+				"type" : "string"
+			},
+			"kind" : {
+				"type" : "string",
+				"enum" : ["genre", "accessibility", "regional", "national"]
+			},
+			"child_episode_count" : {
+				"type" : "number"
+			},
+			"child_programme_count" : {
+				"type" : "number"
+			}
+		},
+		"required" : ["id", "title", "kind"]
+	},
+	"channel" : {
+		"id" : "#channel",
+		"type" : "object",
+		"properties" : {
+			"id" : {
+				"type" : "string"
+			},
+			"title" : {
+				"type" : "string"
+			},
+			"region" : {
+				"type" : "string"
+			},
+			"has_schedule" : {
+				"type" : "boolean"
+			}
+		},
+		"required" : ["id", "title", "type", "has_schedule"]
+	},
+	"version" : {
+		"id" : "#version",
+		"type" : "object",
+		"description" : "A version entity.",
+		"properties" : {
+			"id" : {
+				"$ref" : "#/pid"
+			},
+			"type" : {
+				"type" : "string",
+				"enum" : ["version"]
+			},
+			"kind" : {
+				"type" : "string",
+				"enum" : ["legal", "editorial", "technical-replacement", "original", "iplayer-version", "lengthened", "shortened", "pre-watershed", "post-watershed", "warnings-higher", "warnings-lower", "warnings-none", "duplication", "open-subtitled", "audio-described", "signed", "other"]
+			},
+			"availability" : {
+				"type" : "object",
+				"properties" : {
+					"remaining" : {
+						"duration" : {
+							"type" : "string"
+						},
+						"text" : {
+							"type" : "string"
+						}
+					},
+					"end" : {
+						"type" : "string"
+					},
+					"start" : {
+						"type" : "string"
+					}
+				}
+			},
+			"hd" : {
+				"type" : "boolean"
+			},
+			"download" : {
+				"type" : "boolean"
+			},
+			"duration" : {
+				"type" : "object",
+				"properties" : {
+					"value" : {
+						"type" : "string"
+					},
+					"text" : {
+						"type" : "string"
+					}
+				},
+				"required" : ["value", "text"]
+			}
+		},
+		"required" : ["id", "type", "kind", "availability"]
+	},
+	"version_large" : {
+		"id" : "#version_large",
+		"type" : "object",
+		"description" : "A large version entity.",
+		"properties" : {
+			"type" : {
+				"type" : "string",
+				"enum" : ["version_large"]
+			},
+			"first_broadcast" : {
+				"type" : "string"
+			},
+			"rrc" : {
+				"type" : "object",
+				"properties" : {
+					"description" : {
+						"type" : "object",
+						"properties" : {
+							"small" : {
+								"type" : "string"
+							},
+							"large" : {
+								"type" : "string"
+							}
+						},
+						"required" : ["small", "large"]
+					},
+					"url" : {
+						"type" : "string"
+					}
+				},
+				"required" : ["description", "url"]
+			},
+			"guidance" : {
+				"type" : "object",
+				"properties" : {
+					"id" : {
+						"type" : "string"
+					},
+					"text" : {
+						"type" : "object",
+						"properties" : {
+							"small" : {
+								"type" : "string"
+							},
+							"medium" : {
+								"type" : "string"
+							},
+							"large" : {
+								"type" : "string"
+							}
+						}
+					}
+				}
+			},
+			"credits_timestamp" : {
+				"type" : "string"
+			}
+		},
+		"required" : ["type"]
+	},
+	"link" : {
+		"id" : "#link",
+		"type" : "object",
+		"description" : "A link object.",
+		"allOf" : [{
+				"$ref" : "#/pips_entity"
+			}, {
+				"properties" : {
+					"kind" : {
+						"type" : "string",
+						"enum" : ["priority_content"]
+					},
+					"title" : {
+						"type" : "string"
+					},
+					"synopses" : {
+						"$ref" : "#/synopses",
+						"required" : ["small"]
+					},
+					"url" : {
+						"type" : "string"
+					}
+				},
+				"required" : ["kind", "title", "url"]
+			}
+		]
+	},
+	"store_version" : {
+		"id" : "#store_version",
+		"type" : "object",
+		"description" : "A store version entity.",
+		"properties" : {
+			"id" : {
+				"$ref" : "#/pid"
+			},
+			"type" : {
+				"type" : "string",
+				"enum" : ["store_version"]
+			},
+			"store_profile" : {
+				"type" : "string",
+				"enum" : ["hd", "sd"]
+			},
+			"store_id" : {
+				"type" : "string"
+			},
+			"kind" : {
+				"type" : "string",
+				"enum" : ["legal", "editorial", "technical-replacement", "original", "iplayer-version", "lengthened", "shortened", "pre-watershed", "post-watershed", "warnings-higher", "warnings-lower", "warnings-none", "duplication", "open-subtitled", "audio-described", "signed", "other", "store-only"]
+			},
+			"duration" : {
+				"type" : "object",
+				"properties" : {
+					"value" : {
+						"type" : "string"
+					},
+					"text" : {
+						"type" : "string"
+					}
+				},
+				"required" : ["value", "text"]
+			},
+			"guidance" : {
+				"type" : "object",
+				"properties" : {
+					"id" : {
+						"type" : "string"
+					},
+					"text" : {
+						"type" : "object",
+						"properties" : {
+							"small" : {
+								"type" : "string"
+							},
+							"medium" : {
+								"type" : "string"
+							},
+							"large" : {
+								"type" : "string"
+							}
+						}
+					}
+				}
+			}
+		},
+		"required" : ["id", "type", "kind", "store_profile", "store_id"]
+	},
+	"pips_entity" : {
+		"id" : "#pips_entity",
+		"description" : "The addressable pips entity, all entities originating in PIPS should inherit from this.",
+		"type" : "object",
+		"allOf" : [{
+				"$ref" : "#/addressable_entity"
+			}, {
+				"properties" : {
+					"id" : {
+						"$ref" : "#/pid"
+					}
+				},
+				"required" : ["id"]
+			}
+		]
+	},
+	"labels" : {
+		"id" : "#labels",
+		"type" : "object",
+		"description" : "A labels object.",
+		"properties" : {
+			"time" : {
+				"type" : "string"
+			},
+			"editorial" : {
+				"type" : "string"
+			},
+			"promotion" : {
+				"type" : "string"
+			}
+		}
+	},
+	"master_brand" : {
+		"id" : "#master_brand",
+		"type" : "object",
+		"description" : "A master brand object.",
+		"properties" : {
+			"id" : {
+				"type" : "string"
+			},
+			"titles" : {
+				"type" : "object",
+				"properties" : {
+					"small" : {
+						"type" : "string"
+					},
+					"medium" : {
+						"type" : "string"
+					},
+					"large" : {
+						"type" : "string"
+					}
+				}
+			},
+			"attribution" : {
+				"type" : "string"
+			}
+		}
+	},
+	"total" : {
+		"id" : "#total",
+		"type" : "object",
+		"description" : "A total object; for indicating number of items.",
+		"properties" : {
+			"type" : {
+				"type" : "string",
+				"enum" : ["total"]
+			},
+			"character" : {
+				"type" : "string"
+			},
+			"child_episode_count" : {
+				"type" : "number"
+			},
+			"child_programme_count" : {
+				"type" : "number"
+			}
+		},
+		"required" : ["type", "child_episode_count"]
+	},
+	"image" : {
+		"id" : "#image",
+		"type" : "object",
+		"description" : "An image object; supporting default and additional images.",
+		"properties" : {
+			"standard" : {
+				"type" : "string"
+			},
+			"vertical" : {
+				"type" : "string"
+			},
+			"inherited_from" : {
+				"type" : "string"
+			},
+			"type" : {
+				"type" : "string",
+				"enum" : ["image"]
+			}
+		},
+		"required" : ["standard", "type"]
+	},
+	"synopses" : {
+		"id" : "#synopses",
+		"type" : "object",
+		"description" : "A synopses object; supporting the three variants of synopsis length.",
+		"properties" : {
+			"small" : {
+				"type" : "string"
+			},
+			"medium" : {
+				"type" : "string"
+			},
+			"large" : {
+				"type" : "string"
+			}
+		}
+	},
+	"pid" : {
+		"id" : "#pid",
+		"type" : "string",
+		"description" : "A PIPS id. Also known as a PID.",
+		"pattern" : "^[b-df-hj-np-tv-z0-9]{8,}$"
+	},
+	"list" : {
+		"id" : "#list",
+		"type" : "object",
+		"description" : "The abstract notion of a paginatable list.",
+		"properties" : {
+			"count" : {
+				"type" : "number"
+			},
+			"page" : {
+				"type" : "number"
+			},
+			"per_page" : {
+				"type" : "number"
+			}
+		},
+		"required" : ["count", "page", "per_page"]
+	},
+	"list_groups" : {
+		"id" : "#list_groups",
+		"type" : "array",
+		"description" : "An array of group entities.",
+		"items" : {
+			"anyOf" : [{
+					"$ref" : "#/group"
+				}, {
+					"$ref" : "#/group_popular"
+				}
+			]
+		}
+	},
+	"list_totals" : {
+		"id" : "#list_totals",
+		"type" : "array",
+		"description" : "An array of total entities.",
+		"items" : {
+			"anyOf" : [{
+					"$ref" : "#/total"
+				}
+			]
+		}
+	},
+	"list_highlights" : {
+		"id" : "#list_highlights",
+		"type" : "array",
+		"description" : "An array of highlights (mixed type) entities.",
+		"items" : {
+			"anyOf" : [{
+					"$ref" : "#/programme_large"
+				}, {
+					"$ref" : "#/episode"
+				}, {
+					"$ref" : "#/broadcast"
+				}, {
+					"$ref" : "#/promotion"
+				}, {
+					"$ref" : "#/group_large"
+				}
+			]
+		}
+	},
+	"list_programmes" : {
+		"id" : "#list_programmes",
+		"description" : "An array of programme entities.",
+		"type" : "array",
+		"items" : {
+			"$ref" : "#/programme"
+		}
+	},
+	"list_programmes_large" : {
+		"id" : "#list_programmes_large",
+		"description" : "An array of large programme entities.",
+		"type" : "array",
+		"items" : {
+			"$ref" : "#/programme_large"
+		}
+	},
+	"list_episodes" : {
+		"id" : "#list_episodes",
+		"description" : "An array of episodes entities.",
+		"type" : "array",
+		"items" : {
+			"$ref" : "#/episode"
+		}
+	},
+	"list_episodes_large" : {
+		"id" : "#list_episodes_large",
+		"description" : "An array of large episodes entities.",
+		"type" : "array",
+		"items" : {
+			"$ref" : "#/episode_large"
+		}
+	},
+	"list_store_versions" : {
+		"id" : "#list_store_versions",
+		"description" : "An array of store version entities.",
+		"type" : "array",
+		"items" : {
+			"$ref" : "#/store_version"
+		}
+	},
+	"list_watching_elements" : {
+		"id" : "#list_watching_elements",
+		"description" : "An array of watching elements.",
+		"type" : "array",
+		"items" : {
+			"$ref" : "#/watching_element"
+		}
+	},
+	"list_search_results" : {
+		"id" : "#list_search_results",
+		"description" : "An array of search results.",
+		"type" : "array",
+		"items" : {
+			"anyOf" : [{
+					"$ref" : "#/programme_large"
+				}, {
+					"$ref" : "#/episode_large"
+				}, {
+					"$ref" : "#/search_group"
+				}
+			]
+		}
+	},
+	"list_links" : {
+		"id" : "#list_links",
+		"type" : "array",
+		"description" : "An array of link entities.",
+		"items" : {
+			"$ref" : "#/link"
+		}
+	},
+	"_profile" : {
+		"id" : "#_profile",
+		"type" : "object",
+		"description" : "The debugging profile object",
+		"properties" : {
+			"id" : {
+				"type" : "string"
+			},
+			"execution_time" : {
+				"type" : "number"
+			},
+			"request_count" : {
+				"type" : "number"
+			},
+			"requests" : {
+				"type" : "array",
+				"items" : {
+					"type" : "object",
+					"properties" : {
+						"url" : {
+							"type" : "string"
+						},
+						"status_code" : {
+							"type" : "number"
+						},
+						"execution_time" : {
+							"type" : "number"
+						}
+					}
+				}
+			}
+		}
+	}
+}

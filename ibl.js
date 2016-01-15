@@ -8,6 +8,12 @@ var ibl_key = '';
 
 // http://ibl.api.bbci.co.uk/ibl/v1/schema/ibl.json?api_key=APIKEY
 
+// http://ibl.api.bbci.co.uk/ibl/v1/status
+// {"version":"1.0","schema":"/ibl/v1/schema/ibl.json","service":"ibl-nibl","release":"320"}
+
+// https://github.com/middric/bamboo
+// 
+
 //_____________________________________________________________________________
 function showCategories() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/categories?lang=en&api_key=APIKEY
@@ -18,6 +24,7 @@ function showCategories() {
 		for (var i in obj.categories) {
 			var cat = obj.categories[i];
 			console.log(cat.id+' '+cat.title);
+			//console.log(JSON.stringify(cat,null,2));
 		}
 		return false;
 	});
@@ -65,6 +72,24 @@ function showChildren(pid) {
 	});
 }
 
+function showProgrammesForCategory(cat) {
+	// http://ibl.api.bbci.co.uk/ibl/v1/category_programmes/CAT?rights=mobile&availability=available&api_key=APIKEY
+	var query = helper.newQuery();
+	//query.add('lang','en');
+	query.add('rights','mobile');
+	query.add('availability','available');
+	//query.add('category',cat);
+	let options = {};
+	//options.Accept = 'application/xml';
+	nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/categories/'+cat+'/programmes',ibl_key,query,options,function(obj){
+		for (var e in obj.category_programmes.elements) {
+			var p = obj.category_programmes.elements[e];
+			console.log(p.id+' '+p.tleo_type+' '+p.title);		
+		}
+		console.log(JSON.stringify(obj,null,2));
+	});
+}
+
 //_____________________________________________________________________________
 
 // http://polling.bbc.co.uk/appconfig/iplayer/android/4.15.0/config.json
@@ -97,7 +122,8 @@ function showChildren(pid) {
  
     "mostPopularUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/groups/popular/episodes?rights=web&page=1&per_page=40&initial_child_count=4&sort=title&sort_direction=asc&availability=available&api_key=",
     "atozUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/atoz/{letter}/programmes?rights=web&page=1&per_page=40&initial_child_count=4&sort=title&sort_direction=asc&availability=available&api_key=",
-    "categoriesUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/categories/{category}/programmes?rights=web&page=1&per_page=40&initial_child_count=4&sort=title&sort_direction=asc&availability=available&api_key=",
+				{base_uri}/ibl/v1/atoz/{letter}/programmes?page={page}
+	"categoriesUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/categories/{category}/programmes?rights=web&page=1&per_page=40&initial_child_count=4&sort=title&sort_direction=asc&availability=available&api_key=",
     "channelsUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/channels/{channel_id}/programmes?rights=web&page=1&per_page=40&availability=available&api_key=",
 
 */
@@ -107,9 +133,10 @@ var query = helper.newQuery();
 nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.15.0/config.json','',query,{},function(obj){
 	ibl_key = obj.BBCIBL.BBCIBLKey;
 	showCategories();
-	showChannels();
-	showRegions();
-	showChildren('b0072txy');
+	//showChannels();
+	//showRegions();
+	//showChildren('b0072txy');
+	showProgrammesForCategory('drama-sci-fi-and-fantasy');
 	console.log(ibl_key);
 	return false;
 });
