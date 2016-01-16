@@ -27,3 +27,8 @@ nitro.make_request(host,'/nitro/api/schema',api_key,query,{Accept:'text/xml'},fu
 	fs.writeFileSync('./nitroApi/nitro-schema.xsd',obj);
 	return false;
 });
+nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/schema/ibl.json','',query,{Accept:'application/json'},function(obj){
+	console.log('IBL API');
+	fs.writeFileSync('./iblApi/ibl.json',JSON.stringify(obj,null,2));
+	return false;
+});
