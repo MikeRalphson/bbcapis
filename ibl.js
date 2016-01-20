@@ -73,6 +73,16 @@ function showChildren(pid) {
 	});
 }
 
+function dumpProgrammes(obj) {
+	for (var e in obj.category_programmes.elements) {
+		var p = obj.category_programmes.elements[e];
+		console.log(p.id+' '+p.tleo_type+' '+p.title);
+		if ((p.tleo_type == 'brand') || (p.tleo_type == 'series')) {
+			showChildren(p.id);
+		}
+	}	
+}
+
 function showProgrammesForCategory(cat) {
 	// http://ibl.api.bbci.co.uk/ibl/v1/categories/CAT/programmes?rights=mobile&availability=available&api_key=APIKEY
 	var query = helper.newQuery();
@@ -83,40 +93,21 @@ function showProgrammesForCategory(cat) {
 	//query.add('category',cat);
 	let options = {};
 	nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/categories/'+cat+'/programmes',ibl_key,query,options,function(obj){
+		dumpProgrammes(obj);
 		//var first = true;
-		var total = obj.category_programmes.count;
-		var count = 0;
-		for (var e in obj.category_programmes.elements) {
-			var p = obj.category_programmes.elements[e];
-			//if (first) {
-			//	console.log(JSON.stringify(p,null,2));
-			//	first = false;
-			//}
-			console.log(p.id+' '+p.tleo_type+' '+p.title);
-			if ((p.tleo_type == 'brand') || (p.tleo_type == 'series')) {
-				showChildren(p.id);
-			}
-			count++;
-		}
-		//delete(obj.category_programmes.elements);
-		//console.log(obj);
+		delete(obj.category_programmes.elements);
+		console.log(obj);
 
+		var total = obj.category_programmes.count;
 		var pageNo = 1;
+		var count = 0;
 		while (count<=total) {
 			var nQuery = query.clone();
 			pageNo++;
 			count = count + 20;
 			nQuery.add('page',pageNo);
 			nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/categories/'+cat+'/programmes',ibl_key,nQuery,options,function(obj){
-				console.log('Result page');
-				for (var e in obj.category_programmes.elements) {
-					var p = obj.category_programmes.elements[e];
-					console.log(p.id+' '+p.tleo_type+' '+p.title);
-					if ((p.tleo_type == 'brand') || (p.tleo_type == 'series')) {
-						showChildren(p.id);
-					}
-					//count++;
-				}
+				dumpProgrammes(obj);
 			});
 		}
 
@@ -170,8 +161,8 @@ nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.16.0/config
 	//showRegions();
 	//showChildren('b03gh4r2');
 
-	showProgrammesForCategory('drama-sci-fi-and-fantasy');
-	//showProgrammesForCategory('drama-and-soaps');
+	//showProgrammesForCategory('drama-sci-fi-and-fantasy');
+	showProgrammesForCategory('drama-and-soaps');
 	console.log(ibl_key);
 	return false;
 });
