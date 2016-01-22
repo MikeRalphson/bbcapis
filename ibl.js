@@ -16,6 +16,16 @@ var ibl_key = '';
 // https://github.com/middric/bamboo
 
 //_____________________________________________________________________________
+function showStatus() {
+	// http://ibl.api.bbci.co.uk/ibl/v1/status
+	var query = helper.newQuery();
+	nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/status',ibl_key,query,{},function(obj){
+		console.log(JSON.stringify(obj,null,2));
+		return false;
+	});
+}
+
+//_____________________________________________________________________________
 function showCategories() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/categories?lang=en&api_key=APIKEY
 	var query = helper.newQuery();
@@ -73,6 +83,7 @@ function showChildren(pid) {
 	});
 }
 
+//_____________________________________________________________________________
 function dumpProgrammes(obj) {
 	for (var e in obj.category_programmes.elements) {
 		var p = obj.category_programmes.elements[e];
@@ -83,6 +94,7 @@ function dumpProgrammes(obj) {
 	}	
 }
 
+//_____________________________________________________________________________
 function showProgrammesForCategory(cat) {
 	// http://ibl.api.bbci.co.uk/ibl/v1/categories/CAT/programmes?rights=mobile&availability=available&api_key=APIKEY
 	var query = helper.newQuery();
@@ -163,6 +175,8 @@ nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.16.0/config
 
 	//showProgrammesForCategory('drama-sci-fi-and-fantasy');
 	showProgrammesForCategory('drama-and-soaps');
+	
+	showStatus();
 	console.log(ibl_key);
 	return false;
 });
