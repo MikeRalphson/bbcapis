@@ -42,6 +42,7 @@ var host = 'programmes.api.bbc.com';
 var domain = '/nitro/api';
 var feed = '/programmes';
 var mediaSet = 'pc';
+var payment_type = 'free';
 var api_key = '';
 
 var service = 'radio';
@@ -247,6 +248,7 @@ var processResponse = function(obj) {
 				var query = helper.newQuery(api.fProgrammesDescendantsOf,p.pid,true)
 					.add(api.fProgrammesAvailabilityAvailable)
 					.add(api.fProgrammesAvailabilityTypeOndemand)
+					.add(api.fProgrammesPaymentType,payment_type)
 					.add(api.fProgrammesMediaSet,mediaSet)
 					.add(api.mProgrammesDuration)
 					.add(api.mProgrammesAncestorTitles)
@@ -484,8 +486,9 @@ var options = getopt.create([
 	['d','domain=ARG','Set domain = radio,tv or both'],
 	['f','format=ARG+','Filter by format id'],
 	['g','genre=ARG+','Filter by genre id. all to reset'],
-	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['i','imminent','Set availability to pending (default is available)'],
+	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
+	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscsvod'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
@@ -548,6 +551,9 @@ options.on('genre',function(argv,options){
 options.on('mediaset',function(){
 	dumpMediaSets = true;
 });
+options.on('payment_type',function(argv,options){
+	payment_type = options.payment_type;
+});
 var o = options.parseSystem();
 
 if (pending) {
@@ -566,7 +572,8 @@ query.add(api.mProgrammesAvailability)
 	.add(api.mProgrammesAncestorTitles)
 	.add(api.mProgrammesAvailableVersions)
 	.add(api.fProgrammesPageSize,pageSize)
-	.add(api.fProgrammesAvailabilityTypeOndemand);
+	.add(api.fProgrammesAvailabilityTypeOndemand)
+	.add(api.fProgrammesPaymentType,payment_type);
 
 if (mode=='') {
 	mode = 'genre';
