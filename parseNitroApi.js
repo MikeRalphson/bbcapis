@@ -469,36 +469,36 @@ function processFeed(feed) {
 	path.get.tags = ['feeds'];
 	path.get.summary = feed.title;
 	
-	// a long time ago, in a galaxy far, far away, the API had longer descriptions
+	// a long time ago, in a galaxy far, far away, the API had longer descriptions. Some taken from https://developer.bbc.co.uk/content/
 	if (feed.name == 'Programmes') {
 		path.get.description = 'Fetch metadata about Programmes (brands, series, episodes, clips). By applying different filter restrictions this feed can be used in many ways, for example to retrieve all series belonging to a brand, all the episodes and/or clips for a specific series, or any TLEO objects for a masterbrand. Other filters permit restricting to specific formats and/or genres, and you can request specific versions (for example Signed or Audio-Described). Parameters may be combined in any way suitable for your application.';
 	}
 	else if (feed.name == 'Broadcasts') {
-		path.get.description = 'Fetch metadata about linear Broadcasts and Services, allowing the generation of Television and Radio schedules and other datasets for broadcast items.';
+		path.get.description = 'Fetch metadata about linear Broadcasts and Services, allowing the generation of Television and Radio schedules and other datasets for broadcast items. Use /schedules instead of this feed as it is more efficient. Broadcasts will be deprecated in the future.';
 	}
 	else if (feed.name == 'Schedules') {
 		path.get.description = 'Dates, Times, Schedules: when and where are programmes being shown?';
 	}
 	else if (feed.name == 'Versions') {
-		path.get.description = 'Helps you handle the editorial "versions" of episodes (eg signed, cut for language, regional variations, etc)';
+		path.get.description = 'The versions feed exposes editorial "Versions" of programmes. These are concepts used to capture different presentations of an overall programme: for example, versions of a programme may include one with sign language, one with audio description, one edited for content and more. Versions are also important to understand for broadcasts: a linear broadcast or an ondemand is always of a specific version, not merely of a programme.';
 	}
 	else if (feed.name == 'Services') {
-		path.get.description = 'Exposes both live and historical BBC services, across TV and Radio.';
+		path.get.description = 'The services feed exposes the linear broadcast "services" from PIPs. These are the actual services which broadcast programmes (eg bbc_one_oxford is the service for BBC One in Oxford).';
 	}
 	else if (feed.name == 'People') {
-		path.get.description = 'Find the People PIPs knows about: casts, crews, contributors, guests, artists, singers, bands ...';
+		path.get.description = 'The People feed allows you to search for the people and groups that contribute to programmes. This is the starting point for cast and crew credits, as well as finding contributors using external IDs (such as Wikipedia URLs)';
 	}
 	else if (feed.name == 'Availabilities') {
-		path.get.description = 'For advanced users only: get specific details around when programmes and clips are available to play';
+		path.get.description = 'For advanced users only: Use the availabilities feed to discover details of on-demand availability for programmes and their versions.';
 	}
 	else if (feed.name == 'Images') {
-		path.get.description = 'Find images, particularly those in galleries';
+		path.get.description = 'Find metadata for images, particularly those in galleries';
 	}
 	else if (feed.name == 'Promotions') {
 		path.get.description = 'Details of short-term editorially curated "promotions", for instance those programmes featured on iPlayer today';
 	}
 	else if (feed.name == 'Groups') {
-		path.get.description = 'Long-lived collections of programmes and more, including Collections, Seasons and Galleries';
+		path.get.description = 'Long-lived curated collections of programmes and more, including Collections, Seasons, Franchises and Galleries';
 	}
 
 	path.get.operationId = 'list'+feed.name;
