@@ -68,6 +68,10 @@ const fProgrammesPage = 'page';
 const fProgrammesPageSize = 'page_size';
 const fProgrammesPartnerId = 'partner_id';
 const fProgrammesPartnerPid = 'partner_pid';
+const fProgrammesPaymentTypeFree = 'payment_type=free';
+const fProgrammesPaymentTypeBbcstore = 'payment_type=bbcstore';
+const fProgrammesPaymentTypeUscansvod = 'payment_type=uscansvod';
+const fProgrammesPaymentType = 'payment_type';
 const fProgrammesPeople = 'people';
 const fProgrammesPid = 'pid';
 const fProgrammesPromotedFor = 'promoted_for';
@@ -282,7 +286,7 @@ const fVersionsPageSize = 'page_size';
 const fVersionsPartnerId = 'partner_id';
 const fVersionsPartnerPid = 'partner_pid';
 const fVersionsPid = 'pid';
-const apiHash = '1a8d9f989bdf847b16986672f9b237a890335443112220146036f2bdce1f0a2f';
+const apiHash = '0c60520c092140a2fa44389543a40b7f6298cea7782e6476dcd542ecd1757477';
 
 module.exports = {
 /**
@@ -390,13 +394,13 @@ sProgrammesTreeAscending : sProgrammesTreeAscending,
 */
 sProgrammesTreeDescending : sProgrammesTreeDescending,
 /**
-* sort numerically by number of views (most popular first - faster most_popular)
+* sort numerically by number of views (most popular first)
 * /nitro/api/programmes?sort=views&sort_direction=ascending
 * isDefault
 */
 sProgrammesViewsAscending : sProgrammesViewsAscending,
 /**
-* sort numerically by number of views (most popular first - faster most_popular)
+* sort numerically by number of views (most popular first)
 * /nitro/api/programmes?sort=views&sort_direction=descending
 * isDefault
 */
@@ -660,6 +664,25 @@ fProgrammesPartnerId : fProgrammesPartnerId,
 * default = s0000001
 */
 fProgrammesPartnerPid : fProgrammesPartnerPid,
+/**
+* filter for a subset of programmes that are of the given payment_type
+* type = string
+* default = free
+* depends_on = availability
+* option: free, filter for programmes with no payment_type or with type free
+*/
+fProgrammesPaymentTypeFree : fProgrammesPaymentTypeFree,
+/**
+* option: bbcstore, filter for programmes with payment_type bbcstore
+*/
+fProgrammesPaymentTypeBbcstore : fProgrammesPaymentTypeBbcstore,
+/**
+* option: uscansvod, filter for programmes with payment_type uscansvod
+*/
+fProgrammesPaymentTypeUscansvod : fProgrammesPaymentTypeUscansvod,
+/**
+*/
+fProgrammesPaymentType : fProgrammesPaymentType,
 /**
 * filter for subset of programmes with contributions by given people PID
 * type = PID

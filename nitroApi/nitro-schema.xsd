@@ -104,7 +104,6 @@
 	<xs:group ref="alternate_images_mixin" minOccurs="0"/>
 	<xs:element ref="is_embeddable" minOccurs="0"/>
 	<xs:element ref="related_links" minOccurs="0"/>
-	<xs:group ref="people_mixin" minOccurs="0"/>
 	<xs:group ref="contributions_mixin" minOccurs="0"/>
 	<xs:group ref="previous_next_mixin" minOccurs="0"/>
 	<xs:group ref="availability_mixin" minOccurs="0"/>
@@ -136,7 +135,6 @@
 	<xs:element ref="ancestors_titles" minOccurs="0"/>
 	<xs:element ref="ancestor_titles" minOccurs="0"/>
 	<xs:element ref="related_links" minOccurs="0"/>
-	<xs:group ref="people_mixin" minOccurs="0"/>
 	<xs:group ref="contributions_mixin" minOccurs="0"/>
 	<xs:group ref="previous_next_mixin" minOccurs="0"/>
 	<xs:group ref="availability_mixin" minOccurs="0"/>
@@ -175,7 +173,6 @@
 	<xs:element ref="ancestor_titles" minOccurs="0"/>
 	<xs:group ref="original_version_duration" minOccurs="0"/>
 	<xs:element ref="related_links" minOccurs="0"/>
-	<xs:group ref="people_mixin" minOccurs="0"/>
 	<xs:group ref="contributions_mixin" minOccurs="0"/>
 	<xs:group ref="previous_next_mixin" minOccurs="0"/>
 	<xs:group ref="availability_mixin" minOccurs="0"/>
@@ -212,7 +209,6 @@
 	<xs:element ref="ancestor_titles" minOccurs="0"/>
 	<xs:group ref="original_version_duration" minOccurs="0"/>
 	<xs:element ref="related_links" minOccurs="0"/>
-	<xs:group ref="people_mixin" minOccurs="0"/>
 	<xs:group ref="contributions_mixin" minOccurs="0"/>
 	<xs:group ref="previous_next_mixin" minOccurs="0"/>
 	<xs:group ref="availability_mixin" minOccurs="0"/>
@@ -706,46 +702,6 @@
 	    <xs:group ref="types_with_id" minOccurs="0"/>
 	    <xs:element ref="warnings" minOccurs="0"/>
 	    <xs:element ref="version_of" minOccurs="0"/>
-	  </xs:sequence>
-	</xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:group>
-  <xs:group name="people_mixin">
-    <xs:sequence>
-      <xs:element name="people">
-	<xs:complexType>
-	  <xs:sequence>
-	    <xs:group ref="people_mixin_contribution" minOccurs="0" maxOccurs="unbounded"/>
-	  </xs:sequence>
-	</xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:group>
-  <xs:group name="people_mixin_contribution">
-    <xs:sequence>
-      <xs:element name="contribution">
-	<xs:complexType mixed="true">
-	  <xs:sequence>
-	    <xs:group ref="people_mixin_contributor_name" minOccurs="0"/>
-	  </xs:sequence>
-	  <xs:attribute name="contribution_by" type="pid"/>
-	  <xs:attribute name="credit_role_id" type="xs:string"/>
-	  <xs:attribute name="credit_role" type="xs:string"/>
-	  <xs:attribute name="character_name" type="xs:string"/>
-	</xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:group>
-  <xs:group name="people_mixin_contributor_name">
-    <xs:sequence>
-      <xs:element name="contributor_name">
-	<xs:complexType>
-	  <xs:sequence>
-	    <xs:element name="presentation" type="xs:string" minOccurs="0"/>
-	    <xs:element name="title" type="xs:string" minOccurs="0"/>
-	    <xs:element name="given" type="xs:string" minOccurs="0"/>
-	    <xs:element name="family" type="xs:string" minOccurs="0"/>
 	  </xs:sequence>
 	</xs:complexType>
       </xs:element>

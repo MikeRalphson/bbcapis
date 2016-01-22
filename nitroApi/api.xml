@@ -15,7 +15,6 @@
 	<n:option value="clip" title="filter for programmes with available clips" href="/nitro/api/programmes?availability_entity_type=clip"/>
       </n:filter>
       <n:filter name="availability_from" type="datetime" title="filter for subset of programmes that are available after or at the specified datetime" release_status="deprecated" deprecated="true" deprecated_since="2014-01-22"/>
-      <n:filter name="availability_to" type="datetime" title="filter for subset of programmes that are available before the specified datetime" release_status="deprecated" deprecated="true" deprecated_since="2014-01-22"/>
       <n:filter name="availability_type" type="string" title="filter for a subset of programmes that are available for a given type" release_status="supported" default="ondemand" depends_on="availability">
 	<n:option value="ondemand" title="filters programmes based on availability type of ondemand"/>
       </n:filter>
@@ -38,7 +37,6 @@
       <n:filter name="initial_letter" type="character" title="filter for subset of programmes with title beginning with initial letter librarian style (ignoring leading 'The', 'An' (Welsh), etc) 0-9 a-z" release_status="supported"/>
       <n:filter name="initial_letter_end" type="character" title="Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range" release_status="supported"/>
       <n:filter name="initial_letter_start" type="character" title="Programmes with (librarian) titles whose initial letter is equal/after given letter. Use with initial_letter_end for range." release_status="supported"/>
-      <n:filter name="initial_letter_stop" type="character" title="Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range" release_status="deprecated" deprecated="true" deprecated_since="2014-01-22" replaced_by="initial_letter_end"/>
       <n:filter name="initial_letter_strict" type="character" title="filter for subset of programmes with title beginning with initial letter" multiple_values="true" release_status="supported"/>
       <n:filter name="item" type="PID" title="filter for subset of programmes with linked to versions which have the given item pids" multiple_values="true" release_status="supported"/>
       <n:filter name="master_brand" type="string" title="filter for subset of programmes with master_brand" multiple_values="true" release_status="supported"/>
@@ -51,6 +49,11 @@
       <n:filter name="page_size" type="integer" title="number of results in each page" min_value="0" max_value="300" default="10" release_status="supported"/>
       <n:filter name="partner_id" type="PID" title="filter for programmes by partner ID" release_status="supported" multiple_values="true" prefer="partner_pid"/>
       <n:filter name="partner_pid" type="PID" title="filter for programmes by partner PID" release_status="supported" multiple_values="true" default="s0000001"/>
+      <n:filter name="payment_type" type="string" title="filter for a subset of programmes that are of the given payment_type" release_status="supported" default="free" depends_on="availability">
+	<n:option value="free" title="filter for programmes with no payment_type or with type free"/>
+	<n:option value="bbcstore" title="filter for programmes with payment_type bbcstore"/>
+	<n:option value="uscansvod" title="filter for programmes with payment_type uscansvod"/>
+      </n:filter>
       <n:filter name="people" type="PID" title="filter for subset of programmes with contributions by given people PID" release_status="supported"/>
       <n:filter name="pid" type="PID" title="filter for subset of programmes having given PID" multiple_values="true" release_status="supported"/>
       <n:filter name="promoted_for" type="string" title="filter for subset of programmes which are promoted for given service" release_status="supported"/>
@@ -71,10 +74,6 @@
     <n:sorts>
       <n:sort name="group_position" is_default="false" title="sort numerically by position in group, ascending" release_status="supported">
 	<n:sort_direction name="sort_direction" value="ascending" is_default="true" href="/nitro/api/programmes?sort=group_position&amp;sort_direction=ascending"/>
-      </n:sort>
-      <n:sort name="most_popular" is_default="false" title="sort numerically by popularity (most popular first)" release_status="deprecated" deprecated="true" deprecated_since="2013-11-11" replaced_by="views">
-	<n:sort_direction name="sort_direction" value="ascending" is_default="false" href="/nitro/api/programmes?sort=most_popular&amp;sort_direction=ascending"/>
-	<n:sort_direction name="sort_direction" value="descending" is_default="true" href="/nitro/api/programmes?sort=most_popular&amp;sort_direction=descending"/>
       </n:sort>
       <n:sort name="pid" is_default="true" title="sort alphabetically by PID, descending" release_status="supported">
 	<n:sort_direction name="sort_direction" value="ascending" is_default="false" href="/nitro/api/programmes?sort=pid&amp;sort_direction=ascending"/>
@@ -106,7 +105,7 @@
 	<n:sort_direction name="sort_direction" value="ascending" is_default="false" href="/nitro/api/programmes?sort=tree&amp;sort_direction=ascending"/>
 	<n:sort_direction name="sort_direction" value="descending" is_default="true" href="/nitro/api/programmes?sort=tree&amp;sort_direction=descending"/>
       </n:sort>
-      <n:sort name="views" is_default="false" title="sort numerically by number of views (most popular first - faster most_popular)" release_status="supported">
+      <n:sort name="views" is_default="false" title="sort numerically by number of views (most popular first)" release_status="supported">
 	<n:sort_direction name="sort_direction" value="ascending" is_default="false" href="/nitro/api/programmes?sort=views&amp;sort_direction=ascending"/>
 	<n:sort_direction name="sort_direction" value="descending" is_default="true" href="/nitro/api/programmes?sort=views&amp;sort_direction=descending"/>
       </n:sort>
@@ -132,7 +131,6 @@
       </n:mixin>
       <n:mixin name="images" title="mixin to add image information for a programme" release_status="supported" href="/nitro/api/programmes?mixin=images"/>
       <n:mixin name="is_embeddable" title="mixin to add embeddable information for a programme" release_status="supported" href="/nitro/api/programmes?mixin=is_embeddable"/>
-      <n:mixin name="people" title="mixin to return information about contributors to a programme" release_status="deprecated" deprecated="true" deprecated_since="2014-05-02" replaced_by="contributions" href="/nitro/api/programmes?mixin=people"/>
       <n:mixin name="previous_next" title="mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)" release_status="supported">
 	<n:dependency_on filter="children_of"/>
 	<n:dependency_on filter="group"/>
@@ -144,11 +142,7 @@
     </n:mixins>
     <n:deprecations>
       <n:deprecated name="availability_from" type="filter" deprecated_since="2014-01-22"/>
-      <n:deprecated name="availability_to" type="filter" deprecated_since="2014-01-22"/>
-      <n:deprecated name="initial_letter_stop" type="filter" deprecated_since="2014-01-22" replaced_by="initial_letter_end" replacement_type="filter"/>
-      <n:deprecated name="most_popular" type="sort" deprecated_since="2013-11-11" replaced_by="views" replacement_type="sort"/>
       <n:deprecated name="versions_availability" type="mixin" deprecated_since="2015-11-10" replaced_by="available_versions" replacement_type="mixin"/>
-      <n:deprecated name="people" type="mixin" deprecated_since="2014-05-02" replaced_by="contributions" replacement_type="mixin"/>
       <n:deprecated name="titles" type="mixin" deprecated_since="2013-11-14" replaced_by="ancestor_titles" replacement_type="mixin"/>
       <n:deprecated name="genre_groups" type="mixin" deprecated_since="2015-03-19" replaced_by="genre_groupings" replacement_type="mixin"/>
       <n:deprecated name="n:formats" type="element" deprecated_since="2015-03-23" replaced_by="n:programme_formats" replacement_type="element"/>

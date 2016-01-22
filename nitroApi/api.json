@@ -82,14 +82,6 @@
               "deprecated_since": "2014-01-22"
             },
             {
-              "name": "availability_to",
-              "type": "datetime",
-              "title": "filter for subset of programmes that are available before the specified datetime",
-              "release_status": "deprecated",
-              "deprecated": true,
-              "deprecated_since": "2014-01-22"
-            },
-            {
               "name": "availability_type",
               "type": "string",
               "title": "filter for a subset of programmes that are available for a given type",
@@ -206,15 +198,6 @@
               "release_status": "supported"
             },
             {
-              "name": "initial_letter_stop",
-              "type": "character",
-              "title": "Programmes with (librarian) titles whose initial letter is equal/before given letter. Use with initial_letter_start for a range",
-              "release_status": "deprecated",
-              "deprecated": true,
-              "deprecated_since": "2014-01-22",
-              "replaced_by": "initial_letter_end"
-            },
-            {
               "name": "initial_letter_strict",
               "type": "character",
               "title": "filter for subset of programmes with title beginning with initial letter",
@@ -291,6 +274,28 @@
               "release_status": "supported",
               "multiple_values": true,
               "default": "s0000001"
+            },
+            {
+              "name": "payment_type",
+              "type": "string",
+              "title": "filter for a subset of programmes that are of the given payment_type",
+              "release_status": "supported",
+              "default": "free",
+              "depends_on": "availability",
+              "option": [
+                {
+                  "value": "free",
+                  "title": "filter for programmes with no payment_type or with type free"
+                },
+                {
+                  "value": "bbcstore",
+                  "title": "filter for programmes with payment_type bbcstore"
+                },
+                {
+                  "value": "uscansvod",
+                  "title": "filter for programmes with payment_type uscansvod"
+                }
+              ]
             },
             {
               "name": "people",
@@ -392,29 +397,6 @@
                 "is_default": "true",
                 "href": "/nitro/api/programmes?sort=group_position&sort_direction=ascending"
               }
-            },
-            {
-              "name": "most_popular",
-              "is_default": "false",
-              "title": "sort numerically by popularity (most popular first)",
-              "release_status": "deprecated",
-              "deprecated": true,
-              "deprecated_since": "2013-11-11",
-              "replaced_by": "views",
-              "sort_direction": [
-                {
-                  "name": "sort_direction",
-                  "value": "ascending",
-                  "is_default": "false",
-                  "href": "/nitro/api/programmes?sort=most_popular&sort_direction=ascending"
-                },
-                {
-                  "name": "sort_direction",
-                  "value": "descending",
-                  "is_default": "true",
-                  "href": "/nitro/api/programmes?sort=most_popular&sort_direction=descending"
-                }
-              ]
             },
             {
               "name": "pid",
@@ -571,7 +553,7 @@
             {
               "name": "views",
               "is_default": "false",
-              "title": "sort numerically by number of views (most popular first - faster most_popular)",
+              "title": "sort numerically by number of views (most popular first)",
               "release_status": "supported",
               "sort_direction": [
                 {
@@ -669,15 +651,6 @@
               "href": "/nitro/api/programmes?mixin=is_embeddable"
             },
             {
-              "name": "people",
-              "title": "mixin to return information about contributors to a programme",
-              "release_status": "deprecated",
-              "deprecated": true,
-              "deprecated_since": "2014-05-02",
-              "replaced_by": "contributions",
-              "href": "/nitro/api/programmes?mixin=people"
-            },
-            {
               "name": "previous_next",
               "title": "mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)",
               "release_status": "supported",
@@ -724,36 +697,10 @@
               "deprecated_since": "2014-01-22"
             },
             {
-              "name": "availability_to",
-              "type": "filter",
-              "deprecated_since": "2014-01-22"
-            },
-            {
-              "name": "initial_letter_stop",
-              "type": "filter",
-              "deprecated_since": "2014-01-22",
-              "replaced_by": "initial_letter_end",
-              "replacement_type": "filter"
-            },
-            {
-              "name": "most_popular",
-              "type": "sort",
-              "deprecated_since": "2013-11-11",
-              "replaced_by": "views",
-              "replacement_type": "sort"
-            },
-            {
               "name": "versions_availability",
               "type": "mixin",
               "deprecated_since": "2015-11-10",
               "replaced_by": "available_versions",
-              "replacement_type": "mixin"
-            },
-            {
-              "name": "people",
-              "type": "mixin",
-              "deprecated_since": "2014-05-02",
-              "replaced_by": "contributions",
               "replacement_type": "mixin"
             },
             {
