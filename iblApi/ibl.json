@@ -513,6 +513,9 @@
       "items": {
         "$ref": "#/definitions/store_version"
       }
+    },
+    "category": {
+      "$ref": "#/definitions/category"
     }
   },
   "required": [
@@ -544,6 +547,21 @@
         },
         "child_episode_count": {
           "type": "number"
+        },
+        "child_programme_count": {
+          "type": "number"
+        },
+        "parent_category": {
+          "type": "string"
+        },
+        "contextual_title": {
+          "type": "string"
+        },
+        "sub_categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/category"
+          }
         }
       },
       "required": [
