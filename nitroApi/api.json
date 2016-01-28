@@ -718,13 +718,6 @@
               "replacement_type": "mixin"
             },
             {
-              "name": "n:formats",
-              "type": "element",
-              "deprecated_since": "2015-03-23",
-              "replaced_by": "n:programme_formats",
-              "replacement_type": "element"
-            },
-            {
               "name": "n:genre_groups",
               "type": "element",
               "deprecated_since": "2015-03-23",
@@ -1182,17 +1175,6 @@
               "href": "/nitro/api/groups?mixin=related_links"
             }
           ]
-        },
-        "deprecations": {
-          "deprecated": [
-            {
-              "name": "n:image",
-              "type": "element",
-              "deprecated_since": "2014-07-09",
-              "replaced_by": "images",
-              "replacement_type": "mixin"
-            }
-          ]
         }
       },
       {
@@ -1554,13 +1536,6 @@
               "type": "mixin",
               "deprecated_since": "2014-05-06",
               "replaced_by": "play_event",
-              "replacement_type": "mixin"
-            },
-            {
-              "name": "n:image",
-              "type": "element",
-              "deprecated_since": "2014-07-09",
-              "replaced_by": "images",
               "replacement_type": "mixin"
             }
           ]
@@ -2115,13 +2090,6 @@
               "deprecated_since": "2014-01-31",
               "replaced_by": "ancestor_titles",
               "replacement_type": "mixin"
-            },
-            {
-              "name": "n:image",
-              "type": "element",
-              "deprecated_since": "2014-07-09",
-              "replaced_by": "images",
-              "replacement_type": "mixin"
             }
           ]
         }
@@ -2313,6 +2281,28 @@
               "release_status": "supported",
               "multiple_values": true,
               "default": "s0000001"
+            },
+            {
+              "name": "payment_type",
+              "type": "string",
+              "title": "filter for a subset of versions that are of the given payment_type",
+              "release_status": "supported",
+              "default": "free",
+              "depends_on": "availability",
+              "option": [
+                {
+                  "value": "free",
+                  "title": "filter for versions with no payment_type or with type free"
+                },
+                {
+                  "value": "bbcstore",
+                  "title": "filter for versions with payment_type bbcstore"
+                },
+                {
+                  "value": "uscansvod",
+                  "title": "filter for versions with payment_type uscansvod"
+                }
+              ]
             },
             {
               "name": "pid",

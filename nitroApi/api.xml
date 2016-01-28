@@ -145,7 +145,6 @@
       <n:deprecated name="versions_availability" type="mixin" deprecated_since="2015-11-10" replaced_by="available_versions" replacement_type="mixin"/>
       <n:deprecated name="titles" type="mixin" deprecated_since="2013-11-14" replaced_by="ancestor_titles" replacement_type="mixin"/>
       <n:deprecated name="genre_groups" type="mixin" deprecated_since="2015-03-19" replaced_by="genre_groupings" replacement_type="mixin"/>
-      <n:deprecated name="n:formats" type="element" deprecated_since="2015-03-23" replaced_by="n:programme_formats" replacement_type="element"/>
       <n:deprecated name="n:genre_groups" type="element" deprecated_since="2015-03-23" replaced_by="n:genre_groupings" replacement_type="element"/>
       <n:deprecated name="n:image" type="element" deprecated_since="2014-07-09" replaced_by="images" replacement_type="mixin"/>
     </n:deprecations>
@@ -239,9 +238,6 @@
       <n:mixin name="images" title="mixin to add image information for a group" release_status="supported" href="/nitro/api/groups?mixin=images"/>
       <n:mixin name="related_links" title="mixin to return related links for the group" release_status="supported" href="/nitro/api/groups?mixin=related_links"/>
     </n:mixins>
-    <n:deprecations>
-      <n:deprecated name="n:image" type="element" deprecated_since="2014-07-09" replaced_by="images" replacement_type="mixin"/>
-    </n:deprecations>
   </n:feed>
   <n:feed name="Images" rel="feed" href="/nitro/api/images" title="Find metadata for images" release_status="supported">
     <n:filters>
@@ -325,7 +321,6 @@
     </n:mixins>
     <n:deprecations>
       <n:deprecated name="offset" type="mixin" deprecated_since="2014-05-06" replaced_by="play_event" replacement_type="mixin"/>
-      <n:deprecated name="n:image" type="element" deprecated_since="2014-07-09" replaced_by="images" replacement_type="mixin"/>
     </n:deprecations>
   </n:feed>
   <n:feed name="Masterbrands" rel="feed" href="/nitro/api/master_brands" title="List all Master Brands">
@@ -432,7 +427,6 @@
     </n:mixins>
     <n:deprecations>
       <n:deprecated name="titles" type="mixin" deprecated_since="2014-01-31" replaced_by="ancestor_titles" replacement_type="mixin"/>
-      <n:deprecated name="n:image" type="element" deprecated_since="2014-07-09" replaced_by="images" replacement_type="mixin"/>
     </n:deprecations>
   </n:feed>
   <n:feed name="Services" rel="feed" href="/nitro/api/services" title="Information about the linear services used for broadcast transmissions" release_status="supported">
@@ -468,6 +462,11 @@
       <n:filter name="page_size" type="integer" title="number of results in each page" min_value="0" max_value="300" default="10" release_status="supported"/>
       <n:filter name="partner_id" type="PID" title="filter for versions by partner ID" release_status="supported" multiple_values="true" prefer="partner_pid"/>
       <n:filter name="partner_pid" type="PID" title="filter for versions by partner PID" release_status="supported" multiple_values="true" default="s0000001"/>
+      <n:filter name="payment_type" type="string" title="filter for a subset of versions that are of the given payment_type" release_status="supported" default="free" depends_on="availability">
+	<n:option value="free" title="filter for versions with no payment_type or with type free"/>
+	<n:option value="bbcstore" title="filter for versions with payment_type bbcstore"/>
+	<n:option value="uscansvod" title="filter for versions with payment_type uscansvod"/>
+      </n:filter>
       <n:filter name="pid" type="PID" title="filter for subset of versions having given PID" multiple_values="true" release_status="supported"/>
     </n:filters>
     <n:deprecations>

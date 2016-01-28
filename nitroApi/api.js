@@ -285,8 +285,12 @@ const fVersionsPage = 'page';
 const fVersionsPageSize = 'page_size';
 const fVersionsPartnerId = 'partner_id';
 const fVersionsPartnerPid = 'partner_pid';
+const fVersionsPaymentTypeFree = 'payment_type=free';
+const fVersionsPaymentTypeBbcstore = 'payment_type=bbcstore';
+const fVersionsPaymentTypeUscansvod = 'payment_type=uscansvod';
+const fVersionsPaymentType = 'payment_type';
 const fVersionsPid = 'pid';
-const apiHash = '0c60520c092140a2fa44389543a40b7f6298cea7782e6476dcd542ecd1757477';
+const apiHash = '441da68c46c238dcb43a963d752d6ca74f519dfb98f3a97d0017306cec0d895d';
 
 module.exports = {
 /**
@@ -1812,6 +1816,25 @@ fVersionsPartnerId : fVersionsPartnerId,
 * default = s0000001
 */
 fVersionsPartnerPid : fVersionsPartnerPid,
+/**
+* filter for a subset of versions that are of the given payment_type
+* type = string
+* default = free
+* depends_on = availability
+* option: free, filter for versions with no payment_type or with type free
+*/
+fVersionsPaymentTypeFree : fVersionsPaymentTypeFree,
+/**
+* option: bbcstore, filter for versions with payment_type bbcstore
+*/
+fVersionsPaymentTypeBbcstore : fVersionsPaymentTypeBbcstore,
+/**
+* option: uscansvod, filter for versions with payment_type uscansvod
+*/
+fVersionsPaymentTypeUscansvod : fVersionsPaymentTypeUscansvod,
+/**
+*/
+fVersionsPaymentType : fVersionsPaymentType,
 /**
 * filter for subset of versions having given PID
 * type = PID

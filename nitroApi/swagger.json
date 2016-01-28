@@ -2428,6 +2428,22 @@
 						"required": false
 					},
 					{
+						"name": "payment_type",
+						"in": "query",
+						"description": "filter for a subset of versions that are of the given payment_type",
+						"type": "array",
+						"collectionFormat": "multi",
+						"items": {
+							"format": "string"
+						},
+						"required": false,
+						"enum": [
+							"free",
+							"bbcstore",
+							"uscansvod"
+						]
+					},
+					{
 						"name": "pid",
 						"in": "query",
 						"description": "filter for subset of versions having given PID",
