@@ -162,7 +162,6 @@
 	<xs:group ref="master_brand_link" minOccurs="0"/>
 	<xs:element ref="episode_of" minOccurs="0"/>
 	<xs:element ref="genre_groups" minOccurs="0"/>
-	<xs:element ref="formats" minOccurs="0"/>
 	<xs:element ref="ancestors" minOccurs="0"/>
 	<xs:element ref="items_for" minOccurs="0"/>
 	<xs:element ref="programme_formats" minOccurs="0"/>
@@ -198,7 +197,6 @@
 	<xs:group ref="master_brand_link" minOccurs="0"/>
 	<xs:element ref="clip_of" minOccurs="0"/>
 	<xs:element ref="genre_groups" minOccurs="0"/>
-	<xs:element ref="formats" minOccurs="0"/>
 	<xs:element ref="ancestors" minOccurs="0"/>
 	<xs:element ref="items_for" minOccurs="0"/>
 	<xs:element ref="programme_formats" minOccurs="0"/>
@@ -303,7 +301,6 @@
       <xs:element ref="offsets" minOccurs="0"/>
       <xs:element ref="play_events" minOccurs="0"/>
       <xs:element ref="snippet_url" minOccurs="0"/>
-      <xs:group ref="image_link" minOccurs="0" maxOccurs="unbounded"/>
       <xs:group ref="images_mixin" minOccurs="0"/>
       <xs:group ref="contributions_mixin" minOccurs="0"/>
     </xs:sequence>
@@ -919,16 +916,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="formats" type="formatsType"/>
-  <xs:complexType name="formatsType">
-    <xs:complexContent>
-      <xs:extension base="deprecatedReferenceElement">
-	<xs:sequence>
-	  <xs:element ref="format" minOccurs="0" maxOccurs="unbounded"/>
-	</xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:element name="format">
     <xs:complexType>
       <xs:simpleContent>
@@ -1536,7 +1523,6 @@
       <xs:element ref="title" minOccurs="0"/>
       <xs:element ref="synopses" minOccurs="0"/>
       <xs:element ref="scheduled" minOccurs="0"/>
-      <xs:group ref="image_link" minOccurs="0" maxOccurs="unbounded"/>
       <xs:group ref="images_mixin" minOccurs="0"/>
       <xs:group ref="alternate_images_mixin" minOccurs="0"/>
       <xs:element ref="for_programmes" minOccurs="0"/>
