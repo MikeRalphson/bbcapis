@@ -78,8 +78,8 @@ function showChildren(pid) {
 	//query.add('lang','en');
 	query.add('rights','web'); //mobile
 	query.add('availability','available');
-	nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/episodes/'+pid,ibl_key,query,{},function(obj){
-		console.log(obj);
+	nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/programmes/'+pid,ibl_key,query,{},function(obj){
+		console.log(JSON.stringify(obj,null,2));
 	});
 }
 
@@ -161,6 +161,14 @@ function showProgrammesForCategory(cat) {
 				{base_uri}/ibl/v1/atoz/{letter}/programmes?page={page}
 	"categoriesUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/categories/{category}/programmes?rights=web&page=1&per_page=40&initial_child_count=4&sort=title&sort_direction=asc&availability=available&api_key=",
     "channelsUrl" : "http://ibl.api.bbci.co.uk/ibl/v1/channels/{channel_id}/programmes?rights=web&page=1&per_page=40&availability=available&api_key=",
+	
+"28" : "http://open.live.bbc.co.uk/ibl/v1/categories/%s/programmes?rights=mobile&page=%s&per_page=%s&sort=title&sort_direction=asc&initial_child_count=%s&availability=available&api_key=",
+"29" : "http://open.live.bbc.co.uk/ibl/v1/home/highlights?lang=en&rights=mobile&availability=available&api_key=",
+"30" : "http://open.live.bbc.co.uk/ibl/v1/programmes/%s/episodes?rights=mobile&availability=available&page=%s&per_page=%s&api_key=",
+"31" : "http://open.live.bbc.co.uk/ibl/v1/episodes/%s/recommendations?rights=mobile&availability=available&page=%s&per_page=%s&api_key=",
+"32" : "http://open.live.bbc.co.uk/ibl/v1/episodes/%s?rights=mobile&availability=available&api_key=",
+"33" : "http://open.live.bbc.co.uk/ibl/v1/programmes/{programmeid}?rights=mobile&availability=available&api_key={apikey}"
+
 
 */
 
@@ -168,13 +176,13 @@ var query = helper.newQuery();
 
 nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.16.0/config.json','',query,{},function(obj){
 	ibl_key = obj.BBCIBL.BBCIBLKey;
-	//showCategories();
+	showCategories();
 	//showChannels();
 	//showRegions();
-	//showChildren('b03gh4r2');
+	showChildren('b03gh4r2');
 
 	//showProgrammesForCategory('drama-sci-fi-and-fantasy');
-	showProgrammesForCategory('drama-and-soaps');
+	//showProgrammesForCategory('drama-and-soaps');
 	
 	showStatus();
 	console.log(ibl_key);

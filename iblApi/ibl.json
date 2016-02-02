@@ -1560,6 +1560,9 @@
         "progress": {
           "type": "number"
         },
+        "remaining": {
+          "type": "number"
+        },
         "has_next": {
           "type": "boolean"
         }
