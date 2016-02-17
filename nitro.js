@@ -35,7 +35,7 @@ var search = '';
 
 // https://api.live.bbc.co.uk/nitro/api/
 // https://api.test.bbc.co.uk/nitro/api/
-// http://nitro-e2e.api.bbci.co.uk/nitro-e2e/api/
+// http://nitro-e2e.api.bbci.co.uk/nitro-e2e/api/ - locked down?
 // http://nitro-slave-1.cloud.bbc.co.uk/nitro/api
 
 var host = 'programmes.api.bbc.com';
