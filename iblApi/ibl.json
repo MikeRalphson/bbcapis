@@ -670,6 +670,9 @@
           ],
           "additionalProperties": false
         },
+        "has_credits": {
+          "type": "boolean"
+        },
         "signed": {
           "type": "boolean"
         },
