@@ -28,4 +28,5 @@ node_modules
 
 apidocs
 *.txt
+*.cmd
 config.json
