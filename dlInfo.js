@@ -6,9 +6,10 @@ dlInfo.js
 
 var nitro = require('./nitroCommon');
 var helper = require('./apiHelper');
-var xmlToJson = require('./xmlToJson');
+//var xmlToJson = require('./xmlToJson');
+var xmlToJson = require('jgeXml/xml2json');
 
-var pid = process.argv[2]; // e.g. b006v299
+var pid = process.argv[2]; // a version PID (vPID) e.g. b01r5278
 
 var config = require('./config.json');
 var mediaSet = config.nitro.mediaset;
@@ -36,7 +37,7 @@ nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vp
 	nitro.make_request('open.live.bbc.co.uk','/axs/open/authxml','',q2,
 		{'Accept': 'text/html,application/xhtml+xml,application/xml'},function(obj){
 		console.log('Converted from XML');
-		console.log(xmlToJson.convert(obj));
+		console.log(JSON.stringify(xmlToJson.xml2json(obj),null,2));
 	});
 
 /*
