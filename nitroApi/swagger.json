@@ -168,7 +168,8 @@
 						},
 						"required": false,
 						"enum": [
-							"ondemand"
+							"ondemand",
+							"webcast"
 						]
 					},
 					{

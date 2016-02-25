@@ -39,6 +39,7 @@ const fProgrammesAvailabilityEntityTypeEpisode = 'availability_entity_type=episo
 const fProgrammesAvailabilityEntityTypeClip = 'availability_entity_type=clip';
 const fProgrammesAvailabilityEntityType = 'availability_entity_type';
 const fProgrammesAvailabilityTypeOndemand = 'availability_type=ondemand';
+const fProgrammesAvailabilityTypeWebcast = 'availability_type=webcast';
 const fProgrammesAvailabilityType = 'availability_type';
 const fProgrammesChildrenOf = 'children_of';
 const fProgrammesDescendantsOf = 'descendants_of';
@@ -290,7 +291,7 @@ const fVersionsPaymentTypeBbcstore = 'payment_type=bbcstore';
 const fVersionsPaymentTypeUscansvod = 'payment_type=uscansvod';
 const fVersionsPaymentType = 'payment_type';
 const fVersionsPid = 'pid';
-const apiHash = '441da68c46c238dcb43a963d752d6ca74f519dfb98f3a97d0017306cec0d895d';
+const apiHash = '3ed84e332ae0728edec0ecfbb7116c5c97db1d9a062fdab154d367ce0dd63b2c';
 
 module.exports = {
 /**
@@ -520,6 +521,10 @@ fProgrammesAvailabilityEntityType : fProgrammesAvailabilityEntityType,
 * option: ondemand, filters programmes based on availability type of ondemand
 */
 fProgrammesAvailabilityTypeOndemand : fProgrammesAvailabilityTypeOndemand,
+/**
+* option: webcast, filters programmes based on availability type of webcast
+*/
+fProgrammesAvailabilityTypeWebcast : fProgrammesAvailabilityTypeWebcast,
 /**
 */
 fProgrammesAvailabilityType : fProgrammesAvailabilityType,

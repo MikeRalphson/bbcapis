@@ -88,10 +88,17 @@
               "release_status": "supported",
               "default": "ondemand",
               "depends_on": "availability",
-              "option": {
-                "value": "ondemand",
-                "title": "filters programmes based on availability type of ondemand"
-              }
+              "multiple_values": true,
+              "option": [
+                {
+                  "value": "ondemand",
+                  "title": "filters programmes based on availability type of ondemand"
+                },
+                {
+                  "value": "webcast",
+                  "title": "filters programmes based on availability type of webcast"
+                }
+              ]
             },
             {
               "name": "children_of",
@@ -718,14 +725,14 @@
               "replacement_type": "mixin"
             },
             {
-              "name": "n:genre_groups",
+              "name": "genre_groups",
               "type": "element",
               "deprecated_since": "2015-03-23",
-              "replaced_by": "n:genre_groupings",
+              "replaced_by": "genre_groupings",
               "replacement_type": "element"
             },
             {
-              "name": "n:image",
+              "name": "image",
               "type": "element",
               "deprecated_since": "2014-07-09",
               "replaced_by": "images",
@@ -1016,7 +1023,7 @@
         "deprecations": {
           "deprecated": [
             {
-              "name": "n:image",
+              "name": "image",
               "type": "element",
               "deprecated_since": "2014-07-09",
               "replaced_by": "images",
@@ -2316,10 +2323,10 @@
         "deprecations": {
           "deprecated": [
             {
-              "name": "n:version_types",
+              "name": "version_types",
               "type": "element",
               "deprecated_since": "2015-05-05",
-              "replaced_by": "n:types",
+              "replaced_by": "types",
               "replacement_type": "element"
             }
           ]

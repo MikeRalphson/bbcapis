@@ -1276,6 +1276,7 @@
 	<xs:element minOccurs="0" maxOccurs="unbounded" ref="feed"/>
 	<xs:element minOccurs="0" maxOccurs="1" ref="deprecations"/>
       </xs:sequence>
+      <xs:attribute name="deployment_root" type="xs:string"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="feed">
