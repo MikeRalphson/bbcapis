@@ -28,7 +28,12 @@ nitro.make_request(host,'/nitro/api/schema',api_key,query,{Accept:'text/xml'},fu
 	return false;
 });
 nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/schema/ibl.json','',query,{Accept:'application/json'},function(obj){
-	console.log('IBL API');
+	console.log('iBL API');
 	fs.writeFileSync('./iblApi/ibl.json',JSON.stringify(obj,null,2));
+	return false;
+});
+var ibl_key = 'dummy';
+nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/status',ibl_key,query,{},function(obj){
+	console.log('iBL status '+obj.status.service+' v'+obj.version+' r'+obj.status.release);
 	return false;
 });

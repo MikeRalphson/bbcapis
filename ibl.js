@@ -188,4 +188,3 @@ nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.16.0/config
 	console.log(ibl_key);
 	return false;
 });
-
