@@ -20,7 +20,9 @@
     "bbc",
     "nitro",
     "api",
-    "iplayer"
+    "iplayer",
+	"ibl",
+	"searchSuggest"
   ],
   "author": "Mike Ralphson",
   "license": "BSD-3-Clause",
@@ -30,6 +32,6 @@
   "homepage": "https://github.com/Mermade/bbcparse#readme",
   "dependencies": {
     "node-getopt": "^0.2.3",
-	"jgexml": "^0.1.1"
+	"jgexml": "^0.1.5"
   }
 }
