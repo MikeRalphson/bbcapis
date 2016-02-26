@@ -7,6 +7,7 @@ var nitro = require('./nitroCommon');
 var ibl_key = '';
 
 // BBC iPlayer Business Layer
+// ibl-nibl is delivered by a service called edibl :)
 
 // http://ibl.api.bbci.co.uk/ibl/v1/schema/ibl.json?api_key=APIKEY
 
