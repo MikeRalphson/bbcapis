@@ -52,6 +52,20 @@ function checkReleaseStatus(status) {
 }
 
 //__________________________________________________________________
+function deprecationInfo(feed,name,deprecated_since) {
+	var result = ' since ' + (deprecated_since ? deprecated_since : 'unknown');
+	var d = feed.deprecations.deprecated;
+	if (d) {
+		for (var i=0;i<d.length;i++) {
+			if ((d[i].name == name) && (d[i].replaced_by)) {
+				result = result + ' -> ' + d[i].replaced_by;
+			}
+		}
+	}
+	return result;
+}
+
+//__________________________________________________________________
 function prohibits(p) {
 	var s = '';
 	var m = toArray(p.mixin);
@@ -208,7 +222,7 @@ function processSort(feed,sort,sortName) {
 		}
 	}
 	else {
-		console.log('Skipping sort '+sortName+' as '+sort.release_status);
+		console.log('Skipping sort '+sortName+' as '+sort.release_status+' '+deprecationInfo(feed,sort.name,sort.deprecated_since));
 	}
 }
 
@@ -273,7 +287,7 @@ function processMixin(feed,mixin,mixinName) {
 		}
 	}
 	else {
-		console.log('Skipping mixin '+mixinName+' as '+mixin.release_status);
+		console.log('Skipping mixin '+mixinName+' as '+mixin.release_status+deprecationInfo(feed,mixin.name,mixin.deprecated_since));
 	}
 }
 
@@ -447,7 +461,7 @@ function processFilter(feed,filter,filterName) {
 		}
 	}
 	else {
-		console.log('Skipping filter '+filterName+' as '+filter.release_status);
+		console.log('Skipping filter '+filterName+' as '+filter.release_status+deprecationInfo(feed,filter.name,filter.deprecated_since));
 	}
 }
 
@@ -514,6 +528,7 @@ function processFeed(feed) {
 	
 	if (feed.release_status == 'deprecated') {
 		path.get.deprecated = true;
+		console.log('! Warning, feed '+feed.name+' is '+feed.release_status+deprecationInfo(feed,feed.name,feed.deprecated_since))
 	}
 
 	if (feed.sorts) {
@@ -699,7 +714,7 @@ for (var f in api.feeds.feed) {
 		processFeed(feed);
 	}
 	else {
-		console.log('Skipping feed '+feed.name+' as '+feed.release_status);
+		console.log('Skipping feed '+feed.name+' as '+feed.release_status+deprecationInfo(feed,feed.name,feed.deprecated_since));
 	}
 }
 
