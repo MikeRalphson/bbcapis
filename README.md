@@ -1,7 +1,6 @@
-# bbcparse
-Nodejs-based utilities to document and consume BBC APIs, including Nitro
+## bbcparse - Nodejs-based utilities to document and consume BBC APIs, including Nitro
 
-## Utilities to:
+#### Utilities to:
 * create a Swagger 2.0 definition from the Nitro API feed (parseNitroApi.js)
 * show programme,brand or series information by category or searching (nitro.js)
 * show genres/formats for the radio player and iPlayer (categories.js)
