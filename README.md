@@ -1,4 +1,4 @@
-## bbcparse - Nodejs-based utilities to document and consume BBC APIs, including Nitro
+### bbcparse - Nodejs-based utilities to document and consume BBC APIs, including Nitro
 
 #### Utilities to:
 * create a Swagger 2.0 definition from the Nitro API feed (parseNitroApi.js)
