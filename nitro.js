@@ -8,7 +8,10 @@ List programmes by aggregation (category, format, or search)
 var fs = require('fs');
 var util = require('util');
 var url = require('url');
+
 var getopt = require('node-getopt');
+var j2x = require('jgexml/json2xml');
+
 var common = require('./common');
 var nitro = require('./nitroCommon');
 var helper = require('./apiHelper');
@@ -83,6 +86,71 @@ function iso8601durationToSeconds(input) {
 		totalseconds = hours * 3600  + minutes * 60 + seconds;
 	}
 	return totalseconds;
+}
+
+//-----------------------------------------------------------------------------
+
+function pc_rss(name) {
+	var feed = {};
+	var rss = {};
+	rss['@version'] = "2.0";
+	rss.channel = {};
+	rss.channel.title = 'BBC Nitro programmes feed - '+name;
+	rss.channel.link = 'http://mermade.github.io/feeds';
+	rss.channel.description = 'Unofficial BBC iPlayer feeds via the Nitro API';
+	rss.channel.webMaster = 'mike.ralphson@gmail.com (Mike Ralphsonno)';
+	rss.channel.pubDate = new Date().toUTCString();
+	rss.channel.generator = 'bbcparse by Mermade Software';
+	rss.channel.item = [];
+	for (var i in programme_cache) {
+		var p = programme_cache[i];
+
+		if (p.available_versions.available > 0) {
+			var title = (p.title ? p.title : p.presentation_title);
+			var ancestor_titles = '';
+			for (var at in p.ancestor_titles) {
+				//present = present || (download_history.indexOf(p.ancestor_titles[at].pid)>=0);
+				var t = '';
+				if (p.ancestor_titles[at].title) {
+					t = p.ancestor_titles[at].title;
+				}
+				else if (p.ancestor_titles[at].presentation_title) {
+					t = p.ancestor_titles[at].presentation_title;
+				}
+				if (p.ancestor_titles[at].ancestor_type != 'episode') {
+					ancestor_titles += t + ' : ';
+				}
+				else if (!title) {
+					title = t;
+				}
+				//parents += '  ' + p.ancestor_titles[at].pid + ' ('+t+') ';
+			}
+			title = ancestor_titles + title + ' - ' + (p.display_titles && p.display_titles.subtitle ? p.display_titles.subtitle : p.presentation_title);
+
+			var desc = '';
+			if (p.synopses) {
+				if (p.synopses.long) desc = p.synopses && p.synopses.long
+				else if (p.synopses.medium) desc = p.synopses && p.synopses.medium
+				else desc = p.synopses.short;
+			}
+			var d = new Date(p.updated_time);
+
+			//TODO output an enclosure for podcasts?
+
+			var i = {};
+			i.title = title;
+			i.link = 'http://bbc.co.uk/programmes/'+p.pid;
+			if (desc) i.description = desc;
+			i.category = p.media_type;
+			i.guid = {};
+			i.guid["@isPermaLink"] = 'false';
+			i.guid[""] = (p.version && p.version.pid ? 'vPID;' + p.version.pid : 'PID:' + p.pid);
+			i.pubDate = d.toUTCString();
+			rss.channel.item.push(i);
+		}
+	}
+	feed.rss = rss;
+	fs.writeFileSync('./'+name+'.rss',j2x.getXml(feed,'@','',2));
 }
 
 //-----------------------------------------------------------------------------
@@ -493,6 +561,7 @@ var options = getopt.create([
 	['a','all','Show programme regardless of presence in download_history'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
 	['o','output','output in get_iplayer cache format'],
+	['r','rss=ARG','output in RSS 2.0 format'],
 	['u','upcoming','Show programme schedule information not history']
 ]);
 var o = options.bindHelp();
@@ -614,7 +683,10 @@ else {
 }
 
 process.on('exit', function(code) {
-	if (o.options.output) {
+	if (o.options.rss) {
+		pc_rss(o.options.rss);
+	}
+	else if (o.options.output) {
 		pc_export();
 	}
 	else {
