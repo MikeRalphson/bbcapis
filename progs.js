@@ -144,7 +144,7 @@ function cat_slice_dump(obj) {
 //-----------------------------------------------------------------------------
 
 function cat_page_list(obj) {
-    debuglog(obj);
+    debuglog(JSON.stringify(obj,null,2));
 	console.log('* Category_page list');
 	console.log(obj.category_page.category.key+' = '+obj.category_page.category.title);
 	//var len = obj.category_page.available_programmes.length;
@@ -174,7 +174,7 @@ function atoz_list(obj) {
 	else {
 		for (var i in obj.atoz.tleo_titles) {
 			var p = obj.atoz.tleo_titles[i].programme;
-			debuglog(p);
+			debuglog(JSON.stringify(p,null,2));
 			if ((p.type == 'episode') || (p.type == 'clip'))  {
 				add_programme(p);
 			}
@@ -199,7 +199,7 @@ function episode_list(obj) {
 	else {
 		for (var i in obj.episodes) {
 			var p = obj.episodes[i].programme;
-			debuglog(p);
+			debuglog(JSON.stringify(p,null,2));
 			if ((p.type == 'episode') || (p.type == 'clip'))  {
 				add_programme(p);
 			}
@@ -224,7 +224,7 @@ function broadcast_list(obj) {
 	else {
 		for (var i in obj.broadcasts) {
 			var p = obj.broadcasts[i].programme;
-			debuglog(p);
+			debuglog(JSON.stringify(p,null,2));
 			if ((p.type == 'episode') || (p.type == 'clip'))  {
 				var present = false;
 				for (var pc in programme_cache) {
@@ -245,7 +245,6 @@ function broadcast_list(obj) {
 		return (obj.offset+obj.broadcasts.length<obj.total);
 	}
 }
-
 
 //------------------------------------------------------------------------------
 

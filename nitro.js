@@ -98,7 +98,7 @@ function pc_rss(name) {
 	rss.channel.title = 'BBC Nitro programmes feed - '+name;
 	rss.channel.link = 'http://mermade.github.io/feeds';
 	rss.channel.description = 'Unofficial BBC iPlayer feeds via the Nitro API';
-	rss.channel.webMaster = 'mike.ralphson@gmail.com (Mike Ralphsonno)';
+	rss.channel.webMaster = 'mike.ralphson@gmail.com (Mike Ralphson)';
 	rss.channel.pubDate = new Date().toUTCString();
 	rss.channel.generator = 'bbcparse by Mermade Software';
 	rss.channel.item = [];
