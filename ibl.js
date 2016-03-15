@@ -29,14 +29,26 @@ function showStatus() {
 //_____________________________________________________________________________
 function showCategories() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/categories?lang=en&api_key=APIKEY
+	//http://ibl.api.bbci.co.uk/ibl/v1/categories/drama-and-soaps?lang=en&api_key=APIKEY
 	var query = helper.newQuery();
 	query.add('lang','en');
+	//query.add('rights','mobile');
 	nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/categories',ibl_key,query,{},function(obj){
 		console.log();
 		for (var i in obj.categories) {
 			var cat = obj.categories[i];
-			console.log(cat.id+' '+cat.title);
-			//console.log(JSON.stringify(cat,null,2));
+			console.log(cat.id+' '+cat.title+' '+cat.kind);
+			var sQuery = helper.newQuery();
+			sQuery.add('lang','en');
+			nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/categories/'+cat.id,ibl_key,query,{},function(obj){
+				for (var sc in obj.category.sub_categories) {
+					var subcat = obj.category.sub_categories[sc];
+					console.log('  '+subcat.id+' '+subcat.contextual_title+' '+subcat.kind+' '+subcat.child_programme_count+'>'+subcat.child_episode_count);
+					if (subcat.sub_categories.length>0) {
+						console.log(JSON.stringify(subcat.sub_categories,null,2));
+					}
+				}
+			});
 		}
 		return false;
 	});
@@ -80,7 +92,17 @@ function showChildren(pid) {
 	query.add('rights','web'); //mobile
 	query.add('availability','available');
 	nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/programmes/'+pid,ibl_key,query,{},function(obj){
-		console.log(JSON.stringify(obj,null,2));
+		for (var i in obj.programmes) {
+			var p = obj.programmes[i];
+			for (var j in p.initial_children) {
+				var c = p.initial_children[j];
+				console.log('*'+c.id+' '+c.type+' '+c.title+' '+c.subtitle);
+				//console.log(JSON.stringify(c,null,2));
+				if ((p.type == 'brand') || (p.type == 'series')) {
+					showChildren(p.id);
+				}
+			}
+		}
 	});
 }
 
@@ -101,15 +123,15 @@ function showProgrammesForCategory(cat) {
 	var query = helper.newQuery();
 	//query.add('lang','en');
 	query.add('rights','web'); //mobile
-	//query.add('availability','available');
+	query.add('availability','available');
+	query.add('media_type','audio'); //?
 	query.add('per-page',20);
-	//query.add('category',cat);
 	let options = {};
 	nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/categories/'+cat+'/programmes',ibl_key,query,options,function(obj){
 		dumpProgrammes(obj);
-		//var first = true;
-		delete(obj.category_programmes.elements);
-		console.log(obj);
+
+		//delete(obj.category_programmes.elements);
+		console.log(JSON.stringify(obj,null,2));
 
 		var total = obj.category_programmes.count;
 		var pageNo = 1;
@@ -173,17 +195,20 @@ function showProgrammesForCategory(cat) {
 
 */
 
+var cat = 'drama-sci-fi-and-fantasy';
+if (process.argv.length>2) cat = process.argv[2];
+
 var query = helper.newQuery();
 
 nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.16.0/config.json','',query,{},function(obj){
 	ibl_key = obj.BBCIBL.BBCIBLKey;
-	showCategories();
+	//showCategories();
 	//showChannels();
 	//showRegions();
-	showChildren('b03gh4r2');
+	//showChildren('b03gh4r2');
 
 	//showProgrammesForCategory('drama-sci-fi-and-fantasy');
-	showProgrammesForCategory('drama-and-soaps');
+	//showProgrammesForCategory(cat);
 	
 	showStatus();
 	console.log(ibl_key);

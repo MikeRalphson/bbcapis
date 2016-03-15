@@ -72,7 +72,7 @@ function list_categories(path) {
 
 // http://polling.bbc.co.uk/radio/categories.json
 
-// ? tv is not where you might have thought
+// ? tv is not where you might have expected
 
 var domain = 'radio';
 if (process.argv.length>2) {
