@@ -592,6 +592,9 @@
         "master_brand_id": {
           "type": "string"
         },
+        "master_brand_title": {
+          "type": "string"
+        },
         "on_air": {
           "type": "boolean"
         }
@@ -601,7 +604,8 @@
         "title",
         "type",
         "has_schedule",
-        "master_brand_id"
+        "master_brand_id",
+        "master_brand_title"
       ],
       "additionalProperties": false
     },
@@ -992,6 +996,9 @@
               "type": "string"
             },
             "time": {
+              "type": "string"
+            },
+            "category": {
               "type": "string"
             }
           },
