@@ -6,7 +6,6 @@ dlInfo.js
 
 var nitro = require('./nitroCommon');
 var helper = require('./apiHelper');
-//var xmlToJson = require('./xmlToJson');
 var xmlToJson = require('jgeXml/xml2json');
 
 var pid = process.argv[2]; // a version PID (vPID) e.g. b01r5278
@@ -32,7 +31,7 @@ nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vp
 	var q2 = helper.newQuery();
 	q2.add('media_set',mediaSet)
 		.add('version_pid',pid)
-		.add('format','xml');
+		.add('format','xml'); // or base64
 
 	nitro.make_request('open.live.bbc.co.uk','/axs/open/authxml','',q2,
 		{'Accept': 'text/html,application/xhtml+xml,application/xml'},function(obj){

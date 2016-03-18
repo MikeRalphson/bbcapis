@@ -168,13 +168,13 @@ function showProgrammesForCategory(cat) {
  http://ibl.api.bbci.co.uk/ibl/v1/categories/cbbc/highlights?lang=en&rights=mobile&availability=available&api_key=
 
  Programmes on BBC One
- http://ibl.api.bbci.co.uk/ibl/v1/channels/bbc_one_london/programmes?lang=en&rights=tv&availability=available&api_key=
+ http://ibl.api.bbci.co.uk/ibl/v1/channels/bbc_one_london/programmes?lang=en&rights=tv&availability=available&page=%n&api_key=
  Programmes on BBC Two
- http://ibl.api.bbci.co.uk/ibl/v1/channels/bbc_two_england/programmes?lang=en&rights=tv&availability=available&api_key=
+ http://ibl.api.bbci.co.uk/ibl/v1/channels/bbc_two_england/programmes?lang=en&rights=tv&availability=available&page=%n&api_key=
  Programmes Arts Category
- http://ibl.api.bbci.co.uk/ibl/v1/categories/arts/programmes?lang=en&rights=tv&availability=available&api_key=
+ http://ibl.api.bbci.co.uk/ibl/v1/categories/arts/programmes?lang=en&rights=tv&availability=available&page=%n&api_key=
  Programmes CBBC Category
- http://ibl.api.bbci.co.uk/ibl/v1/categories/cbbc/programmes?lang=en&rights=tv&availability=available&api_key=
+ http://ibl.api.bbci.co.uk/ibl/v1/categories/cbbc/programmes?lang=en&rights=tv&availability=available&page=%n&api_key=
 
  List episodes for show id b04nv6kr
  http://ibl.api.bbci.co.uk/ibl/v1/episodes/b04nv6kr?rights=mobile&availability=available&api_key=
@@ -192,6 +192,7 @@ function showProgrammesForCategory(cat) {
 "32" : "http://open.live.bbc.co.uk/ibl/v1/episodes/%s?rights=mobile&availability=available&api_key=",
 "33" : "http://open.live.bbc.co.uk/ibl/v1/programmes/{programmeid}?rights=mobile&availability=available&api_key={apikey}"
 
+https://ibl.api.bbci.co.uk/ibl/v1/user/watching?identity_cookie=%s
 
 */
 

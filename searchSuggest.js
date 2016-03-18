@@ -47,7 +47,7 @@ var searchTerm = options.argv[0];
 
 var query = helper.newQuery();
 query.add('scope','iplayer',true)
-	.add('format','bigscreen-2')
+	.add('format','bigscreen-2') // or blq-1 (barlesque?)
 	.add('mediatype',mediaType) // 'video' or 'audio'
 	.add('mediaset',mediaSet)
 	.add('q',searchTerm);
