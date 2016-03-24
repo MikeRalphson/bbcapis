@@ -227,7 +227,7 @@ function processSort(feed,sort,sortName) {
 }
 
 //__________________________________________________________________
-function exportMixin(feed,mixin,mixinName) {
+function exportMixin(feed,mixin,mixinName,stable) {
 	var s = '/**\n';
 	s += '* '+mixin.title+'\n';
 	if (mixin.href) {
@@ -248,7 +248,12 @@ function exportMixin(feed,mixin,mixinName) {
 	}
 	s += '*/\n';
 	s += mixinName+' : '+mixinName+',\n';
-	fs.appendFileSync(apijs, 'const '+mixinName+" = 'mixin="+mixin.name+"';\n", 'utf8');
+	if (stable) {
+		fs.appendFileSync(apijs, 'const '+mixinName+" = 'mixin="+mixin.name+"';\n", 'utf8');
+	}
+	else {
+		fs.appendFileSync(apijs, 'const '+mixinName+" = 'unstable_mixin="+mixin.name+"&mixin="+mixin.name+"';\n", 'utf8');
+	}
 	cache.push(s);
 
 	var param = {};
@@ -272,14 +277,37 @@ function exportMixin(feed,mixin,mixinName) {
 	param.enum.push(mixin.name);
 	param.description += '* '+mixin.title+'\n';
 
+	if (!stable) {
+		param = {};
+		for (var p in params) {
+			if (params[p].name == 'unstable_mixin') {
+				param = params[p];
+			}
+		}
+		if (!param.name) {
+			param.name = 'unstable_mixin';
+			param.in = 'query';
+			param.description = 'Unstable mixins:\n';
+			param.type = 'array';
+			param.collectionFormat = 'multi';
+			param.items = {};
+			param.items.format = 'string';
+			param.required = false;
+			param.enum = [];
+			params.push(param);
+		}
+		param.enum.push(mixin.name);
+		param.description += '* '+mixin.title+'\n';
+	}
+
 	return s;
 }
 
 //__________________________________________________________________
-function processMixin(feed,mixin,mixinName) {
+function processMixin(feed,mixin,mixinName,stable) {
 	if (checkReleaseStatus(mixin.release_status)) {
 		if (seen.indexOf(mixinName)<0) {
-			exportMixin(feed,mixin,mixinName);
+			exportMixin(feed,mixin,mixinName,stable);
 			seen.push(mixinName);
 		}
 		else {
@@ -482,7 +510,7 @@ function processFeed(feed) {
 	path.get.description = feed.title;
 	path.get.tags = ['feeds'];
 	path.get.summary = feed.title;
-	
+
 	// a long time ago, in a galaxy far, far away, the API had longer descriptions. Some taken from https://developer.bbc.co.uk/content/
 	if (feed.name == 'Programmes') {
 		path.get.description = 'Fetch metadata about Programmes (brands, series, episodes, clips). By applying different filter restrictions this feed can be used in many ways, for example to retrieve all series belonging to a brand, all the episodes and/or clips for a specific series, or any TLEO objects for a masterbrand. Other filters permit restricting to specific formats and/or genres, and you can request specific versions (for example Signed or Audio-Described). Parameters may be combined in any way suitable for your application.';
@@ -525,14 +553,14 @@ function processFeed(feed) {
 	path.get.responses.default.description = 'Unexpected error';
 	path.get.responses.default.schema = {};
 	path.get.responses.default.schema['$ref'] = '#/definitions/ErrorModel';
-	
+
 	if (feed.release_status == 'deprecated') {
 		path.get.deprecated = true;
 		console.log('! Warning, feed '+feed.name+' is '+feed.release_status+deprecationInfo(feed,feed.name,feed.deprecated_since))
 	}
 
 	if (feed.sorts) {
-		feed.sorts.sort = toArray(feed.sorts.sort); // only necessary if json api converted from xml
+		feed.sorts.sort = toArray(feed.sorts.sort);
 		if (feed.sorts.sort instanceof Array) {
 			for (var i in feed.sorts.sort) {
 				var sort = feed.sorts.sort[i];
@@ -543,11 +571,19 @@ function processFeed(feed) {
 	}
 
 	if (feed.mixins) {
-		feed.mixins.mixin = toArray(feed.mixins.mixin); // only necessary if json api converted from xml
+		feed.mixins.mixin = toArray(feed.mixins.mixin);
 		for (var i in feed.mixins.mixin) {
 			var mixin = feed.mixins.mixin[i];
 			var mixinName = ('m-'+feed.name+'-'+mixin.name).toCamelCase();
-			processMixin(feed,mixin,mixinName);
+			processMixin(feed,mixin,mixinName,true);
+		}
+		if (feed.mixins.unstable_mixins) {
+			feed.mixins.unstable_mixins.mixin = toArray(feed.mixins.unstable_mixins.mixin);
+			for (var i in feed.mixins.unstable_mixins.mixin) {
+				var mixin = feed.mixins.unstable_mixins.mixin[i];
+				var mixinName = ('m-'+feed.name+'-'+mixin.name).toCamelCase();
+				processMixin(feed,mixin,mixinName,false);
+			}
 		}
 	}
 
@@ -579,7 +615,7 @@ function initSwagger() {
 		"termsOfService": "http://www.bbc.co.uk/terms/",
 		"contact": {
 		  "name": "Open Nitro Project",
-		  "email": "Jon.Billings@bbc.co.uk",
+		  "email": "nitro@bbc.co.uk",
 		  "url": "http://developer.bbc.co.uk/"
 		},
 		"license": {
@@ -602,7 +638,8 @@ function initSwagger() {
 		}
 	  ],
 	  "schemes": [
-		"http"
+		"http",
+		"https"
 	  ],
 	  "consumes": [
 		"application/json"

@@ -378,6 +378,7 @@
     <xs:sequence>
       <xs:element ref="versions" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element ref="available_versions" minOccurs="0" maxOccurs="1"/>
+      <xs:element ref="available_webcasts" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
   </xs:group>
   <xs:element name="versions">
@@ -428,11 +429,17 @@
   </xs:group>
   <xs:element name="available_versions">
     <xs:complexType>
-      <xs:group ref="available_versions_mixin"/>
+      <xs:group ref="available_versions_element"/>
       <xs:attribute name="available" type="xs:integer" use="required"/>
     </xs:complexType>
   </xs:element>
-  <xs:group name="available_versions_mixin">
+  <xs:element name="available_webcasts">
+    <xs:complexType>
+      <xs:group ref="available_versions_element"/>
+      <xs:attribute name="available" type="xs:integer" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="available_versions_element">
     <xs:sequence>
       <xs:element name="version" minOccurs="0" maxOccurs="unbounded">
 	<xs:complexType>
@@ -447,27 +454,36 @@
 		</xs:sequence>
 	      </xs:complexType>
 	    </xs:element>
-	    <xs:element name="availabilities" minOccurs="0" maxOccurs="unbounded">
-	      <xs:complexType>
-		<xs:group ref="available_versions_availability" maxOccurs="unbounded"/>
-	      </xs:complexType>
-	    </xs:element>
+	    <xs:group ref="available_mixins" minOccurs="0" maxOccurs="1"/>
 	  </xs:sequence>
 	  <xs:attribute name="pid" type="pid"/>
 	</xs:complexType>
       </xs:element>
     </xs:sequence>
   </xs:group>
-  <xs:group name="available_versions_availability">
+  <xs:group name="available_mixins">
     <xs:sequence>
-      <xs:element name="availability">
+      <xs:element name="availabilities">
 	<xs:complexType>
 	  <xs:sequence>
-	    <xs:element name="scheduled_start" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
-	    <xs:element name="scheduled_end" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
-	    <xs:group ref="available_versions_media_sets" maxOccurs="1"/>
+	    <xs:element name="availability" maxOccurs="unbounded">
+	      <xs:complexType>
+		<xs:sequence>
+		  <xs:element name="scheduled_start" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
+		  <xs:element name="scheduled_end" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
+		  <xs:element name="media_availability_start" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
+		  <xs:element name="media_availability_end" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
+		  <xs:element name="accurate_start" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
+		  <xs:element name="accurate_end" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
+		  <xs:group ref="available_versions_services" minOccurs="0" maxOccurs="1"/>
+		  <xs:group ref="available_versions_media_sets"/>
+		</xs:sequence>
+		<xs:attribute name="status" type="xs:string"/>
+		<xs:attribute name="type" type="xs:string"/>
+		<xs:attribute name="payment_type" type="xs:string"/>
+	      </xs:complexType>
+	    </xs:element>
 	  </xs:sequence>
-	  <xs:attribute name="status" type="xs:string"/>
 	  <xs:attribute name="type" type="xs:string"/>
 	</xs:complexType>
       </xs:element>
@@ -531,6 +547,21 @@
 		  <xs:element name="actual_start" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
 		  <xs:element name="name" minOccurs="1" maxOccurs="1" type="xs:string"/>
 		</xs:sequence>
+	      </xs:complexType>
+	    </xs:element>
+	  </xs:sequence>
+	</xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="available_versions_services">
+    <xs:sequence>
+      <xs:element name="services" minOccurs="0" maxOccurs="1">
+	<xs:complexType>
+	  <xs:sequence>
+	    <xs:element name="service" maxOccurs="unbounded">
+	      <xs:complexType>
+		<xs:attribute name="sid" type="xs:string"/>
 	      </xs:complexType>
 	    </xs:element>
 	  </xs:sequence>

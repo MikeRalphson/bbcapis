@@ -604,7 +604,7 @@
             },
             {
               "name": "available_versions",
-              "title": "mixin to return information about programmes that are currently available",
+              "title": "mixin to return information about programmes that are currently available on demand",
               "release_status": "supported",
               "href": "/nitro/api/programmes?mixin=available_versions"
             },
@@ -694,7 +694,14 @@
               "release_status": "deprecated",
               "href": "/nitro/api/programmes?mixin=versions_availability"
             }
-          ]
+          ],
+          "unstable_mixins": {
+            "mixin": {
+              "name": "available_webcasts",
+              "title": "mixin to return information about programmes that are currently available as webcasts",
+              "href": "/nitro/api/programmes?unstable_mixin=available_webcasts&mixin=available_webcasts"
+            }
+          }
         },
         "deprecations": {
           "deprecated": [

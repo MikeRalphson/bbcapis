@@ -29,6 +29,7 @@ const mProgrammesImages = 'mixin=images';
 const mProgrammesIsEmbeddable = 'mixin=is_embeddable';
 const mProgrammesPreviousNext = 'mixin=previous_next';
 const mProgrammesRelatedLinks = 'mixin=related_links';
+const mProgrammesAvailableWebcasts = 'unstable_mixin=available_webcasts&mixin=available_webcasts';
 const fProgrammesAudioDescribedTrue = 'audio_described=true';
 const fProgrammesAudioDescribedFalse = 'audio_described=false';
 const fProgrammesAudioDescribed = 'audio_described';
@@ -291,7 +292,7 @@ const fVersionsPaymentTypeBbcstore = 'payment_type=bbcstore';
 const fVersionsPaymentTypeUscansvod = 'payment_type=uscansvod';
 const fVersionsPaymentType = 'payment_type';
 const fVersionsPid = 'pid';
-const apiHash = '3ed84e332ae0728edec0ecfbb7116c5c97db1d9a062fdab154d367ce0dd63b2c';
+const apiHash = 'ff4b026b47dbe635bebc11c9f2584ce6a4ea90ad9eba4641eb1e9c9a7ed43bd5';
 
 module.exports = {
 /**
@@ -426,7 +427,7 @@ mProgrammesAncestorTitles : mProgrammesAncestorTitles,
 */
 mProgrammesAvailability : mProgrammesAvailability,
 /**
-* mixin to return information about programmes that are currently available
+* mixin to return information about programmes that are currently available on demand
 * /nitro/api/programmes?mixin=available_versions
 */
 mProgrammesAvailableVersions : mProgrammesAvailableVersions,
@@ -468,6 +469,11 @@ mProgrammesPreviousNext : mProgrammesPreviousNext,
 * /nitro/api/programmes?mixin=related_links
 */
 mProgrammesRelatedLinks : mProgrammesRelatedLinks,
+/**
+* mixin to return information about programmes that are currently available as webcasts
+* /nitro/api/programmes?unstable_mixin=available_webcasts&mixin=available_webcasts
+*/
+mProgrammesAvailableWebcasts : mProgrammesAvailableWebcasts,
 /**
 * filter for subset of programmes that are audio-described
 * type = boolean
