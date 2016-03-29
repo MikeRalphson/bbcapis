@@ -269,7 +269,8 @@ var hidden = 0;
 				for (var c in p.contributions.contribution) {
 					var cont = p.contributions.contribution[c];
 					console.log((cont.character_name ? cont.character_name : cont.credit_role.$)+' - '+
-						cont.contributor.name.given+' '+cont.contributor.name.family);
+						(cont.contributor.name.given ? cont.contributor.name.given+' '+cont.contributor.name.family :
+						cont.contributor.name.presentation));
 				}
 			}
 		}
