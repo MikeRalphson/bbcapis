@@ -14,6 +14,12 @@ var ibl_key = '';
 // http://ibl.api.bbci.co.uk/ibl/v1/status
 // {"version":"1.0","schema":"/ibl/v1/schema/ibl.json","service":"ibl-nibl","release":"323"}
 
+// rights = tv|mobile|web
+// lang = en|cy|ga|gd
+// availability = available|all
+// sort_direction = asc|desc
+// live = true
+
 // https://github.com/middric/bamboo
 
 //_____________________________________________________________________________
@@ -191,6 +197,12 @@ function showProgrammesForCategory(cat) {
 "31" : "http://open.live.bbc.co.uk/ibl/v1/episodes/%s/recommendations?rights=mobile&availability=available&page=%s&per_page=%s&api_key=",
 "32" : "http://open.live.bbc.co.uk/ibl/v1/episodes/%s?rights=mobile&availability=available&api_key=",
 "33" : "http://open.live.bbc.co.uk/ibl/v1/programmes/{programmeid}?rights=mobile&availability=available&api_key={apikey}"
+
+// http://polling.bbc.co.uk/appconfig/iplayer/android/4.17.2/endpoints.json
+"15" : "http://ibl.api.bbci.co.uk/ibl/v1/categories?lang=en&api_key=",
+"16" : "http://ibl.api.bbci.co.uk/ibl/v1/categories/%s/highlights?lang=en&rights=mobile&availability=available&mixin=promotions&api_key=",
+"17" : "http://ibl.api.bbci.co.uk/ibl/v1/channels?lang=en&api_key=",
+"18" : "http://ibl.api.bbci.co.uk/ibl/v1/channels/%s/highlights?lang=en&rights=mobile&availability=available&live=true&mixin=promotions&api_key=",
 
 https://ibl.api.bbci.co.uk/ibl/v1/user/watching?identity_cookie=%s
 

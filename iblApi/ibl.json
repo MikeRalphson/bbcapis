@@ -1000,6 +1000,9 @@
             },
             "category": {
               "type": "string"
+            },
+            "editorial_category": {
+              "type": "string"
             }
           },
           "additionalProperties": false
