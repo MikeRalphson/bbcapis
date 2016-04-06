@@ -1,0 +1,1195 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+	"x-release": "",
+    "title": "BBC iPlayer Business Layer",
+    "description": "BBC iPlayer Business logic Layer",
+	"x-logo": "http://static.bbci.co.uk/tviplayer/1.101.2/img/navigation/iplayer_pink.svg",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "ibl.api.bbci.co.uk",
+  "basePath": "/ibl/v1",
+  "securityDefinitions": {},
+  "schemes": [
+    "http",
+	"https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/programmes/{pid}": {
+      "get": {
+        "description": "Get programmes by parent PID",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes by parent PID_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+			"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+			"minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          },
+          {
+            "name": "initial_child_count",
+            "in": "query",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/episodes/{pid}": {
+      "get": {
+        "description": "Get programme by PID",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programme by PID_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+			"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+			"minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/atoz/{letter}/programmes": {
+      "get": {
+        "description": "",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes AtoZ search_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "letter",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "initial_child_count",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"title"
+			]
+          },
+          {
+            "name": "sort_direction",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"asc",
+				"desc"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/episodes/:pid/prerolls": {
+      "get": {
+        "description": "Get Trailers (pre-rolls)",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Trailers (pre-rolls)_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+			"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+			"minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/search-suggest": {
+      "get": {
+        "description": "Search-suggest",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Search-suggest_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels/{channel}/schedule/{date}": {
+      "get": {
+        "description": "Get schedule by channel",
+        "operationId": "Get_Schedule by channel_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels/{channel}/highlights": {
+      "get": {
+        "description": "Get highlights by channel",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Highlights by channel_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/search": {
+      "get": {
+        "description": "Search",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Search_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/categories": {
+      "get": {
+        "description": "",
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "Get_Categories_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/categories/{category}": {
+      "get": {
+        "description": "Get sub-categories",
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "Get_Sub-categories_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/categories/{category}/programmes": {
+      "get": {
+        "description": "Get programmes by category",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes by category_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/episodes/{pid}/recommendations": {
+      "get": {
+        "description": "Get programme recommendations",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programme recommendations_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+			"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+			"minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/status": {
+      "get": {
+        "description": "Get status",
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "Get_Status_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels": {
+      "get": {
+        "description": "Get channels",
+        "operationId": "Get_Channels_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/groups/popular/episodes": {
+      "get": {
+        "description": "Get programmes popular",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes popular_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "initial_child_count",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "string"
+          },
+          {
+            "name": "sort_direction",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "string"
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/categories/{category}/highlights": {
+      "get": {
+        "description": "",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Highlights by category_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels/{channel}/programmes": {
+      "get": {
+        "description": "Get programmes by channel",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes by channel_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/regions": {
+      "get": {
+        "description": "Get regions",
+        "tags": [
+          "Regions"
+        ],
+        "operationId": "Get_Regions_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/user/watching": {
+      "get": {
+        "description": "Get user watching",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_User watching_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "identity_cookie",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/schema/ibl.json": {
+      "get": {
+        "description": "Get schema",
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "Get_Schema_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "apikey",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels/{channel}/broadcasts": {
+      "get": {
+        "description": "Get broadcasts by channel",
+        "operationId": "Get_Broadcasts by channel_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/user/purchases": {
+      "get": {
+        "description": "Get user store purchases",
+        "operationId": "Get_User store purchases_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "identity_cookie",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/home/highlights": {
+      "get": {
+        "description": "Get programme highlights",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programme highlights_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"en",
+				"cy",
+				"ga",
+				"gd"
+			]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "definitions": {}
+}

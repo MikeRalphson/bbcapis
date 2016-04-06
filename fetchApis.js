@@ -35,5 +35,6 @@ nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/schema/ibl.json','',query,{Acce
 var ibl_key = 'dummy';
 nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/status',ibl_key,query,{},function(obj){
 	console.log('iBL status '+obj.status.service+' v'+obj.version+' r'+obj.status.release);
+	fs.writeFileSync('./iblApi/ibl_status.json',JSON.stringify(obj,null,2));
 	return false;
 });

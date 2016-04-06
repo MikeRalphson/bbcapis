@@ -17,6 +17,7 @@ var ibl_key = '';
 // rights = tv|mobile|web
 // lang = en|cy|ga|gd
 // availability = available|all
+// sort = title|?
 // sort_direction = asc|desc
 // live = true
 

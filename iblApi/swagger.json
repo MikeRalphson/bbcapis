@@ -1,0 +1,2476 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "x-release": "360",
+    "title": "BBC iPlayer Business Layer",
+    "description": "BBC iPlayer Business logic Layer",
+    "x-logo": "http://static.bbci.co.uk/tviplayer/1.101.2/img/navigation/iplayer_pink.svg",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "x-schema-id": "https://ibl.api.bbci.co.uk/ibl/v1/schema/ibl.json"
+  },
+  "host": "ibl.api.bbci.co.uk",
+  "basePath": "/ibl/v1",
+  "securityDefinitions": {},
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/programmes/{pid}": {
+      "get": {
+        "description": "Get programmes by parent PID",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes by parent PID_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+            "minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          },
+          {
+            "name": "initial_child_count",
+            "in": "query",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/episodes/{pid}": {
+      "get": {
+        "description": "Get programme by PID",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programme by PID_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+            "minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/atoz/{letter}/programmes": {
+      "get": {
+        "description": "",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes AtoZ search_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "letter",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "initial_child_count",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "title"
+            ]
+          },
+          {
+            "name": "sort_direction",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/episodes/:pid/prerolls": {
+      "get": {
+        "description": "Get Trailers (pre-rolls)",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Trailers (pre-rolls)_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+            "minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/search-suggest": {
+      "get": {
+        "description": "Search-suggest",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Search-suggest_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels/{channel}/schedule/{date}": {
+      "get": {
+        "description": "Get schedule by channel",
+        "operationId": "Get_Schedule by channel_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels/{channel}/highlights": {
+      "get": {
+        "description": "Get highlights by channel",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Highlights by channel_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/search": {
+      "get": {
+        "description": "Search",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Search_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/categories": {
+      "get": {
+        "description": "",
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "Get_Categories_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/categories/{category}": {
+      "get": {
+        "description": "Get sub-categories",
+        "tags": [
+          "Categories"
+        ],
+        "operationId": "Get_Sub-categories_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/categories/{category}/programmes": {
+      "get": {
+        "description": "Get programmes by category",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes by category_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/episodes/{pid}/recommendations": {
+      "get": {
+        "description": "Get programme recommendations",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programme recommendations_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+            "minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/status": {
+      "get": {
+        "description": "Get status",
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "Get_Status_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels": {
+      "get": {
+        "description": "Get channels",
+        "operationId": "Get_Channels_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/groups/popular/episodes": {
+      "get": {
+        "description": "Get programmes popular",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes popular_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "initial_child_count",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "string"
+          },
+          {
+            "name": "sort_direction",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "string"
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/categories/{category}/highlights": {
+      "get": {
+        "description": "",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Highlights by category_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels/{channel}/programmes": {
+      "get": {
+        "description": "Get programmes by channel",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes by channel_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/regions": {
+      "get": {
+        "description": "Get regions",
+        "tags": [
+          "Regions"
+        ],
+        "operationId": "Get_Regions_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/user/watching": {
+      "get": {
+        "description": "Get user watching",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_User watching_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "identity_cookie",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/schema/ibl.json": {
+      "get": {
+        "description": "Get schema",
+        "tags": [
+          "Metadata"
+        ],
+        "operationId": "Get_Schema_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "apikey",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/channels/{channel}/broadcasts": {
+      "get": {
+        "description": "Get broadcasts by channel",
+        "operationId": "Get_Broadcasts by channel_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "channel",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/user/purchases": {
+      "get": {
+        "description": "Get user store purchases",
+        "operationId": "Get_User store purchases_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "identity_cookie",
+            "in": "query",
+            "required": true,
+            "x-is-map": false,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    },
+    "/home/highlights": {
+      "get": {
+        "description": "Get programme highlights",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programme highlights_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "definitions": {
+    "type": "object",
+    "properties": {
+      "schema": {
+        "type": "string"
+      },
+      "version": {
+        "type": "string"
+      },
+      "status": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "string"
+          },
+          "release": {
+            "type": "string"
+          }
+        }
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "details": {
+            "type": "string"
+          },
+          "http_response_code": {
+            "type": "number"
+          }
+        }
+      },
+      "categories": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/definitions/category"
+        }
+      },
+      "channels": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/definitions/channel"
+        }
+      },
+      "regions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/definitions/region"
+        }
+      },
+      "episodes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/definitions/episode"
+        }
+      },
+      "programmes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/definitions/programme"
+        }
+      },
+      "programme_episodes": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number"
+          },
+          "per_page": {
+            "type": "number"
+          },
+          "count": {
+            "type": "number"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/episode"
+            }
+          }
+        }
+      },
+      "group_episodes": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number"
+          },
+          "per_page": {
+            "type": "number"
+          },
+          "count": {
+            "type": "number"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/episode"
+            }
+          },
+          "group": {
+            "$ref": "#/definitions/definitions/group"
+          }
+        }
+      },
+      "episode_recommendations": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/episode"
+            }
+          },
+          "blend": {
+            "enum": [
+              "curated",
+              "algorithmic"
+            ]
+          }
+        }
+      },
+      "broadcasts": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "number"
+          },
+          "per_page": {
+            "type": "number"
+          },
+          "count": {
+            "type": "number"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/broadcast"
+            }
+          },
+          "channel": {
+            "$ref": "#/definitions/definitions/channel"
+          }
+        }
+      },
+      "schedule": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/broadcast"
+            }
+          },
+          "channel": {
+            "$ref": "#/definitions/definitions/channel"
+          }
+        }
+      },
+      "category_programmes": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "category": {
+            "$ref": "#/definitions/definitions/category"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/programme"
+            }
+          },
+          "page": {
+            "type": "number"
+          },
+          "per_page": {
+            "type": "number"
+          }
+        }
+      },
+      "atoz_programmes": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number"
+          },
+          "character": {
+            "type": "string"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/programme"
+            }
+          },
+          "page": {
+            "type": "number"
+          },
+          "per_page": {
+            "type": "number"
+          }
+        }
+      },
+      "home_highlights": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/definitions/episode"
+                },
+                {
+                  "$ref": "#/definitions/definitions/group"
+                },
+                {
+                  "$ref": "#/definitions/definitions/promotion"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "channel_highlights": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "$ref": "#/definitions/definitions/channel"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/definitions/episode"
+                },
+                {
+                  "$ref": "#/definitions/definitions/group"
+                },
+                {
+                  "$ref": "#/definitions/definitions/promotion"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "category_highlights": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "$ref": "#/definitions/definitions/category"
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/definitions/episode"
+                },
+                {
+                  "$ref": "#/definitions/definitions/group"
+                },
+                {
+                  "$ref": "#/definitions/definitions/promotion"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "prerolls": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/definitions/trailer"
+        }
+      },
+      "search": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "page": {
+            "type": "number"
+          },
+          "per_page": {
+            "type": "number"
+          },
+          "count": {
+            "type": "number"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/definitions/episode"
+                },
+                {
+                  "$ref": "#/definitions/definitions/programme"
+                },
+                {
+                  "$ref": "#/definitions/definitions/search_group"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "search_suggest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/programme"
+            }
+          }
+        }
+      },
+      "watching": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/watching"
+            }
+          },
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "user_recommendations": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/user_recommendation"
+            }
+          },
+          "rec_source": {
+            "type": "string"
+          }
+        }
+      },
+      "added": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/added"
+            }
+          },
+          "count": {
+            "type": "number"
+          },
+          "count_all": {
+            "type": "number"
+          }
+        }
+      },
+      "purchases": {
+        "type": "object",
+        "properties": {
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/episode"
+            }
+          },
+          "count": {
+            "type": "number"
+          },
+          "page": {
+            "type": "number"
+          },
+          "per_page": {
+            "type": "number"
+          },
+          "value_added_material": {
+            "type": "boolean"
+          },
+          "revocations": {
+            "type": "boolean"
+          }
+        }
+      },
+      "versions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "category": {
+        "$ref": "#/definitions/definitions/category"
+      }
+    },
+    "definitions": {
+      "category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "category"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "genre",
+              "accessibility",
+              "national"
+            ]
+          },
+          "child_episode_count": {
+            "type": "number"
+          },
+          "child_programme_count": {
+            "type": "number"
+          },
+          "parent_category": {
+            "type": "string"
+          },
+          "contextual_title": {
+            "type": "string"
+          },
+          "sub_categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/category"
+            }
+          }
+        }
+      },
+      "channel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "channel"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "has_schedule": {
+            "type": "boolean"
+          },
+          "master_brand_id": {
+            "type": "string"
+          },
+          "master_brand_title": {
+            "type": "string"
+          },
+          "on_air": {
+            "type": "boolean"
+          }
+        }
+      },
+      "region": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "region"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "regional",
+              "national"
+            ]
+          }
+        }
+      },
+      "episode": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "episode",
+              "episode_large"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "live": {
+            "type": "boolean"
+          },
+          "images": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "image"
+                ]
+              },
+              "standard": {
+                "type": "string"
+              },
+              "inherited_from": {
+                "type": "string"
+              }
+            }
+          },
+          "has_credits": {
+            "type": "boolean"
+          },
+          "signed": {
+            "type": "boolean"
+          },
+          "audio_described": {
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "available",
+              "unavailable"
+            ]
+          },
+          "tleo_id": {
+            "type": "string"
+          },
+          "guidance": {
+            "type": "boolean"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "synopses": {
+            "type": "object",
+            "properties": {
+              "small": {
+                "type": "string"
+              },
+              "medium": {
+                "type": "string"
+              },
+              "large": {
+                "type": "string"
+              }
+            }
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "version",
+                        "version_large"
+                      ]
+                    },
+                    "hd": {
+                      "type": "boolean"
+                    },
+                    "download": {
+                      "type": "boolean"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "rrc": {
+                      "type": "object",
+                      "properties": {
+                        "url": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "object",
+                          "properties": {
+                            "small": {
+                              "type": "string"
+                            },
+                            "large": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "guidance": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "small": {
+                              "type": "string"
+                            },
+                            "medium": {
+                              "type": "string"
+                            },
+                            "large": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "first_broadcast": {
+                      "type": "string"
+                    },
+                    "credits_start": {
+                      "type": "number"
+                    },
+                    "availability": {
+                      "type": "object",
+                      "properties": {
+                        "start": {
+                          "type": "string"
+                        },
+                        "end": {
+                          "type": "string"
+                        },
+                        "remaining": {
+                          "type": "object",
+                          "properties": {
+                            "text": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "enum": [
+                        "store_version"
+                      ]
+                    },
+                    "store_id": {
+                      "type": "string"
+                    },
+                    "store_profile": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "download": {
+                      "type": "boolean"
+                    },
+                    "duration": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "guidance": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "object",
+                          "properties": {
+                            "small": {
+                              "type": "string"
+                            },
+                            "medium": {
+                              "type": "string"
+                            },
+                            "large": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "parent_id": {
+            "type": "string"
+          },
+          "suppliers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "tleo_type": {
+            "enum": [
+              "episode",
+              "brand",
+              "series"
+            ]
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "next_broadcast": {
+            "type": "object",
+            "properties": {
+              "channel_title": {
+                "type": "string"
+              },
+              "scheduled_start": {
+                "type": "string"
+              }
+            }
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "editorial": {
+                "type": "string"
+              },
+              "time": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string"
+              },
+              "editorial_category": {
+                "type": "string"
+              }
+            }
+          },
+          "master_brand": {
+            "$ref": "#/definitions/definitions/master_brand"
+          },
+          "parent_position": {
+            "type": "number"
+          },
+          "release_date_time": {
+            "type": "string"
+          },
+          "lexical_sort_letter": {
+            "type": "string"
+          },
+          "release_date": {
+            "type": "string"
+          },
+          "related_links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "link"
+                  ]
+                }
+              }
+            }
+          },
+          "promoted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "programme": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "programme",
+              "programme_large"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "tleo_type": {
+            "enum": [
+              "brand",
+              "series",
+              "episode"
+            ]
+          },
+          "synopses": {
+            "type": "object",
+            "properties": {
+              "small": {
+                "type": "string"
+              },
+              "medium": {
+                "type": "string"
+              },
+              "large": {
+                "type": "string"
+              }
+            }
+          },
+          "lexical_sort_letter": {
+            "type": "string"
+          },
+          "images": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "image"
+                ]
+              },
+              "standard": {
+                "type": "string"
+              },
+              "inherited_from": {
+                "type": "string"
+              }
+            }
+          },
+          "master_brand": {
+            "$ref": "#/definitions/definitions/master_brand"
+          },
+          "suppliers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "enum": [
+              "available",
+              "unavailable"
+            ]
+          },
+          "count": {
+            "type": "number"
+          },
+          "initial_children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/definitions/episode"
+            }
+          }
+        }
+      },
+      "master_brand": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "titles": {
+            "type": "object",
+            "properties": {
+              "small": {
+                "type": "string"
+              },
+              "medium": {
+                "type": "string"
+              },
+              "large": {
+                "type": "string"
+              }
+            }
+          },
+          "ident_id": {
+            "type": "string"
+          },
+          "attribution": {
+            "type": "string"
+          }
+        }
+      },
+      "group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "group",
+              "group_large"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "group_type": {
+            "enum": [
+              "tleo",
+              "curated"
+            ]
+          },
+          "stacked": {
+            "type": "boolean"
+          },
+          "images": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "image"
+                ]
+              },
+              "standard": {
+                "type": "string"
+              },
+              "vertical": {
+                "type": "string"
+              }
+            }
+          },
+          "episode_sort_direction": {
+            "type": "string"
+          },
+          "synopses": {
+            "type": "object",
+            "properties": {
+              "small": {
+                "type": "string"
+              },
+              "medium": {
+                "type": "string"
+              },
+              "large": {
+                "type": "string"
+              }
+            }
+          },
+          "master_brand": {
+            "$ref": "#/definitions/definitions/master_brand"
+          },
+          "related_links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "initial_children": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/definitions/definitions/episode"
+                },
+                {
+                  "$ref": "#/definitions/definitions/broadcast"
+                }
+              ]
+            }
+          },
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "broadcast": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "broadcast"
+            ]
+          },
+          "scheduled_start": {
+            "type": "string"
+          },
+          "scheduled_end": {
+            "type": "string"
+          },
+          "transmission_start": {
+            "type": "string"
+          },
+          "transmission_end": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            }
+          },
+          "blanked": {
+            "type": "boolean"
+          },
+          "repeat": {
+            "type": "boolean"
+          },
+          "episode": {
+            "$ref": "#/definitions/definitions/episode"
+          },
+          "channel_title": {
+            "type": "string"
+          }
+        }
+      },
+      "promotion": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "promotion"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "synopses": {
+            "type": "object",
+            "properties": {
+              "small": {
+                "type": "string"
+              },
+              "medium": {
+                "type": "string"
+              },
+              "large": {
+                "type": "string"
+              }
+            }
+          },
+          "images": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "image"
+                ]
+              },
+              "standard": {
+                "type": "string"
+              },
+              "inherited_from": {
+                "type": "string"
+              }
+            }
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "promotion": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "trailer": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "trailer"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "available_now",
+              "coming_soon",
+              "other"
+            ]
+          },
+          "version_id": {
+            "type": "string"
+          }
+        }
+      },
+      "search_group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "search_group"
+            ]
+          },
+          "episode": {
+            "$ref": "#/definitions/definitions/episode"
+          }
+        }
+      },
+      "watching": {
+        "type": "object",
+        "properties": {
+          "urn": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "watching"
+            ]
+          },
+          "episode": {
+            "$ref": "#/definitions/definitions/episode"
+          },
+          "programme": {
+            "$ref": "#/definitions/definitions/programme"
+          },
+          "status": {
+            "enum": [
+              "current",
+              "next"
+            ]
+          },
+          "offset": {
+            "type": "number"
+          },
+          "progress": {
+            "type": "number"
+          },
+          "remaining": {
+            "type": "number"
+          },
+          "has_next": {
+            "type": "boolean"
+          }
+        }
+      },
+      "user_recommendation": {
+        "type": "object",
+        "properties": {
+          "algorithm": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "user_recommendation"
+            ]
+          },
+          "episode": {
+            "$ref": "#/definitions/definitions/episode"
+          }
+        }
+      },
+      "added": {
+        "type": "object",
+        "properties": {
+          "urn": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "added"
+            ]
+          },
+          "programme": {
+            "$ref": "#/definitions/definitions/programme"
+          }
+        }
+      }
+    }
+  }
+}
