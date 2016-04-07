@@ -69,12 +69,17 @@
             "name": "initial_child_count",
             "in": "query",
             "required": true,
-            "type": "integer"
+            "type": "integer",
+			"minimum": 1,
+			"maximum": 4
           }
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -144,7 +149,8 @@
             "name": "letter",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+			"pattern": "[a-z](0-9)"
           },
           {
             "name": "rights",
@@ -161,7 +167,6 @@
             "name": "page",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "integer",
             "format": "int64"
           },
@@ -169,7 +174,6 @@
             "name": "per_page",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "integer",
             "format": "int64"
           },
@@ -177,9 +181,9 @@
             "name": "initial_child_count",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "integer",
-            "format": "int64"
+			"minimum": 1,
+			"maximum": 4
           },
           {
             "name": "sort",
@@ -283,7 +287,6 @@
             "name": "q",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "string"
           },
           {
@@ -464,7 +467,6 @@
             "name": "q",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "string"
           },
           {
@@ -633,11 +635,17 @@
             "name": "page",
             "in": "query",
             "required": true,
-            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
             "type": "integer",
             "format": "int64"
           }
-        ],
+       ],
         "responses": {
           "200": {
             "description": ""
@@ -690,7 +698,6 @@
             "name": "page",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "integer",
             "format": "int64"
           },
@@ -698,7 +705,6 @@
             "name": "per_page",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "integer",
             "format": "int64"
           }
@@ -791,7 +797,6 @@
             "name": "page",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "integer",
             "format": "int64"
           },
@@ -799,7 +804,6 @@
             "name": "per_page",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "integer",
             "format": "int64"
           },
@@ -807,23 +811,25 @@
             "name": "initial_child_count",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "integer",
-            "format": "int64"
+			"minimum": 1,
+			"maximum": 4
           },
           {
             "name": "sort",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "string"
           },
           {
             "name": "sort_direction",
             "in": "query",
             "required": true,
-            "x-is-map": false,
-            "type": "string"
+            "type": "string",
+			"enum": [
+				"asc",
+				"desc"
+			]
           },
           {
             "name": "availability",
@@ -957,7 +963,13 @@
             "name": "page",
             "in": "query",
             "required": true,
-            "x-is-map": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
             "type": "integer",
             "format": "int64"
           }
@@ -1017,7 +1029,6 @@
             "name": "identity_cookie",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "number",
             "format": "double"
           }
@@ -1124,7 +1135,6 @@
             "name": "identity_cookie",
             "in": "query",
             "required": true,
-            "x-is-map": false,
             "type": "number",
             "format": "double"
           }

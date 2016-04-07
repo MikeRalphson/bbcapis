@@ -22,13 +22,16 @@ var result = [];
 		if (key == 'required') {
 			delete obj[key];
 		}
+		//if ((key == 'type') && (obj[key] == 'object')) {
+		//	delete obj[key];
+		//}
 		if (key == '$ref') {
 			obj[key] = obj[key].replace('/defintions','/definitions'); // reported to ibl-team 06/04/2016
 			if (obj[key] == '#/definitions/store_version') {
 				parent.items = {};
 				parent.items.type = 'string';
 			}
-			obj[key] = obj[key].replace('/definitions','/definitions/definitions');
+			//obj[key] = obj[key].replace('/definitions','/definitions/ibl');
 		}
 
 		if (typeof obj[key] == 'object') {
@@ -48,6 +51,11 @@ base.info["x-schema-id"] = schema.id;
 delete schema["$schema"];
 delete schema.id;
 traverse(schema,{});
-base.definitions = schema;
+var holding = schema.definitions;
+delete schema.definitions;
+
+base.definitions = {};
+base.definitions.ibl = schema;
+base.definitions = Object.assign({},base.definitions,holding);
 
 fs.writeFileSync('./iblApi/swagger.json',JSON.stringify(base,null,2));
