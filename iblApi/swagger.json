@@ -77,7 +77,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "Default response",
             "schema": {
               "$ref": "#/definitions/ibl"
             }
@@ -129,7 +129,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -137,7 +140,7 @@
     },
     "/atoz/{letter}/programmes": {
       "get": {
-        "description": "",
+        "description": "Get programmes by initial letter",
         "tags": [
           "Programmes"
         ],
@@ -218,7 +221,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -267,7 +273,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -326,7 +335,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -388,7 +400,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -447,7 +462,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -506,7 +524,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -514,7 +535,7 @@
     },
     "/categories": {
       "get": {
-        "description": "",
+        "description": "Get top-level categories",
         "tags": [
           "Categories"
         ],
@@ -538,7 +559,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -576,7 +600,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -649,7 +676,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -712,7 +742,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -731,7 +764,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -766,7 +802,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -845,7 +884,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -853,7 +895,7 @@
     },
     "/categories/{category}/highlights": {
       "get": {
-        "description": "",
+        "description": "Get highlights by category",
         "tags": [
           "Programmes"
         ],
@@ -904,7 +946,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -977,7 +1022,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -1009,7 +1057,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -1036,7 +1087,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -1062,7 +1116,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -1118,7 +1175,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -1142,7 +1202,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -1195,7 +1258,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
           }
         },
         "security": []
@@ -1221,7 +1287,12 @@
             "release": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "service",
+            "release"
+          ],
+          "additionalProperties": false
         },
         "error": {
           "type": "object",
@@ -1232,7 +1303,12 @@
             "http_response_code": {
               "type": "number"
             }
-          }
+          },
+          "required": [
+            "details",
+            "http_response_code"
+          ],
+          "additionalProperties": false
         },
         "categories": {
           "type": "array",
@@ -1282,7 +1358,14 @@
                 "$ref": "#/definitions/episode"
               }
             }
-          }
+          },
+          "required": [
+            "elements",
+            "page",
+            "per_page",
+            "count"
+          ],
+          "additionalProperties": false
         },
         "group_episodes": {
           "type": "object",
@@ -1305,7 +1388,14 @@
             "group": {
               "$ref": "#/definitions/group"
             }
-          }
+          },
+          "required": [
+            "elements",
+            "page",
+            "per_page",
+            "count"
+          ],
+          "additionalProperties": false
         },
         "episode_recommendations": {
           "type": "object",
@@ -1325,7 +1415,13 @@
                 "algorithmic"
               ]
             }
-          }
+          },
+          "required": [
+            "elements",
+            "count",
+            "blend"
+          ],
+          "additionalProperties": false
         },
         "broadcasts": {
           "type": "object",
@@ -1348,7 +1444,15 @@
             "channel": {
               "$ref": "#/definitions/channel"
             }
-          }
+          },
+          "required": [
+            "elements",
+            "page",
+            "per_page",
+            "count",
+            "channel"
+          ],
+          "additionalProperties": false
         },
         "schedule": {
           "type": "object",
@@ -1362,7 +1466,12 @@
             "channel": {
               "$ref": "#/definitions/channel"
             }
-          }
+          },
+          "required": [
+            "elements",
+            "channel"
+          ],
+          "additionalProperties": false
         },
         "category_programmes": {
           "type": "object",
@@ -1385,7 +1494,15 @@
             "per_page": {
               "type": "number"
             }
-          }
+          },
+          "required": [
+            "category",
+            "page",
+            "count",
+            "per_page",
+            "elements"
+          ],
+          "additionalProperties": false
         },
         "atoz_programmes": {
           "type": "object",
@@ -1408,7 +1525,15 @@
             "per_page": {
               "type": "number"
             }
-          }
+          },
+          "required": [
+            "character",
+            "page",
+            "count",
+            "per_page",
+            "elements"
+          ],
+          "additionalProperties": false
         },
         "home_highlights": {
           "type": "object",
@@ -1429,7 +1554,11 @@
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "elements"
+          ],
+          "additionalProperties": false
         },
         "channel_highlights": {
           "type": "object",
@@ -1453,7 +1582,12 @@
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "channel",
+            "elements"
+          ],
+          "additionalProperties": false
         },
         "category_highlights": {
           "type": "object",
@@ -1477,7 +1611,12 @@
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "category",
+            "elements"
+          ],
+          "additionalProperties": false
         },
         "prerolls": {
           "type": "array",
@@ -1516,7 +1655,12 @@
                 ]
               }
             }
-          }
+          },
+          "required": [
+            "results",
+            "query"
+          ],
+          "additionalProperties": false
         },
         "search_suggest": {
           "type": "object",
@@ -1530,7 +1674,12 @@
                 "$ref": "#/definitions/programme"
               }
             }
-          }
+          },
+          "required": [
+            "results",
+            "query"
+          ],
+          "additionalProperties": false
         },
         "watching": {
           "type": "object",
@@ -1544,7 +1693,12 @@
             "count": {
               "type": "number"
             }
-          }
+          },
+          "required": [
+            "elements",
+            "count"
+          ],
+          "additionalProperties": false
         },
         "user_recommendations": {
           "type": "object",
@@ -1558,7 +1712,12 @@
             "rec_source": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "elements",
+            "rec_source"
+          ],
+          "additionalProperties": false
         },
         "added": {
           "type": "object",
@@ -1575,7 +1734,13 @@
             "count_all": {
               "type": "number"
             }
-          }
+          },
+          "required": [
+            "elements",
+            "count",
+            "count_all"
+          ],
+          "additionalProperties": false
         },
         "purchases": {
           "type": "object",
@@ -1601,18 +1766,32 @@
             "revocations": {
               "type": "boolean"
             }
-          }
+          },
+          "required": [
+            "elements",
+            "page",
+            "per_page",
+            "count",
+            "revocations",
+            "value_added_material"
+          ],
+          "additionalProperties": false
         },
         "versions": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "object"
           }
         },
         "category": {
           "$ref": "#/definitions/category"
         }
-      }
+      },
+      "required": [
+        "schema",
+        "version"
+      ],
+      "additionalProperties": false
     },
     "category": {
       "type": "object",
@@ -1653,7 +1832,14 @@
             "$ref": "#/definitions/category"
           }
         }
-      }
+      },
+      "required": [
+        "id",
+        "title",
+        "type",
+        "kind"
+      ],
+      "additionalProperties": false
     },
     "channel": {
       "type": "object",
@@ -1681,7 +1867,16 @@
         "on_air": {
           "type": "boolean"
         }
-      }
+      },
+      "required": [
+        "id",
+        "title",
+        "type",
+        "has_schedule",
+        "master_brand_id",
+        "master_brand_title"
+      ],
+      "additionalProperties": false
     },
     "region": {
       "type": "object",
@@ -1703,7 +1898,14 @@
             "national"
           ]
         }
-      }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "kind"
+      ],
+      "additionalProperties": false
     },
     "episode": {
       "type": "object",
@@ -1737,7 +1939,12 @@
             "inherited_from": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "type",
+            "standard"
+          ],
+          "additionalProperties": false
         },
         "has_credits": {
           "type": "boolean"
@@ -1775,7 +1982,8 @@
             "large": {
               "type": "string"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "versions": {
           "type": "array",
@@ -1811,7 +2019,12 @@
                       "value": {
                         "type": "string"
                       }
-                    }
+                    },
+                    "required": [
+                      "text",
+                      "value"
+                    ],
+                    "additionalProperties": false
                   },
                   "rrc": {
                     "type": "object",
@@ -1828,9 +2041,18 @@
                           "large": {
                             "type": "string"
                           }
-                        }
+                        },
+                        "required": [
+                          "small",
+                          "large"
+                        ],
+                        "additionalProperties": false
                       }
-                    }
+                    },
+                    "required": [
+                      "description"
+                    ],
+                    "additionalProperties": false
                   },
                   "guidance": {
                     "type": "object",
@@ -1850,9 +2072,14 @@
                           "large": {
                             "type": "string"
                           }
-                        }
+                        },
+                        "additionalProperties": false
                       }
-                    }
+                    },
+                    "required": [
+                      "id"
+                    ],
+                    "additionalProperties": false
                   },
                   "first_broadcast": {
                     "type": "string"
@@ -1875,11 +2102,29 @@
                           "text": {
                             "type": "string"
                           }
-                        }
+                        },
+                        "required": [
+                          "text"
+                        ],
+                        "additionalProperties": false
                       }
-                    }
+                    },
+                    "required": [
+                      "start"
+                    ],
+                    "additionalProperties": false
                   }
-                }
+                },
+                "required": [
+                  "id",
+                  "type",
+                  "hd",
+                  "download",
+                  "duration",
+                  "kind",
+                  "availability"
+                ],
+                "additionalProperties": false
               },
               {
                 "type": "object",
@@ -1913,7 +2158,12 @@
                       "value": {
                         "type": "string"
                       }
-                    }
+                    },
+                    "required": [
+                      "text",
+                      "value"
+                    ],
+                    "additionalProperties": false
                   },
                   "guidance": {
                     "type": "object",
@@ -1933,11 +2183,26 @@
                           "large": {
                             "type": "string"
                           }
-                        }
+                        },
+                        "additionalProperties": false
                       }
-                    }
+                    },
+                    "required": [
+                      "id"
+                    ],
+                    "additionalProperties": false
                   }
-                }
+                },
+                "required": [
+                  "id",
+                  "type",
+                  "store_id",
+                  "store_profile",
+                  "download",
+                  "duration",
+                  "kind"
+                ],
+                "additionalProperties": false
               }
             ]
           }
@@ -1956,8 +2221,13 @@
               "title": {
                 "type": "string"
               }
-            }
-          }
+            },
+            "required": [
+              "id",
+              "title"
+            ]
+          },
+          "additionalProperties": false
         },
         "tleo_type": {
           "enum": [
@@ -1981,7 +2251,12 @@
             "scheduled_start": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "channel_title",
+            "scheduled_start"
+          ],
+          "additionalProperties": false
         },
         "labels": {
           "type": "object",
@@ -1998,7 +2273,8 @@
             "editorial_category": {
               "type": "string"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "master_brand": {
           "$ref": "#/definitions/master_brand"
@@ -2037,13 +2313,40 @@
                   "link"
                 ]
               }
-            }
+            },
+            "required": [
+              "id",
+              "url",
+              "type",
+              "kind",
+              "title"
+            ],
+            "additionalProperties": false
           }
         },
         "promoted": {
           "type": "boolean"
         }
-      }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "images",
+        "signed",
+        "audio_described",
+        "status",
+        "tleo_id",
+        "guidance",
+        "synopses",
+        "versions",
+        "suppliers",
+        "tleo_type",
+        "categories",
+        "master_brand",
+        "lexical_sort_letter"
+      ],
+      "additionalProperties": false
     },
     "programme": {
       "type": "object",
@@ -2079,7 +2382,8 @@
             "large": {
               "type": "string"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "lexical_sort_letter": {
           "type": "string"
@@ -2098,7 +2402,12 @@
             "inherited_from": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "type",
+            "standard"
+          ],
+          "additionalProperties": false
         },
         "master_brand": {
           "$ref": "#/definitions/master_brand"
@@ -2114,8 +2423,13 @@
               "title": {
                 "type": "string"
               }
-            }
-          }
+            },
+            "required": [
+              "id",
+              "title"
+            ]
+          },
+          "additionalProperties": false
         },
         "categories": {
           "type": "array",
@@ -2138,7 +2452,22 @@
             "$ref": "#/definitions/episode"
           }
         }
-      }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "synopses",
+        "lexical_sort_letter",
+        "images",
+        "master_brand",
+        "suppliers",
+        "categories",
+        "status",
+        "count",
+        "initial_children"
+      ],
+      "additionalProperties": false
     },
     "master_brand": {
       "type": "object",
@@ -2158,7 +2487,13 @@
             "large": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "additionalProperties": false
         },
         "ident_id": {
           "type": "string"
@@ -2166,7 +2501,13 @@
         "attribution": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "id",
+        "titles",
+        "attribution"
+      ],
+      "additionalProperties": false
     },
     "group": {
       "type": "object",
@@ -2206,7 +2547,13 @@
             "vertical": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "type",
+            "standard",
+            "vertical"
+          ],
+          "additionalProperties": false
         },
         "episode_sort_direction": {
           "type": "string"
@@ -2223,7 +2570,8 @@
             "large": {
               "type": "string"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "master_brand": {
           "$ref": "#/definitions/master_brand"
@@ -2242,7 +2590,13 @@
               "title": {
                 "type": "string"
               }
-            }
+            },
+            "required": [
+              "kind",
+              "url",
+              "title"
+            ],
+            "additionalProperties": false
           }
         },
         "initial_children": {
@@ -2261,7 +2615,12 @@
         "count": {
           "type": "number"
         }
-      }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "additionalProperties": false
     },
     "broadcast": {
       "type": "object",
@@ -2295,7 +2654,12 @@
             "value": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "value",
+            "text"
+          ],
+          "additionalProperties": false
         },
         "blanked": {
           "type": "boolean"
@@ -2309,7 +2673,17 @@
         "channel_title": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "id",
+        "type",
+        "scheduled_start",
+        "scheduled_end",
+        "repeat",
+        "blanked",
+        "episode"
+      ],
+      "additionalProperties": false
     },
     "promotion": {
       "type": "object",
@@ -2343,7 +2717,8 @@
             "large": {
               "type": "string"
             }
-          }
+          },
+          "additionalProperties": false
         },
         "images": {
           "type": "object",
@@ -2359,7 +2734,12 @@
             "inherited_from": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "type",
+            "standard"
+          ],
+          "additionalProperties": false
         },
         "labels": {
           "type": "object",
@@ -2367,9 +2747,18 @@
             "promotion": {
               "type": "string"
             }
-          }
+          },
+          "required": [
+            "promotion"
+          ],
+          "additionalProperties": false
         }
-      }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "additionalProperties": false
     },
     "trailer": {
       "type": "object",
@@ -2395,7 +2784,15 @@
         "version_id": {
           "type": "string"
         }
-      }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "kind",
+        "version_id"
+      ],
+      "additionalProperties": false
     },
     "search_group": {
       "type": "object",
@@ -2411,7 +2808,13 @@
         "episode": {
           "$ref": "#/definitions/episode"
         }
-      }
+      },
+      "required": [
+        "id",
+        "type",
+        "episode"
+      ],
+      "additionalProperties": false
     },
     "watching": {
       "type": "object",
@@ -2448,7 +2851,15 @@
         "has_next": {
           "type": "boolean"
         }
-      }
+      },
+      "required": [
+        "type",
+        "urn",
+        "episode",
+        "programme",
+        "has_next"
+      ],
+      "additionalProperties": false
     },
     "user_recommendation": {
       "type": "object",
@@ -2464,7 +2875,13 @@
         "episode": {
           "$ref": "#/definitions/episode"
         }
-      }
+      },
+      "required": [
+        "algorithm",
+        "type",
+        "episode"
+      ],
+      "additionalProperties": false
     },
     "added": {
       "type": "object",
@@ -2480,7 +2897,13 @@
         "programme": {
           "$ref": "#/definitions/programme"
         }
-      }
+      },
+      "required": [
+        "urn",
+        "type",
+        "programme"
+      ],
+      "additionalProperties": false
     }
   }
 }

@@ -76,7 +76,7 @@
         ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "Default response",
 			"schema": {
 				"$ref": "#/definitions/ibl"
 			}
@@ -128,7 +128,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -136,7 +139,7 @@
     },
     "/atoz/{letter}/programmes": {
       "get": {
-        "description": "",
+        "description": "Get programmes by initial letter",
         "tags": [
           "Programmes"
         ],
@@ -217,7 +220,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -266,7 +272,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -325,7 +334,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -387,7 +399,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -446,7 +461,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -505,7 +523,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -513,7 +534,7 @@
     },
     "/categories": {
       "get": {
-        "description": "",
+        "description": "Get top-level categories",
         "tags": [
           "Categories"
         ],
@@ -537,7 +558,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -575,7 +599,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -648,7 +675,10 @@
        ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -711,7 +741,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -730,7 +763,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -765,7 +801,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -844,7 +883,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -852,7 +894,7 @@
     },
     "/categories/{category}/highlights": {
       "get": {
-        "description": "",
+        "description": "Get highlights by category",
         "tags": [
           "Programmes"
         ],
@@ -903,7 +945,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -976,7 +1021,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -1008,7 +1056,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -1035,7 +1086,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -1061,7 +1115,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -1117,7 +1174,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -1141,7 +1201,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []
@@ -1194,7 +1257,10 @@
         ],
         "responses": {
           "200": {
-            "description": ""
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
           }
         },
         "security": []

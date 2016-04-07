@@ -1,8 +1,6 @@
 var fs = require('fs');
 
-var baseStr = fs.readFileSync('./iblApi/ibl_swagger_header.json');
-var base = JSON.parse(baseStr);
-
+var base = require('./iblApi/ibl_swagger_header.json');
 var status = require('./iblApi/ibl_status.json');
 var schema = require('./iblApi/ibl.json');
 
@@ -16,22 +14,12 @@ var result = [];
 		// skip loop if the property is from prototype
 		if (!obj.hasOwnProperty(key)) continue;
 
-		if (key == 'additionalProperties') {
-			delete obj[key];
-		}
-		if (key == 'required') {
-			delete obj[key];
-		}
-		//if ((key == 'type') && (obj[key] == 'object')) {
-		//	delete obj[key];
-		//}
 		if (key == '$ref') {
 			obj[key] = obj[key].replace('/defintions','/definitions'); // reported to ibl-team 06/04/2016
-			if (obj[key] == '#/definitions/store_version') {
+			if (obj[key] == '#/definitions/store_version') { // reported to ibl-team 06/04/2016
 				parent.items = {};
-				parent.items.type = 'string';
+				parent.items.type = 'object';
 			}
-			//obj[key] = obj[key].replace('/definitions','/definitions/ibl');
 		}
 
 		if (typeof obj[key] == 'object') {
