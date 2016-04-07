@@ -229,7 +229,7 @@
         "security": []
       }
     },
-    "/episodes/:pid/prerolls": {
+    "/episodes/{pid}/prerolls": {
       "get": {
         "description": "Get Trailers (pre-rolls)",
         "tags": [

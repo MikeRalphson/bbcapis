@@ -21,6 +21,11 @@ var result = [];
 				parent.items.type = 'object';
 			}
 		}
+		
+		if (key == 'anyOf') {
+			parent["x-anyOf"] = obj[key];
+			delete obj[key];
+		}
 
 		if (typeof obj[key] == 'object') {
 			traverse(obj[key],obj);
