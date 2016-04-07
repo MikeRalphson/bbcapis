@@ -347,6 +347,9 @@
     "/channels/{channel}/schedule/{date}": {
       "get": {
         "description": "Get schedule by channel",
+        "tags": [
+          "Programmes"
+        ],
         "operationId": "Get_Schedule by channel_",
         "produces": [
           "application/json"
@@ -776,6 +779,9 @@
     "/channels": {
       "get": {
         "description": "Get channels",
+        "tags": [
+          "Channels"
+        ],
         "operationId": "Get_Channels_",
         "produces": [
           "application/json"
@@ -1128,6 +1134,9 @@
     "/channels/{channel}/broadcasts": {
       "get": {
         "description": "Get broadcasts by channel",
+        "tags": [
+          "Programmes"
+        ],
         "operationId": "Get_Broadcasts by channel_",
         "produces": [
           "application/json"
@@ -1187,6 +1196,9 @@
     "/user/purchases": {
       "get": {
         "description": "Get user store purchases",
+        "tags": [
+          "Programmes"
+        ],
         "operationId": "Get_User store purchases_",
         "produces": [
           "application/json"
