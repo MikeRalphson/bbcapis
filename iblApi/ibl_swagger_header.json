@@ -898,6 +898,96 @@
         "security": []
       }
     },
+    "/groups/{pid}/episodes": {
+      "get": {
+        "description": "Get programmes by group, brand or series",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Programmes by group_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+			"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+			"minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"mobile",
+				"tv",
+				"web"
+			]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "initial_child_count",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+			"minimum": 1,
+			"maximum": 4
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sort_direction",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"asc",
+				"desc"
+			]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+			"enum": [
+				"all",
+				"available"
+			]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
+          }
+        },
+        "security": []
+      }
+    },
     "/categories/{category}/highlights": {
       "get": {
         "description": "Get highlights by category",
