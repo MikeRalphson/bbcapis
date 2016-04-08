@@ -295,7 +295,7 @@
       "type": "object",
       "properties": {
         "channel": {
-          "$ref": "#/defintions/channel"
+          "$ref": "#/definitions/channel"
         },
         "elements": {
           "type": "array",
@@ -324,7 +324,7 @@
       "type": "object",
       "properties": {
         "category": {
-          "$ref": "#/defintions/category"
+          "$ref": "#/definitions/category"
         },
         "elements": {
           "type": "array",
@@ -817,6 +817,9 @@
                   },
                   "credits_start": {
                     "type": "number"
+                  },
+                  "service_id": {
+                    "type": "string"
                   },
                   "availability": {
                     "type": "object",
@@ -1633,6 +1636,84 @@
         "urn",
         "type",
         "programme"
+      ],
+      "additionalProperties": false
+    },
+    "store_version": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "store_version"
+          ]
+        },
+        "store_id": {
+          "type": "string"
+        },
+        "store_profile": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "download": {
+          "type": "boolean"
+        },
+        "duration": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        "guidance": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "object",
+              "properties": {
+                "small": {
+                  "type": "string"
+                },
+                "medium": {
+                  "type": "string"
+                },
+                "large": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "store_id",
+        "store_profile",
+        "download",
+        "duration",
+        "kind"
       ],
       "additionalProperties": false
     }

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "x-release": "360",
+    "x-release": "363",
     "title": "BBC iPlayer Business Layer",
     "description": "BBC iPlayer Business logic Layer",
     "x-logo": "http://static.bbci.co.uk/tviplayer/1.101.2/img/navigation/iplayer_pink.svg",
@@ -14,7 +14,13 @@
   },
   "host": "ibl.api.bbci.co.uk",
   "basePath": "/ibl/v1",
-  "securityDefinitions": {},
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "query"
+    }
+  },
   "schemes": [
     "http",
     "https"
@@ -1112,14 +1118,7 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "apikey",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Default response",
@@ -1788,7 +1787,7 @@
         "versions": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/definitions/store_version"
           }
         },
         "category": {
@@ -2094,6 +2093,9 @@
                 },
                 "credits_start": {
                   "type": "number"
+                },
+                "service_id": {
+                  "type": "string"
                 },
                 "availability": {
                   "type": "object",
@@ -2910,6 +2912,89 @@
         "programme"
       ],
       "additionalProperties": false
+    },
+    "store_version": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "store_version"
+          ]
+        },
+        "store_id": {
+          "type": "string"
+        },
+        "store_profile": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "download": {
+          "type": "boolean"
+        },
+        "duration": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        "guidance": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "object",
+              "properties": {
+                "small": {
+                  "type": "string"
+                },
+                "medium": {
+                  "type": "string"
+                },
+                "large": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "store_id",
+        "store_profile",
+        "download",
+        "duration",
+        "kind"
+      ],
+      "additionalProperties": false
     }
-  }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ]
 }

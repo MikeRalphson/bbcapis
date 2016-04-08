@@ -14,14 +14,6 @@ var result = [];
 		// skip loop if the property is from prototype
 		if (!obj.hasOwnProperty(key)) continue;
 
-		if (key == '$ref') {
-			obj[key] = obj[key].replace('/defintions','/definitions'); // reported to ibl-team 06/04/2016
-			if (obj[key] == '#/definitions/store_version') { // reported to ibl-team 06/04/2016
-				parent.items = {};
-				parent.items.type = 'object';
-			}
-		}
-		
 		if (key == 'anyOf') {
 			parent["x-anyOf"] = obj[key];
 			delete obj[key];

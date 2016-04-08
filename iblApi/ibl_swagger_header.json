@@ -1112,12 +1112,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "name": "apikey",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
         ],
         "responses": {
           "200": {
@@ -1279,5 +1273,15 @@
       }
     }
   },
-  "definitions": {}
+  "definitions": {},
+  "securityDefinitions": {
+    "api_key": {
+	  "type": "apiKey",
+		"name": "api_key",
+		"in": "query"
+	  }
+	},
+	"security": [{
+	  "api_key": []
+	}]
 }
