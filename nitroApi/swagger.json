@@ -13,7 +13,7 @@
 		"termsOfService": "http://www.bbc.co.uk/terms/",
 		"contact": {
 			"name": "Open Nitro Project",
-			"email": "Jon.Billings@bbc.co.uk",
+			"email": "nitro@bbc.co.uk",
 			"url": "http://developer.bbc.co.uk/"
 		},
 		"license": {
@@ -634,6 +634,13 @@
 							"nonuk",
 							"world"
 						]
+					},
+					{
+						"name": "debug",
+						"in": "query",
+						"description": "Turn on debug information (undocumented)",
+						"type": "boolean",
+						"required": false
 					}
 				],
 				"responses": {

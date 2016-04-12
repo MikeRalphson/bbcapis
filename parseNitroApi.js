@@ -174,6 +174,9 @@ function exportSort(feed,sort,sortName) {
 
 //__________________________________________________________________
 function swagSort(sort) {
+	
+	// TODO unstable sorts
+	
 	var param = {};
 	for (var p in params) {
 		if (params[p].name == 'sort') {
@@ -393,6 +396,8 @@ function exportFilter(feed,filter,filterName) {
 				params.push(param);
 			}
 			param.enum.push(option.value);
+			
+			// TODO unstable filters
 
 		}
 	}
@@ -720,6 +725,19 @@ function definePath(desc,id) {
 }
 
 //__________________________________________________________________
+function patchSwagger() {
+	
+	var debug = {};
+	debug.name = 'debug';
+	debug.in = 'query';
+	debug.description = 'Turn on debug information (undocumented)';
+	debug.type = 'boolean';
+	debug.required = false;
+	
+	swagger.paths["/availabilities"].get.parameters.push(debug);
+}
+
+//__________________________________________________________________
 
 //https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md
 
@@ -757,6 +775,8 @@ for (var f in api.feeds.feed) {
 
 swagger.paths['/'] = definePath('Get API definition','getAPI');
 swagger.paths['/schema'] = definePath('Get Schema definition','getXSD');
+
+patchSwagger();
 
 process.on('exit',function(){
 	fs.appendFileSync(apijs, "const apiHash = '" + digest + "';\n", 'utf8');
