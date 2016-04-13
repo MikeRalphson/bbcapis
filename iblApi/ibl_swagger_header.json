@@ -9,7 +9,16 @@
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
-    }
+    },
+	"contact": {
+	  "name": "Open iBL Project",
+	  "email": "ibl-team@lists.forge.bbc.co.uk",
+	  "url": "http://developer.bbc.co.uk/"
+	}
+  },
+  "externalDocs": {
+    "description": "BBC iPlayer documentation",
+    "url": "http://smethur.st/posts/176135860"
   },
   "host": "ibl.api.bbci.co.uk",
   "basePath": "/ibl/v1",

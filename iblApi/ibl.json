@@ -701,6 +701,9 @@
         "subtitle": {
           "type": "string"
         },
+        "editorial_subtitle": {
+          "type": "string"
+        },
         "synopses": {
           "type": "object",
           "properties": {
@@ -711,6 +714,9 @@
               "type": "string"
             },
             "large": {
+              "type": "string"
+            },
+            "editorial": {
               "type": "string"
             }
           },
