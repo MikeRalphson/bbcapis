@@ -4,8 +4,11 @@ var fs = require('fs');
 var crypto = require('crypto');
 var stream = require('stream');
 
-var apistr = fs.readFileSync('./nitroApi/api.json', 'utf8');
-var api = JSON.parse(apistr);
+var x2j = require('jgexml/xml2json');
+var xsd = require('jgexml/xsd2json');
+
+var api = require('./nitroApi/api.json');
+var xsdStr = fs.readFileSync('./nitroApi/nitro-schema.xsd','utf8');
 
 var apijs = './nitroApi/api.js';
 var api_fh = fs.openSync(apijs,'w');
@@ -201,7 +204,7 @@ function processSort(feed,sort,sortName) {
 	if (checkReleaseStatus(sort.release_status)) {
 		swagSort(sort);
 		if (sort.sort_direction) {
-			sort.sort_direction = toArray(sort.sort_direction); // only necessary if json api converted from xml
+			sort.sort_direction = toArray(sort.sort_direction);
 			for (var i in sort.sort_direction) {
 				var sortDirection = sort.sort_direction[i];
 				var sortDirectionName = ('s-'+feed.name+'-'+sort.name+'-'+sortDirection.value).toCamelCase();
@@ -249,6 +252,14 @@ function exportMixin(feed,mixin,mixinName,stable) {
 	if (mixin.dependency_on) {
 		s += depend(mixin.dependency_on);
 	}
+	if (mixin.affected_by) {
+		if (mixin.affected_by.filter) {
+			for (var i=0;i<mixin.affected_by.filter.length;i++) {
+				s += '* is affected by filter '+mixin.affected_by.filter[i].name+' ('+mixin.affected_by.filter[i].description+')\n';
+			}
+		}
+	}	
+	
 	s += '*/\n';
 	s += mixinName+' : '+mixinName+',\n';
 	if (stable) {
@@ -353,6 +364,13 @@ function exportFilter(feed,filter,filterName) {
 	}
 	if (filter.prohibits) {
 		s += prohibits(filter.prohibits);
+	}
+	if (filter.affected_by) {
+		if (filter.affected_by.filter) {
+			for (var i=0;i<filter.affected_by.filter.length;i++) {
+				s += '* is affected by filter '+filter.affected_by.filter[i].name+' ('+filter.affected_by.filter[i].description+')\n';
+			}
+		}
 	}
 
 	if (filter.option) {
@@ -554,6 +572,9 @@ function processFeed(feed) {
 	path.get.responses = {};
 	path.get.responses['200'] = {};
 	path.get.responses['200'].description = 'Nitro response';
+	path.get.responses['200'].schema = {};
+	path.get.responses['200'].schema['$ref'] = '#/definitions/nitro';
+	
 	path.get.responses.default = {};
 	path.get.responses.default.description = 'Unexpected error';
 	path.get.responses.default.schema = {};
@@ -593,7 +614,7 @@ function processFeed(feed) {
 	}
 
 	if (feed.filters) {
-		feed.filters.filter = toArray(feed.filters.filter); // only necessary if json api converted from xml
+		feed.filters.filter = toArray(feed.filters.filter);
 		for (var i in feed.filters.filter) {
 			var filter = feed.filters.filter[i];
 			var filterName = ('f-'+feed.name+'-'+filter.name).toCamelCase();
@@ -715,7 +736,7 @@ function definePath(desc,id) {
 
 	path.get.responses = {};
 	path.get.responses['200'] = {};
-	path.get.responses['200'].description = 'Nitro response';
+	path.get.responses['200'].description = 'Metadata response';
 	path.get.responses.default = {};
 	path.get.responses.default.description = 'Unexpected error';
 	path.get.responses.default.schema = {};
@@ -732,9 +753,26 @@ function patchSwagger() {
 	debug.in = 'query';
 	debug.description = 'Turn on debug information (undocumented)';
 	debug.type = 'boolean';
-	debug.required = false;
-	
+	debug.required = false;	
 	swagger.paths["/availabilities"].get.parameters.push(debug);
+	
+	swagger.definitions.nitro.additionalProperties = true; // cope with undefined 'items'
+}
+
+//__________________________________________________________________
+function processXsd() {
+	console.log();
+	console.log('Processing XML schema...');
+	var src = x2j.xml2json(xsdStr,{"attributePrefix": "@","valueProperty": false, "coerceTypes": false});
+	var obj = xsd.getJsonSchema(src,'nitro-schema','',true);
+	
+	fs.writeFileSync('./nitroApi/nitro-schema.json',JSON.stringify(obj,null,2),'utf8');
+	
+	var existing = swagger.definitions;
+	var root = obj.properties;
+	swagger.definitions = obj.definitions;
+	swagger.definitions.nitro = root.nitro;
+	swagger.definitions.ErrorModel = existing.ErrorModel;
 }
 
 //__________________________________________________________________
@@ -773,8 +811,11 @@ for (var f in api.feeds.feed) {
 	}
 }
 
+// these do not return the nitro object model
 swagger.paths['/'] = definePath('Get API definition','getAPI');
 swagger.paths['/schema'] = definePath('Get Schema definition','getXSD');
+
+processXsd();
 
 patchSwagger();
 

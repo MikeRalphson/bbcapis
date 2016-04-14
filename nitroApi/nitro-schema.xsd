@@ -1451,6 +1451,7 @@
     <xs:complexType>
       <xs:sequence>
 	<xs:element ref="dependency_on" minOccurs="0" maxOccurs="unbounded"/>
+	<xs:element ref="affected_by" minOccurs="0" maxOccurs="unbounded"/>
 	<xs:element ref="prohibits" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attribute name="name" use="required" type="xs:NCName"/>
@@ -1477,6 +1478,18 @@
     <xs:complexType>
       <xs:attribute name="filter" type="xs:string"/>
       <xs:attribute name="value" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="affected_by">
+    <xs:complexType>
+      <xs:sequence>
+	<xs:element name="filter" minOccurs="0" maxOccurs="unbounded">
+	  <xs:complexType>
+	    <xs:attribute name="name" use="required" type="xs:string"/>
+	    <xs:attribute name="description" use="required" type="xs:string"/>
+	  </xs:complexType>
+	</xs:element>
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="disambiguation" type="xs:string"/>

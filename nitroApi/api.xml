@@ -117,7 +117,11 @@
       </n:mixin>
       <n:mixin name="ancestor_titles" title="mixin to return ancestor programme titles" release_status="supported" href="/nitro/api/programmes?mixin=ancestor_titles"/>
       <n:mixin name="availability" title="mixin to return programme availability information" depends_on="availability" release_status="supported"/>
-      <n:mixin name="available_versions" title="mixin to return information about programmes that are currently available on demand" release_status="supported" href="/nitro/api/programmes?mixin=available_versions"/>
+      <n:mixin name="available_versions" title="mixin to return information about programmes that are currently available on demand" release_status="supported" href="/nitro/api/programmes?mixin=available_versions">
+	<n:affected_by>
+	  <n:filter name="payment_type" description="payment type filter"/>
+	</n:affected_by>
+      </n:mixin>
       <n:mixin name="contributions" title="mixin to return information about contributors to a programme" release_status="supported" href="/nitro/api/programmes?mixin=contributions"/>
       <n:mixin name="duration" title="mixin to return original version duration in programme concept entities" release_status="supported" href="/nitro/api/programmes?mixin=duration"/>
       <n:mixin name="genre_groupings" title="mixin to return list of genre groupings" release_status="supported" href="/nitro/api/programmes?mixin=genre_groupings">

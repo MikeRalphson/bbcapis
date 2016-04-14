@@ -606,7 +606,15 @@
               "name": "available_versions",
               "title": "mixin to return information about programmes that are currently available on demand",
               "release_status": "supported",
-              "href": "/nitro/api/programmes?mixin=available_versions"
+              "href": "/nitro/api/programmes?mixin=available_versions",
+              "affected_by": {
+                "filter": [
+                  {
+                    "name": "payment_type",
+                    "description": "payment type filter"
+                  }
+                ]
+              }
             },
             {
               "name": "contributions",

@@ -292,7 +292,7 @@ const fVersionsPaymentTypeBbcstore = 'payment_type=bbcstore';
 const fVersionsPaymentTypeUscansvod = 'payment_type=uscansvod';
 const fVersionsPaymentType = 'payment_type';
 const fVersionsPid = 'pid';
-const apiHash = 'ff4b026b47dbe635bebc11c9f2584ce6a4ea90ad9eba4641eb1e9c9a7ed43bd5';
+const apiHash = '0f676cccd5589c63f2c2263c540ed373f13268b3301c4bb9a7f258dac74285ad';
 
 module.exports = {
 /**
@@ -429,6 +429,7 @@ mProgrammesAvailability : mProgrammesAvailability,
 /**
 * mixin to return information about programmes that are currently available on demand
 * /nitro/api/programmes?mixin=available_versions
+* is affected by filter payment_type (payment type filter)
 */
 mProgrammesAvailableVersions : mProgrammesAvailableVersions,
 /**

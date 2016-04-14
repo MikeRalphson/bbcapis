@@ -1,0 +1,4633 @@
+{
+  "title": "nitro-schema",
+  "$schema": "http://json-schema.org/schema#",
+  "id": "http://www.bbc.co.uk/nitro/",
+  "type": "object",
+  "properties": {
+    "nitro": {
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/pagination"
+        },
+        "results": {
+          "$ref": "#/definitions/results"
+        },
+        "filters": {
+          "$ref": "#/definitions/filters"
+        },
+        "sorts": {
+          "$ref": "#/definitions/sorts"
+        },
+        "mixins": {
+          "$ref": "#/definitions/mixins"
+        },
+        "deprecations": {
+          "$ref": "#/definitions/deprecations"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "nitro"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "pagination": {
+      "type": "object",
+      "properties": {
+        "previous": {
+          "$ref": "#/definitions/previous"
+        },
+        "next": {
+          "$ref": "#/definitions/next"
+        }
+      },
+      "additionalProperties": false
+    },
+    "next": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "href"
+      ],
+      "additionalProperties": false
+    },
+    "previous": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "href"
+      ],
+      "additionalProperties": false
+    },
+    "results": {
+      "type": "object",
+      "properties": {
+        "brand": {
+          "$ref": "#/definitions/brand"
+        },
+        "series": {
+          "$ref": "#/definitions/series"
+        },
+        "episode": {
+          "$ref": "#/definitions/episode"
+        },
+        "clip": {
+          "$ref": "#/definitions/clip"
+        },
+        "broadcast": {
+          "$ref": "#/definitions/broadcast"
+        },
+        "service": {
+          "$ref": "#/definitions/service"
+        },
+        "music": {
+          "$ref": "#/definitions/music"
+        },
+        "chapter": {
+          "$ref": "#/definitions/chapter"
+        },
+        "speech": {
+          "$ref": "#/definitions/speech"
+        },
+        "highlight": {
+          "$ref": "#/definitions/highlight"
+        },
+        "other": {
+          "$ref": "#/definitions/other"
+        },
+        "contributor": {
+          "$ref": "#/definitions/contributor"
+        },
+        "availability": {
+          "$ref": "#/definitions/availability"
+        },
+        "window": {
+          "$ref": "#/definitions/window"
+        },
+        "franchise": {
+          "$ref": "#/definitions/franchise"
+        },
+        "season": {
+          "$ref": "#/definitions/season"
+        },
+        "collection": {
+          "$ref": "#/definitions/collection"
+        },
+        "gallery": {
+          "$ref": "#/definitions/gallery"
+        },
+        "promotion": {
+          "$ref": "#/definitions/promotion"
+        },
+        "master_brand": {
+          "$ref": "#/definitions/master_brand"
+        },
+        "image": {
+          "$ref": "#/definitions/image"
+        },
+        "more_than": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "page_size": {
+          "type": "integer"
+        },
+        "version_group": {
+          "$ref": "#/definitions/version_group"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "page",
+        "page_size"
+      ]
+    },
+    "promotion": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "start_time": {
+          "$ref": "#/definitions/start_time"
+        },
+        "end_time": {
+          "$ref": "#/definitions/end_time"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "uri": {
+          "$ref": "#/definitions/uri"
+        },
+        "priority": {
+          "$ref": "#/definitions/priority"
+        },
+        "promoted_by": {
+          "$ref": "#/definitions/promoted_by"
+        },
+        "promoted_for": {
+          "$ref": "#/definitions/promoted_for"
+        },
+        "context": {
+          "$ref": "#/definitions/context"
+        },
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "url": {
+          "$ref": "#/definitions/url"
+        },
+        "promotion_of": {
+          "$ref": "#/definitions/promotion_of"
+        },
+        "related_links": {
+          "$ref": "#/definitions/related_links"
+        }
+      },
+      "required": [
+        "pid",
+        "partner",
+        "updated_time"
+      ],
+      "additionalProperties": false
+    },
+    "brand": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "embargoed": {
+          "$ref": "#/definitions/embargoed"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "uri": {
+          "$ref": "#/definitions/uri"
+        },
+        "franchises": {
+          "$ref": "#/definitions/franchises"
+        },
+        "items_for": {
+          "$ref": "#/definitions/items_for"
+        },
+        "expected_child_count": {
+          "$ref": "#/definitions/expected_child_count"
+        },
+        "programme_formats": {
+          "$ref": "#/definitions/programme_formats"
+        },
+        "is_embeddable": {
+          "$ref": "#/definitions/is_embeddable"
+        },
+        "related_links": {
+          "$ref": "#/definitions/related_links"
+        },
+        "genre_groupings": {
+          "$ref": "#/definitions/genre_groupings"
+        },
+        "image_link": {
+          "$ref": "#/definitions/image_link"
+        },
+        "release_date_group": {
+          "$ref": "#/definitions/release_date_group"
+        },
+        "master_brand_link": {
+          "$ref": "#/definitions/master_brand_link"
+        },
+        "images_mixin": {
+          "$ref": "#/definitions/images_mixin"
+        },
+        "alternate_images_mixin": {
+          "$ref": "#/definitions/alternate_images_mixin"
+        },
+        "contributions_mixin": {
+          "$ref": "#/definitions/contributions_mixin"
+        },
+        "previous_next_mixin": {
+          "$ref": "#/definitions/previous_next_mixin"
+        },
+        "availability_mixin": {
+          "$ref": "#/definitions/availability_mixin"
+        }
+      },
+      "required": [
+        "pid",
+        "partner",
+        "updated_time",
+        "embargoed"
+      ],
+      "additionalProperties": false
+    },
+    "series": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "embargoed": {
+          "$ref": "#/definitions/embargoed"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "uri": {
+          "$ref": "#/definitions/uri"
+        },
+        "series_of": {
+          "$ref": "#/definitions/series_of"
+        },
+        "ancestors": {
+          "$ref": "#/definitions/ancestors"
+        },
+        "items_for": {
+          "$ref": "#/definitions/items_for"
+        },
+        "expected_child_count": {
+          "$ref": "#/definitions/expected_child_count"
+        },
+        "programme_formats": {
+          "$ref": "#/definitions/programme_formats"
+        },
+        "is_embeddable": {
+          "$ref": "#/definitions/is_embeddable"
+        },
+        "ancestors_titles": {
+          "$ref": "#/definitions/ancestors_titles"
+        },
+        "ancestor_titles": {
+          "$ref": "#/definitions/ancestor_titles"
+        },
+        "related_links": {
+          "$ref": "#/definitions/related_links"
+        },
+        "genre_groupings": {
+          "$ref": "#/definitions/genre_groupings"
+        },
+        "image_link": {
+          "$ref": "#/definitions/image_link"
+        },
+        "release_date_group": {
+          "$ref": "#/definitions/release_date_group"
+        },
+        "master_brand_link": {
+          "$ref": "#/definitions/master_brand_link"
+        },
+        "images_mixin": {
+          "$ref": "#/definitions/images_mixin"
+        },
+        "alternate_images_mixin": {
+          "$ref": "#/definitions/alternate_images_mixin"
+        },
+        "contributions_mixin": {
+          "$ref": "#/definitions/contributions_mixin"
+        },
+        "previous_next_mixin": {
+          "$ref": "#/definitions/previous_next_mixin"
+        },
+        "availability_mixin": {
+          "$ref": "#/definitions/availability_mixin"
+        }
+      },
+      "required": [
+        "pid",
+        "partner",
+        "updated_time",
+        "embargoed"
+      ],
+      "additionalProperties": false
+    },
+    "episode": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "embargoed": {
+          "$ref": "#/definitions/embargoed"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "uri": {
+          "$ref": "#/definitions/uri"
+        },
+        "advertising_allowed": {
+          "$ref": "#/definitions/advertising_allowed"
+        },
+        "presentation_title": {
+          "$ref": "#/definitions/presentation_title"
+        },
+        "media_type": {
+          "$ref": "#/definitions/media_type"
+        },
+        "is_stacked": {
+          "$ref": "#/definitions/is_stacked"
+        },
+        "has_guidance": {
+          "$ref": "#/definitions/has_guidance"
+        },
+        "episode_of": {
+          "$ref": "#/definitions/episode_of"
+        },
+        "genre_groups": {
+          "$ref": "#/definitions/genre_groups"
+        },
+        "ancestors": {
+          "$ref": "#/definitions/ancestors"
+        },
+        "items_for": {
+          "$ref": "#/definitions/items_for"
+        },
+        "programme_formats": {
+          "$ref": "#/definitions/programme_formats"
+        },
+        "is_embeddable": {
+          "$ref": "#/definitions/is_embeddable"
+        },
+        "ancestors_titles": {
+          "$ref": "#/definitions/ancestors_titles"
+        },
+        "ancestor_titles": {
+          "$ref": "#/definitions/ancestor_titles"
+        },
+        "related_links": {
+          "$ref": "#/definitions/related_links"
+        },
+        "genre_groupings": {
+          "$ref": "#/definitions/genre_groupings"
+        },
+        "image_link": {
+          "$ref": "#/definitions/image_link"
+        },
+        "release_date_group": {
+          "$ref": "#/definitions/release_date_group"
+        },
+        "master_brand_link": {
+          "$ref": "#/definitions/master_brand_link"
+        },
+        "images_mixin": {
+          "$ref": "#/definitions/images_mixin"
+        },
+        "alternate_images_mixin": {
+          "$ref": "#/definitions/alternate_images_mixin"
+        },
+        "original_version_duration": {
+          "$ref": "#/definitions/original_version_duration"
+        },
+        "contributions_mixin": {
+          "$ref": "#/definitions/contributions_mixin"
+        },
+        "previous_next_mixin": {
+          "$ref": "#/definitions/previous_next_mixin"
+        },
+        "availability_mixin": {
+          "$ref": "#/definitions/availability_mixin"
+        },
+        "versions_mixin": {
+          "$ref": "#/definitions/versions_mixin"
+        }
+      },
+      "required": [
+        "pid",
+        "partner",
+        "updated_time",
+        "embargoed",
+        "advertising_allowed"
+      ],
+      "additionalProperties": false
+    },
+    "clip": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "embargoed": {
+          "$ref": "#/definitions/embargoed"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "uri": {
+          "$ref": "#/definitions/uri"
+        },
+        "advertising_allowed": {
+          "$ref": "#/definitions/advertising_allowed"
+        },
+        "media_type": {
+          "$ref": "#/definitions/media_type"
+        },
+        "clip_of": {
+          "$ref": "#/definitions/clip_of"
+        },
+        "genre_groups": {
+          "$ref": "#/definitions/genre_groups"
+        },
+        "ancestors": {
+          "$ref": "#/definitions/ancestors"
+        },
+        "items_for": {
+          "$ref": "#/definitions/items_for"
+        },
+        "programme_formats": {
+          "$ref": "#/definitions/programme_formats"
+        },
+        "is_embeddable": {
+          "$ref": "#/definitions/is_embeddable"
+        },
+        "ancestors_titles": {
+          "$ref": "#/definitions/ancestors_titles"
+        },
+        "ancestor_titles": {
+          "$ref": "#/definitions/ancestor_titles"
+        },
+        "related_links": {
+          "$ref": "#/definitions/related_links"
+        },
+        "genre_groupings": {
+          "$ref": "#/definitions/genre_groupings"
+        },
+        "image_link": {
+          "$ref": "#/definitions/image_link"
+        },
+        "release_date_group": {
+          "$ref": "#/definitions/release_date_group"
+        },
+        "master_brand_link": {
+          "$ref": "#/definitions/master_brand_link"
+        },
+        "images_mixin": {
+          "$ref": "#/definitions/images_mixin"
+        },
+        "alternate_images_mixin": {
+          "$ref": "#/definitions/alternate_images_mixin"
+        },
+        "original_version_duration": {
+          "$ref": "#/definitions/original_version_duration"
+        },
+        "contributions_mixin": {
+          "$ref": "#/definitions/contributions_mixin"
+        },
+        "previous_next_mixin": {
+          "$ref": "#/definitions/previous_next_mixin"
+        },
+        "availability_mixin": {
+          "$ref": "#/definitions/availability_mixin"
+        },
+        "versions_mixin": {
+          "$ref": "#/definitions/versions_mixin"
+        }
+      },
+      "required": [
+        "pid",
+        "partner",
+        "updated_time",
+        "embargoed",
+        "advertising_allowed"
+      ],
+      "additionalProperties": false
+    },
+    "broadcast": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "service": {
+          "$ref": "#/definitions/serviceReference"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "published_time": {
+          "$ref": "#/definitions/published_time"
+        },
+        "tx_time": {
+          "$ref": "#/definitions/tx_time"
+        },
+        "ids": {
+          "$ref": "#/definitions/ids"
+        },
+        "is_blanked": {
+          "$ref": "#/definitions/is_blanked"
+        },
+        "is_repeat": {
+          "$ref": "#/definitions/is_repeat"
+        },
+        "is_audio_described": {
+          "$ref": "#/definitions/is_audio_described"
+        },
+        "is_critical": {
+          "$ref": "#/definitions/is_critical"
+        },
+        "is_simulcast": {
+          "$ref": "#/definitions/is_simulcast"
+        },
+        "broadcast_of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/broadcast_of"
+          }
+        },
+        "ancestors_titles": {
+          "$ref": "#/definitions/ancestors_titles"
+        },
+        "ancestor_titles": {
+          "$ref": "#/definitions/ancestor_titles"
+        },
+        "image_link": {
+          "$ref": "#/definitions/image_link"
+        },
+        "images_mixin": {
+          "$ref": "#/definitions/images_mixin"
+        }
+      },
+      "required": [
+        "pid",
+        "partner"
+      ],
+      "additionalProperties": false
+    },
+    "window": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "service": {
+          "$ref": "#/definitions/serviceReference"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "scheduled_time": {
+          "$ref": "#/definitions/scheduled_time"
+        },
+        "accurate_programme_time": {
+          "$ref": "#/definitions/accurate_programme_time"
+        },
+        "media_availability_time": {
+          "$ref": "#/definitions/media_availability_time"
+        },
+        "ids": {
+          "$ref": "#/definitions/ids"
+        },
+        "window_of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/window_of"
+          }
+        },
+        "scheduled_publication_rights": {
+          "$ref": "#/definitions/scheduled_publication_rights"
+        },
+        "ancestors_titles": {
+          "$ref": "#/definitions/ancestors_titles"
+        },
+        "ancestor_titles": {
+          "$ref": "#/definitions/ancestor_titles"
+        },
+        "image_link": {
+          "$ref": "#/definitions/image_link"
+        },
+        "images_mixin": {
+          "$ref": "#/definitions/images_mixin"
+        }
+      },
+      "required": [
+        "pid",
+        "partner"
+      ],
+      "additionalProperties": false
+    },
+    "service": {
+      "type": "object",
+      "properties": {
+        "sid": {
+          "$ref": "#/definitions/sid"
+        },
+        "ids": {
+          "$ref": "#/definitions/ids"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "description": {
+          "$ref": "#/definitions/description"
+        },
+        "region": {
+          "$ref": "#/definitions/region"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "media_type": {
+          "$ref": "#/definitions/media_type"
+        },
+        "is_concrete": {
+          "$ref": "#/definitions/is_concrete"
+        },
+        "is_streamable": {
+          "$ref": "#/definitions/is_streamable"
+        },
+        "is_downloadable": {
+          "$ref": "#/definitions/is_downloadable"
+        },
+        "date_range": {
+          "$ref": "#/definitions/date_range"
+        },
+        "master_brand_link": {
+          "$ref": "#/definitions/master_brand_link"
+        }
+      },
+      "required": [
+        "sid",
+        "partner"
+      ],
+      "additionalProperties": false
+    },
+    "offsets": {
+      "type": "object",
+      "properties": {
+        "offset_in": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/offset_in"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "play_events": {
+      "type": "object",
+      "properties": {
+        "play_event": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/play_event"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "offset_in": {
+      "type": "object",
+      "properties": {
+        "programme": {
+          "$ref": "#/definitions/pid"
+        },
+        "version": {
+          "$ref": "#/definitions/pid"
+        },
+        "position": {
+          "type": "number"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "href": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "programme",
+        "version",
+        "href"
+      ],
+      "additionalProperties": false
+    },
+    "play_event": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "position": {
+          "type": "number"
+        },
+        "played_in_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/played_in_links"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pid"
+      ]
+    },
+    "versions": {
+      "type": "object",
+      "properties": {
+        "version_availability_mixin": {
+          "$ref": "#/definitions/version_availability_mixin"
+        },
+        "available": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version_availability_mixin",
+        "available"
+      ],
+      "additionalProperties": false
+    },
+    "available_versions": {
+      "type": "object",
+      "properties": {
+        "available_versions_element": {
+          "$ref": "#/definitions/available_versions_element"
+        },
+        "available": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "available_versions_element",
+        "available"
+      ],
+      "additionalProperties": false
+    },
+    "available_webcasts": {
+      "type": "object",
+      "properties": {
+        "available_versions_element": {
+          "$ref": "#/definitions/available_versions_element"
+        },
+        "available": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "available_versions_element",
+        "available"
+      ],
+      "additionalProperties": false
+    },
+    "warning_texts": {
+      "type": "object",
+      "properties": {
+        "warning_text": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "length": {
+                "type": "string"
+              },
+              "warning_text": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "length": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "warning_items": {
+      "type": "object",
+      "properties": {
+        "warning": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "short_description": {
+                "type": "string"
+              },
+              "warning_code": {
+                "type": "string"
+              },
+              "warning": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "short_description": {
+                      "type": "string"
+                    },
+                    "warning_code": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "contributor": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "ids": {
+          "$ref": "#/definitions/ids"
+        },
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "disambiguation": {
+          "$ref": "#/definitions/disambiguation"
+        },
+        "contributor_to": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/contributor_to"
+          }
+        },
+        "href": {
+          "type": "string"
+        },
+        "contributor_name": {
+          "$ref": "#/definitions/contributor_name"
+        }
+      },
+      "required": [
+        "pid",
+        "partner"
+      ],
+      "additionalProperties": false
+    },
+    "availability": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "$ref": "#/definitions/status"
+        },
+        "revocation_status": {
+          "$ref": "#/definitions/revocation_status"
+        },
+        "availability_type": {
+          "$ref": "#/definitions/availability_type"
+        },
+        "scheduled_time": {
+          "$ref": "#/definitions/scheduled_time"
+        },
+        "media_availability_time": {
+          "$ref": "#/definitions/media_availability_time"
+        },
+        "accurate_programme_time": {
+          "$ref": "#/definitions/accurate_programme_time"
+        },
+        "actual_start": {
+          "$ref": "#/definitions/actual_start"
+        },
+        "media_set": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/media_set"
+          }
+        },
+        "availability_of": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/availability_of"
+          }
+        },
+        "availability-debug": {
+          "$ref": "#/definitions/availability-debug"
+        }
+      },
+      "required": [
+        "status",
+        "availability_type"
+      ],
+      "additionalProperties": false
+    },
+    "master_brand": {
+      "type": "object",
+      "properties": {
+        "mid": {
+          "$ref": "#/definitions/mid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "name": {
+          "$ref": "#/definitions/name"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "synopses": {
+          "type": "object",
+          "properties": {
+            "short": {
+              "$ref": "#/definitions/short"
+            },
+            "medium": {
+              "$ref": "#/definitions/medium"
+            },
+            "long": {
+              "$ref": "#/definitions/long"
+            }
+          },
+          "additionalProperties": false
+        },
+        "url_key": {
+          "type": "object"
+        },
+        "colour": {
+          "type": "object"
+        },
+        "position": {
+          "$ref": "#/definitions/position"
+        },
+        "ident": {
+          "type": "object"
+        },
+        "master_brand_date_range": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "end": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "competition_warning": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string"
+            },
+            "pid": {
+              "$ref": "#/definitions/pid"
+            }
+          },
+          "required": [
+            "href",
+            "pid"
+          ],
+          "additionalProperties": false
+        },
+        "image_link": {
+          "$ref": "#/definitions/image_link"
+        },
+        "images_mixin": {
+          "$ref": "#/definitions/images_mixin"
+        }
+      },
+      "required": [
+        "mid",
+        "partner"
+      ],
+      "additionalProperties": false
+    },
+    "related_links": {
+      "type": "object",
+      "properties": {
+        "related_link": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/related_link"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "related_link": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/type"
+        },
+        "uri": {
+          "$ref": "#/definitions/uri"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "position": {
+          "$ref": "#/definitions/position"
+        },
+        "is_external": {
+          "$ref": "#/definitions/is_external"
+        },
+        "pid": {
+          "$ref": "#/definitions/pid"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pid"
+      ]
+    },
+    "position": {
+      "type": "integer"
+    },
+    "for_programmes": {
+      "type": "object",
+      "properties": {
+        "for_programme": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/for_programme"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "for_programme": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "pid": {
+      "type": "string",
+      "pattern": "([a-z0-9\\.\\-]+|.*PID.*)"
+    },
+    "partner": {
+      "$ref": "#/definitions/pid"
+    },
+    "updated_time": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "start_time": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "end_time": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "integer"
+    },
+    "presentation_title": {
+      "type": "string"
+    },
+    "containers_title": {
+      "type": "string"
+    },
+    "synopses": {
+      "type": "object",
+      "properties": {
+        "short": {
+          "$ref": "#/definitions/short"
+        },
+        "medium": {
+          "$ref": "#/definitions/medium"
+        },
+        "long": {
+          "$ref": "#/definitions/long"
+        }
+      },
+      "additionalProperties": false
+    },
+    "short": {
+      "type": "string"
+    },
+    "medium": {
+      "type": "string"
+    },
+    "long": {
+      "type": "string"
+    },
+    "snippet_url": {
+      "type": "string"
+    },
+    "release_title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "source_media": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "catalogue_number": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 32
+    },
+    "record_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "publisher": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "music_code": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8
+    },
+    "track_number": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8
+    },
+    "track_side": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8
+    },
+    "recording_date": {
+      "type": "string",
+      "minLength": 4,
+      "maxLength": 10
+    },
+    "media_type": {
+      "enum": [
+        "Video",
+        "Audio"
+      ]
+    },
+    "is_stacked": {
+      "type": "boolean"
+    },
+    "programme_formats": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/format"
+          }
+        }
+      },
+      "required": [
+        "format"
+      ],
+      "additionalProperties": false
+    },
+    "format": {
+      "type": "object",
+      "properties": {
+        "format_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "genre_groupings": {
+      "$ref": "#/definitions/genreGroupingsType"
+    },
+    "genre_groups": {
+      "$ref": "#/definitions/genreGroupsType"
+    },
+    "genre_group": {
+      "type": "object",
+      "properties": {
+        "genres": {
+          "type": "object",
+          "properties": {
+            "genre": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/genre"
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "genres"
+      ],
+      "additionalProperties": false
+    },
+    "genre": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "music": {
+      "$ref": "#/definitions/item"
+    },
+    "speech": {
+      "$ref": "#/definitions/item"
+    },
+    "chapter": {
+      "$ref": "#/definitions/item"
+    },
+    "highlight": {
+      "$ref": "#/definitions/item"
+    },
+    "other": {
+      "$ref": "#/definitions/item"
+    },
+    "promotion_of": {
+      "$ref": "#/definitions/pidReference"
+    },
+    "series_of": {
+      "$ref": "#/definitions/pidReference"
+    },
+    "episode_of": {
+      "$ref": "#/definitions/pidReference"
+    },
+    "clip_of": {
+      "$ref": "#/definitions/pidReference"
+    },
+    "version_of": {
+      "$ref": "#/definitions/pidReference"
+    },
+    "ancestors": {
+      "$ref": "#/definitions/reference"
+    },
+    "franchises": {
+      "$ref": "#/definitions/reference"
+    },
+    "item_of": {
+      "$ref": "#/definitions/reference"
+    },
+    "items_for": {
+      "$ref": "#/definitions/reference"
+    },
+    "promoted_by": {
+      "type": "string"
+    },
+    "promoted_for": {
+      "type": "string"
+    },
+    "context": {
+      "type": "object",
+      "properties": {
+        "cascades_to_descendants": {
+          "type": "boolean"
+        },
+        "href": {
+          "type": "string"
+        },
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "result_type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pid",
+        "result_type"
+      ]
+    },
+    "ancestor_titles": {
+      "type": "object",
+      "properties": {
+        "brand": {
+          "type": "object",
+          "properties": {
+            "pid": {
+              "$ref": "#/definitions/pid"
+            },
+            "title": {
+              "$ref": "#/definitions/title"
+            }
+          },
+          "required": [
+            "pid"
+          ],
+          "additionalProperties": false
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "$ref": "#/definitions/pid"
+              },
+              "title": {
+                "$ref": "#/definitions/title"
+              }
+            },
+            "required": [
+              "pid"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "episode": {
+          "type": "object",
+          "properties": {
+            "pid": {
+              "$ref": "#/definitions/pid"
+            },
+            "title": {
+              "$ref": "#/definitions/title"
+            },
+            "presentation_title": {
+              "$ref": "#/definitions/presentation_title"
+            },
+            "containers_title": {
+              "$ref": "#/definitions/containers_title"
+            },
+            "brand": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "$ref": "#/definitions/pid"
+                },
+                "title": {
+                  "$ref": "#/definitions/title"
+                }
+              },
+              "required": [
+                "pid"
+              ],
+              "additionalProperties": false
+            },
+            "series": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "pid": {
+                    "$ref": "#/definitions/pid"
+                  },
+                  "title": {
+                    "$ref": "#/definitions/title"
+                  }
+                },
+                "required": [
+                  "pid"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "episode": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "$ref": "#/definitions/pid"
+                },
+                "title": {
+                  "$ref": "#/definitions/title"
+                },
+                "presentation_title": {
+                  "$ref": "#/definitions/presentation_title"
+                },
+                "containers_title": {
+                  "$ref": "#/definitions/containers_title"
+                }
+              },
+              "required": [
+                "pid"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "pid"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "ancestors_titles": {
+      "type": "object",
+      "properties": {
+        "brand": {
+          "type": "object",
+          "properties": {
+            "pid": {
+              "$ref": "#/definitions/pid"
+            },
+            "title": {
+              "$ref": "#/definitions/title"
+            }
+          },
+          "required": [
+            "pid"
+          ],
+          "additionalProperties": false
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pid": {
+                "$ref": "#/definitions/pid"
+              },
+              "title": {
+                "$ref": "#/definitions/title"
+              }
+            },
+            "required": [
+              "pid"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "episode": {
+          "type": "object",
+          "properties": {
+            "pid": {
+              "$ref": "#/definitions/pid"
+            },
+            "title": {
+              "$ref": "#/definitions/title"
+            },
+            "presentation_title": {
+              "$ref": "#/definitions/presentation_title"
+            },
+            "containers_title": {
+              "$ref": "#/definitions/containers_title"
+            },
+            "brand": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "$ref": "#/definitions/pid"
+                },
+                "title": {
+                  "$ref": "#/definitions/title"
+                }
+              },
+              "required": [
+                "pid"
+              ],
+              "additionalProperties": false
+            },
+            "series": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "pid": {
+                    "$ref": "#/definitions/pid"
+                  },
+                  "title": {
+                    "$ref": "#/definitions/title"
+                  }
+                },
+                "required": [
+                  "pid"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "episode": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "$ref": "#/definitions/pid"
+                },
+                "title": {
+                  "$ref": "#/definitions/title"
+                },
+                "presentation_title": {
+                  "$ref": "#/definitions/presentation_title"
+                },
+                "containers_title": {
+                  "$ref": "#/definitions/containers_title"
+                }
+              },
+              "required": [
+                "pid"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "pid"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "expected_child_count": {
+      "type": "integer"
+    },
+    "published_time": {
+      "$ref": "#/definitions/broadcastTime"
+    },
+    "accurate_time": {
+      "$ref": "#/definitions/broadcastTime"
+    },
+    "credits_time": {
+      "type": "object",
+      "properties": {
+        "squeeze_start": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "squeeze_end": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "schedule_date": {
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+      "type": "string"
+    },
+    "is_blanked": {
+      "type": "boolean"
+    },
+    "is_repeat": {
+      "type": "boolean"
+    },
+    "is_signed": {
+      "type": "boolean"
+    },
+    "is_audio_described": {
+      "type": "boolean"
+    },
+    "is_critical": {
+      "type": "boolean"
+    },
+    "is_simulcast": {
+      "type": "boolean"
+    },
+    "competition_warning": {
+      "type": "boolean"
+    },
+    "is_embeddable": {
+      "type": "boolean"
+    },
+    "ids": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/id"
+          }
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "id": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "authority": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "broadcast_of": {
+      "$ref": "#/definitions/pidReference"
+    },
+    "broadcaster": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "sid": {
+          "$ref": "#/definitions/sid"
+        },
+        "result_type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "href",
+        "sid",
+        "result_type"
+      ],
+      "additionalProperties": false
+    },
+    "warning_text": {
+      "type": "object",
+      "properties": {
+        "length": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "warning": {
+      "type": "object",
+      "properties": {
+        "short_description": {
+          "type": "string"
+        },
+        "warning_code": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "warnings": {
+      "type": "object",
+      "properties": {
+        "warning_text": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/warning_text"
+          }
+        },
+        "warning": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/warning"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "has_guidance": {
+      "type": "boolean"
+    },
+    "sid": {
+      "type": "string",
+      "pattern": "[a-z0-9A-Z_\\.\\-]+"
+    },
+    "mid": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "is_concrete": {
+      "type": "boolean"
+    },
+    "is_streamable": {
+      "type": "boolean"
+    },
+    "is_downloadable": {
+      "type": "boolean"
+    },
+    "is_external": {
+      "type": "boolean"
+    },
+    "uri": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "date_range": {
+      "$ref": "#/definitions/dateRange"
+    },
+    "tx_time": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "end": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "credits_showing": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "feeds": {
+      "type": "object",
+      "properties": {
+        "feed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/feed"
+          }
+        },
+        "deprecations": {
+          "$ref": "#/definitions/deprecations"
+        },
+        "deployment_root": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "feed": {
+      "type": "object",
+      "properties": {
+        "filters": {
+          "$ref": "#/definitions/filters"
+        },
+        "sorts": {
+          "$ref": "#/definitions/sorts"
+        },
+        "mixins": {
+          "$ref": "#/definitions/mixins"
+        },
+        "deprecations": {
+          "$ref": "#/definitions/deprecations"
+        },
+        "href": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rel": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "release_status": {
+          "$ref": "#/definitions/release_status_type"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "href",
+        "name",
+        "rel",
+        "title"
+      ]
+    },
+    "filters": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/filter"
+          }
+        },
+        "unstable_filters": {
+          "$ref": "#/definitions/unstable_filters"
+        }
+      },
+      "additionalProperties": false
+    },
+    "sorts": {
+      "type": "object",
+      "properties": {
+        "sort": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sort"
+          }
+        },
+        "unstable_sorts": {
+          "$ref": "#/definitions/unstable_sorts"
+        }
+      },
+      "additionalProperties": false
+    },
+    "mixins": {
+      "type": "object",
+      "properties": {
+        "mixin": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mixin"
+          }
+        },
+        "unstable_mixins": {
+          "$ref": "#/definitions/unstable_mixins"
+        }
+      },
+      "additionalProperties": false
+    },
+    "deprecations": {
+      "type": "object",
+      "properties": {
+        "deprecated": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/deprecated"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "filter": {
+      "type": "object",
+      "properties": {
+        "option": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/option"
+          }
+        },
+        "prohibits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/prohibits"
+          }
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "deprecated_since": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+          "type": "string"
+        },
+        "guaranteed_until": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+          "type": "string"
+        },
+        "replaced_by": {
+          "type": "string"
+        },
+        "max_value": {
+          "type": "integer"
+        },
+        "min_value": {
+          "type": "integer"
+        },
+        "default": {
+          "type": "string"
+        },
+        "multiple_values": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "release_status": {
+          "$ref": "#/definitions/release_status_type"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "prefer": {
+          "type": "string"
+        },
+        "depends_on": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "title",
+        "type"
+      ]
+    },
+    "unstable_filters": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/filter"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "unstable_mixins": {
+      "type": "object",
+      "properties": {
+        "mixin": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mixin"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "unstable_sorts": {
+      "type": "object",
+      "properties": {
+        "sort": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sort"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "option": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "release_status": {
+          "$ref": "#/definitions/release_status_type"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "title"
+      ]
+    },
+    "prohibits": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "mixin": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "filter": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "mixin": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "sort": {
+      "type": "object",
+      "properties": {
+        "sort_direction": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/sort_direction"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "deprecated_since": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+          "type": "string"
+        },
+        "guaranteed_until": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+          "type": "string"
+        },
+        "replaced_by": {
+          "type": "string"
+        },
+        "release_status": {
+          "$ref": "#/definitions/release_status_type"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "title"
+      ]
+    },
+    "sort_direction": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value",
+        "is_default",
+        "href"
+      ],
+      "additionalProperties": false
+    },
+    "mixin": {
+      "type": "object",
+      "properties": {
+        "dependency_on": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/dependency_on"
+          }
+        },
+        "affected_by": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/affected_by"
+          }
+        },
+        "prohibits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/prohibits"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "deprecated_since": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+          "type": "string"
+        },
+        "guaranteed_until": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+          "type": "string"
+        },
+        "replaced_by": {
+          "type": "string"
+        },
+        "release_status": {
+          "$ref": "#/definitions/release_status_type"
+        },
+        "depends_on": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "title"
+      ]
+    },
+    "deprecated": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "deprecated_since": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+          "type": "string"
+        },
+        "replaced_by": {
+          "type": "string"
+        },
+        "replacement_type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "deprecated_since"
+      ],
+      "additionalProperties": false
+    },
+    "dependency_on": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "affected_by": {
+      "type": "object",
+      "properties": {
+        "filter": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "filter": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "description"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "name",
+              "description"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "disambiguation": {
+      "type": "string"
+    },
+    "contributor_to": {
+      "type": "object",
+      "properties": {
+        "result_type": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "result_type",
+        "href"
+      ],
+      "additionalProperties": false
+    },
+    "status": {
+      "type": "string"
+    },
+    "revocation_status": {
+      "type": "string"
+    },
+    "availability_type": {
+      "enum": [
+        "ondemand",
+        "simulcast",
+        "webcast"
+      ]
+    },
+    "scheduled_time": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "end": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "actual_start": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "end": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "media_set": {
+      "type": "string"
+    },
+    "availability_of": {
+      "type": "object",
+      "properties": {
+        "result_type": {
+          "type": "string"
+        },
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "href": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "result_type",
+        "pid",
+        "href"
+      ],
+      "additionalProperties": false
+    },
+    "accurate_programme_time": {
+      "$ref": "#/definitions/dateRange"
+    },
+    "media_availability_time": {
+      "$ref": "#/definitions/dateRange"
+    },
+    "window_of": {
+      "$ref": "#/definitions/pidReference"
+    },
+    "scheduled_publication_rights": {
+      "type": "object",
+      "properties": {
+        "publication_rights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/publication_rights"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "publication_rights": {
+      "type": "object",
+      "properties": {
+        "territory": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string"
+        },
+        "context": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "franchise": {
+      "$ref": "#/definitions/group-body"
+    },
+    "season": {
+      "$ref": "#/definitions/group-body"
+    },
+    "collection": {
+      "$ref": "#/definitions/group-body"
+    },
+    "gallery": {
+      "$ref": "#/definitions/group-body"
+    },
+    "scheduled": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "end": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "url_key": {
+      "type": "string"
+    },
+    "embargoed": {
+      "enum": [
+        "true",
+        "false"
+      ]
+    },
+    "advertising_allowed": {
+      "type": "string",
+      "pattern": "[a-z0-9_]+"
+    },
+    "availability-debug": {
+      "type": "object",
+      "properties": {
+        "availability_of": {
+          "$ref": "#/definitions/pidReference"
+        },
+        "service": {
+          "$ref": "#/definitions/serviceReference"
+        },
+        "territory": {
+          "type": "string"
+        },
+        "media_profile_groups": {
+          "$ref": "#/definitions/media_profile_groups"
+        }
+      },
+      "required": [
+        "availability_of"
+      ],
+      "additionalProperties": false
+    },
+    "media_profile_groups": {
+      "type": "object",
+      "properties": {
+        "media_profile_group": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/media_profile_group"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "media_profile_group": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "territory": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string"
+        },
+        "context": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "embargoed": {
+          "$ref": "#/definitions/embargoed"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "author": {
+          "type": "string"
+        },
+        "shoot_date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "source_asset": {
+          "$ref": "#/definitions/source_asset"
+        },
+        "template_url": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pid",
+        "embargoed",
+        "partner"
+      ],
+      "additionalProperties": false
+    },
+    "source_asset": {
+      "type": "object",
+      "properties": {
+        "dimensions": {
+          "$ref": "#/definitions/dimensions"
+        },
+        "size": {
+          "$ref": "#/definitions/size"
+        },
+        "focus_point": {
+          "$ref": "#/definitions/focus_point"
+        },
+        "mime_type": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "dimensions": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "size": {
+      "type": "object",
+      "properties": {
+        "units": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "focus_point": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "integer"
+        },
+        "y": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "expr": {
+      "type": "string"
+    },
+    "datum": {
+      "type": "string"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "datum": {
+          "$ref": "#/definitions/datum"
+        }
+      },
+      "additionalProperties": false
+    },
+    "error-name": {
+      "type": "string"
+    },
+    "xquery-version": {
+      "enum": [
+        "1.0-ml",
+        "0.9-ml",
+        "1.0",
+        "XSLT"
+      ]
+    },
+    "code": {
+      "type": "string"
+    },
+    "message": {
+      "type": "string"
+    },
+    "format-string": {
+      "type": "string"
+    },
+    "retryable": {
+      "type": "boolean"
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/definitions/code"
+        },
+        "error-name": {
+          "$ref": "#/definitions/error-name"
+        },
+        "xquery-version": {
+          "$ref": "#/definitions/xquery-version"
+        },
+        "message": {
+          "$ref": "#/definitions/message"
+        },
+        "format-string": {
+          "$ref": "#/definitions/format-string"
+        },
+        "retryable": {
+          "$ref": "#/definitions/retryable"
+        },
+        "expr": {
+          "$ref": "#/definitions/expr"
+        },
+        "data": {
+          "$ref": "#/definitions/data"
+        }
+      },
+      "required": [
+        "code",
+        "error-name",
+        "xquery-version",
+        "message",
+        "format-string",
+        "retryable",
+        "expr",
+        "data"
+      ],
+      "additionalProperties": false
+    },
+    "errors": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/error"
+        }
+      },
+      "additionalProperties": false
+    },
+    "item": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "ids": {
+          "$ref": "#/definitions/ids"
+        },
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "release_title": {
+          "$ref": "#/definitions/release_title"
+        },
+        "source_media": {
+          "$ref": "#/definitions/source_media"
+        },
+        "catalogue_number": {
+          "$ref": "#/definitions/catalogue_number"
+        },
+        "record_label": {
+          "$ref": "#/definitions/record_label"
+        },
+        "publisher": {
+          "$ref": "#/definitions/publisher"
+        },
+        "music_code": {
+          "$ref": "#/definitions/music_code"
+        },
+        "track_number": {
+          "$ref": "#/definitions/track_number"
+        },
+        "track_side": {
+          "$ref": "#/definitions/track_side"
+        },
+        "recording_date": {
+          "$ref": "#/definitions/recording_date"
+        },
+        "duration": {
+          "type": "number"
+        },
+        "item_of": {
+          "$ref": "#/definitions/item_of"
+        },
+        "offsets": {
+          "$ref": "#/definitions/offsets"
+        },
+        "play_events": {
+          "$ref": "#/definitions/play_events"
+        },
+        "snippet_url": {
+          "$ref": "#/definitions/snippet_url"
+        },
+        "images_mixin": {
+          "$ref": "#/definitions/images_mixin"
+        },
+        "contributions_mixin": {
+          "$ref": "#/definitions/contributions_mixin"
+        }
+      },
+      "required": [
+        "pid",
+        "partner"
+      ],
+      "additionalProperties": false
+    },
+    "genreGroupingsType": {
+      "type": "object",
+      "properties": {
+        "genre_group": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/genre_group"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "genreGroupsType": {
+      "type": "object",
+      "properties": {
+        "genre_group": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/genre_group"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "pidReference": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "position": {
+          "type": "integer"
+        },
+        "result_type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "pid",
+        "result_type"
+      ]
+    },
+    "referenceAttributes": {
+      "type": "object",
+      "properties": {
+        "href": {
+          "type": "string"
+        },
+        "result_type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "href",
+        "result_type"
+      ],
+      "additionalProperties": false
+    },
+    "reference": {
+      "type": "object",
+      "properties": {
+        "href_deprecated": {
+          "type": "boolean"
+        },
+        "result_type_deprecated": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "deprecatedReferenceElement": {
+      "type": "object",
+      "properties": {
+        "deprecationAttributes": {
+          "$ref": "#/definitions/deprecationAttributes"
+        }
+      },
+      "required": [
+        "deprecationAttributes"
+      ],
+      "additionalProperties": false
+    },
+    "dateRange": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "end": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "broadcastTime": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "serviceReference": {
+      "type": "object",
+      "properties": {
+        "result_type": {
+          "type": "string"
+        },
+        "href": {
+          "type": "string"
+        },
+        "sid": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "result_type",
+        "href",
+        "sid"
+      ],
+      "additionalProperties": false
+    },
+    "group-body": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "$ref": "#/definitions/pid"
+        },
+        "embargoed": {
+          "$ref": "#/definitions/embargoed"
+        },
+        "partner": {
+          "$ref": "#/definitions/partner"
+        },
+        "updated_time": {
+          "$ref": "#/definitions/updated_time"
+        },
+        "ids": {
+          "$ref": "#/definitions/ids"
+        },
+        "url_key": {
+          "$ref": "#/definitions/url_key"
+        },
+        "title": {
+          "$ref": "#/definitions/title"
+        },
+        "synopses": {
+          "$ref": "#/definitions/synopses"
+        },
+        "scheduled": {
+          "$ref": "#/definitions/scheduled"
+        },
+        "for_programmes": {
+          "$ref": "#/definitions/for_programmes"
+        },
+        "related_links": {
+          "$ref": "#/definitions/related_links"
+        },
+        "master_brand_link": {
+          "$ref": "#/definitions/master_brand_link"
+        },
+        "images_mixin": {
+          "$ref": "#/definitions/images_mixin"
+        },
+        "alternate_images_mixin": {
+          "$ref": "#/definitions/alternate_images_mixin"
+        }
+      },
+      "required": [
+        "pid",
+        "embargoed",
+        "partner",
+        "updated_time"
+      ],
+      "additionalProperties": false
+    },
+    "played_in_links": {
+      "type": "object",
+      "properties": {
+        "played_in": {
+          "type": "object",
+          "properties": {
+            "result_type": {
+              "type": "string"
+            },
+            "href": {
+              "type": "string"
+            },
+            "played_in": {
+              "type": "object",
+              "properties": {
+                "result_type": {
+                  "type": "string"
+                },
+                "href": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "availability_mixin": {
+      "type": "object",
+      "properties": {
+        "availability": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "$ref": "#/definitions/status"
+              },
+              "version_types": {
+                "type": "object",
+                "properties": {
+                  "version_type": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "start": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "end": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "version_type": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "start": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "end": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "availability": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "status": {
+                                      "$ref": "#/definitions/status"
+                                    },
+                                    "version_types": {
+                                      "type": "object",
+                                      "properties": {
+                                        "version_type": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "id": {
+                                                "type": "string"
+                                              },
+                                              "start": {
+                                                "format": "date-time",
+                                                "type": "string"
+                                              },
+                                              "end": {
+                                                "format": "date-time",
+                                                "type": "string"
+                                              },
+                                              "version_type": {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "object",
+                                                  "properties": {
+                                                    "id": {
+                                                      "type": "string"
+                                                    },
+                                                    "start": {
+                                                      "format": "date-time",
+                                                      "type": "string"
+                                                    },
+                                                    "end": {
+                                                      "format": "date-time",
+                                                      "type": "string"
+                                                    }
+                                                  },
+                                                  "additionalProperties": false
+                                                }
+                                              }
+                                            },
+                                            "additionalProperties": false,
+                                            "required": [
+                                              "version_type"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "required": [
+                                        "version_type"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  },
+                                  "required": [
+                                    "status",
+                                    "version_types"
+                                  ],
+                                  "additionalProperties": false
+                                }
+                              }
+                            },
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "version_type"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "version_type"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "status",
+              "version_types"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "versions_mixin": {
+      "type": "object",
+      "properties": {
+        "versions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/versions"
+          }
+        },
+        "available_versions": {
+          "$ref": "#/definitions/available_versions"
+        },
+        "available_webcasts": {
+          "$ref": "#/definitions/available_webcasts"
+        }
+      },
+      "additionalProperties": false
+    },
+    "version_availability_mixin": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "duration": {
+                "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
+                "type": "string"
+              },
+              "competition_warning": {
+                "type": "string"
+              },
+              "types": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "availabilities": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "version_availability": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/version_availability"
+                      }
+                    }
+                  },
+                  "required": [
+                    "version_availability"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "pid": {
+                "$ref": "#/definitions/pid"
+              },
+              "guidance_warnings": {
+                "$ref": "#/definitions/guidance_warnings"
+              },
+              "version": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "duration": {
+                      "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
+                      "type": "string"
+                    },
+                    "competition_warning": {
+                      "type": "string"
+                    },
+                    "types": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "availabilities": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "version_availability": {
+                            "type": "array",
+                            "items": {
+                              "$ref": "#/definitions/version_availability"
+                            }
+                          }
+                        },
+                        "required": [
+                          "version_availability"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "pid": {
+                      "$ref": "#/definitions/pid"
+                    },
+                    "guidance_warnings": {
+                      "$ref": "#/definitions/guidance_warnings"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "types"
+                  ]
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "types"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "version_availability": {
+      "type": "object",
+      "properties": {
+        "availability": {
+          "type": "object",
+          "properties": {
+            "availability_start": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "availability_end": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "available_media_sets": {
+              "$ref": "#/definitions/available_media_sets"
+            },
+            "availability": {
+              "type": "object",
+              "properties": {
+                "availability_start": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "availability_end": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "available_media_sets": {
+                  "$ref": "#/definitions/available_media_sets"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "available_media_sets"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "available_media_sets",
+            "availability"
+          ]
+        }
+      },
+      "required": [
+        "availability"
+      ],
+      "additionalProperties": false
+    },
+    "available_versions_element": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "duration": {
+                "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
+                "type": "string"
+              },
+              "competition_warning": {
+                "type": "boolean"
+              },
+              "types": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "pid": {
+                "$ref": "#/definitions/pid"
+              },
+              "guidance_warnings": {
+                "$ref": "#/definitions/guidance_warnings"
+              },
+              "available_mixins": {
+                "$ref": "#/definitions/available_mixins"
+              },
+              "version": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "duration": {
+                      "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
+                      "type": "string"
+                    },
+                    "competition_warning": {
+                      "type": "boolean"
+                    },
+                    "types": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "pid": {
+                      "$ref": "#/definitions/pid"
+                    },
+                    "guidance_warnings": {
+                      "$ref": "#/definitions/guidance_warnings"
+                    },
+                    "available_mixins": {
+                      "$ref": "#/definitions/available_mixins"
+                    }
+                  },
+                  "additionalProperties": false,
+                  "required": [
+                    "types"
+                  ]
+                }
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "types"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "available_mixins": {
+      "type": "object",
+      "properties": {
+        "availabilities": {
+          "type": "object",
+          "properties": {
+            "availability": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "scheduled_start": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "scheduled_end": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "media_availability_start": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "media_availability_end": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "accurate_start": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "accurate_end": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "payment_type": {
+                    "type": "string"
+                  },
+                  "available_versions_services": {
+                    "$ref": "#/definitions/available_versions_services"
+                  },
+                  "available_versions_media_sets": {
+                    "$ref": "#/definitions/available_versions_media_sets"
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "available_versions_media_sets"
+                ]
+              }
+            },
+            "type": {
+              "type": "string"
+            },
+            "availabilities": {
+              "type": "object",
+              "properties": {
+                "availability": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "scheduled_start": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "scheduled_end": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "media_availability_start": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "media_availability_end": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "accurate_start": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "accurate_end": {
+                        "format": "date-time",
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "payment_type": {
+                        "type": "string"
+                      },
+                      "available_versions_services": {
+                        "$ref": "#/definitions/available_versions_services"
+                      },
+                      "available_versions_media_sets": {
+                        "$ref": "#/definitions/available_versions_media_sets"
+                      }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                      "available_versions_media_sets"
+                    ]
+                  }
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "availability"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "availability",
+            "availabilities"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "availabilities"
+      ],
+      "additionalProperties": false
+    },
+    "version_types_with_id": {
+      "type": "object",
+      "properties": {
+        "version_types": {
+          "type": "object",
+          "properties": {
+            "version_type": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "version_types": {
+                    "type": "object",
+                    "properties": {
+                      "version_type": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "version_type"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "version_types"
+                ]
+              }
+            }
+          },
+          "required": [
+            "version_type"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version_types"
+      ],
+      "additionalProperties": false
+    },
+    "types_with_id": {
+      "type": "object",
+      "properties": {
+        "types": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "types": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "types"
+                ]
+              }
+            }
+          },
+          "required": [
+            "type"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "types"
+      ],
+      "additionalProperties": false
+    },
+    "available_media_sets": {
+      "type": "object",
+      "properties": {
+        "media_sets": {
+          "type": "object",
+          "properties": {
+            "media_set": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "media_sets": {
+                    "type": "object",
+                    "properties": {
+                      "media_set": {
+                        "type": "array",
+                        "items": {
+                          "type": "object"
+                        }
+                      }
+                    },
+                    "required": [
+                      "media_set"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "media_set"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "available_versions_media_sets": {
+      "type": "object",
+      "properties": {
+        "media_sets": {
+          "type": "object",
+          "properties": {
+            "media_set": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "actual_start": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "media_sets": {
+                    "type": "object",
+                    "properties": {
+                      "media_set": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "actual_start": {
+                              "format": "date-time",
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "media_set"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          },
+          "required": [
+            "media_set"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "available_versions_services": {
+      "type": "object",
+      "properties": {
+        "services": {
+          "type": "object",
+          "properties": {
+            "service": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sid": {
+                    "type": "string"
+                  },
+                  "services": {
+                    "type": "object",
+                    "properties": {
+                      "service": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "sid": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "service"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "service"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "guidance_warnings": {
+      "type": "object",
+      "properties": {
+        "warnings": {
+          "type": "object",
+          "properties": {
+            "warning_texts": {
+              "$ref": "#/definitions/warning_texts"
+            },
+            "warning_items": {
+              "$ref": "#/definitions/warning_items"
+            },
+            "warnings": {
+              "type": "object",
+              "properties": {
+                "warning_texts": {
+                  "$ref": "#/definitions/warning_texts"
+                },
+                "warning_items": {
+                  "$ref": "#/definitions/warning_items"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "contributor_name": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "object",
+          "properties": {
+            "presentation": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "given": {
+              "type": "string"
+            },
+            "family": {
+              "type": "string"
+            },
+            "lang": {
+              "type": "string"
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "presentation": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "given": {
+                  "type": "string"
+                },
+                "family": {
+                  "type": "string"
+                },
+                "lang": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "version_group": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "object",
+          "properties": {
+            "pid": {
+              "$ref": "#/definitions/pid"
+            },
+            "ids": {
+              "$ref": "#/definitions/ids"
+            },
+            "aspect_ratio": {
+              "type": "string"
+            },
+            "competition_warning": {
+              "$ref": "#/definitions/competition_warning"
+            },
+            "duration": {
+              "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
+              "type": "string"
+            },
+            "updated_time": {
+              "$ref": "#/definitions/updated_time"
+            },
+            "warnings": {
+              "$ref": "#/definitions/warnings"
+            },
+            "version_of": {
+              "$ref": "#/definitions/version_of"
+            },
+            "version_types_with_id": {
+              "$ref": "#/definitions/version_types_with_id"
+            },
+            "types_with_id": {
+              "$ref": "#/definitions/types_with_id"
+            },
+            "version": {
+              "type": "object",
+              "properties": {
+                "pid": {
+                  "$ref": "#/definitions/pid"
+                },
+                "ids": {
+                  "$ref": "#/definitions/ids"
+                },
+                "aspect_ratio": {
+                  "type": "string"
+                },
+                "competition_warning": {
+                  "$ref": "#/definitions/competition_warning"
+                },
+                "duration": {
+                  "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
+                  "type": "string"
+                },
+                "updated_time": {
+                  "$ref": "#/definitions/updated_time"
+                },
+                "warnings": {
+                  "$ref": "#/definitions/warnings"
+                },
+                "version_of": {
+                  "$ref": "#/definitions/version_of"
+                },
+                "version_types_with_id": {
+                  "$ref": "#/definitions/version_types_with_id"
+                },
+                "types_with_id": {
+                  "$ref": "#/definitions/types_with_id"
+                }
+              },
+              "required": [
+                "pid",
+                "updated_time"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "pid",
+            "updated_time",
+            "version"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "contributions_mixin": {
+      "type": "object",
+      "properties": {
+        "contributions": {
+          "type": "object",
+          "properties": {
+            "contributions_mixin_contribution": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/contributions_mixin_contribution"
+              }
+            },
+            "href": {
+              "type": "string"
+            },
+            "contributions": {
+              "type": "object",
+              "properties": {
+                "contributions_mixin_contribution": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/contributions_mixin_contribution"
+                  }
+                },
+                "href": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "contributions"
+          ]
+        }
+      },
+      "required": [
+        "contributions"
+      ],
+      "additionalProperties": false
+    },
+    "contributions_mixin_contribution": {
+      "type": "object",
+      "properties": {
+        "contribution": {
+          "type": "object",
+          "properties": {
+            "credit_role": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "character_name": {
+              "type": "string"
+            },
+            "contributions_mixin_contributor": {
+              "$ref": "#/definitions/contributions_mixin_contributor"
+            },
+            "contribution": {
+              "type": "object",
+              "properties": {
+                "credit_role": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "character_name": {
+                  "type": "string"
+                },
+                "contributions_mixin_contributor": {
+                  "$ref": "#/definitions/contributions_mixin_contributor"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "contribution"
+          ]
+        }
+      },
+      "required": [
+        "contribution"
+      ],
+      "additionalProperties": false
+    },
+    "contributions_mixin_contributor": {
+      "type": "object",
+      "properties": {
+        "contributor": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "$ref": "#/definitions/type"
+            },
+            "href": {
+              "type": "string"
+            },
+            "contributions_mixin_contributor_name": {
+              "$ref": "#/definitions/contributions_mixin_contributor_name"
+            },
+            "contributor": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "$ref": "#/definitions/type"
+                },
+                "href": {
+                  "type": "string"
+                },
+                "contributions_mixin_contributor_name": {
+                  "$ref": "#/definitions/contributions_mixin_contributor_name"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "contributor"
+          ]
+        }
+      },
+      "required": [
+        "contributor"
+      ],
+      "additionalProperties": false
+    },
+    "contributions_mixin_contributor_name": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "object",
+          "properties": {
+            "presentation": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "given": {
+              "type": "string"
+            },
+            "family": {
+              "type": "string"
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "presentation": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "given": {
+                  "type": "string"
+                },
+                "family": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "name"
+          ]
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "previous_next_mixin": {
+      "type": "object",
+      "properties": {
+        "previous_next": {
+          "type": "object",
+          "properties": {
+            "previous": {
+              "$ref": "#/definitions/reference"
+            },
+            "next": {
+              "$ref": "#/definitions/reference"
+            },
+            "previous_next": {
+              "type": "object",
+              "properties": {
+                "previous": {
+                  "$ref": "#/definitions/reference"
+                },
+                "next": {
+                  "$ref": "#/definitions/reference"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "previous_next"
+          ]
+        }
+      },
+      "required": [
+        "previous_next"
+      ],
+      "additionalProperties": false
+    },
+    "release_date_group": {
+      "type": "object",
+      "properties": {
+        "release_date": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+          "type": "string"
+        },
+        "release_year_month": {
+          "pattern": "[0-9]{4}-[0-9]{2}",
+          "type": "string"
+        },
+        "release_year": {
+          "pattern": "[0-9]{4}",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "master_brand_link": {
+      "type": "object",
+      "properties": {
+        "master_brand": {
+          "type": "object",
+          "properties": {
+            "href": {
+              "type": "string"
+            },
+            "mid": {
+              "$ref": "#/definitions/mid"
+            },
+            "result_type": {
+              "type": "string"
+            },
+            "master_brand": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string"
+                },
+                "mid": {
+                  "$ref": "#/definitions/mid"
+                },
+                "result_type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "href",
+                "mid",
+                "result_type"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "href",
+            "mid",
+            "result_type",
+            "master_brand"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "master_brand"
+      ],
+      "additionalProperties": false
+    },
+    "original_version_duration": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "object",
+          "properties": {
+            "duration": {
+              "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
+              "type": "string"
+            },
+            "pid": {
+              "$ref": "#/definitions/pid"
+            },
+            "href": {
+              "type": "string"
+            },
+            "version": {
+              "type": "object",
+              "properties": {
+                "duration": {
+                  "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
+                  "type": "string"
+                },
+                "pid": {
+                  "$ref": "#/definitions/pid"
+                },
+                "href": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "pid",
+                "href"
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "pid",
+            "href"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "image_link": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "type": "object",
+          "properties": {
+            "deprecationAttributes": {
+              "$ref": "#/definitions/deprecationAttributes"
+            },
+            "pid": {
+              "$ref": "#/definitions/pid"
+            },
+            "template_url": {
+              "type": "string"
+            },
+            "image": {
+              "type": "object",
+              "properties": {
+                "deprecationAttributes": {
+                  "$ref": "#/definitions/deprecationAttributes"
+                },
+                "pid": {
+                  "$ref": "#/definitions/pid"
+                },
+                "template_url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "deprecationAttributes",
+                "template_url"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "deprecationAttributes",
+            "template_url",
+            "image"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "image"
+      ],
+      "additionalProperties": false
+    },
+    "images_mixin": {
+      "type": "object",
+      "properties": {
+        "images": {
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "object",
+              "properties": {
+                "inherited_from": {
+                  "type": "object",
+                  "properties": {
+                    "result_type": {
+                      "type": "string"
+                    },
+                    "href": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "href": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "template_url": {
+                  "type": "string"
+                },
+                "images": {
+                  "type": "object",
+                  "properties": {
+                    "image": {
+                      "type": "object",
+                      "properties": {
+                        "inherited_from": {
+                          "type": "object",
+                          "properties": {
+                            "result_type": {
+                              "type": "string"
+                            },
+                            "href": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        "href": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "template_url": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "required": [
+                        "template_url"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "template_url",
+                "images"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "images"
+      ],
+      "additionalProperties": false
+    },
+    "alternate_images_mixin": {
+      "type": "object",
+      "properties": {
+        "alternate_images": {
+          "type": "object",
+          "properties": {
+            "alternate_image": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "template_url": {
+                    "type": "string"
+                  },
+                  "alternate_images": {
+                    "type": "object",
+                    "properties": {
+                      "alternate_image": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "template_url": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": false,
+                          "required": [
+                            "template_url"
+                          ]
+                        }
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "additionalProperties": false,
+                "required": [
+                  "template_url",
+                  "alternate_images"
+                ]
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "alternate_images"
+      ],
+      "additionalProperties": false
+    },
+    "release_status_type": {
+      "enum": [
+        "alpha",
+        "beta",
+        "supported",
+        "deprecated"
+      ]
+    },
+    "deprecationAttributes": {
+      "type": "object",
+      "properties": {
+        "deprecated": {
+          "type": "boolean"
+        },
+        "deprecated_since": {
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
+          "type": "string"
+        },
+        "replaced_by": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "deprecated",
+        "deprecated_since",
+        "replaced_by"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
