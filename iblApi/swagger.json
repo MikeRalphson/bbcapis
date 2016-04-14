@@ -5,7 +5,10 @@
     "x-release": "366",
     "title": "BBC iPlayer Business Layer",
     "description": "BBC iPlayer Business logic Layer",
-    "x-logo": "http://static.bbci.co.uk/tviplayer/1.101.2/img/navigation/iplayer_pink.svg",
+    "x-logo": {
+      "url": "http://static.bbci.co.uk/tviplayer/1.101.2/img/navigation/iplayer_pink.svg",
+      "backgroundColor": "white"
+    },
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
