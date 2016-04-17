@@ -302,6 +302,7 @@ var processResponse = function(obj) {
 				var path = domain+feed;
 				var query = helper.newQuery(api.fProgrammesDescendantsOf,p.pid,true)
 					.add(api.fProgrammesAvailabilityAvailable)
+					.add(api.fProgrammesAvailabilityEntityTypeEpisode)
 					.add(api.fProgrammesAvailabilityTypeOndemand)
 					.add(api.fProgrammesPaymentType,payment_type)
 					.add(api.fProgrammesMediaSet,mediaSet)
@@ -544,7 +545,7 @@ var options = getopt.create([
 	['g','genre=ARG+','Filter by genre id. all to reset'],
 	['i','imminent','Set availability to pending (default is available)'],
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
-	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscsvod'],
+	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscansvod'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
