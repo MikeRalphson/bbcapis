@@ -155,7 +155,7 @@ var hidden = 0;
 		var position = p.episode_of ? p.episode_of.position : 1;
 		var totaleps = 1;
 		var series = 1;
-		var len = (p.version && p.version.duration) ? nitro.iso8601durationToSeconds(p.version.duration) : '0';
+		var len = (p.version && p.version.duration) ? helper.iso8601durationToSeconds(p.version.duration) : '0';
 
 		var thumb = p.image.template_url.replace('$recipe','150x84');
 
