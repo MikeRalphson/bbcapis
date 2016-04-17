@@ -5,10 +5,13 @@ Routines common for Nitro (and other recent BBC APIs)
 */
 
 var http = require('http');
-//var https = require('https');
+var https = require('https');
 var util = require('util');
 
 var debuglog = util.debuglog('bbc');
+
+var api = require('./nitroApi/api.js');
+var helper = require('./apiHelper.js');
 
 var dest = {};
 
@@ -18,7 +21,8 @@ function makeRequest(host,path,key,query,settings,callback){
 	var defaults = {
 		Accept: 'application/json',
 		User_Agent: 'BBCiPlayerRadio/1.6.1.1522345 (SM-N900; Android 4.4.2)',
-		api_key_name: 'api_key'
+		api_key_name: 'api_key',
+		proto: 'http'
 	}
 
 	settings = Object.assign({},defaults,settings); // merge/extend
@@ -30,7 +34,7 @@ function makeRequest(host,path,key,query,settings,callback){
 
 	var options = {
 	  hostname: host,
-	  port: 80,
+	  port: settings.proto == 'http' ? 80 : 443,
 	  path: path+qs,
 	  method: 'GET',
 	  headers: { 'Accept': settings.Accept,
@@ -41,8 +45,9 @@ function makeRequest(host,path,key,query,settings,callback){
 	var list = '';
 	var obj;
 	var json = (settings.Accept == 'application/json');
+	var proto = (settings.proto == 'http' ? http : https);
 
-	var req = http.request(options, function(res) {
+	var req = proto.request(options, function(res) {
 	  res.setEncoding('utf8');
 	  res.on('data', function (data) {
 		   list += data;
@@ -155,12 +160,15 @@ module.exports = {
 	getReturn : function(){
 		return dest;
 	},
+
 	logFault : function(fault) {
 		log_fault(fault);
 	},
+
 	logError : function(error) {
 		log_error(error);
 	},
+
 	hasHeader : function (header, headers) {
 		// snaffled from request module
 		var headers = Object.keys(headers || this.headers),
@@ -186,8 +194,14 @@ module.exports = {
 		return totalseconds;
 	},
 
-	make_request : function(host,path,key,query,accept,callback) {
-		makeRequest(host,path,key,query,accept,callback);
+	make_request : function(host,path,key,query,settings,callback) {
+		makeRequest(host,path,key,query,settings,callback);
+	},
+
+	ping : function(host,key,settings,callback) {
+		var query = helper.newQuery();
+		query.add(api.fMasterbrandsPageSize,1,true);
+		makeRequest(host,api.nitroMasterbrands,key,query,settings,callback);
 	}
 
 }
