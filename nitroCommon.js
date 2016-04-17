@@ -54,10 +54,11 @@ function makeRequest(host,path,key,query,settings,callback){
 			var locUrl = url.parse(location);
 			path = locUrl.pathname;
 			host = locUrl.host;
-			make_request(host,path,key,query,callback);
+			make_request(host,path,key,query,settings,callback);
 		}
 		else if (res.statusCode >= 400 && res.statusCode < 600) {
 			console.log(res.statusCode+' '+res.statusMessage);
+			console.log(query.queryString);
 			if (list) {
 				try {
 					if (json) {
@@ -68,6 +69,14 @@ function makeRequest(host,path,key,query,settings,callback){
 					}
 					if (json && obj.fault) {
 						log_fault(obj);
+						if (fault.detail && fault.detail.errorcode) {
+							if (fault.detail.errorcode == 'policies.ratelimit.QuotaViolation') {
+								// rate limiting, back off by 45 seconds
+								setTimeout(function(){
+									make_request(host,path,key,query,settings,callback)
+								},45000);
+							}
+						}
 					}
 					else if (json && obj.errors) {
 						log_error(obj);
@@ -161,6 +170,20 @@ module.exports = {
 			if (lheaders[i] === header) return headers[i];
 		}
 		return false;
+	},
+
+	iso8601durationToSeconds : function(input) {
+		var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+		var hours = 0, minutes = 0, seconds = 0, totalseconds;
+
+		if (reptms.test(input)) {
+			var matches = reptms.exec(input);
+			if (matches[1]) hours = Number(matches[1]);
+			if (matches[2]) minutes = Number(matches[2]);
+			if (matches[3]) seconds = Number(matches[3]);
+			totalseconds = hours * 3600  + minutes * 60 + seconds;
+		}
+		return totalseconds;
 	},
 
 	make_request : function(host,path,key,query,accept,callback) {

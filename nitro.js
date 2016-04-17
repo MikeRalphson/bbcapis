@@ -74,22 +74,6 @@ function pad(str, padding, padRight) {
 
 //-----------------------------------------------------------------------------
 
-function iso8601durationToSeconds(input) {
-	var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
-	var hours = 0, minutes = 0, seconds = 0, totalseconds;
-
-	if (reptms.test(input)) {
-		var matches = reptms.exec(input);
-		if (matches[1]) hours = Number(matches[1]);
-		if (matches[2]) minutes = Number(matches[2]);
-		if (matches[3]) seconds = Number(matches[3]);
-		totalseconds = hours * 3600  + minutes * 60 + seconds;
-	}
-	return totalseconds;
-}
-
-//-----------------------------------------------------------------------------
-
 function pc_rss(name) {
 	var feed = {};
 	var rss = {};
@@ -171,7 +155,7 @@ var hidden = 0;
 		var position = p.episode_of ? p.episode_of.position : 1;
 		var totaleps = 1;
 		var series = 1;
-		var len = (p.version && p.version.duration) ? iso8601durationToSeconds(p.version.duration) : '0';
+		var len = (p.version && p.version.duration) ? nitro.iso8601durationToSeconds(p.version.duration) : '0';
 
 		var thumb = p.image.template_url.replace('$recipe','150x84');
 
@@ -183,7 +167,7 @@ var hidden = 0;
 
 		console.log(index+'|'+(p.media_type == 'Video' ? 'tv' : 'radio')+'|'+title+'|'+p.pid+'|'+
 			(available ? 'Available' : 'Unavailable')+'|'+subtitle+'|'+'|'+series+'|'+position+'|'+'default'+'|'+
-			len+'||'+p.master_brand.mid+'|'+category[0]+'|'+thumb+'|'+Math.floor(Date.now()/1000)+
+			len+'||'+(p.master_brand ? p.master_brand.mid : 'unknown')+'|'+category[0]+'|'+thumb+'|'+Math.floor(Date.now()/1000)+
 			'||'+'http://bbc.co.uk/programmes/'+p.pid+'|');
 	}
 }
@@ -237,7 +221,8 @@ var hidden = 0;
 			var totaleps = 1;
 			var series = 1;
 
-			console.log(p.pid+' '+pad(p.item_type,'       ',true)+' '+p.media_type+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
+			console.log(p.pid+' '+pad(p.item_type,'       ',true)+' '+
+				(p.media_type ? p.media_type : 'unknown')+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
 
 			var len = (p.version && p.version.duration) ? p.version.duration : '0s';
 			len = len.replace('PT','').toLocaleLowerCase(); // ISO 8601 duration
@@ -261,7 +246,8 @@ var hidden = 0;
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
 			if (parents) console.log(parents);
 			if (p.master_brand) {
-				console.log('  '+p.master_brand.mid+' @ '+(p.release_date ? p.release_date : p.release_year));
+				console.log('  '+p.master_brand.mid+' @ '+(p.release_date ? p.release_date : 
+					(p.release_year ? p.release_year : 'unknown')));
 			}
 
 			if (p.contributions) {
@@ -303,7 +289,7 @@ var processResponse = function(obj) {
 	}
 
 	if (length==0) {
-		console.log('No results returned');
+		//console.log('No results returned');
 	}
 	else {
 		for (var i in obj.nitro.results.items) {
@@ -375,6 +361,7 @@ function processPid(host,path,api_key,pid) {
 		.add(api.mProgrammesDuration)
 		.add(api.mProgrammesAncestorTitles)
 		.add(api.mProgrammesAvailableVersions)
+		.add(api.mProgrammesGenreGroupings)
 		.add(api.mProgrammesAvailability); // has a dependency on 'availability'
 
 	if (upcoming) {
@@ -638,6 +625,7 @@ if (media_type) {
 
 query.add(api.mProgrammesAvailability)
 	.add(api.fProgrammesEntityTypeEpisode)
+	.add(api.fProgrammesAvailabilityEntityTypeEpisode)
 	.add(api.mProgrammesDuration)
 	.add(api.mProgrammesAncestorTitles)
 	.add(api.mProgrammesAvailableVersions)
@@ -677,9 +665,17 @@ else if (feed == 'schedules') {
 }
 else {
 	if (mode=='genre') {
-		nitro.make_request(host,path,api_key,query,{},function(obj){
-			return dispatch(obj);
-		});
+		// parallelize the queries by 36 times
+		var letters = '0123456789abcdefghijklmnopqrstuvwxyz';
+		for (var l in letters) {
+			if (letters.hasOwnProperty(l)) {
+				var lQuery = query.clone();
+				lQuery.add(api.fProgrammesInitialLetter,letters[l]);
+				nitro.make_request(host,path,api_key,lQuery,{},function(obj){
+					return dispatch(obj);
+				});
+			}
+		}
 	}
 }
 
