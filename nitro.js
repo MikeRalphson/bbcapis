@@ -222,7 +222,7 @@ var hidden = 0;
 			var series = 1;
 
 			console.log(p.pid+' '+pad(p.item_type,'       ',true)+' '+
-				(p.media_type ? p.media_type : 'unknown')+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
+				(p.media_type ? p.media_type : 'Audio')+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
 
 			var len = (p.version && p.version.duration) ? p.version.duration : '0s';
 			len = len.replace('PT','').toLocaleLowerCase(); // ISO 8601 duration
@@ -247,7 +247,7 @@ var hidden = 0;
 			if (parents) console.log(parents);
 			if (p.master_brand) {
 				console.log('  '+p.master_brand.mid+' @ '+(p.release_date ? p.release_date : 
-					(p.release_year ? p.release_year : 'unknown')));
+					(p.release_year ? p.release_year : p.updated_time)));
 			}
 
 			if (p.contributions) {
