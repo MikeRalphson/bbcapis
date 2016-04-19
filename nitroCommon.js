@@ -68,7 +68,7 @@ function makeRequest(host,path,key,query,settings,callback){
 		else if (res.statusCode >= 400 && res.statusCode < 600) {
 			inFlight--;
 			console.log(res.statusCode+' '+res.statusMessage);
-			console.log(query.queryString);
+			console.log(query.querystring);
 			if (list) {
 				try {
 					if (json) {
