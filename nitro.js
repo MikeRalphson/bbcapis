@@ -625,7 +625,7 @@ if (media_type) {
 }
 
 query.add(api.mProgrammesAvailability)
-	.add(api.fProgrammesEntityTypeEpisode)
+	//.add(api.fProgrammesEntityTypeEpisode)
 	.add(api.fProgrammesAvailabilityEntityTypeEpisode)
 	.add(api.mProgrammesDuration)
 	.add(api.mProgrammesAncestorTitles)
@@ -689,5 +689,8 @@ process.on('exit', function(code) {
 	}
 	else {
 		pc_dump();
+		if (nitro.getRateLimitEvents()>0) {
+			console.log('Got '+nitro.getRateLimitEvents()+' rate-limit events');
+		}
 	}
 });

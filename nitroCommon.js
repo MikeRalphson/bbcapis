@@ -14,13 +14,16 @@ var api = require('./nitroApi/api.js');
 var helper = require('./apiHelper.js');
 
 var dest = {};
+var rateLimitEvents = 0;
+var inFlight = 0;
 
 function makeRequest(host,path,key,query,settings,callback){
+	inFlight++;
 	debuglog(host+path+(key ? '?K' : '')+query.querystring);
 
 	var defaults = {
 		Accept: 'application/json',
-		User_Agent: 'BBCiPlayerRadio/1.6.1.1522345 (SM-N900; Android 4.4.2)',
+		User_Agent: 'BBCiPlayerRadio/2.8.0.5579 (SM-G903F; Android 5.1.1)',
 		api_key_name: 'api_key',
 		proto: 'http'
 	}
@@ -54,6 +57,7 @@ function makeRequest(host,path,key,query,settings,callback){
 	  });
 	  res.on('end', function() {
 		if (res.statusCode >= 300 && res.statusCode < 400 && hasHeader('location', res.headers)) {
+			inFlight--;
 			// handle redirects, as per request module
 			var location = res.headers[hasHeader('location', res.headers)];
 			var locUrl = url.parse(location);
@@ -62,6 +66,7 @@ function makeRequest(host,path,key,query,settings,callback){
 			make_request(host,path,key,query,settings,callback);
 		}
 		else if (res.statusCode >= 400 && res.statusCode < 600) {
+			inFlight--;
 			console.log(res.statusCode+' '+res.statusMessage);
 			console.log(query.queryString);
 			if (list) {
@@ -76,6 +81,7 @@ function makeRequest(host,path,key,query,settings,callback){
 						log_fault(obj);
 						if (fault.detail && fault.detail.errorcode) {
 							if (fault.detail.errorcode == 'policies.ratelimit.QuotaViolation') {
+								rateLimitEvents++;
 								// rate limiting, back off by 45 seconds
 								setTimeout(function(){
 									make_request(host,path,key,query,settings,callback)
@@ -106,6 +112,7 @@ function makeRequest(host,path,key,query,settings,callback){
 				obj = list;
 			}
 			var result = callback(obj);
+			inFlight--;
 			if (dest.callback) {
 				// call the callback's next required destination
 				// e.g. second and subsequent pages
@@ -122,7 +129,7 @@ function makeRequest(host,path,key,query,settings,callback){
 			console.log(err);
 			console.log(res.statusCode+' '+res.statusMessage);
 			console.log(res.headers);
-			console.log('** '+list);
+			debuglog('** '+list);
 		}
 	   });
 	});
@@ -188,6 +195,18 @@ module.exports = {
 		var query = helper.newQuery();
 		query.add(api.fMasterbrandsPageSize,1,true);
 		makeRequest(host,api.nitroMasterbrands,key,query,settings,callback);
+	},
+
+	getRateLimitEvents : function() {
+		return rateLimitEvents;
+	},
+
+	resetRateLimitEvents : function() {
+		rateLimitEvents = 0;
+	},
+
+	getRequests : function() {
+		return inFlight;
 	}
 
 }
