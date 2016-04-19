@@ -222,7 +222,7 @@ nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.16.0/config
 	//showChildren('b03gh4r2');
 
 	//showProgrammesForCategory('drama-sci-fi-and-fantasy');
-	//showProgrammesForCategory(cat);
+	showProgrammesForCategory(cat);
 	
 	showStatus();
 	console.log(ibl_key);
