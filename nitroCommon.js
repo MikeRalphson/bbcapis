@@ -78,14 +78,16 @@ function makeRequest(host,path,key,query,settings,callback){
 						obj = list;
 					}
 					if (json && obj.fault) {
-						log_fault(obj);
-						if (fault.detail && fault.detail.errorcode) {
-							if (fault.detail.errorcode == 'policies.ratelimit.QuotaViolation') {
+						if (obj.fault.detail && obj.fault.detail.errorcode) {
+							if (obj.fault.detail.errorcode == 'policies.ratelimit.QuotaViolation') {
 								rateLimitEvents++;
 								// rate limiting, back off by 45 seconds
 								setTimeout(function(){
 									make_request(host,path,key,query,settings,callback)
 								},45000);
+							}
+							else {
+								log_fault(obj); // rate limits leak keys in error messages
 							}
 						}
 					}
