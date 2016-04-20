@@ -23,7 +23,7 @@ function makeRequest(host,path,key,query,settings,callback){
 
 	var defaults = {
 		Accept: 'application/json',
-		User_Agent: 'BBCiPlayerRadio/2.8.0.5579 (SM-G903F; Android 5.1.1)',
+		User_Agent: 'BBCiPlayerRadio/1.6.1.1522345 (SM-N900; Android 4.4.2)',
 		api_key_name: 'api_key',
 		proto: 'http'
 	}
@@ -83,7 +83,7 @@ function makeRequest(host,path,key,query,settings,callback){
 								rateLimitEvents++;
 								// rate limiting, back off by 45 seconds
 								setTimeout(function(){
-									make_request(host,path,key,query,settings,callback)
+									makeRequest(host,path,key,query,settings,callback)
 								},45000);
 							}
 							else {
