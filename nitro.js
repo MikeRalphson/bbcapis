@@ -56,8 +56,22 @@ var debuglog = util.debuglog('bbc');
 
 //----------------------------------------------------------------------------
 
-var add_programme = function(obj) {
-	programme_cache.push(obj);
+var add_programme = function(obj,parent) {
+	var seen = false;
+	for (var i in programme_cache) {
+		var check = programme_cache[i];
+		if (check.pid == obj.pid) {
+			seen = true;
+			if (!check.x_parent.pid) check.x_parent = parent;
+			break;
+		}
+	}
+	if (!seen) {
+		if (parent) {
+			obj.x_parent = parent;
+		}
+		programme_cache.push(obj);
+	}
 };
 
 //-----------------------------------------------------------------------------
@@ -218,7 +232,7 @@ var hidden = 0;
 			}
 
 			var position = p.episode_of ? p.episode_of.position : 1;
-			var totaleps = 1;
+			var totaleps = p.x_parent && p.x_parent.expected_child_count ? p.x_parent.expected_child_count : 1;
 			var series = 1;
 
 			console.log(p.pid+' '+pad(p.item_type,'       ',true)+' '+
@@ -246,7 +260,7 @@ var hidden = 0;
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
 			if (parents) console.log(parents);
 			if (p.master_brand) {
-				console.log('  '+p.master_brand.mid+' @ '+(p.release_date ? p.release_date : 
+				console.log('  '+p.master_brand.mid+' @ '+(p.release_date ? p.release_date :
 					(p.release_year ? p.release_year : p.updated_time)));
 			}
 
@@ -259,6 +273,11 @@ var hidden = 0;
 						cont.contributor.name.presentation));
 				}
 			}
+
+			//if (p.x_parent) {
+			//	console.log(JSON.stringify(p.x_parent,null,2));
+			//}
+
 		}
 		else {
 			hidden++;
@@ -269,7 +288,7 @@ var hidden = 0;
 }
 
 //_____________________________________________________________________________
-var processResponse = function(obj) {
+var processResponse = function(obj,payload) {
 	var nextHref = '';
 	if ((obj.nitro.pagination) && (obj.nitro.pagination.next)) {
 		nextHref = obj.nitro.pagination.next.href;
@@ -296,7 +315,7 @@ var processResponse = function(obj) {
 			var p = obj.nitro.results.items[i];
 			//debuglog(JSON.stringify(p,null,2));
 			if ((p.item_type == 'episode') || (p.item_type == 'clip'))  {
-				add_programme(p);
+				add_programme(p,payload);
 			}
 			else if ((p.item_type == 'series') || (p.item_type == 'brand')) {
 				var path = domain+feed;
@@ -317,7 +336,9 @@ var processResponse = function(obj) {
 					query.add(api.fProgrammesMediaType,media_type);
 				}
 				process.stdout.write('>');
-				nitro.make_request(host,path,api_key,query,{},processResponse);
+				var settings = {};
+				settings.payload = p;
+				nitro.make_request(host,path,api_key,query,settings,processResponse);
 			}
 			else {
 				console.log('Unhandled type: '+p.type);
@@ -338,9 +359,9 @@ var processResponse = function(obj) {
 }
 
 //_____________________________________________________________________________
-function dispatch(obj) {
+function dispatch(obj,payload) {
 	if (obj.nitro) {
-		processResponse(obj);
+		processResponse(obj,payload);
 	}
 	else if (obj.fault) {
 		nitro.logFault(obj);
@@ -672,8 +693,8 @@ else {
 			if (letters.hasOwnProperty(l)) {
 				var lQuery = query.clone();
 				lQuery.add(api.fProgrammesInitialLetter,letters[l]);
-				nitro.make_request(host,path,api_key,lQuery,{},function(obj){
-					return dispatch(obj);
+				nitro.make_request(host,path,api_key,lQuery,{},function(obj,payload){
+					return dispatch(obj,payload);
 				});
 			}
 		}

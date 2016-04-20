@@ -25,7 +25,8 @@ function makeRequest(host,path,key,query,settings,callback){
 		Accept: 'application/json',
 		User_Agent: 'BBCiPlayerRadio/1.6.1.1522345 (SM-N900; Android 4.4.2)',
 		api_key_name: 'api_key',
-		proto: 'http'
+		proto: 'http',
+		payload: {}
 	}
 
 	settings = Object.assign({},defaults,settings); // merge/extend
@@ -67,8 +68,6 @@ function makeRequest(host,path,key,query,settings,callback){
 		}
 		else if (res.statusCode >= 400 && res.statusCode < 600) {
 			inFlight--;
-			console.log(res.statusCode+' '+res.statusMessage);
-			console.log(query.querystring);
 			if (list) {
 				try {
 					if (json) {
@@ -84,19 +83,20 @@ function makeRequest(host,path,key,query,settings,callback){
 								// rate limiting, back off by 45 seconds
 								setTimeout(function(){
 									makeRequest(host,path,key,query,settings,callback)
-								},45000);
+								},31000);
 							}
 							else {
-								log_fault(obj); // rate limits leak keys in error messages
+								log_fault(obj,res,query); // rate limits leak keys in error messages
 							}
 						}
 					}
 					else if (json && obj.errors) {
-						log_error(obj);
+						log_error(obj,res,query);
 					}
 					else {
+						log_error(null,res,query);
 						console.log('Unknown response object');
-						console.log(obj);
+						console.log(JSON.stringify(obj));
 					}
 				}
 				catch (err) {
@@ -104,6 +104,9 @@ function makeRequest(host,path,key,query,settings,callback){
 					console.log('Invalid JSON received:');
 					console.log(list);
 				}
+			}
+			else {
+				log_fault(null,res,query);
 			}
 		}
 		else try {
@@ -113,7 +116,7 @@ function makeRequest(host,path,key,query,settings,callback){
 			else {
 				obj = list;
 			}
-			var result = callback(obj);
+			var result = callback(obj,settings.payload);
 			inFlight--;
 			if (dest.callback) {
 				// call the callback's next required destination
@@ -122,7 +125,7 @@ function makeRequest(host,path,key,query,settings,callback){
 					makeRequest(host,dest.path,key,dest.query,settings,dest.callback);
 				}
 				else {
-					dest.callback();
+					dest.callback({},settings.payload);
 				}
 			}
 		}
@@ -141,7 +144,7 @@ function makeRequest(host,path,key,query,settings,callback){
 	req.end();
 }
 
-function log_fault(fault) {
+function log_fault(fault,res,query) {
 	/*
 	{ "fault": {
 		"faultstring": "Rate limit quota violation. Quota limit : 0 exceeded by 1. Total violation count : 1. Identifier : YOUR-API-KEY-HERE",
@@ -150,14 +153,18 @@ function log_fault(fault) {
 		}
 	}
 	*/
-	console.log(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
+	if (res) console.log(res.statusCode+' '+res.statusMessage);
+	if (query) console.log(query.querystring);
+	if (fault) console.log(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
 }
 
-function log_error(error) {
+function log_error(error,res,query) {
 	/*
 	{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
 	*/
-	console.log(error.errors.error.code+': '+error.errors.error.message);
+	if (res) console.log(res.statusCode+' '+res.statusMessage);
+	if (query) console.log(query.querystring);
+	if (error) console.log(error.errors.error.code+': '+error.errors.error.message);
 }
 
 module.exports = {
@@ -170,12 +177,12 @@ module.exports = {
 		return dest;
 	},
 
-	logFault : function(fault) {
-		log_fault(fault);
+	logFault : function(fault,res,query) {
+		log_fault(fault,res,query);
 	},
 
-	logError : function(error) {
-		log_error(error);
+	logError : function(error,res,query) {
+		log_error(error,res,query);
 	},
 
 	hasHeader : function (header, headers) {
