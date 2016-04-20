@@ -1,6 +1,6 @@
 {
   "name": "bbcparse",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Nodejs-based parser for the BBC Nitro API",
   "main": "nitro.js",
   "directories": {
