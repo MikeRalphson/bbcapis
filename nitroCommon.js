@@ -16,6 +16,7 @@ var helper = require('./apiHelper.js');
 var dest = {};
 var rateLimitEvents = 0;
 var inFlight = 0;
+var stacked = 0;
 
 function makeRequest(host,path,key,query,settings,callback){
 	inFlight++;
@@ -81,7 +82,9 @@ function makeRequest(host,path,key,query,settings,callback){
 							if (obj.fault.detail.errorcode == 'policies.ratelimit.QuotaViolation') {
 								rateLimitEvents++;
 								// rate limiting, back off by 45 seconds
+								stacked++;
 								setTimeout(function(){
+									stacked--;
 									makeRequest(host,path,key,query,settings,callback)
 								},31000);
 							}
@@ -215,7 +218,7 @@ module.exports = {
 	},
 
 	getRequests : function() {
-		return inFlight;
+		return inFlight+stacked;
 	}
 
 }
