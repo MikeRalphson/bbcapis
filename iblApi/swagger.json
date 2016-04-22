@@ -7,7 +7,7 @@
     "description": "BBC iPlayer Business logic Layer",
     "x-logo": {
       "url": "http://static.bbci.co.uk/tviplayer/1.101.2/img/navigation/iplayer_pink.svg",
-      "backgroundColor": "white"
+      "backgroundColor": "#FFFFFF"
     },
     "license": {
       "name": "MIT",
