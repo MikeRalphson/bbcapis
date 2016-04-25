@@ -27,6 +27,7 @@ function makeRequest(host,path,key,query,settings,callback){
 		User_Agent: 'BBCiPlayerRadio/1.6.1.1522345 (SM-N900; Android 4.4.2)',
 		api_key_name: 'api_key',
 		proto: 'http',
+		port: 80,
 		payload: {}
 	}
 
@@ -39,7 +40,7 @@ function makeRequest(host,path,key,query,settings,callback){
 
 	var options = {
 	  hostname: host,
-	  port: settings.proto == 'http' ? 80 : 443,
+	  port: settings.port ? settings.port : (settings.proto == 'http' ? 80 : 443),
 	  path: path+qs,
 	  method: 'GET',
 	  headers: { 'Accept': settings.Accept,
