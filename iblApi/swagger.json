@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "x-release": "366",
+    "x-release": "373",
     "title": "BBC iPlayer Business Layer",
     "description": "BBC iPlayer Business logic Layer",
     "x-logo": {
@@ -2261,6 +2261,9 @@
                 "store_profile": {
                   "type": "string"
                 },
+                "hd": {
+                  "type": "boolean"
+                },
                 "kind": {
                   "type": "string"
                 },
@@ -2316,6 +2319,7 @@
                 "type",
                 "store_id",
                 "store_profile",
+                "hd",
                 "download",
                 "duration",
                 "kind"
@@ -3038,6 +3042,9 @@
         "store_profile": {
           "type": "string"
         },
+        "hd": {
+          "type": "boolean"
+        },
         "kind": {
           "type": "string"
         },
@@ -3093,6 +3100,7 @@
         "type",
         "store_id",
         "store_profile",
+        "hd",
         "download",
         "duration",
         "kind"

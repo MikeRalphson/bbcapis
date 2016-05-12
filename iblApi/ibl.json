@@ -883,6 +883,9 @@
                   "store_profile": {
                     "type": "string"
                   },
+                  "hd": {
+                    "type": "boolean"
+                  },
                   "kind": {
                     "type": "string"
                   },
@@ -938,6 +941,7 @@
                   "type",
                   "store_id",
                   "store_profile",
+                  "hd",
                   "download",
                   "duration",
                   "kind"
@@ -1662,6 +1666,9 @@
         "store_profile": {
           "type": "string"
         },
+        "hd": {
+          "type": "boolean"
+        },
         "kind": {
           "type": "string"
         },
@@ -1717,6 +1724,7 @@
         "type",
         "store_id",
         "store_profile",
+        "hd",
         "download",
         "duration",
         "kind"
