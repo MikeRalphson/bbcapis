@@ -2996,6 +2996,9 @@
 				"genre_groupings": {
 					"$ref": "#/definitions/genre_groupings"
 				},
+				"most_popular": {
+					"$ref": "#/definitions/most_popular"
+				},
 				"image_link": {
 					"$ref": "#/definitions/image_link"
 				},
@@ -3095,6 +3098,9 @@
 				},
 				"genre_groupings": {
 					"$ref": "#/definitions/genre_groupings"
+				},
+				"most_popular": {
+					"$ref": "#/definitions/most_popular"
 				},
 				"image_link": {
 					"$ref": "#/definitions/image_link"
@@ -3630,12 +3636,12 @@
 					"type": "object",
 					"properties": {
 						"start": {
-							"format": "date-time",
-							"type": "string"
+							"type": "string",
+							"format": "date-time"
 						},
 						"end": {
-							"format": "date-time",
-							"type": "string"
+							"type": "string",
+							"format": "date-time"
 						}
 					},
 					"additionalProperties": false
@@ -3743,16 +3749,16 @@
 			"$ref": "#/definitions/pid"
 		},
 		"updated_time": {
-			"format": "date-time",
-			"type": "string"
+			"type": "string",
+			"format": "date-time"
 		},
 		"start_time": {
-			"format": "date-time",
-			"type": "string"
+			"type": "string",
+			"format": "date-time"
 		},
 		"end_time": {
-			"format": "date-time",
-			"type": "string"
+			"type": "string",
+			"format": "date-time"
 		},
 		"title": {
 			"type": "string"
@@ -3852,6 +3858,7 @@
 			"properties": {
 				"format": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
 						"$ref": "#/definitions/format"
 					}
@@ -4006,6 +4013,7 @@
 				},
 				"series": {
 					"type": "array",
+					"maxItems": 5,
 					"items": {
 						"type": "object",
 						"properties": {
@@ -4054,6 +4062,7 @@
 						},
 						"series": {
 							"type": "array",
+							"maxItems": 5,
 							"items": {
 								"type": "object",
 								"properties": {
@@ -4120,6 +4129,7 @@
 				},
 				"series": {
 					"type": "array",
+					"maxItems": 5,
 					"items": {
 						"type": "object",
 						"properties": {
@@ -4168,6 +4178,7 @@
 						},
 						"series": {
 							"type": "array",
+							"maxItems": 5,
 							"items": {
 								"type": "object",
 								"properties": {
@@ -4227,19 +4238,19 @@
 			"type": "object",
 			"properties": {
 				"squeeze_start": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				},
 				"squeeze_end": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				}
 			},
 			"additionalProperties": false
 		},
 		"schedule_date": {
-			"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-			"type": "string"
+			"type": "string",
+			"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 		},
 		"is_blanked": {
 			"type": "boolean"
@@ -4270,6 +4281,7 @@
 			"properties": {
 				"id": {
 					"type": "array",
+					"minItems": 1,
 					"items": {
 						"$ref": "#/definitions/id"
 					}
@@ -4401,16 +4413,16 @@
 			"type": "object",
 			"properties": {
 				"start": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				},
 				"end": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				},
 				"credits_showing": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				}
 			},
 			"additionalProperties": false
@@ -4548,12 +4560,12 @@
 					"type": "boolean"
 				},
 				"deprecated_since": {
-					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 				},
 				"guaranteed_until": {
-					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 				},
 				"replaced_by": {
 					"type": "string"
@@ -4745,12 +4757,12 @@
 					"type": "boolean"
 				},
 				"deprecated_since": {
-					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 				},
 				"guaranteed_until": {
-					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 				},
 				"replaced_by": {
 					"type": "string"
@@ -4823,12 +4835,12 @@
 					"type": "boolean"
 				},
 				"deprecated_since": {
-					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 				},
 				"guaranteed_until": {
-					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 				},
 				"replaced_by": {
 					"type": "string"
@@ -4856,8 +4868,8 @@
 					"type": "string"
 				},
 				"deprecated_since": {
-					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 				},
 				"replaced_by": {
 					"type": "string"
@@ -4965,23 +4977,23 @@
 			"type": "object",
 			"properties": {
 				"start": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				},
 				"end": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				}
 			},
 			"additionalProperties": false
 		},
 		"actual_start": {
-			"format": "date-time",
-			"type": "string"
+			"type": "string",
+			"format": "date-time"
 		},
 		"end": {
-			"format": "date-time",
-			"type": "string"
+			"type": "string",
+			"format": "date-time"
 		},
 		"media_set": {
 			"type": "string"
@@ -5064,12 +5076,12 @@
 			"type": "object",
 			"properties": {
 				"start": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				},
 				"end": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				}
 			},
 			"additionalProperties": false
@@ -5106,6 +5118,16 @@
 			"required": [
 				"availability_of"
 			],
+			"additionalProperties": false
+		},
+		"most_popular": {
+			"type": "object",
+			"properties": {
+				"updated_at": {
+					"type": "string",
+					"format": "date-time"
+				}
+			},
 			"additionalProperties": false
 		},
 		"media_profile_groups": {
@@ -5163,8 +5185,8 @@
 					"type": "string"
 				},
 				"shoot_date": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				},
 				"source_asset": {
 					"$ref": "#/definitions/source_asset"
@@ -5376,7 +5398,8 @@
 					"$ref": "#/definitions/recording_date"
 				},
 				"duration": {
-					"type": "number"
+					"type": "number",
+					"format": "float"
 				},
 				"item_of": {
 					"$ref": "#/definitions/item_of"
@@ -5493,12 +5516,12 @@
 			"type": "object",
 			"properties": {
 				"start": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				},
 				"end": {
-					"format": "date-time",
-					"type": "string"
+					"type": "string",
+					"format": "date-time"
 				}
 			},
 			"additionalProperties": false
@@ -5507,8 +5530,8 @@
 			"type": "object",
 			"properties": {
 				"duration": {
-					"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
 				}
 			},
 			"additionalProperties": false
@@ -5633,6 +5656,7 @@
 								"properties": {
 									"version_type": {
 										"type": "array",
+										"minItems": 1,
 										"items": {
 											"type": "object",
 											"properties": {
@@ -5640,15 +5664,16 @@
 													"type": "string"
 												},
 												"start": {
-													"format": "date-time",
-													"type": "string"
+													"type": "string",
+													"format": "date-time"
 												},
 												"end": {
-													"format": "date-time",
-													"type": "string"
+													"type": "string",
+													"format": "date-time"
 												},
 												"version_type": {
 													"type": "array",
+													"minItems": 1,
 													"items": {
 														"type": "object",
 														"properties": {
@@ -5656,12 +5681,12 @@
 																"type": "string"
 															},
 															"start": {
-																"format": "date-time",
-																"type": "string"
+																"type": "string",
+																"format": "date-time"
 															},
 															"end": {
-																"format": "date-time",
-																"type": "string"
+																"type": "string",
+																"format": "date-time"
 															},
 															"availability": {
 																"type": "array",
@@ -5676,6 +5701,7 @@
 																			"properties": {
 																				"version_type": {
 																					"type": "array",
+																					"minItems": 1,
 																					"items": {
 																						"type": "object",
 																						"properties": {
@@ -5683,15 +5709,16 @@
 																								"type": "string"
 																							},
 																							"start": {
-																								"format": "date-time",
-																								"type": "string"
+																								"type": "string",
+																								"format": "date-time"
 																							},
 																							"end": {
-																								"format": "date-time",
-																								"type": "string"
+																								"type": "string",
+																								"format": "date-time"
 																							},
 																							"version_type": {
 																								"type": "array",
+																								"minItems": 1,
 																								"items": {
 																									"type": "object",
 																									"properties": {
@@ -5699,12 +5726,12 @@
 																											"type": "string"
 																										},
 																										"start": {
-																											"format": "date-time",
-																											"type": "string"
+																											"type": "string",
+																											"format": "date-time"
 																										},
 																										"end": {
-																											"format": "date-time",
-																											"type": "string"
+																											"type": "string",
+																											"format": "date-time"
 																										}
 																									},
 																									"additionalProperties": false
@@ -5786,14 +5813,15 @@
 						"type": "object",
 						"properties": {
 							"duration": {
-								"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
-								"type": "string"
+								"type": "string",
+								"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
 							},
 							"competition_warning": {
 								"type": "string"
 							},
 							"types": {
 								"type": "array",
+								"minItems": 1,
 								"items": {
 									"type": "object",
 									"properties": {
@@ -5814,6 +5842,7 @@
 									"properties": {
 										"version_availability": {
 											"type": "array",
+											"minItems": 1,
 											"items": {
 												"$ref": "#/definitions/version_availability"
 											}
@@ -5837,14 +5866,15 @@
 									"type": "object",
 									"properties": {
 										"duration": {
-											"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
-											"type": "string"
+											"type": "string",
+											"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
 										},
 										"competition_warning": {
 											"type": "string"
 										},
 										"types": {
 											"type": "array",
+											"minItems": 1,
 											"items": {
 												"type": "object",
 												"properties": {
@@ -5865,6 +5895,7 @@
 												"properties": {
 													"version_availability": {
 														"type": "array",
+														"minItems": 1,
 														"items": {
 															"$ref": "#/definitions/version_availability"
 														}
@@ -5906,12 +5937,12 @@
 					"type": "object",
 					"properties": {
 						"availability_start": {
-							"format": "date-time",
-							"type": "string"
+							"type": "string",
+							"format": "date-time"
 						},
 						"availability_end": {
-							"format": "date-time",
-							"type": "string"
+							"type": "string",
+							"format": "date-time"
 						},
 						"status": {
 							"type": "string"
@@ -5923,12 +5954,12 @@
 							"type": "object",
 							"properties": {
 								"availability_start": {
-									"format": "date-time",
-									"type": "string"
+									"type": "string",
+									"format": "date-time"
 								},
 								"availability_end": {
-									"format": "date-time",
-									"type": "string"
+									"type": "string",
+									"format": "date-time"
 								},
 								"status": {
 									"type": "string"
@@ -5964,14 +5995,15 @@
 						"type": "object",
 						"properties": {
 							"duration": {
-								"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
-								"type": "string"
+								"type": "string",
+								"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
 							},
 							"competition_warning": {
 								"type": "boolean"
 							},
 							"types": {
 								"type": "array",
+								"minItems": 1,
 								"items": {
 									"type": "object",
 									"properties": {
@@ -6000,14 +6032,15 @@
 									"type": "object",
 									"properties": {
 										"duration": {
-											"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
-											"type": "string"
+											"type": "string",
+											"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
 										},
 										"competition_warning": {
 											"type": "boolean"
 										},
 										"types": {
 											"type": "array",
+											"minItems": 1,
 											"items": {
 												"type": "object",
 												"properties": {
@@ -6055,32 +6088,33 @@
 					"properties": {
 						"availability": {
 							"type": "array",
+							"minItems": 1,
 							"items": {
 								"type": "object",
 								"properties": {
 									"scheduled_start": {
-										"format": "date-time",
-										"type": "string"
+										"type": "string",
+										"format": "date-time"
 									},
 									"scheduled_end": {
-										"format": "date-time",
-										"type": "string"
+										"type": "string",
+										"format": "date-time"
 									},
 									"media_availability_start": {
-										"format": "date-time",
-										"type": "string"
+										"type": "string",
+										"format": "date-time"
 									},
 									"media_availability_end": {
-										"format": "date-time",
-										"type": "string"
+										"type": "string",
+										"format": "date-time"
 									},
 									"accurate_start": {
-										"format": "date-time",
-										"type": "string"
+										"type": "string",
+										"format": "date-time"
 									},
 									"accurate_end": {
-										"format": "date-time",
-										"type": "string"
+										"type": "string",
+										"format": "date-time"
 									},
 									"status": {
 										"type": "string"
@@ -6112,32 +6146,33 @@
 							"properties": {
 								"availability": {
 									"type": "array",
+									"minItems": 1,
 									"items": {
 										"type": "object",
 										"properties": {
 											"scheduled_start": {
-												"format": "date-time",
-												"type": "string"
+												"type": "string",
+												"format": "date-time"
 											},
 											"scheduled_end": {
-												"format": "date-time",
-												"type": "string"
+												"type": "string",
+												"format": "date-time"
 											},
 											"media_availability_start": {
-												"format": "date-time",
-												"type": "string"
+												"type": "string",
+												"format": "date-time"
 											},
 											"media_availability_end": {
-												"format": "date-time",
-												"type": "string"
+												"type": "string",
+												"format": "date-time"
 											},
 											"accurate_start": {
-												"format": "date-time",
-												"type": "string"
+												"type": "string",
+												"format": "date-time"
 											},
 											"accurate_end": {
-												"format": "date-time",
-												"type": "string"
+												"type": "string",
+												"format": "date-time"
 											},
 											"status": {
 												"type": "string"
@@ -6191,6 +6226,7 @@
 					"properties": {
 						"version_type": {
 							"type": "array",
+							"minItems": 1,
 							"items": {
 								"type": "object",
 								"properties": {
@@ -6202,6 +6238,7 @@
 										"properties": {
 											"version_type": {
 												"type": "array",
+												"minItems": 1,
 												"items": {
 													"type": "object",
 													"properties": {
@@ -6245,6 +6282,7 @@
 					"properties": {
 						"type": {
 							"type": "array",
+							"minItems": 1,
 							"items": {
 								"type": "object",
 								"properties": {
@@ -6256,6 +6294,7 @@
 										"properties": {
 											"type": {
 												"type": "array",
+												"minItems": 1,
 												"items": {
 													"type": "object",
 													"properties": {
@@ -6299,6 +6338,7 @@
 					"properties": {
 						"media_set": {
 							"type": "array",
+							"minItems": 1,
 							"items": {
 								"type": "object",
 								"properties": {
@@ -6307,6 +6347,7 @@
 										"properties": {
 											"media_set": {
 												"type": "array",
+												"minItems": 1,
 												"items": {
 													"type": "object"
 												}
@@ -6338,12 +6379,13 @@
 					"properties": {
 						"media_set": {
 							"type": "array",
+							"minItems": 1,
 							"items": {
 								"type": "object",
 								"properties": {
 									"actual_start": {
-										"format": "date-time",
-										"type": "string"
+										"type": "string",
+										"format": "date-time"
 									},
 									"name": {
 										"type": "string"
@@ -6353,12 +6395,13 @@
 										"properties": {
 											"media_set": {
 												"type": "array",
+												"minItems": 1,
 												"items": {
 													"type": "object",
 													"properties": {
 														"actual_start": {
-															"format": "date-time",
-															"type": "string"
+															"type": "string",
+															"format": "date-time"
 														},
 														"name": {
 															"type": "string"
@@ -6400,6 +6443,7 @@
 					"properties": {
 						"service": {
 							"type": "array",
+							"minItems": 1,
 							"items": {
 								"type": "object",
 								"properties": {
@@ -6411,6 +6455,7 @@
 										"properties": {
 											"service": {
 												"type": "array",
+												"minItems": 1,
 												"items": {
 													"type": "object",
 													"properties": {
@@ -6543,8 +6588,8 @@
 							"$ref": "#/definitions/competition_warning"
 						},
 						"duration": {
-							"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
-							"type": "string"
+							"type": "string",
+							"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
 						},
 						"updated_time": {
 							"$ref": "#/definitions/updated_time"
@@ -6577,8 +6622,8 @@
 									"$ref": "#/definitions/competition_warning"
 								},
 								"duration": {
-									"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
-									"type": "string"
+									"type": "string",
+									"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
 								},
 								"updated_time": {
 									"$ref": "#/definitions/updated_time"
@@ -6842,16 +6887,16 @@
 			"type": "object",
 			"properties": {
 				"release_date": {
-					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 				},
 				"release_year_month": {
-					"pattern": "[0-9]{4}-[0-9]{2}",
-					"type": "string"
+					"type": "string",
+					"pattern": "[0-9]{4}-[0-9]{2}"
 				},
 				"release_year": {
-					"pattern": "[0-9]{4}",
-					"type": "string"
+					"type": "string",
+					"pattern": "[0-9]{4}"
 				}
 			},
 			"additionalProperties": false
@@ -6913,8 +6958,8 @@
 					"type": "object",
 					"properties": {
 						"duration": {
-							"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
-							"type": "string"
+							"type": "string",
+							"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
 						},
 						"pid": {
 							"$ref": "#/definitions/pid"
@@ -6926,8 +6971,8 @@
 							"type": "object",
 							"properties": {
 								"duration": {
-									"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$",
-									"type": "string"
+									"type": "string",
+									"pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
 								},
 								"pid": {
 									"$ref": "#/definitions/pid"
@@ -7161,8 +7206,8 @@
 					"type": "boolean"
 				},
 				"deprecated_since": {
-					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$",
-					"type": "string"
+					"type": "string",
+					"pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$"
 				},
 				"replaced_by": {
 					"type": "string"
