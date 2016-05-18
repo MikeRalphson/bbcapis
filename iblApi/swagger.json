@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "x-release": "373",
+    "x-release": "378",
     "title": "BBC iPlayer Business Layer",
     "description": "BBC iPlayer Business logic Layer",
     "x-logo": {
@@ -1324,6 +1324,36 @@
         "security": []
       }
     },
+    "/user/recommendations": {
+      "get": {
+        "description": "Get user store recommendations",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_User store recommendations_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "identity_cookie",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
+          }
+        },
+        "security": []
+      }
+    },
     "/home/highlights": {
       "get": {
         "description": "Get programme highlights",
@@ -1820,11 +1850,15 @@
             },
             "rec_source": {
               "type": "string"
+            },
+            "rec_set": {
+              "type": "string"
             }
           },
           "required": [
             "elements",
-            "rec_source"
+            "rec_source",
+            "rec_set"
           ],
           "additionalProperties": false
         },

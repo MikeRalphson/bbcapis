@@ -442,11 +442,15 @@
         },
         "rec_source": {
           "type": "string"
+        },
+        "rec_set": {
+          "type": "string"
         }
       },
       "required": [
         "elements",
-        "rec_source"
+        "rec_source",
+        "rec_set"
       ],
       "additionalProperties": false
     },

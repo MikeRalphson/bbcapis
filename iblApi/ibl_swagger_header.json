@@ -1318,6 +1318,36 @@
         "security": []
       }
     },
+    "/user/recommendations": {
+      "get": {
+        "description": "Get user store recommendations",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_User store recommendations_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "identity_cookie",
+            "in": "query",
+            "required": true,
+            "type": "number",
+            "format": "double"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default response",
+			"schema": {
+				"$ref": "#/definitions/ibl"
+			}
+          }
+        },
+        "security": []
+      }
+    },
     "/home/highlights": {
       "get": {
         "description": "Get programme highlights",
