@@ -177,9 +177,9 @@ function exportSort(feed,sort,sortName) {
 
 //__________________________________________________________________
 function swagSort(sort) {
-	
+
 	// TODO unstable sorts
-	
+
 	var param = {};
 	for (var p in params) {
 		if (params[p].name == 'sort') {
@@ -258,8 +258,8 @@ function exportMixin(feed,mixin,mixinName,stable) {
 				s += '* is affected by filter '+mixin.affected_by.filter[i].name+' ('+mixin.affected_by.filter[i].description+')\n';
 			}
 		}
-	}	
-	
+	}
+
 	s += '*/\n';
 	s += mixinName+' : '+mixinName+',\n';
 	if (stable) {
@@ -414,7 +414,7 @@ function exportFilter(feed,filter,filterName) {
 				params.push(param);
 			}
 			param.enum.push(option.value);
-			
+
 			// TODO unstable filters
 
 		}
@@ -517,6 +517,17 @@ function processFilter(feed,filter,filterName) {
 }
 
 //__________________________________________________________________
+function additionalParameters(feedName) {
+	if (feedName == 'Availability') {
+		fs.appendFileSync(apijs, 'const x'+feedName+"DebugTrue = 'debug=true';\n", 'utf8');
+		fs.appendFileSync(apijs, 'const x'+feedName+"Debug = 'debug';\n", 'utf8');
+		var s = 'x'+feedName+'DebugTrue : x'+feedName+'DebugTrue,\n';
+		s += 'x'+feedName+'Debug : x'+feedName+'Debug,\n';
+		cache.push(s);
+	}
+}
+
+//__________________________________________________________________
 function processFeed(feed) {
 
 	var feedName = ('nitro-'+feed.name).toCamelCase();
@@ -574,7 +585,7 @@ function processFeed(feed) {
 	path.get.responses['200'].description = 'Nitro response';
 	path.get.responses['200'].schema = {};
 	path.get.responses['200'].schema['$ref'] = '#/definitions/nitro';
-	
+
 	path.get.responses.default = {};
 	path.get.responses.default.description = 'Unexpected error';
 	path.get.responses.default.schema = {};
@@ -621,6 +632,8 @@ function processFeed(feed) {
 			processFilter(feed,filter,filterName);
 		}
 	}
+
+	additionalParameters(feed.name);
 
 }
 
@@ -747,15 +760,15 @@ function definePath(desc,id) {
 
 //__________________________________________________________________
 function patchSwagger() {
-	
+
 	var debug = {};
 	debug.name = 'debug';
 	debug.in = 'query';
 	debug.description = 'Turn on debug information (undocumented)';
 	debug.type = 'boolean';
-	debug.required = false;	
+	debug.required = false;
 	swagger.paths["/availabilities"].get.parameters.push(debug);
-	
+
 	swagger.definitions.nitro.additionalProperties = true; // cope with undefined 'items'
 }
 
@@ -765,9 +778,9 @@ function processXsd() {
 	console.log('Processing XML schema...');
 	var src = x2j.xml2json(xsdStr,{"attributePrefix": "@","valueProperty": false, "coerceTypes": false});
 	var obj = xsd.getJsonSchema(src,'nitro-schema','',true);
-	
+
 	fs.writeFileSync('./nitroApi/nitro-schema.json',JSON.stringify(obj,null,2),'utf8');
-	
+
 	var existing = swagger.definitions;
 	var root = obj.properties;
 	swagger.definitions = obj.definitions;

@@ -101,6 +101,8 @@ const fAvailabilityTerritoryUk = 'territory=uk';
 const fAvailabilityTerritoryNonuk = 'territory=nonuk';
 const fAvailabilityTerritoryWorld = 'territory=world';
 const fAvailabilityTerritory = 'territory';
+const xAvailabilityDebugTrue = 'debug=true';
+const xAvailabilityDebug = 'debug';
 const nitroBroadcasts = '/nitro/api/broadcasts';
 const sBroadcastsStartDateAscending = 'sort=start_date&sort_direction=ascending';
 const sBroadcastsStartDateDescending = 'sort=start_date&sort_direction=descending';
@@ -839,6 +841,8 @@ fAvailabilityTerritoryWorld : fAvailabilityTerritoryWorld,
 * /nitro/api/availabilities?territory=world
 */
 fAvailabilityTerritory : fAvailabilityTerritory,
+xAvailabilityDebugTrue : xAvailabilityDebugTrue,
+xAvailabilityDebug : xAvailabilityDebug,
 /**
 * Build schedules and find metadata for TV and radio broadcasts
 */

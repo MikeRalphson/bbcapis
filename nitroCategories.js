@@ -82,7 +82,7 @@ if (domain == 'radio') {
 	list_categories('/radio/categories.json');
 }
 else if (domain=='tv') {
-	console.log('Work in progress...');
+	console.log('Work in progress... See ibl');
 }
 else {
 	console.log('Unknown domain');
