@@ -109,7 +109,7 @@ function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 			console.log('  '+sortDirection.href);
 		}
 	}
-	if (sortDirection.is_default) {
+	if (sortDirection.is_default == 'true') {
 		s += '* isDefault\n';
 	}
 	if (sortDirection.depends_on) {
@@ -119,9 +119,8 @@ function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 		s += prohibits(sortDirection.prohibits);
 	}
 	s += '*/\n';
-	s += sortDirectionName+' : '+sortDirectionName+',\n';
-	fs.appendFileSync(apijs, 'const '+sortDirectionName+" = 'sort="+sort.name+'&'+sortDirection.name+'='+sortDirection.value+"';\n", 'utf8');
-	cache.push(s);
+	fs.appendFileSync(apijs, s+'const '+sortDirectionName+" = 'sort="+sort.name+'&'+sortDirection.name+'='+sortDirection.value+"';\n", 'utf8');
+	cache.push(sortDirectionName+' : '+sortDirectionName+',\n');
 
 	var param = {};
 	for (var p in params) {
@@ -169,9 +168,8 @@ function exportSort(feed,sort,sortName) {
 		s += prohibits(sort.prohibits);
 	}
 	s += '*/\n';
-	s += sortName+' : '+sortName+',\n';
-	fs.appendFileSync(apijs, 'const '+sortName+" = 'sort="+sort.name+"';\n", 'utf8');
-	cache.push(s);
+	fs.appendFileSync(apijs, s+'const '+sortName+" = 'sort="+sort.name+"';\n", 'utf8');
+	cache.push(sortName+' : '+sortName+',\n');
 	return s;
 }
 
@@ -261,14 +259,13 @@ function exportMixin(feed,mixin,mixinName,stable) {
 	}
 
 	s += '*/\n';
-	s += mixinName+' : '+mixinName+',\n';
 	if (stable) {
-		fs.appendFileSync(apijs, 'const '+mixinName+" = 'mixin="+mixin.name+"';\n", 'utf8');
+		fs.appendFileSync(apijs, s+'const '+mixinName+" = 'mixin="+mixin.name+"';\n", 'utf8');
 	}
 	else {
-		fs.appendFileSync(apijs, 'const '+mixinName+" = 'unstable_mixin="+mixin.name+"&mixin="+mixin.name+"';\n", 'utf8');
+		fs.appendFileSync(apijs, s+'const '+mixinName+" = 'unstable_mixin="+mixin.name+"&mixin="+mixin.name+"';\n", 'utf8');
 	}
-	cache.push(s);
+	cache.push(mixinName+' : '+mixinName+',\n');
 
 	var param = {};
 	for (var p in params) {
@@ -381,9 +378,9 @@ function exportFilter(feed,filter,filterName) {
 				s += '* option: '+option.value+', '+option.title+'\n';
 				s += '*/\n';
 				var optionName = filterName+('-'+option.value).toCamelCase();
-				s += optionName+' : '+optionName +',\n';
-				s += '/**\n';
-				fs.appendFileSync(apijs, 'const '+optionName+" = '"+filter.name+'='+encodeURIComponent(option.value)+"';\n", 'utf8');
+				cache.push(optionName+' : '+optionName +',\n');
+				fs.appendFileSync(apijs, s+'const '+optionName+" = '"+filter.name+'='+encodeURIComponent(option.value)+"';\n", 'utf8');
+				s = '/**\n';
 				seen.push(optionName);
 				//optionCount++;
 			}
@@ -420,10 +417,8 @@ function exportFilter(feed,filter,filterName) {
 		}
 	}
 	s += '*/\n';
-
-	s += filterName + ' : '+filterName +',\n';
-	fs.appendFileSync(apijs, 'const '+filterName+" = '"+filter.name+"';\n", 'utf8');
-	cache.push(s);
+	fs.appendFileSync(apijs, s+'const '+filterName+" = '"+filter.name+"';\n", 'utf8');
+	cache.push(filterName + ' : '+filterName +',\n');
 
 	if (optionCount<1) {
 		var param = {};
@@ -531,12 +526,11 @@ function additionalParameters(feedName) {
 function processFeed(feed) {
 
 	var feedName = ('nitro-'+feed.name).toCamelCase();
-	fs.appendFileSync(apijs, 'const '+feedName+" = '"+feed.href+"';\n", 'utf8');
 	var s = '/**\n';
 	s += '* '+feed.title+'\n';
 	s += '*/\n';
-	s += feedName+' : '+feedName+',\n';
-	cache.push(s);
+	fs.appendFileSync(apijs, s+'const '+feedName+" = '"+feed.href+"';\n", 'utf8');
+	cache.push(feedName+' : '+feedName+',\n');
 
 	var pathname = feed.href.replace('/nitro/api','');
 	var path = swagger.paths[pathname] = {};
