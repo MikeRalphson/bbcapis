@@ -55,7 +55,7 @@ module.exports = {
 			if (matches[1]) hours = Number(matches[1]);
 			if (matches[2]) minutes = Number(matches[2]);
 			if (matches[3]) seconds = Number(matches[3]);
-			totalseconds = hours * 3600  + minutes * 60 + seconds;
+			totalseconds = hours * 3600 + minutes * 60 + seconds;
 		}
 		return totalseconds;
 	}

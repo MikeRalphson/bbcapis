@@ -11,11 +11,11 @@ function category_dump(obj) {
 	var first = true;
 	for (var i in obj.categories) {
 		c = obj.categories[i];
-		console.log(c.id+' '+c.type+' '+c.key+' = '+c.title);
+		console.log(c.id+' '+c.type+' '+c.key+' = '+c.title+' ion-id:'+c.ion_id);
 		if (c.type == 'genre' || c.type == 'format') {
 			for (var j in c.narrower) {
 				n = c.narrower[j];
-				console.log('  '+n.id+' '+n.type+' '+c.key+'/'+n.key+' = '+n.title);
+				console.log('  '+n.id+' '+n.type+' '+c.key+'/'+n.key+' = '+n.title+' ion-id:'+n.ion_id);
 				if (j.narrower && j.narrower.length>0) {
 					console.log('Recursive');
 				}
