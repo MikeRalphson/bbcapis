@@ -518,6 +518,19 @@
         "$ref": "#/definitions/store_version"
       }
     },
+    "next": {
+      "type": "object",
+      "properties": {
+        "programme": {
+          "type": "array"
+        },
+        "items": {
+          "$ref": "#/definitions/episode"
+        },
+        "minItems": 0,
+        "maxItems": 1
+      }
+    },
     "category": {
       "$ref": "#/definitions/category"
     }

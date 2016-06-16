@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "x-release": "378",
+    "x-release": "388",
     "title": "BBC iPlayer Business Layer",
     "description": "BBC iPlayer Business logic Layer",
     "x-logo": {
@@ -1924,6 +1924,19 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/store_version"
+          }
+        },
+        "next": {
+          "type": "object",
+          "properties": {
+            "programme": {
+              "type": "array"
+            },
+            "items": {
+              "$ref": "#/definitions/episode"
+            },
+            "minItems": 0,
+            "maxItems": 1
           }
         },
         "category": {
