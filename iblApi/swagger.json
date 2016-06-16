@@ -1930,13 +1930,13 @@
           "type": "object",
           "properties": {
             "programme": {
-              "type": "array"
-            },
-            "items": {
-              "$ref": "#/definitions/episode"
-            },
-            "minItems": 0,
-            "maxItems": 1
+              "type": "array",
+			  "minItems": 0,
+			  "maxItems": 1,
+              "items": {
+                "$ref": "#/definitions/episode"
+              }
+			}
           }
         },
         "category": {
