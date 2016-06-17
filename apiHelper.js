@@ -75,7 +75,7 @@ module.exports = {
 		if (!version) version = 1;
 		return '/nitro/api/v'+version+'/episodes/'+pid+'/ancestors';
 	},
-	nitroRawMasterBrand : function(mbid) {
+	nitroRawMasterBrand : function(mbid, version) {
 		if (!version) version = 1;
 		return '/nitro/api/v'+version+'/master_brands/'+mbid;
 	},

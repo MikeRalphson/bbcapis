@@ -206,8 +206,7 @@ module.exports = {
 
 	ping : function(host,key,settings,callback) {
 		var query = helper.newQuery();
-		query.add(api.fMasterbrandsPageSize,1,true);
-		makeRequest(host,api.nitroMasterbrands,key,query,settings,callback);
+		makeRequest(host,helper.nitroRawMasterBrand('bbc_radio_four'),key,query,settings,callback);
 	},
 
 	getRateLimitEvents : function() {
