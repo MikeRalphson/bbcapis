@@ -9,7 +9,8 @@ var xsd = require('jgexml/xsd2json');
 var validator = require('is-my-json-valid')
 
 var api = require('./nitroApi/api.json');
-var jsonSchema = require('./iblApi/jsonSchema.json');
+var jsonSchema = require('./validation/jsonSchema.json');
+var swaggerSchema = require('./validation/swagger2Schema.json');
 var xsdStr = fs.readFileSync('./nitroApi/nitro-schema.xsd','utf8');
 
 var apijs = './nitroApi/api.js';
@@ -855,7 +856,20 @@ process.on('exit',function(){
 	fs.closeSync(api_fh);
 
 	if (jsonSchemaOk) {
-		console.log('Writing swagger spec');
-		fs.writeFileSync('./nitroApi/swagger.json',JSON.stringify(swagger,null,'\t'));
+		console.log('Validating swagger spec...');
+		var validate = validator(swaggerSchema);
+		validate(swagger,{
+			greedy: true,
+			verbose: true
+		});
+		var errors = validate.errors;
+		if (errors) {
+			console.log(errors);
+		}
+		else {
+			console.log('Writing swagger spec');
+			var swaggerStr = JSON.stringify(swagger,null,'\t');
+			fs.writeFileSync('./nitroApi/swagger.json',swaggerStr);
+		}
 	}
 });

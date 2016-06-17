@@ -4,7 +4,8 @@ var validator = require('is-my-json-valid')
 var base = require('./iblApi/ibl_swagger_header.json');
 var status = require('./iblApi/ibl_status.json');
 var schema = require('./iblApi/ibl.json');
-var jsonSchema = require('./iblApi/jsonSchema.json');
+var jsonSchema = require('./validation/jsonSchema.json');
+var swaggerSchema = require('./validation/swagger2Schema.json');
 
 //____________________________________________________________________________
 function traverse(obj,parent) {
@@ -57,5 +58,18 @@ else {
 	base.definitions.ibl = schema;
 	base.definitions = Object.assign({},base.definitions,holding);
 
-	fs.writeFileSync('./iblApi/swagger.json',JSON.stringify(base,null,2));
+	console.log('Validating swagger spec...');
+	var validate = validator(swaggerSchema);
+	validate(base,{
+		greedy: true,
+		verbose: true
+	});
+	var errors = validate.errors;
+	if (errors) {
+		console.log(errors);
+	}
+	else {
+		console.log('Writing swagger spec');
+		fs.writeFileSync('./iblApi/swagger.json',JSON.stringify(base,null,2));
+	}
 }
