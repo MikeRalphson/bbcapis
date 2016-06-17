@@ -784,6 +784,7 @@ function processXsd() {
 	var errors = validate.errors;
 	if (errors) {
 		console.log(errors);
+		return false;
 	}
 	else {
 		fs.writeFileSync('./nitroApi/nitro-schema.json',JSON.stringify(obj,null,2),'utf8');
@@ -793,6 +794,7 @@ function processXsd() {
 		swagger.definitions = obj.definitions;
 		swagger.definitions.nitro = root.nitro;
 		swagger.definitions.ErrorModel = existing.ErrorModel;
+		return true;
 	}
 }
 
@@ -836,7 +838,7 @@ for (var f in api.feeds.feed) {
 swagger.paths['/'] = definePath('Get API definition','getAPI');
 swagger.paths['/schema'] = definePath('Get Schema definition','getXSD');
 
-processXsd();
+var jsonSchemaOk = processXsd();
 
 patchSwagger();
 
@@ -852,5 +854,8 @@ process.on('exit',function(){
 
 	fs.closeSync(api_fh);
 
-	fs.writeFileSync('./nitroApi/swagger.json',JSON.stringify(swagger,null,'\t'));
+	if (jsonSchemaOk) {
+		console.log('Writing swagger spec');
+		fs.writeFileSync('./nitroApi/swagger.json',JSON.stringify(swagger,null,'\t'));
+	}
 });

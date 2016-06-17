@@ -58,5 +58,37 @@ module.exports = {
 			totalseconds = hours * 3600 + minutes * 60 + seconds;
 		}
 		return totalseconds;
+	},
+	nitroRawEpisode : function(pid, version) {
+		if (!version) version = 1;
+		return '/nitro/api/v'+version+'/episodes/'+pid;
+	},
+	nitroRawEpisodeGenreGroups : function(pid, version) {
+		if (!version) version = 1;
+		return '/nitro/api/v'+version+'/episodes/'+pid+'/genre_groups';
+	},
+	nitroRawEpisodeFormats : function(pid, version) {
+		if (!version) version = 1;
+		return '/nitro/api/v'+version+'/episodes/'+pid+'/formats';
+	},
+	nitroRawEpisodeAncestors : function(pid, version) {
+		if (!version) version = 1;
+		return '/nitro/api/v'+version+'/episodes/'+pid+'/ancestors';
+	},
+	nitroRawMasterBrand : function(mbid) {
+		if (!version) version = 1;
+		return '/nitro/api/v'+version+'/master_brands/'+mbid;
+	},
+	nitroRawBrand : function(pid, version) {
+		if (!version) version = 1;
+		return '/nitro/api/v'+version+'/brands/'+pid;
+	},
+	nitroRawBrandFranchises : function(pid, version) {
+		if (!version) version = 1;
+		return '/nitro/api/v'+version+'/brands/'+pid+'/franchises';
+	},
+	nitroRawPromotion : function(pid, version) {
+		if (!version) version = 1;
+		return '/nitro/api/v'+version+'/promotions/'+pid;
 	}
 };
