@@ -34,7 +34,8 @@ console.log('Validating v'+status.version+' release '+status.status.release);
 
 var validate = validator(jsonSchema);
 validate(schema,{
-  greedy: true
+  greedy: true,
+  verbose: true
 });
 var errors = validate.errors;
 if (errors) {

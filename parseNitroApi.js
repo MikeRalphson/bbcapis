@@ -6,8 +6,10 @@ var stream = require('stream');
 
 var x2j = require('jgexml/xml2json');
 var xsd = require('jgexml/xsd2json');
+var validator = require('is-my-json-valid')
 
 var api = require('./nitroApi/api.json');
+var jsonSchema = require('./iblApi/jsonSchema.json');
 var xsdStr = fs.readFileSync('./nitroApi/nitro-schema.xsd','utf8');
 
 var apijs = './nitroApi/api.js';
@@ -773,13 +775,25 @@ function processXsd() {
 	var src = x2j.xml2json(xsdStr,{"attributePrefix": "@","valueProperty": false, "coerceTypes": false});
 	var obj = xsd.getJsonSchema(src,'nitro-schema','',true);
 
-	fs.writeFileSync('./nitroApi/nitro-schema.json',JSON.stringify(obj,null,2),'utf8');
+	console.log('Validating generated JSON schema...');
+	var validate = validator(jsonSchema);
+	validate(obj,{
+		greedy: true,
+		verbose: true
+	});
+	var errors = validate.errors;
+	if (errors) {
+		console.log(errors);
+	}
+	else {
+		fs.writeFileSync('./nitroApi/nitro-schema.json',JSON.stringify(obj,null,2),'utf8');
 
-	var existing = swagger.definitions;
-	var root = obj.properties;
-	swagger.definitions = obj.definitions;
-	swagger.definitions.nitro = root.nitro;
-	swagger.definitions.ErrorModel = existing.ErrorModel;
+		var existing = swagger.definitions;
+		var root = obj.properties;
+		swagger.definitions = obj.definitions;
+		swagger.definitions.nitro = root.nitro;
+		swagger.definitions.ErrorModel = existing.ErrorModel;
+	}
 }
 
 //__________________________________________________________________
