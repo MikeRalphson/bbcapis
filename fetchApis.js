@@ -13,22 +13,22 @@ var host = config.nitro.host;
 var query = helper.newQuery();
 
 nitro.make_request(host,'/nitro/api',api_key,query,{Accept:'application/json'},function(obj){
-	console.log('JSON API');
+	console.log('Nitro JSON API');
 	fs.writeFileSync('./nitroApi/api.json',JSON.stringify(obj,null,2));
 	return false;
 });
 nitro.make_request(host,'/nitro/api',api_key,query,{Accept:'text/xml'},function(obj){
-	console.log('XML API');
+	console.log('Nitro XML API');
 	fs.writeFileSync('./nitroApi/api.xml',obj);
 	return false;
 });
 nitro.make_request(host,'/nitro/api/schema',api_key,query,{Accept:'text/xml'},function(obj){
-	console.log('XML Schema');
+	console.log('Nitro XML Schema');
 	fs.writeFileSync('./nitroApi/nitro-schema.xsd',obj);
 	return false;
 });
 nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/schema/ibl.json','',query,{Accept:'application/json'},function(obj){
-	console.log('iBL API');
+	console.log('iBL JSON Schema');
 	fs.writeFileSync('./iblApi/ibl.json',JSON.stringify(obj,null,2));
 	return false;
 });
