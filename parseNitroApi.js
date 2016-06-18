@@ -4,6 +4,8 @@ var fs = require('fs');
 var crypto = require('crypto');
 var stream = require('stream');
 
+var helper = require('./apiHelper.js');
+
 var x2j = require('jgexml/xml2json');
 var xsd = require('jgexml/xsd2json');
 var validator = require('is-my-json-valid')
@@ -23,14 +25,6 @@ var cache = [];
 var seen = [];
 var swagger = {};
 var params = [];
-
-//__________________________________________________________________
-
-String.prototype.toCamelCase = function camelize() {
-	return this.toLowerCase().replace(/[-_ ](.)/g, function(match, group1) {
-		return group1.toUpperCase();
-    });
-}
 
 //__________________________________________________________________
 function toArray(item) {

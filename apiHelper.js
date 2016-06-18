@@ -2,6 +2,12 @@
 Nitro API helper functions
 */
 
+String.prototype.toCamelCase = function camelize() {
+	return this.toLowerCase().replace(/[-_ \/\.](.)/g, function(match, group1) {
+		return group1.toUpperCase();
+    });
+}
+
 function query() {
 	this.querystring = '';
 	this.add = function(param,value,previous) {
