@@ -367,6 +367,7 @@ const fProgrammesPageSize = 'page_size';
 /**
 * filter for programmes by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fProgrammesPartnerId = 'partner_id';
 /**
@@ -756,6 +757,7 @@ const fGroupsPageSize = 'page_size';
 /**
 * filter for groups by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fGroupsPartnerId = 'partner_id';
 /**
@@ -863,6 +865,7 @@ const fImagesPageSize = 'page_size';
 /**
 * filter for images by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fImagesPartnerId = 'partner_id';
 /**
@@ -969,6 +972,7 @@ const fItemsPageSize = 'page_size';
 /**
 * filter for items by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fItemsPartnerId = 'partner_id';
 /**
@@ -1039,6 +1043,7 @@ const fMasterbrandsPageSize = 'page_size';
 /**
 * filter for masterbrands by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fMasterbrandsPartnerId = 'partner_id';
 /**
@@ -1103,6 +1108,7 @@ const fPeoplePageSize = 'page_size';
 /**
 * filter for people by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fPeoplePartnerId = 'partner_id';
 /**
@@ -1180,6 +1186,7 @@ const fPromotionsPageSize = 'page_size';
 /**
 * filter for promotions by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fPromotionsPartnerId = 'partner_id';
 /**
@@ -1310,6 +1317,7 @@ const fSchedulesPageSize = 'page_size';
 /**
 * filter for broadcasts and webcasts by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fSchedulesPartnerId = 'partner_id';
 /**
@@ -1414,6 +1422,7 @@ const fServicesPageSize = 'page_size';
 /**
 * filter for services by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fServicesPartnerId = 'partner_id';
 /**
@@ -1513,6 +1522,7 @@ const fVersionsPageSize = 'page_size';
 /**
 * filter for versions by partner ID
 * type = PID
+* prefer = partner_pid
 */
 const fVersionsPartnerId = 'partner_id';
 /**

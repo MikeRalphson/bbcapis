@@ -159,7 +159,7 @@ nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.16.0/config
 	else if ((cat == 'reg') || (cat == 'regions')) {
 		showRegions();
 	}
-	else if (cat.match()) {
+	else if (cat.match(/^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$/)) {
 		showChildren(cat);
 	}
 	else {

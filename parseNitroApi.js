@@ -356,6 +356,9 @@ function exportFilter(feed,filter,filterName) {
 	if (filter.depends_on) {
 		s += '* depends_on = '+filter.depends_on+'\n';
 	}
+	if (filter.prefer) {
+		s += '* prefer = '+filter.prefer+'\n';
+	}
 	if (filter.prohibits) {
 		s += prohibits(filter.prohibits);
 	}
