@@ -555,18 +555,22 @@ var query = helper.newQuery();
 var pid = '';
 var mode = '';
 var pending = false;
+var partner_pid = '';
+var episode_type = '';
 var path = domain+feed;
 
 var options = getopt.create([
 	['h','help','display this help'],
 	['b','index_base','get_iplayer index base, defaults to 10000'],
-	['c','channel=ARG','Filter by channel id'],
+	['c','channel=ARG','Filter by channel (masterbrand) id'],
 	['d','domain=ARG','Set domain = radio,tv or both'],
+	['e','episode=ARG','Set programme type to episode* or clip'],
 	['f','format=ARG+','Filter by format id'],
 	['g','genre=ARG+','Filter by genre id. all to reset'],
 	['i','imminent','Set availability to pending (default is available)'],
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscansvod'],
+	['x','partner_pid=ARG','Set partner pid, defaults to s0000001'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
@@ -633,6 +637,12 @@ options.on('mediaset',function(){
 options.on('payment_type',function(argv,options){
 	payment_type = options.payment_type;
 });
+options.on('partner_pid',function(argv,options){
+	partner_pid = options.partner_pid;
+});
+options.on('episode_type',function(argv,options){
+	episode_type = options.episode_type;
+});
 var o = options.parseSystem();
 
 if (pending) {
@@ -644,10 +654,15 @@ else {
 if (media_type) {
 	query.add(api.fProgrammesMediaType,media_type);
 }
+if (partner_pid) {
+	query.add(api.fProgrammesPartnerPid,partner_pid);
+}
+if (!episode_type == 'clip') {
+	query.add(api.fProgrammesAvailabilityEntityTypeEpisode)
+}
 
 query.add(api.mProgrammesAvailability)
 	//.add(api.fProgrammesEntityTypeEpisode)
-	.add(api.fProgrammesAvailabilityEntityTypeEpisode)
 	.add(api.mProgrammesDuration)
 	.add(api.mProgrammesAncestorTitles)
 	.add(api.mProgrammesAvailableVersions)
