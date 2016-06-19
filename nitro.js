@@ -25,6 +25,8 @@ var upcoming = false;
 var pidList = [];
 var indexBase = 10000;
 var channel = '';
+var partner_pid = '';
+var sid = '';
 var search = '';
 
 // bbc seem to use int(ernal),test,stage and live
@@ -384,7 +386,6 @@ function processPid(host,path,api_key,pid) {
 		.add(api.mProgrammesAncestorTitles)
 		.add(api.mProgrammesAvailableVersions)
 		.add(api.mProgrammesGenreGroupings)
-		.add(api.mProgrammesAvailability); // has a dependency on 'availability'
 
 	if (upcoming) {
 		query.add(api.fProgrammesChildrenOf,pid)
@@ -392,7 +393,13 @@ function processPid(host,path,api_key,pid) {
 	}
 	else {
 		query.add(api.fProgrammesPid,pid)
-		.add(api.fProgrammesAvailabilityAvailable);
+	}
+	if (partner_pid != '') {
+		query.add(api.fProgrammesPartnerPid,partner_pid);
+	}
+	else {
+		query.add(api.fProgrammesAvailabilityAvailable)
+		.add(api.mProgrammesAvailability); // has a dependency on 'availability'
 	}
 	nitro.make_request(host,path,api_key,query,{},function(obj){
 		return dispatch(obj);
@@ -427,8 +434,7 @@ var scheduleResponse = function(obj) {
 		for (var i in obj.nitro.results.items) {
 			var item = obj.nitro.results.items[i];
 
-			console.log();
-			console.log(item);
+			debuglog(item);
 
 			// minimally convert a broadcast into a programme for display
 			var p = {};
@@ -437,7 +443,7 @@ var scheduleResponse = function(obj) {
 			p.available_versions.available = 1;
 
 			p.version = {};
-			p.version.duration = item.published_time.duration;
+			p.version.duration = (item.published_time ? item.published_time.duration : '');
 			p.synopses = {};
 			p.media_type = (item.service.sid.indexOf('radio')>=0 ? 'Audio' : 'Video');
 			p.image = item.image;
@@ -508,9 +514,14 @@ function processSchedule(host,api_key,category,format,mode,pid) {
 	if (mode == 'pid') {
 		query.add(api.fSchedulesDescendantsOf,pid);
 	}
-
 	if (channel != '') {
 		query.add(api.fSchedulesServiceMasterBrand,channel);
+	}
+	if (partner_pid) {
+		query.add(api.fSchedulesPartnerPid,partner_pid);
+	}
+	if (sid) {
+		query.add(api.fSchedulesSid,sid);
 	}
 
 	query.add(api.mSchedulesAncestorTitles)
@@ -555,7 +566,6 @@ var query = helper.newQuery();
 var pid = '';
 var mode = '';
 var pending = false;
-var partner_pid = '';
 var episode_type = '';
 var path = domain+feed;
 
@@ -568,15 +578,16 @@ var options = getopt.create([
 	['f','format=ARG+','Filter by format id'],
 	['g','genre=ARG+','Filter by genre id. all to reset'],
 	['i','imminent','Set availability to pending (default is available)'],
+	['l','linear=ARG','Set linear service id, works with -u only'],
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscansvod'],
-	['x','partner_pid=ARG','Set partner pid, defaults to s0000001'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
 	['o','output','output in get_iplayer cache format'],
 	['r','rss=ARG','output in RSS 2.0 format'],
-	['u','upcoming','Show programme schedule information not history']
+	['u','upcoming','Show programme schedule information not history'],
+	['x','partner_pid=ARG','Set partner pid, defaults to s0000001']
 ]);
 var o = options.bindHelp();
 
@@ -639,6 +650,9 @@ options.on('payment_type',function(argv,options){
 });
 options.on('partner_pid',function(argv,options){
 	partner_pid = options.partner_pid;
+});
+options.on('linear',function(argv,options){
+	sid = options.linear;
 });
 options.on('episode_type',function(argv,options){
 	episode_type = options.episode_type;
