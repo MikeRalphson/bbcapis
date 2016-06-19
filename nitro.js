@@ -12,7 +12,7 @@ var url = require('url');
 var getopt = require('node-getopt');
 var j2x = require('jgexml/json2xml');
 
-var common = require('./common');
+var giUtils = require('./giUtils');
 var nitro = require('./nitroCommon');
 var helper = require('./apiHelper');
 var api = require('./nitroApi/api');
@@ -164,7 +164,7 @@ var hidden = 0;
 	for (var i in programme_cache) {
 		index++;
 		var p = programme_cache[i];
-		var present = download_history.indexOf(p.pid)>=0;
+		var present = giUtils.binarySearch(download_history,p.pid)>=0;
 		var title = p.title;
 		var subtitle = (p.display_titles && p.display_titles.subtitle ? p.display_titles.subtitle : p.presentation_title);
 		var available = (p.available_versions.available > 0);
@@ -198,7 +198,7 @@ var hidden = 0;
 	for (var i in programme_cache) {
 		var p = programme_cache[i];
 
-		var present = download_history.indexOf(p.pid)>=0;
+		var present = giUtils.binarySearch(download_history,p.pid)>=0;
 
 		var title = (p.title ? p.title : p.presentation_title);
 		var parents = '';
@@ -553,7 +553,7 @@ function processSchedule(host,api_key,category,format,mode,pid) {
 // http://www.bbc.co.uk/academy/technology/article/art20141013145843465
 
 var config = require('./config.json');
-download_history = common.downloadHistory(config.download_history);
+download_history = giUtils.downloadHistory(config.download_history);
 host = config.nitro.host;
 api_key = config.nitro.api_key;
 mediaSet = config.nitro.mediaset;
@@ -659,33 +659,35 @@ options.on('episode',function(argv,options){
 });
 var o = options.parseSystem();
 
-if (pending) {
-	query.add(api.fProgrammesAvailabilityPending);
+if (partner_pid) {
+	query.add(api.fProgrammesPartnerPid,partner_pid);
 }
 else {
-	query.add(api.fProgrammesAvailabilityAvailable);
+	if (pending) {
+		query.add(api.fProgrammesAvailabilityPending);
+	}
+	else {
+		query.add(api.fProgrammesAvailabilityAvailable);
+	}
+	if (episode_type == 'clip') {
+		query.add(api.fProgrammesAvailabilityEntityTypeClip)
+	}
+	else {
+		query.add(api.fProgrammesAvailabilityEntityTypeEpisode)
+	}
+	query.add(api.mProgrammesAvailability)
+		.add(api.mProgrammesAvailableVersions)
+		.add(api.fProgrammesPaymentType,payment_type)
+		.add(api.fProgrammesAvailabilityTypeOndemand);
 }
 if (media_type) {
 	query.add(api.fProgrammesMediaType,media_type);
 }
-if (partner_pid) {
-	query.add(api.fProgrammesPartnerPid,partner_pid);
-}
-if (episode_type == 'clip') {
-	query.add(api.fProgrammesAvailabilityEntityTypeClip)
-}
-else {
-	query.add(api.fProgrammesAvailabilityEntityTypeEpisode)
-}
 
-query.add(api.mProgrammesAvailability)
 	//.add(api.fProgrammesEntityTypeEpisode)
-	.add(api.mProgrammesDuration)
+query.add(api.mProgrammesDuration)
 	.add(api.mProgrammesAncestorTitles)
-	.add(api.mProgrammesAvailableVersions)
-	.add(api.fProgrammesPageSize,pageSize)
-	.add(api.fProgrammesAvailabilityTypeOndemand)
-	.add(api.fProgrammesPaymentType,payment_type);
+	.add(api.fProgrammesPageSize,pageSize);
 
 if (mode=='') {
 	mode = 'genre';

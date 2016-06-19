@@ -7,7 +7,7 @@ e.g. if you move computers and fail to bring the download history across
 
 var fs = require('fs');
 var rr = require('recursive-readdir');
-var common = require('./common');
+var giUtils = require('./giUtils');
 
 var download_history = [];
 var entries = [];
@@ -38,7 +38,7 @@ function check(pathspec,pid_pref) {
 		pid = name[0].split('_')[0];
 		pid = pid_pref+pid;
 
-		if (common.binarySearch(download_history,pid)<0) {
+		if (giUtils.binarySearch(download_history,pid)<0) {
 
 			suffix = name[1];
 			if ((suffix=='mp4') || (suffix=='mov')) {
@@ -53,7 +53,7 @@ function check(pathspec,pid_pref) {
 
 			entry = pid+'|'+series+'|'+episode+'|'+type+'|'+time+
 			  '|hlsaacstd1|'+pathspec+'|default,original|1800||||||||||';
-			console.log(pid+'|'+series+'|'+episode+'|'+type+'|'+time;
+			console.log(pid+'|'+series+'|'+episode+'|'+type+'|'+time);
 			download_history.push(pid); //tail end is no longer sorted
 
 			entries.push(entry);
@@ -75,7 +75,7 @@ if (process.argv.length>=3) {
 
 	var config = require('./config.json');
 	var dlh_locn = config.download_history;
-	download_history = common.downloadHistory(dlh_locn);
+	download_history = giUtils.downloadHistory(dlh_locn);
 	console.log('There are '+download_history.length+' entries in the download_history');
 
 	rr(path, function (err, files) {

@@ -7,6 +7,7 @@ ignore multiple pids by adding them to the download cache
 var http = require('http');
 var fs = require('fs');
 var common = require('./common');
+var giUtils = require('./giUtils');
 var getopt = require('node-getopt');
 
 var download_history = [];
@@ -15,7 +16,7 @@ var options = {};
 var dlh_locn;
 
 var add_entry = function(ep) {
-	if (common.binarySearch(download_history,ep.pid)<0) {
+	if (giUtils.binarySearch(download_history,ep.pid)<0) {
 		entry = ep.pid+'|';
 		if (newstr.indexOf(entry)<0) {
 			entry+=ep.title+'|';
@@ -74,7 +75,7 @@ var o = options.parseSystem();
 
 var config = require('./config.json');
 dlh_locn = config.download_history;
-download_history = common.downloadHistory(dlh_locn);
+download_history = giUtils.downloadHistory(dlh_locn);
 
 if (o.argv.length>0) {
 	for (var i in o.argv) {
