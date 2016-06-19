@@ -654,8 +654,8 @@ options.on('partner_pid',function(argv,options){
 options.on('linear',function(argv,options){
 	sid = options.linear;
 });
-options.on('episode_type',function(argv,options){
-	episode_type = options.episode_type;
+options.on('episode',function(argv,options){
+	episode_type = options.episode;
 });
 var o = options.parseSystem();
 
@@ -671,7 +671,10 @@ if (media_type) {
 if (partner_pid) {
 	query.add(api.fProgrammesPartnerPid,partner_pid);
 }
-if (!episode_type == 'clip') {
+if (episode_type == 'clip') {
+	query.add(api.fProgrammesAvailabilityEntityTypeClip)
+}
+else {
 	query.add(api.fProgrammesAvailabilityEntityTypeEpisode)
 }
 
