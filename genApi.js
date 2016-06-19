@@ -1,7 +1,6 @@
 /* genApi - generate simple Javascript API from Swagger spec */
 
 var fs = require('fs');
-var helper = require('./apiHelper.js');
 
 var swagger = require('./iblApi/swagger.json');
 

@@ -4,8 +4,6 @@ var fs = require('fs');
 var crypto = require('crypto');
 var stream = require('stream');
 
-var helper = require('./apiHelper.js');
-
 var x2j = require('jgexml/xml2json');
 var xsd = require('jgexml/xsd2json');
 var validator = require('is-my-json-valid')

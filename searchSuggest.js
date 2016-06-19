@@ -8,8 +8,7 @@ http://search-suggest.api.bbci.co.uk/search-suggest/suggest?q={query}&scope=ipla
 
 var getopt = require('node-getopt');
 
-var nitro = require('./nitroCommon');
-var helper = require('./apiHelper');
+var nitro = require('./nitroSdk');
 
 function pad(str, padding, padRight) {
 	if (typeof str === 'undefined')
@@ -45,13 +44,13 @@ var options = go.parseSystem();
 
 var searchTerm = options.argv[0];
 
-var query = helper.newQuery();
+var query = nitro.newQuery();
 query.add('scope','iplayer',true)
 	.add('format','bigscreen-2') // or blq-1 (barlesque?)
 	.add('mediatype',mediaType) // 'video' or 'audio'
 	.add('mediaset',mediaSet)
 	.add('q',searchTerm);
-	
+
 nitro.make_request(host,'/search-suggest/suggest',key,query,
 	{api_key_name:'apikey'},function(obj){
 		for (var i in obj[1]) {

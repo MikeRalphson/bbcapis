@@ -13,8 +13,7 @@ var getopt = require('node-getopt');
 var j2x = require('jgexml/json2xml');
 
 var giUtils = require('./giUtils');
-var nitro = require('./nitroCommon');
-var helper = require('./apiHelper');
+var nitro = require('./nitroSdk');
 var api = require('./nitroApi/api');
 
 var programme_cache = [];
@@ -171,7 +170,7 @@ var hidden = 0;
 		var position = p.episode_of ? p.episode_of.position : 1;
 		var totaleps = 1;
 		var series = 1;
-		var len = (p.version && p.version.duration) ? helper.iso8601durationToSeconds(p.version.duration) : '0';
+		var len = (p.version && p.version.duration) ? nitro.iso8601durationToSeconds(p.version.duration) : '0';
 
 		var thumb = p.image.template_url.replace('$recipe','150x84');
 
@@ -321,7 +320,7 @@ var processResponse = function(obj,payload) {
 			}
 			else if ((p.item_type == 'series') || (p.item_type == 'brand')) {
 				var path = domain+feed;
-				var query = helper.newQuery(api.fProgrammesDescendantsOf,p.pid,true)
+				var query = nitro.newQuery(api.fProgrammesDescendantsOf,p.pid,true)
 					.add(api.fProgrammesAvailabilityAvailable)
 					.add(api.fProgrammesAvailabilityEntityTypeEpisode)
 					.add(api.fProgrammesAvailabilityTypeOndemand)
@@ -352,7 +351,7 @@ var processResponse = function(obj,payload) {
 	var dest = {};
 	if (pageNo<last) {
 		dest.path = domain+feed;
-		dest.query = helper.queryFrom(nextHref,true);
+		dest.query = nitro.queryFrom(nextHref,true);
 		dest.callback = processResponse;
 	}
 	// if we need to go somewhere else, e.g. after all pages received set callback and/or path
@@ -379,7 +378,7 @@ function dispatch(obj,payload) {
 
 //_____________________________________________________________________________
 function processPid(host,path,api_key,pid) {
-	var query = helper.newQuery();
+	var query = nitro.newQuery();
 	query.add(api.fProgrammesPageSize,pageSize,true)
 		.add(api.mProgrammesContributions)
 		.add(api.mProgrammesDuration)
@@ -482,7 +481,7 @@ var scheduleResponse = function(obj) {
 	var dest = {};
 	if (pageNo<last) {
 		dest.path = '/nitro/api/schedules';
-		dest.query = helper.queryFrom(nextHref,true);
+		dest.query = nitro.queryFrom(nextHref,true);
 		dest.callback = scheduleResponse;
 	}
 	// if we need to go somewhere else, e.g. after all pages received set callback and/or path
@@ -497,7 +496,7 @@ function processSchedule(host,api_key,category,format,mode,pid) {
 	var today = new Date();
 	var todayStr = today.toISOString();
 
-	var query = helper.newQuery();
+	var query = nitro.newQuery();
 	query.add(api.fSchedulesStartFrom,todayStr,true);
 
 	if (mode == 'genre') {
@@ -562,7 +561,7 @@ var defcat = config.nitro.category;
 var category = [];
 var format = [];
 
-var query = helper.newQuery();
+var query = nitro.newQuery();
 var pid = '';
 var mode = '';
 var pending = false;

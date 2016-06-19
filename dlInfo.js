@@ -4,8 +4,7 @@ dlInfo.js
 
 */
 
-var nitro = require('./nitroCommon');
-var helper = require('./apiHelper');
+var nitro = require('./nitroSdk');
 var xmlToJson = require('jgeXml/xml2json');
 
 var pid = process.argv[2]; // a version PID (vPID) e.g. b01r5278
@@ -13,7 +12,7 @@ var pid = process.argv[2]; // a version PID (vPID) e.g. b01r5278
 var config = require('./config.json');
 var mediaSet = config.nitro.mediaset;
 
-var q1 = helper.newQuery();
+var q1 = nitro.newQuery();
 
 // http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/vpid/{vpid}/format/json/mediaset/{mediaSet}/proto/http
 // http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/vpid/b006v299/format/json/mediaset/pc/proto/http
@@ -28,7 +27,7 @@ nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vp
 	console.log();
 
 // http://open.live.bbc.co.uk/axs/open/authxml?media_set=pc&version_pid=b006v299&format=xml
-	var q2 = helper.newQuery();
+	var q2 = nitro.newQuery();
 	q2.add('media_set',mediaSet)
 		.add('version_pid',pid)
 		.add('format','xml'); // or base64

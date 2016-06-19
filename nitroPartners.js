@@ -11,7 +11,7 @@ function processResponse(obj) {
 	}
 	var dest = {};
 	if ((obj.nitro.pagination) && (obj.nitro.pagination.next)) {
-		dest.query = helper.queryFrom(obj.nitro.pagination.next.href,true);
+		dest.query = nitro.queryFrom(obj.nitro.pagination.next.href,true);
 		dest.path = path;
 		dest.callback = processResponse;
 	}
@@ -19,8 +19,7 @@ function processResponse(obj) {
 	return true;
 }
 
-var nitro = require('./nitroCommon');
-var helper = require('./apiHelper');
+var nitro = require('./nitroSdk');
 var api = require('./nitroApi/api');
 
 var config = require('./config.json');
@@ -34,7 +33,7 @@ for (var i=1;i<99;i++) {
 	while (partnerId.length<7) {
 		partnerId = '0' + partnerId;
 	}
-	var query = helper.newQuery();
+	var query = nitro.newQuery();
 	query.add(api.fPipsQ,'pid:s'+partnerId,true);
 	nitro.make_request(host,path,api_key,query,{},processResponse);
 }

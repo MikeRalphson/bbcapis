@@ -2,8 +2,7 @@
 
 var http = require('http');
 var ibl = require('./iblApi/ibl.js');
-var helper = require('./apiHelper');
-var nitro = require('./nitroCommon');
+var nitro = require('./nitroSdk');
 
 var ibl_key = '';
 
@@ -15,7 +14,7 @@ var ibl_key = '';
 //_____________________________________________________________________________
 function showStatus() {
 	// http://ibl.api.bbci.co.uk/ibl/v1/status
-	var query = helper.newQuery();
+	var query = nitro.newQuery();
 	nitro.make_request(ibl.host,ibl.getStatus,ibl_key,query,{},function(obj){
 		console.log(JSON.stringify(obj,null,2));
 		return false;
@@ -26,14 +25,14 @@ function showStatus() {
 function showCategories() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/categories?lang=en&api_key=APIKEY
 	//http://ibl.api.bbci.co.uk/ibl/v1/categories/drama-and-soaps?lang=en&api_key=APIKEY
-	var query = helper.newQuery();
+	var query = nitro.newQuery();
 	query.add(ibl.getCategoriesLangEn);
 	nitro.make_request(ibl.host,ibl.getCategories,ibl_key,query,{},function(obj){
 		console.log();
 		for (var i in obj.categories) {
 			var cat = obj.categories[i];
 			console.log(cat.id+' '+cat.title+' '+cat.kind);
-			var sQuery = helper.newQuery();
+			var sQuery = nitro.newQuery();
 			sQuery.add(ibl.getCategories2LangEn);
 			//console.log(cat);
 			nitro.make_request(ibl.host,ibl.getCategories2(cat.id),ibl_key,sQuery,{},function(obj){
@@ -53,7 +52,7 @@ function showCategories() {
 //_____________________________________________________________________________
 function showChannels() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/channels?lang=en&api_key=APIKEY
-	var query = helper.newQuery();
+	var query = nitro.newQuery();
 	query.add(ibl.getChannelsLangEn);
 	nitro.make_request(ibl.host,ibl.getChannels,ibl_key,query,{},function(obj){
 		console.log(JSON.stringify(obj,null,2));
@@ -68,7 +67,7 @@ function showChannels() {
 //_____________________________________________________________________________
 function showRegions() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/regions?lang=en&api_key=APIKEY
-	var query = helper.newQuery();
+	var query = nitro.newQuery();
 	query.add(ibl.getRegionsLangEn);
 	nitro.make_request(ibl.host,ibl.getRegions,ibl_key,query,{},function(obj){
 		console.log();
@@ -83,7 +82,7 @@ function showRegions() {
 //_____________________________________________________________________________
 function showChildren(pid) {
 	// http://ibl.api.bbci.co.uk/ibl/v1/episodes/b04nv6kr?rights=mobile&availability=available&api_key=APIKEY
-	var query = helper.newQuery();
+	var query = nitro.newQuery();
 	query.add(ibl.getProgrammesRightsWeb);
 	query.add(ibl.getProgrammesAvailabilityAvailable);
 	nitro.make_request(ibl.host,ibl.getProgrammes(pid),ibl_key,query,{},function(obj){
@@ -115,7 +114,7 @@ function dumpProgrammes(obj) {
 //_____________________________________________________________________________
 function showProgrammesForCategory(cat) {
 	// http://ibl.api.bbci.co.uk/ibl/v1/categories/CAT/programmes?rights=mobile&availability=available&api_key=APIKEY
-	var query = helper.newQuery();
+	var query = nitro.newQuery();
 
 	query.add(ibl.getCategoriesProgrammesRightsWeb);
 	query.add(ibl.getCategoriesProgrammesAvailabilityAvailable);
@@ -147,7 +146,7 @@ function showProgrammesForCategory(cat) {
 var cat = 'drama-sci-fi-and-fantasy';
 if (process.argv.length>2) cat = process.argv[2];
 
-var query = helper.newQuery();
+var query = nitro.newQuery();
 nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.16.0/config.json','',query,{},function(obj){
 	ibl_key = obj.BBCIBL.BBCIBLKey;
 	if ((cat == 'cat') || (cat == 'categories')) {

@@ -1,6 +1,6 @@
 /* nitro ping */
 
-var nitro = require('./nitroCommon.js');
+var nitro = require('./nitroSdk.js');
 
 var config = require('./config.json');
 var host = config.nitro.host;
