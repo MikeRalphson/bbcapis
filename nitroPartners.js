@@ -29,14 +29,13 @@ var api_key = config.nitro.api_key;
 
 var path = api.nitroPips;
 
-for (var i=1;i<25;i++) {
+for (var i=1;i<99;i++) {
 	var partnerId = i.toString();
 	while (partnerId.length<7) {
 		partnerId = '0' + partnerId;
 	}
 	var query = helper.newQuery();
 	query.add(api.fPipsQ,'pid:s'+partnerId,true);
-	console.log(query);
 	nitro.make_request(host,path,api_key,query,{},processResponse);
 }
 process.on('exit', function(code) {

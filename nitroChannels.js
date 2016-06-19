@@ -7,7 +7,9 @@ Lists Nitro masterbrands (channels)
 function processResponse(obj) {
 	for (var m in obj.nitro.results.items) {
 		var mb = obj.nitro.results.items[m];
-		console.log(mb.mid+','+mb.url_key+','+(mb.title ? mb.title : mb.name));
+		//if (mb.partner != 's0000001') {
+		console.log(mb.mid+','+mb.url_key+','+(mb.title ? mb.title : mb.name)+','+mb.partner);
+		//}
 	}
 	var dest = {};
 	if ((obj.nitro.pagination) && (obj.nitro.pagination.next)) {
@@ -30,6 +32,7 @@ var api_key = config.nitro.api_key;
 var path = api.nitroMasterbrands;
 
 var query = helper.newQuery();
+query.add(api.fMasterbrandsPartnerPid,'*',true);
 
 nitro.make_request(host,path,api_key,query,{},processResponse);
 
