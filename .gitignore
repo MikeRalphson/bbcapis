@@ -29,5 +29,6 @@ node_modules
 apidocs
 *.txt
 *.cmd
+*.sh
 config.json
 iblApi/ibl_swagger_base.json

@@ -1,5 +1,7 @@
 var fs = require('fs');
+var path = require('path');
 var validator = require('is-my-json-valid')
+var oa2js = require('openapi2js');
 
 var base = require('./iblApi/ibl_swagger_header.json');
 var status = require('./iblApi/ibl_status.json');
@@ -71,5 +73,7 @@ else {
 	else {
 		console.log('Writing swagger spec');
 		fs.writeFileSync('./iblApi/swagger.json',JSON.stringify(base,null,2));
+		console.log('Writing JS API definitions');
+		oa2js.openAPI2js(base,'./iblApi/ibl.js');
 	}
 }

@@ -295,7 +295,7 @@ const getUserWatching = '/ibl/v1/user/watching';
 const getUserWatchingIdentityCookie = 'identity_cookie';
 
 /* Get schema */
-const getSchemaIblJson = '/ibl/v1/schema/ibl.json';
+const getSchemaIbl = '/ibl/v1/schema/ibl.json';
 
 /* Get broadcasts by channel */
 function getChannelsBroadcasts(channel){
@@ -360,11 +360,10 @@ module.exports = {
   getChannelsProgrammes : getChannelsProgrammes,
   getRegions : getRegions,
   getUserWatching : getUserWatching,
-  getSchemaIblJson : getSchemaIblJson,
+  getSchemaIbl : getSchemaIbl,
   getChannelsBroadcasts : getChannelsBroadcasts,
   getUserPurchases : getUserPurchases,
   getUserRecommendations : getUserRecommendations,
   getHomeHighlights : getHomeHighlights,
   host : 'ibl.api.bbci.co.uk'
 };
-

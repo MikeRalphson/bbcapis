@@ -551,12 +551,20 @@ function processSchedule(host,api_key,category,format,mode,pid) {
 // https://confluence.dev.bbc.co.uk/display/nitro/Nitro+run+book
 // http://www.bbc.co.uk/academy/technology/article/art20141013145843465
 
-var config = require('./config.json');
-download_history = giUtils.downloadHistory(config.download_history);
-host = config.nitro.host;
-api_key = config.nitro.api_key;
-mediaSet = config.nitro.mediaset;
-var defcat = config.nitro.category;
+var defcat = 'all';
+
+try {
+	var config = require('./config.json');
+	download_history = giUtils.downloadHistory(config.download_history);
+	host = config.nitro.host;
+	api_key = config.nitro.api_key;
+	mediaSet = config.nitro.mediaset;
+	defcat = config.nitro.category;
+}
+catch (e) {
+	console.log('Please rename config.json.example to config.json and edit for your setup');
+	process.exit(2);
+}
 
 var category = [];
 var format = [];
