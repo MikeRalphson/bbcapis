@@ -25,6 +25,13 @@ var swagger = {};
 var params = [];
 
 //__________________________________________________________________
+String.prototype.toCamelCase = function camelize() {
+	return this.toLowerCase().replace(/[-_ \/\.](.)/g, function(match, group1) {
+		return group1.toUpperCase();
+    });
+}
+
+//__________________________________________________________________
 function toArray(item) {
 	if (!(item instanceof Array)) {
 		var newitem = [];

@@ -903,6 +903,9 @@
           "items": {
             "type": "object",
             "properties": {
+              "#text": {
+                "type": "string"
+              },
               "length": {
                 "type": "string"
               },
@@ -911,14 +914,23 @@
                 "items": {
                   "type": "object",
                   "properties": {
+                    "#text": {
+                      "type": "string"
+                    },
                     "length": {
                       "type": "string"
                     }
                   },
+                  "required": [
+                    "#text"
+                  ],
                   "additionalProperties": false
                 }
               }
             },
+            "required": [
+              "#text"
+            ],
             "additionalProperties": false
           }
         }
@@ -933,6 +945,9 @@
           "items": {
             "type": "object",
             "properties": {
+              "#text": {
+                "type": "string"
+              },
               "short_description": {
                 "type": "string"
               },
@@ -944,6 +959,9 @@
                 "items": {
                   "type": "object",
                   "properties": {
+                    "#text": {
+                      "type": "string"
+                    },
                     "short_description": {
                       "type": "string"
                     },
@@ -951,10 +969,16 @@
                       "type": "string"
                     }
                   },
+                  "required": [
+                    "#text"
+                  ],
                   "additionalProperties": false
                 }
               }
             },
+            "required": [
+              "#text"
+            ],
             "additionalProperties": false
           }
         }
@@ -1326,10 +1350,16 @@
     "format": {
       "type": "object",
       "properties": {
+        "#text": {
+          "type": "string"
+        },
         "format_id": {
           "type": "string"
         }
       },
+      "required": [
+        "#text"
+      ],
       "additionalProperties": false
     },
     "genre_groupings": {
@@ -1368,6 +1398,9 @@
     "genre": {
       "type": "object",
       "properties": {
+        "#text": {
+          "type": "string"
+        },
         "id": {
           "type": "string"
         },
@@ -1375,6 +1408,9 @@
           "type": "string"
         }
       },
+      "required": [
+        "#text"
+      ],
       "additionalProperties": false
     },
     "music": {
@@ -1749,6 +1785,9 @@
     "id": {
       "type": "object",
       "properties": {
+        "#text": {
+          "type": "string"
+        },
         "type": {
           "type": "string"
         },
@@ -1756,6 +1795,9 @@
           "type": "string"
         }
       },
+      "required": [
+        "#text"
+      ],
       "additionalProperties": false
     },
     "broadcast_of": {
@@ -1784,15 +1826,24 @@
     "warning_text": {
       "type": "object",
       "properties": {
+        "#text": {
+          "type": "string"
+        },
         "length": {
           "type": "string"
         }
       },
+      "required": [
+        "#text"
+      ],
       "additionalProperties": false
     },
     "warning": {
       "type": "object",
       "properties": {
+        "#text": {
+          "type": "string"
+        },
         "short_description": {
           "type": "string"
         },
@@ -1800,6 +1851,9 @@
           "type": "string"
         }
       },
+      "required": [
+        "#text"
+      ],
       "additionalProperties": false
     },
     "warnings": {
@@ -2499,6 +2553,9 @@
     "publication_rights": {
       "type": "object",
       "properties": {
+        "#text": {
+          "type": "string"
+        },
         "territory": {
           "type": "string"
         },
@@ -2512,6 +2569,9 @@
           "type": "string"
         }
       },
+      "required": [
+        "#text"
+      ],
       "additionalProperties": false
     },
     "franchise": {
@@ -2599,6 +2659,9 @@
     "media_profile_group": {
       "type": "object",
       "properties": {
+        "#text": {
+          "type": "string"
+        },
         "pid": {
           "$ref": "#/definitions/pid"
         },
@@ -2615,6 +2678,9 @@
           "type": "string"
         }
       },
+      "required": [
+        "#text"
+      ],
       "additionalProperties": false
     },
     "image": {
@@ -2737,7 +2803,8 @@
         "0.9-ml",
         "1.0",
         "XSLT"
-      ]
+      ],
+      "description": "The XQuery language version."
     },
     "code": {
       "type": "string"
@@ -2900,9 +2967,15 @@
           "items": {
             "$ref": "#/definitions/genre_group"
           }
+        },
+        "#text": {
+          "$ref": "#/definitions/deprecatedReferenceElement"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": [
+        "#text"
+      ]
     },
     "pidReference": {
       "type": "object",
@@ -2950,19 +3023,29 @@
         },
         "result_type_deprecated": {
           "type": "boolean"
+        },
+        "#text": {
+          "$ref": "#/definitions/referenceAttributes"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": [
+        "#text"
+      ]
     },
     "deprecatedReferenceElement": {
       "type": "object",
       "properties": {
         "deprecationAttributes": {
           "$ref": "#/definitions/deprecationAttributes"
+        },
+        "#text": {
+          "$ref": "#/definitions/referenceAttributes"
         }
       },
       "required": [
-        "deprecationAttributes"
+        "deprecationAttributes",
+        "#text"
       ],
       "additionalProperties": false
     },
@@ -2986,9 +3069,15 @@
         "duration": {
           "type": "string",
           "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
+        },
+        "#text": {
+          "$ref": "#/definitions/dateRange"
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "required": [
+        "#text"
+      ]
     },
     "serviceReference": {
       "type": "object",
@@ -3796,6 +3885,9 @@
               "items": {
                 "type": "object",
                 "properties": {
+                  "#text": {
+                    "type": "string"
+                  },
                   "media_sets": {
                     "type": "object",
                     "properties": {
@@ -3803,7 +3895,16 @@
                         "type": "array",
                         "minItems": 1,
                         "items": {
-                          "type": "object"
+                          "type": "object",
+                          "properties": {
+                            "#text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "#text"
+                          ],
+                          "additionalProperties": false
                         }
                       }
                     },
@@ -3813,6 +3914,9 @@
                     "additionalProperties": false
                   }
                 },
+                "required": [
+                  "#text"
+                ],
                 "additionalProperties": false
               }
             }
@@ -4166,10 +4270,16 @@
             "credit_role": {
               "type": "object",
               "properties": {
+                "#text": {
+                  "type": "string"
+                },
                 "id": {
                   "type": "string"
                 }
               },
+              "required": [
+                "#text"
+              ],
               "additionalProperties": false
             },
             "character_name": {
@@ -4184,10 +4294,16 @@
                 "credit_role": {
                   "type": "object",
                   "properties": {
+                    "#text": {
+                      "type": "string"
+                    },
                     "id": {
                       "type": "string"
                     }
                   },
+                  "required": [
+                    "#text"
+                  ],
                   "additionalProperties": false
                 },
                 "character_name": {

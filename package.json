@@ -32,7 +32,7 @@
   "homepage": "https://github.com/Mermade/bbcparse#readme",
   "dependencies": {
     "is-my-json-valid": "^2.13.1",
-    "jgexml": "^0.3.1",
+    "jgexml": "latest",
     "node-getopt": "^0.2.3",
     "recursive-readdir": "^2.0.0",
     "openapi2js": "latest"
