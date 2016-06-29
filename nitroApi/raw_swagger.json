@@ -28,6 +28,7 @@
         "tags": [
           "Raw"
         ],
+        "summary": "Get raw brand",
         "description": "Get raw brand",
         "operationId": "Get_Raw_brand",
         "consumes": [
@@ -57,6 +58,7 @@
         "tags": [
           "Raw"
         ],
+        "summary": "Get raw brand franchise",
         "description": "Get raw brand franchises",
         "operationId": "Get_Raw_brand franchises",
         "consumes": [
@@ -86,6 +88,7 @@
         "tags": [
           "Raw"
         ],
+        "summary": "Get raw episode",
         "description": "Get raw episode",
         "operationId": "Get_Raw_episode",
         "consumes": [
@@ -115,6 +118,7 @@
         "tags": [
           "Raw"
         ],
+        "summary": "Get raw ancestors",
         "description": "Get raw ancestors",
         "operationId": "Get_Raw_ancestors",
         "consumes": [
@@ -144,6 +148,7 @@
         "tags": [
           "Raw"
         ],
+        "summary": "Get raw formats",
         "description": "Get raw formats",
         "operationId": "Get_Raw_formats",
         "consumes": [
@@ -173,6 +178,7 @@
         "tags": [
           "Raw"
         ],
+        "summary": "Get raw genre groups",
         "description": "Get raw genre groups",
         "operationId": "Get_Raw_genre_groups",
         "consumes": [
@@ -202,6 +208,7 @@
         "tags": [
           "Raw"
         ],
+        "summary": "Get raw image",
         "description": "Get raw image",
         "operationId": "Get_Raw_image",
         "consumes": [
@@ -231,6 +238,7 @@
         "tags": [
           "Raw"
         ],
+        "summary": "Get raw masterbrand",
         "description": "Get raw masterbrand",
         "operationId": "Get_Raw_masterbrand",
         "consumes": [
@@ -260,6 +268,7 @@
         "tags": [
           "Raw"
         ],
+        "summary": "Get raw promotion",
         "description": "Get raw promotion",
         "operationId": "Get_Raw_promotion",
         "consumes": [
