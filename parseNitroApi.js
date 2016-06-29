@@ -11,6 +11,7 @@ var validator = require('is-my-json-valid')
 var api = require('./nitroApi/api.json');
 var jsonSchema = require('./validation/jsonSchema.json');
 var swaggerSchema = require('./validation/swagger2Schema.json');
+var raw = require('./nitroApi/raw_swagger.json');
 var xsdStr = fs.readFileSync('./nitroApi/nitro-schema.xsd','utf8');
 
 var apijs = './nitroApi/api.js';
@@ -772,6 +773,17 @@ function patchSwagger() {
 }
 
 //__________________________________________________________________
+function addRaw() {
+	swagger.tags = swagger.tags.concat(raw.tags);
+	for (var p in raw.paths) {
+		swagger.paths[p] = raw.paths[p];
+		swagger.paths[p].get.responses['200'].description = 'Nitro response';
+		swagger.paths[p].get.responses['200'].schema = {};
+		swagger.paths[p].get.responses['200'].schema['$ref'] = '#/definitions/nitro';
+	}
+}
+
+//__________________________________________________________________
 function processXsd() {
 	console.log();
 	console.log('Processing XML schema...');
@@ -844,6 +856,7 @@ swagger.paths['/schema'] = definePath('Get Schema definition','getXSD');
 var jsonSchemaOk = processXsd();
 
 patchSwagger();
+addRaw();
 
 process.on('exit',function(){
 	fs.appendFileSync(apijs, "const apiHash = '" + digest + "';\n", 'utf8');
@@ -873,5 +886,8 @@ process.on('exit',function(){
 			var swaggerStr = JSON.stringify(swagger,null,'\t');
 			fs.writeFileSync('./nitroApi/swagger.json',swaggerStr);
 		}
+	}
+	else {
+		console.log('Error processing XSD');
 	}
 });

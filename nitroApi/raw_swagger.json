@@ -1,0 +1,288 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Nitro RAW",
+    "version": "1.0.0",
+    "title": "Nitro RAW",
+    "contact": {},
+    "license": {
+      "name": "Nitro Public License",
+      "url": "https://developer.bbc.co.uk/nitropubliclicence/"
+    }
+  },
+  "host": "programmes.api.bbc.com",
+  "basePath": "/nitro/api",
+  "tags": [
+    {
+      "name": "Raw",
+      "description": "Nitro Raw"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/v1/brands/{pid}": {
+      "get": {
+        "tags": [
+          "Raw"
+        ],
+        "description": "Get raw brand",
+        "operationId": "Get_Raw_brand",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+	],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/v1/brands/{pid}/franchises/": {
+      "get": {
+        "tags": [
+          "Raw"
+        ],
+        "description": "Get raw brand franchises",
+        "operationId": "Get_Raw_brand franchises",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/v1/episodes/{pid}": {
+      "get": {
+        "tags": [
+          "Raw"
+        ],
+        "description": "Get raw episode",
+        "operationId": "Get_Raw_episode",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+	],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/v1/episodes/{pid}/ancestors/": {
+      "get": {
+        "tags": [
+          "Raw"
+        ],
+        "description": "Get raw ancestors",
+        "operationId": "Get_Raw_ancestors",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/v1/episodes/{pid}/formats/": {
+      "get": {
+        "tags": [
+          "Raw"
+        ],
+        "description": "Get raw formats",
+        "operationId": "Get_Raw_formats",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/v1/episodes/{pid}/genre_groups/": {
+      "get": {
+        "tags": [
+          "Raw"
+        ],
+        "description": "Get raw genre groups",
+        "operationId": "Get_Raw_genre_groups",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/v1/images/{pid}": {
+      "get": {
+        "tags": [
+          "Raw"
+        ],
+        "description": "Get raw image",
+        "operationId": "Get_Raw_image",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/v1/master_brands/{mbid}": {
+      "get": {
+        "tags": [
+          "Raw"
+        ],
+        "description": "Get raw masterbrand",
+        "operationId": "Get_Raw_masterbrand",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "mbid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/v1/promotions/{pid}": {
+      "get": {
+        "tags": [
+          "Raw"
+        ],
+        "description": "Get raw promotion",
+        "operationId": "Get_Raw_promotion",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  }
+}
