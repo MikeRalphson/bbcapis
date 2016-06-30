@@ -166,7 +166,7 @@ var hidden = 0;
 		var present = giUtils.binarySearch(download_history,p.pid)>=0;
 		var title = p.title;
 		var subtitle = (p.display_titles && p.display_titles.subtitle ? p.display_titles.subtitle : p.presentation_title);
-		var available = (p.available_versions.available > 0);
+		var available = ((p.available_versions) && (p.available_versions.available > 0));
 		var position = p.episode_of ? p.episode_of.position : 1;
 		var totaleps = 1;
 		var series = 1;
@@ -224,7 +224,7 @@ var hidden = 0;
 			parents += '  ' + p.version.pid + ' (vPID)';
 		}
 
-		var available = (p.available_versions.available > 0);
+		var available = ((p.available_versions) && (p.available_versions.available > 0));
 
 		if  ((!present && available) || (pidList.indexOf(p.pid)>=0) || showAll) {
 
@@ -667,7 +667,10 @@ options.on('episode',function(argv,options){
 var o = options.parseSystem();
 
 if (partner_pid) {
-	query.add(api.fProgrammesPartnerPid,partner_pid);
+	query.add(api.fProgrammesPartnerPid,partner_pid)
+		.add(api.mProgrammesAvailability)
+		.add(api.mProgrammesAvailableVersions)
+		.add(api.fProgrammesAvailabilityAvailable);
 }
 else {
 	if (pending) {
@@ -676,16 +679,16 @@ else {
 	else {
 		query.add(api.fProgrammesAvailabilityAvailable);
 	}
-	if (episode_type == 'clip') {
-		query.add(api.fProgrammesAvailabilityEntityTypeClip)
-	}
-	else {
-		query.add(api.fProgrammesAvailabilityEntityTypeEpisode)
-	}
 	query.add(api.mProgrammesAvailability)
 		.add(api.mProgrammesAvailableVersions)
 		.add(api.fProgrammesPaymentType,payment_type)
 		.add(api.fProgrammesAvailabilityTypeOndemand);
+}
+if (episode_type == 'clip') {
+	query.add(api.fProgrammesAvailabilityEntityTypeClip);
+}
+else {
+	query.add(api.fProgrammesAvailabilityEntityTypeEpisode);
 }
 if (media_type) {
 	query.add(api.fProgrammesMediaType,media_type);

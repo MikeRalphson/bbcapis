@@ -18,6 +18,7 @@
       <n:filter name="availability_type" type="string" title="filter for a subset of programmes that are available for a given type" release_status="supported" default="ondemand" depends_on="availability" multiple_values="true">
 	<n:option value="ondemand" title="filters programmes based on availability type of ondemand"/>
 	<n:option value="webcast" title="filters programmes based on availability type of webcast"/>
+	<n:option value="simulcast" title="filters programmes based on availability type of simulcast"/>
       </n:filter>
       <n:filter name="children_of" type="PID" title="filter for subset of programmes that have PID as immediate parent" multiple_values="true" release_status="supported"/>
       <n:filter name="descendants_of" type="PID" title="filter for subset of programmes that have PID as ancestor" multiple_values="true" release_status="supported"/>

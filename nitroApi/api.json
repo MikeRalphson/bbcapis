@@ -97,6 +97,10 @@
                 {
                   "value": "webcast",
                   "title": "filters programmes based on availability type of webcast"
+                },
+                {
+                  "value": "simulcast",
+                  "title": "filters programmes based on availability type of simulcast"
                 }
               ]
             },

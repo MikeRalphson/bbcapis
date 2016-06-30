@@ -228,6 +228,10 @@ const fProgrammesAvailabilityTypeOndemand = 'availability_type=ondemand';
 */
 const fProgrammesAvailabilityTypeWebcast = 'availability_type=webcast';
 /**
+* option: simulcast, filters programmes based on availability type of simulcast
+*/
+const fProgrammesAvailabilityTypeSimulcast = 'availability_type=simulcast';
+/**
 */
 const fProgrammesAvailabilityType = 'availability_type';
 /**
@@ -1555,7 +1559,7 @@ const fVersionsPaymentType = 'payment_type';
 * type = PID
 */
 const fVersionsPid = 'pid';
-const apiHash = '0f676cccd5589c63f2c2263c540ed373f13268b3301c4bb9a7f258dac74285ad';
+const apiHash = 'd1a28492dce62e32db4970ce932602425cee66f4e6c27a5685704bdba60a9ac6';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,
@@ -1601,6 +1605,7 @@ fProgrammesAvailabilityEntityTypeClip : fProgrammesAvailabilityEntityTypeClip,
 fProgrammesAvailabilityEntityType : fProgrammesAvailabilityEntityType,
 fProgrammesAvailabilityTypeOndemand : fProgrammesAvailabilityTypeOndemand,
 fProgrammesAvailabilityTypeWebcast : fProgrammesAvailabilityTypeWebcast,
+fProgrammesAvailabilityTypeSimulcast : fProgrammesAvailabilityTypeSimulcast,
 fProgrammesAvailabilityType : fProgrammesAvailabilityType,
 fProgrammesChildrenOf : fProgrammesChildrenOf,
 fProgrammesDescendantsOf : fProgrammesDescendantsOf,
