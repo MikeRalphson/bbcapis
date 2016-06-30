@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "x-release": "389",
+    "x-release": "391",
     "title": "BBC iPlayer Business Layer",
     "description": "BBC iPlayer Business logic Layer",
     "x-logo": {
@@ -2795,6 +2795,15 @@
         "id": {
           "type": "string"
         },
+        "episode_id": {
+          "type": "string"
+        },
+        "version_id": {
+          "type": "string"
+        },
+        "service_id": {
+          "type": "string"
+        },
         "type": {
           "enum": [
             "broadcast"
@@ -2848,7 +2857,10 @@
         "scheduled_end",
         "repeat",
         "blanked",
-        "episode"
+        "episode",
+        "episode_id",
+        "version_id",
+        "service_id"
       ],
       "additionalProperties": false
     },

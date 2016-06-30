@@ -1389,6 +1389,15 @@
         "id": {
           "type": "string"
         },
+        "episode_id": {
+          "type": "string"
+        },
+        "version_id": {
+          "type": "string"
+        },
+        "service_id": {
+          "type": "string"
+        },
         "type": {
           "enum": [
             "broadcast"
@@ -1442,7 +1451,10 @@
         "scheduled_end",
         "repeat",
         "blanked",
-        "episode"
+        "episode",
+        "episode_id",
+        "version_id",
+        "service_id"
       ],
       "additionalProperties": false
     },
