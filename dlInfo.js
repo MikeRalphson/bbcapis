@@ -12,6 +12,10 @@ var pid = process.argv[2]; // a version PID (vPID) e.g. b01r5278
 var config = require('./config.json');
 var mediaSet = config.nitro.mediaset;
 
+if (process.argv.length>3) {
+  mediaSet = process.argv[3];
+}
+
 var q1 = nitro.newQuery();
 
 // http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/vpid/{vpid}/format/json/mediaset/{mediaSet}/proto/http
