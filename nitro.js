@@ -397,8 +397,13 @@ function processPid(host,path,api_key,pid) {
 		query.add(api.fProgrammesPartnerPid,partner_pid);
 	}
 	else {
-		query.add(api.fProgrammesAvailabilityAvailable)
-		.add(api.mProgrammesAvailability); // has a dependency on 'availability'
+		if (pending) {
+			query.add(api.fProgrammesAvailability,'P7D');
+		}
+		else {
+			query.add(api.fProgrammesAvailabilityAvailable);
+		}
+		query.add(api.mProgrammesAvailability); // has a dependency on 'availability'
 	}
 	nitro.make_request(host,path,api_key,query,{},function(obj){
 		return dispatch(obj);
@@ -584,7 +589,7 @@ var options = getopt.create([
 	['e','episode=ARG','Set programme type to episode* or clip'],
 	['f','format=ARG+','Filter by format id'],
 	['g','genre=ARG+','Filter by genre id. all to reset'],
-	['i','imminent','Set availability to pending (default is available)'],
+	['i','imminent','Set availability to future (default is available)'],
 	['l','linear=ARG','Set linear service id, works with -u only'],
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscansvod'],
@@ -674,7 +679,7 @@ if (partner_pid) {
 }
 else {
 	if (pending) {
-		query.add(api.fProgrammesAvailabilityPending);
+		query.add(api.fProgrammesAvailability,'P7D');
 	}
 	else {
 		query.add(api.fProgrammesAvailabilityAvailable);
