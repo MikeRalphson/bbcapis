@@ -39,6 +39,9 @@ function query() {
 		newQ.querystring = this.querystring;
 		return newQ;
 	}
+	this.toString = function() {
+		return this.querystring;
+	}
 }
 
 function nitroRawEpisode(pid, version) {
