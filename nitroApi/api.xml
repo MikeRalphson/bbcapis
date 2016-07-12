@@ -146,6 +146,7 @@
       <n:mixin name="titles" title="mixin to return ancestor programme titles" release_status="deprecated" deprecated="true" deprecated_since="2013-11-14" replaced_by="ancestor_titles" href="/nitro/api/programmes?mixin=titles"/>
       <n:mixin name="versions_availability" title="mixin to return information about programmes that are currently available" release_status="deprecated" href="/nitro/api/programmes?mixin=versions_availability"/>
       <n:unstable_mixins>
+	<n:mixin name="available_simulcasts" title="mixin to return information about programmes that are currently available as simulcasts" href="/nitro/api/programmes?unstable_mixin=available_simulcasts&amp;mixin=available_simulcasts"/>
 	<n:mixin name="available_webcasts" title="mixin to return information about programmes that are currently available as webcasts" href="/nitro/api/programmes?unstable_mixin=available_webcasts&amp;mixin=available_webcasts"/>
       </n:unstable_mixins>
     </n:mixins>

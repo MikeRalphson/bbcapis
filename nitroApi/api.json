@@ -708,11 +708,18 @@
             }
           ],
           "unstable_mixins": {
-            "mixin": {
-              "name": "available_webcasts",
-              "title": "mixin to return information about programmes that are currently available as webcasts",
-              "href": "/nitro/api/programmes?unstable_mixin=available_webcasts&mixin=available_webcasts"
-            }
+            "mixin": [
+              {
+                "name": "available_simulcasts",
+                "title": "mixin to return information about programmes that are currently available as simulcasts",
+                "href": "/nitro/api/programmes?unstable_mixin=available_simulcasts&mixin=available_simulcasts"
+              },
+              {
+                "name": "available_webcasts",
+                "title": "mixin to return information about programmes that are currently available as webcasts",
+                "href": "/nitro/api/programmes?unstable_mixin=available_webcasts&mixin=available_webcasts"
+              }
+            ]
           }
         },
         "deprecations": {

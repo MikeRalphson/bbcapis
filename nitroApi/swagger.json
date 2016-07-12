@@ -96,7 +96,7 @@
 					{
 						"name": "mixin",
 						"in": "query",
-						"description": "Mixins:\n* mixin to return the alternate images for a programme\n* mixin to return ancestor programme titles\n* mixin to return programme availability information\n* mixin to return information about programmes that are currently available on demand\n* mixin to return information about contributors to a programme\n* mixin to return original version duration in programme concept entities\n* mixin to return list of genre groupings\n* mixin to add image information for a programme\n* mixin to add embeddable information for a programme\n* mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)\n* mixin to return information about related links to a programme\n* mixin to return information about programmes that are currently available as webcasts\n",
+						"description": "Mixins:\n* mixin to return the alternate images for a programme\n* mixin to return ancestor programme titles\n* mixin to return programme availability information\n* mixin to return information about programmes that are currently available on demand\n* mixin to return information about contributors to a programme\n* mixin to return original version duration in programme concept entities\n* mixin to return list of genre groupings\n* mixin to add image information for a programme\n* mixin to add embeddable information for a programme\n* mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)\n* mixin to return information about related links to a programme\n* mixin to return information about programmes that are currently available as simulcasts\n* mixin to return information about programmes that are currently available as webcasts\n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -115,13 +115,14 @@
 							"is_embeddable",
 							"previous_next",
 							"related_links",
+							"available_simulcasts",
 							"available_webcasts"
 						]
 					},
 					{
 						"name": "unstable_mixin",
 						"in": "query",
-						"description": "Unstable mixins:\n* mixin to return information about programmes that are currently available as webcasts\n",
+						"description": "Unstable mixins:\n* mixin to return information about programmes that are currently available as simulcasts\n* mixin to return information about programmes that are currently available as webcasts\n",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -129,6 +130,7 @@
 						},
 						"required": false,
 						"enum": [
+							"available_simulcasts",
 							"available_webcasts"
 						]
 					},
@@ -3743,6 +3745,22 @@
 			],
 			"additionalProperties": false
 		},
+		"available_simulcasts": {
+			"type": "object",
+			"properties": {
+				"available_versions_element": {
+					"$ref": "#/definitions/available_versions_element"
+				},
+				"available": {
+					"type": "integer"
+				}
+			},
+			"required": [
+				"available_versions_element",
+				"available"
+			],
+			"additionalProperties": false
+		},
 		"warning_texts": {
 			"type": "object",
 			"properties": {
@@ -5883,19 +5901,15 @@
 		},
 		"deprecatedReferenceElement": {
 			"type": "object",
-			"properties": {
-				"deprecationAttributes": {
+			"additionalProperties": false,
+			"x-anyOf": [
+				{
 					"$ref": "#/definitions/deprecationAttributes"
 				},
-				"#text": {
+				{
 					"$ref": "#/definitions/referenceAttributes"
 				}
-			},
-			"required": [
-				"deprecationAttributes",
-				"#text"
-			],
-			"additionalProperties": false
+			]
 		},
 		"dateRange": {
 			"type": "object",
@@ -6191,6 +6205,9 @@
 				},
 				"available_webcasts": {
 					"$ref": "#/definitions/available_webcasts"
+				},
+				"available_simulcasts": {
+					"$ref": "#/definitions/available_simulcasts"
 				}
 			},
 			"additionalProperties": false
@@ -7420,42 +7437,41 @@
 			"properties": {
 				"image": {
 					"type": "object",
-					"properties": {
-						"deprecationAttributes": {
+					"required": [
+						"template_url",
+						"image"
+					],
+					"additionalProperties": false,
+					"x-anyOf": [
+						{
 							"$ref": "#/definitions/deprecationAttributes"
 						},
-						"pid": {
-							"$ref": "#/definitions/pid"
-						},
-						"template_url": {
-							"type": "string"
-						},
-						"image": {
-							"type": "object",
+						{
 							"properties": {
-								"deprecationAttributes": {
-									"$ref": "#/definitions/deprecationAttributes"
-								},
 								"pid": {
 									"$ref": "#/definitions/pid"
 								},
 								"template_url": {
 									"type": "string"
+								},
+								"image": {
+									"type": "object",
+									"properties": {
+										"pid": {
+											"$ref": "#/definitions/pid"
+										},
+										"template_url": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"template_url"
+									],
+									"additionalProperties": false
 								}
-							},
-							"required": [
-								"deprecationAttributes",
-								"template_url"
-							],
-							"additionalProperties": false
+							}
 						}
-					},
-					"required": [
-						"deprecationAttributes",
-						"template_url",
-						"image"
-					],
-					"additionalProperties": false
+					]
 				}
 			},
 			"required": [

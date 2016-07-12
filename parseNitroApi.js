@@ -768,8 +768,6 @@ function patchSwagger() {
 	debug.type = 'boolean';
 	debug.required = false;
 	swagger.paths["/availabilities"].get.parameters.push(debug);
-
-	swagger.definitions.nitro.additionalProperties = true; // cope with undefined 'items'
 }
 
 //__________________________________________________________________
@@ -781,6 +779,32 @@ function addRaw() {
 		swagger.paths[p].get.responses['200'].schema = {};
 		swagger.paths[p].get.responses['200'].schema['$ref'] = '#/definitions/nitro';
 	}
+}
+
+function recurse(obj,parent,callback,depthFirst) {
+	if (typeof obj != 'string') {
+		for (var key in obj) {
+			// skip loop if the property is from prototype
+			if (!obj.hasOwnProperty(key)) continue;
+
+			if (!depthFirst) callback(obj,parent,key);
+
+			var array = Array.isArray(obj);
+
+			if (typeof obj[key] === 'object') {
+				if (array) {
+					for (var i in obj[key]) {
+						recurse(obj[key][i],obj[key],callback);
+					}
+				}
+				recurse(obj[key],obj,callback);
+			}
+
+			if (depthFirst) callback(obj,parent,key);
+		}
+	}
+
+	return obj;
 }
 
 //__________________________________________________________________
@@ -804,10 +828,18 @@ function processXsd() {
 	else {
 		fs.writeFileSync('./nitroApi/nitro-schema.json',JSON.stringify(obj,null,2),'utf8');
 
+		recurse(obj,{},function(obj,parent,key){
+			if (key == 'anyOf') {
+				obj["x-anyOf"] = obj["anyOf"];
+				delete obj["anyOf"];
+			}
+		});
+
 		var existing = swagger.definitions;
 		var root = obj.properties;
 		swagger.definitions = obj.definitions;
 		swagger.definitions.nitro = root.nitro;
+		swagger.definitions.nitro.additionalProperties = true; // cope with undefined 'items'
 		swagger.definitions.ErrorModel = existing.ErrorModel;
 		return true;
 	}

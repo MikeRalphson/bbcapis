@@ -166,6 +166,11 @@ const mProgrammesPreviousNext = 'mixin=previous_next';
 */
 const mProgrammesRelatedLinks = 'mixin=related_links';
 /**
+* mixin to return information about programmes that are currently available as simulcasts
+* /nitro/api/programmes?unstable_mixin=available_simulcasts&mixin=available_simulcasts
+*/
+const mProgrammesAvailableSimulcasts = 'unstable_mixin=available_simulcasts&mixin=available_simulcasts';
+/**
 * mixin to return information about programmes that are currently available as webcasts
 * /nitro/api/programmes?unstable_mixin=available_webcasts&mixin=available_webcasts
 */
@@ -1559,7 +1564,7 @@ const fVersionsPaymentType = 'payment_type';
 * type = PID
 */
 const fVersionsPid = 'pid';
-const apiHash = 'd1a28492dce62e32db4970ce932602425cee66f4e6c27a5685704bdba60a9ac6';
+const apiHash = 'd477d00db6bbb1618fe24f3019b8c927dfee71053b3f540ed55a703452507824';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,
@@ -1593,6 +1598,7 @@ mProgrammesImages : mProgrammesImages,
 mProgrammesIsEmbeddable : mProgrammesIsEmbeddable,
 mProgrammesPreviousNext : mProgrammesPreviousNext,
 mProgrammesRelatedLinks : mProgrammesRelatedLinks,
+mProgrammesAvailableSimulcasts : mProgrammesAvailableSimulcasts,
 mProgrammesAvailableWebcasts : mProgrammesAvailableWebcasts,
 fProgrammesAudioDescribedTrue : fProgrammesAudioDescribedTrue,
 fProgrammesAudioDescribedFalse : fProgrammesAudioDescribedFalse,
