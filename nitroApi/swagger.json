@@ -7436,11 +7436,7 @@
 			"properties": {
 				"image": {
 					"type": "object",
-					"required": [
-						"template_url",
-						"image"
-					],
-					"additionalProperties": false,
+					"additionalProperties": true,
 					"x-anyOf": [
 						{
 							"$ref": "#/definitions/deprecationAttributes"
@@ -7470,6 +7466,10 @@
 								}
 							}
 						}
+					],
+					"x-originalRequired": [
+						"template_url",
+						"image"
 					]
 				}
 			},

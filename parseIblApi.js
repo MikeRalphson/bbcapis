@@ -22,6 +22,13 @@ var result = [];
 		if (key == 'anyOf') {
 			parent["x-anyOf"] = obj[key];
 			delete obj[key];
+			if (parent.required) {
+				parent["x-originalRequired"] = parent.required;
+				delete parent.required;
+			}
+			if (parent.additionalProperties === false) {
+				parent.additionalProperties = true;
+			}
 		}
 
 		if (typeof obj[key] == 'object') {
