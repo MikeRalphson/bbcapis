@@ -128,6 +128,11 @@ const mProgrammesAvailability = 'mixin=availability';
 */
 const mProgrammesAvailableVersions = 'mixin=available_versions';
 /**
+* mixin to return information about programmes that are currently available as webcasts
+* /nitro/api/programmes?mixin=available_webcasts
+*/
+const mProgrammesAvailableWebcasts = 'mixin=available_webcasts';
+/**
 * mixin to return information about contributors to a programme
 * /nitro/api/programmes?mixin=contributions
 */
@@ -170,11 +175,6 @@ const mProgrammesRelatedLinks = 'mixin=related_links';
 * /nitro/api/programmes?unstable_mixin=available_simulcasts&mixin=available_simulcasts
 */
 const mProgrammesAvailableSimulcasts = 'unstable_mixin=available_simulcasts&mixin=available_simulcasts';
-/**
-* mixin to return information about programmes that are currently available as webcasts
-* /nitro/api/programmes?unstable_mixin=available_webcasts&mixin=available_webcasts
-*/
-const mProgrammesAvailableWebcasts = 'unstable_mixin=available_webcasts&mixin=available_webcasts';
 /**
 * filter for subset of programmes that are audio-described
 * type = boolean
@@ -1564,7 +1564,7 @@ const fVersionsPaymentType = 'payment_type';
 * type = PID
 */
 const fVersionsPid = 'pid';
-const apiHash = 'd477d00db6bbb1618fe24f3019b8c927dfee71053b3f540ed55a703452507824';
+const apiHash = '477c16d44cf66a526050877aca602f347bbe9f4e3bc4cc280fd978f8dc874aa3';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,
@@ -1591,6 +1591,7 @@ mProgrammesAlternateImages : mProgrammesAlternateImages,
 mProgrammesAncestorTitles : mProgrammesAncestorTitles,
 mProgrammesAvailability : mProgrammesAvailability,
 mProgrammesAvailableVersions : mProgrammesAvailableVersions,
+mProgrammesAvailableWebcasts : mProgrammesAvailableWebcasts,
 mProgrammesContributions : mProgrammesContributions,
 mProgrammesDuration : mProgrammesDuration,
 mProgrammesGenreGroupings : mProgrammesGenreGroupings,
@@ -1599,7 +1600,6 @@ mProgrammesIsEmbeddable : mProgrammesIsEmbeddable,
 mProgrammesPreviousNext : mProgrammesPreviousNext,
 mProgrammesRelatedLinks : mProgrammesRelatedLinks,
 mProgrammesAvailableSimulcasts : mProgrammesAvailableSimulcasts,
-mProgrammesAvailableWebcasts : mProgrammesAvailableWebcasts,
 fProgrammesAudioDescribedTrue : fProgrammesAudioDescribedTrue,
 fProgrammesAudioDescribedFalse : fProgrammesAudioDescribedFalse,
 fProgrammesAudioDescribed : fProgrammesAudioDescribed,

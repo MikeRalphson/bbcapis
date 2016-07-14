@@ -123,6 +123,7 @@
 	  <n:filter name="payment_type" description="payment type filter"/>
 	</n:affected_by>
       </n:mixin>
+      <n:mixin name="available_webcasts" title="mixin to return information about programmes that are currently available as webcasts" href="/nitro/api/programmes?mixin=available_webcasts"/>
       <n:mixin name="contributions" title="mixin to return information about contributors to a programme" release_status="supported" href="/nitro/api/programmes?mixin=contributions"/>
       <n:mixin name="duration" title="mixin to return original version duration in programme concept entities" release_status="supported" href="/nitro/api/programmes?mixin=duration"/>
       <n:mixin name="genre_groupings" title="mixin to return list of genre groupings" release_status="supported" href="/nitro/api/programmes?mixin=genre_groupings">
@@ -147,7 +148,6 @@
       <n:mixin name="versions_availability" title="mixin to return information about programmes that are currently available" release_status="deprecated" href="/nitro/api/programmes?mixin=versions_availability"/>
       <n:unstable_mixins>
 	<n:mixin name="available_simulcasts" title="mixin to return information about programmes that are currently available as simulcasts" href="/nitro/api/programmes?unstable_mixin=available_simulcasts&amp;mixin=available_simulcasts"/>
-	<n:mixin name="available_webcasts" title="mixin to return information about programmes that are currently available as webcasts" href="/nitro/api/programmes?unstable_mixin=available_webcasts&amp;mixin=available_webcasts"/>
       </n:unstable_mixins>
     </n:mixins>
     <n:deprecations>
