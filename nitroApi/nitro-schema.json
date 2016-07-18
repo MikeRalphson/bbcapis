@@ -937,16 +937,10 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "#text"
-                  ],
                   "additionalProperties": false
                 }
               }
             },
-            "required": [
-              "#text"
-            ],
             "additionalProperties": false
           }
         }
@@ -985,16 +979,10 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "#text"
-                  ],
                   "additionalProperties": false
                 }
               }
             },
-            "required": [
-              "#text"
-            ],
             "additionalProperties": false
           }
         }
@@ -1373,9 +1361,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "#text"
-      ],
       "additionalProperties": false
     },
     "genre_groupings": {
@@ -1424,9 +1409,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "#text"
-      ],
       "additionalProperties": false
     },
     "music": {
@@ -1811,9 +1793,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "#text"
-      ],
       "additionalProperties": false
     },
     "broadcast_of": {
@@ -1849,9 +1828,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "#text"
-      ],
       "additionalProperties": false
     },
     "warning": {
@@ -1867,9 +1843,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "#text"
-      ],
       "additionalProperties": false
     },
     "warnings": {
@@ -2585,9 +2558,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "#text"
-      ],
       "additionalProperties": false
     },
     "franchise": {
@@ -2694,9 +2664,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "#text"
-      ],
       "additionalProperties": false
     },
     "image": {
@@ -2976,22 +2943,23 @@
       "additionalProperties": false
     },
     "genreGroupsType": {
-      "type": "object",
-      "properties": {
-        "genre_group": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/genre_group"
-          }
-        },
-        "#text": {
+      "allOf": [
+        {
           "$ref": "#/definitions/deprecatedReferenceElement"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "genre_group": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/genre_group"
+              }
+            }
+          },
+          "additionalProperties": true
         }
-      },
-      "required": [
-        "#text"
-      ],
-      "additionalProperties": false
+      ]
     },
     "pidReference": {
       "type": "object",
@@ -3032,32 +3000,44 @@
       "additionalProperties": false
     },
     "reference": {
-      "type": "object",
-      "properties": {
-        "href_deprecated": {
-          "type": "boolean"
-        },
-        "result_type_deprecated": {
-          "type": "boolean"
-        },
-        "#text": {
+      "allOf": [
+        {
           "$ref": "#/definitions/referenceAttributes"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "href_deprecated": {
+              "type": "boolean"
+            },
+            "result_type_deprecated": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": true
         }
-      },
-      "required": [
-        "#text"
-      ],
-      "additionalProperties": false
+      ]
     },
     "deprecatedReferenceElement": {
-      "type": "object",
-      "additionalProperties": false,
-      "anyOf": [
-        {
-          "$ref": "#/definitions/deprecationAttributes"
-        },
+      "allOf": [
         {
           "$ref": "#/definitions/referenceAttributes"
+        },
+        {
+          "type": "object",
+          "additionalProperties": true,
+          "anyOf": [
+            {
+              "$ref": "#/definitions/deprecationAttributes"
+            },
+            {
+              "properties": {
+                "deprecationAttributes": {
+                  "$ref": "#/definitions/deprecationAttributes"
+                }
+              }
+            }
+          ]
         }
       ]
     },
@@ -3076,20 +3056,21 @@
       "additionalProperties": false
     },
     "broadcastTime": {
-      "type": "object",
-      "properties": {
-        "duration": {
-          "type": "string",
-          "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
-        },
-        "#text": {
+      "allOf": [
+        {
           "$ref": "#/definitions/dateRange"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "duration": {
+              "type": "string",
+              "pattern": "^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$"
+            }
+          },
+          "additionalProperties": true
         }
-      },
-      "required": [
-        "#text"
-      ],
-      "additionalProperties": false
+      ]
     },
     "serviceReference": {
       "type": "object",
@@ -3916,9 +3897,6 @@
                               "type": "string"
                             }
                           },
-                          "required": [
-                            "#text"
-                          ],
                           "additionalProperties": false
                         }
                       }
@@ -3929,9 +3907,6 @@
                     "additionalProperties": false
                   }
                 },
-                "required": [
-                  "#text"
-                ],
                 "additionalProperties": false
               }
             }
@@ -4292,9 +4267,6 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "#text"
-              ],
               "additionalProperties": false
             },
             "character_name": {
@@ -4316,9 +4288,6 @@
                       "type": "string"
                     }
                   },
-                  "required": [
-                    "#text"
-                  ],
                   "additionalProperties": false
                 },
                 "character_name": {
@@ -4598,6 +4567,9 @@
             },
             {
               "properties": {
+                "deprecationAttributes": {
+                  "$ref": "#/definitions/deprecationAttributes"
+                },
                 "pid": {
                   "$ref": "#/definitions/pid"
                 },
