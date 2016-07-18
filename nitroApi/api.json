@@ -623,7 +623,6 @@
             {
               "name": "available_webcasts",
               "title": "mixin to return information about programmes that are currently available as webcasts",
-              "release_status": "supported",
               "href": "/nitro/api/programmes?mixin=available_webcasts"
             },
             {
@@ -1550,7 +1549,6 @@
             {
               "name": "play_event",
               "title": "mixin to return programme segment events, works in conjunction with programme or segment_event filters",
-              "release_status": "supported",
               "dependency_on": [
                 {
                   "filter": "programme"

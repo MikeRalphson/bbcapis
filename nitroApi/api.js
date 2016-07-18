@@ -1564,7 +1564,7 @@ const fVersionsPaymentType = 'payment_type';
 * type = PID
 */
 const fVersionsPid = 'pid';
-const apiHash = 'fca969afc2a410b9e0354fd8d791daea82a102aaafe9c7fed9cf91dacbdb5cab';
+const apiHash = '477c16d44cf66a526050877aca602f347bbe9f4e3bc4cc280fd978f8dc874aa3';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,
