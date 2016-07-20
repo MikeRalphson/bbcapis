@@ -709,6 +709,9 @@
             "unavailable"
           ]
         },
+        "requires_tv_license": {
+          "type": "boolean"
+        },
         "tleo_id": {
           "type": "string"
         },
