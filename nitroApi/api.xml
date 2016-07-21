@@ -123,7 +123,7 @@
 	  <n:filter name="payment_type" description="payment type filter"/>
 	</n:affected_by>
       </n:mixin>
-      <n:mixin name="available_webcasts" title="mixin to return information about programmes that are currently available as webcasts" href="/nitro/api/programmes?mixin=available_webcasts"/>
+      <n:mixin name="available_webcasts" title="mixin to return information about programmes that are currently available as webcasts" release_status="supported" href="/nitro/api/programmes?mixin=available_webcasts"/>
       <n:mixin name="contributions" title="mixin to return information about contributors to a programme" release_status="supported" href="/nitro/api/programmes?mixin=contributions"/>
       <n:mixin name="duration" title="mixin to return original version duration in programme concept entities" release_status="supported" href="/nitro/api/programmes?mixin=duration"/>
       <n:mixin name="genre_groupings" title="mixin to return list of genre groupings" release_status="supported" href="/nitro/api/programmes?mixin=genre_groupings">
@@ -324,7 +324,7 @@
       <n:mixin name="contributions" title="mixin to return information about contributors to items" release_status="supported" href="/nitro/api/items?mixin=contributions"/>
       <n:mixin name="images" title="mixin to add image information for an item" release_status="supported" href="/nitro/api/items?mixin=images"/>
       <n:mixin name="offset" title="mixin to return programme segment offsets, works in conjunction with programme filter" depends_on="programme" release_status="deprecated" deprecated="true" deprecated_since="2014-05-06" replaced_by="play_event"/>
-      <n:mixin name="play_event" title="mixin to return programme segment events, works in conjunction with programme or segment_event filters">
+      <n:mixin name="play_event" title="mixin to return programme segment events, works in conjunction with programme or segment_event filters" release_status="supported">
 	<n:dependency_on filter="programme"/>
 	<n:dependency_on filter="segment_event"/>
       </n:mixin>
