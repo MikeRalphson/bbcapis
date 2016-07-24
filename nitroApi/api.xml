@@ -118,6 +118,7 @@
       </n:mixin>
       <n:mixin name="ancestor_titles" title="mixin to return ancestor programme titles" release_status="supported" href="/nitro/api/programmes?mixin=ancestor_titles"/>
       <n:mixin name="availability" title="mixin to return programme availability information" depends_on="availability" release_status="supported"/>
+      <n:mixin name="available_simulcasts" title="mixin to return information about programmes that are currently available as simulcasts" release_status="supported" href="/nitro/api/programmes?mixin=available_simulcasts"/>
       <n:mixin name="available_versions" title="mixin to return information about programmes that are currently available on demand" release_status="supported" href="/nitro/api/programmes?mixin=available_versions">
 	<n:affected_by>
 	  <n:filter name="payment_type" description="payment type filter"/>
@@ -146,9 +147,6 @@
       <n:mixin name="related_links" title="mixin to return information about related links to a programme" release_status="supported" href="/nitro/api/programmes?mixin=related_links"/>
       <n:mixin name="titles" title="mixin to return ancestor programme titles" release_status="deprecated" deprecated="true" deprecated_since="2013-11-14" replaced_by="ancestor_titles" href="/nitro/api/programmes?mixin=titles"/>
       <n:mixin name="versions_availability" title="mixin to return information about programmes that are currently available" release_status="deprecated" href="/nitro/api/programmes?mixin=versions_availability"/>
-      <n:unstable_mixins>
-	<n:mixin name="available_simulcasts" title="mixin to return information about programmes that are currently available as simulcasts" href="/nitro/api/programmes?unstable_mixin=available_simulcasts&amp;mixin=available_simulcasts"/>
-      </n:unstable_mixins>
     </n:mixins>
     <n:deprecations>
       <n:deprecated name="availability_from" type="filter" deprecated_since="2014-01-22"/>
