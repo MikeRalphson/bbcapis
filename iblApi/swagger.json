@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "x-release": "397",
+    "x-release": "398",
     "title": "BBC iPlayer Business Layer",
     "description": "BBC iPlayer Business logic Layer",
     "x-logo": {
@@ -2117,7 +2117,7 @@
             "unavailable"
           ]
         },
-        "requires_tv_license": {
+        "requires_tv_licence": {
           "type": "boolean"
         },
         "tleo_id": {

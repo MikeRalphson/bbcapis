@@ -709,7 +709,7 @@
             "unavailable"
           ]
         },
-        "requires_tv_license": {
+        "requires_tv_licence": {
           "type": "boolean"
         },
         "tleo_id": {
