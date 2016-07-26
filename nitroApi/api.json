@@ -607,6 +607,12 @@
               "release_status": "supported"
             },
             {
+              "name": "available_simulcasts",
+              "title": "mixin to return information about programmes that are currently available as simulcasts",
+              "release_status": "supported",
+              "href": "/nitro/api/programmes?mixin=available_simulcasts"
+            },
+            {
               "name": "available_versions",
               "title": "mixin to return information about programmes that are currently available on demand",
               "release_status": "supported",
@@ -712,14 +718,7 @@
               "release_status": "deprecated",
               "href": "/nitro/api/programmes?mixin=versions_availability"
             }
-          ],
-          "unstable_mixins": {
-            "mixin": {
-              "name": "available_simulcasts",
-              "title": "mixin to return information about programmes that are currently available as simulcasts",
-              "href": "/nitro/api/programmes?unstable_mixin=available_simulcasts&mixin=available_simulcasts"
-            }
-          }
+          ]
         },
         "deprecations": {
           "deprecated": [
