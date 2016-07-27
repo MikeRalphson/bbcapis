@@ -12,6 +12,7 @@ var url = require('url');
 var util = require('util');
 var getopt = require('node-getopt');
 var common = require('./common');
+var giUtils = require('./giUtils');
 
 var programme_cache = [];
 var download_history = [];
@@ -49,7 +50,7 @@ var hidden = 0;
 	for (var i in programme_cache) {
 		var p = programme_cache[i];
 
-		var present = (common.binarySearch(download_history,p.pid)>=0);
+		var present = (giUtils.binarySearch(download_history,p.pid)>=0);
 
 		var totaleps = 1;
 		var series = 1;
@@ -66,7 +67,7 @@ var hidden = 0;
 			if (!newp) newp = subp.parent.programme;
 			subp = newp;
 
-			present = (present || (common.binarySearch(download_history,subp.pid)>=0));
+			present = (present || (giUtils.binarySearch(download_history,subp.pid)>=0));
 
 			if (subp.type == 'series') {
 				if (subp.expected_child_count) totaleps = subp.expected_child_count;
@@ -394,14 +395,14 @@ function processPid(pid){
 // http://www.bbc.co.uk/bbcfour/programmes/schedules/last_week.json
 //
 // /:service/programmes/schedules/:outlet
-// /:service/programmes/schedules/{:outlet/}:year/:month/:day 
-// /:service/programmes/schedules/{:outlet/}:year/:month/:day/ataglance 
-// /:service/programmes/schedules/{:outlet/}:year/:week 
-// /:service/programmes/schedules/{:outlet/}yesterday 
-// /:service/programmes/schedules/{:outlet/}today 
-// /:service/programmes/schedules/{:outlet/}tomorrow 
-// /:service/programmes/schedules/{:outlet/}last_week 
-// /:service/programmes/schedules/{:outlet/}this_week 
+// /:service/programmes/schedules/{:outlet/}:year/:month/:day
+// /:service/programmes/schedules/{:outlet/}:year/:month/:day/ataglance
+// /:service/programmes/schedules/{:outlet/}:year/:week
+// /:service/programmes/schedules/{:outlet/}yesterday
+// /:service/programmes/schedules/{:outlet/}today
+// /:service/programmes/schedules/{:outlet/}tomorrow
+// /:service/programmes/schedules/{:outlet/}last_week
+// /:service/programmes/schedules/{:outlet/}this_week
 // /:service/programmes/schedules/{:outlet/}next_week
 
 // the :outlet part is 'fm' for radio4, 'england' for bbcone and two and
@@ -420,7 +421,7 @@ function processPid(pid){
 
 
 var config = require('./config.json');
-download_history = common.downloadHistory(config.download_history);
+download_history = giUtils.downloadHistory(config.download_history);
 
 var defcat = 'drama/scifiandfantasy';
 var category = defcat;
