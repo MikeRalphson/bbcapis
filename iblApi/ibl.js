@@ -29,7 +29,7 @@ const getProgrammesEpisodesAvailabilityAll = 'availability=all';
 const getProgrammesEpisodesAvailabilityAvailable = 'availability=available';
 const getProgrammesEpisodesInitialChildCount = 'initial_child_count';
 
-/* Get programme by PID */
+/* Get the episode for a given episode identifier. */
 function getEpisodes(pid){
   var p = '/ibl/v1/episodes/{pid}';
   p = p.replace('{pid}',pid);
@@ -219,6 +219,9 @@ const getCategoriesEpisodesAvailabilityAll = 'availability=all';
 const getCategoriesEpisodesAvailabilityAvailable = 'availability=available';
 const getCategoriesEpisodesPage = 'page';
 const getCategoriesEpisodesPerPage = 'per_page';
+const getCategoriesEpisodesSort = 'sort';
+const getCategoriesEpisodesSortRecent = 'sort=recent';
+const getCategoriesEpisodesSortPopular = 'sort=popular';
 
 /* Get programme recommendations */
 function getEpisodesRecommendations(pid){
@@ -266,7 +269,7 @@ const getGroupsPopularEpisodesAvailability = 'availability';
 const getGroupsPopularEpisodesAvailabilityAll = 'availability=all';
 const getGroupsPopularEpisodesAvailabilityAvailable = 'availability=available';
 
-/* Get programmes by group, brand or series */
+/* Get episodes by group, brand or series */
 function getGroupsEpisodes(pid){
   var p = '/ibl/v1/groups/{pid}/episodes';
   p = p.replace('{pid}',pid);
