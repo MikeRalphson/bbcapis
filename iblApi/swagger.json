@@ -4,7 +4,7 @@
     "version": "1.0",
     "x-release": "398",
     "title": "BBC iPlayer Business Layer",
-    "description": "BBC iPlayer Business logic Layer",
+    "description": "The definitive iPlayer API.",
     "x-logo": {
       "url": "http://static.bbci.co.uk/tviplayer/1.101.2/img/navigation/iplayer_pink.svg",
       "backgroundColor": "#FFFFFF"
@@ -46,7 +46,8 @@
   "paths": {
     "/programmes/{pid}": {
       "get": {
-        "description": "Get programmes by parent PID",
+        "summary": "Programme for a given pid.",
+        "description": "Get the programme for a given programme identifier.",
         "tags": [
           "Programmes"
         ],
@@ -59,6 +60,7 @@
             "name": "pid",
             "in": "path",
             "required": true,
+            "description": "The programme identifier.",
             "type": "string",
             "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
             "minLength": 8
@@ -67,6 +69,70 @@
             "name": "rights",
             "in": "query",
             "required": true,
+            "description": "The rights group to limit results to.",
+            "type": "string",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          },
+          {
+            "name": "initial_child_count",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/programmes/{pid}/episodes": {
+      "get": {
+        "summary": "Child episodes for a given programme pid.",
+        "description": "Get the child episodes belonging to a given programme identifier.",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Episodes by parent PID_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "required": true,
+            "description": "The programme identifier.",
+            "type": "string",
+            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+            "minLength": 8
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "description": "The rights group to limit results to.",
             "type": "string",
             "enum": [
               "mobile",
@@ -119,6 +185,7 @@
             "name": "pid",
             "in": "path",
             "required": true,
+            "description": "The programme identifier.",
             "type": "string",
             "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
             "minLength": 8
@@ -127,6 +194,7 @@
             "name": "rights",
             "in": "query",
             "required": true,
+            "description": "The rights group to limit results to.",
             "type": "string",
             "enum": [
               "mobile",
@@ -158,7 +226,8 @@
     },
     "/atoz/{letter}/programmes": {
       "get": {
-        "description": "Get programmes by initial letter",
+        "summary": "Programmes by initial title character",
+        "description": "Get the Programmes whose title begins with the given initial character.",
         "tags": [
           "Programmes"
         ],
@@ -178,6 +247,7 @@
             "name": "rights",
             "in": "query",
             "required": true,
+            "description": "The rights group to limit results to.",
             "type": "string",
             "enum": [
               "mobile",
@@ -189,6 +259,7 @@
             "name": "page",
             "in": "query",
             "required": true,
+            "description": "The page index.",
             "type": "integer",
             "format": "int64"
           },
@@ -196,6 +267,7 @@
             "name": "per_page",
             "in": "query",
             "required": true,
+            "description": "The number of results to return.",
             "type": "integer",
             "format": "int64"
           },
@@ -263,6 +335,7 @@
             "name": "pid",
             "in": "path",
             "required": true,
+            "description": "The programme identifier.",
             "type": "string",
             "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
             "minLength": 8
@@ -271,6 +344,7 @@
             "name": "rights",
             "in": "query",
             "required": true,
+            "description": "The rights group to limit results to.",
             "type": "string",
             "enum": [
               "mobile",
@@ -322,17 +396,20 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           },
           {
             "name": "rights",
             "in": "query",
             "required": true,
+            "description": "The rights group to limit results to.",
             "type": "string",
             "enum": [
               "mobile",
@@ -390,17 +467,20 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           },
           {
             "name": "rights",
             "in": "query",
             "required": true,
+            "description": "The rights group to limit results to.",
             "type": "string",
             "enum": [
               "mobile",
@@ -432,7 +512,8 @@
     },
     "/channels/{channel}/highlights": {
       "get": {
-        "description": "Get highlights by channel",
+        "summary": "List the highlights for a channel.",
+        "description": "Get the editorial highlights of a given channel in TV & iPlayer.",
         "tags": [
           "Programmes"
         ],
@@ -452,17 +533,20 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           },
           {
             "name": "rights",
             "in": "query",
             "required": true,
+            "description": "The rights group to limit results to.",
             "type": "string",
             "enum": [
               "mobile",
@@ -514,11 +598,13 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           },
           {
@@ -526,6 +612,7 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The rights group to limit results to.",
             "enum": [
               "mobile",
               "tv",
@@ -556,7 +643,7 @@
     },
     "/categories": {
       "get": {
-        "description": "Get top-level categories",
+        "description": "Get the list of all the categories in TV & iPlayer.",
         "tags": [
           "Categories"
         ],
@@ -570,11 +657,13 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           }
         ],
@@ -611,11 +700,13 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           }
         ],
@@ -632,7 +723,8 @@
     },
     "/categories/{category}/programmes": {
       "get": {
-        "description": "Get programmes by category",
+        "summary": "List all the programmes for a category.",
+        "description": "Get the list of all the Programmes (TLEOs) for a given category in TV & iPlayer.",
         "tags": [
           "Programmes"
         ],
@@ -652,11 +744,13 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           },
           {
@@ -664,6 +758,7 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The rights group to limit results to.",
             "enum": [
               "mobile",
               "tv",
@@ -684,6 +779,7 @@
             "name": "page",
             "in": "query",
             "required": true,
+            "description": "The page index.",
             "type": "integer",
             "format": "int64"
           },
@@ -691,6 +787,89 @@
             "name": "per_page",
             "in": "query",
             "required": true,
+            "description": "The number of results to return.",
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default response",
+            "schema": {
+              "$ref": "#/definitions/ibl"
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/categories/{category}/episodes": {
+      "get": {
+        "summary": "List all the episodes for a category.",
+        "description": "Get the list of all the episodes for a given category in TV & iPlayer.",
+        "tags": [
+          "Programmes"
+        ],
+        "operationId": "Get_Episodes by category_",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The language for any applicable localised strings.",
+            "enum": [
+              "en",
+              "cy",
+              "ga",
+              "gd",
+              "pi"
+            ]
+          },
+          {
+            "name": "rights",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The rights group to limit results to.",
+            "enum": [
+              "mobile",
+              "tv",
+              "web"
+            ]
+          },
+          {
+            "name": "availability",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "all",
+              "available"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "description": "The page index.",
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
+            "description": "The number of results to return.",
             "type": "integer",
             "format": "int64"
           }
@@ -721,6 +900,7 @@
             "name": "pid",
             "in": "path",
             "required": true,
+            "description": "The programme identifier.",
             "type": "string",
             "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
             "minLength": 8
@@ -730,6 +910,7 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The rights group to limit results to.",
             "enum": [
               "mobile",
               "tv",
@@ -750,6 +931,7 @@
             "name": "page",
             "in": "query",
             "required": true,
+            "description": "The page index.",
             "type": "integer",
             "format": "int64"
           },
@@ -757,6 +939,7 @@
             "name": "per_page",
             "in": "query",
             "required": true,
+            "description": "The number of results to return.",
             "type": "integer",
             "format": "int64"
           }
@@ -774,7 +957,8 @@
     },
     "/status": {
       "get": {
-        "description": "Get status",
+        "summary": "Get status",
+        "description": "Get the current iPlayer business layer status. This tells the caller the status of the iPlayer data, but not necessarily the overall status of the website. In the future it might include the status of the dependent data services within the BBC.",
         "tags": [
           "Metadata"
         ],
@@ -796,7 +980,8 @@
     },
     "/channels": {
       "get": {
-        "description": "Get channels",
+        "summary": "List all the channels.",
+        "description": "Get the list of all the channels TV & iPlayer.",
         "tags": [
           "Channels"
         ],
@@ -815,12 +1000,14 @@
             "name": "lang",
             "in": "query",
             "required": true,
+            "description": "The language for any applicable localised strings.",
             "type": "string",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           }
         ],
@@ -851,6 +1038,7 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The rights group to limit results to.",
             "enum": [
               "mobile",
               "tv",
@@ -861,6 +1049,7 @@
             "name": "page",
             "in": "query",
             "required": true,
+            "description": "The page index.",
             "type": "integer",
             "format": "int64"
           },
@@ -868,6 +1057,7 @@
             "name": "per_page",
             "in": "query",
             "required": true,
+            "description": "The number of results to return.",
             "type": "integer",
             "format": "int64"
           },
@@ -932,6 +1122,7 @@
             "name": "pid",
             "in": "path",
             "required": true,
+            "description": "The programme identifier.",
             "type": "string",
             "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
             "minLength": 8
@@ -941,6 +1132,7 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The rights group to limit results to.",
             "enum": [
               "mobile",
               "tv",
@@ -951,6 +1143,7 @@
             "name": "page",
             "in": "query",
             "required": true,
+            "description": "The page index.",
             "type": "integer",
             "format": "int64"
           },
@@ -958,6 +1151,7 @@
             "name": "per_page",
             "in": "query",
             "required": true,
+            "description": "The number of results to return.",
             "type": "integer",
             "format": "int64"
           },
@@ -1009,7 +1203,8 @@
     },
     "/categories/{category}/highlights": {
       "get": {
-        "description": "Get highlights by category",
+        "summary": "List the highlights for a category.",
+        "description": "Get the editorial highlights of a given category in TV & iPlayer.",
         "tags": [
           "Programmes"
         ],
@@ -1028,12 +1223,14 @@
             "name": "lang",
             "in": "query",
             "required": true,
+            "description": "The language for any applicable localised strings.",
             "type": "string",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           },
           {
@@ -1041,6 +1238,7 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The rights group to limit results to.",
             "enum": [
               "mobile",
               "tv",
@@ -1090,12 +1288,14 @@
             "name": "lang",
             "in": "query",
             "required": true,
+            "description": "The language for any applicable localised strings.",
             "type": "string",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           },
           {
@@ -1103,6 +1303,7 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The rights group to limit results to.",
             "enum": [
               "mobile",
               "tv",
@@ -1123,6 +1324,7 @@
             "name": "page",
             "in": "query",
             "required": true,
+            "description": "The page index.",
             "type": "integer",
             "format": "int64"
           },
@@ -1130,6 +1332,7 @@
             "name": "per_page",
             "in": "query",
             "required": true,
+            "description": "The number of results to return.",
             "type": "integer",
             "format": "int64"
           }
@@ -1161,11 +1364,13 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           }
         ],
@@ -1254,11 +1459,13 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           },
           {
@@ -1266,6 +1473,7 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The rights group to limit results to.",
             "enum": [
               "mobile",
               "tv",
@@ -1370,11 +1578,13 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The language for any applicable localised strings.",
             "enum": [
               "en",
               "cy",
               "ga",
-              "gd"
+              "gd",
+              "pi"
             ]
           },
           {
@@ -1382,6 +1592,7 @@
             "in": "query",
             "required": true,
             "type": "string",
+            "description": "The rights group to limit results to.",
             "enum": [
               "mobile",
               "tv",

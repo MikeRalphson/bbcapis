@@ -1,5 +1,5 @@
 
-/* Get programmes by parent PID */
+/* Get the programme for a given programme identifier. */
 function getProgrammes(pid){
   var p = '/ibl/v1/programmes/{pid}';
   p = p.replace('{pid}',pid);
@@ -13,6 +13,21 @@ const getProgrammesAvailability = 'availability';
 const getProgrammesAvailabilityAll = 'availability=all';
 const getProgrammesAvailabilityAvailable = 'availability=available';
 const getProgrammesInitialChildCount = 'initial_child_count';
+
+/* Get the child episodes belonging to a given programme identifier. */
+function getProgrammesEpisodes(pid){
+  var p = '/ibl/v1/programmes/{pid}/episodes';
+  p = p.replace('{pid}',pid);
+  return p;
+}
+const getProgrammesEpisodesRights = 'rights';
+const getProgrammesEpisodesRightsMobile = 'rights=mobile';
+const getProgrammesEpisodesRightsTv = 'rights=tv';
+const getProgrammesEpisodesRightsWeb = 'rights=web';
+const getProgrammesEpisodesAvailability = 'availability';
+const getProgrammesEpisodesAvailabilityAll = 'availability=all';
+const getProgrammesEpisodesAvailabilityAvailable = 'availability=available';
+const getProgrammesEpisodesInitialChildCount = 'initial_child_count';
 
 /* Get programme by PID */
 function getEpisodes(pid){
@@ -28,7 +43,7 @@ const getEpisodesAvailability = 'availability';
 const getEpisodesAvailabilityAll = 'availability=all';
 const getEpisodesAvailabilityAvailable = 'availability=available';
 
-/* Get programmes by initial letter */
+/* Get the Programmes whose title begins with the given initial character. */
 function getAtozProgrammes(letter){
   var p = '/ibl/v1/atoz/{letter}/programmes';
   p = p.replace('{letter}',letter);
@@ -72,6 +87,7 @@ const getSearchSuggestLangEn = 'lang=en';
 const getSearchSuggestLangCy = 'lang=cy';
 const getSearchSuggestLangGa = 'lang=ga';
 const getSearchSuggestLangGd = 'lang=gd';
+const getSearchSuggestLangPi = 'lang=pi';
 const getSearchSuggestRights = 'rights';
 const getSearchSuggestRightsMobile = 'rights=mobile';
 const getSearchSuggestRightsTv = 'rights=tv';
@@ -92,6 +108,7 @@ const getChannelsScheduleLangEn = 'lang=en';
 const getChannelsScheduleLangCy = 'lang=cy';
 const getChannelsScheduleLangGa = 'lang=ga';
 const getChannelsScheduleLangGd = 'lang=gd';
+const getChannelsScheduleLangPi = 'lang=pi';
 const getChannelsScheduleRights = 'rights';
 const getChannelsScheduleRightsMobile = 'rights=mobile';
 const getChannelsScheduleRightsTv = 'rights=tv';
@@ -100,7 +117,7 @@ const getChannelsScheduleAvailability = 'availability';
 const getChannelsScheduleAvailabilityAll = 'availability=all';
 const getChannelsScheduleAvailabilityAvailable = 'availability=available';
 
-/* Get highlights by channel */
+/* Get the editorial highlights of a given channel in TV & iPlayer. */
 function getChannelsHighlights(channel){
   var p = '/ibl/v1/channels/{channel}/highlights';
   p = p.replace('{channel}',channel);
@@ -111,6 +128,7 @@ const getChannelsHighlightsLangEn = 'lang=en';
 const getChannelsHighlightsLangCy = 'lang=cy';
 const getChannelsHighlightsLangGa = 'lang=ga';
 const getChannelsHighlightsLangGd = 'lang=gd';
+const getChannelsHighlightsLangPi = 'lang=pi';
 const getChannelsHighlightsRights = 'rights';
 const getChannelsHighlightsRightsMobile = 'rights=mobile';
 const getChannelsHighlightsRightsTv = 'rights=tv';
@@ -127,6 +145,7 @@ const getSearchLangEn = 'lang=en';
 const getSearchLangCy = 'lang=cy';
 const getSearchLangGa = 'lang=ga';
 const getSearchLangGd = 'lang=gd';
+const getSearchLangPi = 'lang=pi';
 const getSearchRights = 'rights';
 const getSearchRightsMobile = 'rights=mobile';
 const getSearchRightsTv = 'rights=tv';
@@ -135,13 +154,14 @@ const getSearchAvailability = 'availability';
 const getSearchAvailabilityAll = 'availability=all';
 const getSearchAvailabilityAvailable = 'availability=available';
 
-/* Get top-level categories */
+/* Get the list of all the categories in TV & iPlayer. */
 const getCategories = '/ibl/v1/categories';
 const getCategoriesLang = 'lang';
 const getCategoriesLangEn = 'lang=en';
 const getCategoriesLangCy = 'lang=cy';
 const getCategoriesLangGa = 'lang=ga';
 const getCategoriesLangGd = 'lang=gd';
+const getCategoriesLangPi = 'lang=pi';
 
 /* Get sub-categories */
 function getCategories2(category){
@@ -154,8 +174,9 @@ const getCategories2LangEn = 'lang=en';
 const getCategories2LangCy = 'lang=cy';
 const getCategories2LangGa = 'lang=ga';
 const getCategories2LangGd = 'lang=gd';
+const getCategories2LangPi = 'lang=pi';
 
-/* Get programmes by category */
+/* Get the list of all the Programmes (TLEOs) for a given category in TV & iPlayer. */
 function getCategoriesProgrammes(category){
   var p = '/ibl/v1/categories/{category}/programmes';
   p = p.replace('{category}',category);
@@ -166,6 +187,7 @@ const getCategoriesProgrammesLangEn = 'lang=en';
 const getCategoriesProgrammesLangCy = 'lang=cy';
 const getCategoriesProgrammesLangGa = 'lang=ga';
 const getCategoriesProgrammesLangGd = 'lang=gd';
+const getCategoriesProgrammesLangPi = 'lang=pi';
 const getCategoriesProgrammesRights = 'rights';
 const getCategoriesProgrammesRightsMobile = 'rights=mobile';
 const getCategoriesProgrammesRightsTv = 'rights=tv';
@@ -175,6 +197,28 @@ const getCategoriesProgrammesAvailabilityAll = 'availability=all';
 const getCategoriesProgrammesAvailabilityAvailable = 'availability=available';
 const getCategoriesProgrammesPage = 'page';
 const getCategoriesProgrammesPerPage = 'per_page';
+
+/* Get the list of all the episodes for a given category in TV & iPlayer. */
+function getCategoriesEpisodes(category){
+  var p = '/ibl/v1/categories/{category}/episodes';
+  p = p.replace('{category}',category);
+  return p;
+}
+const getCategoriesEpisodesLang = 'lang';
+const getCategoriesEpisodesLangEn = 'lang=en';
+const getCategoriesEpisodesLangCy = 'lang=cy';
+const getCategoriesEpisodesLangGa = 'lang=ga';
+const getCategoriesEpisodesLangGd = 'lang=gd';
+const getCategoriesEpisodesLangPi = 'lang=pi';
+const getCategoriesEpisodesRights = 'rights';
+const getCategoriesEpisodesRightsMobile = 'rights=mobile';
+const getCategoriesEpisodesRightsTv = 'rights=tv';
+const getCategoriesEpisodesRightsWeb = 'rights=web';
+const getCategoriesEpisodesAvailability = 'availability';
+const getCategoriesEpisodesAvailabilityAll = 'availability=all';
+const getCategoriesEpisodesAvailabilityAvailable = 'availability=available';
+const getCategoriesEpisodesPage = 'page';
+const getCategoriesEpisodesPerPage = 'per_page';
 
 /* Get programme recommendations */
 function getEpisodesRecommendations(pid){
@@ -192,10 +236,10 @@ const getEpisodesRecommendationsAvailabilityAvailable = 'availability=available'
 const getEpisodesRecommendationsPage = 'page';
 const getEpisodesRecommendationsPerPage = 'per_page';
 
-/* Get status */
+/* Get the current iPlayer business layer status. This tells the caller the status of the iPlayer data, but not necessarily the overall status of the website. In the future it might include the status of the dependent data services within the BBC. */
 const getStatus = '/ibl/v1/status';
 
-/* Get channels */
+/* Get the list of all the channels TV & iPlayer. */
 const getChannels = '/ibl/v1/channels';
 const getChannelsRegion = 'region';
 const getChannelsLang = 'lang';
@@ -203,6 +247,7 @@ const getChannelsLangEn = 'lang=en';
 const getChannelsLangCy = 'lang=cy';
 const getChannelsLangGa = 'lang=ga';
 const getChannelsLangGd = 'lang=gd';
+const getChannelsLangPi = 'lang=pi';
 
 /* Get programmes popular */
 const getGroupsPopularEpisodes = '/ibl/v1/groups/popular/episodes';
@@ -242,7 +287,7 @@ const getGroupsEpisodesAvailability = 'availability';
 const getGroupsEpisodesAvailabilityAll = 'availability=all';
 const getGroupsEpisodesAvailabilityAvailable = 'availability=available';
 
-/* Get highlights by category */
+/* Get the editorial highlights of a given category in TV & iPlayer. */
 function getCategoriesHighlights(category){
   var p = '/ibl/v1/categories/{category}/highlights';
   p = p.replace('{category}',category);
@@ -253,6 +298,7 @@ const getCategoriesHighlightsLangEn = 'lang=en';
 const getCategoriesHighlightsLangCy = 'lang=cy';
 const getCategoriesHighlightsLangGa = 'lang=ga';
 const getCategoriesHighlightsLangGd = 'lang=gd';
+const getCategoriesHighlightsLangPi = 'lang=pi';
 const getCategoriesHighlightsRights = 'rights';
 const getCategoriesHighlightsRightsMobile = 'rights=mobile';
 const getCategoriesHighlightsRightsTv = 'rights=tv';
@@ -272,6 +318,7 @@ const getChannelsProgrammesLangEn = 'lang=en';
 const getChannelsProgrammesLangCy = 'lang=cy';
 const getChannelsProgrammesLangGa = 'lang=ga';
 const getChannelsProgrammesLangGd = 'lang=gd';
+const getChannelsProgrammesLangPi = 'lang=pi';
 const getChannelsProgrammesRights = 'rights';
 const getChannelsProgrammesRightsMobile = 'rights=mobile';
 const getChannelsProgrammesRightsTv = 'rights=tv';
@@ -289,6 +336,7 @@ const getRegionsLangEn = 'lang=en';
 const getRegionsLangCy = 'lang=cy';
 const getRegionsLangGa = 'lang=ga';
 const getRegionsLangGd = 'lang=gd';
+const getRegionsLangPi = 'lang=pi';
 
 /* Get user watching */
 const getUserWatching = '/ibl/v1/user/watching';
@@ -308,6 +356,7 @@ const getChannelsBroadcastsLangEn = 'lang=en';
 const getChannelsBroadcastsLangCy = 'lang=cy';
 const getChannelsBroadcastsLangGa = 'lang=ga';
 const getChannelsBroadcastsLangGd = 'lang=gd';
+const getChannelsBroadcastsLangPi = 'lang=pi';
 const getChannelsBroadcastsRights = 'rights';
 const getChannelsBroadcastsRightsMobile = 'rights=mobile';
 const getChannelsBroadcastsRightsTv = 'rights=tv';
@@ -331,6 +380,7 @@ const getHomeHighlightsLangEn = 'lang=en';
 const getHomeHighlightsLangCy = 'lang=cy';
 const getHomeHighlightsLangGa = 'lang=ga';
 const getHomeHighlightsLangGd = 'lang=gd';
+const getHomeHighlightsLangPi = 'lang=pi';
 const getHomeHighlightsRights = 'rights';
 const getHomeHighlightsRightsMobile = 'rights=mobile';
 const getHomeHighlightsRightsTv = 'rights=tv';
@@ -341,6 +391,7 @@ const getHomeHighlightsAvailabilityAvailable = 'availability=available';
 
 module.exports = {
   getProgrammes : getProgrammes,
+  getProgrammesEpisodes : getProgrammesEpisodes,
   getEpisodes : getEpisodes,
   getAtozProgrammes : getAtozProgrammes,
   getEpisodesPrerolls : getEpisodesPrerolls,
@@ -351,6 +402,7 @@ module.exports = {
   getCategories : getCategories,
   getCategories2 : getCategories2,
   getCategoriesProgrammes : getCategoriesProgrammes,
+  getCategoriesEpisodes : getCategoriesEpisodes,
   getEpisodesRecommendations : getEpisodesRecommendations,
   getStatus : getStatus,
   getChannels : getChannels,

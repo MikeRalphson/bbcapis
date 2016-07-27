@@ -1,0 +1,531 @@
+{
+    "name": "iPlayer-API",
+    "version": "1.0",
+    "title": "BBC iPlayer API",
+    "description": "The definitive iPlayer API.",
+    "basePath": "http://d.bbc.co.uk",
+    "protocol": "rest",
+    "auth": {
+        "key": {
+            "param": "api_key",
+            "location": "query"
+        }
+    },
+    "resources": {
+        "Status": {
+            "methods": {
+                "Get the current status.": {
+                    "path": "/:env/tviplayer/:version/status",
+                    "httpMethod": "GET",
+                    "description": "Get the current iPlayer business layer status. This tells the caller the status of the iPlayer data, but not necessarily the overall status of the website. In the future it might include the status of the dependent data services within the BBC.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        }
+                    }
+                }
+            }
+        },
+        "Categories": {
+            "methods": {
+                "List all the categories.": {
+                    "path": "/:env/tviplayer/:version/categories",
+                    "httpMethod": "GET",
+                    "description": "Get the list of all the categories in TV & iPlayer.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        }
+                    }
+                },
+                "List all the programmes for a category.": {
+                    "path": "/:env/tviplayer/:version/categories/:category/programmes",
+                    "httpMethod": "GET",
+                    "description": "Get the list of all the Programmes (TLEOs) for a given category in TV & iPlayer.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        ":category": {
+                            "type": "string",
+                            "required": true,
+                            "default": "arts",
+                            "description": "The category identifier to return results from.",
+                            "enum": [ "arts", "cbbc", "cbeebies", "comedy", "documentaries", "drama-and-soaps", "entertainment",
+                                "films", "food", "history", "music", "news", "sport", "science-and-nature", "signed", "audio-described",
+                                "northern-ireland", "scotland", "wales" ],
+                            "location": "pathReplace"
+                        },
+                        "page": {
+                            "type": "int",
+                            "required": false,
+                            "description": "The page index.",
+                            "location": "query"
+                        },
+                        "per_page": {
+                            "type": "int",
+                            "required": false,
+                            "description": "The number of results to return.",
+                            "location": "query"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        },
+                        "rights": {
+                            "type": "string",
+                            "required": true,
+                            "description": "The rights group to limit results to.",
+                            "default": "web",
+                            "enum": [ "", "mobile", "tv", "web" ],
+                            "location": "query"
+                        }
+                    }
+                },
+                "List all the episodes for a category.": {
+                    "path": "/:env/tviplayer/:version/categories/:category/episodes",
+                    "httpMethod": "GET",
+                    "description": "Get the list of all the episodes for a given category in TV & iPlayer.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        ":category": {
+                            "type": "string",
+                            "required": true,
+                            "default": "arts",
+                            "description": "The category identifier to return results from.",
+                            "enum": [ "arts", "cbbc", "cbeebies", "comedy", "documentaries", "drama-and-soaps", "entertainment",
+                                "films", "food", "history", "music", "news", "sport", "science-and-nature", "signed", "audio-described",
+                                "northern-ireland", "scotland", "wales" ],
+                            "location": "pathReplace"
+                        },
+                        "page": {
+                            "type": "int",
+                            "required": false,
+                            "description": "The page index.",
+                            "location": "query"
+                        },
+                        "per_page": {
+                            "type": "int",
+                            "required": false,
+                            "description": "The number of results to return.",
+                            "location": "query"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        },
+                        "rights": {
+                            "type": "string",
+                            "required": true,
+                            "description": "The rights group to limit results to.",
+                            "default": "web",
+                            "enum": [ "", "mobile", "tv", "web" ],
+                            "location": "query"
+                        },
+                        "sort": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The sort order of the results.",
+                            "enum": [ "", "popular", "recent" ],
+                            "location": "query"
+                        }
+                    }
+                },
+                "List the highlights for a category.": {
+                    "path": "/:env/tviplayer/:version/categories/:category/highlights",
+                    "httpMethod": "GET",
+                    "description": "Get the editorial highlights of a given category in TV & iPlayer.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        ":category": {
+                            "type": "string",
+                            "required": true,
+                            "default": "arts",
+                            "description": "The category identifier to return results from.",
+                            "enum": [ "arts", "cbbc", "cbeebies", "comedy", "documentaries", "drama-and-soaps", "entertainment",
+                                "films", "food", "history", "music", "news", "sport", "science-and-nature", "signed", "audio-described",
+                                "northern-ireland", "scotland", "wales" ],
+                            "location": "pathReplace"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        },
+                        "rights": {
+                            "type": "string",
+                            "required": true,
+                            "description": "The rights group to limit results to.",
+                            "default": "web",
+                            "enum": [ "", "mobile", "tv", "web" ],
+                            "location": "query"
+                        }
+                    }
+                }
+            }
+        },
+        "Channels": {
+            "methods": {
+                "List all the channels.": {
+                    "path": "/:env/tviplayer/:version/channels",
+                    "httpMethod": "GET",
+                    "description": "Get the list of all the channels TV & iPlayer.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        }
+                    }
+                },
+                "List the highlights for a channel.": {
+                    "path": "/:env/tviplayer/:version/channels/:channel/highlights",
+                    "httpMethod": "GET",
+                    "description": "Get the editorial highlights of a given channel in TV & iPlayer.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        ":channel": {
+                            "type": "string",
+                            "required": true,
+                            "default": "bbc_one",
+                            "description": "The channel identifier to limit results to.",
+                            "enum": [ "bbc_one", "bbc_two", "bbc_three", "bbc_four", "cbbc", "cbeebies",
+                                "bbc_news", "bbc_parliament", "bbc_alba" ],
+                            "location": "pathReplace"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        },
+                        "rights": {
+                            "type": "string",
+                            "required": true,
+                            "description": "The rights group to limit results to.",
+                            "default": "web",
+                            "enum": [ "", "mobile", "tv", "web" ],
+                            "location": "query"
+                        }
+                    }
+                }
+            }
+        },
+        "A to Z": {
+            "methods": {
+                "Programmes by initial title character": {
+                    "path": "/:env/tviplayer/:version/atoz/:character/programmes",
+                    "httpMethod": "GET",
+                    "description": "Get the Programmes whose title begins with the given initial character.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        ":character": {
+                            "type": "string",
+                            "required": true,
+                            "default": "a",
+                            "description": "The programme identifier.",
+                            "enum": [ "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+                                "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0-9" ],
+                            "location": "pathReplace"
+                        },
+                        "page": {
+                            "type": "int",
+                            "required": false,
+                            "description": "The page index.",
+                            "location": "query"
+                        },
+                        "per_page": {
+                            "type": "int",
+                            "required": false,
+                            "description": "The number of results to return.",
+                            "location": "query"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        },
+                        "rights": {
+                            "type": "string",
+                            "required": true,
+                            "default": "web",
+                            "description": "The rights group to limit results to.",
+                            "enum": [ "", "mobile", "tv", "web" ],
+                            "location": "query"
+                        }
+                    }
+                }
+            }
+        },
+        "Programmes (TLEOs)": {
+            "methods": {
+                "Programme for a given pid.": {
+                    "path": "/:env/tviplayer/:version/programmes/:pid",
+                    "httpMethod": "GET",
+                    "description": "Get the programme for a given programme identifier.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        ":pid": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "The programme identifier.",
+                            "location": "pathReplace"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        },
+                        "rights": {
+                            "type": "string",
+                            "required": true,
+                            "description": "The rights group to limit results to.",
+                            "default": "web",
+                            "enum": [ "", "mobile", "tv", "web" ],
+                            "location": "query"
+                        }
+                    }
+                },
+                "Child episodes for a given programme pid.": {
+                    "path": "/:env/tviplayer/:version/programmes/:pid/episodes",
+                    "httpMethod": "GET",
+                    "description": "Get the child episodes belonging to a given programme identifier.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        ":pid": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "The programme identifier.",
+                            "location": "pathReplace"
+                        },
+                        "page": {
+                            "type": "int",
+                            "required": false,
+                            "description": "The page index.",
+                            "location": "query"
+                        },
+                        "per_page": {
+                            "type": "int",
+                            "required": false,
+                            "description": "The number of results to return.",
+                            "location": "query"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        },
+                        "rights": {
+                            "type": "string",
+                            "required": true,
+                            "description": "The rights group to limit results to.",
+                            "enum": [ "", "mobile", "tv", "web" ],
+                            "location": "query"
+                        }
+                    }
+                }
+            }
+        },
+        "Episodes": {
+            "methods": {
+                "Episode for a given pid.": {
+                    "path": "/:env/tviplayer/:version/episodes/:pid",
+                    "httpMethod": "GET",
+                    "description": "Get the episode for a given episode identifier.",
+                    "parameters": {
+                        ":env": {
+                            "type": "string",
+                            "default": "int",
+                            "description": "The environment the API is in.",
+                            "enum": [ "int", "test", "stage", "" ],
+                            "location": "pathReplace"
+                        },
+                        ":version": {
+                            "type": "string",
+                            "required": true,
+                            "default": "v1",
+                            "description": "The API major version.",
+                            "enum": [ "v1" ],
+                            "location": "pathReplace"
+                        },
+                        ":pid": {
+                            "type": "string",
+                            "required": true,
+                            "default": "",
+                            "description": "The programme identifier.",
+                            "location": "pathReplace"
+                        },
+                        "lang": {
+                            "type": "string",
+                            "required": false,
+                            "description": "The language for any applicable localised strings.",
+                            "enum": [ "", "en", "cy", "ga", "gd", "pi" ],
+                            "location": "query"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
