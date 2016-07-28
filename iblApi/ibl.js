@@ -332,7 +332,7 @@ const getChannelsProgrammesAvailabilityAvailable = 'availability=available';
 const getChannelsProgrammesPage = 'page';
 const getChannelsProgrammesPerPage = 'per_page';
 
-/* Get regions */
+/* Get the list of all the regions TV & iPlayer. */
 const getRegions = '/ibl/v1/regions';
 const getRegionsLang = 'lang';
 const getRegionsLangEn = 'lang=en';

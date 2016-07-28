@@ -49,7 +49,7 @@
         "summary": "Programme for a given pid.",
         "description": "Get the programme for a given programme identifier.",
         "tags": [
-          "Programmes"
+          "Programmes (TLEOs)"
         ],
         "operationId": "Get_Programmes by parent PID_",
         "produces": [
@@ -734,7 +734,7 @@
         "summary": "List all the programmes for a category.",
         "description": "Get the list of all the Programmes (TLEOs) for a given category in TV & iPlayer.",
         "tags": [
-          "Programmes"
+          "Programmes (TLEOs)"
         ],
         "operationId": "Get_Programmes by category_",
         "produces": [
@@ -1230,7 +1230,7 @@
         "summary": "List the highlights for a category.",
         "description": "Get the editorial highlights of a given category in TV & iPlayer.",
         "tags": [
-          "Programmes"
+          "Programmes (TLEOs)"
         ],
         "operationId": "Get_Highlights by category_",
         "produces": [
@@ -1296,7 +1296,7 @@
         "summary": "Get programmes by channel",
         "description": "Get programmes by channel",
         "tags": [
-          "Programmes"
+          "Programmes (TLEOs)"
         ],
         "operationId": "Get_Programmes by channel_",
         "produces": [
@@ -1375,8 +1375,8 @@
     },
     "/regions": {
       "get": {
-        "summary": "Get regions",
-        "description": "Get regions",
+        "summary": "List all regions",
+        "description": "Get the list of all the regions TV & iPlayer.",
         "tags": [
           "Regions"
         ],
@@ -1470,7 +1470,7 @@
         "summary": "Get broadcasts by channel",
         "description": "Get broadcasts by channel",
         "tags": [
-          "Programmes"
+          "Programmes (TLEOs)"
         ],
         "operationId": "Get_Broadcasts by channel_",
         "produces": [
@@ -1598,7 +1598,7 @@
         "summary": "Get programme highlights",
         "description": "Get programme highlights",
         "tags": [
-          "Programmes"
+          "Programmes (TLEOs)"
         ],
         "operationId": "Get_Programme highlights_",
         "produces": [
