@@ -68,7 +68,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -131,7 +132,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -194,7 +196,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -247,7 +250,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "page",
@@ -346,7 +350,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -412,7 +417,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -452,6 +458,7 @@
             "name": "channel",
             "in": "path",
             "required": true,
+			"description": "The channel identifier to limit results to.",
             "type": "string"
           },
           {
@@ -484,7 +491,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -524,6 +532,7 @@
             "name": "channel",
             "in": "path",
             "required": true,
+			"description": "The channel identifier to limit results to.",
             "type": "string"
           },
           {
@@ -550,7 +559,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -616,7 +626,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -694,6 +705,7 @@
             "name": "category",
             "in": "path",
             "required": true,
+			"description": "The category identifier to return results from.",
             "type": "string"
           },
           {
@@ -738,6 +750,7 @@
             "name": "category",
             "in": "path",
             "required": true,
+			"description": "The category identifier to return results from.",
             "type": "string"
           },
           {
@@ -764,7 +777,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -820,6 +834,7 @@
             "name": "category",
             "in": "path",
             "required": true,
+			"description": "The category identifier to return results from.",
             "type": "string"
           },
           {
@@ -846,7 +861,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -928,7 +944,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -1057,7 +1074,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "page",
@@ -1153,7 +1171,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "page",
@@ -1234,6 +1253,7 @@
             "name": "category",
             "in": "path",
             "required": true,
+			"description": "The category identifier to return results from.",
             "type": "string"
           },
           {
@@ -1260,7 +1280,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -1300,6 +1321,7 @@
             "name": "channel",
             "in": "path",
             "required": true,
+			"description": "The channel identifier to limit results to.",
             "type": "string"
           },
           {
@@ -1326,7 +1348,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -1475,6 +1498,7 @@
             "name": "channel",
             "in": "path",
             "required": true,
+			"description": "The channel identifier to limit results to.",
             "type": "string"
           },
           {
@@ -1501,7 +1525,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
@@ -1623,7 +1648,8 @@
 				"mobile",
 				"tv",
 				"web"
-			]
+			],
+			"default": "web"
           },
           {
             "name": "availability",
