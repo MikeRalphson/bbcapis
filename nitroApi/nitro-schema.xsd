@@ -191,6 +191,7 @@
 	<xs:element ref="title" minOccurs="0"/>
 	<xs:element ref="synopses" minOccurs="0"/>
 	<xs:element ref="uri" minOccurs="0"/>
+	<xs:element ref="caption" minOccurs="0"/>
 	<xs:element ref="advertising_allowed"/>
 	<xs:element ref="media_type" minOccurs="0"/>
 	<xs:group ref="image_link" minOccurs="0"/>
@@ -1739,4 +1740,5 @@
     </xs:choice>
   </xs:complexType>
   <xs:element name="errors" type="errors"/>
+  <xs:element name="caption" type="xs:string"/>
 </xs:schema>

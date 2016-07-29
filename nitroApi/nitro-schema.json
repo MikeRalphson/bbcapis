@@ -517,6 +517,9 @@
         "uri": {
           "$ref": "#/definitions/uri"
         },
+        "caption": {
+          "$ref": "#/definitions/caption"
+        },
         "advertising_allowed": {
           "$ref": "#/definitions/advertising_allowed"
         },
@@ -2849,6 +2852,9 @@
         }
       },
       "additionalProperties": false
+    },
+    "caption": {
+      "type": "string"
     },
     "item": {
       "type": "object",
