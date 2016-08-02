@@ -832,12 +832,8 @@ function processXsd() {
 			if (key == 'anyOf') {
 				obj["x-anyOf"] = obj["anyOf"];
 				delete obj["anyOf"];
-				if (obj.required) {
-					obj["x-originalRequired"] = obj.required;
-					delete obj.required;
-					if (obj.additionalProperties === false) {
-						obj.additionalProperties = true;
-					}
+				if (obj.additionalProperties === false) {
+					obj.additionalProperties = true;
 				}
 			}
 		});

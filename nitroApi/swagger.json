@@ -5870,13 +5870,6 @@
 					"x-anyOf": [
 						{
 							"$ref": "#/definitions/deprecationAttributes"
-						},
-						{
-							"properties": {
-								"deprecationAttributes": {
-									"$ref": "#/definitions/deprecationAttributes"
-								}
-							}
 						}
 					]
 				}
@@ -7404,9 +7397,6 @@
 						},
 						{
 							"properties": {
-								"deprecationAttributes": {
-									"$ref": "#/definitions/deprecationAttributes"
-								},
 								"pid": {
 									"$ref": "#/definitions/pid"
 								},
@@ -7428,12 +7418,12 @@
 									],
 									"additionalProperties": false
 								}
-							}
+							},
+							"required": [
+								"template_url",
+								"image"
+							]
 						}
-					],
-					"x-originalRequired": [
-						"template_url",
-						"image"
 					]
 				}
 			},

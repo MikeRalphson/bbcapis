@@ -3035,13 +3035,6 @@
           "anyOf": [
             {
               "$ref": "#/definitions/deprecationAttributes"
-            },
-            {
-              "properties": {
-                "deprecationAttributes": {
-                  "$ref": "#/definitions/deprecationAttributes"
-                }
-              }
             }
           ]
         }
@@ -4562,10 +4555,6 @@
       "properties": {
         "image": {
           "type": "object",
-          "required": [
-            "template_url",
-            "image"
-          ],
           "additionalProperties": false,
           "anyOf": [
             {
@@ -4573,9 +4562,6 @@
             },
             {
               "properties": {
-                "deprecationAttributes": {
-                  "$ref": "#/definitions/deprecationAttributes"
-                },
                 "pid": {
                   "$ref": "#/definitions/pid"
                 },
@@ -4597,7 +4583,11 @@
                   ],
                   "additionalProperties": false
                 }
-              }
+              },
+              "required": [
+                "template_url",
+                "image"
+              ]
             }
           ]
         }
