@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "x-release": "399",
+    "x-release": "400",
     "title": "BBC iPlayer Business Layer",
     "description": "The definitive iPlayer API.",
     "x-logo": {
@@ -31,8 +31,17 @@
       "type": "apiKey",
       "name": "api_key",
       "in": "query"
+    },
+    "basic": {
+      "type": "basic",
+      "description": "Used only by store purchases."
     }
   },
+  "security": [
+    {
+      "api_key": []
+    }
+  ],
   "schemes": [
     "http",
     "https"
@@ -82,6 +91,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -92,9 +102,11 @@
             "name": "initial_child_count",
             "in": "query",
             "required": true,
+            "description": "The depth to return child entities.",
             "type": "integer",
             "minimum": 1,
-            "maximum": 4
+            "maximum": 4,
+            "default": 4
           }
         ],
         "responses": {
@@ -146,6 +158,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -156,9 +169,11 @@
             "name": "initial_child_count",
             "in": "query",
             "required": true,
+            "description": "The depth to return child entities.",
             "type": "integer",
             "minimum": 1,
-            "maximum": 4
+            "maximum": 4,
+            "default": 4
           }
         ],
         "responses": {
@@ -210,6 +225,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -244,6 +260,7 @@
             "name": "letter",
             "in": "path",
             "required": true,
+            "description": "Letter to search by, a to z or the string '0-9'",
             "type": "string",
             "pattern": "[a-z](0-9)"
           },
@@ -281,15 +298,17 @@
             "in": "query",
             "required": true,
             "type": "integer",
+            "description": "The depth to return child entities.",
             "minimum": 1,
-            "maximum": 4
+            "maximum": 4,
+            "default": 4
           },
           {
             "name": "sort",
             "in": "query",
             "required": true,
-            "type": "string",
             "description": "The sort order of the results.",
+            "type": "string",
             "enum": [
               "title"
             ]
@@ -298,6 +317,7 @@
             "name": "sort_direction",
             "in": "query",
             "required": true,
+            "description": "Whether to sort ascending or descending",
             "type": "string",
             "enum": [
               "asc",
@@ -308,6 +328,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -364,6 +385,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -398,6 +420,7 @@
             "name": "q",
             "in": "query",
             "required": true,
+            "description": "The term to search for.",
             "type": "string"
           },
           {
@@ -431,6 +454,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -472,6 +496,7 @@
             "name": "date",
             "in": "path",
             "required": true,
+            "description": "The date to return the schedule for, yyyy-mm-dd format",
             "type": "string"
           },
           {
@@ -505,6 +530,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -573,6 +599,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -607,6 +634,7 @@
             "name": "q",
             "in": "query",
             "required": true,
+            "description": "The term to search for.",
             "type": "string"
           },
           {
@@ -640,6 +668,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -791,6 +820,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -875,6 +905,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -958,6 +989,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -1031,6 +1063,7 @@
             "name": "region",
             "in": "query",
             "required": false,
+            "description": "The region to get the channels for.",
             "type": "string"
           },
           {
@@ -1104,9 +1137,11 @@
             "name": "initial_child_count",
             "in": "query",
             "required": true,
+            "description": "The depth to return child entities.",
             "type": "integer",
             "minimum": 1,
-            "maximum": 4
+            "maximum": 4,
+            "default": 4
           },
           {
             "name": "sort",
@@ -1119,6 +1154,7 @@
             "name": "sort_direction",
             "in": "query",
             "required": true,
+            "description": "Whether to sort ascending or descending",
             "type": "string",
             "enum": [
               "asc",
@@ -1129,6 +1165,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -1201,9 +1238,11 @@
             "name": "initial_child_count",
             "in": "query",
             "required": true,
+            "description": "The depth to return child entities.",
             "type": "integer",
             "minimum": 1,
-            "maximum": 4
+            "maximum": 4,
+            "default": 4
           },
           {
             "name": "sort",
@@ -1216,6 +1255,7 @@
             "name": "sort_direction",
             "in": "query",
             "required": true,
+            "description": "Whether to sort ascending or descending",
             "type": "string",
             "enum": [
               "asc",
@@ -1226,6 +1266,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -1294,6 +1335,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -1362,6 +1404,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -1450,6 +1493,7 @@
             "name": "identity_cookie",
             "in": "query",
             "required": true,
+            "description": "The BBC-id cookie value",
             "type": "number",
             "format": "double"
           }
@@ -1538,6 +1582,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -1572,6 +1617,7 @@
             "name": "identity_cookie",
             "in": "query",
             "required": true,
+            "description": "The BBC-id cookie value",
             "type": "number",
             "format": "double"
           }
@@ -1584,7 +1630,11 @@
             }
           }
         },
-        "security": []
+        "security": [
+          {
+            "basic": []
+          }
+        ]
       }
     },
     "/user/recommendations": {
@@ -1603,6 +1653,7 @@
             "name": "identity_cookie",
             "in": "query",
             "required": true,
+            "description": "The BBC-id cookie value",
             "type": "number",
             "format": "double"
           }
@@ -1661,6 +1712,7 @@
             "name": "availability",
             "in": "query",
             "required": true,
+            "description": "Whether to return all, or available programmes",
             "type": "string",
             "enum": [
               "all",
@@ -3438,10 +3490,5 @@
       ],
       "additionalProperties": false
     }
-  },
-  "security": [
-    {
-      "api_key": []
-    }
-  ]
+  }
 }

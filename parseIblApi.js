@@ -76,6 +76,8 @@ else {
 	var errors = validate.errors;
 	if (errors) {
 		console.log(errors);
+		console.log('Writing swagger.err file');
+		fs.writeFileSync('./iblApi/swagger.err',JSON.stringify(base,null,2));
 	}
 	else {
 		console.log('Writing swagger spec');

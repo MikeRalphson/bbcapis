@@ -32,3 +32,4 @@ apidocs
 *.sh
 config.json
 iblApi/ibl_swagger_base.json
+iblApi/swagger.err
