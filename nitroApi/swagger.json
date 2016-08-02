@@ -5865,13 +5865,7 @@
 					"$ref": "#/definitions/referenceAttributes"
 				},
 				{
-					"type": "object",
-					"additionalProperties": true,
-					"x-anyOf": [
-						{
-							"$ref": "#/definitions/deprecationAttributes"
-						}
-					]
+					"$ref": "#/definitions/deprecationAttributes"
 				}
 			]
 		},

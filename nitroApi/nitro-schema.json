@@ -3030,13 +3030,7 @@
           "$ref": "#/definitions/referenceAttributes"
         },
         {
-          "type": "object",
-          "additionalProperties": true,
-          "anyOf": [
-            {
-              "$ref": "#/definitions/deprecationAttributes"
-            }
-          ]
+          "$ref": "#/definitions/deprecationAttributes"
         }
       ]
     },
