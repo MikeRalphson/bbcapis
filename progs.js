@@ -393,6 +393,7 @@ function processPid(pid){
 // http://www.bbc.co.uk/radio4/programmes/schedules/fm/this_week.json
 // http://www.bbc.co.uk/radio4extra/programmes/schedules/2014/11/1.json
 // http://www.bbc.co.uk/bbcfour/programmes/schedules/last_week.json
+// http://www.bbc.co.uk/radio3/programmes/schedules/2014/w12.json // by week number
 //
 // /:service/programmes/schedules/:outlet
 // /:service/programmes/schedules/{:outlet/}:year/:month/:day
