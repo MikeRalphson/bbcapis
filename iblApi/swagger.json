@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "x-release": "400",
+    "x-release": "401",
     "title": "BBC iPlayer Business Layer",
     "description": "The definitive iPlayer API.",
     "x-logo": {
@@ -96,7 +96,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           },
           {
             "name": "initial_child_count",
@@ -163,7 +164,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           },
           {
             "name": "initial_child_count",
@@ -230,6 +232,22 @@
             "enum": [
               "all",
               "available"
+            ],
+            "default": "available"
+          },
+          {
+            "name": "mixin",
+            "in": "query",
+            "required": false,
+            "description": "Request additional data in the output",
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "format": "string"
+            },
+            "enum": [
+              "live",
+              "promotions"
             ]
           }
         ],
@@ -333,7 +351,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           }
         ],
         "responses": {
@@ -390,7 +409,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           }
         ],
         "responses": {
@@ -459,7 +479,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           }
         ],
         "responses": {
@@ -535,7 +556,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           }
         ],
         "responses": {
@@ -604,6 +626,29 @@
             "enum": [
               "all",
               "available"
+            ],
+            "default": "available"
+          },
+          {
+            "name": "live",
+            "in": "query",
+            "required": false,
+            "description": "Whether to include live programmes",
+            "type": "boolean"
+          },
+          {
+            "name": "mixin",
+            "in": "query",
+            "required": false,
+            "description": "Request additional data in the output",
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "format": "string"
+            },
+            "enum": [
+              "live",
+              "promotions"
             ]
           }
         ],
@@ -673,7 +718,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           }
         ],
         "responses": {
@@ -825,7 +871,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           },
           {
             "name": "page",
@@ -910,7 +957,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           },
           {
             "name": "page",
@@ -994,7 +1042,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           },
           {
             "name": "page",
@@ -1170,6 +1219,22 @@
             "enum": [
               "all",
               "available"
+            ],
+            "default": "available"
+          },
+          {
+            "name": "mixin",
+            "in": "query",
+            "required": false,
+            "description": "Request additional data in the output",
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "format": "string"
+            },
+            "enum": [
+              "live",
+              "promotions"
             ]
           }
         ],
@@ -1271,7 +1336,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           }
         ],
         "responses": {
@@ -1340,6 +1406,22 @@
             "enum": [
               "all",
               "available"
+            ],
+            "default": "available"
+          },
+          {
+            "name": "mixin",
+            "in": "query",
+            "required": false,
+            "description": "Request additional data in the output",
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "format": "string"
+            },
+            "enum": [
+              "live",
+              "promotions"
             ]
           }
         ],
@@ -1409,7 +1491,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           },
           {
             "name": "page",
@@ -1587,7 +1670,8 @@
             "enum": [
               "all",
               "available"
-            ]
+            ],
+            "default": "available"
           }
         ],
         "responses": {
@@ -1717,6 +1801,22 @@
             "enum": [
               "all",
               "available"
+            ],
+            "default": "available"
+          },
+          {
+            "name": "mixin",
+            "in": "query",
+            "required": false,
+            "description": "Request additional data in the output",
+            "type": "array",
+            "collectionFormat": "multi",
+            "items": {
+              "format": "string"
+            },
+            "enum": [
+              "live",
+              "promotions"
             ]
           }
         ],

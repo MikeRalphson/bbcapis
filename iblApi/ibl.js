@@ -42,6 +42,9 @@ const getEpisodesRightsWeb = 'rights=web';
 const getEpisodesAvailability = 'availability';
 const getEpisodesAvailabilityAll = 'availability=all';
 const getEpisodesAvailabilityAvailable = 'availability=available';
+const getEpisodesMixin = 'mixin';
+const getEpisodesMixinLive = 'mixin=live';
+const getEpisodesMixinPromotions = 'mixin=promotions';
 
 /* Get the Programmes whose title begins with the given initial character. */
 function getAtozProgrammes(letter){
@@ -136,6 +139,10 @@ const getChannelsHighlightsRightsWeb = 'rights=web';
 const getChannelsHighlightsAvailability = 'availability';
 const getChannelsHighlightsAvailabilityAll = 'availability=all';
 const getChannelsHighlightsAvailabilityAvailable = 'availability=available';
+const getChannelsHighlightsLive = 'live';
+const getChannelsHighlightsMixin = 'mixin';
+const getChannelsHighlightsMixinLive = 'mixin=live';
+const getChannelsHighlightsMixinPromotions = 'mixin=promotions';
 
 /* Search */
 const getSearch = '/ibl/v1/search';
@@ -268,6 +275,9 @@ const getGroupsPopularEpisodesSortDirectionDesc = 'sort_direction=desc';
 const getGroupsPopularEpisodesAvailability = 'availability';
 const getGroupsPopularEpisodesAvailabilityAll = 'availability=all';
 const getGroupsPopularEpisodesAvailabilityAvailable = 'availability=available';
+const getGroupsPopularEpisodesMixin = 'mixin';
+const getGroupsPopularEpisodesMixinLive = 'mixin=live';
+const getGroupsPopularEpisodesMixinPromotions = 'mixin=promotions';
 
 /* Get episodes by group, brand or series */
 function getGroupsEpisodes(pid){
@@ -309,6 +319,9 @@ const getCategoriesHighlightsRightsWeb = 'rights=web';
 const getCategoriesHighlightsAvailability = 'availability';
 const getCategoriesHighlightsAvailabilityAll = 'availability=all';
 const getCategoriesHighlightsAvailabilityAvailable = 'availability=available';
+const getCategoriesHighlightsMixin = 'mixin';
+const getCategoriesHighlightsMixinLive = 'mixin=live';
+const getCategoriesHighlightsMixinPromotions = 'mixin=promotions';
 
 /* Get programmes by channel */
 function getChannelsProgrammes(channel){
@@ -391,6 +404,9 @@ const getHomeHighlightsRightsWeb = 'rights=web';
 const getHomeHighlightsAvailability = 'availability';
 const getHomeHighlightsAvailabilityAll = 'availability=all';
 const getHomeHighlightsAvailabilityAvailable = 'availability=available';
+const getHomeHighlightsMixin = 'mixin';
+const getHomeHighlightsMixinLive = 'mixin=live';
+const getHomeHighlightsMixinPromotions = 'mixin=promotions';
 
 module.exports = {
   getProgrammes : getProgrammes,
