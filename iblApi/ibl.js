@@ -299,6 +299,9 @@ const getGroupsEpisodesSortDirectionDesc = 'sort_direction=desc';
 const getGroupsEpisodesAvailability = 'availability';
 const getGroupsEpisodesAvailabilityAll = 'availability=all';
 const getGroupsEpisodesAvailabilityAvailable = 'availability=available';
+const getGroupsEpisodesMixin = 'mixin';
+const getGroupsEpisodesMixinLive = 'mixin=live';
+const getGroupsEpisodesMixinPromotions = 'mixin=promotions';
 
 /* Get the editorial highlights of a given category in TV & iPlayer. */
 function getCategoriesHighlights(category){
