@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0",
-    "x-release": "401",
+    "x-release": "405",
     "title": "BBC iPlayer Business Layer",
     "description": "The definitive iPlayer API.",
     "x-logo": {
@@ -2377,6 +2377,21 @@
         },
         "category": {
           "$ref": "#/definitions/category"
+        },
+        "trailers": {
+          "type": "object",
+          "properties": {
+            "elements": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/clip"
+              }
+            }
+          },
+          "required": [
+            "elements"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
@@ -3602,6 +3617,257 @@
         "download",
         "duration",
         "kind"
+      ],
+      "additionalProperties": false
+    },
+    "clip": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "clip"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "images": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "image"
+              ]
+            },
+            "standard": {
+              "type": "string"
+            },
+            "inherited_from": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "standard"
+          ],
+          "additionalProperties": false
+        },
+        "tleo_id": {
+          "type": "string"
+        },
+        "synopses": {
+          "type": "object",
+          "properties": {
+            "small": {
+              "type": "string"
+            },
+            "medium": {
+              "type": "string"
+            },
+            "large": {
+              "type": "string"
+            },
+            "editorial": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "versions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "version",
+                  "version_large"
+                ]
+              },
+              "hd": {
+                "type": "boolean"
+              },
+              "download": {
+                "type": "boolean"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "text",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "rrc": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "object",
+                    "properties": {
+                      "small": {
+                        "type": "string"
+                      },
+                      "large": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "small",
+                      "large"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "description"
+                ],
+                "additionalProperties": false
+              },
+              "guidance": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "object",
+                    "properties": {
+                      "small": {
+                        "type": "string"
+                      },
+                      "medium": {
+                        "type": "string"
+                      },
+                      "large": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "id"
+                ],
+                "additionalProperties": false
+              },
+              "first_broadcast": {
+                "type": "string"
+              },
+              "credits_start": {
+                "type": "number"
+              },
+              "service_id": {
+                "type": "string"
+              },
+              "availability": {
+                "type": "object",
+                "properties": {
+                  "start": {
+                    "type": "string"
+                  },
+                  "end": {
+                    "type": "string"
+                  },
+                  "remaining": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "text"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "start"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "id",
+              "type",
+              "hd",
+              "download",
+              "duration",
+              "kind",
+              "availability"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "tleo_type": {
+          "enum": [
+            "episode",
+            "brand",
+            "series"
+          ]
+        },
+        "labels": {
+          "type": "object",
+          "properties": {
+            "editorial": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "master_brand": {
+          "$ref": "#/definitions/master_brand"
+        },
+        "promotion_type": {
+          "enum": [
+            "available_now",
+            "coming_soon"
+          ]
+        },
+        "onward_journey": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "enum": [
+                "episode"
+              ]
+            },
+            "id": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "title",
+        "images",
+        "tleo_id",
+        "synopses",
+        "versions",
+        "master_brand"
       ],
       "additionalProperties": false
     }
