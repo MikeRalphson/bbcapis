@@ -6,6 +6,7 @@ Nitro SDK (can also be used with other recent BBC APIs)
 
 var http = require('http');
 var https = require('https');
+var url = require('url');
 var util = require('util');
 
 var debuglog = util.debuglog('bbc');
