@@ -85,6 +85,17 @@ function nitroRawPromotion(pid, version) {
 	return '/nitro/api/v'+version+'/promotions/'+pid;
 }
 
+function hasHeader(header, headers) {
+	// snaffled from request module
+	var headers = Object.keys(headers || this.headers),
+		lheaders = headers.map(function (h) {return h.toLowerCase();});
+	header = header.toLowerCase();
+	for (var i=0;i<lheaders.length;i++) {
+		if (lheaders[i] === header) return headers[i];
+	}
+	return false;
+}
+
 function makeRequest(host,path,key,query,settings,callback){
 	inFlight++;
 	debuglog(host+path+(key ? '?K' : '')+query.querystring);
@@ -133,7 +144,7 @@ function makeRequest(host,path,key,query,settings,callback){
 			var locUrl = url.parse(location);
 			path = locUrl.pathname;
 			host = locUrl.host;
-			make_request(host,path,key,query,settings,callback);
+			makeRequest(host,path,key,query,settings,callback);
 		}
 		else if (res.statusCode >= 400 && res.statusCode < 600) {
 			inFlight--;
@@ -256,16 +267,7 @@ module.exports = {
 		log_error(error,res,query);
 	},
 
-	hasHeader : function (header, headers) {
-		// snaffled from request module
-		var headers = Object.keys(headers || this.headers),
-			lheaders = headers.map(function (h) {return h.toLowerCase();});
-		header = header.toLowerCase();
-		for (var i=0;i<lheaders.length;i++) {
-			if (lheaders[i] === header) return headers[i];
-		}
-		return false;
-	},
+	hasHeader : hasHeader,
 
 	make_request : function(host,path,key,query,settings,callback) {
 		makeRequest(host,path,key,query,settings,callback);
