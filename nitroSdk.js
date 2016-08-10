@@ -113,7 +113,7 @@ function makeRequest(host,path,key,query,settings,callback){
 
 	var qs = query.querystring;
 	if (key) {
-		qs = '?' + settings.api_key_name + '=' + key + qs;
+		qs = '?' + settings.api_key_name + '=' + encodeURIComponent(key) + qs;
 	}
 
 	var options = {
