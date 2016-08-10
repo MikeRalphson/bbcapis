@@ -105,7 +105,7 @@ function makeRequest(host,path,key,query,settings,callback){
 		User_Agent: 'BBCiPlayerRadio/1.6.1.1522345 (SM-N900; Android 4.4.2)',
 		api_key_name: 'api_key',
 		proto: 'http',
-		port: 80,
+		port: null,
 		payload: {}
 	}
 
