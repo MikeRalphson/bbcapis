@@ -96,7 +96,7 @@ function hasHeader(header, headers) {
 	return false;
 }
 
-function makeRequest(host,path,key,query,settings,callback){
+function makeRequest(host,path,key,query,settings,callback,err){
 	inFlight++;
 	debuglog(host+path+(key ? '?K' : '')+query.querystring);
 
@@ -106,6 +106,7 @@ function makeRequest(host,path,key,query,settings,callback){
 		api_key_name: 'api_key',
 		proto: 'http',
 		port: null,
+		backoff : 31000,
 		payload: {}
 	}
 
@@ -137,17 +138,16 @@ function makeRequest(host,path,key,query,settings,callback){
 		   list += data;
 	  });
 	  res.on('end', function() {
+		inFlight--;
 		if (res.statusCode >= 300 && res.statusCode < 400 && hasHeader('location', res.headers)) {
-			inFlight--;
 			// handle redirects, as per request module
 			var location = res.headers[hasHeader('location', res.headers)];
 			var locUrl = url.parse(location);
-			path = locUrl.pathname;
 			host = locUrl.host;
-			makeRequest(host,path,key,query,settings,callback);
+			path = locUrl.pathname;
+			makeRequest(host,path,key,query,settings,callback,err);
 		}
 		else if (res.statusCode >= 400 && res.statusCode < 600) {
-			inFlight--;
 			if (list) {
 				try {
 					if (json) {
@@ -156,16 +156,20 @@ function makeRequest(host,path,key,query,settings,callback){
 					else {
 						obj = list;
 					}
+
+					if (typeof err !== 'undefined') err(res.statusCode,obj);
+
 					if (json && obj.fault) {
+						// process Apigee rate-limiting
 						if (obj.fault.detail && obj.fault.detail.errorcode) {
 							if (obj.fault.detail.errorcode == 'policies.ratelimit.QuotaViolation') {
 								rateLimitEvents++;
-								// rate limiting, back off by 45 seconds
+								// rate limiting, back off by configured amount
 								stacked++;
 								setTimeout(function(){
 									stacked--;
 									makeRequest(host,path,key,query,settings,callback)
-								},31000);
+								},settings.backoff);
 							}
 							else {
 								log_fault(obj,res,query); // rate limits leak keys in error messages
@@ -177,18 +181,18 @@ function makeRequest(host,path,key,query,settings,callback){
 					}
 					else {
 						log_error(null,res,query);
-						console.log('Unknown response object');
-						console.log(JSON.stringify(obj));
 					}
 				}
-				catch (err) {
-					console.log(err);
+				catch (e) {
+					if (typeof err !== 'undefined') err(res.statusCode,list);
+					console.log(e);
 					console.log('Invalid JSON received:');
 					console.log(list);
 				}
 			}
 			else {
-				log_fault(null,res,query);
+				if (typeof err !== 'undefined') err(res.statusCode,null);
+				log_error(null,res,query);
 			}
 		}
 		else try {
@@ -199,21 +203,20 @@ function makeRequest(host,path,key,query,settings,callback){
 				obj = list;
 			}
 			var result = callback(obj,settings.payload);
-			inFlight--;
 			if (dest.callback) {
 				// call the callback's next required destination
 				// e.g. second and subsequent pages
 				if (dest.path) {
-					makeRequest(host,dest.path,key,dest.query,settings,dest.callback);
+					makeRequest(host,dest.path,key,dest.query,settings,dest.callback,dest.err);
 				}
 				else {
 					dest.callback({},settings.payload);
 				}
 			}
 		}
-		catch(err) {
+		catch (e) {
 			console.log('Something went wrong parsing the response JSON');
-			console.log(err);
+			console.log(e);
 			console.log(res.statusCode+' '+res.statusMessage);
 			console.log(res.headers);
 			debuglog('** '+list);
@@ -235,8 +238,8 @@ function log_fault(fault,res,query) {
 		}
 	}
 	*/
-	if (res) console.log(res.statusCode+' '+res.statusMessage);
-	if (query) console.log(query.querystring);
+	if (res) console.log('Fault: '+res.statusCode+' '+res.statusMessage);
+	if (query && query.toString()) console.log(query.querystring);
 	if (fault) console.log(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
 }
 
@@ -244,8 +247,8 @@ function log_error(error,res,query) {
 	/*
 	{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
 	*/
-	if (res) console.log(res.statusCode+' '+res.statusMessage);
-	if (query) console.log(query.querystring);
+	if (res) console.log('Error: '+res.statusCode+' '+res.statusMessage);
+	if (query && query.toString()) console.log(query.querystring);
 	if (error) console.log(error.errors.error.code+': '+error.errors.error.message);
 }
 
@@ -269,8 +272,8 @@ module.exports = {
 
 	hasHeader : hasHeader,
 
-	make_request : function(host,path,key,query,settings,callback) {
-		makeRequest(host,path,key,query,settings,callback);
+	make_request : function(host,path,key,query,settings,callback,err) {
+		makeRequest(host,path,key,query,settings,callback,err);
 	},
 
 	ping : function(host,key,settings,callback) {
