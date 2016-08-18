@@ -2998,6 +2998,9 @@
 				"pid": {
 					"$ref": "#/definitions/pid"
 				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
 				"partner": {
 					"$ref": "#/definitions/partner"
 				},
@@ -3056,6 +3059,9 @@
 			"properties": {
 				"pid": {
 					"$ref": "#/definitions/pid"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
 				},
 				"partner": {
 					"$ref": "#/definitions/partner"
@@ -3134,6 +3140,9 @@
 			"properties": {
 				"pid": {
 					"$ref": "#/definitions/pid"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
 				},
 				"partner": {
 					"$ref": "#/definitions/partner"
@@ -3221,6 +3230,9 @@
 			"properties": {
 				"pid": {
 					"$ref": "#/definitions/pid"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
 				},
 				"partner": {
 					"$ref": "#/definitions/partner"
@@ -3334,6 +3346,9 @@
 				"pid": {
 					"$ref": "#/definitions/pid"
 				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
 				"partner": {
 					"$ref": "#/definitions/partner"
 				},
@@ -3440,6 +3455,9 @@
 				"pid": {
 					"$ref": "#/definitions/pid"
 				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
 				"partner": {
 					"$ref": "#/definitions/partner"
 				},
@@ -3504,6 +3522,9 @@
 				"pid": {
 					"$ref": "#/definitions/pid"
 				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
 				"partner": {
 					"$ref": "#/definitions/partner"
 				},
@@ -3558,6 +3579,9 @@
 			"properties": {
 				"sid": {
 					"$ref": "#/definitions/sid"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
 				},
 				"ids": {
 					"$ref": "#/definitions/ids"
@@ -3833,6 +3857,9 @@
 				"pid": {
 					"$ref": "#/definitions/pid"
 				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
 				"partner": {
 					"$ref": "#/definitions/partner"
 				},
@@ -3915,6 +3942,9 @@
 			"properties": {
 				"mid": {
 					"$ref": "#/definitions/mid"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
 				},
 				"partner": {
 					"$ref": "#/definitions/partner"
@@ -4619,6 +4649,37 @@
 			"additionalProperties": false
 		},
 		"id": {
+			"type": "object",
+			"properties": {
+				"#text": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				},
+				"authority": {
+					"type": "string"
+				}
+			},
+			"additionalProperties": false
+		},
+		"identifiers": {
+			"type": "object",
+			"properties": {
+				"identifier": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"$ref": "#/definitions/identifier"
+					}
+				}
+			},
+			"required": [
+				"identifier"
+			],
+			"additionalProperties": false
+		},
+		"identifier": {
 			"type": "object",
 			"properties": {
 				"#text": {
@@ -5510,6 +5571,9 @@
 				"pid": {
 					"$ref": "#/definitions/pid"
 				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
+				},
 				"embargoed": {
 					"$ref": "#/definitions/embargoed"
 				},
@@ -5696,6 +5760,9 @@
 			"properties": {
 				"pid": {
 					"$ref": "#/definitions/pid"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
 				},
 				"partner": {
 					"$ref": "#/definitions/partner"
@@ -5925,6 +5992,9 @@
 			"properties": {
 				"pid": {
 					"$ref": "#/definitions/pid"
+				},
+				"identifiers": {
+					"$ref": "#/definitions/identifiers"
 				},
 				"embargoed": {
 					"$ref": "#/definitions/embargoed"
@@ -6957,6 +7027,9 @@
 						"ids": {
 							"$ref": "#/definitions/ids"
 						},
+						"identifiers": {
+							"$ref": "#/definitions/identifiers"
+						},
 						"aspect_ratio": {
 							"type": "string"
 						},
@@ -6990,6 +7063,9 @@
 								},
 								"ids": {
 									"$ref": "#/definitions/ids"
+								},
+								"identifiers": {
+									"$ref": "#/definitions/identifiers"
 								},
 								"aspect_ratio": {
 									"type": "string"
