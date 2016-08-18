@@ -416,6 +416,19 @@ function processPid(pid){
 // http://www.bbc.co.uk/programmes/genres/comedy/player/episodes.json[?page=n]
 // http://www.bbc.co.uk/tv/programmes/genres/drama/scifiandfantasy/schedules/upcoming.json[?page=n]
 
+// http://bbc.co.uk/programmes/genres/sport/athletics/schedules/upcoming.ics
+// Upcoming episodes of Eastenders
+// http://bbc.co.uk/programmes/b006m86d/episodes/upcoming.ics
+// Upcoming (New) episodes of Eastenders
+// http://bbc.co.uk/programmes/b006m86d/episodes/upcoming/debut.ics
+// http://bbc.co.uk/programmes/b006m86d/episodes/upcoming/debut.json
+// Episodes of Eastenders available to watch again
+// http://bbc.co.uk/programmes/b006m86d/episodes/player.ics
+
+// http://www.bbc.co.uk/programmes/topics.json
+// http://www.bbc.co.uk/programmes/topics/alice_roberts.json
+// http://www.bbc.co.uk/programmes/topics/bill_pertwee/player.json
+
 // programmes/:id/credits /broadcasts
 
 // APS = Automatic Programme System (https://www.whatdotheyknow.com/request/all_correspondence_meeting_minut)
