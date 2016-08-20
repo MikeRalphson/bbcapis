@@ -548,6 +548,13 @@
         "elements"
       ],
       "additionalProperties": false
+    },
+    "clips": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/clip"
+      },
+      "maxItems": 1
     }
   },
   "required": [
