@@ -105,6 +105,23 @@ const getEpisodesPrerollsAvailability = 'availability';
 const getEpisodesPrerollsAvailabilityAll = 'availability=all';
 const getEpisodesPrerollsAvailabilityAvailable = 'availability=available';
 
+/* Get Clips */
+function getClips(pid){
+  var p = '/ibl/v1/clips/{pid}';
+  p = p.replace('{pid}',pid);
+  return p;
+}
+/* The programme identifier. */
+/* The rights group to limit results to. */
+const getClipsRights = 'rights';
+const getClipsRightsMobile = 'rights=mobile';
+const getClipsRightsTv = 'rights=tv';
+const getClipsRightsWeb = 'rights=web';
+/* Whether to return all, or available programmes */
+const getClipsAvailability = 'availability';
+const getClipsAvailabilityAll = 'availability=all';
+const getClipsAvailabilityAvailable = 'availability=available';
+
 /* Search-suggest */
 const getSearchSuggest = '/ibl/v1/search-suggest';
 /* The term to search for. */
@@ -522,6 +539,7 @@ module.exports = {
   getEpisodes : getEpisodes,
   getAtozProgrammes : getAtozProgrammes,
   getEpisodesPrerolls : getEpisodesPrerolls,
+  getClips : getClips,
   getSearchSuggest : getSearchSuggest,
   getChannelsSchedule : getChannelsSchedule,
   getChannelsHighlights : getChannelsHighlights,
