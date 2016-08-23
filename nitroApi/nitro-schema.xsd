@@ -494,7 +494,6 @@
 		  <xs:element name="media_availability_end" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
 		  <xs:element name="accurate_start" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
 		  <xs:element name="accurate_end" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
-		  <xs:group ref="available_versions_services" minOccurs="0" maxOccurs="1"/>
 		  <xs:group ref="available_versions_media_sets"/>
 		</xs:sequence>
 		<xs:attribute name="status" type="xs:string"/>
@@ -566,21 +565,6 @@
 		  <xs:element name="actual_start" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
 		  <xs:element name="name" minOccurs="1" maxOccurs="1" type="xs:string"/>
 		</xs:sequence>
-	      </xs:complexType>
-	    </xs:element>
-	  </xs:sequence>
-	</xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:group>
-  <xs:group name="available_versions_services">
-    <xs:sequence>
-      <xs:element name="services" minOccurs="0" maxOccurs="1">
-	<xs:complexType>
-	  <xs:sequence>
-	    <xs:element name="service" maxOccurs="unbounded">
-	      <xs:complexType>
-		<xs:attribute name="sid" type="xs:string"/>
 	      </xs:complexType>
 	    </xs:element>
 	  </xs:sequence>
