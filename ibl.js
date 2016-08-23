@@ -118,7 +118,7 @@ function showProgrammesForCategory(cat) {
 
 	query.add(ibl.getCategoriesProgrammesRightsWeb);
 	query.add(ibl.getCategoriesProgrammesAvailabilityAvailable);
-	query.add(ibl.getCategoriesProgrammes.PerPage,20);
+	query.add(ibl.getCategoriesProgrammesPerPage,20);
 	let options = {};
 	nitro.make_request(ibl.host,ibl.getCategoriesProgrammes(cat),ibl_key,query,options,function(obj){
 		dumpProgrammes(obj);
