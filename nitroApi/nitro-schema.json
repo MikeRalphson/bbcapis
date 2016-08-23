@@ -3727,9 +3727,6 @@
                   "payment_type": {
                     "type": "string"
                   },
-                  "available_versions_services": {
-                    "$ref": "#/definitions/available_versions_services"
-                  },
                   "available_versions_media_sets": {
                     "$ref": "#/definitions/available_versions_media_sets"
                   }
@@ -3784,9 +3781,6 @@
                       },
                       "payment_type": {
                         "type": "string"
-                      },
-                      "available_versions_services": {
-                        "$ref": "#/definitions/available_versions_services"
                       },
                       "available_versions_media_sets": {
                         "$ref": "#/definitions/available_versions_media_sets"
@@ -4040,56 +4034,6 @@
           },
           "required": [
             "media_set"
-          ],
-          "additionalProperties": false
-        }
-      },
-      "additionalProperties": false
-    },
-    "available_versions_services": {
-      "type": "object",
-      "properties": {
-        "services": {
-          "type": "object",
-          "properties": {
-            "service": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "type": "object",
-                "properties": {
-                  "sid": {
-                    "type": "string"
-                  },
-                  "services": {
-                    "type": "object",
-                    "properties": {
-                      "service": {
-                        "type": "array",
-                        "minItems": 1,
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "sid": {
-                              "type": "string"
-                            }
-                          },
-                          "additionalProperties": false
-                        }
-                      }
-                    },
-                    "required": [
-                      "service"
-                    ],
-                    "additionalProperties": false
-                  }
-                },
-                "additionalProperties": false
-              }
-            }
-          },
-          "required": [
-            "service"
           ],
           "additionalProperties": false
         }
