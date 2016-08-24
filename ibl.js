@@ -26,14 +26,14 @@ function showCategories() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/categories?lang=en&api_key=APIKEY
 	//http://ibl.api.bbci.co.uk/ibl/v1/categories/drama-and-soaps?lang=en&api_key=APIKEY
 	var query = nitro.newQuery();
-	query.add(ibl.getCategoriesLangEn);
+	query.add(ibl.commonLangEn);
 	nitro.make_request(ibl.host,ibl.getCategories,ibl_key,query,{},function(obj){
 		console.log();
 		for (var i in obj.categories) {
 			var cat = obj.categories[i];
 			console.log(cat.id+' '+cat.title+' '+cat.kind);
 			var sQuery = nitro.newQuery();
-			sQuery.add(ibl.getCategories2LangEn);
+			sQuery.add(ibl.commonLangEn);
 			//console.log(cat);
 			nitro.make_request(ibl.host,ibl.getCategories2(cat.id),ibl_key,sQuery,{},function(obj){
 				for (var sc in obj.category.sub_categories) {
@@ -53,7 +53,7 @@ function showCategories() {
 function showChannels() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/channels?lang=en&api_key=APIKEY
 	var query = nitro.newQuery();
-	query.add(ibl.getChannelsLangEn);
+	query.add(ibl.commonLangEn);
 	nitro.make_request(ibl.host,ibl.getChannels,ibl_key,query,{},function(obj){
 		console.log(JSON.stringify(obj,null,2));
 		for (var i in obj.channels) {
@@ -68,7 +68,7 @@ function showChannels() {
 function showRegions() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/regions?lang=en&api_key=APIKEY
 	var query = nitro.newQuery();
-	query.add(ibl.getRegionsLangEn);
+	query.add(ibl.commonLangEn);
 	nitro.make_request(ibl.host,ibl.getRegions,ibl_key,query,{},function(obj){
 		console.log();
 		for (var i in obj.regions) {
@@ -83,8 +83,8 @@ function showRegions() {
 function showChildren(pid) {
 	// http://ibl.api.bbci.co.uk/ibl/v1/episodes/b04nv6kr?rights=mobile&availability=available&api_key=APIKEY
 	var query = nitro.newQuery();
-	query.add(ibl.getProgrammesRightsWeb);
-	query.add(ibl.getProgrammesAvailabilityAvailable);
+	query.add(ibl.commonRightsWeb);
+	query.add(ibl.commonAvailabilityAvailable);
 	nitro.make_request(ibl.host,ibl.getProgrammes(pid),ibl_key,query,{},function(obj){
 		for (var i in obj.programmes) {
 			var p = obj.programmes[i];
@@ -116,9 +116,9 @@ function showProgrammesForCategory(cat) {
 	// http://ibl.api.bbci.co.uk/ibl/v1/categories/CAT/programmes?rights=mobile&availability=available&api_key=APIKEY
 	var query = nitro.newQuery();
 
-	query.add(ibl.getCategoriesProgrammesRightsWeb);
-	query.add(ibl.getCategoriesProgrammesAvailabilityAvailable);
-	query.add(ibl.getCategoriesProgrammesPerPage,20);
+	query.add(ibl.commonRightsWeb);
+	query.add(ibl.commonAvailabilityAvailable);
+	query.add(ibl.commonPerPage,20);
 	let options = {};
 	nitro.make_request(ibl.host,ibl.getCategoriesProgrammes(cat),ibl_key,query,options,function(obj){
 		dumpProgrammes(obj);
@@ -132,7 +132,7 @@ function showProgrammesForCategory(cat) {
 			var nQuery = query.clone();
 			pageNo++;
 			count = count + 20;
-			nQuery.add(ibl.getCategoriesProgrammesPage,pageNo);
+			nQuery.add(ibl.commonPage,pageNo);
 			nitro.make_request(ibl.host,ibl.getCategoriesProgrammes(cat),ibl_key,nQuery,options,function(obj){
 				dumpProgrammes(obj);
 			});
