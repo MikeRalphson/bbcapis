@@ -61,53 +61,18 @@
           "Programmes (TLEOs)"
         ],
         "operationId": "Get_Programmes by parent PID_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "pid",
-            "in": "path",
-            "required": true,
-            "description": "The programme identifier.",
-            "type": "string",
-            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
-            "minLength": 8
+            "$ref": "#/parameters/pid"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "description": "The rights group to limit results to.",
-            "type": "string",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "initial_child_count",
-            "in": "query",
-            "required": true,
-            "description": "The depth to return child entities.",
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 4,
-            "default": 4
+            "$ref": "#/parameters/initial_child_count"
           }
         ],
         "responses": {
@@ -129,53 +94,18 @@
           "Episodes"
         ],
         "operationId": "Get_Episodes by parent PID_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "pid",
-            "in": "path",
-            "required": true,
-            "description": "The programme identifier.",
-            "type": "string",
-            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
-            "minLength": 8
+            "$ref": "#/parameters/pid"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "description": "The rights group to limit results to.",
-            "type": "string",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "initial_child_count",
-            "in": "query",
-            "required": true,
-            "description": "The depth to return child entities.",
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 4,
-            "default": 4
+            "$ref": "#/parameters/initial_child_count"
           }
         ],
         "responses": {
@@ -197,58 +127,18 @@
           "Episodes"
         ],
         "operationId": "Get_Programme by PID_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "pid",
-            "in": "path",
-            "required": true,
-            "description": "The programme identifier.",
-            "type": "string",
-            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
-            "minLength": 8
+            "$ref": "#/parameters/pid"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "description": "The rights group to limit results to.",
-            "type": "string",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "mixin",
-            "in": "query",
-            "required": false,
-            "description": "Request additional data in the output",
-            "type": "array",
-            "collectionFormat": "multi",
-            "items": {
-              "format": "string"
-            },
-            "enum": [
-              "live",
-              "promotions"
-            ]
+            "$ref": "#/parameters/mixin"
           }
         ],
         "responses": {
@@ -270,9 +160,6 @@
           "A to Z"
         ],
         "operationId": "Get_Programmes AtoZ search_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "letter",
@@ -283,43 +170,16 @@
             "pattern": "[a-z](0-9)"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "description": "The rights group to limit results to.",
-            "type": "string",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "description": "The page index.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/page"
           },
           {
-            "name": "per_page",
-            "in": "query",
-            "required": true,
-            "description": "The number of results to return.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/per_page"
           },
           {
-            "name": "initial_child_count",
-            "in": "query",
-            "required": true,
-            "type": "integer",
-            "description": "The depth to return child entities.",
-            "minimum": 1,
-            "maximum": 4,
-            "default": 4
+            "$ref": "#/parameters/initial_child_count"
           },
           {
             "name": "sort",
@@ -332,27 +192,10 @@
             ]
           },
           {
-            "name": "sort_direction",
-            "in": "query",
-            "required": true,
-            "description": "Whether to sort ascending or descending",
-            "type": "string",
-            "enum": [
-              "asc",
-              "desc"
-            ]
+            "$ref": "#/parameters/sort_direction"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           }
         ],
         "responses": {
@@ -374,43 +217,15 @@
           "Episodes"
         ],
         "operationId": "Get_Trailers (pre-rolls)_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "pid",
-            "in": "path",
-            "required": true,
-            "description": "The programme identifier.",
-            "type": "string",
-            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
-            "minLength": 8
+            "$ref": "#/parameters/pid"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "description": "The rights group to limit results to.",
-            "type": "string",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           }
         ],
         "responses": {
@@ -432,43 +247,15 @@
           "Episodes"
         ],
         "operationId": "Get_Clips_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "pid",
-            "in": "path",
-            "required": true,
-            "description": "The programme identifier.",
-            "type": "string",
-            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
-            "minLength": 8
+            "$ref": "#/parameters/pid"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "description": "The rights group to limit results to.",
-            "type": "string",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           }
         ],
         "responses": {
@@ -490,55 +277,18 @@
           "Search"
         ],
         "operationId": "Search-suggest_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "q",
-            "in": "query",
-            "required": true,
-            "description": "The term to search for.",
-            "type": "string"
+            "$ref": "#/parameters/q"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "description": "The rights group to limit results to.",
-            "type": "string",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           }
         ],
         "responses": {
@@ -560,16 +310,9 @@
           "Channels"
         ],
         "operationId": "Get_Schedule by channel_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "channel",
-            "in": "path",
-            "required": true,
-            "description": "The channel identifier to limit results to.",
-            "type": "string"
+            "$ref": "#/parameters/channel"
           },
           {
             "name": "date",
@@ -579,43 +322,13 @@
             "type": "string"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "description": "The rights group to limit results to.",
-            "type": "string",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           }
         ],
         "responses": {
@@ -637,55 +350,18 @@
           "Channels"
         ],
         "operationId": "Get_Highlights by channel_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "channel",
-            "in": "path",
-            "required": true,
-            "description": "The channel identifier to limit results to.",
-            "type": "string"
+            "$ref": "#/parameters/channel"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "description": "The rights group to limit results to.",
-            "type": "string",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
             "name": "live",
@@ -695,19 +371,7 @@
             "type": "boolean"
           },
           {
-            "name": "mixin",
-            "in": "query",
-            "required": false,
-            "description": "Request additional data in the output",
-            "type": "array",
-            "collectionFormat": "multi",
-            "items": {
-              "format": "string"
-            },
-            "enum": [
-              "live",
-              "promotions"
-            ]
+            "$ref": "#/parameters/mixin"
           }
         ],
         "responses": {
@@ -729,55 +393,18 @@
           "Search"
         ],
         "operationId": "Search_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "q",
-            "in": "query",
-            "required": true,
-            "description": "The term to search for.",
-            "type": "string"
+            "$ref": "#/parameters/q"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           }
         ],
         "responses": {
@@ -799,23 +426,9 @@
           "Categories"
         ],
         "operationId": "Get_Categories_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           }
         ],
         "responses": {
@@ -837,30 +450,12 @@
           "Categories"
         ],
         "operationId": "Get_Sub-categories_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "category",
-            "in": "path",
-            "required": true,
-            "description": "The category identifier to return results from.",
-            "type": "string"
+            "$ref": "#/parameters/category"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           }
         ],
         "responses": {
@@ -882,71 +477,24 @@
           "Programmes (TLEOs)"
         ],
         "operationId": "Get_Programmes by category_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "category",
-            "in": "path",
-            "required": true,
-            "description": "The category identifier to return results from.",
-            "type": "string"
+            "$ref": "#/parameters/category"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "description": "The page index.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/page"
           },
           {
-            "name": "per_page",
-            "in": "query",
-            "required": true,
-            "description": "The number of results to return.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/per_page"
           }
         ],
         "responses": {
@@ -968,71 +516,24 @@
           "Episodes"
         ],
         "operationId": "Get_Episodes by category_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "category",
-            "in": "path",
-            "required": true,
-            "description": "The category identifier to return results from.",
-            "type": "string"
+            "$ref": "#/parameters/category"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "description": "The page index.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/page"
           },
           {
-            "name": "per_page",
-            "in": "query",
-            "required": true,
-            "description": "The number of results to return.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/per_page"
           },
           {
             "name": "sort",
@@ -1065,59 +566,21 @@
           "Episodes"
         ],
         "operationId": "Get_Programme recommendations_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "pid",
-            "in": "path",
-            "required": true,
-            "description": "The programme identifier.",
-            "type": "string",
-            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
-            "minLength": 8
+            "$ref": "#/parameters/pid"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "description": "The page index.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/page"
           },
           {
-            "name": "per_page",
-            "in": "query",
-            "required": true,
-            "description": "The number of results to return.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/per_page"
           }
         ],
         "responses": {
@@ -1139,9 +602,6 @@
           "Metadata"
         ],
         "operationId": "Get_Status_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -1162,9 +622,6 @@
           "Channels"
         ],
         "operationId": "Get_Channels_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "region",
@@ -1174,18 +631,7 @@
             "type": "string"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "description": "The language for any applicable localised strings.",
-            "type": "string",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           }
         ],
         "responses": {
@@ -1207,93 +653,30 @@
           "Episodes"
         ],
         "operationId": "Get_Programmes popular_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "description": "The page index.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/page"
           },
           {
-            "name": "per_page",
-            "in": "query",
-            "required": true,
-            "description": "The number of results to return.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/per_page"
           },
           {
-            "name": "initial_child_count",
-            "in": "query",
-            "required": true,
-            "description": "The depth to return child entities.",
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 4,
-            "default": 4
+            "$ref": "#/parameters/initial_child_count"
           },
           {
-            "name": "sort",
-            "in": "query",
-            "required": true,
-            "description": "The sort order of the results.",
-            "type": "string"
+            "$ref": "#/parameters/sort"
           },
           {
-            "name": "sort_direction",
-            "in": "query",
-            "required": true,
-            "description": "Whether to sort ascending or descending",
-            "type": "string",
-            "enum": [
-              "asc",
-              "desc"
-            ]
+            "$ref": "#/parameters/sort_direction"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "mixin",
-            "in": "query",
-            "required": false,
-            "description": "Request additional data in the output",
-            "type": "array",
-            "collectionFormat": "multi",
-            "items": {
-              "format": "string"
-            },
-            "enum": [
-              "live",
-              "promotions"
-            ]
+            "$ref": "#/parameters/mixin"
           }
         ],
         "responses": {
@@ -1315,102 +698,33 @@
           "Episodes"
         ],
         "operationId": "Get_Episodes by group_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "pid",
-            "in": "path",
-            "required": true,
-            "description": "The programme identifier.",
-            "type": "string",
-            "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
-            "minLength": 8
+            "$ref": "#/parameters/pid"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "description": "The page index.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/page"
           },
           {
-            "name": "per_page",
-            "in": "query",
-            "required": true,
-            "description": "The number of results to return.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/per_page"
           },
           {
-            "name": "initial_child_count",
-            "in": "query",
-            "required": true,
-            "description": "The depth to return child entities.",
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 4,
-            "default": 4
+            "$ref": "#/parameters/initial_child_count"
           },
           {
-            "name": "sort",
-            "in": "query",
-            "required": true,
-            "description": "The sort order of the results.",
-            "type": "string"
+            "$ref": "#/parameters/sort"
           },
           {
-            "name": "sort_direction",
-            "in": "query",
-            "required": true,
-            "description": "Whether to sort ascending or descending",
-            "type": "string",
-            "enum": [
-              "asc",
-              "desc"
-            ]
+            "$ref": "#/parameters/sort_direction"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "mixin",
-            "in": "query",
-            "required": false,
-            "description": "Request additional data in the output",
-            "type": "array",
-            "collectionFormat": "multi",
-            "items": {
-              "format": "string"
-            },
-            "enum": [
-              "live",
-              "promotions"
-            ]
+            "$ref": "#/parameters/mixin"
           }
         ],
         "responses": {
@@ -1432,70 +746,21 @@
           "Programmes (TLEOs)"
         ],
         "operationId": "Get_Highlights by category_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "category",
-            "in": "path",
-            "required": true,
-            "description": "The category identifier to return results from.",
-            "type": "string"
+            "$ref": "#/parameters/category"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "description": "The language for any applicable localised strings.",
-            "type": "string",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "mixin",
-            "in": "query",
-            "required": false,
-            "description": "Request additional data in the output",
-            "type": "array",
-            "collectionFormat": "multi",
-            "items": {
-              "format": "string"
-            },
-            "enum": [
-              "live",
-              "promotions"
-            ]
+            "$ref": "#/parameters/mixin"
           }
         ],
         "responses": {
@@ -1517,71 +782,24 @@
           "Programmes (TLEOs)"
         ],
         "operationId": "Get_Programmes by channel_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "channel",
-            "in": "path",
-            "required": true,
-            "description": "The channel identifier to limit results to.",
-            "type": "string"
+            "$ref": "#/parameters/channel"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "description": "The language for any applicable localised strings.",
-            "type": "string",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "description": "The page index.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/page"
           },
           {
-            "name": "per_page",
-            "in": "query",
-            "required": true,
-            "description": "The number of results to return.",
-            "type": "integer",
-            "format": "int64"
+            "$ref": "#/parameters/per_page"
           }
         ],
         "responses": {
@@ -1603,23 +821,9 @@
           "Regions"
         ],
         "operationId": "Get_Regions_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           }
         ],
         "responses": {
@@ -1641,17 +845,9 @@
           "User"
         ],
         "operationId": "Get_User watching_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "identity_cookie",
-            "in": "query",
-            "required": true,
-            "description": "The BBC-id cookie value",
-            "type": "number",
-            "format": "double"
+            "$ref": "#/parameters/identity_cookie"
           }
         ],
         "responses": {
@@ -1673,9 +869,6 @@
           "Metadata"
         ],
         "operationId": "Get_Schema_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [],
         "responses": {
           "200": {
@@ -1696,55 +889,21 @@
           "Programmes (TLEOs)"
         ],
         "operationId": "Get_Broadcasts by channel_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "channel",
-            "in": "path",
-            "required": true,
-            "description": "The channel identifier to limit results to.",
-            "type": "string"
+            "$ref": "#/parameters/channel"
           },
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
+          },
+          {
+            "$ref": "#/parameters/mixin"
           }
         ],
         "responses": {
@@ -1766,17 +925,9 @@
           "User"
         ],
         "operationId": "Get_User store purchases_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "identity_cookie",
-            "in": "query",
-            "required": true,
-            "description": "The BBC-id cookie value",
-            "type": "number",
-            "format": "double"
+            "$ref": "#/parameters/identity_cookie"
           }
         ],
         "responses": {
@@ -1802,17 +953,9 @@
           "User"
         ],
         "operationId": "Get_User store recommendations_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "identity_cookie",
-            "in": "query",
-            "required": true,
-            "description": "The BBC-id cookie value",
-            "type": "number",
-            "format": "double"
+            "$ref": "#/parameters/identity_cookie"
           }
         ],
         "responses": {
@@ -1834,63 +977,18 @@
           "Programmes (TLEOs)"
         ],
         "operationId": "Get_Programme highlights_",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
-            "name": "lang",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The language for any applicable localised strings.",
-            "enum": [
-              "en",
-              "cy",
-              "ga",
-              "gd",
-              "pi"
-            ]
+            "$ref": "#/parameters/lang"
           },
           {
-            "name": "rights",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The rights group to limit results to.",
-            "enum": [
-              "mobile",
-              "tv",
-              "web"
-            ],
-            "default": "web"
+            "$ref": "#/parameters/rights"
           },
           {
-            "name": "availability",
-            "in": "query",
-            "required": true,
-            "description": "Whether to return all, or available programmes",
-            "type": "string",
-            "enum": [
-              "all",
-              "available"
-            ],
-            "default": "available"
+            "$ref": "#/parameters/availability"
           },
           {
-            "name": "mixin",
-            "in": "query",
-            "required": false,
-            "description": "Request additional data in the output",
-            "type": "array",
-            "collectionFormat": "multi",
-            "items": {
-              "format": "string"
-            },
-            "enum": [
-              "live",
-              "promotions"
-            ]
+            "$ref": "#/parameters/mixin"
           }
         ],
         "responses": {
@@ -3935,6 +3033,144 @@
         "master_brand"
       ],
       "additionalProperties": false
+    }
+  },
+  "parameters": {
+    "pid": {
+      "name": "pid",
+      "in": "path",
+      "required": true,
+      "description": "The programme identifier.",
+      "type": "string",
+      "pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+      "minLength": 8
+    },
+    "rights": {
+      "name": "rights",
+      "in": "query",
+      "required": true,
+      "description": "The rights group to limit results to.",
+      "type": "string",
+      "enum": [
+        "mobile",
+        "tv",
+        "web"
+      ],
+      "default": "web"
+    },
+    "availability": {
+      "name": "availability",
+      "in": "query",
+      "required": true,
+      "description": "Whether to return all, or available programmes",
+      "type": "string",
+      "enum": [
+        "all",
+        "available"
+      ],
+      "default": "available"
+    },
+    "initial_child_count": {
+      "name": "initial_child_count",
+      "in": "query",
+      "required": true,
+      "description": "The depth to return child entities.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 4,
+      "default": 4
+    },
+    "mixin": {
+      "name": "mixin",
+      "in": "query",
+      "required": false,
+      "description": "Request additional data in the output",
+      "type": "array",
+      "collectionFormat": "multi",
+      "items": {
+        "format": "string"
+      },
+      "enum": [
+        "live",
+        "promotions"
+      ]
+    },
+    "page": {
+      "name": "page",
+      "in": "query",
+      "required": true,
+      "description": "The page index.",
+      "type": "integer",
+      "format": "int64"
+    },
+    "per_page": {
+      "name": "per_page",
+      "in": "query",
+      "required": true,
+      "description": "The number of results to return.",
+      "type": "integer",
+      "format": "int64"
+    },
+    "sort_direction": {
+      "name": "sort_direction",
+      "in": "query",
+      "required": true,
+      "description": "Whether to sort ascending or descending",
+      "type": "string",
+      "enum": [
+        "asc",
+        "desc"
+      ]
+    },
+    "q": {
+      "name": "q",
+      "in": "query",
+      "required": true,
+      "description": "The term to search for.",
+      "type": "string"
+    },
+    "lang": {
+      "name": "lang",
+      "in": "query",
+      "required": true,
+      "type": "string",
+      "description": "The language for any applicable localised strings.",
+      "enum": [
+        "en",
+        "cy",
+        "ga",
+        "gd",
+        "pi"
+      ]
+    },
+    "channel": {
+      "name": "channel",
+      "in": "path",
+      "required": true,
+      "description": "The channel identifier to limit results to.",
+      "type": "string"
+    },
+    "category": {
+      "name": "category",
+      "in": "path",
+      "required": true,
+      "description": "The category identifier to return results from.",
+      "type": "string"
+    },
+    "sort": {
+      "name": "sort",
+      "in": "query",
+      "required": true,
+      "description": "The sort order of the results.",
+      "type": "string"
+    },
+    "identity_cookie": {
+      "name": "identity_cookie",
+      "in": "query",
+      "required": true,
+      "description": "The BBC-id cookie value",
+      "type": "number",
+      "format": "double"
     }
   }
 }
