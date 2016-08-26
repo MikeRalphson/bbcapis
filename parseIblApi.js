@@ -20,7 +20,7 @@ var result = [];
 		if (!obj.hasOwnProperty(key)) continue;
 
 		if (key == 'anyOf') {
-			parent["x-anyOf"] = obj[key];
+			obj["x-anyOf"] = obj[key];
 			delete obj[key];
 			if (parent.required) {
 				parent["x-originalRequired"] = parent.required;

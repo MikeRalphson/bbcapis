@@ -1275,18 +1275,19 @@
           "properties": {
             "elements": {
               "type": "array",
-              "items": {},
-              "x-anyOf": [
-                {
-                  "$ref": "#/definitions/episode"
-                },
-                {
-                  "$ref": "#/definitions/group"
-                },
-                {
-                  "$ref": "#/definitions/promotion"
-                }
-              ]
+              "items": {
+                "x-anyOf": [
+                  {
+                    "$ref": "#/definitions/episode"
+                  },
+                  {
+                    "$ref": "#/definitions/group"
+                  },
+                  {
+                    "$ref": "#/definitions/promotion"
+                  }
+                ]
+              }
             }
           },
           "required": [
@@ -1302,18 +1303,19 @@
             },
             "elements": {
               "type": "array",
-              "items": {},
-              "x-anyOf": [
-                {
-                  "$ref": "#/definitions/episode"
-                },
-                {
-                  "$ref": "#/definitions/group"
-                },
-                {
-                  "$ref": "#/definitions/promotion"
-                }
-              ]
+              "items": {
+                "x-anyOf": [
+                  {
+                    "$ref": "#/definitions/episode"
+                  },
+                  {
+                    "$ref": "#/definitions/group"
+                  },
+                  {
+                    "$ref": "#/definitions/promotion"
+                  }
+                ]
+              }
             }
           },
           "required": [
@@ -1330,18 +1332,19 @@
             },
             "elements": {
               "type": "array",
-              "items": {},
-              "x-anyOf": [
-                {
-                  "$ref": "#/definitions/episode"
-                },
-                {
-                  "$ref": "#/definitions/group"
-                },
-                {
-                  "$ref": "#/definitions/promotion"
-                }
-              ]
+              "items": {
+                "x-anyOf": [
+                  {
+                    "$ref": "#/definitions/episode"
+                  },
+                  {
+                    "$ref": "#/definitions/group"
+                  },
+                  {
+                    "$ref": "#/definitions/promotion"
+                  }
+                ]
+              }
             }
           },
           "required": [
@@ -1373,18 +1376,19 @@
             },
             "results": {
               "type": "array",
-              "items": {},
-              "x-anyOf": [
-                {
-                  "$ref": "#/definitions/episode"
-                },
-                {
-                  "$ref": "#/definitions/programme"
-                },
-                {
-                  "$ref": "#/definitions/search_group"
-                }
-              ]
+              "items": {
+                "x-anyOf": [
+                  {
+                    "$ref": "#/definitions/episode"
+                  },
+                  {
+                    "$ref": "#/definitions/programme"
+                  },
+                  {
+                    "$ref": "#/definitions/search_group"
+                  }
+                ]
+              }
             }
           },
           "required": [
@@ -1766,231 +1770,232 @@
         },
         "versions": {
           "type": "array",
-          "items": {},
-          "x-anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "type": {
-                  "enum": [
-                    "version",
-                    "version_large"
-                  ]
-                },
-                "hd": {
-                  "type": "boolean"
-                },
-                "download": {
-                  "type": "boolean"
-                },
-                "kind": {
-                  "type": "string"
-                },
-                "duration": {
-                  "type": "object",
-                  "properties": {
-                    "text": {
-                      "type": "string"
-                    },
-                    "value": {
-                      "type": "string"
-                    }
+          "items": {
+            "x-anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
                   },
-                  "required": [
-                    "text",
-                    "value"
-                  ],
-                  "additionalProperties": false
-                },
-                "rrc": {
-                  "type": "object",
-                  "properties": {
-                    "url": {
-                      "type": "string"
-                    },
-                    "description": {
-                      "type": "object",
-                      "properties": {
-                        "small": {
-                          "type": "string"
-                        },
-                        "large": {
-                          "type": "string"
-                        }
+                  "type": {
+                    "enum": [
+                      "version",
+                      "version_large"
+                    ]
+                  },
+                  "hd": {
+                    "type": "boolean"
+                  },
+                  "download": {
+                    "type": "boolean"
+                  },
+                  "kind": {
+                    "type": "string"
+                  },
+                  "duration": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
                       },
-                      "required": [
-                        "small",
-                        "large"
-                      ],
-                      "additionalProperties": false
-                    }
-                  },
-                  "required": [
-                    "description"
-                  ],
-                  "additionalProperties": false
-                },
-                "guidance": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
+                      "value": {
+                        "type": "string"
+                      }
                     },
-                    "text": {
-                      "type": "object",
-                      "properties": {
-                        "small": {
-                          "type": "string"
-                        },
-                        "medium": {
-                          "type": "string"
-                        },
-                        "large": {
-                          "type": "string"
-                        }
+                    "required": [
+                      "text",
+                      "value"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "rrc": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string"
                       },
-                      "additionalProperties": false
-                    }
+                      "description": {
+                        "type": "object",
+                        "properties": {
+                          "small": {
+                            "type": "string"
+                          },
+                          "large": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "small",
+                          "large"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "description"
+                    ],
+                    "additionalProperties": false
                   },
-                  "required": [
-                    "id"
-                  ],
-                  "additionalProperties": false
-                },
-                "first_broadcast": {
-                  "type": "string"
-                },
-                "credits_start": {
-                  "type": "number"
-                },
-                "service_id": {
-                  "type": "string"
-                },
-                "availability": {
-                  "type": "object",
-                  "properties": {
-                    "start": {
-                      "type": "string"
-                    },
-                    "end": {
-                      "type": "string"
-                    },
-                    "remaining": {
-                      "type": "object",
-                      "properties": {
-                        "text": {
-                          "type": "string"
-                        }
+                  "guidance": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
                       },
-                      "required": [
-                        "text"
-                      ],
-                      "additionalProperties": false
-                    }
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "small": {
+                            "type": "string"
+                          },
+                          "medium": {
+                            "type": "string"
+                          },
+                          "large": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ],
+                    "additionalProperties": false
                   },
-                  "required": [
-                    "start"
-                  ],
-                  "additionalProperties": false
-                }
+                  "first_broadcast": {
+                    "type": "string"
+                  },
+                  "credits_start": {
+                    "type": "number"
+                  },
+                  "service_id": {
+                    "type": "string"
+                  },
+                  "availability": {
+                    "type": "object",
+                    "properties": {
+                      "start": {
+                        "type": "string"
+                      },
+                      "end": {
+                        "type": "string"
+                      },
+                      "remaining": {
+                        "type": "object",
+                        "properties": {
+                          "text": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "text"
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "start"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "id",
+                  "type",
+                  "hd",
+                  "download",
+                  "duration",
+                  "kind",
+                  "availability"
+                ],
+                "additionalProperties": false
               },
-              "required": [
-                "id",
-                "type",
-                "hd",
-                "download",
-                "duration",
-                "kind",
-                "availability"
-              ],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "type": {
-                  "enum": [
-                    "store_version"
-                  ]
-                },
-                "store_id": {
-                  "type": "string"
-                },
-                "store_profile": {
-                  "type": "string"
-                },
-                "hd": {
-                  "type": "boolean"
-                },
-                "kind": {
-                  "type": "string"
-                },
-                "download": {
-                  "type": "boolean"
-                },
-                "duration": {
-                  "type": "object",
-                  "properties": {
-                    "text": {
-                      "type": "string"
-                    },
-                    "value": {
-                      "type": "string"
-                    }
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
                   },
-                  "required": [
-                    "text",
-                    "value"
-                  ],
-                  "additionalProperties": false
-                },
-                "guidance": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "text": {
-                      "type": "object",
-                      "properties": {
-                        "small": {
-                          "type": "string"
-                        },
-                        "medium": {
-                          "type": "string"
-                        },
-                        "large": {
-                          "type": "string"
-                        }
+                  "type": {
+                    "enum": [
+                      "store_version"
+                    ]
+                  },
+                  "store_id": {
+                    "type": "string"
+                  },
+                  "store_profile": {
+                    "type": "string"
+                  },
+                  "hd": {
+                    "type": "boolean"
+                  },
+                  "kind": {
+                    "type": "string"
+                  },
+                  "download": {
+                    "type": "boolean"
+                  },
+                  "duration": {
+                    "type": "object",
+                    "properties": {
+                      "text": {
+                        "type": "string"
                       },
-                      "additionalProperties": false
-                    }
+                      "value": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "text",
+                      "value"
+                    ],
+                    "additionalProperties": false
                   },
-                  "required": [
-                    "id"
-                  ],
-                  "additionalProperties": false
-                }
-              },
-              "required": [
-                "id",
-                "type",
-                "store_id",
-                "store_profile",
-                "hd",
-                "download",
-                "duration",
-                "kind"
-              ],
-              "additionalProperties": false
-            }
-          ]
+                  "guidance": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "text": {
+                        "type": "object",
+                        "properties": {
+                          "small": {
+                            "type": "string"
+                          },
+                          "medium": {
+                            "type": "string"
+                          },
+                          "large": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "id"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "id",
+                  "type",
+                  "store_id",
+                  "store_profile",
+                  "hd",
+                  "download",
+                  "duration",
+                  "kind"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
         },
         "parent_id": {
           "type": "string"
@@ -2386,15 +2391,16 @@
         },
         "initial_children": {
           "type": "array",
-          "items": {},
-          "x-anyOf": [
-            {
-              "$ref": "#/definitions/episode"
-            },
-            {
-              "$ref": "#/definitions/broadcast"
-            }
-          ]
+          "items": {
+            "x-anyOf": [
+              {
+                "$ref": "#/definitions/episode"
+              },
+              {
+                "$ref": "#/definitions/broadcast"
+              }
+            ]
+          }
         },
         "count": {
           "type": "number"
