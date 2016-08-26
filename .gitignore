@@ -30,9 +30,13 @@ apidocs
 *.txt
 *.cmd
 *.sh
+test/
 config.json
 iblApi/ibl_swagger_base.json
 iblApi/ibl_swagger_orig.json
+iblApi/ibl_swagger_auto.json
+iblApi/ibl_swagger_compressed.json
+iblApi/swagger_full.json
 iblApi/swagger.err
 examples
 taster.json
