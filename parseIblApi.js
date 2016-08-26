@@ -77,11 +77,11 @@ else {
 	if (errors) {
 		console.log(errors);
 		console.log('Writing swagger.err file');
-		fs.writeFileSync('./iblApi/swagger.err',JSON.stringify(base,null,2));
+		fs.writeFileSync('./iblApi/swagger.err',JSON.stringify(base,null,'\t'));
 	}
 	else {
 		console.log('Writing swagger spec');
-		fs.writeFileSync('./iblApi/swagger.json',JSON.stringify(base,null,2));
+		fs.writeFileSync('./iblApi/swagger.json',JSON.stringify(base,null,'\t'));
 		console.log('Writing JS API definitions');
 		oa2js.openAPI2js(base,'./iblApi/ibl.js');
 	}
