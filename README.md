@@ -4,13 +4,43 @@
 [![Share on Twitter][twitter-image]][twitter-link]
 [![Follow on Twitter][twitterFollow-image]][twitterFollow-link]
 
+### Example of using nitroSdk.js
+
+````javascript
+var nitro = require('bbcparse/nitroSdk');
+var api = require('bbcparse/nitroApi/api');
+
+var host = 'programmes.api.bbc.com';
+var path = api.nitroMasterbrands;
+var api_key = 'INSERT_YOUR_NITRO_API_KEY_HERE';
+
+var query = nitro.newQuery();
+query.add(api.fMasterbrandsPartnerPid,'*',true);
+
+var options = {};
+
+nitro.make_request(host,path,api_key,query,options,function(obj){
+  // process the response object
+});
+````
+
 #### Utilities to:
-* create a Swagger 2.0 definition from the Nitro API feed (parseNitroApi.js)
-* show programme, brand or series information by category or searching (nitro.js)
-* show genres/formats for the radio player and iPlayer (categories.js)
-* show legacy programme, brand or series information by category or searching (progs.js)
-* ignore programmes, brands or series by adding PIDs to a download_history file (ignore.js)
-* populate a download_history from existing files (populate_download_history.js)
+* fetch API definitions (`fetchApis.js`)
+* create a Swagger 2.0 definition from the Nitro API feed (`parseNitroApi.js`)
+* create a Swagger 2.0 definition from the iBL API schema (`parseIblApi.js`)
+* show programme, brand or series information by category or searching (`nitro.js`)
+* show TV/radio category (genre/format) information (`nitroCategories.js`)
+* show channel (masterbrand) information (`nitroChannels.js`)
+* show partner (non-BBC services) information (`nitroPartners.js`)
+* show linear service IDs (`nitroServices.js`)
+* query the configured nitro host and return the response time (`nitroPing.js`)
+* show download information for a version PID (`dlInfo.js`)
+* show TV iPlayer programme, category or channels information (`ibl.js`)
+* query the searchSuggest API (`searchSuggest.js`)
+* show legacy programme, brand or series information by category or searching (`progs.js`)
+* show legacy genres/formats for the radio player and iPlayer (`categories.js`)
+* ignore programmes, brands or series by adding PIDs to a download_history file (`ignore.js`)
+* populate a download_history from existing files (`populate_download_history.js`)
 
 [twitter-image]: https://img.shields.io/twitter/url/http/PermittedSoc.svg?style=social
 [twitter-link]: https://twitter.com/share?source=tweetbutton&text=BBC%20Nitro%20API%20parser%20Via%20%40PermittedSoc&url=https%3A%2F%2Fgithub.com%2FMermade%2Fbbcparse
