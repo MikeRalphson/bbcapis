@@ -411,6 +411,30 @@ function processPid(host,path,api_key,pid) {
 }
 
 //_____________________________________________________________________________
+function processVpid(host,path,api_key,vpid) {
+	var query = nitro.newQuery();
+	query.add(api.fVersionsPid,vpid,true);
+	if (partner_pid != '') {
+		query.add(api.fVersionsPartnerPid,partner_pid);
+	}
+	else {
+		if (pending) {
+			query.add(api.fVersionsAvailability,'P7D');
+		}
+		else {
+			query.add(api.fVersionsAvailabilityAvailable);
+		}
+	}
+	nitro.make_request(host,api.nitroVersions,api_key,query,{},function(obj){
+		for (var i in obj.nitro.results.items) {
+			var item = obj.nitro.results.items[i];
+			var pid = item.version_of.pid;
+			processPid(host,path,api_key,pid)
+		}
+	});
+}
+
+//_____________________________________________________________________________
 var scheduleResponse = function(obj) {
 	var nextHref = '';
 	if ((obj.nitro.pagination) && (obj.nitro.pagination.next)) {
@@ -594,6 +618,7 @@ var options = getopt.create([
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscansvod'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
+	['v','version=ARG+','Query by individual version pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
 	['o','output','output in get_iplayer cache format'],
@@ -622,6 +647,9 @@ options.on('domain',function(argv,options){
 });
 options.on('pid',function(argv,options){
 	mode = 'pid';
+});
+options.on('version',function(argv,options){
+	mode = 'version';
 });
 options.on('upcoming',function(){
 	feed = 'schedules';
@@ -710,7 +738,23 @@ if (mode=='') {
 	query.add(api.fProgrammesGenre,defcat);
 }
 
-if (mode == 'pid') {
+if (mode == 'version') {
+	for (var p in o.options.version) {
+		pid = o.options.version[p];
+		if (pid.indexOf('@')==0) {
+			pid = pid.substr(1);
+			var s = fs.readFileSync(pid,'utf8');
+			pidList = pidList.concat(s.split('\n'));
+		}
+		else {
+			pidList.push(pid);
+		}
+	}
+	for (var p in pidList) {
+		processVpid(host,path,api_key,pidList[p]);
+	}
+}
+else if (mode == 'pid') {
 	for (var p in o.options.pid) {
 		pid = o.options.pid[p];
 		if (pid.indexOf('@')==0) {
