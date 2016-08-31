@@ -19,6 +19,8 @@ String.prototype.toCamelCase = function camelize() {
     });
 }
 
+var httpAgent;
+var httpsAgent;
 var dest = {};
 var rateLimitEvents = 0;
 var inFlight = 0;
@@ -107,6 +109,7 @@ function makeRequest(host,path,key,query,settings,callback,err){
 		proto: 'http',
 		port: null,
 		backoff : 31000,
+		timeout : 120000,
 		payload: {}
 	}
 
@@ -126,11 +129,23 @@ function makeRequest(host,path,key,query,settings,callback,err){
 		'User-Agent': settings.User_Agent
 	  }
 	};
+	var proto = (settings.proto == 'http' ? http : https);
+	if (settings.proto == 'http') {
+		if (!httpAgent) {
+			httpAgent = new http.Agent({ keepAlive: true });
+		}
+		options.agent = httpAgent;
+	}
+	else {
+		if (!httpsAgent) {
+			httpsAgent = new https.Agent({ keepAlive: true });
+		}
+		options.agent = httpsAgent;
+	}
 
 	var list = '';
 	var obj;
 	var json = (settings.Accept == 'application/json');
-	var proto = (settings.proto == 'http' ? http : https);
 
 	var req = proto.request(options, function(res) {
 	  res.setEncoding('utf8');
@@ -222,9 +237,10 @@ function makeRequest(host,path,key,query,settings,callback,err){
 			debuglog('** '+list);
 		}
 	   });
-	});
+	}).setTimeout(settings.timeout);
 	req.on('error', function(e) {
 	  console.log('Problem with request: ' + e.message);
+	  if (list) console.log(list);
 	});
 	req.end();
 }
