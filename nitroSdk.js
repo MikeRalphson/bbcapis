@@ -239,8 +239,8 @@ function makeRequest(host,path,key,query,settings,callback,err){
 	   });
 	}).setTimeout(settings.timeout);
 	req.on('error', function(e) {
-	  console.log('Problem with request: ' + e.message);
-	  if (list) console.log(list);
+		if (typeof err !== 'undefined') err(500,e.message + ' ' +list)
+		else console.log(e.message);
 	});
 	req.end();
 }
