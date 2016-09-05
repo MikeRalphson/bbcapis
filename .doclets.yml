@@ -3,4 +3,4 @@ articles:
  	- Overview: README.md
 files:
 	- nitroApi/api.js
-	  iblApi/ibl.js
+	- iblApi/ibl.js
