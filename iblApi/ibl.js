@@ -41,7 +41,7 @@ const commonSort = 'sort';
 const commonIdentityCookie = 'identity_cookie';
 
 /** Get the programme for a given programme identifier.
-@pid {string} The programme identifier.
+@param {string} pid The programme identifier.
 @return {string} The path to request
 */
 function getProgrammes(pid){
@@ -51,7 +51,7 @@ function getProgrammes(pid){
 }
 
 /** Get the child episodes belonging to a given programme identifier.
-@pid {string} The programme identifier.
+@param {string} pid The programme identifier.
 @return {string} The path to request
 */
 function getProgrammesEpisodes(pid){
@@ -61,7 +61,7 @@ function getProgrammesEpisodes(pid){
 }
 
 /** Get the episode for a given episode identifier.
-@pid {string} The programme identifier.
+@param {string} pid The programme identifier.
 @return {string} The path to request
 */
 function getEpisodes(pid){
@@ -71,7 +71,7 @@ function getEpisodes(pid){
 }
 
 /** Get the Programmes whose title begins with the given initial character.
-@letter {string} Letter to search by, a to z or the string '0-9'
+@param {string} letter Letter to search by, a to z or the string '0-9'
 @return {string} The path to request
 */
 function getAtozProgrammes(letter){
@@ -84,7 +84,7 @@ const getAtozProgrammesSort = 'sort';
 const getAtozProgrammesSortTitle = 'sort=title';
 
 /** Get Trailers (pre-rolls)
-@pid {string} The programme identifier.
+@param {string} pid The programme identifier.
 @return {string} The path to request
 */
 function getEpisodesPrerolls(pid){
@@ -94,7 +94,7 @@ function getEpisodesPrerolls(pid){
 }
 
 /** Get Clips
-@pid {string} The programme identifier.
+@param {string} pid The programme identifier.
 @return {string} The path to request
 */
 function getClips(pid){
@@ -107,8 +107,8 @@ function getClips(pid){
 const getSearchSuggest = '/ibl/v1/search-suggest';
 
 /** Get schedule by channel
-@channel {string} The channel identifier to limit results to.
-@date {string} The date to return the schedule for, yyyy-mm-dd format
+@param {string} channel The channel identifier to limit results to.
+@param {string} date The date to return the schedule for, yyyy-mm-dd format
 @return {string} The path to request
 */
 function getChannelsSchedule(channel,date){
@@ -119,7 +119,7 @@ function getChannelsSchedule(channel,date){
 }
 
 /** Get the editorial highlights of a given channel in TV & iPlayer.
-@channel {string} The channel identifier to limit results to.
+@param {string} channel The channel identifier to limit results to.
 @return {string} The path to request
 */
 function getChannelsHighlights(channel){
@@ -137,7 +137,7 @@ const getSearch = '/ibl/v1/search';
 const getCategories = '/ibl/v1/categories';
 
 /** Get sub-categories
-@category {string} The category identifier to return results from.
+@param {string} category The category identifier to return results from.
 @return {string} The path to request
 */
 function getCategories2(category){
@@ -147,7 +147,7 @@ function getCategories2(category){
 }
 
 /** Get the list of all the Programmes (TLEOs) for a given category in TV & iPlayer.
-@category {string} The category identifier to return results from.
+@param {string} category The category identifier to return results from.
 @return {string} The path to request
 */
 function getCategoriesProgrammes(category){
@@ -157,7 +157,7 @@ function getCategoriesProgrammes(category){
 }
 
 /** Get the list of all the episodes for a given category in TV & iPlayer.
-@category {string} The category identifier to return results from.
+@param {string} category The category identifier to return results from.
 @return {string} The path to request
 */
 function getCategoriesEpisodes(category){
@@ -171,7 +171,7 @@ const getCategoriesEpisodesSortRecent = 'sort=recent';
 const getCategoriesEpisodesSortPopular = 'sort=popular';
 
 /** Get programme recommendations
-@pid {string} The programme identifier.
+@param {string} pid The programme identifier.
 @return {string} The path to request
 */
 function getEpisodesRecommendations(pid){
@@ -192,7 +192,7 @@ const getChannelsRegion = 'region';
 const getGroupsPopularEpisodes = '/ibl/v1/groups/popular/episodes';
 
 /** Get episodes by group, brand or series
-@pid {string} The programme identifier.
+@param {string} pid The programme identifier.
 @return {string} The path to request
 */
 function getGroupsEpisodes(pid){
@@ -202,7 +202,7 @@ function getGroupsEpisodes(pid){
 }
 
 /** Get the editorial highlights of a given category in TV & iPlayer.
-@category {string} The category identifier to return results from.
+@param {string} category The category identifier to return results from.
 @return {string} The path to request
 */
 function getCategoriesHighlights(category){
@@ -212,7 +212,7 @@ function getCategoriesHighlights(category){
 }
 
 /** Get programmes by channel
-@channel {string} The channel identifier to limit results to.
+@param {string} channel The channel identifier to limit results to.
 @return {string} The path to request
 */
 function getChannelsProgrammes(channel){
@@ -231,7 +231,7 @@ const getUserWatching = '/ibl/v1/user/watching';
 const getSchemaIbl = '/ibl/v1/schema/ibl.json';
 
 /** Get broadcasts by channel
-@channel {string} The channel identifier to limit results to.
+@param {string} channel The channel identifier to limit results to.
 @return {string} The path to request
 */
 function getChannelsBroadcasts(channel){
