@@ -42,6 +42,8 @@ nitro.make_request(host,path,api_key,query,options,function(obj){
 * ignore programmes, brands or series by adding PIDs to a download_history file (`ignore.js`)
 * populate a download_history from existing files (`populate_download_history.js`)
 
+Generated [JSDoc](https://doclets.io/Mermade/bbcoarse/master) courtesy of [doclets.io](http://doclets.io)
+
 [twitter-image]: https://img.shields.io/twitter/url/http/PermittedSoc.svg?style=social
 [twitter-link]: https://twitter.com/share?source=tweetbutton&text=BBC%20Nitro%20API%20parser%20Via%20%40PermittedSoc&url=https%3A%2F%2Fgithub.com%2FMermade%2Fbbcparse
 [twitterFollow-image]: https://img.shields.io/twitter/follow/PermittedSoc.svg?style=social
