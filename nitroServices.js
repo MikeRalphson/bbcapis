@@ -1,4 +1,4 @@
-/*
+/**
 
 Lists Nitro linear services (the delivery mechanisms for programme delivery)
 
@@ -28,7 +28,7 @@ var api_key = config.nitro.api_key;
 
 var path = api.nitroServices;
 
-if (process.argv.length>2) {
+if ((process.argv.length>2) && (process.argv[2] == 'a')) {
 	for (var i=2;i<23;i++) {
 		var p = i.toString();
 		while (p.length<7) {
@@ -41,9 +41,11 @@ if (process.argv.length>2) {
 }
 else {
 	var query = nitro.newQuery();
+	if (process.argv.length>2) query.add(api.fServicesServiceType,process.argv[2],true);
 	nitro.make_request(host,path,api_key,query,{},processResponse);
 }
 
 process.on('exit', function(code) {
 	//console.log('About to exit with code:', code);
 });
+
