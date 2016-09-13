@@ -1446,33 +1446,58 @@ const fServicesPartnerPid = 'partner_pid';
 */
 const fServicesQ = 'q';
 /**
-* filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio
+* filter for specified type of linear services
 * type = string
-* option: TV, Return only TV services
-*/
-const fServicesServiceTypeTv = 'service_type=TV';
-/**
-* /nitro/api/services?service_type=TV
-* option: Local Radio, Return only Local Radio services
-*/
-const fServicesServiceTypeLocalRadio = 'service_type=Local%20Radio';
-/**
-* /nitro/api/services?service_type=Local+Radio
-* option: National Radio, Return only National Radio services
-*/
-const fServicesServiceTypeNationalRadio = 'service_type=National%20Radio';
-/**
-* /nitro/api/services?service_type=National+Radio
-* option: Regional Radio, Return only Regional Radio services
-*/
-const fServicesServiceTypeRegionalRadio = 'service_type=Regional%20Radio';
-/**
-* /nitro/api/services?service_type=Regional+Radio
 * option: Interactive, Return only Interactive services
 */
 const fServicesServiceTypeInteractive = 'service_type=Interactive';
 /**
 * /nitro/api/services?service_type=Interactive
+* option: Local Radio, Return only Local Radio services
+*/
+const fServicesServiceTypeLocalRadio = 'service_type=Local%20Radio';
+/**
+* /nitro/api/services?service_type=Local+Radio
+* option: Master Brand Only, Return only Master Brand services
+*/
+const fServicesServiceTypeMasterBrandOnly = 'service_type=Master%20Brand%20Only';
+/**
+* /nitro/api/services?service_type=Master+Brand+Only
+* option: National Radio, Return only National Radio services
+*/
+const fServicesServiceTypeNationalRadio = 'service_type=National%20Radio';
+/**
+* /nitro/api/services?service_type=National+Radio
+* option: On Demand, Return only On Demand services
+*/
+const fServicesServiceTypeOnDemand = 'service_type=On%20Demand';
+/**
+* /nitro/api/services?service_type=On+Demand
+* option: Regional Radio, Return only Regional Radio services
+*/
+const fServicesServiceTypeRegionalRadio = 'service_type=Regional%20Radio';
+/**
+* /nitro/api/services?service_type=Regional+Radio
+* option: Simulcast, Return only Simulcast services
+*/
+const fServicesServiceTypeSimulcast = 'service_type=Simulcast';
+/**
+* /nitro/api/services?service_type=Simulcast
+* option: TV, Return only TV services
+*/
+const fServicesServiceTypeTv = 'service_type=TV';
+/**
+* /nitro/api/services?service_type=TV
+* option: Web Only, Return only Web Only services
+*/
+const fServicesServiceTypeWebOnly = 'service_type=Web%20Only';
+/**
+* /nitro/api/services?service_type=Web+Only
+* option: Webcast, Return only Webcast services
+*/
+const fServicesServiceTypeWebcast = 'service_type=Webcast';
+/**
+* /nitro/api/services?service_type=Webcast
 */
 const fServicesServiceType = 'service_type';
 /**
@@ -1564,7 +1589,7 @@ const fVersionsPaymentType = 'payment_type';
 * type = PID
 */
 const fVersionsPid = 'pid';
-const apiHash = 'f96dd137c9e7a65b5f2bdfcb9e55356e41c35d9c8a569bd23c3a542638ceae08';
+const apiHash = '0f59a84b35c41e95a11085aa43ce6e12bf03dc9faf34f7e37c8dc7813fe46885';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,
@@ -1842,11 +1867,16 @@ fServicesPageSize : fServicesPageSize,
 fServicesPartnerId : fServicesPartnerId,
 fServicesPartnerPid : fServicesPartnerPid,
 fServicesQ : fServicesQ,
-fServicesServiceTypeTv : fServicesServiceTypeTv,
-fServicesServiceTypeLocalRadio : fServicesServiceTypeLocalRadio,
-fServicesServiceTypeNationalRadio : fServicesServiceTypeNationalRadio,
-fServicesServiceTypeRegionalRadio : fServicesServiceTypeRegionalRadio,
 fServicesServiceTypeInteractive : fServicesServiceTypeInteractive,
+fServicesServiceTypeLocalRadio : fServicesServiceTypeLocalRadio,
+fServicesServiceTypeMasterBrandOnly : fServicesServiceTypeMasterBrandOnly,
+fServicesServiceTypeNationalRadio : fServicesServiceTypeNationalRadio,
+fServicesServiceTypeOnDemand : fServicesServiceTypeOnDemand,
+fServicesServiceTypeRegionalRadio : fServicesServiceTypeRegionalRadio,
+fServicesServiceTypeSimulcast : fServicesServiceTypeSimulcast,
+fServicesServiceTypeTv : fServicesServiceTypeTv,
+fServicesServiceTypeWebOnly : fServicesServiceTypeWebOnly,
+fServicesServiceTypeWebcast : fServicesServiceTypeWebcast,
 fServicesServiceType : fServicesServiceType,
 fServicesSid : fServicesSid,
 fServicesStartFrom : fServicesStartFrom,

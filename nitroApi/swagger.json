@@ -2328,7 +2328,7 @@
 					{
 						"name": "service_type",
 						"in": "query",
-						"description": "filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio",
+						"description": "filter for specified type of linear services",
 						"type": "array",
 						"collectionFormat": "multi",
 						"items": {
@@ -2336,11 +2336,16 @@
 						},
 						"required": false,
 						"enum": [
-							"TV",
+							"Interactive",
 							"Local Radio",
+							"Master Brand Only",
 							"National Radio",
+							"On Demand",
 							"Regional Radio",
-							"Interactive"
+							"Simulcast",
+							"TV",
+							"Web Only",
+							"Webcast"
 						]
 					},
 					{

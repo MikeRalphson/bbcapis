@@ -447,12 +447,17 @@
       <n:filter name="partner_id" type="PID" title="filter for services by partner ID" release_status="supported" multiple_values="true" prefer="partner_pid"/>
       <n:filter name="partner_pid" type="PID" title="filter for services by partner PID" release_status="supported" multiple_values="true" default="s0000001"/>
       <n:filter name="q" type="string" title="filter for subset of services matching supplied keyword/phrase (boolean operators permitted)" release_status="supported"/>
-      <n:filter name="service_type" type="string" title="filter for specified type of linear services. one of: TV, Local Radio, National Radio, Regional Radio" multiple_values="true" release_status="supported">
-	<n:option value="TV" title="Return only TV services" href="/nitro/api/services?service_type=TV"/>
-	<n:option value="Local Radio" title="Return only Local Radio services" href="/nitro/api/services?service_type=Local+Radio"/>
-	<n:option value="National Radio" title="Return only National Radio services" href="/nitro/api/services?service_type=National+Radio"/>
-	<n:option value="Regional Radio" title="Return only Regional Radio services" href="/nitro/api/services?service_type=Regional+Radio"/>
+      <n:filter name="service_type" type="string" title="filter for specified type of linear services" multiple_values="true" release_status="supported">
 	<n:option value="Interactive" title="Return only Interactive services" href="/nitro/api/services?service_type=Interactive"/>
+	<n:option value="Local Radio" title="Return only Local Radio services" href="/nitro/api/services?service_type=Local+Radio"/>
+	<n:option value="Master Brand Only" title="Return only Master Brand services" href="/nitro/api/services?service_type=Master+Brand+Only"/>
+	<n:option value="National Radio" title="Return only National Radio services" href="/nitro/api/services?service_type=National+Radio"/>
+	<n:option value="On Demand" title="Return only On Demand services" href="/nitro/api/services?service_type=On+Demand"/>
+	<n:option value="Regional Radio" title="Return only Regional Radio services" href="/nitro/api/services?service_type=Regional+Radio"/>
+	<n:option value="Simulcast" title="Return only Simulcast services" href="/nitro/api/services?service_type=Simulcast"/>
+	<n:option value="TV" title="Return only TV services" href="/nitro/api/services?service_type=TV"/>
+	<n:option value="Web Only" title="Return only Web Only services" href="/nitro/api/services?service_type=Web+Only"/>
+	<n:option value="Webcast" title="Return only Webcast services" href="/nitro/api/services?service_type=Webcast"/>
       </n:filter>
       <n:filter name="sid" type="string" title="filter for specified linear service" multiple_values="true" release_status="supported"/>
       <n:filter name="start_from" type="datetime" title="Return services that start on or later than the specified datetime" release_status="supported"/>
