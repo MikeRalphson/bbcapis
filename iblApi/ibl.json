@@ -746,9 +746,6 @@
         "editorial_subtitle": {
           "type": "string"
         },
-        "editorial_title": {
-          "type": "string"
-        },
         "synopses": {
           "type": "object",
           "properties": {
