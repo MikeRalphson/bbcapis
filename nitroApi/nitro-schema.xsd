@@ -715,12 +715,6 @@
 	<xs:element ref="synopses" minOccurs="0"/>
 	<xs:element ref="position" minOccurs="0"/>
 	<xs:element ref="is_external" minOccurs="0"/>
-	<xs:element name="availability" minOccurs="0">
-	  <xs:complexType>
-	    <xs:attribute name="start" type="xs:dateTime"/>
-	    <xs:attribute name="end" type="xs:dateTime"/>
-	  </xs:complexType>
-	</xs:element>
       </xs:sequence>
       <xs:attribute name="pid" type="pid" use="required"/>
     </xs:complexType>
