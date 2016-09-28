@@ -4063,6 +4063,20 @@
 				"is_external": {
 					"$ref": "#/definitions/is_external"
 				},
+				"availability": {
+					"type": "object",
+					"properties": {
+						"start": {
+							"type": "string",
+							"format": "date-time"
+						},
+						"end": {
+							"type": "string",
+							"format": "date-time"
+						}
+					},
+					"additionalProperties": false
+				},
 				"pid": {
 					"$ref": "#/definitions/pid"
 				}
