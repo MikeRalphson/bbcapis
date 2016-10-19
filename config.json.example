@@ -1,8 +1,8 @@
 {
   "download_history": "c:/users/mike/.get_iplayer/download_history",
   "nitro": {
-		"host": "programmes.api.bbc.com"
-		"api_key": "JUSTTESTING"
+		"host": "programmes.api.bbc.com",
+		"api_key": "JUSTTESTING",
 		"mediaset": "pc",
 		"category": "C00035"
   }
