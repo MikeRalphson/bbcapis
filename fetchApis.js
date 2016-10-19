@@ -5,10 +5,15 @@ var fs = require('fs');
 var nitro = require('./nitroSdk');
 
 //_____________________________________________________________________________
-
-var config = require('./config.json');
-var api_key = config.nitro.api_key;
-var host = config.nitro.host;
+try {
+    var config = require('./config.json');
+	var api_key = config.nitro.api_key;
+	var host = config.nitro.host;
+}
+catch (e) {
+    console.log('Please rename config.json.example to config.json and edit for your setup');
+    process.exit(2);
+}
 var query = nitro.newQuery();
 
 nitro.make_request(host,'/nitro/api',api_key,query,{Accept:'application/json'},function(obj){
