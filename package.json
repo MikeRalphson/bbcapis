@@ -1,6 +1,6 @@
 {
   "name": "bbcparse",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "Nodejs-based parser for the BBC Nitro API",
   "main": "nitro.js",
   "directories": {
@@ -34,7 +34,7 @@
     "is-my-json-valid": "^2.13.1",
     "jgexml": "latest",
     "node-getopt": "^0.2.3",
-    "recursive-readdir": "^2.0.0",
-    "openapi2js": "latest"
+    "openapi2js": "latest",
+    "recursive-readdir": "^2.0.0"
   }
 }
