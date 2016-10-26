@@ -2,7 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "1.0",
-		"x-release": "416",
+		"x-release": "421",
 		"title": "BBC iPlayer Business Layer",
 		"description": "The definitive iPlayer API.",
 		"x-logo": {
@@ -2473,6 +2473,9 @@
 					"$ref": "#/definitions/episode"
 				},
 				"channel_title": {
+					"type": "string"
+				},
+				"available_on_hd_service": {
 					"type": "string"
 				}
 			},
