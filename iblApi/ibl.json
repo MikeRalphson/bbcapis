@@ -1470,6 +1470,12 @@
         },
         "channel_title": {
           "type": "string"
+        },
+        "available_on_hd_service": {
+          "type": [
+            "string",
+            null
+          ]
         }
       },
       "required": [
