@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
-var validator = require('is-my-json-valid')
+//var validator = require('is-my-json-valid');
+var ajv = require('ajv')();
 var oa2js = require('openapi2js');
 
 var base = require('./iblApi/ibl_swagger_header.json');
@@ -42,9 +43,9 @@ var result = [];
 
 console.log('Validating v'+status.version+' release '+status.status.release);
 
-var validate = validator(jsonSchema);
+var validate = ajv.compile(jsonSchema);
 validate(schema,{
-  greedy: true,
+  allErrors: true,
   verbose: true
 });
 var errors = validate.errors;
@@ -68,9 +69,9 @@ else {
 	base.definitions = Object.assign({},base.definitions,holding);
 
 	console.log('Validating swagger spec...');
-	var validate = validator(swaggerSchema);
+	var validate = ajv.compile(swaggerSchema);
 	validate(base,{
-		greedy: true,
+		allErrors: true,
 		verbose: true
 	});
 	var errors = validate.errors;

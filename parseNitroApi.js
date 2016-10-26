@@ -4,9 +4,10 @@ var fs = require('fs');
 var crypto = require('crypto');
 var stream = require('stream');
 
+var ajv = require('ajv')();
+
 var x2j = require('jgexml/xml2json');
 var xsd = require('jgexml/xsd2json');
-var validator = require('is-my-json-valid')
 
 var api = require('./nitroApi/api.json');
 var jsonSchema = require('./validation/jsonSchema.json');
@@ -815,9 +816,9 @@ function processXsd() {
 	var obj = xsd.getJsonSchema(src,'nitro-schema','',true);
 
 	console.log('Validating generated JSON schema...');
-	var validate = validator(jsonSchema);
+	var validate = ajv.compile(jsonSchema);
 	validate(obj,{
-		greedy: true,
+		allErrors: true,
 		verbose: true
 	});
 	var errors = validate.errors;
@@ -907,9 +908,9 @@ process.on('exit',function(){
 
 	if (jsonSchemaOk) {
 		console.log('Validating swagger spec...');
-		var validate = validator(swaggerSchema);
+		var validate = ajv.compile(swaggerSchema);
 		validate(swagger,{
-			greedy: true,
+			allErrors: true,
 			verbose: true
 		});
 		var errors = validate.errors;

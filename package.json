@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/Mermade/bbcparse#readme",
   "dependencies": {
-    "is-my-json-valid": "^2.13.1",
+    "ajv": "^4.8.2",
     "jgexml": "latest",
     "node-getopt": "^0.2.3",
     "openapi2js": "latest",
