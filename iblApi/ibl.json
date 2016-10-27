@@ -1472,8 +1472,11 @@
           "type": "string"
         },
         "available_on_hd_service": {
-          "type": "string"
-        }
+          "type": [
+		    "string",
+		    "null"
+		  ]
+	    }
       },
       "required": [
         "id",
