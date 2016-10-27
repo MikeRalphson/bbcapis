@@ -32,6 +32,7 @@ nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vp
 
 // http://www.prweb.com/releases/2016/04/prweb13347368.htm
 // http://open.live.bbc.co.uk/axs/open/authxml?media_set=pc&version_pid=b006v299&format=xml
+// https://av-media-sslgate.live.bbc.co.uk/saml/axs/open/authxml?media_set=%s&version_pid=%s&format=base64
 	var q2 = nitro.newQuery();
 	q2.add('media_set',mediaSet)
 		.add('version_pid',pid)
