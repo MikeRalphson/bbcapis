@@ -240,13 +240,17 @@ var hidden = 0;
 				(p.media_type ? p.media_type : 'Audio')+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
 
 			var len = (p.version && p.version.duration) ? p.version.duration : '0s';
-			len = len.replace('PT','').toLocaleLowerCase(); // ISO 8601 duration
 
-			if (dumpMediaSets) {
-				for (var v in p.available_versions.version) {
-					for (var va in p.available_versions.version[v].availabilities) {
-						var a = p.available_versions.version[v].availabilities[va];
-						// dump mediasets
+			for (var v in p.available_versions.version) {
+			    var version = p.available_versions.version[v];
+				if (len == '0s') {
+					len = version.duration;
+				}
+				parents += '  ' + version.pid + ' (vPID '+version.types.type[0]+')';
+				for (var va in p.available_versions.version[v].availabilities) {
+					var a = p.available_versions.version[v].availabilities[va];
+					// dump mediasets
+					if (dumpMediaSets) {
 						for (var vaa in a) {
 							var vaaa = a[vaa];
 							for (var ms in vaaa.media_sets.media_set) {
@@ -256,6 +260,8 @@ var hidden = 0;
 					}
 				}
 			}
+
+			len = len.replace('PT','').toLocaleLowerCase(); // ISO 8601 duration
 
 			console.log('  '+len+' S'+pad(series,'00')+'E'+pad(position,'00')+
 				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
