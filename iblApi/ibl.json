@@ -423,11 +423,15 @@
         },
         "count": {
           "type": "number"
+        },
+        "count_all": {
+          "type": "number"
         }
       },
       "required": [
         "elements",
-        "count"
+        "count",
+        "count_all"
       ],
       "additionalProperties": false
     },
@@ -690,6 +694,9 @@
           ]
         },
         "title": {
+          "type": "string"
+        },
+        "original_title": {
           "type": "string"
         },
         "live": {
@@ -1152,6 +1159,15 @@
         "title": {
           "type": "string"
         },
+        "labels": {
+          "type": "object",
+          "properties": {
+            "category": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
         "tleo_type": {
           "enum": [
             "brand",
@@ -1473,10 +1489,10 @@
         },
         "available_on_hd_service": {
           "type": [
-		    "string",
-		    "null"
-		  ]
-	    }
+            "string",
+            "null"
+          ]
+        }
       },
       "required": [
         "id",
@@ -1640,6 +1656,9 @@
         "programme": {
           "$ref": "#/definitions/programme"
         },
+        "version": {
+          "$ref": "#/definitions/version"
+        },
         "status": {
           "enum": [
             "current",
@@ -1664,6 +1683,7 @@
         "urn",
         "episode",
         "programme",
+        "version",
         "has_next"
       ],
       "additionalProperties": false
@@ -2042,6 +2062,146 @@
         "synopses",
         "versions",
         "master_brand"
+      ],
+      "additionalProperties": false
+    },
+    "version": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "version",
+            "version_large"
+          ]
+        },
+        "hd": {
+          "type": "boolean"
+        },
+        "download": {
+          "type": "boolean"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        "rrc": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "description": {
+              "type": "object",
+              "properties": {
+                "small": {
+                  "type": "string"
+                },
+                "large": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "small",
+                "large"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "description"
+          ],
+          "additionalProperties": false
+        },
+        "guidance": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "object",
+              "properties": {
+                "small": {
+                  "type": "string"
+                },
+                "medium": {
+                  "type": "string"
+                },
+                "large": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "first_broadcast": {
+          "type": "string"
+        },
+        "credits_start": {
+          "type": "number"
+        },
+        "service_id": {
+          "type": "string"
+        },
+        "availability": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "string"
+            },
+            "end": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "start"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "hd",
+        "download",
+        "duration",
+        "kind",
+        "availability"
       ],
       "additionalProperties": false
     }
