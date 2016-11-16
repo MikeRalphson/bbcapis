@@ -2,7 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "1.0",
-		"x-release": "424",
+		"x-release": "426",
 		"title": "BBC iPlayer Business Layer",
 		"description": "The definitive iPlayer API.",
 		"x-logo": {
@@ -1745,6 +1745,9 @@
 				"requires_tv_licence": {
 					"type": "boolean"
 				},
+				"requires_sign_in": {
+					"type": "boolean"
+				},
 				"tleo_id": {
 					"type": "string"
 				},
@@ -2144,7 +2147,8 @@
 				"tleo_type",
 				"categories",
 				"master_brand",
-				"lexical_sort_letter"
+				"lexical_sort_letter",
+				"requires_sign_in"
 			],
 			"additionalProperties": false
 		},
