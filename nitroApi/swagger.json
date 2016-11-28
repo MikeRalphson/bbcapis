@@ -6849,33 +6849,57 @@
 									"name": {
 										"type": "string"
 									},
-									"media_sets": {
+									"territories": {
 										"type": "object",
 										"properties": {
-											"media_set": {
+											"territory": {
 												"type": "array",
-												"minItems": 1,
 												"items": {
-													"type": "object",
-													"properties": {
-														"actual_start": {
-															"type": "string",
-															"format": "date-time"
-														},
-														"name": {
-															"type": "string"
-														}
-													},
-													"required": [
-														"name"
-													],
-													"additionalProperties": false
+													"type": "string"
 												}
+											},
+											"media_sets": {
+												"type": "object",
+												"properties": {
+													"media_set": {
+														"type": "array",
+														"minItems": 1,
+														"items": {
+															"type": "object",
+															"properties": {
+																"actual_start": {
+																	"type": "string",
+																	"format": "date-time"
+																},
+																"name": {
+																	"type": "string"
+																},
+																"territories": {
+																	"type": "object",
+																	"properties": {
+																		"territory": {
+																			"type": "array",
+																			"items": {
+																				"type": "string"
+																			}
+																		}
+																	},
+																	"additionalProperties": false
+																}
+															},
+															"required": [
+																"name"
+															],
+															"additionalProperties": false
+														}
+													}
+												},
+												"required": [
+													"media_set"
+												],
+												"additionalProperties": false
 											}
 										},
-										"required": [
-											"media_set"
-										],
 										"additionalProperties": false
 									}
 								},
