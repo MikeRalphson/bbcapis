@@ -39,7 +39,7 @@ nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vp
 		.add('format','xml'); // or base64
 
 	nitro.make_request('open.live.bbc.co.uk','/axs/open/authxml','',q2,
-		{'Accept': 'text/html,application/xhtml+xml,application/xml'},function(obj){
+		{headers:{Accept: 'text/html,application/xhtml+xml,application/xml'}},function(obj){
 		console.log('Converted from XML');
 		console.log(JSON.stringify(xmlToJson.xml2json(obj),null,2));
 	});

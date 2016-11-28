@@ -103,8 +103,10 @@ function makeRequest(host,path,key,query,settings,callback,err){
 	debuglog(host+path+(key ? '?K' : '')+query.querystring);
 
 	var defaults = {
-		Accept: 'application/json',
-		User_Agent: 'BBCiPlayerRadio/1.6.1.1522345 (SM-N900; Android 4.4.2)',
+		headers: {
+			Accept: 'application/json',
+			User_Agent: 'BBCiPlayerRadio/1.6.1.1522345 (SM-N900; Android 4.4.2)',
+		},
 		api_key_name: 'api_key',
 		proto: 'http',
 		port: null,
@@ -125,9 +127,7 @@ function makeRequest(host,path,key,query,settings,callback,err){
 	  port: settings.port ? settings.port : (settings.proto == 'http' ? 80 : 443),
 	  path: path+qs,
 	  method: 'GET',
-	  headers: { 'Accept': settings.Accept,
-		'User-Agent': settings.User_Agent
-	  }
+	  headers: settings.headers
 	};
 	var proto = (settings.proto == 'http' ? http : https);
 	if (settings.proto == 'http') {
@@ -145,7 +145,7 @@ function makeRequest(host,path,key,query,settings,callback,err){
 
 	var list = '';
 	var obj;
-	var json = (settings.Accept == 'application/json');
+	var json = (settings.headers.Accept == 'application/json');
 
 	var req = proto.request(options, function(res) {
 	  res.setEncoding('utf8');
