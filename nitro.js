@@ -16,6 +16,10 @@ var giUtils = require('./giUtils');
 var nitro = require('./nitroSdk');
 var api = require('./nitroApi/api');
 
+var red = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[31m';
+var green = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[32m';
+var normal = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[0m';
+
 var programme_cache = [];
 var download_history = [];
 var showAll = false;
@@ -237,7 +241,7 @@ var hidden = 0;
 			var series = 1;
 
 			console.log(p.pid+' '+pad(p.item_type,'       ',true)+' '+
-				(p.media_type ? p.media_type : 'Audio')+' '+(available ? 'Available' : 'Unavailable')+'  '+title);
+				(p.media_type ? p.media_type : 'Audio')+' '+(available ? 'Available' : 'Unavailable')+'  '+green+title+normal);
 
 			var len = (p.version && p.version.duration) ? p.version.duration : '0s';
 
