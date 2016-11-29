@@ -268,7 +268,7 @@ var hidden = 0;
 			len = len.replace('PT','').toLocaleLowerCase(); // ISO 8601 duration
 
 			console.log('  '+len+' S'+pad(series,'00')+'E'+pad(position,'00')+
-				'/'+pad(totaleps,'00')+' '+(p.synopses.short ? p.synopses.short : 'No description'));
+				'/'+pad(totaleps,'00')+' '+(p.synopses && p.synopses.short ? p.synopses.short : 'No description'));
 			if (parents) console.log(parents);
 			if (p.master_brand) {
 				console.log('  '+p.master_brand.mid+' @ '+(p.release_date ? p.release_date :
