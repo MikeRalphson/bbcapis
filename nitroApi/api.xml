@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><n:feeds xsi:schemaLocation="http://www.bbc.co.uk/nitro/ https://nitro.api.bbci.co.uk/nitro/api/schema" xmlns:n="http://www.bbc.co.uk/nitro/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?><n:feeds xsi:schemaLocation="http://www.bbc.co.uk/nitro/ https://programmes.api.bbc.com/nitro/api/schema" xmlns:n="http://www.bbc.co.uk/nitro/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <n:feed name="Programmes" rel="feed" href="/nitro/api/programmes" title="Start here for programmes metadata: Brands, Series, Episodes and Clips" release_status="supported">
     <n:filters>
       <n:filter name="audio_described" type="boolean" title="filter for subset of programmes that are audio-described" release_status="supported">
