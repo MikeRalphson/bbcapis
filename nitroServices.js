@@ -29,7 +29,7 @@ var api_key = config.nitro.api_key;
 var path = api.nitroServices;
 
 if ((process.argv.length>2) && (process.argv[2] == 'a')) {
-	for (var i=2;i<23;i++) {
+	for (var i=2;i<29;i++) {
 		var p = i.toString();
 		while (p.length<7) {
 			p = '0'+p;

@@ -7,7 +7,7 @@ Lists Nitro partners
 function processResponse(obj) {
 	for (var p in obj.nitro.results.items) {
 		var partner = obj.nitro.results.items[p];
-		console.log(partner.pid+','+partner.name+','+partner.description);
+		console.log(partner.pid+','+partner.name+','+(partner.description||'No description'));
 	}
 	var dest = {};
 	if ((obj.nitro.pagination) && (obj.nitro.pagination.next)) {
