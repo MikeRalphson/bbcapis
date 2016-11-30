@@ -933,6 +933,16 @@
 					},
 					{
 						"$ref": "#/parameters/mixin"
+					},
+					{
+						"$ref": "#/parameters/per_page"
+					},
+					{
+						"name": "from",
+						"in": "query",
+						"required": false,
+						"description": "Time to return results from, e.g. -3h",
+						"type": "string"
 					}
 				],
 				"responses": {

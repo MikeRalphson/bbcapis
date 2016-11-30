@@ -249,6 +249,8 @@ function getChannelsBroadcasts(channel){
   p = p.replace('{channel}',channel);
   return p;
 }
+/** Time to return results from, e.g. -3h */
+const getChannelsBroadcastsFrom = 'from';
 
 /* Get user store purchases*/
 const getUserPurchases = '/ibl/v1/user/purchases';
@@ -318,6 +320,7 @@ module.exports = {
   getUserWatching : getUserWatching,
   getSchemaIbl : getSchemaIbl,
   getChannelsBroadcasts : getChannelsBroadcasts,
+  getChannelsBroadcastsFrom : getChannelsBroadcastsFrom,
   getUserPurchases : getUserPurchases,
   getUserRecommendations : getUserRecommendations,
   getHomeHighlights : getHomeHighlights,
