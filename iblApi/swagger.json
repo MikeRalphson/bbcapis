@@ -2,7 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "1.0",
-		"x-release": "426",
+		"x-release": "429",
 		"title": "BBC iPlayer Business Layer",
 		"description": "The definitive iPlayer API.",
 		"x-logo": {
@@ -217,6 +217,36 @@
 					"Episodes"
 				],
 				"operationId": "Get_Trailers (pre-rolls)_",
+				"parameters": [
+					{
+						"$ref": "#/parameters/pid"
+					},
+					{
+						"$ref": "#/parameters/rights"
+					},
+					{
+						"$ref": "#/parameters/availability"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Default response",
+						"schema": {
+							"$ref": "#/definitions/ibl"
+						}
+					}
+				},
+				"security": []
+			}
+		},
+		"/episodes/{pid}/next": {
+			"get": {
+				"summary": "Get Onward Journey",
+				"description": "Get Onward Journey (next programme)",
+				"tags": [
+					"Episodes"
+				],
+				"operationId": "Get_Onward_Journey",
 				"parameters": [
 					{
 						"$ref": "#/parameters/pid"

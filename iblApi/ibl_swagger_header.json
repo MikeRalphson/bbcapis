@@ -238,6 +238,36 @@
 				"security": []
 			}
 		},
+		"/episodes/{pid}/next": {
+			"get": {
+				"summary": "Get Onward Journey",
+				"description": "Get Onward Journey (next programme)",
+				"tags": [
+					"Episodes"
+				],
+				"operationId": "Get_Onward_Journey",
+				"parameters": [
+					{
+						"$ref": "#/parameters/pid"
+					},
+					{
+						"$ref": "#/parameters/rights"
+					},
+					{
+						"$ref": "#/parameters/availability"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Default response",
+						"schema": {
+							"$ref": "#/definitions/ibl"
+						}
+					}
+				},
+				"security": []
+			}
+		},
 		"/clips/{pid}": {
 			"get": {
 				"summary": "Get Clips",

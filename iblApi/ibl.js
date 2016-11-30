@@ -93,6 +93,16 @@ function getEpisodesPrerolls(pid){
   return p;
 }
 
+/** Get Onward Journey (next programme)
+@param {string} pid The programme identifier.
+@return {string} The path to request
+*/
+function getEpisodesNext(pid){
+  var p = '/ibl/v1/episodes/{pid}/next';
+  p = p.replace('{pid}',pid);
+  return p;
+}
+
 /** Get Clips
 @param {string} pid The programme identifier.
 @return {string} The path to request
@@ -282,6 +292,7 @@ module.exports = {
   getAtozProgrammesSort : getAtozProgrammesSort,
   getAtozProgrammesSortTitle : getAtozProgrammesSortTitle,
   getEpisodesPrerolls : getEpisodesPrerolls,
+  getEpisodesNext : getEpisodesNext,
   getClips : getClips,
   getSearchSuggest : getSearchSuggest,
   getChannelsSchedule : getChannelsSchedule,
