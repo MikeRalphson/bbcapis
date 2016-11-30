@@ -564,6 +564,13 @@
 		<xs:sequence>
 		  <xs:element name="actual_start" minOccurs="0" maxOccurs="1" type="xs:dateTime"/>
 		  <xs:element name="name" minOccurs="1" maxOccurs="1" type="xs:string"/>
+		  <xs:element name="territories" minOccurs="0" maxOccurs="1">
+		    <xs:complexType>
+		      <xs:sequence>
+			<xs:element name="territory" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
+		      </xs:sequence>
+		    </xs:complexType>
+		  </xs:element>
 		</xs:sequence>
 	      </xs:complexType>
 	    </xs:element>
