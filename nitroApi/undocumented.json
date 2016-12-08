@@ -1,0 +1,43 @@
+{
+    "name": "Programme Details",
+    "rel": "feed",
+    "href": "/nitro/api/programme_details",
+    "title": "Feed for programme details without the need for mixins",
+    "release_status": "undocumented",
+    "filters": {
+        "filter": [
+            {
+                "name": "page",
+                "type": "integer",
+                "title": "which page of results to return",
+                "min_value": 1,
+                "default": "1",
+                "release_status": "supported"
+            },
+            {
+                "name": "page_size",
+                "type": "integer",
+                "title": "number of results in each page",
+                "min_value": 0,
+                "max_value": 300,
+                "default": "10",
+                "release_status": "supported"
+            },
+            {
+                "name": "partner_pid",
+                "type": "PID",
+                "title": "filter for programmes by partner PID",
+                "release_status": "supported",
+                "multiple_values": true,
+                "default": "s0000001"
+            },
+            {
+                "name": "pid",
+                "type": "PID",
+                "title": "filter for subset of programmes having given PID",
+                "multiple_values": true,
+                "release_status": "supported"
+            }
+        ]
+    }
+}

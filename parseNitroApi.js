@@ -10,6 +10,7 @@ var x2j = require('jgexml/xml2json');
 var xsd = require('jgexml/xsd2json');
 
 var api = require('./nitroApi/api.json');
+var undocumented = require('./nitroApi/undocumented.json');
 var jsonSchema = require('./validation/jsonSchema.json');
 var swaggerSchema = require('./validation/swagger2Schema.json');
 var raw = require('./nitroApi/raw_swagger.json');
@@ -873,6 +874,8 @@ s.on('end', function() {
 
 swagger = initSwagger();
 swagger.host = host;
+
+api.feeds.feed.push(undocumented);
 
 var feed;
 for (var f in api.feeds.feed) {

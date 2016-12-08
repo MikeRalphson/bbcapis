@@ -2530,6 +2530,77 @@
 				}
 			}
 		},
+		"/programme_details": {
+			"get": {
+				"description": "Feed for programme details without the need for mixins",
+				"tags": [
+					"feeds"
+				],
+				"summary": "Feed for programme details without the need for mixins",
+				"operationId": "listProgramme Details",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"description": "which page of results to return",
+						"type": "integer",
+						"default": 1,
+						"minimum": 1,
+						"required": false
+					},
+					{
+						"name": "page_size",
+						"in": "query",
+						"description": "number of results in each page",
+						"type": "integer",
+						"default": 10,
+						"maximum": 300,
+						"required": false
+					},
+					{
+						"name": "partner_pid",
+						"in": "query",
+						"description": "filter for programmes by partner PID",
+						"type": "array",
+						"default": "s0000001",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
+						"required": false
+					},
+					{
+						"name": "pid",
+						"in": "query",
+						"description": "filter for subset of programmes having given PID",
+						"type": "array",
+						"items": {
+							"type": "string",
+							"pattern": "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$",
+							"minLength": 8
+						},
+						"collectionFormat": "multi",
+						"required": false
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Nitro response",
+						"schema": {
+							"$ref": "#/definitions/nitro"
+						}
+					},
+					"default": {
+						"description": "Unexpected error",
+						"schema": {
+							"$ref": "#/definitions/ErrorModel"
+						}
+					}
+				}
+			}
+		},
 		"/": {
 			"get": {
 				"description": "Get API definition",

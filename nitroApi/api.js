@@ -1589,6 +1589,35 @@ const fVersionsPaymentType = 'payment_type';
 * type = PID
 */
 const fVersionsPid = 'pid';
+/**
+* Feed for programme details without the need for mixins
+*/
+const nitroProgrammeDetails = '/nitro/api/programme_details';
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+const fProgrammeDetailsPage = 'page';
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* max_value = 300
+*/
+const fProgrammeDetailsPageSize = 'page_size';
+/**
+* filter for programmes by partner PID
+* type = PID
+* default = s0000001
+*/
+const fProgrammeDetailsPartnerPid = 'partner_pid';
+/**
+* filter for subset of programmes having given PID
+* type = PID
+*/
+const fProgrammeDetailsPid = 'pid';
 const apiHash = '0f59a84b35c41e95a11085aa43ce6e12bf03dc9faf34f7e37c8dc7813fe46885';
 
 module.exports = {
@@ -1895,5 +1924,10 @@ fVersionsPaymentTypeBbcstore : fVersionsPaymentTypeBbcstore,
 fVersionsPaymentTypeUscansvod : fVersionsPaymentTypeUscansvod,
 fVersionsPaymentType : fVersionsPaymentType,
 fVersionsPid : fVersionsPid,
+nitroProgrammeDetails : nitroProgrammeDetails,
+fProgrammeDetailsPage : fProgrammeDetailsPage,
+fProgrammeDetailsPageSize : fProgrammeDetailsPageSize,
+fProgrammeDetailsPartnerPid : fProgrammeDetailsPartnerPid,
+fProgrammeDetailsPid : fProgrammeDetailsPid,
 apiHash : apiHash
 }
