@@ -3,6 +3,7 @@
 var fs = require('fs');
 
 var nitro = require('./nitroSdk');
+var api = require('./nitroApi/api.js');
 
 //_____________________________________________________________________________
 var config, apiKey, host;
@@ -41,5 +42,14 @@ var iblKey = 'dummy';
 nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/status',iblKey,query,{},function(obj){
 	console.log('iBL status '+obj.status.service+' v'+obj.version+' r'+obj.status.release);
 	fs.writeFileSync('./iblApi/ibl_status.json',JSON.stringify(obj,null,2));
+	return false;
+});
+query.add(api.fProgrammesPartnerPid,'s0000024',true);
+query.add(api.fProgrammesPageSize,1);
+nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'application/json'}},function(obj){
+	var total = (typeof obj.nitro.results.total !== 'undefined') ? obj.nitro.results.total : obj.nitro.results.more_than+1;
+	if (total>0) {
+	  console.log('Internals present');
+	}
 	return false;
 });
