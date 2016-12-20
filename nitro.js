@@ -93,71 +93,6 @@ function pad(str, padding, padRight) {
 
 //-----------------------------------------------------------------------------
 
-function pc_rss(name) {
-	var feed = {};
-	var rss = {};
-	rss['@version'] = "2.0";
-	rss.channel = {};
-	rss.channel.title = 'BBC Nitro programmes feed - '+name;
-	rss.channel.link = 'http://mermade.github.io/feeds';
-	rss.channel.description = 'Unofficial BBC iPlayer feeds via the Nitro API';
-	rss.channel.webMaster = 'mike.ralphson@gmail.com (Mike Ralphson)';
-	rss.channel.pubDate = new Date().toUTCString();
-	rss.channel.generator = 'bbcparse by Mermade Software';
-	rss.channel.item = [];
-	for (var i in programme_cache) {
-		var p = programme_cache[i];
-
-		if (p.available_versions.available > 0) {
-			var title = (p.title ? p.title : p.presentation_title);
-			var ancestor_titles = '';
-			for (var at in p.ancestor_titles) {
-				//present = present || (download_history.indexOf(p.ancestor_titles[at].pid)>=0);
-				var t = '';
-				if (p.ancestor_titles[at].title) {
-					t = p.ancestor_titles[at].title;
-				}
-				else if (p.ancestor_titles[at].presentation_title) {
-					t = p.ancestor_titles[at].presentation_title;
-				}
-				if (p.ancestor_titles[at].ancestor_type != 'episode') {
-					ancestor_titles += t + ' : ';
-				}
-				else if (!title) {
-					title = t;
-				}
-				//parents += '  ' + p.ancestor_titles[at].pid + ' ('+t+') ';
-			}
-			title = ancestor_titles + title + ' - ' + (p.display_titles && p.display_titles.subtitle ? p.display_titles.subtitle : p.presentation_title);
-
-			var desc = '';
-			if (p.synopses) {
-				if (p.synopses.long) desc = p.synopses && p.synopses.long
-				else if (p.synopses.medium) desc = p.synopses && p.synopses.medium
-				else desc = p.synopses.short;
-			}
-			var d = new Date(p.updated_time);
-
-			//TODO output an enclosure for podcasts?
-
-			var i = {};
-			i.title = title;
-			i.link = 'http://bbc.co.uk/programmes/'+p.pid;
-			if (desc) i.description = desc;
-			i.category = p.media_type;
-			i.guid = {};
-			i.guid["@isPermaLink"] = 'false';
-			i.guid[""] = (p.version && p.version.pid ? 'vPID;' + p.version.pid : 'PID:' + p.pid);
-			i.pubDate = d.toUTCString();
-			rss.channel.item.push(i);
-		}
-	}
-	feed.rss = rss;
-	fs.writeFileSync('./'+name+'.rss',j2x.getXml(feed,'@','',2));
-}
-
-//-----------------------------------------------------------------------------
-
 function pc_export() {
 
 var hidden = 0;
@@ -613,6 +548,7 @@ var pid = '';
 var mode = '';
 var pending = false;
 var episode_type = '';
+var duration = '';
 var path = domain+feed;
 
 var options = getopt.create([
@@ -624,6 +560,7 @@ var options = getopt.create([
 	['f','format=ARG+','Filter by format id'],
 	['g','genre=ARG+','Filter by genre id. all to reset'],
 	['l','linear=ARG','Set linear service id, works with -u only'],
+	['r','run=ARG','run-length, short,medium or long'],
 	['s','search=ARG','Search metadata. Can use title: or synopses: prefix'],
 	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscansvod'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
@@ -632,7 +569,6 @@ var options = getopt.create([
 	['i','imminent','Set availability to future (default is available)'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
 	['o','output','output in get_iplayer cache format'],
-	['r','rss=ARG','output in RSS 2.0 format'],
 	['u','upcoming','Show programme schedule information not history'],
 	['x','partner_pid=ARG','Set partner pid, defaults to s0000001']
 ]);
@@ -707,6 +643,9 @@ options.on('linear',function(argv,options){
 options.on('episode',function(argv,options){
 	episode_type = options.episode;
 });
+options.on('run',function(argv,options){
+	duration = options.run;
+});
 var o = options.parseSystem();
 
 if (partner_pid) {
@@ -735,6 +674,9 @@ else {
 }
 if (media_type) {
 	query.add(api.fProgrammesMediaType,media_type);
+}
+if (duration) {
+	query.add(api.fProgrammesDuration,duration);
 }
 
 	//.add(api.fProgrammesEntityTypeEpisode)
@@ -805,10 +747,7 @@ else {
 }
 
 process.on('exit', function(code) {
-	if (o.options.rss) {
-		pc_rss(o.options.rss);
-	}
-	else if (o.options.output) {
+	if (o.options.output) {
 		pc_export();
 	}
 	else {
