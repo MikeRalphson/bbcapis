@@ -1096,7 +1096,7 @@
 			"type": "array",
 			"collectionFormat": "multi",
 			"items": {
-				"format": "string"
+				"type": "string"
 			},
 			"enum": [
 				"live",

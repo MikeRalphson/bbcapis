@@ -285,7 +285,7 @@ function exportMixin(feed,mixin,mixinName,stable) {
 		param.type = 'array';
 		param.collectionFormat = 'multi';
 		param.items = {};
-		param.items.format = 'string';
+		param.items.type = 'string';
 		param.required = false;
 		param.enum = [];
 		params.push(param);
@@ -307,7 +307,7 @@ function exportMixin(feed,mixin,mixinName,stable) {
 			param.type = 'array';
 			param.collectionFormat = 'multi';
 			param.items = {};
-			param.items.format = 'string';
+			param.items.type = 'string';
 			param.required = false;
 			param.enum = [];
 			params.push(param);
@@ -413,7 +413,7 @@ function exportFilter(feed,filter,filterName) {
 				param.type = 'array';
 				param.collectionFormat = 'multi';
 				param.items = {};
-				param.items.format = 'string';
+				param.items.type = 'string';
 				param.required = false;
 				param.enum = [];
 				params.push(param);
