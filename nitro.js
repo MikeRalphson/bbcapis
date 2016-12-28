@@ -31,6 +31,7 @@ var channel = '';
 var partner_pid = '';
 var sid = '';
 var search = '';
+var children = false;
 
 // bbc seem to use int(ernal),test,stage and live
 
@@ -331,7 +332,7 @@ function processPid(host,path,api_key,pid) {
 		.add(api.mProgrammesAvailableVersions)
 		.add(api.mProgrammesGenreGroupings)
 
-	if (upcoming) {
+	if (upcoming || children) {
 		query.add(api.fProgrammesChildrenOf,pid)
 		.add(api.fProgrammesAvailabilityPending);
 	}
@@ -567,6 +568,7 @@ var options = getopt.create([
 	['v','version=ARG+','Query by individual version pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
 	['i','imminent','Set availability to future (default is available)'],
+	['k','children','Include children of given pid'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
 	['o','output','output in get_iplayer cache format'],
 	['u','upcoming','Show programme schedule information not history'],
@@ -581,6 +583,9 @@ options.on('all',function(){
 });
 options.on('imminent',function(){
 	pending = true;
+});
+options.on('children',function(){
+	children = true;
 });
 options.on('domain',function(argv,options){
 	service = options.domain;
