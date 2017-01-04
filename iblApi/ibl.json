@@ -989,6 +989,51 @@
                       "id"
                     ],
                     "additionalProperties": false
+                  },
+                  "store_session": {
+                    "type": "object",
+                    "properties": {
+                      "token": {
+                        "type": "string"
+                      },
+                      "stats": {
+                        "type": "object",
+                        "properties": {
+                          "parentPID": {
+                            "type": "string"
+                          },
+                          "parentPIDType": {
+                            "type": "string"
+                          },
+                          "viewerId": {
+                            "type": "string"
+                          },
+                          "contentType": {
+                            "type": "string"
+                          },
+                          "contentVariant": {
+                            "type": "string"
+                          },
+                          "episodeName": {
+                            "type": "string"
+                          },
+                          "assetName": {
+                            "type": "string"
+                          },
+                          "productVariant": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "ceiling": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "token",
+                      "stats"
+                    ],
+                    "additionalProperties": false
                   }
                 },
                 "required": [
@@ -1802,6 +1847,51 @@
           },
           "required": [
             "id"
+          ],
+          "additionalProperties": false
+        },
+        "store_session": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string"
+            },
+            "stats": {
+              "type": "object",
+              "properties": {
+                "parentPID": {
+                  "type": "string"
+                },
+                "parentPIDType": {
+                  "type": "string"
+                },
+                "viewerId": {
+                  "type": "string"
+                },
+                "contentType": {
+                  "type": "string"
+                },
+                "contentVariant": {
+                  "type": "string"
+                },
+                "episodeName": {
+                  "type": "string"
+                },
+                "assetName": {
+                  "type": "string"
+                },
+                "productVariant": {
+                  "type": "string"
+                }
+              }
+            },
+            "ceiling": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "token",
+            "stats"
           ],
           "additionalProperties": false
         }
