@@ -40,3 +40,4 @@ iblApi/swagger_full.json
 iblApi/swagger.err
 examples
 taster.json
+*.py
