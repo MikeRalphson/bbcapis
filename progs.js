@@ -24,6 +24,10 @@ var upcoming = false;
 
 var debuglog = util.debuglog('bbc');
 
+var red = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[31m';
+var green = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[32m';
+var normal = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[0m';
+
 var add_programme = function(obj) {
 	programme_cache.push(obj);
 };
@@ -85,7 +89,7 @@ var hidden = 0;
 		if ((!present) && (available || !availableOnly)) {
 			console.log(p.pid+' '+p.type+' '+(ownership && ownership.service && ownership.service.type ?
 			  ownership.service.type : displayDomain)+' '+
-			  (available ? 'Available' : 'Unavailable')+'  '+title);
+			  (available ? 'Available' : 'Unavailable')+'  '+green+title+normal);
 
 			var len = p.duration ? p.duration : 0;
 			if (p.versions) {
