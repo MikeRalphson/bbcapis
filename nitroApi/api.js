@@ -96,17 +96,6 @@ const sProgrammesTreeAscending = 'sort=tree&sort_direction=ascending';
 */
 const sProgrammesTreeDescending = 'sort=tree&sort_direction=descending';
 /**
-* sort numerically by number of views (most popular first)
-* /nitro/api/programmes?sort=views&sort_direction=ascending
-*/
-const sProgrammesViewsAscending = 'sort=views&sort_direction=ascending';
-/**
-* sort numerically by number of views (most popular first)
-* /nitro/api/programmes?sort=views&sort_direction=descending
-* isDefault
-*/
-const sProgrammesViewsDescending = 'sort=views&sort_direction=descending';
-/**
 * mixin to return the alternate images for a programme
 * Dependency on filter tleo value: true
 */
@@ -1618,7 +1607,7 @@ const fProgrammeDetailsPartnerPid = 'partner_pid';
 * type = PID
 */
 const fProgrammeDetailsPid = 'pid';
-const apiHash = '0f59a84b35c41e95a11085aa43ce6e12bf03dc9faf34f7e37c8dc7813fe46885';
+const apiHash = '0f9f3c0657b6c3fe46948a9c562f523dca49fce5deb217553035973611435eda';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,
@@ -1639,8 +1628,6 @@ sProgrammesTitleAscending : sProgrammesTitleAscending,
 sProgrammesTitleDescending : sProgrammesTitleDescending,
 sProgrammesTreeAscending : sProgrammesTreeAscending,
 sProgrammesTreeDescending : sProgrammesTreeDescending,
-sProgrammesViewsAscending : sProgrammesViewsAscending,
-sProgrammesViewsDescending : sProgrammesViewsDescending,
 mProgrammesAlternateImages : mProgrammesAlternateImages,
 mProgrammesAncestorTitles : mProgrammesAncestorTitles,
 mProgrammesAvailability : mProgrammesAvailability,

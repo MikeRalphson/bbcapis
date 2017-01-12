@@ -65,7 +65,7 @@
 					{
 						"name": "sort",
 						"in": "query",
-						"description": "Sorts:\n* sort numerically by position in group, ascending\n* sort alphabetically by PID, descending\n* sort numerically by position, ascending\n* sort by promotion rank, ascending\n* sort chronologically by release date, descending\n* sort by weighting of search term (use with q parameter)\n* sort chronologically by scheduled start time/date, ascending\n* sort alphabetically by title, ascending\n* sort by title librarian style (ignoring leading 'The', 'A', etc), ascending\n* sort by root pid and then preorder tree sort. Requires entities to have release date.\n* sort numerically by number of views (most popular first)\n",
+						"description": "Sorts:\n* sort numerically by position in group, ascending\n* sort alphabetically by PID, descending\n* sort numerically by position, ascending\n* sort by promotion rank, ascending\n* sort chronologically by release date, descending\n* sort by weighting of search term (use with q parameter)\n* sort chronologically by scheduled start time/date, ascending\n* sort alphabetically by title, ascending\n* sort by title librarian style (ignoring leading 'The', 'A', etc), ascending\n* sort by root pid and then preorder tree sort. Requires entities to have release date.\n",
 						"type": "string",
 						"required": false,
 						"enum": [
@@ -78,8 +78,7 @@
 							"scheduled_start",
 							"strict_title",
 							"title",
-							"tree",
-							"views"
+							"tree"
 						]
 					},
 					{
