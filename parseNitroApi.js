@@ -60,16 +60,22 @@ function checkReleaseStatus(status) {
 }
 
 //__________________________________________________________________
-function deprecationInfo(feed,name,deprecated_since) {
-	var result = ' since ' + (deprecated_since ? deprecated_since : 'unknown');
+function deprecationInfo(feed,name,type,deprecated_since) {
+	var result = '';
 	var d = feed.deprecations.deprecated;
 	if (d) {
 		for (var i=0;i<d.length;i++) {
-			if ((d[i].name == name) && (d[i].replaced_by)) {
-				result = result + ' -> ' + d[i].replaced_by;
+			if ((d[i].name == name) && (d[i].type == type)) {
+				if ((!deprecated_since) && (d[i].deprecated_since)) {
+					deprecated_since = d[i].deprecated_since;
+				}
+				if (d[i].replaced_by) {
+					result = result + '-> ' + d[i].replaced_by;
+				}
 			}
 		}
 	}
+	result = ' since ' + (deprecated_since ? deprecated_since : 'unknown')+' '+result;
 	return result;
 }
 
@@ -231,7 +237,7 @@ function processSort(feed,sort,sortName) {
 		}
 	}
 	else {
-		console.log('Skipping sort '+sortName+' as '+sort.release_status+' '+deprecationInfo(feed,sort.name,sort.deprecated_since));
+		console.log('Skipping sort '+sortName+' as '+sort.release_status+deprecationInfo(feed,sort.name,'sort',sort.deprecated_since));
 	}
 }
 
@@ -331,7 +337,7 @@ function processMixin(feed,mixin,mixinName,stable) {
 		}
 	}
 	else {
-		console.log('Skipping mixin '+mixinName+' as '+mixin.release_status+deprecationInfo(feed,mixin.name,mixin.deprecated_since));
+		console.log('Skipping mixin '+mixinName+' as '+mixin.release_status+deprecationInfo(feed,mixin.name,'mixin',mixin.deprecated_since));
 	}
 }
 
@@ -515,7 +521,7 @@ function processFilter(feed,filter,filterName) {
 		}
 	}
 	else {
-		console.log('Skipping filter '+filterName+' as '+filter.release_status+deprecationInfo(feed,filter.name,filter.deprecated_since));
+		console.log('Skipping filter '+filterName+' as '+filter.release_status+deprecationInfo(feed,filter.name,'filter',filter.deprecated_since));
 	}
 }
 
@@ -595,7 +601,7 @@ function processFeed(feed) {
 
 	if (feed.release_status == 'deprecated') {
 		path.get.deprecated = true;
-		console.log('! Warning, feed '+feed.name+' is '+feed.release_status+deprecationInfo(feed,feed.name,feed.deprecated_since))
+		console.log('! Warning, feed '+feed.name+' is '+feed.release_status+deprecationInfo(feed,feed.name,'feed',feed.deprecated_since))
 	}
 
 	if (feed.sorts) {
@@ -884,7 +890,7 @@ for (var f in api.feeds.feed) {
 		processFeed(feed);
 	}
 	else {
-		console.log('Skipping feed '+feed.name+' as '+feed.release_status+deprecationInfo(feed,feed.name,feed.deprecated_since));
+		console.log('Skipping feed '+feed.name+' as '+feed.release_status+deprecationInfo(feed,feed.name,'feed',feed.deprecated_since));
 	}
 }
 
