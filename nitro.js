@@ -344,7 +344,7 @@ function processPid(host,path,api_key,pid) {
 	}
 	else {
 		if (pending) {
-			query.add(api.fProgrammesAvailability,'P7D');
+			query.add(api.fProgrammesAvailability,'P30D');
 		}
 		else {
 			query.add(api.fProgrammesAvailabilityAvailable);
@@ -365,7 +365,7 @@ function processVpid(host,path,api_key,vpid) {
 	}
 	else {
 		if (pending) {
-			query.add(api.fVersionsAvailability,'P7D');
+			query.add(api.fVersionsAvailability,'P30D');
 		}
 		else {
 			query.add(api.fVersionsAvailabilityAvailable);
@@ -661,7 +661,7 @@ if (partner_pid) {
 }
 else {
 	if (pending) {
-		query.add(api.fProgrammesAvailability,'P7D');
+		query.add(api.fProgrammesAvailability,'P30D');
 	}
 	else {
 		query.add(api.fProgrammesAvailabilityAvailable);
