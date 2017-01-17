@@ -2,7 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "1.0",
-		"x-release": "430",
+		"x-release": "434",
 		"title": "BBC iPlayer Business Layer",
 		"description": "The definitive iPlayer API.",
 		"x-logo": {
@@ -1702,6 +1702,9 @@
 				"id": {
 					"type": "string"
 				},
+				"short_id": {
+					"type": "string"
+				},
 				"type": {
 					"enum": [
 						"region"
@@ -1719,6 +1722,7 @@
 			},
 			"required": [
 				"id",
+				"short_id",
 				"type",
 				"title",
 				"kind"

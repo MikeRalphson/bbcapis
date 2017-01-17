@@ -658,6 +658,9 @@
         "id": {
           "type": "string"
         },
+        "short_id": {
+          "type": "string"
+        },
         "type": {
           "enum": [
             "region"
@@ -675,6 +678,7 @@
       },
       "required": [
         "id",
+        "short_id",
         "type",
         "title",
         "kind"
