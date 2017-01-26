@@ -45,6 +45,17 @@ function query() {
 	this.toString = function() {
 		return this.querystring;
 	}
+	this.fromString = function(s,previous) {
+		this.reset();
+		s = s.split('?').pop();
+		var e = s.split('&');
+		for (var p of e) {
+			var c = p.split('=');
+			this.add(c[0],decodeURIComponent(c[1]),previous);
+			previous = false;
+		}
+		return this;
+	}
 }
 
 function nitroRawEpisode(pid, version) {
