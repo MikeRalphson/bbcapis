@@ -239,6 +239,36 @@
 				"security": []
 			}
 		},
+		"/episodes/{pid}/postrolls": {
+			"get": {
+				"summary": "Get Follow-ups (post-rolls)",
+				"description": "Get Follow-ups (post-rolls)",
+				"tags": [
+					"Episodes"
+				],
+				"operationId": "getPostRolls",
+				"parameters": [
+					{
+						"$ref": "#/parameters/pid"
+					},
+					{
+						"$ref": "#/parameters/rights"
+					},
+					{
+						"$ref": "#/parameters/availability"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Default response",
+						"schema": {
+							"$ref": "#/definitions/ibl"
+						}
+					}
+				},
+				"security": []
+			}
+		},
 		"/episodes/{pid}/next": {
 			"get": {
 				"summary": "Get Onward Journey",
