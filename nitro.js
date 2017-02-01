@@ -351,6 +351,12 @@ function processPid(host,path,api_key,pid) {
 		}
 		query.add(api.mProgrammesAvailability); // has a dependency on 'availability'
 	}
+	if (episode_type == 'clip') {
+		query.add(api.fProgrammesAvailabilityEntityTypeClip);
+	}
+	else {
+		query.add(api.fProgrammesAvailabilityEntityTypeEpisode);
+	}
 	nitro.make_request(host,path,api_key,query,{},function(obj){
 		return dispatch(obj);
 	});
@@ -557,7 +563,6 @@ var options = getopt.create([
 	['b','index_base','get_iplayer index base, defaults to 10000'],
 	['c','channel=ARG','Filter by channel (masterbrand) id'],
 	['d','domain=ARG','Set domain = radio,tv or both'],
-	['e','episode=ARG','Set programme type to episode* or clip'],
 	['f','format=ARG+','Filter by format id'],
 	['g','genre=ARG+','Filter by genre id. all to reset'],
 	['l','linear=ARG','Set linear service id, works with -u only'],
@@ -567,6 +572,7 @@ var options = getopt.create([
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['v','version=ARG+','Query by individual version pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
+	['e','episode=ARG','Set programme type to episode* or clip'],
 	['i','imminent','Set availability to future (default is available)'],
 	['k','children','Include children of given pid'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
