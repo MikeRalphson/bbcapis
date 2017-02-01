@@ -297,7 +297,7 @@ var processResponse = function(obj,payload) {
 	var dest = {};
 	if (pageNo<last) {
 		dest.path = domain+feed;
-		dest.query = nitro.queryFrom(nextHref,true);
+		dest.query = nitro.queryFrom(nextHref,true); // TODO
 		dest.callback = processResponse;
 	}
 	// if we need to go somewhere else, e.g. after all pages received set callback and/or path
@@ -462,7 +462,7 @@ var scheduleResponse = function(obj) {
 	var dest = {};
 	if (pageNo<last) {
 		dest.path = '/nitro/api/schedules';
-		dest.query = nitro.queryFrom(nextHref,true);
+		dest.query = nitro.queryFrom(nextHref,true); // TODO
 		dest.callback = scheduleResponse;
 	}
 	// if we need to go somewhere else, e.g. after all pages received set callback and/or path

@@ -355,6 +355,12 @@
         "$ref": "#/definitions/trailer"
       }
     },
+    "postrolls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/trailer"
+      }
+    },
     "search": {
       "type": "object",
       "properties": {
