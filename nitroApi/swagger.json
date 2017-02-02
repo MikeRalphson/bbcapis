@@ -509,6 +509,18 @@
 						},
 						"collectionFormat": "multi",
 						"required": false
+					},
+					{
+						"name": "embargoed",
+						"in": "query",
+						"description": "Control return of embargoed items",
+						"type": "string",
+						"enum": [
+							"include",
+							"exclude",
+							"only"
+						],
+						"required": false
 					}
 				],
 				"responses": {
@@ -1240,6 +1252,18 @@
 						"in": "query",
 						"description": "filter for subset of images matching supplied keyword/phrase (boolean operators permitted)",
 						"type": "string",
+						"required": false
+					},
+					{
+						"name": "embargoed",
+						"in": "query",
+						"description": "Control return of embargoed items",
+						"type": "string",
+						"enum": [
+							"include",
+							"exclude",
+							"only"
+						],
 						"required": false
 					}
 				],

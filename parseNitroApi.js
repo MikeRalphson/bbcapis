@@ -534,6 +534,17 @@ function additionalParameters(feedName) {
 		s += 'x'+feedName+'Debug : x'+feedName+'Debug,\n';
 		cache.push(s);
 	}
+	if ((feedName == 'Programmes') || (feedName == 'Images')) {
+		fs.appendFileSync(apijs, 'const x'+feedName+"EmbargoedInclude = 'embargoed=include';\n", 'utf8');
+		fs.appendFileSync(apijs, 'const x'+feedName+"EmbargoedExclude = 'embargoed=exclude';\n", 'utf8');
+		fs.appendFileSync(apijs, 'const x'+feedName+"EmbargoedOnly = 'embargoed=only';\n", 'utf8');
+		fs.appendFileSync(apijs, 'const x'+feedName+"Embargoed= 'embargoed';\n", 'utf8');
+		var s = 'x'+feedName+'EmbargoedInclude : x'+feedName+'EmbargoedInclude,\n';
+		s += 'x'+feedName+'EmbargoedExclude : x'+feedName+'EmbargoedExclude,\n';
+		s += 'x'+feedName+'EmbargoedOnly: x'+feedName+'EmbargoedOnly,\n';
+		s += 'x'+feedName+'Embargoed : x'+feedName+'Embargoed,\n';
+		cache.push(s);
+	}
 }
 
 //__________________________________________________________________
@@ -776,6 +787,17 @@ function patchSwagger() {
 	debug.type = 'boolean';
 	debug.required = false;
 	swagger.paths["/availabilities"].get.parameters.push(debug);
+
+	var embargoed = {};
+	embargoed.name = 'embargoed';
+	embargoed.in = 'query';
+	embargoed.description = 'Control return of embargoed items';
+	embargoed.type = 'string';
+	var e = ['include','exclude','only'];
+	embargoed.enum = e;
+	embargoed.required = false;
+	swagger.paths["/programmes"].get.parameters.push(embargoed);
+	swagger.paths["/images"].get.parameters.push(embargoed);
 }
 
 //__________________________________________________________________

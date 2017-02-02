@@ -463,6 +463,10 @@ const fProgrammesTleo = 'tleo';
 * type = PID
 */
 const fProgrammesVersion = 'version';
+const xProgrammesEmbargoedInclude = 'embargoed=include';
+const xProgrammesEmbargoedExclude = 'embargoed=exclude';
+const xProgrammesEmbargoedOnly = 'embargoed=only';
+const xProgrammesEmbargoed= 'embargoed';
 /**
 * Discover details of on-demand availability for programmes and their versions
 */
@@ -882,6 +886,10 @@ const fImagesPid = 'pid';
 * type = string
 */
 const fImagesQ = 'q';
+const xImagesEmbargoedInclude = 'embargoed=include';
+const xImagesEmbargoedExclude = 'embargoed=exclude';
+const xImagesEmbargoedOnly = 'embargoed=only';
+const xImagesEmbargoed= 'embargoed';
 /**
 * Look inside programmes to find segments: chapters, tracks and more
 */
@@ -1700,6 +1708,10 @@ fProgrammesTleoTrue : fProgrammesTleoTrue,
 fProgrammesTleoFalse : fProgrammesTleoFalse,
 fProgrammesTleo : fProgrammesTleo,
 fProgrammesVersion : fProgrammesVersion,
+xProgrammesEmbargoedInclude : xProgrammesEmbargoedInclude,
+xProgrammesEmbargoedExclude : xProgrammesEmbargoedExclude,
+xProgrammesEmbargoedOnly: xProgrammesEmbargoedOnly,
+xProgrammesEmbargoed : xProgrammesEmbargoed,
 nitroAvailability : nitroAvailability,
 sAvailabilityScheduledStartAscending : sAvailabilityScheduledStartAscending,
 sAvailabilityScheduledStartDescending : sAvailabilityScheduledStartDescending,
@@ -1780,6 +1792,10 @@ fImagesPartnerId : fImagesPartnerId,
 fImagesPartnerPid : fImagesPartnerPid,
 fImagesPid : fImagesPid,
 fImagesQ : fImagesQ,
+xImagesEmbargoedInclude : xImagesEmbargoedInclude,
+xImagesEmbargoedExclude : xImagesEmbargoedExclude,
+xImagesEmbargoedOnly: xImagesEmbargoedOnly,
+xImagesEmbargoed : xImagesEmbargoed,
 nitroItems : nitroItems,
 sItemsPidDescending : sItemsPidDescending,
 mItemsContributions : mItemsContributions,
