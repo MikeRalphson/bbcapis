@@ -4,7 +4,10 @@ var api = require('./nitroApi/api.js');
 var config = require('./config.json');
 
 var query = sdk.newQuery();
-query.add(api.fImagesPid,process.argv[2],true);
+var pid = process.argv[2];
+pid = pid.replace('.jpg','');
+pid = pid.replace('.png','');
+query.add(api.fImagesPid,pid,true);
 
 var host = config.nitro.host;
 var path = api.nitroImages;
