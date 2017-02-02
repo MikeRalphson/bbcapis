@@ -32,6 +32,7 @@ var partner_pid = '';
 var sid = '';
 var search = '';
 var children = false;
+var embargoed = '';
 
 // bbc seem to use int(ernal),test,stage and live
 
@@ -583,7 +584,8 @@ var options = getopt.create([
 	['m','mediaset','Dump mediaset information, most useful with -p'],
 	['o','output','output in get_iplayer cache format'],
 	['u','upcoming','Show programme schedule information not history'],
-	['x','partner_pid=ARG','Set partner pid, defaults to s0000001']
+	['x','partner_pid=ARG','Set partner pid, defaults to s0000001'],
+	['z','embargoed=ARG','Set embargoed to include, exclude* or only']
 ]);
 var o = options.bindHelp();
 
@@ -656,6 +658,9 @@ options.on('partner_pid',function(argv,options){
 options.on('linear',function(argv,options){
 	sid = options.linear;
 });
+options.on('embargoed',function(argv,options){
+	embargoed = options.embargoed;
+});
 options.on('episode',function(argv,options){
 	episode_type = options.episode;
 	if ((episode_type == 'brand') || (episode_type == 'series')) {
@@ -701,6 +706,9 @@ if (media_type) {
 }
 if (duration) {
 	query.add(api.fProgrammesDuration,duration);
+}
+if (embargoed) {
+	query.add(api.xProgrammesEmbargoed,embargoed);
 }
 
 query.add(api.mProgrammesDuration)
