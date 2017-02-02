@@ -19,6 +19,7 @@ function processResults(obj){
 		for (var i of obj.nitro.results.items) {
 			var url = i.template_url.replace('$recipe',recipe);
 			var e = url.split('/');
+			console.log('# '+(i.synopses.medium ? i.synopses.medium : i.synopses.short));
 			console.log('curl http://'+url+' > '+e.pop());
 		}
 	}
