@@ -181,20 +181,22 @@ var hidden = 0;
 
 			var len = (p.version && p.version.duration) ? p.version.duration : '0s';
 
-			for (var v in p.available_versions.version) {
-			    var version = p.available_versions.version[v];
-				if (len == '0s') {
-					len = version.duration;
-				}
-				parents += '  ' + version.pid + ' (vPID '+version.types.type[0]+')';
-				for (var va in p.available_versions.version[v].availabilities) {
-					var a = p.available_versions.version[v].availabilities[va];
-					// dump mediasets
-					if (dumpMediaSets) {
-						for (var vaa in a) {
-							var vaaa = a[vaa];
-							for (var ms in vaaa.media_sets.media_set) {
-								console.log(p.available_versions.version[v].pid+' '+vaaa.status+' '+vaaa.media_sets.media_set[ms].name);
+			if (p.available_versions) {
+				for (var v in p.available_versions.version) {
+				    var version = p.available_versions.version[v];
+					if (len == '0s') {
+						len = version.duration;
+					}
+					parents += '  ' + version.pid + ' (vPID '+version.types.type[0]+')';
+					for (var va in p.available_versions.version[v].availabilities) {
+						var a = p.available_versions.version[v].availabilities[va];
+						// dump mediasets
+						if (dumpMediaSets) {
+							for (var vaa in a) {
+								var vaaa = a[vaa];
+								for (var ms in vaaa.media_sets.media_set) {
+									console.log(p.available_versions.version[v].pid+' '+vaaa.status+' '+vaaa.media_sets.media_set[ms].name);
+								}
 							}
 						}
 					}
@@ -261,7 +263,7 @@ var processResponse = function(obj,payload) {
 		for (var i in obj.nitro.results.items) {
 			var p = obj.nitro.results.items[i];
 			//debuglog(JSON.stringify(p,null,2));
-			if ((p.item_type == 'episode') || (p.item_type == 'clip'))  {
+			if ((p.item_type == 'episode') || (p.item_type == 'clip') || (p.item_type == episode_type))  {
 				add_programme(p,payload);
 			}
 			else if ((p.item_type == 'series') || (p.item_type == 'brand')) {
@@ -353,6 +355,9 @@ function processPid(host,path,api_key,pid) {
 	}
 	if (episode_type == 'clip') {
 		query.add(api.fProgrammesAvailabilityEntityTypeClip);
+	}
+	else if ((episode_type == 'brand') || (episode_type == 'series')) {
+		query.add(api.fProgrammesEntityType,episode_type);
 	}
 	else {
 		query.add(api.fProgrammesAvailabilityEntityTypeEpisode);
@@ -572,7 +577,7 @@ var options = getopt.create([
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['v','version=ARG+','Query by individual version pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
-	['e','episode=ARG','Set programme type to episode* or clip'],
+	['e','episode=ARG','Set programme type to episode*,clip,brand or series'],
 	['i','imminent','Set availability to future (default is available)'],
 	['k','children','Include children of given pid'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
@@ -653,6 +658,9 @@ options.on('linear',function(argv,options){
 });
 options.on('episode',function(argv,options){
 	episode_type = options.episode;
+	if ((episode_type == 'brand') || (episode_type == 'series')) {
+		showAll = true;
+	}
 });
 options.on('run',function(argv,options){
 	duration = options.run;
@@ -677,12 +685,17 @@ else {
 		.add(api.fProgrammesPaymentType,payment_type)
 		.add(api.fProgrammesAvailabilityTypeOndemand);
 }
+
 if (episode_type == 'clip') {
 	query.add(api.fProgrammesAvailabilityEntityTypeClip);
+}
+else if ((episode_type == 'brand') || (episode_type == 'series')) {
+	query.add(api.fProgrammesEntityType,episode_type);
 }
 else {
 	query.add(api.fProgrammesAvailabilityEntityTypeEpisode);
 }
+
 if (media_type) {
 	query.add(api.fProgrammesMediaType,media_type);
 }
@@ -690,7 +703,6 @@ if (duration) {
 	query.add(api.fProgrammesDuration,duration);
 }
 
-	//.add(api.fProgrammesEntityTypeEpisode)
 query.add(api.mProgrammesDuration)
 	.add(api.mProgrammesAncestorTitles)
 	.add(api.fProgrammesPageSize,pageSize);
