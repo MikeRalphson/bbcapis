@@ -36,6 +36,7 @@ nitro.make_request(host,path,api_key,query,options,function(obj){
 * query the configured nitro host and return the response time (`nitroPing.js`)
 * show download information for a version PID (`dlInfo.js`)
 * find images by keyword (`imageFinder.js`)
+* show information for an image PID (`imageInfo.js`)
 * show TV iPlayer programme, category or channels information (`ibl.js`)
 * query the searchSuggest API (`searchSuggest.js`)
 * show legacy programme, brand or series information by category or searching (`progs.js`)

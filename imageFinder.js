@@ -9,7 +9,7 @@ query.add(api.fImagesQ,process.argv[2],true);
 var host = config.nitro.host;
 var path = api.nitroImages;
 var key = config.nitro.api_key;
-var recipe = process.argv.length>3 ? process.argv[3] : '1024xn';
+var recipe = process.argv.length>3 ? process.argv[3] : 'raw';
 
 function processResults(obj){
 	if (!obj.nitro.results.items) {
