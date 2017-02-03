@@ -778,6 +778,10 @@ const fGroupsPid = 'pid';
 * type = string
 */
 const fGroupsQ = 'q';
+const xGroupsEmbargoedInclude = 'embargoed=include';
+const xGroupsEmbargoedExclude = 'embargoed=exclude';
+const xGroupsEmbargoedOnly = 'embargoed=only';
+const xGroupsEmbargoed= 'embargoed';
 /**
 * Find metadata for images
 */
@@ -1161,6 +1165,34 @@ const fPipsPageSize = 'page_size';
 * type = string
 */
 const fPipsQ = 'q';
+/**
+* Exposes programme information for a single pid
+*/
+const nitroProgrammedetails = '/nitro/api/programme_details';
+/**
+* which page of results to return
+* type = integer
+* default = 1
+* min_value = 1
+*/
+const fProgrammedetailsPage = 'page';
+/**
+* number of results in each page
+* type = integer
+* default = 10
+* max_value = 300
+*/
+const fProgrammedetailsPageSize = 'page_size';
+/**
+* Filter for programme information by partner PID
+* type = PID
+*/
+const fProgrammedetailsPartnerPid = 'partner_pid';
+/**
+* Filter for programme information for the provided PID
+* type = PID
+*/
+const fProgrammedetailsPid = 'pid';
 /**
 * Discover metadata for content promotions
 */
@@ -1586,36 +1618,11 @@ const fVersionsPaymentType = 'payment_type';
 * type = PID
 */
 const fVersionsPid = 'pid';
-/**
-* Feed for programme details without the need for mixins
-*/
-const nitroProgrammeDetails = '/nitro/api/programme_details';
-/**
-* which page of results to return
-* type = integer
-* default = 1
-* min_value = 1
-*/
-const fProgrammeDetailsPage = 'page';
-/**
-* number of results in each page
-* type = integer
-* default = 10
-* max_value = 300
-*/
-const fProgrammeDetailsPageSize = 'page_size';
-/**
-* filter for programmes by partner PID
-* type = PID
-* default = s0000001
-*/
-const fProgrammeDetailsPartnerPid = 'partner_pid';
-/**
-* filter for subset of programmes having given PID
-* type = PID
-*/
-const fProgrammeDetailsPid = 'pid';
-const apiHash = '0f9f3c0657b6c3fe46948a9c562f523dca49fce5deb217553035973611435eda';
+const xVersionsEmbargoedInclude = 'embargoed=include';
+const xVersionsEmbargoedExclude = 'embargoed=exclude';
+const xVersionsEmbargoedOnly = 'embargoed=only';
+const xVersionsEmbargoed= 'embargoed';
+const apiHash = '02577a0fe63504aad508ee43b8af6cdc777115bd923450d49d2528361944f002';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,
@@ -1773,6 +1780,10 @@ fGroupsPartnerId : fGroupsPartnerId,
 fGroupsPartnerPid : fGroupsPartnerPid,
 fGroupsPid : fGroupsPid,
 fGroupsQ : fGroupsQ,
+xGroupsEmbargoedInclude : xGroupsEmbargoedInclude,
+xGroupsEmbargoedExclude : xGroupsEmbargoedExclude,
+xGroupsEmbargoedOnly: xGroupsEmbargoedOnly,
+xGroupsEmbargoed : xGroupsEmbargoed,
 nitroImages : nitroImages,
 sImagesGroupPositionAscending : sImagesGroupPositionAscending,
 sImagesPidAscending : sImagesPidAscending,
@@ -1846,6 +1857,11 @@ nitroPips : nitroPips,
 fPipsPage : fPipsPage,
 fPipsPageSize : fPipsPageSize,
 fPipsQ : fPipsQ,
+nitroProgrammedetails : nitroProgrammedetails,
+fProgrammedetailsPage : fProgrammedetailsPage,
+fProgrammedetailsPageSize : fProgrammedetailsPageSize,
+fProgrammedetailsPartnerPid : fProgrammedetailsPartnerPid,
+fProgrammedetailsPid : fProgrammedetailsPid,
 nitroPromotions : nitroPromotions,
 mPromotionsRelatedLinks : mPromotionsRelatedLinks,
 fPromotionsContext : fPromotionsContext,
@@ -1927,10 +1943,9 @@ fVersionsPaymentTypeBbcstore : fVersionsPaymentTypeBbcstore,
 fVersionsPaymentTypeUscansvod : fVersionsPaymentTypeUscansvod,
 fVersionsPaymentType : fVersionsPaymentType,
 fVersionsPid : fVersionsPid,
-nitroProgrammeDetails : nitroProgrammeDetails,
-fProgrammeDetailsPage : fProgrammeDetailsPage,
-fProgrammeDetailsPageSize : fProgrammeDetailsPageSize,
-fProgrammeDetailsPartnerPid : fProgrammeDetailsPartnerPid,
-fProgrammeDetailsPid : fProgrammeDetailsPid,
+xVersionsEmbargoedInclude : xVersionsEmbargoedInclude,
+xVersionsEmbargoedExclude : xVersionsEmbargoedExclude,
+xVersionsEmbargoedOnly: xVersionsEmbargoedOnly,
+xVersionsEmbargoed : xVersionsEmbargoed,
 apiHash : apiHash
 }

@@ -375,6 +375,14 @@
       <n:filter name="q" type="string" title="filter for subset of programmes matching supplied keyword/phrase (boolean operators permitted)" release_status="supported"/>
     </n:filters>
   </n:feed>
+  <n:feed name="ProgrammeDetails" rel="feed" href="/nitro/api/programme_details" title="Exposes programme information for a single pid" release_status="supported">
+    <n:filters>
+      <n:filter name="page" type="integer" title="which page of results to return" min_value="1" default="1" release_status="supported"/>
+      <n:filter name="page_size" type="integer" title="number of results in each page" min_value="0" max_value="300" default="10" release_status="supported"/>
+      <n:filter name="partner_pid" type="PID" title="Filter for programme information by partner PID" release_status="supported"/>
+      <n:filter name="pid" type="PID" title="Filter for programme information for the provided PID" required="true" release_status="supported"/>
+    </n:filters>
+  </n:feed>
   <n:feed name="Promotions" rel="feed" href="/nitro/api/promotions" title="Discover metadata for content promotions" release_status="supported">
     <n:filters>
       <n:filter name="context" type="PID" title="filter for subset of promotions belonging to a given context" multiple_values="false" release_status="supported"/>

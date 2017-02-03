@@ -534,7 +534,8 @@ function additionalParameters(feedName) {
 		s += 'x'+feedName+'Debug : x'+feedName+'Debug,\n';
 		cache.push(s);
 	}
-	if ((feedName == 'Programmes') || (feedName == 'Images')) {
+	if ((feedName == 'Programmes') || (feedName == 'Images') || (feedName == 'Groups') ||
+		(feedName == 'Versions')) {
 		fs.appendFileSync(apijs, 'const x'+feedName+"EmbargoedInclude = 'embargoed=include';\n", 'utf8');
 		fs.appendFileSync(apijs, 'const x'+feedName+"EmbargoedExclude = 'embargoed=exclude';\n", 'utf8');
 		fs.appendFileSync(apijs, 'const x'+feedName+"EmbargoedOnly = 'embargoed=only';\n", 'utf8');
@@ -791,13 +792,15 @@ function patchSwagger() {
 	var embargoed = {};
 	embargoed.name = 'embargoed';
 	embargoed.in = 'query';
-	embargoed.description = 'Control return of embargoed items';
+	embargoed.description = 'Control return of embargoed items (undocumented)';
 	embargoed.type = 'string';
 	var e = ['include','exclude','only'];
 	embargoed.enum = e;
 	embargoed.required = false;
 	swagger.paths["/programmes"].get.parameters.push(embargoed);
 	swagger.paths["/images"].get.parameters.push(embargoed);
+	swagger.paths["/groups"].get.parameters.push(embargoed);
+	swagger.paths["/versions"].get.parameters.push(embargoed);
 }
 
 //__________________________________________________________________
@@ -903,7 +906,7 @@ s.on('end', function() {
 swagger = initSwagger();
 swagger.host = host;
 
-api.feeds.feed.push(undocumented);
+//api.feeds.feed.push(undocumented);
 
 var feed;
 for (var f in api.feeds.feed) {

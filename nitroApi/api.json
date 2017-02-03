@@ -1791,6 +1791,47 @@
         }
       },
       {
+        "name": "ProgrammeDetails",
+        "rel": "feed",
+        "href": "/nitro/api/programme_details",
+        "title": "Exposes programme information for a single pid",
+        "release_status": "supported",
+        "filters": {
+          "filter": [
+            {
+              "name": "page",
+              "type": "integer",
+              "title": "which page of results to return",
+              "min_value": 1,
+              "default": "1",
+              "release_status": "supported"
+            },
+            {
+              "name": "page_size",
+              "type": "integer",
+              "title": "number of results in each page",
+              "min_value": 0,
+              "max_value": 300,
+              "default": "10",
+              "release_status": "supported"
+            },
+            {
+              "name": "partner_pid",
+              "type": "PID",
+              "title": "Filter for programme information by partner PID",
+              "release_status": "supported"
+            },
+            {
+              "name": "pid",
+              "type": "PID",
+              "title": "Filter for programme information for the provided PID",
+              "required": true,
+              "release_status": "supported"
+            }
+          ]
+        }
+      },
+      {
         "name": "Promotions",
         "rel": "feed",
         "href": "/nitro/api/promotions",
