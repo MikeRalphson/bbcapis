@@ -5,6 +5,7 @@ var config = require('./config.json');
 
 var query = sdk.newQuery();
 query.add(api.fImagesQ,process.argv[2],true);
+query.add(api.xImagesEmbargoedInclude);
 
 var host = config.nitro.host;
 var path = api.nitroImages;
