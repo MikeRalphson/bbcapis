@@ -542,7 +542,6 @@ var defcat = 'all';
 
 try {
 	var config = require('./config.json');
-	download_history = giUtils.downloadHistory(config.download_history);
 	host = config.nitro.host;
 	api_key = config.nitro.api_key;
 	mediaSet = config.nitro.mediaset;
@@ -671,6 +670,10 @@ options.on('run',function(argv,options){
 	duration = options.run;
 });
 var o = options.parseSystem();
+
+if (!showAll && config.download_history) {
+	download_history = giUtils.downloadHistory(config.download_history);
+}
 
 if (partner_pid) {
 	query.add(api.fProgrammesPartnerPid,partner_pid)
