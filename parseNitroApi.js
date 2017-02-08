@@ -361,6 +361,9 @@ function exportFilter(feed,filter,filterName) {
 	if (filter.default) {
 		s += '* default = '+filter.default+'\n';
 	}
+	if (filter.multiple_values) {
+		s += '* multiple_values = '+filter.multiple_values+'\n';
+	}
 	if (filter.min_value) {
 		s += '* min_value = '+filter.min_value+'\n';
 	}

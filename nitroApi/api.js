@@ -182,6 +182,7 @@ const fProgrammesAudioDescribed = 'audio_described';
 /**
 * filter for subset of programmes that have availability
 * type = string
+* multiple_values = true
 * option: available, filter for programmes that are available
 */
 const fProgrammesAvailabilityAvailable = 'availability=available';
@@ -213,6 +214,7 @@ const fProgrammesAvailabilityEntityType = 'availability_entity_type';
 * filter for a subset of programmes that are available for a given type
 * type = string
 * default = ondemand
+* multiple_values = true
 * depends_on = availability
 * option: ondemand, filters programmes based on availability type of ondemand
 */
@@ -231,11 +233,13 @@ const fProgrammesAvailabilityType = 'availability_type';
 /**
 * filter for subset of programmes that have PID as immediate parent
 * type = PID
+* multiple_values = true
 */
 const fProgrammesChildrenOf = 'children_of';
 /**
 * filter for subset of programmes that have PID as ancestor
 * type = PID
+* multiple_values = true
 */
 const fProgrammesDescendantsOf = 'descendants_of';
 /**
@@ -261,6 +265,7 @@ const fProgrammesDuration = 'duration';
 /**
 * filter for subset of programmes that have given entity type
 * type = string
+* multiple_values = true
 * option: brand, filter for programmes that are brands
 */
 const fProgrammesEntityTypeBrand = 'entity_type=brand';
@@ -286,11 +291,13 @@ const fProgrammesEntityType = 'entity_type';
 /**
 * filter for subset of programmes with format
 * type = string
+* multiple_values = true
 */
 const fProgrammesFormat = 'format';
 /**
 * filter for subset of programmes with genre
 * type = string
+* multiple_values = true
 */
 const fProgrammesGenre = 'genre';
 /**
@@ -316,16 +323,19 @@ const fProgrammesInitialLetterStart = 'initial_letter_start';
 /**
 * filter for subset of programmes with title beginning with initial letter
 * type = character
+* multiple_values = true
 */
 const fProgrammesInitialLetterStrict = 'initial_letter_strict';
 /**
 * filter for subset of programmes with linked to versions which have the given item pids
 * type = PID
+* multiple_values = true
 */
 const fProgrammesItem = 'item';
 /**
 * filter for subset of programmes with master_brand
 * type = string
+* multiple_values = true
 */
 const fProgrammesMasterBrand = 'master_brand';
 /**
@@ -365,6 +375,7 @@ const fProgrammesPageSize = 'page_size';
 /**
 * filter for programmes by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fProgrammesPartnerId = 'partner_id';
@@ -372,6 +383,7 @@ const fProgrammesPartnerId = 'partner_id';
 * filter for programmes by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fProgrammesPartnerPid = 'partner_pid';
 /**
@@ -401,6 +413,7 @@ const fProgrammesPeople = 'people';
 /**
 * filter for subset of programmes having given PID
 * type = PID
+* multiple_values = true
 */
 const fProgrammesPid = 'pid';
 /**
@@ -461,6 +474,7 @@ const fProgrammesTleo = 'tleo';
 /**
 * filter for subset of programmes with given PID as one of their versions
 * type = PID
+* multiple_values = true
 */
 const fProgrammesVersion = 'version';
 const xProgrammesEmbargoedInclude = 'embargoed=include';
@@ -495,11 +509,13 @@ const fAvailabilityAvailability = 'availability';
 /**
 * filter for subset of availabilities that have PID as ancestor
 * type = PID
+* multiple_values = true
 */
 const fAvailabilityDescendantsOf = 'descendants_of';
 /**
 * filter for subset of availabilities with media set
 * type = string
+* multiple_values = true
 */
 const fAvailabilityMediaSet = 'media_set';
 /**
@@ -561,11 +577,13 @@ const mBroadcastsTitles = 'mixin=titles';
 /**
 * filter for subset of broadcasts that have given authority
 * type = string
+* multiple_values = true
 */
 const fBroadcastsAuthority = 'authority';
 /**
 * filter for subset of broadcasts that are descendants of the given programme PID
 * type = PID
+* multiple_values = true
 */
 const fBroadcastsDescendantsOf = 'descendants_of';
 /**
@@ -581,21 +599,25 @@ const fBroadcastsEndTo = 'end_to';
 /**
 * filter for subset of broadcasts that are classified in the given format ID
 * type = string
+* multiple_values = true
 */
 const fBroadcastsFormat = 'format';
 /**
 * filter for subset of broadcasts that are classified in the given genre ID
 * type = string
+* multiple_values = true
 */
 const fBroadcastsGenre = 'genre';
 /**
 * filter for subset of broadcasts that have given identifier
 * type = string
+* multiple_values = true
 */
 const fBroadcastsId = 'id';
 /**
 * filter for subset of broadcasts with the given item performed on it
 * type = PID
+* multiple_values = true
 */
 const fBroadcastsItem = 'item';
 /**
@@ -620,6 +642,7 @@ const fBroadcastsPeople = 'people';
 /**
 * filter for subset of broadcasts having given PID
 * type = PID
+* multiple_values = true
 */
 const fBroadcastsPid = 'pid';
 /**
@@ -645,11 +668,13 @@ const fBroadcastsScheduleDayTo = 'schedule_day_to';
 /**
 * filter for subset of broadcasts with given service master brand
 * type = string
+* multiple_values = true
 */
 const fBroadcastsServiceMasterBrand = 'service_master_brand';
 /**
 * filter for subset of broadcasts that are on the specified linear service
 * type = string
+* multiple_values = true
 */
 const fBroadcastsSid = 'sid';
 /**
@@ -665,6 +690,7 @@ const fBroadcastsStartTo = 'start_to';
 /**
 * filter for subset of broadcasts with given PID as their parent version
 * type = PID
+* multiple_values = true
 */
 const fBroadcastsVersion = 'version';
 /**
@@ -715,6 +741,7 @@ const fGroupsGroup = 'group';
 /**
 * filter for subset of groups that have the given group type
 * type = string
+* multiple_values = true
 * option: collection, filter for groups that are collections
 */
 const fGroupsGroupTypeCollection = 'group_type=collection';
@@ -759,6 +786,7 @@ const fGroupsPageSize = 'page_size';
 /**
 * filter for groups by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fGroupsPartnerId = 'partner_id';
@@ -766,11 +794,13 @@ const fGroupsPartnerId = 'partner_id';
 * filter for groups by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fGroupsPartnerPid = 'partner_pid';
 /**
 * filter for subset of seasons, collections, galleries or franchises having given PID
 * type = PID
+* multiple_values = true
 */
 const fGroupsPid = 'pid';
 /**
@@ -813,6 +843,7 @@ const fImagesGroup = 'group';
 /**
 * filter for images by type
 * type = string
+* multiple_values = true
 * option: standard, select standard type images
 */
 const fImagesImageTypeStandard = 'image_type=standard';
@@ -871,6 +902,7 @@ const fImagesPageSize = 'page_size';
 /**
 * filter for images by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fImagesPartnerId = 'partner_id';
@@ -878,11 +910,13 @@ const fImagesPartnerId = 'partner_id';
 * filter for images by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fImagesPartnerPid = 'partner_pid';
 /**
 * filter for subset of images having given PID
 * type = PID
+* multiple_values = true
 */
 const fImagesPid = 'pid';
 /**
@@ -928,6 +962,7 @@ const fItemsAuthority = 'authority';
 /**
 * filter for subset of items having given ID
 * type = ID
+* multiple_values = true
 */
 const fItemsId = 'id';
 /**
@@ -938,6 +973,7 @@ const fItemsIdType = 'id_type';
 /**
 * filter for specific type(s) of items
 * type = string
+* multiple_values = true
 * option: chapter, filter for only chapter items
 */
 const fItemsItemTypeChapter = 'item_type=chapter';
@@ -982,6 +1018,7 @@ const fItemsPageSize = 'page_size';
 /**
 * filter for items by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fItemsPartnerId = 'partner_id';
@@ -989,6 +1026,7 @@ const fItemsPartnerId = 'partner_id';
 * filter for items by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fItemsPartnerPid = 'partner_pid';
 /**
@@ -999,6 +1037,7 @@ const fItemsPeople = 'people';
 /**
 * filter for subset of items matching one of the given PIDs
 * type = PID
+* multiple_values = true
 */
 const fItemsPid = 'pid';
 /**
@@ -1034,6 +1073,7 @@ const mMasterbrandsImages = 'mixin=images';
 /**
 * filter for subset of masterbrands that have given identifier
 * type = string
+* multiple_values = true
 */
 const fMasterbrandsMid = 'mid';
 /**
@@ -1053,6 +1093,7 @@ const fMasterbrandsPageSize = 'page_size';
 /**
 * filter for masterbrands by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fMasterbrandsPartnerId = 'partner_id';
@@ -1060,6 +1101,7 @@ const fMasterbrandsPartnerId = 'partner_id';
 * filter for masterbrands by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fMasterbrandsPartnerPid = 'partner_pid';
 /**
@@ -1094,6 +1136,7 @@ const fPeopleHasExternalId = 'has_external_id';
 /**
 * filter for subset of people having given ID
 * type = ID
+* multiple_values = true
 */
 const fPeopleId = 'id';
 /**
@@ -1118,6 +1161,7 @@ const fPeoplePageSize = 'page_size';
 /**
 * filter for people by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fPeoplePartnerId = 'partner_id';
@@ -1125,11 +1169,13 @@ const fPeoplePartnerId = 'partner_id';
 * filter for people by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fPeoplePartnerPid = 'partner_pid';
 /**
 * filter for subset of people having given PID
 * type = PID
+* multiple_values = true
 */
 const fPeoplePid = 'pid';
 /**
@@ -1224,6 +1270,7 @@ const fPromotionsPageSize = 'page_size';
 /**
 * filter for promotions by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fPromotionsPartnerId = 'partner_id';
@@ -1231,21 +1278,25 @@ const fPromotionsPartnerId = 'partner_id';
 * filter for promotions by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fPromotionsPartnerPid = 'partner_pid';
 /**
 * filter for subset of promotions having given PID
 * type = PID
+* multiple_values = true
 */
 const fPromotionsPid = 'pid';
 /**
 * filter for subset of promotions having given promoted by
 * type = string
+* multiple_values = true
 */
 const fPromotionsPromotedBy = 'promoted_by';
 /**
 * filter for subset of promotions having given promoted for
 * type = string
+* multiple_values = true
 */
 const fPromotionsPromotedFor = 'promoted_for';
 /**
@@ -1291,11 +1342,13 @@ const mSchedulesImages = 'mixin=images';
 /**
 * filter for subset of broadcasts and webcasts that have given authority
 * type = string
+* multiple_values = true
 */
 const fSchedulesAuthority = 'authority';
 /**
 * filter for subset of broadcasts and webcasts that are descendants of the given programme PID
 * type = PID
+* multiple_values = true
 */
 const fSchedulesDescendantsOf = 'descendants_of';
 /**
@@ -1311,11 +1364,13 @@ const fSchedulesEndTo = 'end_to';
 /**
 * filter for subset of broadcasts and webcasts that are classified in the given format ID
 * type = string
+* multiple_values = true
 */
 const fSchedulesFormat = 'format';
 /**
 * filter for subset of broadcasts and webcasts that are classified in the given genre ID
 * type = string
+* multiple_values = true
 */
 const fSchedulesGenre = 'genre';
 /**
@@ -1326,16 +1381,19 @@ const fSchedulesGroup = 'group';
 /**
 * filter for subset of broadcasts and webcasts that have given identifier
 * type = string
+* multiple_values = true
 */
 const fSchedulesId = 'id';
 /**
 * filter for subset of broadcasts and webcasts that have given id type
 * type = string
+* multiple_values = true
 */
 const fSchedulesIdType = 'id_type';
 /**
 * filter for subset of broadcasts and webcasts with the given item performed on it
 * type = PID
+* multiple_values = true
 */
 const fSchedulesItem = 'item';
 /**
@@ -1355,6 +1413,7 @@ const fSchedulesPageSize = 'page_size';
 /**
 * filter for broadcasts and webcasts by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fSchedulesPartnerId = 'partner_id';
@@ -1362,6 +1421,7 @@ const fSchedulesPartnerId = 'partner_id';
 * filter for broadcasts and webcasts by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fSchedulesPartnerPid = 'partner_pid';
 /**
@@ -1372,6 +1432,7 @@ const fSchedulesPeople = 'people';
 /**
 * filter for subset of broadcasts and webcasts having given PID
 * type = PID
+* multiple_values = true
 */
 const fSchedulesPid = 'pid';
 /**
@@ -1402,11 +1463,13 @@ const fSchedulesScheduleDayTo = 'schedule_day_to';
 /**
 * filter for subset of broadcasts and webcasts with given service master brand
 * type = string
+* multiple_values = true
 */
 const fSchedulesServiceMasterBrand = 'service_master_brand';
 /**
 * filter for subset of broadcasts and webcasts that are on the specified linear service
 * type = string
+* multiple_values = true
 */
 const fSchedulesSid = 'sid';
 /**
@@ -1422,6 +1485,7 @@ const fSchedulesStartTo = 'start_to';
 /**
 * filter for subset of broadcasts and webcasts with given PID as their parent version
 * type = PID
+* multiple_values = true
 */
 const fSchedulesVersion = 'version';
 /**
@@ -1441,6 +1505,7 @@ const fServicesEndTo = 'end_to';
 /**
 * filter for services by masterbrand MID
 * type = string
+* multiple_values = true
 */
 const fServicesMid = 'mid';
 /**
@@ -1460,6 +1525,7 @@ const fServicesPageSize = 'page_size';
 /**
 * filter for services by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fServicesPartnerId = 'partner_id';
@@ -1467,6 +1533,7 @@ const fServicesPartnerId = 'partner_id';
 * filter for services by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fServicesPartnerPid = 'partner_pid';
 /**
@@ -1477,6 +1544,7 @@ const fServicesQ = 'q';
 /**
 * filter for specified type of linear services
 * type = string
+* multiple_values = true
 * option: Interactive, Return only Interactive services
 */
 const fServicesServiceTypeInteractive = 'service_type=Interactive';
@@ -1532,6 +1600,7 @@ const fServicesServiceType = 'service_type';
 /**
 * filter for specified linear service
 * type = string
+* multiple_values = true
 */
 const fServicesSid = 'sid';
 /**
@@ -1561,11 +1630,13 @@ const fVersionsAvailability = 'availability';
 /**
 * filter for subset of versions having given programme PID
 * type = PID
+* multiple_values = true
 */
 const fVersionsDescendantsOf = 'descendants_of';
 /**
 * filter for subset of versions with availability in the given media set
 * type = string
+* multiple_values = true
 */
 const fVersionsMediaSet = 'media_set';
 /**
@@ -1585,6 +1656,7 @@ const fVersionsPageSize = 'page_size';
 /**
 * filter for versions by partner ID
 * type = PID
+* multiple_values = true
 * prefer = partner_pid
 */
 const fVersionsPartnerId = 'partner_id';
@@ -1592,6 +1664,7 @@ const fVersionsPartnerId = 'partner_id';
 * filter for versions by partner PID
 * type = PID
 * default = s0000001
+* multiple_values = true
 */
 const fVersionsPartnerPid = 'partner_pid';
 /**
@@ -1616,6 +1689,7 @@ const fVersionsPaymentType = 'payment_type';
 /**
 * filter for subset of versions having given PID
 * type = PID
+* multiple_values = true
 */
 const fVersionsPid = 'pid';
 const xVersionsEmbargoedInclude = 'embargoed=include';
