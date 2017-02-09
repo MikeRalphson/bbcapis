@@ -21,6 +21,12 @@ var q1 = nitro.newQuery();
 // http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/vpid/{vpid}/format/json/mediaset/{mediaSet}/proto/http
 // http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/vpid/b006v299/format/json/mediaset/pc/proto/http
 
+var options = {};
+options.headers = {'Accept':'application/xml'};
+nitro.make_request('www.bbc.co.uk','/mediaselector/4/mtis/stream/'+pid,'',q1,options,function(obj){
+	console.log(JSON.stringify(xmlToJson.xml2json(obj),null,2));
+});
+
 nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vpid/'+pid+
 	'/format/json/mediaset/'+mediaSet+'/proto/http','',q1,{},function(obj){
 
