@@ -336,7 +336,7 @@ function processPid(host,path,api_key,pid) {
 		.add(api.mProgrammesGenreGroupings)
 
 	if (upcoming || children) {
-		query.add(api.fProgrammesChildrenOf,pid)
+		query.add(api.fProgrammesDescendantsOf,pid)
 		.add(api.fProgrammesAvailabilityPending);
 	}
 	else {
@@ -363,6 +363,9 @@ function processPid(host,path,api_key,pid) {
 	else {
 		query.add(api.fProgrammesAvailabilityEntityTypeEpisode);
 	}
+	if (embargoed) {
+		query.add(api.xProgrammesEmbargoed,embargoed);
+	}
 	nitro.make_request(host,path,api_key,query,{},function(obj){
 		return dispatch(obj);
 	});
@@ -382,6 +385,9 @@ function processVpid(host,path,api_key,vpid) {
 		else {
 			query.add(api.fVersionsAvailabilityAvailable);
 		}
+	}
+	if (embargoed) {
+		query.add(api.xProgrammesEmbargoed,embargoed);
 	}
 	nitro.make_request(host,api.nitroVersions,api_key,query,{},function(obj){
 		for (var i in obj.nitro.results.items) {
