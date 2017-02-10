@@ -33,6 +33,7 @@ var sid = '';
 var search = '';
 var children = false;
 var embargoed = '';
+var tag = '';
 
 // bbc seem to use int(ernal),test,stage and live
 
@@ -589,6 +590,7 @@ var options = getopt.create([
 	['r','run=ARG','run-length, short,medium or long'],
 	['s','search=ARG','Search metadata. Can use title: or synopsis: prefix'],
 	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscansvod'],
+	['w','with=ARG','Filter with tag'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['v','version=ARG+','Query by individual version pid(s), ignores options above'],
 	['a','all','Show programme regardless of presence in download_history'],
@@ -675,6 +677,9 @@ options.on('linear',function(argv,options){
 options.on('embargoed',function(argv,options){
 	embargoed = options.embargoed;
 });
+options.on('with',function(argv,options){
+	tag = options.with;
+});
 options.on('episode',function(argv,options){
 	episode_type = options.episode;
 	if ((episode_type == 'brand') || (episode_type == 'series')) {
@@ -727,6 +732,9 @@ if (duration) {
 }
 if (embargoed) {
 	query.add(api.xProgrammesEmbargoed,embargoed);
+}
+if (tag) {
+	query.add(api.fProgrammesTagName,tag);
 }
 
 query.add(api.mProgrammesDuration)
