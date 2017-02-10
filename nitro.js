@@ -233,6 +233,15 @@ var hidden = 0;
 			hidden++;
 		}
 	}
+
+	if (programme_cache.length == 1) {
+		var item = programme_cache[0];
+		if (item.synopses.long || item.synopses.medium) {
+			console.log();
+			console.log(item.synopses.long ? item.synopses.long : item.synopses.medium);
+		}
+	}
+
 	console.log();
 	console.log('Cache has '+programme_cache.length+' entries, '+hidden+' hidden');
 }
