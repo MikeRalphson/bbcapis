@@ -95,6 +95,14 @@ function pad(str, padding, padRight) {
 }
 
 //-----------------------------------------------------------------------------
+function toArray(obj) {
+	if (Array.isArray(obj)) return obj;
+	var a = [];
+	a.push(obj);
+	return a;
+}
+
+//-----------------------------------------------------------------------------
 
 function pc_export() {
 
@@ -217,11 +225,11 @@ var hidden = 0;
 
 			if (p.contributions) {
 				console.log();
-				for (var c in p.contributions.contribution) {
-					var cont = p.contributions.contribution[c];
-					console.log((cont.character_name ? cont.character_name : cont.credit_role.$)+' - '+
-						(cont.contributor.name.given ? cont.contributor.name.given+' '+cont.contributor.name.family :
-						cont.contributor.name.presentation));
+				var contribution = toArray(p.contributions.contribution);
+				for (var cont of contribution) {
+					console.log((cont.character_name ? cont.character_name : (cont.credit_role ? cont.credit_role.$ : 'Unknown'))+' - '+
+						(cont.contributor && cont.contributor.name ? (cont.contributor.name.given ? cont.contributor.name.given+' '+cont.contributor.name.family :
+						cont.contributor.name.presentation) : 'Unknown'));
 				}
 			}
 
