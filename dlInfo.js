@@ -18,8 +18,12 @@ if (process.argv.length>3) {
 
 var q1 = nitro.newQuery();
 
+// http://www.bbc.co.uk/mediaselector/3/auth/iplayer_streaming_http_mp4/b0094yrk
+// http://www.bbc.co.uk/mediaselector/3/stream/check/iplayer?pid=PID
+// http://www.bbc.co.uk/mediaselector/4/mtis/stream/{vpid}
 // http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/vpid/{vpid}/format/json/mediaset/{mediaSet}/proto/http
 // http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/vpid/b006v299/format/json/mediaset/pc/proto/http
+// http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/vpid/bbc_two_england/mediaset/pc/atk/ce6cf9bb4e462e3f6128b168891a0010b06ba663/asn/1/
 
 var options = {};
 options.headers = {'Accept':'application/xml'};
@@ -35,22 +39,12 @@ nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vp
 		console.log(media);
 	}
 	console.log();
+});
 
 // http://www.prweb.com/releases/2016/04/prweb13347368.htm
 // http://open.live.bbc.co.uk/axs/open/authxml?media_set=pc&version_pid=b006v299&format=xml
 // https://av-media-sslgate.live.bbc.co.uk/saml/axs/open/authxml?media_set=%s&version_pid=%s&format=base64
 // https://open.live.bbc.co.uk/drmauth/1/version/1.0/mediaset/%s/vpid/%s/ (returns 403)
-	var q2 = nitro.newQuery();
-	q2.add('media_set',mediaSet)
-		.add('version_pid',pid)
-		.add('format','xml'); // or base64
-
-	nitro.make_request('open.live.bbc.co.uk','/axs/open/authxml','',q2,
-		{headers:{Accept: 'text/html,application/xhtml+xml,application/xml'}},function(obj){
-		console.log('Converted from XML');
-		console.log(JSON.stringify(xmlToJson.xml2json(obj),null,2));
-	});
-
 /*
 
 MANIFEST
@@ -80,4 +74,15 @@ http://sldrm.licensekeyserver.com/core/rightsmanager.asmx?wsdl
 
 */
 
+
+var q2 = nitro.newQuery();
+q2.add('media_set',mediaSet)
+	.add('version_pid',pid)
+	.add('format','xml'); // or base64
+
+nitro.make_request('open.live.bbc.co.uk','/axs/open/authxml','',q2,
+	{headers:{Accept: 'text/html,application/xhtml+xml,application/xml'}},function(obj){
+	console.log('Converted from XML');
+	console.log(JSON.stringify(xmlToJson.xml2json(obj),null,2));
 });
+
