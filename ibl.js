@@ -65,6 +65,21 @@ function showChannels() {
 }
 
 //_____________________________________________________________________________
+function showStreams() {
+	//http://ibl.api.bbci.co.uk/ibl/v1/channels?lang=en&api_key=APIKEY
+	var query = nitro.newQuery();
+	query.add(ibl.commonLangEn);
+	nitro.make_request(ibl.host,ibl.getChannels,ibl_key,query,{},function(obj){
+		console.log(JSON.stringify(obj,null,2));
+		for (var i in obj.channels) {
+			var ch = obj.channels[i];
+			console.log('['+ch.title+'](http://a.files.bbci.co.uk/media/live/manifesto/audio_video/simulcast/hls/uk/hls_tablet_rw/llnw/'+ch.master_brand_id+'.m3u8)');
+		}
+		return false;
+	});
+}
+
+//_____________________________________________________________________________
 function showRegions() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/regions?lang=en&api_key=APIKEY
 	var query = nitro.newQuery();
@@ -154,6 +169,9 @@ nitro.make_request('polling.bbc.co.uk','/appconfig/iplayer/android/4.16.0/config
 	}
 	else if ((cat == 'chan') || (cat == 'channels')) {
 		showChannels();
+	}
+	else if ((cat == 'm3u8') || (cat == 'streams')) {
+		showStreams();
 	}
 	else if ((cat == 'reg') || (cat == 'regions')) {
 		showRegions();
