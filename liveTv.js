@@ -113,7 +113,55 @@ process.on('exit',function(code){
 		'bbc_one_yorks',
 		'bbc_two_northern_ireland_digital',
 		'bbc_two_scotland',
-		'bbc_two_wales_digital'
+		'bbc_two_wales_digital',
+		'sport_stream_01',
+		'sport_stream_02',
+		'sport_stream_03',
+		'sport_stream_04',
+		'sport_stream_05',
+		'sport_stream_06',
+		'sport_stream_07',
+		'sport_stream_08',
+		'sport_stream_09',
+		'sport_stream_10',
+		'sport_stream_11',
+		'sport_stream_12',
+		'sport_stream_13',
+		'sport_stream_14',
+		'sport_stream_15',
+		'sport_stream_16',
+		'sport_stream_17',
+		'sport_stream_18',
+		'sport_stream_19',
+		'sport_stream_20',
+		'sport_stream_21',
+		'sport_stream_22',
+		'sport_stream_23',
+		'sport_stream_24',
+		'sport_stream_01b',
+		'sport_stream_02b',
+		'sport_stream_03b',
+		'sport_stream_04b',
+		'sport_stream_05b',
+		'sport_stream_06b',
+		'sport_stream_07b',
+		'sport_stream_08b',
+		'sport_stream_09b',
+		'sport_stream_10b',
+		'sport_stream_11b',
+		'sport_stream_12b',
+		'sport_stream_13b',
+		'sport_stream_14b',
+		'sport_stream_15b',
+		'sport_stream_16b',
+		'sport_stream_17b',
+		'sport_stream_18b',
+		'sport_stream_19b',
+		'sport_stream_20b',
+		'sport_stream_21b',
+		'sport_stream_22b',
+		'sport_stream_23b',
+		'sport_stream_24b'
 	];
 
 	for (var channel of channels) {
@@ -121,7 +169,11 @@ process.on('exit',function(code){
 		for (var key of keys) {
 			var href = getHref(key);
 			if (href) {
-				s += '['+href.mediaset+']('+href.href.replace('bbc_two_england',channel)+')|';
+				var url = href.href.replace('bbc_two_england',channel);
+				if (url.indexOf('stream')>0) {
+					url = url.replace('simulcast','webcast');
+				}
+				s += '['+href.mediaset+']('+url+')|';
 			}
 			else s += '|';
 		}
