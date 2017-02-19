@@ -62,6 +62,7 @@ function showChannels() {
 		}
 		return false;
 	});
+	showRegionalChannels();
 }
 
 //_____________________________________________________________________________
@@ -89,6 +90,30 @@ function showRegions() {
 		for (var i in obj.regions) {
 			var region = obj.regions[i];
 			console.log(region.id+' '+region.title);
+		}
+		return false;
+	});
+}
+
+//_____________________________________________________________________________
+function showRegionalChannels() {
+	//http://ibl.api.bbci.co.uk/ibl/v1/regions?lang=en&api_key=APIKEY
+	var query = nitro.newQuery();
+	query.add(ibl.commonLangEn);
+	nitro.make_request(ibl.host,ibl.getRegions,ibl_key,query,{},function(obj){
+		//console.log();
+		for (var i in obj.regions) {
+			var region = obj.regions[i];
+			//console.log(region.id+' '+region.title);
+			var nq = nitro.newQuery();
+			nq.add(ibl.commonLangEn);
+			nq.add(ibl.getChannelsRegion,region.id);
+			nitro.make_request(ibl.host,ibl.getChannels,ibl_key,nq,{},function(obj){
+				//console.log(JSON.stringify(obj,null,2));
+				for (var chan of obj.channels) {
+					console.log(chan.id);
+				}
+			});
 		}
 		return false;
 	});

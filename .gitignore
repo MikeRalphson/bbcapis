@@ -41,3 +41,8 @@ iblApi/swagger.err
 examples
 taster.json
 *.py
+*.m3u8
+*.dash
+*.mpd
+*.mp4
+*.f4m
