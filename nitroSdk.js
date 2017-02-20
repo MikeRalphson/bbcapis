@@ -183,7 +183,7 @@ function makeRequest(host,path,key,query,settings,callback,err){
 						obj = list;
 					}
 
-					if (typeof err !== 'undefined') err(res.statusCode,obj);
+					if (typeof err !== 'undefined') err(res.statusCode,obj,settings.payload);
 
 					if (json && obj.fault) {
 						// process Apigee rate-limiting
@@ -210,14 +210,14 @@ function makeRequest(host,path,key,query,settings,callback,err){
 					}
 				}
 				catch (e) {
-					if (typeof err !== 'undefined') err(res.statusCode,list);
+					if (typeof err !== 'undefined') err(res.statusCode,list,settings.payload);
 					console.log(e);
 					console.log('Invalid JSON received:');
 					console.log(list);
 				}
 			}
 			else {
-				if (typeof err !== 'undefined') err(res.statusCode,null);
+				if (typeof err !== 'undefined') err(res.statusCode,null,settings.payload);
 				log_error(null,res,query);
 			}
 		}
@@ -250,7 +250,7 @@ function makeRequest(host,path,key,query,settings,callback,err){
 	   });
 	}).setTimeout(settings.timeout);
 	req.on('error', function(e) {
-		if (typeof err !== 'undefined') err(500,e.message + ' ' +list)
+		if (typeof err !== 'undefined') err(500,e.message + ' ' +list,settings.payload)
 		else console.log(e.message);
 	});
 	req.end();
