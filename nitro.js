@@ -70,7 +70,7 @@ var add_programme = function(obj,parent) {
 		var check = programme_cache[i];
 		if (check.pid == obj.pid) {
 			seen = true;
-			if (!check.x_parent.pid) check.x_parent = parent;
+			if (!check.x_parent.pid && parent) check.x_parent = parent;
 			break;
 		}
 	}
@@ -384,6 +384,9 @@ function processPid(host,path,api_key,pid) {
 	if (embargoed) {
 		query.add(api.xProgrammesEmbargoed,embargoed);
 	}
+	if (payment_type) {
+		query.add(api.fProgrammesPaymentType,payment_type);
+	}
 	nitro.make_request(host,path,api_key,query,{},function(obj){
 		return dispatch(obj);
 	});
@@ -597,7 +600,6 @@ var options = getopt.create([
 	['l','linear=ARG','Set linear service id, works with -u only'],
 	['r','run=ARG','run-length, short,medium or long'],
 	['s','search=ARG','Search metadata. Can use title: or synopsis: prefix'],
-	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscansvod'],
 	['w','with=ARG','Filter with tag'],
 	['p','pid=ARG+','Query by individual pid(s), ignores options above'],
 	['v','version=ARG+','Query by individual version pid(s), ignores options above'],
@@ -607,6 +609,7 @@ var options = getopt.create([
 	['k','children','Include children of given pid'],
 	['m','mediaset','Dump mediaset information, most useful with -p'],
 	['o','output','output in get_iplayer cache format'],
+	['t','payment_type=ARG','Set payment_type to free*,bbcstore,uscansvod'],
 	['u','upcoming','Show programme schedule information not history'],
 	['x','partner_pid=ARG','Set partner pid, defaults to s0000001'],
 	['z','embargoed=ARG','Set embargoed to include, exclude* or only']
