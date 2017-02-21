@@ -70,7 +70,7 @@ var add_programme = function(obj,parent) {
 		var check = programme_cache[i];
 		if (check.pid == obj.pid) {
 			seen = true;
-			if (!check.x_parent.pid && parent) check.x_parent = parent;
+			if (check.x_parent && !check.x_parent.pid && parent) check.x_parent = parent;
 			break;
 		}
 	}
