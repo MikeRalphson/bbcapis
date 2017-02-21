@@ -13,7 +13,7 @@ var config = require('./config.json');
 var mediaSet = config.nitro.mediaset;
 
 if (process.argv.length>3) {
-  mediaSet = process.argv[3];
+  mediaSet = process.argv[3]; // override the config mediaset
 }
 
 var q1 = nitro.newQuery();
@@ -31,15 +31,20 @@ nitro.make_request('www.bbc.co.uk','/mediaselector/4/mtis/stream/'+pid,'',q1,opt
 	console.log(JSON.stringify(xmlToJson.xml2json(obj),null,2));
 });
 
-nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vpid/'+pid+
-	'/format/json/mediaset/'+mediaSet+'/proto/http','',q1,{},function(obj){
+function mediaselector5(proto){
+	nitro.make_request('open.live.bbc.co.uk','/mediaselector/5/select/version/2.0/vpid/'+pid+
+		'/format/json/mediaset/'+mediaSet+'/proto/'+proto,'',q1,{},function(obj){
 
-	for (var i in obj.media) {
-		var media = obj.media[i];
-		console.log(media);
-	}
-	console.log();
-});
+		for (var i in obj.media) {
+			var media = obj.media[i];
+			console.log(media);
+		}
+		console.log();
+	});
+}
+
+mediaselector5('http');
+mediaselector5('rtmp');
 
 // http://www.prweb.com/releases/2016/04/prweb13347368.htm
 // http://open.live.bbc.co.uk/axs/open/authxml?media_set=pc&version_pid=b006v299&format=xml
