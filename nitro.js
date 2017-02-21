@@ -633,9 +633,6 @@ options.on('domain',function(argv,options){
 		media_type = '';
 	}
 });
-options.on('pid',function(argv,options){
-	mode = 'pid';
-});
 options.on('version',function(argv,options){
 	mode = 'version';
 });
@@ -675,6 +672,9 @@ options.on('mediaset',function(){
 });
 options.on('payment_type',function(argv,options){
 	payment_type = options.payment_type;
+});
+options.on('pid',function(argv,options){
+	mode = 'pid';
 });
 options.on('partner_pid',function(argv,options){
 	partner_pid = options.partner_pid;
