@@ -25,6 +25,7 @@ function showStatus() {
 function showCategories() {
 	//http://ibl.api.bbci.co.uk/ibl/v1/categories?lang=en&api_key=APIKEY
 	//http://ibl.api.bbci.co.uk/ibl/v1/categories/drama-and-soaps?lang=en&api_key=APIKEY
+	//http://www.bbc.co.uk/iplayer/js/categories.json
 	var query = nitro.newQuery();
 	query.add(ibl.commonLangEn);
 	nitro.make_request(ibl.host,ibl.getCategories,ibl_key,query,{},function(obj){
