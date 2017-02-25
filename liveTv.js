@@ -128,6 +128,6 @@ function output(refs) {
 }
 
 process.on('exit',function(code){
-	fs.writeFileSync('./liveTv.md',output(refs),'utf8');
-	fs.writeFileSync('./liveDash.md',output(dash),'utf8');
+	fs.writeFileSync('./markdown/liveTv.md',output(refs),'utf8');
+	fs.writeFileSync('./markdown/liveDash.md',output(dash),'utf8');
 });
