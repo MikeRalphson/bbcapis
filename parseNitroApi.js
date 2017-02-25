@@ -61,6 +61,7 @@ function checkReleaseStatus(status) {
 
 //__________________________________________________________________
 function deprecationInfo(feed,name,type,deprecated_since) {
+// apparently there is also a 'guaranteed_until' attribute - not seen
 	var result = '';
 	var d = feed.deprecations.deprecated;
 	if (d) {
