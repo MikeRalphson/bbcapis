@@ -489,6 +489,10 @@ function exportFilter(feed,filter,filterName) {
 				param.items.type = param.type;
 				param.type = 'array';
 				param.collectionFormat = 'multi';
+				if (param.default) {
+					param.items.default = param.default;
+					delete param.default;
+				}
 				if (param.pattern) {
 					param.items.pattern = param.pattern;
 					delete param.pattern;
