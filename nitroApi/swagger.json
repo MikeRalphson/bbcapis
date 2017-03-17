@@ -9,6 +9,16 @@
 		"x-apiClientRegistration": {
 			"url": "https://developer.bbc.co.uk/user/register"
 		},
+		"x-origin": [
+			{
+				"url": "http://programmes.api.bbc.com/nitro/api",
+				"contentType": "application/json",
+				"converter": {
+					"url": "https://github.com/mermade/bbcparse",
+					"version": "1.2.0"
+				}
+			}
+		],
 		"description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
 		"termsOfService": "http://www.bbc.co.uk/terms/",
 		"contact": {

@@ -15,6 +15,7 @@ var jsonSchema = require('./validation/jsonSchema.json');
 var swaggerSchema = require('./validation/swagger2Schema.json');
 var raw = require('./nitroApi/raw_swagger.json');
 var xsdStr = fs.readFileSync('./nitroApi/nitro-schema.xsd','utf8');
+var version = require('./package.json').version;
 
 var apijs = './nitroApi/api.js';
 var api_fh = fs.openSync(apijs,'w');
@@ -674,6 +675,16 @@ function initSwagger() {
 		"x-apiClientRegistration": {
 			"url": "https://developer.bbc.co.uk/user/register"
 		},
+		"x-origin": [
+			{
+				"url": "http://programmes.api.bbc.com/nitro/api",
+				"contentType": "application/json",
+				"converter": {
+					"url": "https://github.com/mermade/bbcparse",
+					"version": "1.0.0"
+				}
+			}
+		],
 		"description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
 		"termsOfService": "http://www.bbc.co.uk/terms/",
 		"contact": {
@@ -909,6 +920,7 @@ s.on('end', function() {
 
 swagger = initSwagger();
 swagger.host = host;
+swagger.info["x-origin"][0].converter.version = version;
 
 //api.feeds.feed.push(undocumented);
 
