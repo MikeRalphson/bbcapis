@@ -24,7 +24,7 @@ var result = [];
 			obj["x-anyOf"] = obj[key];
 			delete obj[key];
 			if (parent.required) {
-				parent["x-originalRequired"] = parent.required;
+				parent["x-required"] = parent.required;
 				delete parent.required;
 			}
 			if (parent.additionalProperties === false) {
