@@ -4,7 +4,11 @@ var fs = require('fs');
 var crypto = require('crypto');
 var stream = require('stream');
 
-var ajv = require('ajv')();
+var ajv = require('ajv')({
+	allErrors: true,
+	verbose: true,
+	jsonPointers: true
+});
 
 var x2j = require('jgexml/xml2json');
 var xsd = require('jgexml/xsd2json');
@@ -868,10 +872,7 @@ function processXsd() {
 
 	console.log('Validating generated JSON schema...');
 	var validate = ajv.compile(jsonSchema);
-	validate(obj,{
-		allErrors: true,
-		verbose: true
-	});
+	validate(obj);
 	var errors = validate.errors;
 	if (errors) {
 		console.log(errors);
@@ -963,10 +964,7 @@ process.on('exit',function(){
 	if (jsonSchemaOk) {
 		console.log('Validating swagger spec...');
 		var validate = ajv.compile(swaggerSchema);
-		validate(swagger,{
-			allErrors: true,
-			verbose: true
-		});
+		validate(swagger);
 		var errors = validate.errors;
 		if (errors) {
 			console.log(errors);
