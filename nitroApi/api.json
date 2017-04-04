@@ -560,26 +560,6 @@
                   "href": "/nitro/api/programmes?sort=tree&sort_direction=descending"
                 }
               ]
-            },
-            {
-              "name": "views",
-              "is_default": "false",
-              "title": "sort numerically by number of views (most popular first)",
-              "release_status": "deprecated",
-              "sort_direction": [
-                {
-                  "name": "sort_direction",
-                  "value": "ascending",
-                  "is_default": "false",
-                  "href": "/nitro/api/programmes?sort=views&sort_direction=ascending"
-                },
-                {
-                  "name": "sort_direction",
-                  "value": "descending",
-                  "is_default": "true",
-                  "href": "/nitro/api/programmes?sort=views&sort_direction=descending"
-                }
-              ]
             }
           ]
         },
@@ -726,11 +706,6 @@
               "name": "availability_from",
               "type": "filter",
               "deprecated_since": "2014-01-22"
-            },
-            {
-              "name": "views",
-              "type": "sort",
-              "deprecated_since": "2017-01-12"
             },
             {
               "name": "versions_availability",

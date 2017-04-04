@@ -1696,7 +1696,7 @@ const xVersionsEmbargoedInclude = 'embargoed=include';
 const xVersionsEmbargoedExclude = 'embargoed=exclude';
 const xVersionsEmbargoedOnly = 'embargoed=only';
 const xVersionsEmbargoed= 'embargoed';
-const apiHash = '02577a0fe63504aad508ee43b8af6cdc777115bd923450d49d2528361944f002';
+const apiHash = '80d1ed7504d969895d7153c2e8c60c38f7345413e67b7ee19b2ae5e6540ef888';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,

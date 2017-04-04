@@ -107,10 +107,6 @@
 	<n:sort_direction name="sort_direction" value="ascending" is_default="false" href="/nitro/api/programmes?sort=tree&amp;sort_direction=ascending"/>
 	<n:sort_direction name="sort_direction" value="descending" is_default="true" href="/nitro/api/programmes?sort=tree&amp;sort_direction=descending"/>
       </n:sort>
-      <n:sort name="views" is_default="false" title="sort numerically by number of views (most popular first)" release_status="deprecated">
-	<n:sort_direction name="sort_direction" value="ascending" is_default="false" href="/nitro/api/programmes?sort=views&amp;sort_direction=ascending"/>
-	<n:sort_direction name="sort_direction" value="descending" is_default="true" href="/nitro/api/programmes?sort=views&amp;sort_direction=descending"/>
-      </n:sort>
     </n:sorts>
     <n:mixins>
       <n:mixin name="alternate_images" title="mixin to return the alternate images for a programme" release_status="supported">
@@ -150,7 +146,6 @@
     </n:mixins>
     <n:deprecations>
       <n:deprecated name="availability_from" type="filter" deprecated_since="2014-01-22"/>
-      <n:deprecated name="views" type="sort" deprecated_since="2017-01-12"/>
       <n:deprecated name="versions_availability" type="mixin" deprecated_since="2015-11-10" replaced_by="available_versions" replacement_type="mixin"/>
       <n:deprecated name="titles" type="mixin" deprecated_since="2013-11-14" replaced_by="ancestor_titles" replacement_type="mixin"/>
       <n:deprecated name="genre_groups" type="mixin" deprecated_since="2015-03-19" replaced_by="genre_groupings" replacement_type="mixin"/>
