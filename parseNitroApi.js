@@ -211,7 +211,7 @@ function swagSort(sort) {
 		params.push(param);
 	}
 	param.enum.push(sort.name);
-	param.description += '* '+sort.title+'\n';
+	param.description += '* '+sort.name+': '+sort.title+'\n';
 }
 
 //__________________________________________________________________
@@ -303,7 +303,7 @@ function exportMixin(feed,mixin,mixinName,stable) {
 		params.push(param);
 	}
 	param.enum.push(mixin.name);
-	param.description += '* '+mixin.title+'\n';
+	param.description += '* '+mixin.name+': '+mixin.title+'\n';
 
 	if (!stable) {
 		param = {};
@@ -325,7 +325,7 @@ function exportMixin(feed,mixin,mixinName,stable) {
 			params.push(param);
 		}
 		param.enum.push(mixin.name);
-		param.description += '* '+mixin.title+'\n';
+		param.description += '* '+mixin.name+': '+mixin.title+'\n';
 	}
 
 	return s;
