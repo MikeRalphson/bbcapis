@@ -60,8 +60,8 @@ function checkHref(href,name) {
 }
 
 //__________________________________________________________________
-function checkReleaseStatus(status) {
-	return ((status!='alpha') && (status!='deprecated'));
+function warnReleaseStatus(status) {
+	return ((status=='alpha') || (status=='beta') || (status=='deprecated'));
 }
 
 //__________________________________________________________________
@@ -216,34 +216,32 @@ function swagSort(sort) {
 
 //__________________________________________________________________
 function processSort(feed,sort,sortName) {
-	if (checkReleaseStatus(sort.release_status)) {
-		swagSort(sort);
-		if (sort.sort_direction) {
-			sort.sort_direction = toArray(sort.sort_direction);
-			for (var i in sort.sort_direction) {
-				var sortDirection = sort.sort_direction[i];
-				var sortDirectionName = ('s-'+feed.name+'-'+sort.name+'-'+sortDirection.value).toCamelCase();
-				if (seen.indexOf(sortDirectionName)<0) {
-					processSortDirection(feed,sort,sortDirection,sortDirectionName);
-					seen.push(sortDirectionName);
-				}
-				else {
-					console.log('* Skipping sort '+sortDirectionName+' as duplicate name');
-				}
-			}
-		}
-		else {
-			if (seen.indexOf(sortName)<0) {
-				exportSort(feed,sort,sortName);
-				seen.push(sortName);
+	if (warnReleaseStatus(sort.release_status)) {
+		console.log('Warning: sort '+sortName+' is '+sort.release_status+deprecationInfo(feed,sort.name,'sort',sort.deprecated_since));
+	}
+	swagSort(sort);
+	if (sort.sort_direction) {
+		sort.sort_direction = toArray(sort.sort_direction);
+		for (var i in sort.sort_direction) {
+			var sortDirection = sort.sort_direction[i];
+			var sortDirectionName = ('s-'+feed.name+'-'+sort.name+'-'+sortDirection.value).toCamelCase();
+			if (seen.indexOf(sortDirectionName)<0) {
+				processSortDirection(feed,sort,sortDirection,sortDirectionName);
+				seen.push(sortDirectionName);
 			}
 			else {
-				console.log('* Skipping sort '+sortName+' as duplicate name');
+				console.log('* Skipping sort '+sortDirectionName+' as duplicate name');
 			}
 		}
 	}
 	else {
-		console.log('Skipping sort '+sortName+' as '+sort.release_status+deprecationInfo(feed,sort.name,'sort',sort.deprecated_since));
+		if (seen.indexOf(sortName)<0) {
+			exportSort(feed,sort,sortName);
+			seen.push(sortName);
+		}
+		else {
+			console.log('* Skipping sort '+sortName+' as duplicate name');
+		}
 	}
 }
 
@@ -333,17 +331,15 @@ function exportMixin(feed,mixin,mixinName,stable) {
 
 //__________________________________________________________________
 function processMixin(feed,mixin,mixinName,stable) {
-	if (checkReleaseStatus(mixin.release_status)) {
-		if (seen.indexOf(mixinName)<0) {
-			exportMixin(feed,mixin,mixinName,stable);
-			seen.push(mixinName);
-		}
-		else {
-			console.log('* Skipping mixin '+mixinName+' as duplicate name');
-		}
+	if (warnReleaseStatus(mixin.release_status)) {
+		console.log('Warning: mixin '+mixinName+' is '+mixin.release_status+deprecationInfo(feed,mixin.name,'mixin',mixin.deprecated_since));
+	}
+	if (seen.indexOf(mixinName)<0) {
+		exportMixin(feed,mixin,mixinName,stable);
+		seen.push(mixinName);
 	}
 	else {
-		console.log('Skipping mixin '+mixinName+' as '+mixin.release_status+deprecationInfo(feed,mixin.name,'mixin',mixin.deprecated_since));
+		console.log('* Skipping mixin '+mixinName+' as duplicate name');
 	}
 }
 
@@ -511,6 +507,9 @@ function exportFilter(feed,filter,filterName) {
 				}
 			}
 			param.required = false;
+			if (filter.release_status == 'deprecated') {
+				param['x-deprecated'] = true;
+			}
 			params.push(param);
 		}
 	}
@@ -520,21 +519,19 @@ function exportFilter(feed,filter,filterName) {
 
 //__________________________________________________________________
 function processFilter(feed,filter,filterName) {
-	if (checkReleaseStatus(filter.release_status)) {
-		if (seen.indexOf(filterName)<0) {
-			if (!filter.type) {
-				console.log('+ typeless filter: '+filterName);
-			}
-			if (exportFilter(feed,filter,filterName)==0) {
-				seen.push(filterName);
-			}
+	if (warnReleaseStatus(filter.release_status)) {
+		console.log('Warning: filter '+filterName+' is '+filter.release_status+deprecationInfo(feed,filter.name,'filter',filter.deprecated_since));
+	}
+	if (seen.indexOf(filterName)<0) {
+		if (!filter.type) {
+			console.log('+ typeless filter: '+filterName);
 		}
-		else {
-			console.log('* Skipping filter '+filterName+' as duplicate name');
+		if (exportFilter(feed,filter,filterName)==0) {
+			seen.push(filterName);
 		}
 	}
 	else {
-		console.log('Skipping filter '+filterName+' as '+filter.release_status+deprecationInfo(feed,filter.name,'filter',filter.deprecated_since));
+		console.log('* Skipping filter '+filterName+' as duplicate name');
 	}
 }
 
@@ -932,12 +929,10 @@ swagger.info["x-origin"][0].converter.version = version;
 var feed;
 for (var f in api.feeds.feed) {
 	feed = api.feeds.feed[f];
-	if (checkReleaseStatus(feed.release_status)) {
-		processFeed(feed);
+	if (warnReleaseStatus(feed.release_status)) {
+		console.log('Warning: feed '+feed.name+' is '+feed.release_status+deprecationInfo(feed,feed.name,'feed',feed.deprecated_since));
 	}
-	else {
-		console.log('Skipping feed '+feed.name+' as '+feed.release_status+deprecationInfo(feed,feed.name,'feed',feed.deprecated_since));
-	}
+	processFeed(feed);
 }
 
 // these do not return the nitro object model

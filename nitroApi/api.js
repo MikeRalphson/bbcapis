@@ -143,6 +143,12 @@ const mProgrammesDuration = 'mixin=duration';
 */
 const mProgrammesGenreGroupings = 'mixin=genre_groupings';
 /**
+* mixin to return list of genre groups
+* /nitro/api/programmes?mixin=genre_groups
+* Prohibits mixin genre_groupings
+*/
+const mProgrammesGenreGroups = 'mixin=genre_groups';
+/**
 * mixin to add image information for a programme
 * /nitro/api/programmes?mixin=images
 */
@@ -164,6 +170,16 @@ const mProgrammesPreviousNext = 'mixin=previous_next';
 * /nitro/api/programmes?mixin=related_links
 */
 const mProgrammesRelatedLinks = 'mixin=related_links';
+/**
+* mixin to return ancestor programme titles
+* /nitro/api/programmes?mixin=titles
+*/
+const mProgrammesTitles = 'mixin=titles';
+/**
+* mixin to return information about programmes that are currently available
+* /nitro/api/programmes?mixin=versions_availability
+*/
+const mProgrammesVersionsAvailability = 'mixin=versions_availability';
 /**
 * filter for subset of programmes that are audio-described
 * type = boolean
@@ -210,6 +226,11 @@ const fProgrammesAvailabilityEntityTypeClip = 'availability_entity_type=clip';
 * /nitro/api/programmes?availability_entity_type=clip
 */
 const fProgrammesAvailabilityEntityType = 'availability_entity_type';
+/**
+* filter for subset of programmes that are available after or at the specified datetime
+* type = datetime
+*/
+const fProgrammesAvailabilityFrom = 'availability_from';
 /**
 * filter for a subset of programmes that are available for a given type
 * type = string
@@ -949,6 +970,11 @@ const mItemsContributions = 'mixin=contributions';
 */
 const mItemsImages = 'mixin=images';
 /**
+* mixin to return programme segment offsets, works in conjunction with programme filter
+* depends_on = programme
+*/
+const mItemsOffset = 'mixin=offset';
+/**
 * mixin to return programme segment events, works in conjunction with programme or segment_event filters
 * Dependency on filter programme
 * Dependency on filter segment_event
@@ -1340,6 +1366,11 @@ const mSchedulesAncestorTitles = 'mixin=ancestor_titles';
 */
 const mSchedulesImages = 'mixin=images';
 /**
+* return ancestor programme titles
+* /nitro/api/schedules?mixin=titles
+*/
+const mSchedulesTitles = 'mixin=titles';
+/**
 * filter for subset of broadcasts and webcasts that have given authority
 * type = string
 * multiple_values = true
@@ -1726,10 +1757,13 @@ mProgrammesAvailableWebcasts : mProgrammesAvailableWebcasts,
 mProgrammesContributions : mProgrammesContributions,
 mProgrammesDuration : mProgrammesDuration,
 mProgrammesGenreGroupings : mProgrammesGenreGroupings,
+mProgrammesGenreGroups : mProgrammesGenreGroups,
 mProgrammesImages : mProgrammesImages,
 mProgrammesIsEmbeddable : mProgrammesIsEmbeddable,
 mProgrammesPreviousNext : mProgrammesPreviousNext,
 mProgrammesRelatedLinks : mProgrammesRelatedLinks,
+mProgrammesTitles : mProgrammesTitles,
+mProgrammesVersionsAvailability : mProgrammesVersionsAvailability,
 fProgrammesAudioDescribedTrue : fProgrammesAudioDescribedTrue,
 fProgrammesAudioDescribedFalse : fProgrammesAudioDescribedFalse,
 fProgrammesAudioDescribed : fProgrammesAudioDescribed,
@@ -1739,6 +1773,7 @@ fProgrammesAvailability : fProgrammesAvailability,
 fProgrammesAvailabilityEntityTypeEpisode : fProgrammesAvailabilityEntityTypeEpisode,
 fProgrammesAvailabilityEntityTypeClip : fProgrammesAvailabilityEntityTypeClip,
 fProgrammesAvailabilityEntityType : fProgrammesAvailabilityEntityType,
+fProgrammesAvailabilityFrom : fProgrammesAvailabilityFrom,
 fProgrammesAvailabilityTypeOndemand : fProgrammesAvailabilityTypeOndemand,
 fProgrammesAvailabilityTypeWebcast : fProgrammesAvailabilityTypeWebcast,
 fProgrammesAvailabilityTypeSimulcast : fProgrammesAvailabilityTypeSimulcast,
@@ -1885,6 +1920,7 @@ nitroItems : nitroItems,
 sItemsPidDescending : sItemsPidDescending,
 mItemsContributions : mItemsContributions,
 mItemsImages : mItemsImages,
+mItemsOffset : mItemsOffset,
 mItemsPlayEvent : mItemsPlayEvent,
 fItemsAuthority : fItemsAuthority,
 fItemsId : fItemsId,
@@ -1954,6 +1990,7 @@ sSchedulesStartDateAscending : sSchedulesStartDateAscending,
 sSchedulesStartDateDescending : sSchedulesStartDateDescending,
 mSchedulesAncestorTitles : mSchedulesAncestorTitles,
 mSchedulesImages : mSchedulesImages,
+mSchedulesTitles : mSchedulesTitles,
 fSchedulesAuthority : fSchedulesAuthority,
 fSchedulesDescendantsOf : fSchedulesDescendantsOf,
 fSchedulesEndFrom : fSchedulesEndFrom,
