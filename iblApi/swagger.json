@@ -2,7 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "1.0",
-		"x-release": "442",
+		"x-release": "444",
 		"title": "BBC iPlayer Business Layer",
 		"description": "The definitive iPlayer API.",
 		"x-logo": {
@@ -3426,7 +3426,7 @@
 			"description": "The depth to return child entities.",
 			"type": "integer",
 			"minimum": 1,
-			"maximum": 5,
+			"maximum": 4,
 			"default": 4
 		},
 		"mixin": {

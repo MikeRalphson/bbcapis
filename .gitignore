@@ -46,3 +46,4 @@ taster.json
 *.mpd
 *.mp4
 *.f4m
+*.cache
