@@ -6,7 +6,6 @@ ignore multiple pids by adding them to the download cache
 
 var http = require('http');
 var fs = require('fs');
-var common = require('./common');
 var giUtils = require('./giUtils');
 var getopt = require('node-getopt');
 
@@ -35,12 +34,7 @@ function update(pid,quick) {
 	obj.pid = pid; // create a programme object stub
 	obj.type = 'toplevel';
 	obj.title = '';
-	if (quick) {
-		add_entry(obj);
-	}
-	else {
-		common.pid_list('toplevel',obj,false,true,add_entry);
-	}
+	add_entry(obj);
 }
 
 //-----------------------------------------------------------------------------
@@ -59,10 +53,10 @@ function append_newstr() {
 }
 
 //-----------------------------------------------------------------------------
-var quick = false;
+var quick = true;
 
 options = getopt.create([
-	['q','quick','Add pid without looking it up'],
+	['q','quick','Add pid without looking it up. Now always true'],
 	['h','help','Display this help']
 ]);
 options.bindHelp();
