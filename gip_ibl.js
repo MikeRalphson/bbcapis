@@ -43,7 +43,8 @@ function dumpProgrammes() {
 			s += entry.title + '|';
 			s += entry.id + '|';
 			s += entry.versions[0].availability.start + '|';
-			s += entry.versions[0].availability.end||'' + '|';
+			s += (entry.versions[0].availability.end||'') + '|';
+			s += (entry.subtitle||'') + '|';
 			s += '1|';
 			s += (entry.parent_position||1) + '|';
 			s += versions +'|';
