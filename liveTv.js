@@ -2,6 +2,8 @@ var sdk = require('./nitroSdk.js');
 var api = require('./nitroApi/api.js');
 
 // https://ess.api.bbci.co.uk/services
+// http://ess.api.bbci.co.uk/schedules?serviceId=bbc_one_london
+// http://ess.api.bbci.co.uk/schedules?versionId={vpid}
 
 // http://open.live.bbc.co.uk/mediaselector/5/select/version/2.0/vpid/bbc_one_hd/mediaset/stb-hd-h264
 
