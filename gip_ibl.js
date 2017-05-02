@@ -14,7 +14,7 @@ function clone(obj) {
 
 function dumpProgrammes() {
 
-	var index = 100000;
+	var index = 1;
 
 	var entries = [];
 	for (let programme of programmes) {
@@ -43,7 +43,7 @@ function dumpProgrammes() {
 			s += entry.title + '|';
 			s += entry.id + '|';
 			s += entry.versions[0].availability.start + '|';
-			s += (entry.versions[0].availability.end||'') + '|';
+			s += ((new Date(entry.versions[0].availability.end)/1000)||'') + '|';
 			s += (entry.subtitle||'') + '|';
 			s += '1|';
 			s += (entry.parent_position||1) + '|';
@@ -53,8 +53,8 @@ function dumpProgrammes() {
 				entry.synopses.medium : (entry.synopses.large ? entry.synopses.large : ''))) + '|';
 			s += entry.master_brand.id + '|';
 			s += entry.categories.join(',')+'|';
-			s += entry.images.standard + '|';
-			s += new Date().toISOString() + '|';
+			s += entry.images.standard.replace('{recipe}','150x84') + '|';
+			s += new Date()/1000 + '|';
 			s += entry.guidance + '|';
 			s += 'http://bbc.co.uk/programmes/'+entry.id;
 

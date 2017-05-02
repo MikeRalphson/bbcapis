@@ -126,7 +126,8 @@ function dump() {
 			s += entry.title+'|';
 			s += entry.pid+'|';
 			s += entry.availability['@start']+'|';
-			s += entry.availability['@end']+'|';
+			s += new Date(entry.availability['@end'])/1000+'|';
+			s += entry.synopsis + '|';
 			s += '1|';
 			s += '1|';
 			s += 'original|';
@@ -134,8 +135,8 @@ function dump() {
 			s += entry.synopsis+'|';
 			s += entry.service+'|';
 			s += '|';
-			s += entry.images.image+'|';
-			s += new Date().toISOString();
+			s += entry.images.image.replace('{recipe}','150x84')+'|';
+			s += new Date()/1000;
 			s += '|';
 			s += 'http://bbc.co.uk/programmes/'+entry.pid;
 			console.log(s);
