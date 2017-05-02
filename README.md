@@ -43,6 +43,8 @@ nitro.make_request(host,path,api_key,query,options,function(obj){
 * show legacy genres/formats for the radio player and iPlayer (`categories.js`)
 * ignore programmes, brands or series by adding PIDs to a download_history file (`ignore.js`)
 * populate a download_history from existing files (`populate_download_history.js`)
+* populate a tv cache file (`gip_ibl`)
+* populate a radio cache file (`gip_aod`)
 
 Generated [JSDoc](https://doclets.io/Mermade/bbcparse/master) courtesy of [doclets.io](http://doclets.io)
 
