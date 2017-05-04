@@ -7,6 +7,8 @@ var util = require('util');
 var sdk = require('./nitroSdk.js');
 var x2j = require('jgexml/xml2json.js');
 
+const now = new Date()/1000;
+
 var static = [
  'radio1.xml',
  '1xtra.xml',
@@ -136,7 +138,7 @@ function dump() {
 			s += entry.service+'|';
 			s += '|';
 			s += entry.images.image.replace('{recipe}','150x84')+'|';
-			s += new Date()/1000;
+			s += now + '|';
 			s += '|';
 			s += 'http://bbc.co.uk/programmes/'+entry.pid;
 			console.log(s);

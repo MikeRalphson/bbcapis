@@ -5,6 +5,7 @@ var sdk = require('./nitroSdk.js');
 var ibl = require('./iblApi/ibl.js');
 
 const ibl_key = '';
+const now = new Date()/1000;
 
 var programmes = [];
 
@@ -54,7 +55,7 @@ function dumpProgrammes() {
 			s += entry.master_brand.id + '|';
 			s += entry.categories.join(',')+'|';
 			s += entry.images.standard.replace('{recipe}','150x84') + '|';
-			s += new Date()/1000 + '|';
+			s += now + '|';
 			s += entry.guidance + '|';
 			s += 'http://bbc.co.uk/programmes/'+entry.id;
 
