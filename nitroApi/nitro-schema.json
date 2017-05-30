@@ -462,9 +462,6 @@
         "genre_groupings": {
           "$ref": "#/definitions/genre_groupings"
         },
-        "most_popular": {
-          "$ref": "#/definitions/most_popular"
-        },
         "image_link": {
           "$ref": "#/definitions/image_link"
         },
@@ -570,9 +567,6 @@
         },
         "genre_groupings": {
           "$ref": "#/definitions/genre_groupings"
-        },
-        "most_popular": {
-          "$ref": "#/definitions/most_popular"
         },
         "image_link": {
           "$ref": "#/definitions/image_link"
@@ -2696,16 +2690,6 @@
       "required": [
         "availability_of"
       ],
-      "additionalProperties": false
-    },
-    "most_popular": {
-      "type": "object",
-      "properties": {
-        "updated_at": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
       "additionalProperties": false
     },
     "media_profile_groups": {

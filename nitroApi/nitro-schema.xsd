@@ -181,7 +181,6 @@
 	<xs:group ref="availability_mixin" minOccurs="0"/>
 	<xs:group ref="versions_mixin" minOccurs="0"/>
 	<xs:element ref="genre_groupings" minOccurs="0"/>
-	<xs:element ref="most_popular" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -219,7 +218,6 @@
 	<xs:group ref="availability_mixin" minOccurs="0"/>
 	<xs:group ref="versions_mixin" minOccurs="0"/>
 	<xs:element ref="genre_groupings" minOccurs="0"/>
-	<xs:element ref="most_popular" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1649,11 +1647,6 @@
 	<xs:element name="territory" minOccurs="0" type="xs:token"/>
 	<xs:element ref="media_profile_groups" minOccurs="0"/>
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="most_popular">
-    <xs:complexType>
-      <xs:attribute name="updated_at" type="xs:dateTime"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="media_profile_groups">
