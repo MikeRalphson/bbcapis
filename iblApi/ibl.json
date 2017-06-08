@@ -898,6 +898,9 @@
                       "start": {
                         "type": "string"
                       },
+                      "accurate_start": {
+                        "type": "string"
+                      },
                       "end": {
                         "type": "string"
                       },
@@ -2083,6 +2086,9 @@
                   "start": {
                     "type": "string"
                   },
+                  "accurate_start": {
+                    "type": "string"
+                  },
                   "end": {
                     "type": "string"
                   },
@@ -2274,6 +2280,9 @@
           "type": "object",
           "properties": {
             "start": {
+              "type": "string"
+            },
+            "accurate_start": {
               "type": "string"
             },
             "end": {

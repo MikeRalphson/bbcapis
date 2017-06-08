@@ -2,7 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "1.0",
-		"x-release": "444",
+		"x-release": "449",
 		"title": "BBC iPlayer Business Layer",
 		"description": "The definitive iPlayer API.",
 		"x-logo": {
@@ -1972,6 +1972,9 @@
 											"start": {
 												"type": "string"
 											},
+											"accurate_start": {
+												"type": "string"
+											},
 											"end": {
 												"type": "string"
 											},
@@ -3157,6 +3160,9 @@
 									"start": {
 										"type": "string"
 									},
+									"accurate_start": {
+										"type": "string"
+									},
 									"end": {
 										"type": "string"
 									},
@@ -3348,6 +3354,9 @@
 					"type": "object",
 					"properties": {
 						"start": {
+							"type": "string"
+						},
+						"accurate_start": {
 							"type": "string"
 						},
 						"end": {
