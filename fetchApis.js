@@ -44,6 +44,11 @@ nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/status',iblKey,query,{},functio
 	fs.writeFileSync('./iblApi/ibl_status.json',JSON.stringify(obj,null,2));
 	return false;
 });
+nitro.make_request('rms.api.bbc.co.uk','/docs/swagger.json','',query,{proto:'https'},function(obj){
+	console.log('RMS (BLUR/PULP) swagger.json');
+	fs.writeFileSync('./rmsApi/swagger.json',JSON.stringify(obj,null,2));
+	return false;
+});
 query.add(api.fProgrammesPartnerPid,'s0000024',true);
 query.add(api.fProgrammesPageSize,1);
 nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'application/json'}},function(obj){
