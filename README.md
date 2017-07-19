@@ -6,7 +6,7 @@
 
 ### Example of using nitroSdk.js
 
-````javascript
+```javascript
 var nitro = require('bbcparse/nitroSdk');
 var api = require('bbcparse/nitroApi/api');
 
@@ -22,7 +22,7 @@ var options = {};
 nitro.make_request(host,path,api_key,query,options,function(obj){
   // process the response object
 });
-````
+```
 
 #### Utilities to:
 * fetch API definitions (`fetchApis.js`)
