@@ -1,6 +1,6 @@
 /**
 @author openapi2js http://github.com/mermade/openapi2js
-@copyright Copyright (c) 2016 Mike Ralphson
+@copyright Copyright (c) 2017 Mike Ralphson
 @license https://opensource.org/licenses/BSD-3-Clause
 */
 /** The rights group to limit results to. */
@@ -123,7 +123,7 @@ function getClips(pid){
   return p;
 }
 
-/* Search-suggest*/
+/** Search-suggest*/
 const getSearchSuggest = '/ibl/v1/search-suggest';
 
 /** Get schedule by channel
@@ -150,10 +150,10 @@ function getChannelsHighlights(channel){
 /** Whether to include live programmes */
 const getChannelsHighlightsLive = 'live';
 
-/* Search*/
+/** Search*/
 const getSearch = '/ibl/v1/search';
 
-/* Get the list of all the categories in TV & iPlayer.*/
+/** Get the list of all the categories in TV & iPlayer.*/
 const getCategories = '/ibl/v1/categories';
 
 /** Get sub-categories
@@ -200,15 +200,15 @@ function getEpisodesRecommendations(pid){
   return p;
 }
 
-/* Get the current iPlayer business layer status. This tells the caller the status of the iPlayer data, but not necessarily the overall status of the website. In the future it might include the status of the dependent data services within the BBC.*/
+/** Get the current iPlayer business layer status. This tells the caller the status of the iPlayer data, but not necessarily the overall status of the website. In the future it might include the status of the dependent data services within the BBC.*/
 const getStatus = '/ibl/v1/status';
 
-/* Get the list of all the channels TV & iPlayer.*/
+/** Get the list of all the channels TV & iPlayer.*/
 const getChannels = '/ibl/v1/channels';
 /** The region to get the channels for. */
 const getChannelsRegion = 'region';
 
-/* Get programmes popular*/
+/** Get programmes popular*/
 const getGroupsPopularEpisodes = '/ibl/v1/groups/popular/episodes';
 
 /** Get episodes by group, brand or series
@@ -241,13 +241,13 @@ function getChannelsProgrammes(channel){
   return p;
 }
 
-/* Get the list of all the regions TV & iPlayer.*/
+/** Get the list of all the regions TV & iPlayer.*/
 const getRegions = '/ibl/v1/regions';
 
-/* Get user watching*/
+/** Get user watching*/
 const getUserWatching = '/ibl/v1/user/watching';
 
-/* Get schema*/
+/** Get schema*/
 const getSchemaIbl = '/ibl/v1/schema/ibl.json';
 
 /** Get broadcasts by channel
@@ -262,13 +262,13 @@ function getChannelsBroadcasts(channel){
 /** Time to return results from, e.g. -3h */
 const getChannelsBroadcastsFrom = 'from';
 
-/* Get user store purchases*/
+/** Get user store purchases*/
 const getUserPurchases = '/ibl/v1/user/purchases';
 
-/* Get user store recommendations*/
+/** Get user store recommendations*/
 const getUserRecommendations = '/ibl/v1/user/recommendations';
 
-/* Get programme highlights*/
+/** Get programme highlights*/
 const getHomeHighlights = '/ibl/v1/home/highlights';
 
 module.exports = {
