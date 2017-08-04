@@ -39,7 +39,6 @@ nitro.make_request(host,path,api_key,query,options,function(obj){
 * show information for an image PID (`imageInfo.js`)
 * show TV iPlayer programme, category or channels information (`ibl.js`)
 * query the searchSuggest API (`searchSuggest.js`)
-* show legacy genres/formats for the radio player and iPlayer (`categories.js`)
 * ignore programmes, brands or series by adding PIDs to a download_history file (`ignore.js`)
 * populate a download_history from existing files (`populate_download_history.js`)
 * populate a tv cache file (`gip_ibl`)
