@@ -17,189 +17,14 @@
     "application/json"
   ],
   "paths": {
-    "/radio/categories.json": {
+    "/categories.json": {
       "get": {
         "tags": [
-          "Radio"
+          "Categories"
         ],
         "summary": "Categories",
-        "description": "All iPlayer Radio categories - contains business logic for blend of PIPs genres and formats.\n",
-        "operationId": "getRadioCategories",
-        "schemes": [
-          "http"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/RadioCategoriesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/RadioErrorResponse"
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/radio/networks.json": {
-      "get": {
-        "tags": [
-          "Radio"
-        ],
-        "summary": "Networks",
-        "description": "All iPlayer Radio networks - contains business logic for masterbrand and service relationships\n",
-        "operationId": "getRadioNetworks",
-        "schemes": [
-          "http"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "preset",
-            "in": "query",
-            "description": "Returns all networks needed for iPlayer Radio responsive web navigation",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "international",
-            "in": "query",
-            "description": "Returns all networks available internationally",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/NetworksResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/RadioErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/radio/v1/programmes.json": {
-      "get": {
-        "tags": [
-          "Radio"
-        ],
-        "summary": "Programmes",
-        "description": "Find programmes by PID (brand, series, episode and clip). Accepts one or many pids separated by commas.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
-        "operationId": "getRadioProgrammesV1",
-        "schemes": [
-          "http"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "pids",
-            "in": "query",
-            "description": "Returns programme information for one or more pids",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ProgrammesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/RadioErrorResponse"
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/radio/v1/programmes/{pid}.json": {
-      "get": {
-        "tags": [
-          "Radio"
-        ],
-        "summary": "Programme by Pid",
-        "description": "Find programmes by PID (brand, series, episode and clip)\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
-        "operationId": "getRadioProgrammesByPidV1",
-        "schemes": [
-          "http"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "pid",
-            "in": "path",
-            "description": "pid",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ProgrammesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/RadioErrorResponse"
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/radio/programmes.json": {
-      "get": {
-        "tags": [
-          "Radio"
-        ],
-        "summary": "Programmes",
-        "description": "Provides a paginated list of programmes by PID (brand, series, episode and clip). Accepts various filters and sorting methods.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
-        "operationId": "getRadioProgrammes",
+        "description": "Retrieve Categories\n",
+        "operationId": "getCategories",
         "schemes": [
           "http"
         ],
@@ -214,66 +39,11 @@
           {
             "name": "kind",
             "in": "query",
-            "description": "Filter by provided query. E.g. 'tleo' returns top level objects, ie. brands, orphaned series, and orphaned episodes",
+            "description": "Filter by provided query. E.g. 'promoted' returns promoted categories",
             "required": false,
             "type": "string",
             "enum": [
-              "tleo"
-            ]
-          },
-          {
-            "name": "network",
-            "in": "query",
-            "description": "Filter by network master brand ID (mid). Accepts comma separated values",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "network_url_key",
-            "in": "query",
-            "description": "Filter by network URL key. Accepts comma separated values",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "category",
-            "in": "query",
-            "description": "Filter by category id. Accepts comma separated values. See /category endpoint below for the type of response provided",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "Sort by provided query. E.g. 'title' sorts in ascending order, and -title sorts in descending order",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "available_from_date",
-              "-available_from_date",
-              "title",
-              "-title"
-            ]
-          },
-          {
-            "name": "container",
-            "in": "query",
-            "description": "Filter by container. Accepts any brand or series pid",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Filter by programme type. Accepts comma separated values",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "brand",
-              "series",
-              "episode",
-              "clip",
-              "episode,clip"
+              "promoted"
             ]
           }
         ],
@@ -281,28 +51,28 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/ProgrammesResponse"
+              "$ref": "#/definitions/CategoriesResponse"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "#/definitions/RadioErrorResponse"
+              "$ref": "#/definitions/CategoryErrorResponse"
             }
           }
         }
       }
     },
-    "/radio/programmes/{pid}.json": {
+    "/collections/{pid}/members.json": {
       "get": {
         "tags": [
-          "Radio"
+          "Collections"
         ],
-        "summary": "Programme by Pid",
-        "description": "Find programmes by PID (brand, series, episode and clip)\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
-        "operationId": "getRadioProgrammesByPid",
+        "summary": "Collection Members",
+        "description": "Episodes and Clips from Collection\n",
+        "operationId": "getCollectionMembers",
         "schemes": [
-          "http"
+          "https"
         ],
         "parameters": [
           {
@@ -318,84 +88,6 @@
             "description": "pid",
             "required": true,
             "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ProgrammesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/RadioErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/music/popular/tracks": {
-      "get": {
-        "tags": [
-          "Music Popularity"
-        ],
-        "summary": "Popular Tracks",
-        "description": "List of popular tracks for BBC Music. Filter by time, network, artist, playlist or programme.\n",
-        "operationId": "getMusicPopularTracks",
-        "schemes": [
-          "http"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "since",
-            "in": "query",
-            "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given time period and now",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "until",
-            "in": "query",
-            "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given 'since' and 'until' date params",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "network",
-            "in": "query",
-            "description": "Return items with given Network ID",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "programme",
-            "in": "query",
-            "description": "Items with given Programme Pid",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "artist",
-            "in": "query",
-            "description": "MusicBrainz artist ID",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "decomposed",
-            "in": "query",
-            "description": "In addition to the overall score, return a list of scores broken down by day N.B Must be used in conjunction with since and/or until and since is >= 31 days",
-            "required": false,
-            "type": "boolean"
           },
           {
             "name": "offset",
@@ -416,98 +108,19 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/MusicPopularityTracks"
+              "$ref": "#/definitions/ProgrammesResponse"
+            }
+          },
+          "404": {
+            "description": "Collection not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "#/definitions/MusicPopularityError"
-            }
-          }
-        }
-      }
-    },
-    "/music/popular/tracks/{id}": {
-      "get": {
-        "tags": [
-          "Music Popularity"
-        ],
-        "summary": "Single Track Popularity",
-        "description": "Popular Track for BBC Music\n",
-        "operationId": "getMusicPopularTrackById",
-        "schemes": [
-          "http"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "since",
-            "in": "query",
-            "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given time period and now",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "until",
-            "in": "query",
-            "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given 'since' and 'until' date params",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "network",
-            "in": "query",
-            "description": "Return items with given Network ID",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "programme",
-            "in": "query",
-            "description": "Items with given Programme Pid",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "artist",
-            "in": "query",
-            "description": "MusicBrainz artist ID",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "decomposed",
-            "in": "query",
-            "description": "In addition to the overall score, return a list of scores broken down by day N.B Must be used in conjunction with since and/or until and since is >= 31 days",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "BBC Music Track Id - Used to get single resource score",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/MusicPopularityTracks"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicPopularityError"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -783,6 +396,2295 @@
         }
       }
     },
+    "/music/popular/tracks": {
+      "get": {
+        "tags": [
+          "Music Popularity"
+        ],
+        "summary": "Popular Tracks",
+        "description": "List of popular tracks for BBC Music. Filter by time, network, artist, playlist or programme.\n",
+        "operationId": "getMusicPopularTracks",
+        "schemes": [
+          "http"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given time period and now",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "until",
+            "in": "query",
+            "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given 'since' and 'until' date params",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "network",
+            "in": "query",
+            "description": "Return items with given Network ID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "programme",
+            "in": "query",
+            "description": "Items with given Programme Pid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "artist",
+            "in": "query",
+            "description": "MusicBrainz artist ID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "decomposed",
+            "in": "query",
+            "description": "In addition to the overall score, return a list of scores broken down by day N.B Must be used in conjunction with since and/or until and since is >= 31 days",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicPopularityTracks"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicPopularityError"
+            }
+          }
+        }
+      }
+    },
+    "/music/popular/tracks/{id}": {
+      "get": {
+        "tags": [
+          "Music Popularity"
+        ],
+        "summary": "Single Track Popularity",
+        "description": "Popular Track for BBC Music\n",
+        "operationId": "getMusicPopularTrackById",
+        "schemes": [
+          "http"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given time period and now",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "until",
+            "in": "query",
+            "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given 'since' and 'until' date params",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "network",
+            "in": "query",
+            "description": "Return items with given Network ID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "programme",
+            "in": "query",
+            "description": "Items with given Programme Pid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "artist",
+            "in": "query",
+            "description": "MusicBrainz artist ID",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "decomposed",
+            "in": "query",
+            "description": "In addition to the overall score, return a list of scores broken down by day N.B Must be used in conjunction with since and/or until and since is >= 31 days",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "BBC Music Track Id - Used to get single resource score",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicPopularityTracks"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicPopularityError"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/export": {
+      "get": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Exports",
+        "description": "Returns status of all previous third party export actions for a given BBC Music user.\n",
+        "operationId": "getMusicExport",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicExportJob"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/exports/jobs": {
+      "get": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Jobs",
+        "description": "All items associated to a users export request\n",
+        "operationId": "getMusicExportJobs",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "over16",
+            "in": "query",
+            "description": "Boolean age check",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "vendor",
+            "in": "query",
+            "description": "Specify Vendor Jobs",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "spotify",
+              "deezer",
+              "youtube",
+              "itunes"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicExportJob"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Jobs",
+        "description": "Create Export Job for a user\n",
+        "operationId": "postMusicExportJob",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "over16",
+            "in": "query",
+            "description": "Boolean age check",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "vendor",
+            "in": "query",
+            "description": "Specify Vendor Jobs",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "spotify",
+              "deezer",
+              "youtube",
+              "itunes"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MusicExportJob"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicExportSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/exports/tracks": {
+      "get": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Tracks",
+        "description": "Retrieves vendor and status specific tracks\n",
+        "operationId": "getMusicExportTracks",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "over16",
+            "in": "query",
+            "description": "Boolean age check",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "vendor",
+            "in": "query",
+            "description": "Specify Vendor Tracks",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "spotify",
+              "deezer",
+              "youtube",
+              "itunes"
+            ]
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Specify Track status",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "failed",
+              "done",
+              "pending"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicExportJob"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/favourites": {
+      "get": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Favourite Tracks or Clips",
+        "description": "List of favourited tracks and clips for a given user for BBC Music.\n",
+        "operationId": "getPersonalisedMusicFavourites",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Filters activities based on the type of action",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "favourited",
+              "unfavourited"
+            ]
+          },
+          {
+            "name": "music-data",
+            "in": "query",
+            "description": "Omits music data from the response, defaults to true",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Favourite Tracks or Clips",
+        "description": "Add multiple tracks and/or clips to a BBC Music user's favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "operationId": "postPersonalisedMusicFavouritesBatch",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Action favourited or unfavourited",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonalisedMusicBatchRequest"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Favourite Tracks or Clips",
+        "description": "Update tracks or clips from a BBC Music user favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "operationId": "putPersonalisedMusicFavouritesBatch",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Action favourited or unfavourited",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonalisedMusicBatchRequest"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/favourites/{type}": {
+      "get": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Favourite Tracks or Clips by Type",
+        "description": "List of favourited tracks or clips for a given user for BBC Music.\n",
+        "operationId": "getPersonalisedMusicFavouritesByType",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music favourite types: Clips or Tracks",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "clips",
+              "tracks"
+            ]
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Filters activities based on the type of action",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "favourited",
+              "unfavourited"
+            ]
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/favourites/{type}/{id}": {
+      "get": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Favourite Track or Clip",
+        "description": "Check to see if a single track or clip entity is in a users favourites - determines UX of add button.\n",
+        "operationId": "getPersonalisedMusicFavouritesByTypeById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music favourite types: Clips or Tracks",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "clips",
+              "tracks"
+            ]
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Clip PID or Track ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Favourite Track or Clip",
+        "description": "Add track or clip to a BBC Music user favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "operationId": "postPersonalisedMusicFavouritesByTypeById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music favourite types: Clips or Tracks",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "clips",
+              "tracks"
+            ]
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Clip PID or Track ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Action favourited or unfavourited",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Favourite Track or Clip",
+        "description": "Update tracks or clips from a BBC Music user favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "operationId": "putPersonalisedMusicFavouritesByTypeById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music favourite types: Clips or Tracks",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "clips",
+              "tracks"
+            ]
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Clip PID or Track ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Action favourited or unfavourited",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Favourite Track or Clip",
+        "description": "Delete track or clip from a BBC Music user favourites.\n",
+        "operationId": "deletePersonalisedMusicFavouritesByTypeById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music favourite types: Clips or Tracks",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "clips",
+              "tracks"
+            ]
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Clip PID or Track ID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/follows": {
+      "get": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Followed Networks, Categories, Artists, Playlists and Genres",
+        "description": "List of followed networks, categories, artists, playlists and genres for a given user for BBC Music.\n",
+        "operationId": "getPersonalisedMusicFollows",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Filters activities based on the type of action",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "followed",
+              "unfollowed"
+            ]
+          },
+          {
+            "name": "music-data",
+            "in": "query",
+            "description": "Omits music data from the response, defaults to true",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "music_context",
+            "in": "query",
+            "description": "Specify context to be passed to Music API",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "events",
+              "ivote",
+              "music",
+              "musicplaylist",
+              "programmes",
+              "radio",
+              "unknown"
+            ]
+          },
+          {
+            "name": "music_within_uk",
+            "in": "query",
+            "description": "Specify location to be passed to Music API",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Followed Networks, Categories, Artists, Playlists and Genres",
+        "description": "Add networks, categories, artists, playlists, networks, genres or services in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "operationId": "postPersonalisedMusicFollowsBatch",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Filters activities based on the type of action",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "followed",
+              "unfollowed"
+            ]
+          },
+          {
+            "name": "music-data",
+            "in": "query",
+            "description": "Omits music data from the response, defaults to true",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "music_context",
+            "in": "query",
+            "description": "Specify context to be passed to Music API",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "events",
+              "ivote",
+              "music",
+              "musicplaylist",
+              "programmes",
+              "radio",
+              "unknown"
+            ]
+          },
+          {
+            "name": "music_within_uk",
+            "in": "query",
+            "description": "Specify location to be passed to Music API",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Action followed or unfollowed",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonalisedMusicBatchRequest"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Followed Networks, Categories, Artists, Playlists and Genres",
+        "description": "Update networks, categories, artists, playlists, networks, genres or services in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "operationId": "putPersonalisedMusicFollowsBatch",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Filters activities based on the type of action",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "followed",
+              "unfollowed"
+            ]
+          },
+          {
+            "name": "music-data",
+            "in": "query",
+            "description": "Omits music data from the response, defaults to true",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "music_context",
+            "in": "query",
+            "description": "Specify context to be passed to Music API",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "events",
+              "ivote",
+              "music",
+              "musicplaylist",
+              "programmes",
+              "radio",
+              "unknown"
+            ]
+          },
+          {
+            "name": "music_within_uk",
+            "in": "query",
+            "description": "Specify location to be passed to Music API",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Action followed or unfollowed",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PersonalisedMusicBatchRequest"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/follows/{type}": {
+      "get": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Followed Networks, Categories, Artists, Playlists and Genres by Type",
+        "description": "List of followed networks, categories, artists, playlists, networks, genres, categories or services for a given BBC Music user.\n",
+        "operationId": "getPersonalisedMusicFollowsByType",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "playlists",
+              "services",
+              "networks",
+              "genres",
+              "categories",
+              "artists"
+            ]
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "description": "Filters activities based on the type of action",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "followed",
+              "unfollowed"
+            ]
+          },
+          {
+            "name": "music-data",
+            "in": "query",
+            "description": "Omits music data from the response, defaults to true",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "music_context",
+            "in": "query",
+            "description": "Specify context to be passed to Music API",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "events",
+              "ivote",
+              "music",
+              "musicplaylist",
+              "programmes",
+              "radio",
+              "unknown"
+            ]
+          },
+          {
+            "name": "music_within_uk",
+            "in": "query",
+            "description": "Specify location to be passed to Music API",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/follows/{type}/{id}": {
+      "get": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Followed Network, Category, Artist, Playlist and Genre",
+        "description": "Check to see if a single network, category, artist, playlist, network, genre or service entity is in a users follows - determines UX of add button.\n",
+        "operationId": "getPersonalisedMusicFollowsByTypeById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "playlists",
+              "services",
+              "networks",
+              "genres",
+              "categories",
+              "artists"
+            ]
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Playlists, Services, Networks, Genres, Categories or Artists ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "music-data",
+            "in": "query",
+            "description": "Omits music data from the response, defaults to true",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "music_context",
+            "in": "query",
+            "description": "Specify context to be passed to Music API",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "events",
+              "ivote",
+              "music",
+              "musicplaylist",
+              "programmes",
+              "radio",
+              "unknown"
+            ]
+          },
+          {
+            "name": "music_within_uk",
+            "in": "query",
+            "description": "Specify location to be passed to Music API",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Followed Network, Category, Artist, Playlist and Genre",
+        "description": "Add a single network, category, artist, playlist, network, genre or service entity is in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "operationId": "postPersonalisedMusicFollowsByTypeById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "playlists",
+              "services",
+              "networks",
+              "genres",
+              "categories",
+              "artists"
+            ]
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Playlists, Services, Networks, Genres, Categories or Artists ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "music-data",
+            "in": "query",
+            "description": "Omits music data from the response, defaults to true",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "music_context",
+            "in": "query",
+            "description": "Specify context to be passed to Music API",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "events",
+              "ivote",
+              "music",
+              "musicplaylist",
+              "programmes",
+              "radio",
+              "unknown"
+            ]
+          },
+          {
+            "name": "music_within_uk",
+            "in": "query",
+            "description": "Specify location to be passed to Music API",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Action followed or unfollowed",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Followed Network, Category, Artist, Playlist and Genre",
+        "description": "Update a single network, category, artist, playlist, network, genre or service entity is in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "operationId": "putPersonalisedMusicFollowsByTypeById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "playlists",
+              "services",
+              "networks",
+              "genres",
+              "categories",
+              "artists"
+            ]
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Playlists, Services, Networks, Genres, Categories or Artists ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "music-data",
+            "in": "query",
+            "description": "Omits music data from the response, defaults to true",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "music_context",
+            "in": "query",
+            "description": "Specify context to be passed to Music API",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "events",
+              "ivote",
+              "music",
+              "musicplaylist",
+              "programmes",
+              "radio",
+              "unknown"
+            ]
+          },
+          {
+            "name": "music_within_uk",
+            "in": "query",
+            "description": "Specify location to be passed to Music API",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Action followed or unfollowed",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Personalised Music"
+        ],
+        "summary": "Followed Network, Category, Artist, Playlist and Genre",
+        "description": "Remove a single network, category, artist, playlist, network, genre or service entity is in a users follows\n",
+        "operationId": "deletePersonalisedMusicFollowsByTypeById",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "playlists",
+              "services",
+              "networks",
+              "genres",
+              "categories",
+              "artists"
+            ]
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Playlists, Services, Networks, Genres, Categories or Artists ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "music-data",
+            "in": "query",
+            "description": "Omits music data from the response, defaults to true",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "music_context",
+            "in": "query",
+            "description": "Specify context to be passed to Music API",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "events",
+              "ivote",
+              "music",
+              "musicplaylist",
+              "programmes",
+              "radio",
+              "unknown"
+            ]
+          },
+          {
+            "name": "music_within_uk",
+            "in": "query",
+            "description": "Specify location to be passed to Music API",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/preferences/export": {
+      "get": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Preferences",
+        "description": "Returns export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
+        "operationId": "getMusicPreferencesExport",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicExportPreferencesResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Preferences",
+        "description": "Create export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
+        "operationId": "postMusicPreferencesExport",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MusicExportPreferences"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicExportSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Preferences",
+        "description": "Remove export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
+        "operationId": "deleteMusicPreferencesExport",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicExportSuccess"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/my/music/preferences/export/{vendor}": {
+      "get": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Vendor Preferences",
+        "description": "Returns vendor specific export preferences for a given BBC Music user.\n",
+        "operationId": "getMusicPreferencesExportVendor",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "vendor",
+            "in": "path",
+            "description": "Supported 3rd Party Vendor",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "spotify",
+              "deezer",
+              "youtube",
+              "itunes"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MusicExportPreferencesResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Vendor Preferences",
+        "description": "Create Vendor specific export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
+        "operationId": "postMusicPreferencesExportVendor",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "vendor",
+            "in": "path",
+            "description": "Supported 3rd Party Vendor",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "spotify",
+              "deezer",
+              "youtube",
+              "itunes"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MusicExportPreferences"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Vendor Preferences",
+        "description": "Update vendor specific export preferences for a given BBC Music user.\n",
+        "operationId": "putMusicPreferencesExportVendor",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "vendor",
+            "in": "path",
+            "description": "Supported 3rd Party Vendor",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "spotify",
+              "deezer",
+              "youtube",
+              "itunes"
+            ]
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MusicExportPreferences"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Music Export"
+        ],
+        "summary": "Music Export Vendor Preferences",
+        "description": "Remove Vendor specific export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
+        "operationId": "deleteMusicPreferencesExportVendor",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-Authentication-Provider",
+            "in": "header",
+            "description": "Authentication type",
+            "required": true,
+            "type": "string",
+            "default": "idv5"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "vendor",
+            "in": "path",
+            "description": "Supported 3rd Party Vendor",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "spotify",
+              "deezer",
+              "youtube",
+              "itunes"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/MusicExportErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/my/plays": {
       "post": {
         "tags": [
@@ -827,13 +2729,13 @@
           "400": {
             "description": "The request was malformed.",
             "schema": {
-              "$ref": "#/definitions/WritePlaysErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "401": {
             "description": "There was an error with the supplied `Authorization` header.",
             "schema": {
-              "$ref": "#/definitions/WritePlaysErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -2077,14 +3979,14 @@
         }
       }
     },
-    "/my/music/favourites": {
+    "/my/programmes/recommendations.json": {
       "get": {
         "tags": [
-          "Personalised Music"
+          "Recommendations"
         ],
-        "summary": "Favourite Tracks or Clips",
-        "description": "List of favourited tracks and clips for a given user for BBC Music.\n",
-        "operationId": "getPersonalisedMusicFavourites",
+        "summary": "Recommended Programmes",
+        "description": "Recommended Programmes from the Audience Platforms' Recomendations Service\n",
+        "operationId": "getRecommendations",
         "parameters": [
           {
             "name": "Authorization",
@@ -2093,14 +3995,6 @@
             "required": true,
             "type": "string",
             "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
           },
           {
             "name": "X-API-Key",
@@ -2124,1620 +4018,14 @@
             "type": "integer"
           },
           {
-            "name": "action",
+            "name": "rights",
             "in": "query",
-            "description": "Filters activities based on the type of action",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "favourited",
-              "unfavourited"
-            ]
-          },
-          {
-            "name": "music-data",
-            "in": "query",
-            "description": "Omits music data from the response, defaults to true",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicFavouritesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Favourite Tracks or Clips",
-        "description": "Add multiple tracks and/or clips to a BBC Music user's favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
-        "operationId": "postPersonalisedMusicFavouritesBatch",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Action favourited or unfavourited",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PersonalisedMusicBatchRequest"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicFavouritesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Favourite Tracks or Clips",
-        "description": "Update tracks or clips from a BBC Music user favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
-        "operationId": "putPersonalisedMusicFavouritesBatch",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Action favourited or unfavourited",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PersonalisedMusicBatchRequest"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/favourites/{type}": {
-      "get": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Favourite Tracks or Clips by Type",
-        "description": "List of favourited tracks or clips for a given user for BBC Music.\n",
-        "operationId": "getPersonalisedMusicFavouritesByType",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music favourite types: Clips or Tracks",
+            "description": "Only return available results for the web/mobile.",
             "required": true,
             "type": "string",
             "enum": [
-              "clips",
-              "tracks"
-            ]
-          },
-          {
-            "name": "action",
-            "in": "query",
-            "description": "Filters activities based on the type of action",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "favourited",
-              "unfavourited"
-            ]
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicFavouritesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/favourites/{type}/{id}": {
-      "get": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Favourite Track or Clip",
-        "description": "Check to see if a single track or clip entity is in a users favourites - determines UX of add button.\n",
-        "operationId": "getPersonalisedMusicFavouritesByTypeById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music favourite types: Clips or Tracks",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "clips",
-              "tracks"
-            ]
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Clip PID or Track ID",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicFavouritesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Favourite Track or Clip",
-        "description": "Add track or clip to a BBC Music user favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
-        "operationId": "postPersonalisedMusicFavouritesByTypeById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music favourite types: Clips or Tracks",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "clips",
-              "tracks"
-            ]
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Clip PID or Track ID",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Action favourited or unfavourited",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicFavouritesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Favourite Track or Clip",
-        "description": "Update tracks or clips from a BBC Music user favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
-        "operationId": "putPersonalisedMusicFavouritesByTypeById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music favourite types: Clips or Tracks",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "clips",
-              "tracks"
-            ]
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Clip PID or Track ID",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Action favourited or unfavourited",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Favourite Track or Clip",
-        "description": "Delete track or clip from a BBC Music user favourites.\n",
-        "operationId": "deletePersonalisedMusicFavouritesByTypeById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music favourite types: Clips or Tracks",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "clips",
-              "tracks"
-            ]
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Clip PID or Track ID",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/follows": {
-      "get": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Followed Networks, Categories, Artists, Playlists and Genres",
-        "description": "List of followed networks, categories, artists, playlists and genres for a given user for BBC Music.\n",
-        "operationId": "getPersonalisedMusicFollows",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "action",
-            "in": "query",
-            "description": "Filters activities based on the type of action",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "followed",
-              "unfollowed"
-            ]
-          },
-          {
-            "name": "music-data",
-            "in": "query",
-            "description": "Omits music data from the response, defaults to true",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "music_context",
-            "in": "query",
-            "description": "Specify context to be passed to Music API",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "events",
-              "ivote",
-              "music",
-              "musicplaylist",
-              "programmes",
-              "radio",
-              "unknown"
-            ]
-          },
-          {
-            "name": "music_within_uk",
-            "in": "query",
-            "description": "Specify location to be passed to Music API",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicFollowsResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Followed Networks, Categories, Artists, Playlists and Genres",
-        "description": "Add networks, categories, artists, playlists, networks, genres or services in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
-        "operationId": "postPersonalisedMusicFollowsBatch",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "action",
-            "in": "query",
-            "description": "Filters activities based on the type of action",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "followed",
-              "unfollowed"
-            ]
-          },
-          {
-            "name": "music-data",
-            "in": "query",
-            "description": "Omits music data from the response, defaults to true",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "music_context",
-            "in": "query",
-            "description": "Specify context to be passed to Music API",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "events",
-              "ivote",
-              "music",
-              "musicplaylist",
-              "programmes",
-              "radio",
-              "unknown"
-            ]
-          },
-          {
-            "name": "music_within_uk",
-            "in": "query",
-            "description": "Specify location to be passed to Music API",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Action followed or unfollowed",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PersonalisedMusicBatchRequest"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Followed Networks, Categories, Artists, Playlists and Genres",
-        "description": "Update networks, categories, artists, playlists, networks, genres or services in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
-        "operationId": "putPersonalisedMusicFollowsBatch",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "action",
-            "in": "query",
-            "description": "Filters activities based on the type of action",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "followed",
-              "unfollowed"
-            ]
-          },
-          {
-            "name": "music-data",
-            "in": "query",
-            "description": "Omits music data from the response, defaults to true",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "music_context",
-            "in": "query",
-            "description": "Specify context to be passed to Music API",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "events",
-              "ivote",
-              "music",
-              "musicplaylist",
-              "programmes",
-              "radio",
-              "unknown"
-            ]
-          },
-          {
-            "name": "music_within_uk",
-            "in": "query",
-            "description": "Specify location to be passed to Music API",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Action followed or unfollowed",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/PersonalisedMusicBatchRequest"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/follows/{type}": {
-      "get": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Followed Networks, Categories, Artists, Playlists and Genres by Type",
-        "description": "List of followed networks, categories, artists, playlists, networks, genres, categories or services for a given BBC Music user.\n",
-        "operationId": "getPersonalisedMusicFollowsByType",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "playlists",
-              "services",
-              "networks",
-              "genres",
-              "categories",
-              "artists"
-            ]
-          },
-          {
-            "name": "action",
-            "in": "query",
-            "description": "Filters activities based on the type of action",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "followed",
-              "unfollowed"
-            ]
-          },
-          {
-            "name": "music-data",
-            "in": "query",
-            "description": "Omits music data from the response, defaults to true",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "music_context",
-            "in": "query",
-            "description": "Specify context to be passed to Music API",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "events",
-              "ivote",
-              "music",
-              "musicplaylist",
-              "programmes",
-              "radio",
-              "unknown"
-            ]
-          },
-          {
-            "name": "music_within_uk",
-            "in": "query",
-            "description": "Specify location to be passed to Music API",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicFollowsResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/follows/{type}/{id}": {
-      "get": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Followed Network, Category, Artist, Playlist and Genre",
-        "description": "Check to see if a single network, category, artist, playlist, network, genre or service entity is in a users follows - determines UX of add button.\n",
-        "operationId": "getPersonalisedMusicFollowsByTypeById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "playlists",
-              "services",
-              "networks",
-              "genres",
-              "categories",
-              "artists"
-            ]
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Playlists, Services, Networks, Genres, Categories or Artists ID",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "music-data",
-            "in": "query",
-            "description": "Omits music data from the response, defaults to true",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "music_context",
-            "in": "query",
-            "description": "Specify context to be passed to Music API",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "events",
-              "ivote",
-              "music",
-              "musicplaylist",
-              "programmes",
-              "radio",
-              "unknown"
-            ]
-          },
-          {
-            "name": "music_within_uk",
-            "in": "query",
-            "description": "Specify location to be passed to Music API",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicFollowsResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Followed Network, Category, Artist, Playlist and Genre",
-        "description": "Add a single network, category, artist, playlist, network, genre or service entity is in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
-        "operationId": "postPersonalisedMusicFollowsByTypeById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "playlists",
-              "services",
-              "networks",
-              "genres",
-              "categories",
-              "artists"
-            ]
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Playlists, Services, Networks, Genres, Categories or Artists ID",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "music-data",
-            "in": "query",
-            "description": "Omits music data from the response, defaults to true",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "music_context",
-            "in": "query",
-            "description": "Specify context to be passed to Music API",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "events",
-              "ivote",
-              "music",
-              "musicplaylist",
-              "programmes",
-              "radio",
-              "unknown"
-            ]
-          },
-          {
-            "name": "music_within_uk",
-            "in": "query",
-            "description": "Specify location to be passed to Music API",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Action followed or unfollowed",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Followed Network, Category, Artist, Playlist and Genre",
-        "description": "Update a single network, category, artist, playlist, network, genre or service entity is in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
-        "operationId": "putPersonalisedMusicFollowsByTypeById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "playlists",
-              "services",
-              "networks",
-              "genres",
-              "categories",
-              "artists"
-            ]
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Playlists, Services, Networks, Genres, Categories or Artists ID",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "music-data",
-            "in": "query",
-            "description": "Omits music data from the response, defaults to true",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "music_context",
-            "in": "query",
-            "description": "Specify context to be passed to Music API",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "events",
-              "ivote",
-              "music",
-              "musicplaylist",
-              "programmes",
-              "radio",
-              "unknown"
-            ]
-          },
-          {
-            "name": "music_within_uk",
-            "in": "query",
-            "description": "Specify location to be passed to Music API",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Action followed or unfollowed",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Personalised Music"
-        ],
-        "summary": "Followed Network, Category, Artist, Playlist and Genre",
-        "description": "Remove a single network, category, artist, playlist, network, genre or service entity is in a users follows\n",
-        "operationId": "deletePersonalisedMusicFollowsByTypeById",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "type",
-            "in": "path",
-            "description": "Supported Music follows types: Playlists, Services, Genres & Artists",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "playlists",
-              "services",
-              "networks",
-              "genres",
-              "categories",
-              "artists"
-            ]
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Playlists, Services, Networks, Genres, Categories or Artists ID",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "music-data",
-            "in": "query",
-            "description": "Omits music data from the response, defaults to true",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "music_context",
-            "in": "query",
-            "description": "Specify context to be passed to Music API",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "events",
-              "ivote",
-              "music",
-              "musicplaylist",
-              "programmes",
-              "radio",
-              "unknown"
-            ]
-          },
-          {
-            "name": "music_within_uk",
-            "in": "query",
-            "description": "Specify location to be passed to Music API",
-            "required": false,
-            "type": "boolean"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedMusicErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/export": {
-      "get": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Exports",
-        "description": "Returns status of all previous third party export actions for a given BBC Music user.\n",
-        "operationId": "getMusicExport",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/MusicExportJob"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/preferences/export": {
-      "get": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Preferences",
-        "description": "Returns export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
-        "operationId": "getMusicPreferencesExport",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/MusicExportPreferencesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Preferences",
-        "description": "Create export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
-        "operationId": "postMusicPreferencesExport",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MusicExportPreferences"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/MusicExportSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Preferences",
-        "description": "Remove export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
-        "operationId": "deleteMusicPreferencesExport",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/MusicExportSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/preferences/export/{vendor}": {
-      "get": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Vendor Preferences",
-        "description": "Returns vendor specific export preferences for a given BBC Music user.\n",
-        "operationId": "getMusicPreferencesExportVendor",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vendor",
-            "in": "path",
-            "description": "Supported 3rd Party Vendor",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "spotify",
-              "deezer",
-              "youtube",
-              "itunes"
+              "web",
+              "mobile"
             ]
           }
         ],
@@ -3745,445 +4033,19 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/MusicExportPreferencesResponse"
+              "$ref": "#/definitions/ProgrammesResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Vendor Preferences",
-        "description": "Create Vendor specific export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
-        "operationId": "postMusicPreferencesExportVendor",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vendor",
-            "in": "path",
-            "description": "Supported 3rd Party Vendor",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "spotify",
-              "deezer",
-              "youtube",
-              "itunes"
-            ]
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MusicExportPreferences"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Vendor Preferences",
-        "description": "Update vendor specific export preferences for a given BBC Music user.\n",
-        "operationId": "putMusicPreferencesExportVendor",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vendor",
-            "in": "path",
-            "description": "Supported 3rd Party Vendor",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "spotify",
-              "deezer",
-              "youtube",
-              "itunes"
-            ]
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MusicExportPreferences"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Vendor Preferences",
-        "description": "Remove Vendor specific export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
-        "operationId": "deleteMusicPreferencesExportVendor",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vendor",
-            "in": "path",
-            "description": "Supported 3rd Party Vendor",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "spotify",
-              "deezer",
-              "youtube",
-              "itunes"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/exports/jobs": {
-      "get": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Jobs",
-        "description": "All items associated to a users export request\n",
-        "operationId": "getMusicExportJobs",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "over16",
-            "in": "query",
-            "description": "Boolean age check",
-            "required": true,
-            "type": "boolean"
-          },
-          {
-            "name": "vendor",
-            "in": "query",
-            "description": "Specify Vendor Jobs",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "spotify",
-              "deezer",
-              "youtube",
-              "itunes"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/MusicExportJob"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Jobs",
-        "description": "Create Export Job for a user\n",
-        "operationId": "postMusicExportJob",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "over16",
-            "in": "query",
-            "description": "Boolean age check",
-            "required": true,
-            "type": "boolean"
-          },
-          {
-            "name": "vendor",
-            "in": "query",
-            "description": "Specify Vendor Jobs",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "spotify",
-              "deezer",
-              "youtube",
-              "itunes"
-            ]
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/MusicExportJob"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/MusicExportSuccess"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/my/music/exports/tracks": {
-      "get": {
-        "tags": [
-          "Music Export"
-        ],
-        "summary": "Music Export Tracks",
-        "description": "Retrieves vendor and status specific tracks\n",
-        "operationId": "getMusicExportTracks",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-Authentication-Provider",
-            "in": "header",
-            "description": "Authentication type",
-            "required": true,
-            "type": "string",
-            "default": "idv5"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "over16",
-            "in": "query",
-            "description": "Boolean age check",
-            "required": true,
-            "type": "boolean"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "vendor",
-            "in": "query",
-            "description": "Specify Vendor Tracks",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "spotify",
-              "deezer",
-              "youtube",
-              "itunes"
-            ]
-          },
-          {
-            "name": "status",
-            "in": "query",
-            "description": "Specify Track status",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "failed",
-              "done",
-              "pending"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/MusicExportJob"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/MusicExportErrorResponse"
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -4281,6 +4143,42 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/PodcastsResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PodcastErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/podcasts/featured.json": {
+      "get": {
+        "tags": [
+          "Podcasts"
+        ],
+        "summary": "Featured Podcasts",
+        "description": "Retrieve featured podcasts\n",
+        "operationId": "getPodcastsFeatured",
+        "schemes": [
+          "http"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PodcastsFeaturedResponse"
             }
           },
           "default": {
@@ -4406,14 +4304,14 @@
         }
       }
     },
-    "/podcasts/featured.json": {
+    "/radio/categories.json": {
       "get": {
         "tags": [
-          "Podcasts"
+          "Radio"
         ],
-        "summary": "Featured Podcasts",
-        "description": "Retrieve featured podcasts\n",
-        "operationId": "getPodcastsFeatured",
+        "summary": "Categories",
+        "description": "All iPlayer Radio categories - contains business logic for blend of PIPs genres and formats.\n",
+        "operationId": "getRadioCategories",
         "schemes": [
           "http"
         ],
@@ -4430,13 +4328,64 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/PodcastsFeaturedResponse"
+              "$ref": "#/definitions/RadioCategoriesResponse"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "#/definitions/PodcastErrorResponse"
+              "$ref": "#/definitions/RadioErrorResponse"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/radio/networks.json": {
+      "get": {
+        "tags": [
+          "Radio"
+        ],
+        "summary": "Networks",
+        "description": "All iPlayer Radio networks - contains business logic for masterbrand and service relationships\n",
+        "operationId": "getRadioNetworks",
+        "schemes": [
+          "http"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "preset",
+            "in": "query",
+            "description": "Returns all networks needed for iPlayer Radio responsive web navigation",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "international",
+            "in": "query",
+            "description": "Returns all networks available internationally",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/NetworksResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/RadioErrorResponse"
             }
           }
         }
@@ -4583,14 +4532,14 @@
         }
       }
     },
-    "/categories.json": {
+    "/radio/programmes.json": {
       "get": {
         "tags": [
-          "Categories"
+          "Radio"
         ],
-        "summary": "Categories",
-        "description": "Retrieve Categories\n",
-        "operationId": "getCategories",
+        "summary": "Programmes",
+        "description": "Provides a paginated list of programmes by PID (brand, series, episode and clip). Accepts various filters and sorting methods.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
+        "operationId": "getRadioProgrammes",
         "schemes": [
           "http"
         ],
@@ -4605,11 +4554,66 @@
           {
             "name": "kind",
             "in": "query",
-            "description": "Filter by provided query. E.g. 'promoted' returns promoted categories",
+            "description": "Filter by provided query. E.g. 'tleo' returns top level objects, ie. brands, orphaned series, and orphaned episodes",
             "required": false,
             "type": "string",
             "enum": [
-              "promoted"
+              "tleo"
+            ]
+          },
+          {
+            "name": "network",
+            "in": "query",
+            "description": "Filter by network master brand ID (mid). Accepts comma separated values",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "network_url_key",
+            "in": "query",
+            "description": "Filter by network URL key. Accepts comma separated values",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter by category id. Accepts comma separated values. See /category endpoint below for the type of response provided",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by provided query. E.g. 'title' sorts in ascending order, and -title sorts in descending order",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "available_from_date",
+              "-available_from_date",
+              "title",
+              "-title"
+            ]
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "Filter by container. Accepts any brand or series pid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by programme type. Accepts comma separated values",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "brand",
+              "series",
+              "episode",
+              "clip",
+              "episode,clip"
             ]
           }
         ],
@@ -4617,28 +4621,28 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/CategoriesResponse"
+              "$ref": "#/definitions/ProgrammesResponse"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "#/definitions/CategoryErrorResponse"
+              "$ref": "#/definitions/RadioErrorResponse"
             }
           }
         }
       }
     },
-    "/collections/{pid}/members.json": {
+    "/radio/programmes/{pid}.json": {
       "get": {
         "tags": [
-          "Collections"
+          "Radio"
         ],
-        "summary": "Collection Members",
-        "description": "Episodes and Clips from Collection\n",
-        "operationId": "getCollectionMembers",
+        "summary": "Programme by Pid",
+        "description": "Find programmes by PID (brand, series, episode and clip)\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
+        "operationId": "getRadioProgrammesByPid",
         "schemes": [
-          "https"
+          "http"
         ],
         "parameters": [
           {
@@ -4654,20 +4658,6 @@
             "description": "pid",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
           }
         ],
         "responses": {
@@ -4677,19 +4667,101 @@
               "$ref": "#/definitions/ProgrammesResponse"
             }
           },
-          "404": {
-            "description": "Collection not found",
+          "default": {
+            "description": "Unexpected error",
             "schema": {
-              "$ref": "#/definitions/CollectionsErrorResponse"
+              "$ref": "#/definitions/RadioErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/radio/v1/programmes.json": {
+      "get": {
+        "tags": [
+          "Radio"
+        ],
+        "summary": "Programmes",
+        "description": "Find programmes by PID (brand, series, episode and clip). Accepts one or many pids separated by commas.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
+        "operationId": "getRadioProgrammesV1",
+        "schemes": [
+          "http"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pids",
+            "in": "query",
+            "description": "Returns programme information for one or more pids",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ProgrammesResponse"
             }
           },
           "default": {
             "description": "Unexpected error",
             "schema": {
-              "$ref": "#/definitions/CollectionsErrorResponse"
+              "$ref": "#/definitions/RadioErrorResponse"
             }
           }
-        }
+        },
+        "deprecated": true
+      }
+    },
+    "/radio/v1/programmes/{pid}.json": {
+      "get": {
+        "tags": [
+          "Radio"
+        ],
+        "summary": "Programme by Pid",
+        "description": "Find programmes by PID (brand, series, episode and clip)\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
+        "operationId": "getRadioProgrammesByPidV1",
+        "schemes": [
+          "http"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "pid",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ProgrammesResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/RadioErrorResponse"
+            }
+          }
+        },
+        "deprecated": true
       }
     }
   },
@@ -6526,7 +6598,7 @@
         }
       }
     },
-    "PersonalisedMusicFavouritesResponse": {
+    "PersonalisedMusicResponse": {
       "type": "object",
       "required": [
         "limit",
@@ -6559,12 +6631,12 @@
         "results": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PersonalisedMusicFavouritesActivity"
+            "$ref": "#/definitions/PersonalisedMusicActivity"
           }
         }
       }
     },
-    "PersonalisedMusicFavouritesActivity": {
+    "PersonalisedMusicActivity": {
       "type": "object",
       "required": [
         "action",
@@ -6605,7 +6677,7 @@
         "data": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PersonalisedMusicFavourite"
+            "$ref": "#/definitions/PersonalisedMusicData"
           }
         }
       }
@@ -6621,11 +6693,213 @@
         }
       }
     },
-    "PersonalisedMusicFavourite": {
+    "PersonalisedMusicData": {
       "type": "object",
       "properties": {
+        "playlist": {
+          "$ref": "#/definitions/PersonalisedMusicPlaylist"
+        },
+        "service": {
+          "$ref": "#/definitions/PersonalisedMusicService"
+        },
+        "genre": {
+          "$ref": "#/definitions/PersonalisedMusicGenre"
+        },
+        "artist": {
+          "$ref": "#/definitions/PersonalisedMusicArtist"
+        },
         "track": {
           "$ref": "#/definitions/PersonalisedMusicTrack"
+        },
+        "clip": {
+          "$ref": "#/definitions/PersonalisedMusicClip"
+        }
+      }
+    },
+    "PersonalisedMusicPlaylist": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "tracks": {
+          "$ref": "#/definitions/PersonalisedMusicTrack"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonalisedMusicImage"
+          }
+        },
+        "service_id": {
+          "type": "string"
+        },
+        "version": {
+          "$ref": "#/definitions/PersonalisedMusicPlaylistVersion"
+        },
+        "playback_type": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonalisedMusicPlaylistVersion": {
+      "type": "object",
+      "required": [
+        "warnings"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "starts_at": {
+          "type": "string"
+        },
+        "expires_at": {
+          "type": "string"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PersonalisedMusicService": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonalisedMusicGenre": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonalisedMusicArtist": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonalisedMusicImage"
+          }
+        }
+      }
+    },
+    "PersonalisedMusicImage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonalisedMusicClip": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "synopsis": {
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "mediaType": {
+          "type": "string"
+        },
+        "entityType": {
+          "type": "string"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "masterbrandMid": {
+          "type": "string"
+        },
+        "parentProgramme": {
+          "$ref": "#/definitions/PersonalisedMusicClipParentProgramme"
+        },
+        "contributors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "version": {
+          "$ref": "#/definitions/PersonalisedMusicVersion"
+        }
+      }
+    },
+    "PersonalisedMusicClipParentProgramme": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "entityType": {
+          "type": "string"
         }
       }
     },
@@ -6669,17 +6943,19 @@
           }
         },
         "version": {
-          "$ref": "#/definitions/PersonalisedMusicTrackVersion"
+          "$ref": "#/definitions/PersonalisedMusicVersion"
         }
       }
     },
-    "PersonalisedMusicTrackVersion": {
+    "PersonalisedMusicVersion": {
       "type": "object",
-      "required": [
-        "classical",
-        "radio"
-      ],
       "properties": {
+        "vpid": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
         "radio": {
           "type": "boolean"
         },
@@ -6760,120 +7036,6 @@
           "type": "string"
         },
         "type": {
-          "type": "string"
-        }
-      }
-    },
-    "PersonalisedMusicFollowsResponse": {
-      "type": "object",
-      "required": [
-        "limit",
-        "method",
-        "offset",
-        "replied_at",
-        "results",
-        "schema",
-        "total"
-      ],
-      "properties": {
-        "schema": {
-          "type": "string"
-        },
-        "method": {
-          "type": "string"
-        },
-        "offset": {
-          "type": "integer"
-        },
-        "limit": {
-          "type": "integer"
-        },
-        "total": {
-          "type": "integer"
-        },
-        "replied_at": {
-          "type": "string"
-        },
-        "results": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonalisedMusicFollowsActivity"
-          }
-        }
-      }
-    },
-    "PersonalisedMusicFollowsActivity": {
-      "type": "object",
-      "required": [
-        "action",
-        "activity",
-        "added_at",
-        "data",
-        "domain",
-        "id",
-        "type",
-        "urn"
-      ],
-      "properties": {
-        "action": {
-          "type": "string"
-        },
-        "added_at": {
-          "type": "string"
-        },
-        "activity": {
-          "type": "string"
-        },
-        "domain": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "urn": {
-          "type": "string"
-        },
-        "data": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PersonalisedMusicFollow"
-          }
-        }
-      }
-    },
-    "PersonalisedMusicFollow": {
-      "type": "object",
-      "required": [
-        "genre"
-      ],
-      "properties": {
-        "genre": {
-          "$ref": "#/definitions/PersonalisedMusicFollowGenre"
-        }
-      }
-    },
-    "PersonalisedMusicFollowGenre": {
-      "type": "object",
-      "required": [
-        "id",
-        "key",
-        "title",
-        "type"
-      ],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "key": {
-          "type": "string"
-        },
-        "title": {
           "type": "string"
         }
       }
@@ -7373,7 +7535,7 @@
         }
       }
     },
-    "WritePlaysErrorResponse": {
+    "ErrorResponse": {
       "type": "object",
       "required": [
         "$schema",
@@ -7386,14 +7548,15 @@
         "errors": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/WritePlaysError"
+            "$ref": "#/definitions/Error"
           }
         }
       }
     },
-    "WritePlaysError": {
+    "Error": {
       "type": "object",
       "required": [
+        "href",
         "id",
         "message",
         "replied_at"
@@ -7402,47 +7565,7 @@
         "id": {
           "type": "string"
         },
-        "documentation": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "replied_at": {
-          "type": "string"
-        }
-      }
-    },
-    "CollectionsErrorResponse": {
-      "type": "object",
-      "required": [
-        "$schema",
-        "errors"
-      ],
-      "properties": {
-        "$schema": {
-          "type": "string"
-        },
-        "errors": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CollectionsError"
-          }
-        }
-      }
-    },
-    "CollectionsError": {
-      "type": "object",
-      "required": [
-        "id",
-        "message",
-        "replied_at"
-      ],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "documentation": {
+        "href": {
           "type": "string"
         },
         "message": {
@@ -7526,31 +7649,56 @@
     }
   },
   "parameters": {
-    "coverage": {
-      "name": "coverage",
-      "in": "query",
-      "description": "Local, National or Regional Coverage",
-      "required": false,
-      "type": "string",
-      "enum": [
-        "local",
-        "national",
-        "regional"
-      ]
-    },
-    "over16": {
-      "name": "over16",
-      "in": "query",
-      "description": "Boolean age check",
+    "Authorization": {
+      "name": "Authorization",
+      "in": "header",
+      "description": "Bearer OAUTH_TOKEN",
       "required": true,
-      "type": "boolean"
+      "type": "string",
+      "default": "Bearer OAUTH_TOKEN"
     },
-    "offset": {
-      "name": "offset",
+    "X-Authentication-Provider": {
+      "name": "X-Authentication-Provider",
+      "in": "header",
+      "description": "Authentication type",
+      "required": true,
+      "type": "string",
+      "default": "idv5"
+    },
+    "X-API-Key": {
+      "name": "X-API-Key",
+      "in": "header",
+      "description": "API_KEY",
+      "required": true,
+      "type": "string"
+    },
+    "since": {
+      "name": "since",
       "in": "query",
-      "description": "Paginated results offset",
+      "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given time period and now",
       "required": false,
-      "type": "integer"
+      "type": "string"
+    },
+    "until": {
+      "name": "until",
+      "in": "query",
+      "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given 'since' and 'until' date params",
+      "required": false,
+      "type": "string"
+    },
+    "network": {
+      "name": "network",
+      "in": "query",
+      "description": "Return items with given Network ID",
+      "required": false,
+      "type": "string"
+    },
+    "programme": {
+      "name": "programme",
+      "in": "query",
+      "description": "Items with given Programme Pid",
+      "required": false,
+      "type": "string"
     },
     "artist": {
       "name": "artist",
@@ -7566,20 +7714,33 @@
       "required": false,
       "type": "boolean"
     },
-    "X-Authentication-Provider": {
-      "name": "X-Authentication-Provider",
-      "in": "header",
-      "description": "Authentication type",
-      "required": true,
-      "type": "string",
-      "default": "idv5"
-    },
     "pid": {
       "name": "pid",
       "in": "path",
       "description": "pid",
       "required": true,
       "type": "string"
+    },
+    "over16": {
+      "name": "over16",
+      "in": "query",
+      "description": "Boolean age check",
+      "required": true,
+      "type": "boolean"
+    },
+    "offset": {
+      "name": "offset",
+      "in": "query",
+      "description": "Paginated results offset",
+      "required": false,
+      "type": "integer"
+    },
+    "limit": {
+      "name": "limit",
+      "in": "query",
+      "description": "Paginated results limit",
+      "required": false,
+      "type": "integer"
     },
     "sort": {
       "name": "sort",
@@ -7594,20 +7755,12 @@
         "-available_from_date"
       ]
     },
-    "network": {
-      "name": "network",
+    "category": {
+      "name": "category",
       "in": "query",
-      "description": "Return items with given Network ID",
+      "description": "Category ID",
       "required": false,
       "type": "string"
-    },
-    "Authorization": {
-      "name": "Authorization",
-      "in": "header",
-      "description": "Bearer OAUTH_TOKEN",
-      "required": true,
-      "type": "string",
-      "default": "Bearer OAUTH_TOKEN"
     },
     "q": {
       "name": "q",
@@ -7616,47 +7769,28 @@
       "required": false,
       "type": "string"
     },
-    "limit": {
-      "name": "limit",
+    "coverage": {
+      "name": "coverage",
       "in": "query",
-      "description": "Paginated results limit",
+      "description": "Local, National or Regional Coverage",
       "required": false,
-      "type": "integer"
+      "type": "string",
+      "enum": [
+        "local",
+        "national",
+        "regional"
+      ]
     },
-    "X-API-Key": {
-      "name": "X-API-Key",
-      "in": "header",
-      "description": "API_KEY",
+    "rights": {
+      "name": "rights",
+      "in": "query",
+      "description": "Only return available results for the web/mobile.",
       "required": true,
-      "type": "string"
-    },
-    "until": {
-      "name": "until",
-      "in": "query",
-      "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given 'since' and 'until' date params",
-      "required": false,
-      "type": "string"
-    },
-    "category": {
-      "name": "category",
-      "in": "query",
-      "description": "Category ID",
-      "required": false,
-      "type": "string"
-    },
-    "programme": {
-      "name": "programme",
-      "in": "query",
-      "description": "Items with given Programme Pid",
-      "required": false,
-      "type": "string"
-    },
-    "since": {
-      "name": "since",
-      "in": "query",
-      "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given time period and now",
-      "required": false,
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "web",
+        "mobile"
+      ]
     }
   }
 }
