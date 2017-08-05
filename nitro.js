@@ -213,6 +213,7 @@ var hidden = 0;
 				}
 			}
 
+			if (!len) len = '';
 			len = len.replace('PT','').toLocaleLowerCase(); // ISO 8601 duration
 
 			console.log('  '+len+' S'+pad(series,'00')+'E'+pad(position,'00')+
