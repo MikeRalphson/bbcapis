@@ -246,7 +246,7 @@ var hidden = 0;
 
 	if (programme_cache.length == 1) {
 		var item = programme_cache[0];
-		if (item.synopses.long || item.synopses.medium) {
+		if (item.synopses && (item.synopses.long || item.synopses.medium)) {
 			console.log();
 			console.log(item.synopses.long ? item.synopses.long : item.synopses.medium);
 		}
