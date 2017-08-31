@@ -4629,6 +4629,49 @@
         }
       }
     },
+    "/categories/{id}": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Categories",
+        "description": "Retrieve Categories by ID\n",
+        "operationId": "getCategories",
+        "schemes": [
+          "http"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Retrieve information about the category. E.g. 'sport-football-europeanchampionship'",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CategoriesResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/CategoryErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/collections/{pid}/members.json": {
       "get": {
         "tags": [
@@ -7975,77 +8018,17 @@
     }
   },
   "parameters": {
-    "Authorization": {
-      "name": "Authorization",
-      "in": "header",
-      "description": "Bearer OAUTH_TOKEN",
-      "required": true,
+    "coverage": {
+      "name": "coverage",
+      "in": "query",
+      "description": "Local, National or Regional Coverage",
+      "required": false,
       "type": "string",
-      "default": "Bearer OAUTH_TOKEN"
-    },
-    "X-Authentication-Provider": {
-      "name": "X-Authentication-Provider",
-      "in": "header",
-      "description": "Authentication type",
-      "required": true,
-      "type": "string",
-      "default": "idv5"
-    },
-    "X-API-Key": {
-      "name": "X-API-Key",
-      "in": "header",
-      "description": "API_KEY",
-      "required": true,
-      "type": "string"
-    },
-    "since": {
-      "name": "since",
-      "in": "query",
-      "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given time period and now",
-      "required": false,
-      "type": "string"
-    },
-    "until": {
-      "name": "until",
-      "in": "query",
-      "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given 'since' and 'until' date params",
-      "required": false,
-      "type": "string"
-    },
-    "network": {
-      "name": "network",
-      "in": "query",
-      "description": "Return items with given Network ID",
-      "required": false,
-      "type": "string"
-    },
-    "programme": {
-      "name": "programme",
-      "in": "query",
-      "description": "Items with given Programme Pid",
-      "required": false,
-      "type": "string"
-    },
-    "artist": {
-      "name": "artist",
-      "in": "query",
-      "description": "MusicBrainz artist ID",
-      "required": false,
-      "type": "string"
-    },
-    "decomposed": {
-      "name": "decomposed",
-      "in": "query",
-      "description": "In addition to the overall score, return a list of scores broken down by day N.B Must be used in conjunction with since and/or until and since is >= 31 days",
-      "required": false,
-      "type": "boolean"
-    },
-    "pid": {
-      "name": "pid",
-      "in": "path",
-      "description": "pid",
-      "required": true,
-      "type": "string"
+      "enum": [
+        "local",
+        "national",
+        "regional"
+      ]
     },
     "over16": {
       "name": "over16",
@@ -8061,12 +8044,34 @@
       "required": false,
       "type": "integer"
     },
-    "limit": {
-      "name": "limit",
+    "artist": {
+      "name": "artist",
       "in": "query",
-      "description": "Paginated results limit",
+      "description": "MusicBrainz artist ID",
       "required": false,
-      "type": "integer"
+      "type": "string"
+    },
+    "decomposed": {
+      "name": "decomposed",
+      "in": "query",
+      "description": "In addition to the overall score, return a list of scores broken down by day N.B Must be used in conjunction with since and/or until and since is >= 31 days",
+      "required": false,
+      "type": "boolean"
+    },
+    "X-Authentication-Provider": {
+      "name": "X-Authentication-Provider",
+      "in": "header",
+      "description": "Authentication type",
+      "required": true,
+      "type": "string",
+      "default": "idv5"
+    },
+    "pid": {
+      "name": "pid",
+      "in": "path",
+      "description": "pid",
+      "required": true,
+      "type": "string"
     },
     "sort": {
       "name": "sort",
@@ -8081,12 +8086,20 @@
         "-available_from_date"
       ]
     },
-    "category": {
-      "name": "category",
+    "network": {
+      "name": "network",
       "in": "query",
-      "description": "Category ID",
+      "description": "Return items with given Network ID",
       "required": false,
       "type": "string"
+    },
+    "Authorization": {
+      "name": "Authorization",
+      "in": "header",
+      "description": "Bearer OAUTH_TOKEN",
+      "required": true,
+      "type": "string",
+      "default": "Bearer OAUTH_TOKEN"
     },
     "q": {
       "name": "q",
@@ -8094,18 +8107,6 @@
       "description": "Search query String",
       "required": false,
       "type": "string"
-    },
-    "coverage": {
-      "name": "coverage",
-      "in": "query",
-      "description": "Local, National or Regional Coverage",
-      "required": false,
-      "type": "string",
-      "enum": [
-        "local",
-        "national",
-        "regional"
-      ]
     },
     "rights": {
       "name": "rights",
@@ -8117,6 +8118,48 @@
         "web",
         "mobile"
       ]
+    },
+    "limit": {
+      "name": "limit",
+      "in": "query",
+      "description": "Paginated results limit",
+      "required": false,
+      "type": "integer"
+    },
+    "X-API-Key": {
+      "name": "X-API-Key",
+      "in": "header",
+      "description": "API_KEY",
+      "required": true,
+      "type": "string"
+    },
+    "until": {
+      "name": "until",
+      "in": "query",
+      "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given 'since' and 'until' date params",
+      "required": false,
+      "type": "string"
+    },
+    "category": {
+      "name": "category",
+      "in": "query",
+      "description": "Category ID",
+      "required": false,
+      "type": "string"
+    },
+    "programme": {
+      "name": "programme",
+      "in": "query",
+      "description": "Items with given Programme Pid",
+      "required": false,
+      "type": "string"
+    },
+    "since": {
+      "name": "since",
+      "in": "query",
+      "description": "ISO 8601 Date yyyy-mm-dd.  Returns items between given time period and now",
+      "required": false,
+      "type": "string"
     }
   }
 }
