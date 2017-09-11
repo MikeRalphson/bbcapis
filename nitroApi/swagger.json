@@ -4,7 +4,7 @@
 		"version": "1.0.0",
 		"title": "BBC Nitro API",
 		"x-logo": {
-			"url": "https://developer.bbc.co.uk/sites/default/files/Nitro%20On%20White.png"
+			"url": "https://github.com/Mermade/bbcparse/blob/master/nitroApi/nitro-logo.png?raw=true"
 		},
 		"x-apiClientRegistration": {
 			"url": "https://developer.bbc.co.uk/user/register"
