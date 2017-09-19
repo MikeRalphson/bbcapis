@@ -769,6 +769,9 @@
         "editorial_title": {
           "type": "string"
         },
+        "preview_id": {
+          "type": "string"
+        },
         "synopses": {
           "type": "object",
           "properties": {
@@ -782,6 +785,9 @@
               "type": "string"
             },
             "editorial": {
+              "type": "string"
+            },
+            "preview": {
               "type": "string"
             }
           },
