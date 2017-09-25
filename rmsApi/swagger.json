@@ -7,6 +7,51 @@
   },
   "host": "rms.api.bbc.co.uk",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Experience"
+    },
+    {
+      "name": "Playspace",
+      "description": "<a href=\"https://confluence.dev.bbc.co.uk/display/RMServices/Playspace+API+Client+Documetation\">Client Documentation</a>"
+    },
+    {
+      "name": "Categories"
+    },
+    {
+      "name": "Networks"
+    },
+    {
+      "name": "Broadcasts"
+    },
+    {
+      "name": "Collections"
+    },
+    {
+      "name": "Podcasts"
+    },
+    {
+      "name": "Programmes"
+    },
+    {
+      "name": "Personalised Categories"
+    },
+    {
+      "name": "Personalised Networks"
+    },
+    {
+      "name": "Personalised Plays"
+    },
+    {
+      "name": "Radio"
+    },
+    {
+      "name": "Music"
+    },
+    {
+      "name": "Music Export"
+    }
+  ],
   "schemes": [
     "https"
   ],
@@ -17,17 +62,248 @@
     "application/json"
   ],
   "paths": {
-    "/categories.json": {
+    "/broadcasts": {
+      "get": {
+        "tags": [
+          "Broadcasts"
+        ],
+        "summary": "Broadcasts",
+        "description": "All broadcasts\n",
+        "operationId": "getBroadcasts",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "service_id",
+            "in": "query",
+            "description": "Filter by Service ID. E.g. bbc_radio_fourfm",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Filter by date. E.g. 2016-06-17",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by provided query. E.g. 'start_at' sorts in ascending order, and '-start_at' sorts in descending order",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "start_at",
+              "-start_at",
+              "end_at",
+              "-end_at"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BroadcastsResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/broadcasts/latest": {
+      "get": {
+        "tags": [
+          "Broadcasts"
+        ],
+        "summary": "Latest Broadcasts",
+        "description": "Broadcasts for the current day\n",
+        "operationId": "getBroadcasts",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "service_id",
+            "in": "query",
+            "description": "Filter by Service ID. E.g. bbc_radio_fourfm",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "on_air",
+            "in": "query",
+            "description": "Filter what is on air. E.g. 'now' returns current programme being broadcasted.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "now",
+              "previous",
+              "next"
+            ]
+          },
+          {
+            "name": "next",
+            "in": "query",
+            "description": "Filter what will be on air next in minutes. E.g. '240' returns programmes broadcasted in the next four hurs",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "previous",
+            "in": "query",
+            "description": "Filter what was on air previously in minutes. E.g. '240' returns programmes broadcasted in the previous four hurs",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by provided query. E.g. 'start_at' sorts in ascending order, and '-start_at' sorts in descending order",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "start_at",
+              "-start_at",
+              "end_at",
+              "-end_at"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BroadcastsResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/broadcasts/{pid}": {
+      "get": {
+        "tags": [
+          "Broadcasts"
+        ],
+        "summary": "Broadcasts by PID",
+        "description": "Find broadcast by PID\n",
+        "operationId": "getBroadcastByPid",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "pid",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BroadcastsResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/categories": {
       "get": {
         "tags": [
           "Categories"
         ],
-        "summary": "Categories",
+        "summary": "List of categories",
         "description": "Retrieve Categories\n",
         "operationId": "getCategories",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -68,12 +344,9 @@
         "tags": [
           "Categories"
         ],
-        "summary": "Categories",
+        "summary": "Category by ID",
         "description": "Retrieve Categories by ID\n",
         "operationId": "getCategories",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -106,7 +379,7 @@
         }
       }
     },
-    "/collections/{pid}/members.json": {
+    "/collections/{pid}/members": {
       "get": {
         "tags": [
           "Collections"
@@ -208,7 +481,7 @@
     "/music/popular/artists": {
       "get": {
         "tags": [
-          "Music Popularity"
+          "Music"
         ],
         "summary": "Popular Artists",
         "description": "List of Most Popular artists from BBC Music.\n",
@@ -279,7 +552,7 @@
     "/music/popular/artists/{id}": {
       "get": {
         "tags": [
-          "Music Popularity"
+          "Music"
         ],
         "summary": "Single Artist Popularity",
         "description": "Popularity Artist By Id\n",
@@ -343,7 +616,7 @@
     "/music/popular/playlists": {
       "get": {
         "tags": [
-          "Music Popularity"
+          "Music"
         ],
         "summary": "Popular Playlists",
         "description": "List of Most Popular playlists from BBC Music.\n",
@@ -414,7 +687,7 @@
     "/music/popular/playlists/{id}": {
       "get": {
         "tags": [
-          "Music Popularity"
+          "Music"
         ],
         "summary": "Single Playlist Popularity",
         "description": "Popular playlist by Id\n",
@@ -478,7 +751,7 @@
     "/music/popular/tracks": {
       "get": {
         "tags": [
-          "Music Popularity"
+          "Music"
         ],
         "summary": "Popular Tracks",
         "description": "List of popular tracks for BBC Music. Filter by time, network, artist, playlist or programme.\n",
@@ -570,7 +843,7 @@
     "/music/popular/tracks/{id}": {
       "get": {
         "tags": [
-          "Music Popularity"
+          "Music"
         ],
         "summary": "Single Track Popularity",
         "description": "Popular Track for BBC Music\n",
@@ -647,6 +920,156 @@
             "description": "Unexpected error",
             "schema": {
               "$ref": "#/definitions/MusicPopularityError"
+            }
+          }
+        }
+      }
+    },
+    "/my/categories/follows": {
+      "get": {
+        "tags": [
+          "Personalised Categories"
+        ],
+        "summary": "List of followed categories",
+        "description": "List of followed categories for a given user.\n",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedCategoriesResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Personalised Categories"
+        ],
+        "summary": "Follow category",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Body"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Personalised Categories"
+        ],
+        "summary": "Unfollow category",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Body_1"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -961,7 +1384,7 @@
     "/my/music/favourites": {
       "get": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Favourite Tracks or Clips",
         "description": "List of favourited tracks and clips for a given user for BBC Music.\n",
@@ -1040,7 +1463,7 @@
       },
       "post": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Favourite Tracks or Clips",
         "description": "Add multiple tracks and/or clips to a BBC Music user's favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -1099,7 +1522,7 @@
       },
       "put": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Favourite Tracks or Clips",
         "description": "Update tracks or clips from a BBC Music user favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -1160,7 +1583,7 @@
     "/my/music/favourites/{type}": {
       "get": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Favourite Tracks or Clips by Type",
         "description": "List of favourited tracks or clips for a given user for BBC Music.\n",
@@ -1245,7 +1668,7 @@
     "/my/music/favourites/{type}/{id}": {
       "get": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Favourite Track or Clip",
         "description": "Check to see if a single track or clip entity is in a users favourites - determines UX of add button.\n",
@@ -1310,7 +1733,7 @@
       },
       "post": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Favourite Track or Clip",
         "description": "Add track or clip to a BBC Music user favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -1384,7 +1807,7 @@
       },
       "put": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Favourite Track or Clip",
         "description": "Update tracks or clips from a BBC Music user favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -1458,7 +1881,7 @@
       },
       "delete": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Favourite Track or Clip",
         "description": "Delete track or clip from a BBC Music user favourites.\n",
@@ -1525,7 +1948,7 @@
     "/my/music/follows": {
       "get": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Followed Networks, Categories, Artists, Playlists and Genres",
         "description": "List of followed networks, categories, artists, playlists and genres for a given user for BBC Music.\n",
@@ -1627,7 +2050,7 @@
       },
       "post": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Followed Networks, Categories, Artists, Playlists and Genres",
         "description": "Add networks, categories, artists, playlists, networks, genres or services in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -1727,7 +2150,7 @@
       },
       "put": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Followed Networks, Categories, Artists, Playlists and Genres",
         "description": "Update networks, categories, artists, playlists, networks, genres or services in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -1829,7 +2252,7 @@
     "/my/music/follows/{type}": {
       "get": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Followed Networks, Categories, Artists, Playlists and Genres by Type",
         "description": "List of followed networks, categories, artists, playlists, networks, genres, categories or services for a given BBC Music user.\n",
@@ -1948,7 +2371,7 @@
     "/my/music/follows/{type}/{id}": {
       "get": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Followed Network, Category, Artist, Playlist and Genre",
         "description": "Check to see if a single network, category, artist, playlist, network, genre or service entity is in a users follows - determines UX of add button.\n",
@@ -2047,7 +2470,7 @@
       },
       "post": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Followed Network, Category, Artist, Playlist and Genre",
         "description": "Add a single network, category, artist, playlist, network, genre or service entity is in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -2155,7 +2578,7 @@
       },
       "put": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Followed Network, Category, Artist, Playlist and Genre",
         "description": "Update a single network, category, artist, playlist, network, genre or service entity is in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -2263,7 +2686,7 @@
       },
       "delete": {
         "tags": [
-          "Personalised Music"
+          "Music"
         ],
         "summary": "Followed Network, Category, Artist, Playlist and Genre",
         "description": "Remove a single network, category, artist, playlist, network, genre or service entity is in a users follows\n",
@@ -2764,14 +3187,190 @@
         }
       }
     },
+    "/my/networks/follows": {
+      "get": {
+        "tags": [
+          "Personalised Networks"
+        ],
+        "summary": "List of followed networks",
+        "description": "List of followed networks for a given user.\n",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedNetworksResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Personalised Networks"
+        ],
+        "summary": "Follow network",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Body_2"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Personalised Networks"
+        ],
+        "summary": "Unfollow network",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Body_3"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/my/plays": {
       "post": {
         "tags": [
           "Personalised Plays"
         ],
         "summary": "Write Play Event",
-        "description": "Write play events to the [User Activity Service](https://confluence.dev.bbc.co.uk/display/activity/About+the+User+Activity+Service).\n",
-        "operationId": "writePlayEvent",
         "schemes": [
           "https"
         ],
@@ -2793,11 +3392,10 @@
           },
           {
             "in": "body",
-            "name": "writePlayRequest",
-            "description": "Write Play Request",
+            "name": "Body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/writePlayRequest"
+              "$ref": "#/definitions/Body_4"
             }
           }
         ],
@@ -2832,6 +3430,14 @@
           "https"
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
           {
             "name": "X-API-Key",
             "in": "header",
@@ -2883,6 +3489,14 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
             "name": "X-API-Key",
             "in": "header",
             "description": "API_KEY",
@@ -2919,10 +3533,10 @@
         }
       }
     },
-    "/my/programmes/recommendations.json": {
+    "/my/programmes/recommendations": {
       "get": {
         "tags": [
-          "Recommendations"
+          "Programmes"
         ],
         "summary": "Recommended Programmes",
         "description": "Recommended Programmes from the Audience Platforms' Recomendations Service\n",
@@ -2994,7 +3608,7 @@
     "/my/radio/favourites": {
       "get": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Favourite Episodes and Clips",
         "description": "List of favourited episodes and clips for a given user for iPlayer Radio.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining data as a Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
@@ -3077,7 +3691,7 @@
       },
       "post": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Favourite Episodes and Clips",
         "description": "Add User favourites\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -3136,7 +3750,7 @@
       },
       "put": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Favourite Episodes and Clips",
         "description": "Update user favourites\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -3197,7 +3811,7 @@
     "/my/radio/favourites/{type}": {
       "get": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Favourite Episodes and Clips by Type",
         "description": "List of followed 'clips' or 'episode' items for a given iPlayer Radio user\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining data as a Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
@@ -3290,7 +3904,7 @@
     "/my/radio/favourites/{type}/{pid}": {
       "get": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Favourite Episode or Clip",
         "description": "Check to see if a single clip or episode entity is in a users favourites - determines UX of add button.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining data as a Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
@@ -3362,7 +3976,7 @@
       },
       "post": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Favourite Episode or Clip",
         "description": "Add User favourite\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -3436,7 +4050,7 @@
       },
       "put": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Favourite Episode or Clip",
         "description": "Update user favourite\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -3510,7 +4124,7 @@
       },
       "delete": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Favourite Episode or Clip",
         "description": "Remove User favourite\n",
@@ -3577,7 +4191,7 @@
     "/my/radio/follows": {
       "get": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Followed Brands and Series",
         "description": "List of favourited brands and series for a given user for iPlayer Radio.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining data as a Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
@@ -3657,7 +4271,7 @@
       },
       "post": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Followed Brands and Series",
         "description": "Add 'brand' or 'series' items to a users iPlayer Radio follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -3716,7 +4330,7 @@
       },
       "put": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Followed Brands and Series",
         "description": "Update 'brands' or 'series' items from a users iPlayer Radio follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -3777,7 +4391,7 @@
     "/my/radio/follows/{type}": {
       "get": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Followed Brands or Series by Type",
         "description": "List of followed 'brand' or 'series' items for a given iPlayer Radio user\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining data as a Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
@@ -3870,7 +4484,7 @@
     "/my/radio/follows/{type}/{pid}": {
       "get": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Followed Brand or Series",
         "description": "Check to see if a single brand or series entity is in a users follows - determines UX of add button.\n",
@@ -3935,7 +4549,7 @@
       },
       "post": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Followed Brand or Series",
         "description": "Add 'brand' or 'series' items from a users iPlayer Radio follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -4009,7 +4623,7 @@
       },
       "put": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Followed Brand or Series",
         "description": "Update 'brand' or 'series' items from a users iPlayer Radio follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
@@ -4083,7 +4697,7 @@
       },
       "delete": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Followed Brand or Series",
         "description": "Remove 'brand' or 'series' items from a users iPlayer Radio follows\n",
@@ -4150,7 +4764,7 @@
     "/my/radio/plays": {
       "get": {
         "tags": [
-          "Personalised Radio"
+          "Radio"
         ],
         "summary": "Played Episode or Clip",
         "description": "Returns mixed episode and clip plays for a given BBC iPlayer radio user.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining data as a Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
@@ -4229,7 +4843,7 @@
         }
       }
     },
-    "/podcasts.json": {
+    "/podcasts": {
       "get": {
         "tags": [
           "Podcasts"
@@ -4237,9 +4851,6 @@
         "summary": "All Podcasts",
         "description": "Retrieve all Podcasts\n",
         "operationId": "getPodcasts",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -4332,7 +4943,7 @@
         }
       }
     },
-    "/podcasts/featured.json": {
+    "/podcasts/featured": {
       "get": {
         "tags": [
           "Podcasts"
@@ -4340,9 +4951,6 @@
         "summary": "Featured Podcasts",
         "description": "Retrieve featured podcasts\n",
         "operationId": "getPodcastsFeatured",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -4368,7 +4976,7 @@
         }
       }
     },
-    "/podcasts/{pid}.json": {
+    "/podcasts/{pid}": {
       "get": {
         "tags": [
           "Podcasts"
@@ -4376,9 +4984,6 @@
         "summary": "Podcast",
         "description": "Retrieve data about the podcast with the supplied PID\n",
         "operationId": "getPodcastByPid",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -4425,7 +5030,7 @@
         }
       }
     },
-    "/podcasts/{pid}/episodes.json": {
+    "/podcasts/{pid}/episodes": {
       "get": {
         "tags": [
           "Podcasts"
@@ -4433,9 +5038,6 @@
         "summary": "Podcast Episodes",
         "description": "Retrieve all episodes for a specific podcast\n",
         "operationId": "getPodcastEpisodes",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -4482,54 +5084,14 @@
         }
       }
     },
-    "/radio/categories.json": {
-      "get": {
-        "tags": [
-          "Radio"
-        ],
-        "summary": "Categories",
-        "description": "All iPlayer Radio categories - contains business logic for blend of PIPs genres and formats.\n",
-        "operationId": "getRadioCategories",
-        "schemes": [
-          "http"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/RadioCategoriesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/RadioErrorResponse"
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
     "/radio/networks.json": {
       "get": {
         "tags": [
-          "Radio"
+          "Networks"
         ],
         "summary": "Networks",
         "description": "All iPlayer Radio networks - contains business logic for masterbrand and service relationships\n",
         "operationId": "getRadioNetworks",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -4569,17 +5131,14 @@
         }
       }
     },
-    "/radio/popular.json": {
+    "/radio/popular": {
       "get": {
         "tags": [
-          "Popularity"
+          "Programmes"
         ],
         "summary": "Popular Episodes & Clips",
         "description": "Retrieve Popular Episodes & Clips\n",
         "operationId": "getPopularEpisodesClips",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -4710,17 +5269,14 @@
         }
       }
     },
-    "/radio/programmes.json": {
+    "/radio/programmes": {
       "get": {
         "tags": [
-          "Radio"
+          "Programmes"
         ],
-        "summary": "Programmes",
+        "summary": "Radio programmes",
         "description": "Provides a paginated list of programmes by PID (brand, series, episode and clip). Accepts various filters and sorting methods.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
         "operationId": "getRadioProgrammes",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -4811,17 +5367,14 @@
         }
       }
     },
-    "/radio/programmes/{pid}.json": {
+    "/radio/programmes/{pid}": {
       "get": {
         "tags": [
-          "Radio"
+          "Programmes"
         ],
-        "summary": "Programme by Pid",
+        "summary": "Available radio programme by Pid",
         "description": "Find programmes by PID (brand, series, episode and clip)\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
         "operationId": "getRadioProgrammesByPid",
-        "schemes": [
-          "http"
-        ],
         "parameters": [
           {
             "name": "X-API-Key",
@@ -4849,328 +5402,6 @@
             "description": "Unexpected error",
             "schema": {
               "$ref": "#/definitions/RadioErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/radio/v1/programmes.json": {
-      "get": {
-        "tags": [
-          "Radio"
-        ],
-        "summary": "Programmes",
-        "description": "Find programmes by PID (brand, series, episode and clip). Accepts one or many pids separated by commas.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
-        "operationId": "getRadioProgrammesV1",
-        "schemes": [
-          "http"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "pids",
-            "in": "query",
-            "description": "Returns programme information for one or more pids",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ProgrammesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/RadioErrorResponse"
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/radio/v1/programmes/{pid}.json": {
-      "get": {
-        "tags": [
-          "Radio"
-        ],
-        "summary": "Programme by Pid",
-        "description": "Find programmes by PID (brand, series, episode and clip)\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
-        "operationId": "getRadioProgrammesByPidV1",
-        "schemes": [
-          "http"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "pid",
-            "in": "path",
-            "description": "pid",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ProgrammesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/RadioErrorResponse"
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v2/broadcasts": {
-      "get": {
-        "tags": [
-          "Schedules"
-        ],
-        "summary": "Broadcasts",
-        "description": "All broadcasts\n",
-        "operationId": "getBroadcasts",
-        "schemes": [
-          "https"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "service_id",
-            "in": "query",
-            "description": "Filter by Service ID. E.g. bbc_radio_fourfm",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "date",
-            "in": "query",
-            "description": "Filter by date. E.g. 2016-06-17",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "Sort by provided query. E.g. 'start_at' sorts in ascending order, and '-start_at' sorts in descending order",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "start_at",
-              "-start_at",
-              "end_at",
-              "-end_at"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/BroadcastsResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v2/broadcasts/latest": {
-      "get": {
-        "tags": [
-          "Schedules"
-        ],
-        "summary": "Latest Broadcasts",
-        "description": "Broadcasts for the current day\n",
-        "operationId": "getBroadcasts",
-        "schemes": [
-          "https"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "service_id",
-            "in": "query",
-            "description": "Filter by Service ID. E.g. bbc_radio_fourfm",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "on_air",
-            "in": "query",
-            "description": "Filter what is on air. E.g. 'now' returns current programme being broadcasted.",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "now",
-              "previous",
-              "next"
-            ]
-          },
-          {
-            "name": "next",
-            "in": "query",
-            "description": "Filter what will be on air next in minutes. E.g. '240' returns programmes broadcasted in the next four hurs",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "previous",
-            "in": "query",
-            "description": "Filter what was on air previously in minutes. E.g. '240' returns programmes broadcasted in the previous four hurs",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "sort",
-            "in": "query",
-            "description": "Sort by provided query. E.g. 'start_at' sorts in ascending order, and '-start_at' sorts in descending order",
-            "required": false,
-            "type": "string",
-            "enum": [
-              "start_at",
-              "-start_at",
-              "end_at",
-              "-end_at"
-            ]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/BroadcastsResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v2/broadcasts/{pid}": {
-      "get": {
-        "tags": [
-          "Schedules"
-        ],
-        "summary": "Broadcasts by PID",
-        "description": "Find broadcast by PID\n",
-        "operationId": "getBroadcastByPid",
-        "schemes": [
-          "https"
-        ],
-        "parameters": [
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "pid",
-            "in": "path",
-            "description": "pid",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/BroadcastsResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -5178,6 +5409,89 @@
     }
   },
   "definitions": {
+    "PersonalisedCategoriesResponse": {
+      "type": "object",
+      "required": [
+        "$schema",
+        "limit",
+        "offset",
+        "total"
+      ],
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        }
+      }
+    },
+    "PersonalisedCategories": {
+      "type": "object",
+      "required": [
+        "created",
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        }
+      }
+    },
+    "PersonalisedNetworksResponse": {
+      "type": "object",
+      "required": [
+        "$schema",
+        "limit",
+        "offset",
+        "results",
+        "total"
+      ],
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PersonalisedNetworks"
+          }
+        }
+      }
+    },
+    "PersonalisedNetworks": {
+      "type": "object",
+      "required": [
+        "created",
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string"
+        }
+      }
+    },
     "RadioErrorResponse": {
       "type": "object",
       "required": [
@@ -5585,6 +5899,7 @@
       "required": [
         "category_type",
         "child_categories",
+        "depth",
         "id",
         "pip_id",
         "title",
@@ -5597,6 +5912,9 @@
         },
         "id": {
           "type": "string"
+        },
+        "depth": {
+          "type": "integer"
         },
         "url_key": {
           "type": "string"
@@ -5623,6 +5941,7 @@
       "required": [
         "category_type",
         "child_categories",
+        "depth",
         "id",
         "pip_id",
         "title",
@@ -5635,6 +5954,9 @@
         },
         "id": {
           "type": "string"
+        },
+        "depth": {
+          "type": "integer"
         },
         "url_key": {
           "type": "string"
@@ -5656,141 +5978,9 @@
         }
       }
     },
-    "RadioCategoriesResponse": {
-      "type": "object",
-      "required": [
-        "$schema",
-        "limit",
-        "offset",
-        "results",
-        "total"
-      ],
-      "properties": {
-        "total": {
-          "type": "integer"
-        },
-        "results": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RadioCategory"
-          }
-        },
-        "offset": {
-          "type": "integer"
-        },
-        "$schema": {
-          "type": "string"
-        },
-        "limit": {
-          "type": "integer"
-        }
-      }
-    },
     "Empty": {
       "type": "object",
       "x-nullable": true
-    },
-    "RadioCategory": {
-      "type": "object",
-      "required": [
-        "available_episodes",
-        "child_categories",
-        "id",
-        "latest_episode",
-        "original_categories",
-        "title",
-        "translation_key",
-        "type"
-      ],
-      "properties": {
-        "latest_episode": {
-          "$ref": "#/definitions/Empty"
-        },
-        "child_categories": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RadioChildCategory"
-          }
-        },
-        "original_categories": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RadioOriginalCategory"
-          }
-        },
-        "id": {
-          "type": "string"
-        },
-        "available_episodes": {
-          "$ref": "#/definitions/Empty"
-        },
-        "translation_key": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        }
-      }
-    },
-    "RadioChildCategory": {
-      "type": "object",
-      "required": [
-        "id",
-        "original_categories",
-        "title",
-        "translation_key",
-        "type"
-      ],
-      "properties": {
-        "original_categories": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/RadioOriginalCategory"
-          }
-        },
-        "id": {
-          "type": "string"
-        },
-        "translation_key": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        }
-      }
-    },
-    "RadioOriginalCategory": {
-      "type": "object",
-      "required": [
-        "category_type",
-        "id",
-        "key",
-        "title",
-        "type"
-      ],
-      "properties": {
-        "key": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string"
-        },
-        "category_type": {
-          "type": "string"
-        }
-      }
     },
     "NetworksResponse": {
       "type": "object",
@@ -5849,6 +6039,7 @@
       "type": "object",
       "required": [
         "category_type",
+        "id",
         "key",
         "title",
         "type"
@@ -5857,13 +6048,16 @@
         "type": {
           "type": "string"
         },
+        "category_type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
         "key": {
           "type": "string"
         },
         "title": {
-          "type": "string"
-        },
-        "category_type": {
           "type": "string"
         }
       }
@@ -8158,7 +8352,83 @@
         }
       }
     },
-    "writePlayRequest": {
+    "Body": {
+      "type": "object",
+      "required": [
+        "category_id",
+        "platform"
+      ],
+      "properties": {
+        "category_id": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string",
+          "enum": [
+            "responsiveweb",
+            "app"
+          ]
+        }
+      }
+    },
+    "Body_1": {
+      "type": "object",
+      "required": [
+        "category_id",
+        "platform"
+      ],
+      "properties": {
+        "category_id": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string",
+          "enum": [
+            "responsiveweb",
+            "app"
+          ]
+        }
+      }
+    },
+    "Body_2": {
+      "type": "object",
+      "required": [
+        "platform",
+        "service_id"
+      ],
+      "properties": {
+        "service_id": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string",
+          "enum": [
+            "responsiveweb",
+            "app"
+          ]
+        }
+      }
+    },
+    "Body_3": {
+      "type": "object",
+      "required": [
+        "platform",
+        "service_id"
+      ],
+      "properties": {
+        "service_id": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "string",
+          "enum": [
+            "responsiveweb",
+            "app"
+          ]
+        }
+      }
+    },
+    "Body_4": {
       "type": "object",
       "required": [
         "action",
