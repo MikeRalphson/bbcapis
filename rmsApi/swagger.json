@@ -12,10 +12,6 @@
       "name": "Experience"
     },
     {
-      "name": "Playspace",
-      "description": "<a href=\"https://confluence.dev.bbc.co.uk/display/RMServices/Playspace+API+Client+Documetation\">Client Documentation</a>"
-    },
-    {
       "name": "Categories"
     },
     {
@@ -40,7 +36,11 @@
       "name": "Personalised Networks"
     },
     {
-      "name": "Personalised Plays"
+      "name": "Personalised Programmes"
+    },
+    {
+      "name": "Personalised Playspace",
+      "description": "<a href=\"https://confluence.dev.bbc.co.uk/display/RMServices/Playspace+API+Client+Documetation\">Client Documentation</a>"
     },
     {
       "name": "Radio"
@@ -96,7 +96,7 @@
             "type": "integer"
           },
           {
-            "name": "service_id",
+            "name": "service",
             "in": "query",
             "description": "Filter by Service ID. E.g. bbc_radio_fourfm",
             "required": false,
@@ -179,7 +179,7 @@
             "type": "integer"
           },
           {
-            "name": "service_id",
+            "name": "service",
             "in": "query",
             "description": "Filter by Service ID. E.g. bbc_radio_fourfm",
             "required": false,
@@ -920,156 +920,6 @@
             "description": "Unexpected error",
             "schema": {
               "$ref": "#/definitions/MusicPopularityError"
-            }
-          }
-        }
-      }
-    },
-    "/my/categories/follows": {
-      "get": {
-        "tags": [
-          "Personalised Categories"
-        ],
-        "summary": "List of followed categories",
-        "description": "List of followed categories for a given user.\n",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedCategoriesResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Personalised Categories"
-        ],
-        "summary": "Follow category",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "Body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Body"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Request successfully sent to UAS."
-          },
-          "400": {
-            "description": "The request was malformed.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Personalised Categories"
-        ],
-        "summary": "Unfollow category",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "Body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Body_1"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Request successfully sent to UAS."
-          },
-          "400": {
-            "description": "The request was malformed.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
             }
           }
         }
@@ -3187,188 +3037,10 @@
         }
       }
     },
-    "/my/networks/follows": {
-      "get": {
-        "tags": [
-          "Personalised Networks"
-        ],
-        "summary": "List of followed networks",
-        "description": "List of followed networks for a given user.\n",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/PersonalisedNetworksResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Personalised Networks"
-        ],
-        "summary": "Follow network",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "in": "body",
-            "name": "Body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Body_2"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Request successfully sent to UAS."
-          },
-          "400": {
-            "description": "The request was malformed.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Personalised Networks"
-        ],
-        "summary": "Unfollow network",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Paginated results offset",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Paginated results limit",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "in": "body",
-            "name": "Body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Body_3"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Request successfully sent to UAS."
-          },
-          "400": {
-            "description": "The request was malformed.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
     "/my/plays": {
       "post": {
         "tags": [
-          "Personalised Plays"
+          "Personalised Programmes"
         ],
         "summary": "Write Play Event",
         "schemes": [
@@ -3395,7 +3067,7 @@
             "name": "Body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Body_4"
+              "$ref": "#/definitions/Body"
             }
           }
         ],
@@ -3415,13 +3087,14 @@
               "$ref": "#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/my/playspace/containers/suggested": {
       "get": {
         "tags": [
-          "Playspace"
+          "Personalised Playspace"
         ],
         "summary": "Suggested Playspace Container",
         "description": "Suggested Playspace Container\n",
@@ -3479,7 +3152,7 @@
     "/my/playspace/containers/{id}": {
       "get": {
         "tags": [
-          "Playspace"
+          "Personalised Playspace"
         ],
         "summary": "Playspace Container by ID",
         "description": "Playspace Container by ID\n",
@@ -3536,7 +3209,7 @@
     "/my/programmes/recommendations": {
       "get": {
         "tags": [
-          "Programmes"
+          "Personalised Programmes"
         ],
         "summary": "Recommended Programmes",
         "description": "Recommended Programmes from the Audience Platforms' Recomendations Service\n",
@@ -5406,6 +5079,675 @@
           }
         }
       }
+    },
+    "/v2/my/categories/follows": {
+      "get": {
+        "tags": [
+          "Personalised Categories"
+        ],
+        "summary": "List of followed categories",
+        "description": "List of followed categories for a given user.\n",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedCategoriesResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Personalised Categories"
+        ],
+        "summary": "Follow category",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Body_1"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/categories/follows/{id}": {
+      "delete": {
+        "tags": [
+          "Personalised Categories"
+        ],
+        "summary": "Unfollow category",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/networks/follows": {
+      "get": {
+        "tags": [
+          "Personalised Networks"
+        ],
+        "summary": "List of followed networks",
+        "description": "List of followed networks for a given user.\n",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PersonalisedNetworksResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Personalised Networks"
+        ],
+        "summary": "Follow network",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Body_2"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/networks/follows/{id}": {
+      "delete": {
+        "tags": [
+          "Personalised Networks"
+        ],
+        "summary": "Unfollow network",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/programmes/favourites/playable": {
+      "get": {
+        "tags": [
+          "Personalised Programmes"
+        ],
+        "summary": "List of favourite programmes",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/programmes/plays": {
+      "post": {
+        "tags": [
+          "Personalised Programmes"
+        ],
+        "summary": "Write Play Event",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Body_3"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/programmes/plays/playable": {
+      "get": {
+        "tags": [
+          "Personalised Programmes"
+        ],
+        "summary": "List of played programmes",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/networks": {
+      "get": {
+        "tags": [
+          "Networks"
+        ],
+        "summary": "List of networks",
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "promoted",
+            "in": "query",
+            "description": "Promoted networks only",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/NetworksResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/networks/playable": {
+      "get": {
+        "tags": [
+          "Networks"
+        ],
+        "summary": "List of playable networks",
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "promoted",
+            "in": "query",
+            "description": "Promoted networks only",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/networks/{id}": {
+      "get": {
+        "tags": [
+          "Networks"
+        ],
+        "summary": "Network by ID",
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/NetworksResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/networks/{id}/playable": {
+      "get": {
+        "tags": [
+          "Networks"
+        ],
+        "summary": "Playable network by ID",
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/NetworksResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -6243,6 +6585,7 @@
         "is_repeat",
         "is_webcast",
         "pid",
+        "progress",
         "service_id",
         "start",
         "type",
@@ -6265,6 +6608,9 @@
           "type": "string"
         },
         "duration": {
+          "type": "integer"
+        },
+        "progress": {
           "type": "integer"
         },
         "version_pid": {
@@ -8270,14 +8616,16 @@
     },
     "PlayspaceContainer": {
       "type": "object",
+      "required": [
+        "id",
+        "members",
+        "type"
+      ],
       "properties": {
         "type": {
           "type": "string"
         },
         "id": {
-          "type": "string"
-        },
-        "title": {
           "type": "string"
         },
         "members": {
@@ -8355,19 +8703,37 @@
     "Body": {
       "type": "object",
       "required": [
-        "category_id",
-        "platform"
+        "action",
+        "elapsed_time",
+        "pid",
+        "resource_type",
+        "version_pid"
       ],
       "properties": {
-        "category_id": {
-          "type": "string"
-        },
-        "platform": {
+        "action": {
           "type": "string",
           "enum": [
-            "responsiveweb",
-            "app"
+            "started",
+            "ended",
+            "paused",
+            "heartbeat"
           ]
+        },
+        "resource_type": {
+          "type": "string",
+          "enum": [
+            "episode",
+            "clip"
+          ]
+        },
+        "pid": {
+          "type": "string"
+        },
+        "version_pid": {
+          "type": "string"
+        },
+        "elapsed_time": {
+          "type": "integer"
         }
       }
     },
@@ -8410,25 +8776,6 @@
       }
     },
     "Body_3": {
-      "type": "object",
-      "required": [
-        "platform",
-        "service_id"
-      ],
-      "properties": {
-        "service_id": {
-          "type": "string"
-        },
-        "platform": {
-          "type": "string",
-          "enum": [
-            "responsiveweb",
-            "app"
-          ]
-        }
-      }
-    },
-    "Body_4": {
       "type": "object",
       "required": [
         "action",
@@ -8565,6 +8912,13 @@
       "description": "In addition to the overall score, return a list of scores broken down by day N.B Must be used in conjunction with since and/or until and since is >= 31 days",
       "required": false,
       "type": "boolean"
+    },
+    "id": {
+      "name": "id",
+      "in": "path",
+      "description": "id",
+      "required": true,
+      "type": "string"
     },
     "pid": {
       "name": "pid",
