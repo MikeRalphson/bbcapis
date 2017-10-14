@@ -39,8 +39,8 @@
       "name": "Personalised Programmes"
     },
     {
-      "name": "Personalised Playspace",
-      "description": "<a href=\"https://confluence.dev.bbc.co.uk/display/RMServices/Playspace+API+Client+Documetation\">Client Documentation</a>"
+      "name": "Continuous Play",
+      "description": "<a href=\"https://confluence.dev.bbc.co.uk/display/RMServices/Beastie+Boys+Client+Documetation\">Client Documentation</a>"
     },
     {
       "name": "Radio"
@@ -3094,10 +3094,10 @@
     "/my/playspace/containers/suggested": {
       "get": {
         "tags": [
-          "Personalised Playspace"
+          "Continuous Play"
         ],
-        "summary": "Suggested Playspace Container",
-        "description": "Suggested Playspace Container\n",
+        "summary": "Suggested Continuous Play Container",
+        "description": "Suggested Continuous Play Container\n",
         "operationId": "suggestContainer",
         "schemes": [
           "https"
@@ -3121,14 +3121,14 @@
           {
             "name": "previous_pid",
             "in": "query",
-            "description": "Clip or Episode PID of the previous or first content item in the Playspace stream.",
+            "description": "Clip or Episode PID of the previous or first content item in the Continuous Play stream.",
             "required": true,
             "type": "string"
           },
           {
             "name": "previous_container",
             "in": "query",
-            "description": "Container ID of the previous container in the Playspace stream.",
+            "description": "Container ID of the previous container in the Continuous Play stream.",
             "required": false,
             "type": "string"
           }
@@ -3137,7 +3137,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/PlayspaceContainer"
+              "$ref": "#/definitions/ContinuousPlayContainer"
             }
           },
           "401": {
@@ -3152,10 +3152,10 @@
     "/my/playspace/containers/{id}": {
       "get": {
         "tags": [
-          "Personalised Playspace"
+          "Continuous Play"
         ],
-        "summary": "Playspace Container by ID",
-        "description": "Playspace Container by ID\n",
+        "summary": "Continuous Play Container by ID",
+        "description": "Continuous Play Container by ID\n",
         "operationId": "getContainer",
         "schemes": [
           "https"
@@ -3179,7 +3179,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "Playspace Container ID",
+            "description": "Continuous Play Container ID",
             "required": true,
             "type": "string"
           }
@@ -3188,7 +3188,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/PlayspaceContainer"
+              "$ref": "#/definitions/ContinuousPlayContainer"
             }
           },
           "401": {
@@ -3198,7 +3198,7 @@
             }
           },
           "404": {
-            "description": "No Playspace container with given ID could be found.",
+            "description": "No Continuous Play container with given ID could be found.",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
@@ -5137,7 +5137,7 @@
         "tags": [
           "Personalised Categories"
         ],
-        "summary": "Follow category",
+        "summary": "Follow and unfollow category",
         "parameters": [
           {
             "name": "Authorization",
@@ -5161,55 +5161,6 @@
             "schema": {
               "$ref": "#/definitions/Body_1"
             }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Request successfully sent to UAS."
-          },
-          "400": {
-            "description": "The request was malformed.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v2/my/categories/follows/{id}": {
-      "delete": {
-        "tags": [
-          "Personalised Categories"
-        ],
-        "summary": "Unfollow category",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "id",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
@@ -5288,7 +5239,7 @@
         "tags": [
           "Personalised Networks"
         ],
-        "summary": "Follow network",
+        "summary": "Follow and unfollow network",
         "parameters": [
           {
             "name": "Authorization",
@@ -5326,55 +5277,6 @@
             "schema": {
               "$ref": "#/definitions/Body_2"
             }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Request successfully sent to UAS."
-          },
-          "400": {
-            "description": "The request was malformed.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v2/my/networks/follows/{id}": {
-      "delete": {
-        "tags": [
-          "Personalised Networks"
-        ],
-        "summary": "Unfollow network",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer OAUTH_TOKEN",
-            "required": true,
-            "type": "string",
-            "default": "Bearer OAUTH_TOKEN"
-          },
-          {
-            "name": "X-API-Key",
-            "in": "header",
-            "description": "API_KEY",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "id",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
@@ -5437,7 +5339,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/PlayableItemsResponse"
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
             }
           },
           "default": {
@@ -5543,7 +5445,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/PlayableItemsResponse"
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
             }
           },
           "default": {
@@ -5685,7 +5587,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/NetworksResponse"
+              "$ref": "#/definitions/Network"
             }
           },
           "default": {
@@ -5737,7 +5639,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/NetworksResponse"
+              "$ref": "#/definitions/PlayableItem"
             }
           },
           "default": {
@@ -6327,7 +6229,6 @@
     "NetworksResponse": {
       "type": "object",
       "required": [
-        "$schema",
         "limit",
         "offset",
         "results",
@@ -6345,9 +6246,6 @@
         },
         "offset": {
           "type": "integer"
-        },
-        "$schema": {
-          "type": "string"
         },
         "limit": {
           "type": "integer"
@@ -8614,7 +8512,7 @@
         }
       }
     },
-    "PlayspaceContainer": {
+    "ContinuousPlayContainer": {
       "type": "object",
       "required": [
         "id",
@@ -8638,24 +8536,191 @@
     },
     "PlayableItem": {
       "type": "object",
+      "required": [
+        "id",
+        "titles",
+        "type",
+        "urn"
+      ],
       "properties": {
         "type": {
           "type": "string"
         },
-        "pid": {
+        "id": {
           "type": "string"
         },
-        "title": {
+        "urn": {
           "type": "string"
         },
-        "description": {
-          "type": "string"
+        "network": {
+          "$ref": "#/definitions/PlayableItemNetwork"
+        },
+        "titles": {
+          "$ref": "#/definitions/PlayableItemTitles"
+        },
+        "synopses": {
+          "$ref": "#/definitions/PlayableItemSynopses"
         },
         "image_url": {
           "type": "string"
         },
-        "version_pid": {
+        "duration": {
+          "$ref": "#/definitions/PlayableItemDuration"
+        },
+        "progress": {
+          "$ref": "#/definitions/PlayableItemProgress"
+        },
+        "availability": {
+          "$ref": "#/definitions/PlayableItemAvailability"
+        },
+        "activities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayableItemActivity"
+          }
+        }
+      }
+    },
+    "PlayableItemNetwork": {
+      "type": "object",
+      "required": [
+        "id",
+        "key",
+        "short_title"
+      ],
+      "properties": {
+        "id": {
           "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "short_title": {
+          "type": "string"
+        }
+      }
+    },
+    "PlayableItemTitles": {
+      "type": "object",
+      "required": [
+        "primary"
+      ],
+      "properties": {
+        "primary": {
+          "type": "string"
+        },
+        "secondary": {
+          "type": "string"
+        },
+        "tertiary": {
+          "type": "string"
+        }
+      }
+    },
+    "PlayableItemSynopses": {
+      "type": "object",
+      "properties": {
+        "short": {
+          "type": "string"
+        },
+        "medium": {
+          "type": "string"
+        },
+        "long": {
+          "type": "string"
+        }
+      }
+    },
+    "PlayableItemDuration": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "PlayableItemProgress": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "PlayableItemAvailability": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "PlayableItemActivity": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "PlayableItemsResponse": {
+      "type": "object",
+      "required": [
+        "data"
+      ],
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayableItem"
+          }
+        }
+      }
+    },
+    "PlayableItemsPaginatedResponse": {
+      "type": "object",
+      "required": [
+        "data",
+        "limit",
+        "offset",
+        "total"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayableItem"
+          }
         }
       }
     },
@@ -8740,10 +8805,18 @@
     "Body_1": {
       "type": "object",
       "required": [
+        "action",
         "category_id",
         "platform"
       ],
       "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "followed",
+            "unfollowed"
+          ]
+        },
         "category_id": {
           "type": "string"
         },
@@ -8759,10 +8832,18 @@
     "Body_2": {
       "type": "object",
       "required": [
+        "action",
         "platform",
         "service_id"
       ],
       "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "followed",
+            "unfollowed"
+          ]
+        },
         "service_id": {
           "type": "string"
         },
