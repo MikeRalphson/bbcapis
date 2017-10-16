@@ -449,7 +449,6 @@
         ],
         "summary": "Homepage Experience",
         "description": "Homepage Experience\n",
-        "operationId": "getExperienceHomepage",
         "schemes": [
           "https"
         ],
@@ -475,7 +474,8 @@
               "$ref": "#/definitions/ErrorResponse"
             }
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/music/popular/artists": {
@@ -3211,9 +3211,8 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "summary": "Recommended Programmes",
+        "summary": "List of recommended programmes",
         "description": "Recommended Programmes from the Audience Platforms' Recomendations Service\n",
-        "operationId": "getRecommendations",
         "parameters": [
           {
             "name": "Authorization",
@@ -5080,6 +5079,41 @@
         }
       }
     },
+    "/v2/experience/homepage": {
+      "get": {
+        "tags": [
+          "Experience"
+        ],
+        "summary": "Homepage Experience",
+        "description": "Homepage Experience\n",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/v2/my/categories/follows": {
       "get": {
         "tags": [
@@ -5446,6 +5480,66 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/PlayableItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/programmes/recommendations/playable": {
+      "get": {
+        "tags": [
+          "Personalised Programmes"
+        ],
+        "summary": "List of recommended programmes",
+        "description": "Recommended Programmes from the Audience Platforms' Recomendations Service\n",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer OAUTH_TOKEN",
+            "required": true,
+            "type": "string",
+            "default": "Bearer OAUTH_TOKEN"
+          },
+          {
+            "name": "X-API-Key",
+            "in": "header",
+            "description": "API_KEY",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Paginated results offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Paginated results limit",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           },
           "default": {
