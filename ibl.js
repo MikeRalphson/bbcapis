@@ -109,10 +109,9 @@ function showRegionalChannels() {
 			var nq = nitro.newQuery();
 			nq.add(ibl.commonLangEn);
 			nq.add(ibl.getChannelsRegion,region.id);
-			nitro.make_request(ibl.host,ibl.getChannels,ibl_key,nq,{},function(obj){
-				//console.log(JSON.stringify(obj,null,2));
+			nitro.make_request(ibl.host,ibl.getChannels,ibl_key,nq,{payload:region},function(obj,payload){
 				for (var chan of obj.channels) {
-					console.log(chan.id);
+					console.log(payload.id,chan.id);
 				}
 			});
 		}
