@@ -54,7 +54,15 @@ query.add(api.fProgrammesPageSize,1);
 nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'application/json'}},function(obj){
 	var total = (typeof obj.nitro.results.total !== 'undefined') ? obj.nitro.results.total : obj.nitro.results.more_than+1;
 	if (total>0) {
-	  console.log('Internals present');
+	  console.log('Internal programmes present');
+	}
+	return false;
+});
+query.add(api.fProgrammesEntityTypeClip);
+nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'application/json'}},function(obj){
+	var total = (typeof obj.nitro.results.total !== 'undefined') ? obj.nitro.results.total : obj.nitro.results.more_than+1;
+	if (total>0) {
+	  console.log('Internal clips present');
 	}
 	return false;
 });
