@@ -267,6 +267,9 @@
         "genre_groupings": {
           "$ref": "#/definitions/genre_groupings"
         },
+        "programme_type": {
+          "$ref": "#/definitions/programme_type"
+        },
         "image_link": {
           "$ref": "#/definitions/image_link"
         },
@@ -356,6 +359,9 @@
         },
         "genre_groupings": {
           "$ref": "#/definitions/genre_groupings"
+        },
+        "programme_type": {
+          "$ref": "#/definitions/programme_type"
         },
         "image_link": {
           "$ref": "#/definitions/image_link"
@@ -461,6 +467,9 @@
         },
         "genre_groupings": {
           "$ref": "#/definitions/genre_groupings"
+        },
+        "programme_type": {
+          "$ref": "#/definitions/programme_type"
         },
         "image_link": {
           "$ref": "#/definitions/image_link"
@@ -2917,6 +2926,18 @@
     },
     "caption": {
       "type": "string"
+    },
+    "programme_type": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
     },
     "item": {
       "type": "object",

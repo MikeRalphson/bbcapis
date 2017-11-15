@@ -110,6 +110,7 @@
 	<xs:group ref="previous_next_mixin" minOccurs="0"/>
 	<xs:group ref="availability_mixin" minOccurs="0"/>
 	<xs:element ref="genre_groupings" minOccurs="0"/>
+	<xs:element ref="programme_type" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -142,6 +143,7 @@
 	<xs:group ref="previous_next_mixin" minOccurs="0"/>
 	<xs:group ref="availability_mixin" minOccurs="0"/>
 	<xs:element ref="genre_groupings" minOccurs="0"/>
+	<xs:element ref="programme_type" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -181,6 +183,7 @@
 	<xs:group ref="availability_mixin" minOccurs="0"/>
 	<xs:group ref="versions_mixin" minOccurs="0"/>
 	<xs:element ref="genre_groupings" minOccurs="0"/>
+	<xs:element ref="programme_type" minOccurs="0"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1762,4 +1765,9 @@
   </xs:complexType>
   <xs:element name="errors" type="errors"/>
   <xs:element name="caption" type="xs:string"/>
+  <xs:element name="programme_type">
+    <xs:complexType>
+      <xs:attribute name="value" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

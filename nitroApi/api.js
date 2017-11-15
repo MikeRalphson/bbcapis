@@ -166,6 +166,11 @@ const mProgrammesIsEmbeddable = 'mixin=is_embeddable';
 */
 const mProgrammesPreviousNext = 'mixin=previous_next';
 /**
+* mixin to return the programme type
+* /nitro/api/programmes?mixin=programme_type
+*/
+const mProgrammesProgrammeType = 'mixin=programme_type';
+/**
 * mixin to return information about related links to a programme
 * /nitro/api/programmes?mixin=related_links
 */
@@ -1727,7 +1732,7 @@ const xVersionsEmbargoedInclude = 'embargoed=include';
 const xVersionsEmbargoedExclude = 'embargoed=exclude';
 const xVersionsEmbargoedOnly = 'embargoed=only';
 const xVersionsEmbargoed= 'embargoed';
-const apiHash = '80d1ed7504d969895d7153c2e8c60c38f7345413e67b7ee19b2ae5e6540ef888';
+const apiHash = '0de47baba96b8fa0ab8543d8a68d3e15167c1da6f6aeec501946cc8ee11c8ab2';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,
@@ -1761,6 +1766,7 @@ mProgrammesGenreGroups : mProgrammesGenreGroups,
 mProgrammesImages : mProgrammesImages,
 mProgrammesIsEmbeddable : mProgrammesIsEmbeddable,
 mProgrammesPreviousNext : mProgrammesPreviousNext,
+mProgrammesProgrammeType : mProgrammesProgrammeType,
 mProgrammesRelatedLinks : mProgrammesRelatedLinks,
 mProgrammesTitles : mProgrammesTitles,
 mProgrammesVersionsAvailability : mProgrammesVersionsAvailability,

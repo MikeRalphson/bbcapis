@@ -678,6 +678,12 @@
               ]
             },
             {
+              "name": "programme_type",
+              "title": "mixin to return the programme type",
+              "release_status": "supported",
+              "href": "/nitro/api/programmes?mixin=programme_type"
+            },
+            {
               "name": "related_links",
               "title": "mixin to return information about related links to a programme",
               "release_status": "supported",

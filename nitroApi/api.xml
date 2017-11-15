@@ -140,6 +140,7 @@
 	<n:dependency_on filter="group"/>
 	<n:dependency_on filter="promoted_for"/>
       </n:mixin>
+      <n:mixin name="programme_type" title="mixin to return the programme type" release_status="supported" href="/nitro/api/programmes?mixin=programme_type"/>
       <n:mixin name="related_links" title="mixin to return information about related links to a programme" release_status="supported" href="/nitro/api/programmes?mixin=related_links"/>
       <n:mixin name="titles" title="mixin to return ancestor programme titles" release_status="deprecated" deprecated="true" deprecated_since="2013-11-14" replaced_by="ancestor_titles" href="/nitro/api/programmes?mixin=titles"/>
       <n:mixin name="versions_availability" title="mixin to return information about programmes that are currently available" release_status="deprecated" href="/nitro/api/programmes?mixin=versions_availability"/>
