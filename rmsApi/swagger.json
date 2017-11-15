@@ -96,6 +96,13 @@
       "type": "string",
       "required": true
     },
+    "sid": {
+      "name": "sid",
+      "in": "path",
+      "description": "sid",
+      "type": "string",
+      "required": true
+    },
     "over16": {
       "name": "over16",
       "in": "query",
@@ -179,6 +186,9 @@
       "name": "Networks"
     },
     {
+      "name": "Services"
+    },
+    {
       "name": "Broadcasts"
     },
     {
@@ -197,7 +207,11 @@
       "name": "Personalised Networks"
     },
     {
-      "name": "Personalised Programmes"
+      "name": "Personalised Programmes",
+      "externalDocs": {
+        "description": "Client Documentation",
+        "url": "https://confluence.dev.bbc.co.uk/display/RMServices/Pendulum+Client+Documentation"
+      }
     },
     {
       "name": "Continuous Play",
@@ -508,6 +522,39 @@
         },
         "tags": [
           "Networks"
+        ]
+      }
+    },
+    "/v2/services/{sid}/tracks/latest/playable": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "$ref": "#/parameters/limit"
+        },
+        {
+          "$ref": "#/parameters/sid"
+        }
+      ],
+      "get": {
+        "summary": "List of recently playable tracks",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Services"
         ]
       }
     },
@@ -1450,6 +1497,12 @@
                   "enum": [
                     "episode",
                     "clip"
+                  ]
+                },
+                "play_mode": {
+                  "type": "string",
+                  "enum": [
+                    "live"
                   ]
                 },
                 "pid": {
