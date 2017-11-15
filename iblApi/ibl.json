@@ -487,6 +487,22 @@
       ],
       "additionalProperties": false
     },
+    "adds": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "added": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "added"
+      ],
+      "additionalProperties": false
+    },
     "purchases": {
       "type": "object",
       "properties": {
