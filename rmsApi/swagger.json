@@ -758,6 +758,40 @@
         }
       }
     },
+    "/v2/programmes/search/playable": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "name": "q",
+          "in": "query",
+          "description": "Search Query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Search programmes",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Programmes"
+        ]
+      }
+    },
     "/collections/{pid}/members": {
       "get": {
         "summary": "Collection Members",
@@ -6741,12 +6775,16 @@
             },
             "short_title": {
               "type": "string"
+            },
+            "logo_url": {
+              "type": "string"
             }
           },
           "required": [
             "id",
             "key",
-            "short_title"
+            "short_title",
+            "logo_url"
           ]
         },
         "titles": {
