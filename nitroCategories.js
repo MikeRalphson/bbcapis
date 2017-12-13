@@ -11,11 +11,11 @@ function category_dump(obj) {
 	var first = true;
 	for (var i in obj.categories) {
 		c = obj.categories[i];
-		console.log(c.id+' '+c.type+' '+c.key+' = '+c.title+' ion-id:'+c.ion_id);
+		console.log(c.id+' '+c.type+' '+c.key+' = '+c.title);
 		if (c.type == 'genre' || c.type == 'format') {
 			for (var j in c.narrower) {
 				n = c.narrower[j];
-				console.log('  '+n.id+' '+n.type+' '+c.key+'/'+n.key+' = '+n.title+' ion-id:'+n.ion_id);
+				console.log('  '+n.id+' '+n.type+' '+c.key+'/'+n.key+' = '+n.title);
 				if (j.narrower && j.narrower.length>0) {
 					console.log('Recursive');
 				}
@@ -29,7 +29,7 @@ function category_dump(obj) {
 
 function list_categories(path) {
 	var options = {
-	  hostname: 'polling.bbc.co.uk'
+	  hostname: 'clifton.api.bbci.co.uk'
 	  ,port: 80
 	  ,path: path
 	  ,method: 'GET'
@@ -70,24 +70,21 @@ function list_categories(path) {
 
 //------------------------------------------------------------------------[main]
 
-// http://polling.bbc.co.uk/radio/categories.json
+// was http://polling.bbc.co.uk/radio/categories.json
+// http://clifton.api.bbci.co.uk/aps/programmes/genres.json
+// http://clifton.api.bbci.co.uk/aps/programmes/formats.json
 
-// ? tv is not where you might have expected
-
-var domain = 'radio';
+var type = 'genre';
 if (process.argv.length>2) {
-	domain = process.argv[2];
+	type = process.argv[2];
 }
-if (domain == 'radio') {
-	list_categories('/radio/categories.json');
+if (type.startsWith('genre')) {
+	list_categories('/aps/programmes/genres.json');
 }
-else if (domain=='tv') {
-	console.log('Work in progress... See ibl');
+else if (type.startsWith('format')) {
+	list_categories('/aps/programmes/formats.json');
 }
 else {
-	console.log('Unknown domain');
+	console.log('Unknown type: genres|formats');
 }
 
-//process.on('exit', function(code) {
-//  console.log('About to exit with code:', code);
-//});

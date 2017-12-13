@@ -4,10 +4,12 @@ Lists Nitro linear services (the delivery mechanisms for programme delivery)
 
 */
 
+const util = require('util');
+
 function processResponse(obj) {
 	for (var m in obj.nitro.results.items) {
 		var serv = obj.nitro.results.items[m];
-		console.log(serv.sid+','+serv.name+','+serv.media_type+','+(serv.description ? serv.description : '')+','+serv.partner);
+		console.log(serv.sid+'|'+serv.name+'|'+serv.media_type+'|'+(serv.description ? serv.description : '')+'|'+serv.partner);
 	}
 	var dest = {};
 	if ((obj.nitro.pagination) && (obj.nitro.pagination.next)) {
