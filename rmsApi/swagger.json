@@ -233,8 +233,70 @@
   "paths": {
     "/v2/experience/listen": {
       "get": {
+        "deprecated": true,
+        "summary": "Listen Page Experience (deprecated for /v2/my/experience)",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/experience/stations": {
+      "get": {
         "deprecated": false,
-        "summary": "Listen Page Experience",
+        "summary": "Stations Page Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/experience/listen/sign-in": {
+      "get": {
+        "deprecated": false,
+        "summary": "Sign in Experience",
         "schemes": [
           "https"
         ],
@@ -1200,6 +1262,18 @@
               "episode,clip"
             ],
             "required": false
+          },
+          {
+            "name": "media_type",
+            "in": "query",
+            "description": "Filter by media type (audio_video will return video values)",
+            "type": "string",
+            "enum": [
+              "audio",
+              "video",
+              "audio_video"
+            ],
+            "required": false
           }
         ],
         "tags": [
@@ -1352,6 +1426,40 @@
         "tags": [
           "Personalised Categories"
         ]
+      }
+    },
+    "/v2/my/experience/listen": {
+      "get": {
+        "deprecated": false,
+        "summary": "Listen Page Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
       }
     },
     "/v2/my/networks/follows": {
