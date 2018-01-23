@@ -6864,125 +6864,44 @@
       "type": "object",
       "properties": {
         "type": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "playable_item"
+          ]
         },
         "id": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^([0-9|b-d|f-h|j-n|p-t|v-z]{8,}|[a-zA-Z0-9_]{1,})$"
         },
         "urn": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^urn:bbc:radio:[a-zA-Z0-9:_]{1,}$"
         },
         "network": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "key": {
-              "type": "string"
-            },
-            "short_title": {
-              "type": "string"
-            },
-            "logo_url": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "id",
-            "key",
-            "short_title",
-            "logo_url"
-          ]
+          "$ref": "#/definitions/PlayableItemNetwork"
         },
         "titles": {
-          "type": "object",
-          "properties": {
-            "primary": {
-              "type": "string"
-            },
-            "secondary": {
-              "type": "string"
-            },
-            "tertiary": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "primary"
-          ]
+          "$ref": "#/definitions/PlayableItemTitles"
         },
         "synopses": {
-          "type": "object",
-          "properties": {
-            "short": {
-              "type": "string"
-            },
-            "medium": {
-              "type": "string"
-            },
-            "long": {
-              "type": "string"
-            }
-          }
+          "$ref": "#/definitions/PlayableItemSynopses"
         },
         "image_url": {
           "type": "string"
         },
         "duration": {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "integer"
-            },
-            "label": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "value"
-          ]
+          "$ref": "#/definitions/PlayableItemDuration"
         },
         "progress": {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "integer"
-            },
-            "label": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "value"
-          ]
+          "$ref": "#/definitions/PlayableItemProgress"
         },
         "availability": {
-          "type": "object",
-          "properties": {
-            "from": {
-              "type": "string"
-            },
-            "to": {
-              "type": "string"
-            },
-            "label": {
-              "type": "string"
-            }
-          }
+          "$ref": "#/definitions/PlayableItemAvailability"
         },
         "activities": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type"
-            ]
+            "$ref": "#/definitions/PlayableItemActivities"
           }
         }
       },
@@ -6990,8 +6909,14 @@
         "type",
         "id",
         "urn",
+        "network",
         "titles",
-        "availability"
+        "synopses",
+        "image_url",
+        "duration",
+        "progress",
+        "availability",
+        "activities"
       ]
     },
     "PlayableItemsResponse": {
@@ -7012,13 +6937,17 @@
       "type": "object",
       "properties": {
         "total": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
         "limit": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
         },
         "offset": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
         "data": {
           "type": "array",
@@ -7032,6 +6961,156 @@
         "limit",
         "offset",
         "data"
+      ]
+    },
+    "PlayableItemActivities": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "action"
+      ]
+    },
+    "PlayableItemAvailability": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(\\d{4}-[0-1]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\dZ|)$"
+        },
+        "to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(\\d{4}-[0-1]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\dZ|)$"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "label"
+      ]
+    },
+    "PlayableItemDuration": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "label"
+      ]
+    },
+    "PlayableItemNetwork": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "short_title": {
+          "type": "string"
+        },
+        "logo_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "key",
+        "short_title",
+        "logo_url"
+      ]
+    },
+    "PlayableItemProgress": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "value": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "label"
+      ]
+    },
+    "PlayableItemSynopses": {
+      "type": "object",
+      "properties": {
+        "short": {
+          "type": "string"
+        },
+        "medium": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "long": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "short",
+        "medium",
+        "long"
+      ]
+    },
+    "PlayableItemTitles": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "string"
+        },
+        "secondary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tertiary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "primary",
+        "secondary",
+        "tertiary"
       ]
     },
     "ErrorResponse": {
