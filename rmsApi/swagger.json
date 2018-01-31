@@ -458,6 +458,18 @@
           "description": "Promoted networks only",
           "type": "boolean",
           "required": false
+        },
+        {
+          "name": "coverage",
+          "in": "query",
+          "description": "Coverage",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "regional",
+            "national",
+            "local"
+          ]
         }
       ],
       "get": {
@@ -492,6 +504,18 @@
           "description": "Promoted networks only",
           "type": "boolean",
           "required": false
+        },
+        {
+          "name": "coverage",
+          "in": "query",
+          "description": "Coverage",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "regional",
+            "national",
+            "local"
+          ]
         }
       ],
       "get": {
