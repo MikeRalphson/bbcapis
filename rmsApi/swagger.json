@@ -1055,6 +1055,36 @@
         ]
       }
     },
+    "/v2/programmes/{pid}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "$ref": "#/parameters/pid"
+        }
+      ],
+      "get": {
+        "summary": "Programme by Pid",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Programme"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Programmes"
+        ]
+      }
+    },
     "/v2/programmes/search/playable": {
       "parameters": [
         {
@@ -1118,6 +1148,52 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/ProgrammesResponse"
+            }
+          },
+          "404": {
+            "description": "Collection not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/collections/{pid}/members/playable": {
+      "get": {
+        "summary": "Collection Playable Members",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/pid"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Collections"
+        ],
+        "description": "Playable Items from Collection\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsResponse"
             }
           },
           "404": {
