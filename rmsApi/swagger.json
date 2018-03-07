@@ -935,7 +935,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Programme"
+              "$ref": "#/definitions/Programmes"
             }
           },
           "default": {
@@ -1362,6 +1362,43 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/PodcastEpisodesResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/PodcastErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/podcasts/{pid}/episodes/playable": {
+      "get": {
+        "summary": "Podcast Episodes",
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/pid"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Podcasts"
+        ],
+        "description": "Retrieve all episodes for a specific podcast as Playable items\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsResponse"
             }
           },
           "default": {
@@ -5298,55 +5335,6 @@
         }
       ]
     },
-    "Programme": {
-      "type": "object",
-      "properties": {
-        "short_synopsis": {
-          "type": "string"
-        },
-        "network_summary": {
-          "$ref": "#/definitions/NetworkSummary"
-        },
-        "latest_available_episodes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EpisodeSummary"
-          }
-        },
-        "titles": {
-          "$ref": "#/definitions/ProgrammeTitles"
-        },
-        "pid": {
-          "type": "string"
-        },
-        "total_available_episodes": {
-          "type": "integer"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "brand_summary",
-            "series_summary",
-            "episode_summary",
-            "clip_summary"
-          ]
-        },
-        "images": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Image"
-          }
-        }
-      },
-      "required": [
-        "short_synopsis",
-        "network_summary",
-        "titles",
-        "pid",
-        "type",
-        "images"
-      ]
-    },
     "ProgrammeTitles": {
       "type": "object",
       "properties": {
@@ -5432,7 +5420,7 @@
         "type": {
           "type": "string",
           "enum": [
-            "network_summary"
+            "network_titles"
           ]
         },
         "short_title": {
@@ -7351,7 +7339,9 @@
       ]
     },
     "PlayableItem": {
-      "type": "object",
+      "type": [
+        "object"
+      ],
       "properties": {
         "type": {
           "type": "string",
@@ -7709,6 +7699,436 @@
       },
       "required": [
         "type",
+        "position",
+        "total"
+      ]
+    },
+    "V2ProgrammeNetwork": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "short_title": {
+          "type": "string"
+        },
+        "long_title": {
+          "type": "string"
+        },
+        "group": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "key",
+        "short_title",
+        "long_title",
+        "group",
+        "active"
+      ]
+    },
+    "V2ProgrammeImage": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "standard"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^([0-9|b-d|f-h|j-n|p-t|v-z]{8,})$"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "url"
+      ]
+    },
+    "V2ProgrammeCategory": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "genre",
+            "format"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "key",
+        "title"
+      ]
+    },
+    "V2ProgrammeAncestors": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "brand",
+            "series",
+            "episode"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^([0-9|b-d|f-h|j-n|p-t|v-z]{8,})$"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title"
+      ]
+    },
+    "V2ProgrammeAvailability": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "original",
+            "podcast",
+            "editorial",
+            "legal",
+            "technical"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^([0-9|b-d|f-h|j-n|p-t|v-z]{8,})$"
+        },
+        "duration": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "has_guidance": {
+          "type": "boolean"
+        },
+        "available_from_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(\\d{4}-[0-1]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\dZ|)$"
+        },
+        "available_to_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(\\d{4}-[0-1]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\dZ|)$"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "available",
+            "pending",
+            "future"
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "duration",
+        "has_guidance",
+        "available_from_date",
+        "available_to_date",
+        "status"
+      ]
+    },
+    "Programme": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^([0-9|b-d|f-h|j-n|p-t|v-z]{8,})$"
+        },
+        "network": {
+          "$ref": "#/definitions/V2ProgrammeNetwork"
+        },
+        "titles": {
+          "$ref": "#/definitions/PlayableItemTitles"
+        },
+        "synopses": {
+          "$ref": "#/definitions/PlayableItemSynopses"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/V2ProgrammeImage"
+          }
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/V2ProgrammeCategory"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "network",
+        "titles",
+        "synopses",
+        "images",
+        "categories"
+      ],
+      "oneOf": [
+        {
+          "$ref": "#/definitions/V2Episode"
+        },
+        {
+          "$ref": "#/definitions/V2Clip"
+        },
+        {
+          "$ref": "#/definitions/V2Brand"
+        },
+        {
+          "$ref": "#/definitions/V2Series"
+        }
+      ]
+    },
+    "Programmes": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Programme"
+          }
+        }
+      },
+      "required": [
+        "total",
+        "limit",
+        "offset",
+        "data"
+      ]
+    },
+    "V2Episode": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "episode"
+          ]
+        },
+        "urn": {
+          "type": "string",
+          "pattern": "^urn:bbc:radio:episode:[0-9|b-d|f-h|j-n|p-t|v-z]{8,}$"
+        },
+        "media_type": {
+          "type": "string",
+          "enum": [
+            "audio",
+            "video",
+            "audio_video",
+            "null"
+          ]
+        },
+        "release_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(\\d{4}-[0-1]\\d-[0-3]\\dT00:00:00Z|)$"
+        },
+        "siblings_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "position": {
+          "$ref": "#/definitions/V2Position"
+        },
+        "ancestors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/V2ProgrammeAncestors"
+          }
+        },
+        "availability": {
+          "$ref": "#/definitions/V2ProgrammeAvailability"
+        }
+      },
+      "required": [
+        "type",
+        "urn",
+        "media_type",
+        "release_date",
+        "siblings_count",
+        "position",
+        "ancestors",
+        "availability"
+      ]
+    },
+    "V2Clip": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "clip"
+          ]
+        },
+        "urn": {
+          "type": "string",
+          "pattern": "^urn:bbc:radio:clip:[0-9|b-d|f-h|j-n|p-t|v-z]{8,}$"
+        },
+        "media_type": {
+          "type": "string",
+          "enum": [
+            "audio",
+            "video",
+            "audio_video",
+            "null"
+          ]
+        },
+        "release_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(\\d{4}-[0-1]\\d-[0-3]\\dT00:00:00Z|)$"
+        },
+        "siblings_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "position": {
+          "$ref": "#/definitions/V2Position"
+        },
+        "ancestors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/V2ProgrammeAncestors"
+          }
+        },
+        "availability": {
+          "$ref": "#/definitions/V2ProgrammeAvailability"
+        }
+      },
+      "required": [
+        "type",
+        "urn",
+        "media_type",
+        "release_date",
+        "siblings_count",
+        "position",
+        "ancestors",
+        "availability"
+      ]
+    },
+    "V2Brand": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "brand"
+          ]
+        },
+        "urn": {
+          "type": "string",
+          "pattern": "^urn:bbc:radio:brand:[0-9|b-d|f-h|j-n|p-t|v-z]{8,}$"
+        }
+      },
+      "required": [
+        "type",
+        "urn"
+      ]
+    },
+    "V2Series": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "series"
+          ]
+        },
+        "urn": {
+          "type": "string",
+          "pattern": "^urn:bbc:radio:series:[0-9|b-d|f-h|j-n|p-t|v-z]{8,}$"
+        },
+        "ancestors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/V2ProgrammeAncestors"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "urn",
+        "ancestors"
+      ]
+    },
+    "V2Position": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "total": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "required": [
         "position",
         "total"
       ]
