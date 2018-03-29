@@ -947,9 +947,101 @@
         }
       }
     },
-    "/v2/programmes/playable": {
+    "/v2/programmes/items": {
       "get": {
-        "summary": "Playable programmes",
+        "summary": "Container & Playable Programmes",
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "description": "Filter by provided query. E.g. 'tleo' returns top level objects, ie. brands, orphaned series, and orphaned episodes",
+            "type": "string",
+            "enum": [
+              "tleo"
+            ],
+            "required": false
+          },
+          {
+            "name": "network",
+            "in": "query",
+            "description": "Filter by network master brand ID (mid). Accepts comma separated values",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "network_url_key",
+            "in": "query",
+            "description": "Filter by network URL key. Accepts comma separated values",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter by category id. Accepts comma separated values. See /category endpoint below for the type of response provided",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by provided query. E.g. 'title' sorts in ascending order, and -title sorts in descending order",
+            "type": "string",
+            "enum": [
+              "available_from_date",
+              "-available_from_date"
+            ],
+            "required": false
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "Filter by container. Accepts any brand or series pid",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by programme type. Accepts comma separated values",
+            "type": "string",
+            "enum": [
+              "brand",
+              "series",
+              "episode",
+              "clip",
+              "brand,series",
+              "episode,clip"
+            ],
+            "required": false
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Provides a paginated list of programmes (brands, series, episodes and clips).\nAccepts various filters and sorting methods.\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/programmes/items/playable": {
+      "get": {
+        "summary": "Playable Programmes",
         "parameters": [
           {
             "$ref": "#/parameters/X-API-Key"
@@ -1008,12 +1100,12 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of playable programmes by PID (episode and clip). Accepts various filters and sorting methods.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
+        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods.\n",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/PlayableItemsResponse"
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
             }
           },
           "default": {
@@ -1025,7 +1117,82 @@
         }
       }
     },
-    "/v2/programmes/{pid}/playable": {
+    "/v2/programmes/playable": {
+      "get": {
+        "summary": "Playable Programmes",
+        "parameters": [
+          {
+            "name": "network",
+            "in": "query",
+            "description": "Filter by network master brand ID (mid). Accepts comma separated values",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "network_url_key",
+            "in": "query",
+            "description": "Filter by network URL key. Accepts comma separated values",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter by category id. Accepts comma separated values. See /category endpoint below for the type of response provided",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by provided query. E.g. 'title' sorts in ascending order, and -title sorts in descending order",
+            "type": "string",
+            "enum": [
+              "available_from_date",
+              "-available_from_date"
+            ],
+            "required": false
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "Filter by container. Accepts any brand or series pid",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by programme type. Accepts comma separated values",
+            "type": "string",
+            "enum": [
+              "episode",
+              "clip"
+            ],
+            "required": false
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods.\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/programmes/{pid}": {
       "parameters": [
         {
           "$ref": "#/parameters/X-API-Key"
@@ -1035,12 +1202,12 @@
         }
       ],
       "get": {
-        "summary": "Playable Programme by Pid",
+        "summary": "Single Programme By Pid",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/PlayableItem"
+              "$ref": "#/definitions/Programme"
             }
           },
           "default": {
@@ -1055,7 +1222,7 @@
         ]
       }
     },
-    "/v2/programmes/{pid}": {
+    "/v2/programmes/{pid}/item": {
       "parameters": [
         {
           "$ref": "#/parameters/X-API-Key"
@@ -1065,12 +1232,42 @@
         }
       ],
       "get": {
-        "summary": "Programme by Pid",
+        "summary": "Single Container or Playable Programme By Pid",
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Programme"
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Programmes"
+        ]
+      }
+    },
+    "/v2/programmes/{pid}/playable": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "$ref": "#/parameters/pid"
+        }
+      ],
+      "get": {
+        "summary": "Single Playable Programme By Pid",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItem"
             }
           },
           "default": {
@@ -1099,7 +1296,8 @@
         }
       ],
       "get": {
-        "summary": "Search programmes",
+        "deprecated": true,
+        "summary": "Search Playable Programmes",
         "responses": {
           "200": {
             "description": "OK",
@@ -1119,12 +1317,112 @@
         ]
       }
     },
+    "/v2/programmes/search/items": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "name": "q",
+          "in": "query",
+          "description": "Search Query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Search Container & Playable Programmes",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItemsResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Programmes"
+        ]
+      }
+    },
+    "/v2/programmes/search/items/playable": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "name": "q",
+          "in": "query",
+          "description": "Search Query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Search Playable Programmes",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Programmes"
+        ]
+      }
+    },
+    "/v2/programmes/search/items/container": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "name": "q",
+          "in": "query",
+          "description": "Search Query",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "summary": "Search Container Programmes",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ContainerItemsResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Programmes"
+        ]
+      }
+    },
     "/collections/{pid}/members": {
       "get": {
         "summary": "Collection Members",
-        "schemes": [
-          "https"
-        ],
+        "deprecated": true,
         "parameters": [
           {
             "$ref": "#/parameters/X-API-Key"
@@ -1163,6 +1461,36 @@
             }
           }
         }
+      }
+    },
+    "/v2/collections/{pid}/container": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "$ref": "#/parameters/pid"
+        }
+      ],
+      "get": {
+        "summary": "Single Container Collection By Pid",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ContainerItem"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Collections"
+        ]
       }
     },
     "/v2/collections/{pid}/members/playable": {
@@ -7338,6 +7666,298 @@
         "members"
       ]
     },
+    "Item": {
+      "type": [
+        "object"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "container_item",
+            "playable_item"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^([0-9|b-d|f-h|j-n|p-t|v-z]{8,}|[a-zA-Z0-9_]{1,})$"
+        },
+        "urn": {
+          "type": "string",
+          "pattern": "^urn:bbc:radio:[a-zA-Z0-9:_]{1,}$"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "urn"
+      ],
+      "oneOf": [
+        {
+          "$ref": "#/definitions/ContainerItem"
+        },
+        {
+          "$ref": "#/definitions/PlayableItem"
+        }
+      ]
+    },
+    "ItemsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "ItemsPaginatedResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      },
+      "required": [
+        "total",
+        "limit",
+        "offset",
+        "data"
+      ]
+    },
+    "ContainerItem": {
+      "type": [
+        "object"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "container_item"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^([0-9|b-d|f-h|j-n|p-t|v-z]{8,}|[a-zA-Z0-9_]{1,})$"
+        },
+        "urn": {
+          "type": "string",
+          "pattern": "^urn:bbc:radio:[a-zA-Z0-9:_]{1,}$"
+        },
+        "network": {
+          "$ref": "#/definitions/ContainerItemNetwork"
+        },
+        "titles": {
+          "$ref": "#/definitions/ContainerItemTitles"
+        },
+        "synopses": {
+          "$ref": "#/definitions/ContainerItemSynopses"
+        },
+        "image_url": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerItemActivity"
+          }
+        },
+        "uris": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerItemUri"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "urn",
+        "network",
+        "titles",
+        "synopses",
+        "image_url",
+        "activities",
+        "uris"
+      ]
+    },
+    "ContainerItemsResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerItem"
+          }
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "ContainerItemsPaginatedResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContainerItem"
+          }
+        }
+      },
+      "required": [
+        "total",
+        "limit",
+        "offset",
+        "data"
+      ]
+    },
+    "ContainerItemNetwork": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "short_title": {
+          "type": "string"
+        },
+        "logo_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "key",
+        "short_title",
+        "logo_url"
+      ]
+    },
+    "ContainerItemTitles": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "string"
+        },
+        "secondary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tertiary": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "primary",
+        "secondary",
+        "tertiary"
+      ]
+    },
+    "ContainerItemSynopses": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "short": {
+          "type": "string"
+        },
+        "medium": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "long": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "short",
+        "medium",
+        "long"
+      ]
+    },
+    "ContainerItemActivity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "action"
+      ]
+    },
+    "ContainerItemUri": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "label",
+        "uri"
+      ]
+    },
     "PlayableItem": {
       "type": [
         "object"
@@ -7381,7 +8001,13 @@
         "activities": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PlayableItemActivities"
+            "$ref": "#/definitions/PlayableItemActivity"
+          }
+        },
+        "uris": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayableItemUri"
           }
         }
       },
@@ -7396,7 +8022,8 @@
         "duration",
         "progress",
         "availability",
-        "activities"
+        "activities",
+        "uris"
       ]
     },
     "PlayableItemsResponse": {
@@ -7443,7 +8070,7 @@
         "data"
       ]
     },
-    "PlayableItemActivities": {
+    "PlayableItemActivity": {
       "type": "object",
       "properties": {
         "type": {
@@ -7597,6 +8224,25 @@
         "primary",
         "secondary",
         "tertiary"
+      ]
+    },
+    "PlayableItemUri": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "label",
+        "uri"
       ]
     },
     "ErrorResponse": {
