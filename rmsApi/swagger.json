@@ -363,14 +363,12 @@
       }
     },
     "/categories/{id}": {
-      "parameters": [
-        {
-          "$ref": "#/parameters/X-API-Key"
-        }
-      ],
       "get": {
         "summary": "Category by ID",
         "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
           {
             "name": "id",
             "in": "path",
@@ -478,7 +476,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/NetworksResponse"
+              "$ref": "#/definitions/V2NetworksResponse"
             }
           },
           "default": {
@@ -560,7 +558,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Network"
+              "$ref": "#/definitions/V2Network"
             }
           },
           "default": {
@@ -913,24 +911,12 @@
               "episode,clip"
             ],
             "required": false
-          },
-          {
-            "name": "media_type",
-            "in": "query",
-            "description": "Filter by media type (audio_video will return video values)",
-            "type": "string",
-            "enum": [
-              "audio",
-              "video",
-              "audio_video"
-            ],
-            "required": false
           }
         ],
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of v2 programmes. Accepts various filters and sorting methods.\n\nN.B.  Swagger schemas cannot currently handle multiple combinations of object in an array i.e. a mix of Episode\nand Clip Summaries so we are defining results as an array of Programme Summary here.  This will be resolved in V3 with full support for\n anyOf https://www.openapis.org/blog/2017/01/24/a-new-year-a-new-specification\n",
+        "description": "Provides a paginated list of programmes.\nAccepts various filters and sorting methods.\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5283,7 +5269,8 @@
       "type": "object",
       "properties": {
         "total": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
         "results": {
           "type": "array",
@@ -5292,13 +5279,16 @@
           }
         },
         "offset": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0
         },
         "$schema": {
           "type": "string"
         },
         "limit": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
         }
       },
       "required": [
@@ -5313,25 +5303,40 @@
       "type": "object",
       "properties": {
         "type": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "category"
+          ]
         },
         "id": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^[a-z][a-z|-]+[a-z]$"
         },
         "depth": {
-          "type": "integer"
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3
+          ]
         },
         "url_key": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^[a-z]+$"
         },
         "title": {
           "type": "string"
         },
         "pip_id": {
-          "type": "string"
+          "type": "string",
+          "pattern": "^(C|PT){1}[0-9]+$"
         },
         "category_type": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "genre",
+            "format"
+          ]
         },
         "child_categories": {
           "type": "array",
@@ -7995,6 +8000,9 @@
         "progress": {
           "$ref": "#/definitions/PlayableItemProgress"
         },
+        "container": {
+          "$ref": "#/definitions/PlayableItemContainer"
+        },
         "availability": {
           "$ref": "#/definitions/PlayableItemAvailability"
         },
@@ -8021,6 +8029,7 @@
         "image_url",
         "duration",
         "progress",
+        "container",
         "availability",
         "activities",
         "uris"
@@ -8243,6 +8252,36 @@
         "type",
         "label",
         "uri"
+      ]
+    },
+    "PlayableItemContainer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "synopses": {
+          "$ref": "#/definitions/PlayableItemSynopses"
+        },
+        "activities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PlayableItemActivity"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "synopses",
+        "activities"
       ]
     },
     "ErrorResponse": {
@@ -8777,6 +8816,106 @@
       "required": [
         "position",
         "total"
+      ]
+    },
+    "V2NetworksResponse": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/V2Network"
+          }
+        }
+      },
+      "required": [
+        "total",
+        "offset",
+        "limit",
+        "data"
+      ]
+    },
+    "V2Network": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "network"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "coverage": {
+          "type": "string",
+          "enum": [
+            "national",
+            "regional",
+            "local"
+          ]
+        },
+        "key": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+$"
+        },
+        "short_title": {
+          "type": "string"
+        },
+        "long_title": {
+          "type": "string"
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/V2Service"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "coverage",
+        "key",
+        "short_title",
+        "long_title",
+        "services"
+      ]
+    },
+    "V2Service": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "service"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        }
+      },
+      "required": [
+        "type",
+        "id"
       ]
     }
   }
