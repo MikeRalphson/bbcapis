@@ -96,6 +96,13 @@
       "type": "string",
       "required": true
     },
+    "urn": {
+      "name": "urn",
+      "in": "path",
+      "description": "urn",
+      "type": "string",
+      "required": true
+    },
     "sid": {
       "name": "sid",
       "in": "path",
@@ -173,6 +180,13 @@
         "mobile"
       ],
       "required": true
+    },
+    "service_id": {
+      "name": "service_id",
+      "in": "path",
+      "description": "serviceId",
+      "type": "string",
+      "required": true
     }
   },
   "tags": [
@@ -199,6 +213,9 @@
     },
     {
       "name": "Programmes"
+    },
+    {
+      "name": "Personalised Activities"
     },
     {
       "name": "Personalised Categories"
@@ -723,7 +740,7 @@
             "$ref": "#/parameters/X-API-Key"
           },
           {
-            "$ref": "#/parameters/pid"
+            "$ref": "#/parameters/service_id"
           }
         ],
         "tags": [
@@ -829,6 +846,43 @@
           },
           "401": {
             "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/broadcasts/poll/{service_id}": {
+      "get": {
+        "summary": "Polled Broadcasts by serviceId",
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/service_id"
+          }
+        ],
+        "tags": [
+          "Broadcasts"
+        ],
+        "description": "Polled Broadcasts by serviceId\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BroadcastSummary"
+            }
+          },
+          "400": {
+            "description": "Service ID was not found.",
             "schema": {
               "$ref": "#/definitions/ErrorResponse"
             }
@@ -1991,6 +2045,85 @@
             }
           }
         }
+      }
+    },
+    "/v2/my/activities": {
+      "post": {
+        "summary": "Write Activity",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "urn": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "urn"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Personalised Activities"
+        ]
+      }
+    },
+    "/v2/my/activities/{urn}": {
+      "delete": {
+        "summary": "Delete Activity",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/urn"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Request successfully sent to UAS."
+          },
+          "400": {
+            "description": "The request was malformed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "There was an error with the supplied `Authorization` header.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Personalised Activities"
+        ]
       }
     },
     "/v2/my/categories/follows": {
@@ -5456,6 +5589,29 @@
         "active"
       ]
     },
+    "PolledNetwork": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "short_title": {
+          "type": "string"
+        },
+        "logo_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "key",
+        "short_title",
+        "logo_url"
+      ]
+    },
     "Service": {
       "type": "object",
       "properties": {
@@ -5615,6 +5771,80 @@
         "is_critical",
         "is_audio_described",
         "is_webcast"
+      ]
+    },
+    "BroadcastsSummaryResponse": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BroadcastSummary"
+          }
+        }
+      },
+      "required": [
+        "$schema",
+        "data"
+      ]
+    },
+    "BroadcastSummary": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "urn": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        },
+        "service_id": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer"
+        },
+        "network": {
+          "$ref": "#/definitions/PolledNetwork"
+        },
+        "titles": {
+          "$ref": "#/definitions/Titles"
+        },
+        "image_url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "urn",
+        "start",
+        "end",
+        "service_id",
+        "duration",
+        "network",
+        "titles",
+        "image_url"
       ]
     },
     "ProgrammesResponse": {
@@ -7649,6 +7879,21 @@
         "uri"
       ]
     },
+    "Duration": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "label"
+      ]
+    },
     "ContinuousPlayContainer": {
       "type": "object",
       "properties": {
@@ -8323,6 +8568,25 @@
         "href",
         "message",
         "replied_at"
+      ]
+    },
+    "Titles": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "string"
+        },
+        "secondary": {
+          "type": "string"
+        },
+        "tertiary": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "primary",
+        "secondary",
+        "tertiary"
       ]
     },
     "TitlesHierarchy": {
