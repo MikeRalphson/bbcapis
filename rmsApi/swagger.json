@@ -248,6 +248,40 @@
     }
   ],
   "paths": {
+    "/v2/experience/container/{pid}": {
+      "get": {
+        "deprecated": false,
+        "summary": "Containers Page Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/pid"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceContainerResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/v2/experience/listen": {
       "get": {
         "deprecated": true,
@@ -314,6 +348,37 @@
       "get": {
         "deprecated": false,
         "summary": "Sign in Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/experience/search": {
+      "get": {
+        "deprecated": false,
+        "summary": "Search Experience",
         "schemes": [
           "https"
         ],
@@ -628,9 +693,6 @@
     },
     "/v2/services/{sid}/tracks/latest/playable": {
       "parameters": [
-        {
-          "$ref": "#/parameters/X-API-Key"
-        },
         {
           "$ref": "#/parameters/limit"
         },
@@ -2259,6 +2321,40 @@
         }
       }
     },
+    "/v2/my/experience/sounds": {
+      "get": {
+        "deprecated": false,
+        "summary": "Subscriptions Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/v2/my/networks/follows": {
       "get": {
         "summary": "List of followed networks",
@@ -2413,9 +2509,6 @@
             "$ref": "#/parameters/Authorization"
           },
           {
-            "$ref": "#/parameters/X-API-Key"
-          },
-          {
             "name": "Body",
             "in": "body",
             "required": true,
@@ -2544,6 +2637,42 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/PlayableItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Personalised Programmes"
+        ]
+      }
+    },
+    "/v2/my/programmes/follows": {
+      "get": {
+        "summary": "List of favourite programmes",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ContainerItemsPaginatedResponse"
             }
           },
           "default": {
@@ -9180,6 +9309,58 @@
       "required": [
         "type",
         "id"
+      ]
+    },
+    "ExperienceContainerResponse": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/HeaderModule"
+            },
+            {
+              "$ref": "#/definitions/DisplayModule"
+            }
+          ]
+        }
+      },
+      "required": [
+        "$schema",
+        "data"
+      ]
+    },
+    "HeaderModule": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ContainerItem"
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "data"
       ]
     }
   }
