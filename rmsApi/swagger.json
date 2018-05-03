@@ -479,6 +479,153 @@
         }
       }
     },
+    "/v2/categories": {
+      "get": {
+        "summary": "List of categories",
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "description": "Filter by provided query. E.g. 'promoted' returns promoted categories",
+            "type": "string",
+            "enum": [
+              "promoted"
+            ],
+            "required": false
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Categories"
+        ],
+        "description": "Retrieve Categories\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/V2CategoriesResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/categories/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "$ref": "#/parameters/id"
+        }
+      ],
+      "get": {
+        "summary": "Category by ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Categories"
+        ]
+      }
+    },
+    "/v2/categories/container": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "name": "kind",
+          "in": "query",
+          "description": "Promoted",
+          "type": "string",
+          "required": false,
+          "enum": [
+            "promoted"
+          ]
+        },
+        {
+          "$ref": "#/parameters/offset"
+        },
+        {
+          "$ref": "#/parameters/limit"
+        }
+      ],
+      "get": {
+        "summary": "List of container categories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ContainerItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ContainerItemsResponse"
+            }
+          }
+        },
+        "tags": [
+          "Categories"
+        ]
+      }
+    },
+    "/v2/categories/{id}/container": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "$ref": "#/parameters/id"
+        }
+      ],
+      "get": {
+        "summary": "Container category by ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ContainerItem"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Categories"
+        ]
+      }
+    },
     "/radio/networks.json": {
       "get": {
         "summary": "Networks",
@@ -926,9 +1073,6 @@
         "summary": "Polled Broadcasts by serviceId",
         "parameters": [
           {
-            "$ref": "#/parameters/X-API-Key"
-          },
-          {
             "$ref": "#/parameters/service_id"
           }
         ],
@@ -1188,6 +1332,13 @@
             "required": false
           },
           {
+            "name": "parent",
+            "in": "query",
+            "description": "Filter by parent. Accepts any brand or series pid",
+            "type": "string",
+            "required": false
+          },
+          {
             "name": "type",
             "in": "query",
             "description": "Filter by programme type. Accepts comma separated values",
@@ -1259,6 +1410,13 @@
             "name": "container",
             "in": "query",
             "description": "Filter by container. Accepts any brand or series pid",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "parent",
+            "in": "query",
+            "description": "Filter by parent. Accepts any brand or series pid",
             "type": "string",
             "required": false
           },
@@ -1521,50 +1679,6 @@
         ]
       }
     },
-    "/collections/{pid}/members": {
-      "get": {
-        "summary": "Collection Members",
-        "deprecated": true,
-        "parameters": [
-          {
-            "$ref": "#/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/parameters/pid"
-          },
-          {
-            "$ref": "#/parameters/offset"
-          },
-          {
-            "$ref": "#/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Collections"
-        ],
-        "description": "Episodes and Clips from Collection\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ProgrammesResponse"
-            }
-          },
-          "404": {
-            "description": "Collection not found",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
     "/v2/collections/{pid}/container": {
       "parameters": [
         {
@@ -1624,6 +1738,49 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/PlayableItemsResponse"
+            }
+          },
+          "404": {
+            "description": "Collection not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/collections/{pid}/members/container": {
+      "get": {
+        "summary": "Collection Container Members",
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/pid"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Collections"
+        ],
+        "description": "Container Items from Collection\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ContainerItemsResponse"
             }
           },
           "404": {
@@ -2454,53 +2611,6 @@
         ]
       }
     },
-    "/my/programmes/recommendations": {
-      "get": {
-        "deprecated": true,
-        "summary": "List of recommended programmes",
-        "parameters": [
-          {
-            "$ref": "#/parameters/Authorization"
-          },
-          {
-            "$ref": "#/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/parameters/offset"
-          },
-          {
-            "$ref": "#/parameters/limit"
-          },
-          {
-            "$ref": "#/parameters/rights"
-          }
-        ],
-        "tags": [
-          "Personalised Programmes"
-        ],
-        "description": "Recommended Programmes from the Audience Platforms' Recomendations Service\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ProgrammesResponse"
-            }
-          },
-          "401": {
-            "description": "There was an error with the supplied `Authorization` header.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
     "/v2/my/programmes/plays": {
       "post": {
         "summary": "Write Play Event",
@@ -2666,6 +2776,16 @@
           },
           {
             "$ref": "#/parameters/limit"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by provided query. E.g. 'title' sorts in ascending order",
+            "type": "string",
+            "enum": [
+              "title"
+            ],
+            "required": false
           }
         ],
         "responses": {
@@ -2673,6 +2793,42 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/ContainerItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Personalised Programmes"
+        ]
+      }
+    },
+    "/v2/my/programmes/follows/playable": {
+      "get": {
+        "summary": "List of playable programmes from followed brands and series",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
             }
           },
           "default": {
@@ -8637,6 +8793,9 @@
         "id": {
           "type": "string"
         },
+        "urn": {
+          "type": "string"
+        },
         "title": {
           "type": "string"
         },
@@ -8653,6 +8812,7 @@
       "required": [
         "type",
         "id",
+        "urn",
         "title",
         "synopses",
         "activities"
@@ -9209,6 +9369,39 @@
       "required": [
         "position",
         "total"
+      ]
+    },
+    "V2CategoriesResponse": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Category"
+          }
+        }
+      },
+      "required": [
+        "total",
+        "offset",
+        "limit",
+        "data"
       ]
     },
     "V2NetworksResponse": {
