@@ -248,10 +248,44 @@
     }
   ],
   "paths": {
-    "/v2/experience/container/{pid}": {
+    "/v2/experience/container/{urn}": {
       "get": {
         "deprecated": false,
         "summary": "Containers Page Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/urn"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceContainerResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/experience/playqueue/{pid}": {
+      "get": {
+        "deprecated": false,
+        "summary": "On Demand Page Experience",
         "schemes": [
           "https"
         ],
@@ -270,7 +304,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/ExperienceContainerResponse"
+              "$ref": "#/definitions/ExperienceResponse"
             }
           },
           "default": {
@@ -385,6 +419,13 @@
         "parameters": [
           {
             "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search Query",
+            "type": "string",
+            "required": true
           }
         ],
         "tags": [
@@ -1542,6 +1583,44 @@
         ]
       }
     },
+    "/v2/programmes/playqueue/{pid}": {
+      "get": {
+        "deprecated": false,
+        "summary": "Play Queue",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "Play item for which the playqueue is generated",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/v2/programmes/search/playable": {
       "parameters": [
         {
@@ -2512,6 +2591,43 @@
         }
       }
     },
+    "/v2/my/experience/playqueue/{pid}": {
+      "get": {
+        "deprecated": false,
+        "summary": "On Demand Page Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/pid"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/v2/my/networks/follows": {
       "get": {
         "summary": "List of followed networks",
@@ -2886,8 +3002,50 @@
         }
       }
     },
+    "/v2/my/programmes/playqueue/{pid}": {
+      "get": {
+        "deprecated": false,
+        "summary": "Play Queue",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "Play item for which the playqueue is generated",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Personalised Programmes"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/my/playspace/containers/{id}": {
       "get": {
+        "deprecated": true,
         "summary": "Continuous Play Container by ID",
         "parameters": [
           {
@@ -2932,6 +3090,7 @@
     },
     "/my/playspace/containers/suggested": {
       "get": {
+        "deprecated": true,
         "summary": "Suggested Continuous Play Container",
         "parameters": [
           {
