@@ -2557,6 +2557,40 @@
         }
       }
     },
+    "/v2/my/experience/inline/listen": {
+      "get": {
+        "deprecated": false,
+        "summary": "Listen Page Inline Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceInlineResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/v2/my/experience/sounds": {
       "get": {
         "deprecated": false,
@@ -8293,6 +8327,24 @@
         "data"
       ]
     },
+    "ExperienceInlineResponse": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InlineDisplayModule"
+          }
+        }
+      },
+      "required": [
+        "$schema",
+        "data"
+      ]
+    },
     "DisplayModule": {
       "type": "object",
       "properties": {
@@ -8321,6 +8373,39 @@
         "title",
         "description",
         "uri"
+      ]
+    },
+    "InlineDisplayModule": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "id",
+        "title",
+        "description",
+        "data"
       ]
     },
     "Duration": {
