@@ -250,7 +250,7 @@
   "paths": {
     "/v2/experience/container/{urn}": {
       "get": {
-        "deprecated": false,
+        "deprecated": true,
         "summary": "Containers Page Experience",
         "schemes": [
           "https"
@@ -2651,6 +2651,40 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/ExperienceResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/experience/container/{urn}": {
+      "get": {
+        "deprecated": false,
+        "summary": "Containers Page Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/urn"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceContainerResponse"
             }
           },
           "default": {
