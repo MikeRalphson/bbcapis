@@ -447,6 +447,44 @@
         }
       }
     },
+    "/v2/experience/inline/search": {
+      "get": {
+        "deprecated": false,
+        "summary": "Search Inline Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search Query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceInlineResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
     "/categories": {
       "get": {
         "summary": "List of categories",
