@@ -2,7 +2,7 @@
 	"swagger": "2.0",
 	"info": {
 		"version": "1.0",
-		"x-release": "1.0.0-375",
+		"x-release": "1.0.0-387",
 		"title": "BBC iPlayer Business Layer",
 		"description": "The definitive iPlayer API.",
 		"x-logo": {
@@ -2025,6 +2025,29 @@
 											"start"
 										],
 										"additionalProperties": false
+									},
+									"events": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"name": {
+													"type": "string"
+												},
+												"system": {
+													"type": "string"
+												},
+												"offset": {
+													"type": "integer"
+												}
+											},
+											"required": [
+												"name",
+												"system",
+												"offset"
+											],
+											"additionalProperties": false
+										}
 									}
 								},
 								"required": [
@@ -3240,6 +3263,29 @@
 									"start"
 								],
 								"additionalProperties": false
+							},
+							"events": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"name": {
+											"type": "string"
+										},
+										"system": {
+											"type": "string"
+										},
+										"offset": {
+											"type": "integer"
+										}
+									},
+									"required": [
+										"name",
+										"system",
+										"offset"
+									],
+									"additionalProperties": false
+								}
 							}
 						},
 						"required": [
@@ -3436,6 +3482,29 @@
 						"start"
 					],
 					"additionalProperties": false
+				},
+				"events": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string"
+							},
+							"system": {
+								"type": "string"
+							},
+							"offset": {
+								"type": "integer"
+							}
+						},
+						"required": [
+							"name",
+							"system",
+							"offset"
+						],
+						"additionalProperties": false
+					}
 				}
 			},
 			"required": [

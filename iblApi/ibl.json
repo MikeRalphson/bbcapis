@@ -951,6 +951,29 @@
                       "start"
                     ],
                     "additionalProperties": false
+                  },
+                  "events": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "system": {
+                          "type": "string"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "system",
+                        "offset"
+                      ],
+                      "additionalProperties": false
+                    }
                   }
                 },
                 "required": [
@@ -2166,6 +2189,29 @@
                   "start"
                 ],
                 "additionalProperties": false
+              },
+              "events": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "system": {
+                      "type": "string"
+                    },
+                    "offset": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "system",
+                    "offset"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
@@ -2362,6 +2408,29 @@
             "start"
           ],
           "additionalProperties": false
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "system": {
+                "type": "string"
+              },
+              "offset": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "name",
+              "system",
+              "offset"
+            ],
+            "additionalProperties": false
+          }
         }
       },
       "required": [
