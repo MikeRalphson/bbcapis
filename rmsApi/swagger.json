@@ -3149,6 +3149,157 @@
         }
       }
     },
+    "/v2/my/programmes/playable": {
+      "get": {
+        "summary": "Playable Programmes",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "name": "network",
+            "in": "query",
+            "description": "Filter by network master brand ID (mid). Accepts comma separated values",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "network_url_key",
+            "in": "query",
+            "description": "Filter by network URL key. Accepts comma separated values",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Filter by category id. Accepts comma separated values. See /category endpoint below for the type of response provided",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by provided query. E.g. 'title' sorts in ascending order, and -title sorts in descending order",
+            "type": "string",
+            "enum": [
+              "available_from_date",
+              "-available_from_date"
+            ],
+            "required": false
+          },
+          {
+            "name": "container",
+            "in": "query",
+            "description": "Filter by container. Accepts any brand or series pid",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "parent",
+            "in": "query",
+            "description": "Filter by parent. Accepts any brand or series pid",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by programme type. Accepts comma separated values",
+            "type": "string",
+            "enum": [
+              "episode",
+              "clip"
+            ],
+            "required": false
+          }
+        ],
+        "tags": [
+          "Personalised Programmes"
+        ],
+        "description": "Provides a paginated list of personalised playable programmes (episodes and clips).\nAccepts various filters and sorting methods.\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItemsPaginatedResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/programmes/{pid}/item": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/Authorization"
+        },
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "$ref": "#/parameters/pid"
+        }
+      ],
+      "get": {
+        "summary": "Single Container or Playable Programme By Pid",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Personalised Programmes"
+        ]
+      }
+    },
+    "/v2/my/programmes/{pid}/playable": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/Authorization"
+        },
+        {
+          "$ref": "#/parameters/X-API-Key"
+        },
+        {
+          "$ref": "#/parameters/pid"
+        }
+      ],
+      "get": {
+        "summary": "Single Playable Programme By Pid",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PlayableItem"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "tags": [
+          "Personalised Programmes"
+        ]
+      }
+    },
     "/my/playspace/containers/{id}": {
       "get": {
         "deprecated": true,
