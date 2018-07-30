@@ -316,37 +316,6 @@
         }
       }
     },
-    "/v2/experience/listen": {
-      "get": {
-        "deprecated": true,
-        "summary": "Listen Page Experience (deprecated for /v2/my/experience)",
-        "schemes": [
-          "https"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/X-API-Key"
-          }
-        ],
-        "tags": [
-          "Experience"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ExperienceResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
     "/v2/experience/stations": {
       "get": {
         "deprecated": false,
@@ -388,44 +357,6 @@
         "parameters": [
           {
             "$ref": "#/parameters/X-API-Key"
-          }
-        ],
-        "tags": [
-          "Experience"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ExperienceResponse"
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/v2/experience/search": {
-      "get": {
-        "deprecated": false,
-        "summary": "Search Experience",
-        "schemes": [
-          "https"
-        ],
-        "parameters": [
-          {
-            "$ref": "#/parameters/X-API-Key"
-          },
-          {
-            "name": "q",
-            "in": "query",
-            "description": "Search Query",
-            "type": "string",
-            "required": true
           }
         ],
         "tags": [
@@ -1159,6 +1090,46 @@
           "Broadcasts"
         ],
         "description": "Polled Broadcasts by serviceId\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BroadcastSummary"
+            }
+          },
+          "400": {
+            "description": "Service ID was not found.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/broadcasts/poll/{service_id}": {
+      "get": {
+        "summary": "Personalised Polled Broadcasts by serviceId",
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/parameters/service_id"
+          }
+        ],
+        "tags": [
+          "Broadcasts"
+        ],
+        "description": "Personalised Polled Broadcasts by serviceId\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2632,7 +2603,7 @@
     "/v2/my/experience/sounds": {
       "get": {
         "deprecated": false,
-        "summary": "Subscriptions Experience",
+        "summary": "My Sounds Experience",
         "schemes": [
           "https"
         ],
@@ -2652,6 +2623,81 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/ExperienceResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/experience/inline/sounds": {
+      "get": {
+        "deprecated": false,
+        "summary": "My Sounds Inline Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceInlineResponse"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/v2/my/experience/inline/search": {
+      "get": {
+        "deprecated": false,
+        "summary": "personalised Search Inline Experience",
+        "schemes": [
+          "https"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
+          {
+            "$ref": "#/parameters/X-API-Key"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Search Query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ExperienceInlineResponse"
             }
           },
           "default": {
@@ -2708,6 +2754,9 @@
           "https"
         ],
         "parameters": [
+          {
+            "$ref": "#/parameters/Authorization"
+          },
           {
             "$ref": "#/parameters/X-API-Key"
           },
