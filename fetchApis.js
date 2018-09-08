@@ -46,7 +46,7 @@ nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/status',iblKey,query,{},functio
 });
 nitro.make_request('rms.api.bbc.co.uk','/docs/swagger.json','',query,{proto:'https'},function(obj){
 	console.log('RMS (BLUR/PULP) swagger.json');
-	fs.writeFileSync('./rmsApi/swagger.json',JSON.stringify(obj,null,2));
+	fs.writeFileSync('./rmsApi/openapi.json',JSON.stringify(obj,null,2));
 	return false;
 });
 query.add(api.fProgrammesPartnerPid,'s0000024',true);
