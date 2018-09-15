@@ -183,6 +183,35 @@
         }
       }
     },
+    "/v2/experience/inline/sounds/sign-in": {
+      "get": {
+        "summary": "Sign in Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Sign in Experience page with Upsell\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/categories": {
       "get": {
         "summary": "List of categories",
@@ -625,6 +654,38 @@
           "Services"
         ],
         "description": "Retrieve list of tracks as playable items for a service\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/versions/{vpid}/tracks/playable": {
+      "get": {
+        "summary": "List of on demand tracks",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/vpid"
+          }
+        ],
+        "tags": [
+          "Versions"
+        ],
+        "description": "Retrieve list of on demand tracks as playable items for a version id\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2180,12 +2241,15 @@
         }
       }
     },
-    "/v2/my/categories/follows": {
+    "/v2/my/collections/{pid}/members/playable": {
       "get": {
-        "summary": "List of followed categories",
+        "summary": "Personalised Collection Playable Members",
         "parameters": [
           {
             "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CollectionPid"
           },
           {
             "$ref": "#/components/parameters/Authorization"
@@ -2198,16 +2262,16 @@
           }
         ],
         "tags": [
-          "Personalised Categories"
+          "Collections"
         ],
-        "description": "Returns list of categories followed by a user\n",
+        "description": "Personalised Playable Items from Collection\n",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PersonalisedCategoriesResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -2215,70 +2279,8 @@
           "401": {
             "$ref": "#/components/responses/Unauthorized"
           },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      },
-      "post": {
-        "summary": "Follow and unfollow category",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/Authorization"
-          }
-        ],
-        "requestBody": {
-          "description": "For body category follow",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "action": {
-                    "type": "string",
-                    "enum": [
-                      "followed",
-                      "unfollowed"
-                    ]
-                  },
-                  "category_id": {
-                    "type": "string",
-                    "example": "sport-football-europeanchampionship"
-                  },
-                  "platform": {
-                    "type": "string",
-                    "enum": [
-                      "responsiveweb",
-                      "app"
-                    ]
-                  }
-                },
-                "required": [
-                  "action",
-                  "category_id",
-                  "platform"
-                ]
-              }
-            }
-          }
-        },
-        "tags": [
-          "Personalised Categories"
-        ],
-        "description": "A category can be followed and unfollowed\n",
-        "responses": {
-          "202": {
-            "$ref": "#/components/responses/TextResponse"
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
+          "404": {
+            "$ref": "#/components/responses/Notfound"
           },
           "default": {
             "$ref": "#/components/responses/InternalServiceError"
@@ -2554,112 +2556,6 @@
           },
           "404": {
             "$ref": "#/components/responses/Notfound"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/v2/my/networks/follows": {
-      "get": {
-        "summary": "List of followed networks",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/Authorization"
-          },
-          {
-            "$ref": "#/components/parameters/offset"
-          },
-          {
-            "$ref": "#/components/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Personalised Networks"
-        ],
-        "description": "Returns list of networks followed by a user\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PersonalisedNetworksResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      },
-      "post": {
-        "summary": "Follow and unfollow network",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/Authorization"
-          }
-        ],
-        "requestBody": {
-          "description": "Network follow body",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "action": {
-                    "type": "string",
-                    "enum": [
-                      "followed",
-                      "unfollowed"
-                    ]
-                  },
-                  "service_id": {
-                    "type": "string",
-                    "example": "bbc_radio_one"
-                  },
-                  "platform": {
-                    "type": "string",
-                    "enum": [
-                      "responsiveweb",
-                      "app"
-                    ]
-                  }
-                },
-                "required": [
-                  "action",
-                  "service_id",
-                  "platform"
-                ]
-              }
-            }
-          }
-        },
-        "tags": [
-          "Personalised Networks"
-        ],
-        "description": "A network can be followed and unfollowed\n",
-        "responses": {
-          "202": {
-            "$ref": "#/components/responses/TextResponse"
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
           },
           "default": {
             "$ref": "#/components/responses/InternalServiceError"
@@ -3145,117 +3041,6 @@
                 }
               }
             }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/Notfound"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/my/playspace/containers/{id}": {
-      "get": {
-        "deprecated": true,
-        "summary": "Continuous Play Container by ID",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/Authorization"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Programme id",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "tags": [
-          "Continuous Play"
-        ],
-        "description": "Returns next set of programmes from a container by id\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContinuousPlayContainer"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/Notfound"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/my/playspace/containers/suggested": {
-      "get": {
-        "deprecated": true,
-        "summary": "Suggested Continuous Play Container",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/Authorization"
-          },
-          {
-            "name": "previous_pid",
-            "in": "query",
-            "description": "Clip or Episode PID of the previous or first content item in the Continuous Play stream.",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          },
-          {
-            "name": "previous_container",
-            "in": "query",
-            "description": "Container ID of the previous container in the Continuous Play stream.",
-            "schema": {
-              "type": "string"
-            },
-            "required": false
-          }
-        ],
-        "tags": [
-          "Continuous Play"
-        ],
-        "description": "Suggested Continuous Play Container\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContinuousPlayContainer"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -5857,6 +5642,16 @@
           "type": "string"
         },
         "example": "p059v4ph",
+        "required": true
+      },
+      "vpid": {
+        "name": "vpid",
+        "in": "path",
+        "description": "Version id",
+        "schema": {
+          "type": "string"
+        },
+        "example": "p06hbq7l",
         "required": true
       },
       "network": {
@@ -9135,6 +8930,9 @@
           "description": {
             "type": "string"
           },
+          "state": {
+            "type": "string"
+          },
           "data": {
             "type": "array",
             "items": {
@@ -10791,6 +10589,9 @@
       "name": "Services"
     },
     {
+      "name": "Versions"
+    },
+    {
       "name": "Broadcasts"
     },
     {
@@ -10806,23 +10607,10 @@
       "name": "Personalised Activities"
     },
     {
-      "name": "Personalised Categories"
-    },
-    {
-      "name": "Personalised Networks"
-    },
-    {
       "name": "Personalised Programmes",
       "externalDocs": {
         "description": "Client Documentation",
         "url": "https://confluence.dev.bbc.co.uk/display/RMServices/Pendulum+Client+Documentation"
-      }
-    },
-    {
-      "name": "Continuous Play",
-      "externalDocs": {
-        "description": "Client Documentation",
-        "url": "https://confluence.dev.bbc.co.uk/display/RMServices/Beastie+Boys+Client+Documetation"
       }
     },
     {
