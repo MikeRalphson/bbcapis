@@ -145,6 +145,35 @@
         }
       }
     },
+    "/v2/experience/inline/stations": {
+      "get": {
+        "summary": "All stations Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline All stations Page Experience\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/experience/inline/search": {
       "get": {
         "summary": "Search Inline Experience",
@@ -674,7 +703,7 @@
         }
       }
     },
-    "/v2/versions/{vpid}/tracks/playable": {
+    "/v2/versions/{vpid}/tracks/display": {
       "get": {
         "summary": "List of on demand tracks",
         "parameters": [
@@ -685,14 +714,14 @@
         "tags": [
           "Versions"
         ],
-        "description": "Retrieve list of on demand tracks as playable items for a version id\n",
+        "description": "Retrieve list of on demand tracks as display items for a version id\n",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                  "$ref": "#/components/schemas/DisplayItemsResponse"
                 }
               }
             }
@@ -2550,6 +2579,50 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/experience/playable/{urn}": {
+      "get": {
+        "summary": "Personalised episode details",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/urn"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Personalised episode details feed which consist of Episode Details and Track List\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -9259,6 +9332,139 @@
           "type",
           "label",
           "uri"
+        ]
+      },
+      "DisplayItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "display_item"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^([0-9|b-d|f-h|j-n|p-t|v-z]{8,}|[a-zA-Z0-9_]{1,})$",
+            "example": "b08vxtj4"
+          },
+          "urn": {
+            "type": "string",
+            "pattern": "^urn:bbc:radio:[a-zA-Z0-9:_]{1,}$",
+            "example": "urn:bbc:radio:episode|network|segment:b08vxv2w"
+          },
+          "network": {
+            "$ref": "#/components/schemas/DisplayItemNetwork"
+          },
+          "titles": {
+            "$ref": "#/components/schemas/DisplayItemTitles"
+          },
+          "synopses": {
+            "$ref": "#/components/schemas/DisplayItemSynopses"
+          },
+          "image_url": {
+            "type": "string",
+            "example": "https://ichef.bbci.co.uk/images/ic/{recipe}/p054zzwj.jpg"
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "urn",
+          "network",
+          "titles",
+          "synopses",
+          "image_url"
+        ]
+      },
+      "DisplayItemNetwork": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "bbc_radio_four"
+          },
+          "key": {
+            "type": "string",
+            "nullable": true,
+            "example": "radio4"
+          },
+          "short_title": {
+            "type": "string",
+            "example": "Radio 4"
+          },
+          "logo_url": {
+            "type": "string",
+            "example": "https://sounds.files.bbci.co.uk/v2/networks/bbc_radio_four/{type}_{size}.{format}"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "short_title",
+          "logo_url"
+        ]
+      },
+      "DisplayItemsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DisplayItem"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "DisplayItemSynopses": {
+        "type": "object",
+        "properties": {
+          "short": {
+            "type": "string",
+            "example": "A discussion on the different ways of understanding the world around us."
+          },
+          "medium": {
+            "type": "string",
+            "nullable": true,
+            "example": "Discussion programme in which guests from different faith and non-faith"
+          },
+          "long": {
+            "type": "string",
+            "nullable": true,
+            "example": "debate the challenges of today's world."
+          }
+        },
+        "required": [
+          "short",
+          "medium",
+          "long"
+        ]
+      },
+      "DisplayItemTitles": {
+        "type": "object",
+        "properties": {
+          "primary": {
+            "type": "string",
+            "example": "Beyond Belief"
+          },
+          "secondary": {
+            "type": "string",
+            "nullable": true,
+            "example": "Public Grief"
+          },
+          "tertiary": {
+            "type": "string",
+            "nullable": true,
+            "example": "Lorem ipsum"
+          }
+        },
+        "required": [
+          "primary",
+          "secondary",
+          "tertiary"
         ]
       },
       "PlayableItem": {
