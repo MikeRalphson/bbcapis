@@ -45,7 +45,7 @@ nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/status',iblKey,query,{},functio
 	return false;
 });
 nitro.make_request('rms.api.bbc.co.uk','/docs/swagger.json','',query,{proto:'https'},function(obj){
-	console.log('RMS (BLUR/PULP) swagger.json');
+	console.log('RMS (BLUR/PULP) openapi.json');
 	fs.writeFileSync('./rmsApi/openapi.json',JSON.stringify(obj,null,2));
 	return false;
 });
