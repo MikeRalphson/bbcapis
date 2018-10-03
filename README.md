@@ -7,17 +7,17 @@
 ### Example of using nitroSdk.js
 
 ```javascript
-var nitro = require('bbcparse/nitroSdk');
-var api = require('bbcparse/nitroApi/api');
+const nitro = require('bbcparse/nitroSdk');
+const api = require('bbcparse/nitroApi/api');
 
-var host = 'programmes.api.bbc.com';
-var path = api.nitroMasterbrands;
-var api_key = 'INSERT_YOUR_NITRO_API_KEY_HERE';
+const host = 'programmes.api.bbc.com';
+const path = api.nitroMasterbrands;
+const api_key = 'INSERT_YOUR_NITRO_API_KEY_HERE';
 
-var query = nitro.newQuery();
+let query = nitro.newQuery();
 query.add(api.fMasterbrandsPartnerPid,'*',true);
 
-var options = {};
+let options = {};
 
 nitro.make_request(host,path,api_key,query,options,function(obj){
   // process the response object
@@ -26,8 +26,8 @@ nitro.make_request(host,path,api_key,query,options,function(obj){
 
 #### Utilities to:
 * fetch API definitions (`fetchApis.js`)
-* create a Swagger 2.0 definition from the Nitro API feed (`parseNitroApi.js`)
-* create a Swagger 2.0 definition from the iBL API schema (`parseIblApi.js`)
+* create an OpenAPI 3.0 definition from the Nitro API feed (`parseNitroApi.js`)
+* create an OpenAPI 3.0 definition from the iBL API schema (`parseIblApi.js`)
 * show programme, brand or series information by category or searching (`nitro.js`)
 * show TV/radio category (genre/format) information (`nitroCategories.js`)
 * show channel (masterbrand) information (`nitroChannels.js`)
