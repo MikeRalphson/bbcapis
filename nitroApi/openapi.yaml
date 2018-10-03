@@ -23,7 +23,7 @@ info:
     url: 'http://developer.bbc.co.uk/'
   license:
     name: Nitro Public License
-    url: 'https://developer.bbc.co.uk/nitropubliclicence/'
+    url: 'https://github.com/Mermade/bbcparse/wiki/Nitro-Public-License'
 externalDocs:
   description: Nitro for developers
   url: 'https://developer.bbc.co.uk/nitro'
