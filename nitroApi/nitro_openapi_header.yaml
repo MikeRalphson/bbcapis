@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: BBC Nitro API
+  x-logo:
+    url: >-
+      https://github.com/Mermade/bbcparse/blob/master/nitroApi/nitro-logo.png?raw=true
+  x-apiClientRegistration:
+    url: 'https://developer.bbc.co.uk/user/register'
+  x-origin:
+    - url: 'http://programmes.api.bbc.com/nitro/api'
+      contentType: application/json
+      converter:
+        url: 'https://github.com/mermade/bbcparse'
+        version: 1.0.0
+  description: >-
+    BBC Nitro is the BBC's application programming interface (API) for BBC
+    Programmes Metadata.
+  termsOfService: 'http://www.bbc.co.uk/terms/'
+  contact:
+    name: Open Nitro Project
+    email: nitro@bbc.co.uk
+    url: 'http://developer.bbc.co.uk/'
+  license:
+    name: Nitro Public License
+    url: 'https://developer.bbc.co.uk/nitropubliclicence/'
+externalDocs:
+  description: Nitro for developers
+  url: 'https://developer.bbc.co.uk/nitro'
+tags:
+  - name: feeds
+    description: Nitro data feeds
+  - name: schema
+    description: Nitro metadata
+paths: {}
+security:
+  - api_key: []
+servers:
+  - url: 'https://bbc.co.uk/nitro/api'
+  - url: 'http://bbc.co.uk/nitro/api'
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+  schemas:
+    ErrorModel:
+      type: object
+      properties:
+        fault:
+          type: object
+          properties:
+            faultString:
+              type: string
+            detail:
+              type: object
+              properties:
+                errorcode:
+                  type: string

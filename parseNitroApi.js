@@ -4,20 +4,33 @@ var fs = require('fs');
 var crypto = require('crypto');
 var stream = require('stream');
 
+const yaml = require('js-yaml');
+
 var ajv = require('ajv')({
 	allErrors: true,
 	verbose: true,
 	jsonPointers: true
 });
 
+let ajvFormats = require('ajv/lib/compile/formats.js');
+ajv.addFormat('uriref', ajvFormats.full['uri-reference']);
+ajv.addMetaSchema(require('ajv/lib/refs/json-schema-draft-04.json'));
+ajv._refs['http://json-schema.org/schema'] = 'http://json-schema.org/draft-04/schema'; // optional, using unversioned URI is out of spec
+let metaSchema = require('ajv/lib/refs/json-schema-v5.json');
+ajv.addMetaSchema(metaSchema);
+ajv._opts.defaultMeta = metaSchema.id;
+
 var x2j = require('jgexml/xml2json');
 var xsd = require('jgexml/xsd2json');
+
+const clone = require('reftools/lib/clone.js').clone;
+const recurse = require('reftools/lib/recurse.js').recurse;
 
 var api = require('./nitroApi/api.json');
 var undocumented = require('./nitroApi/undocumented.json');
 var jsonSchema = require('./validation/jsonSchema.json');
-var swaggerSchema = require('./validation/swagger2Schema.json');
-var raw = require('./nitroApi/raw_swagger.json');
+var openapiSchema = yrequire('./validation/openapi3Schema.yaml');
+var raw = yrequire('./nitroApi/raw_openapi.yaml');
 var xsdStr = fs.readFileSync('./nitroApi/nitro-schema.xsd','utf8');
 var version = require('./package.json').version;
 
@@ -29,8 +42,13 @@ var host = config.nitro.host;
 
 var cache = [];
 var seen = [];
-var swagger = {};
+var openapi = {};
 var params = [];
+
+function yrequire(filename) {
+	const s = fs.readFileSync(filename,'utf8');
+	return yaml.safeLoad(s,{json:true});
+}
 
 //__________________________________________________________________
 String.prototype.toCamelCase = function camelize() {
@@ -149,13 +167,14 @@ function exportSortDirection(feed,sort,sortDirection,sortDirectionName) {
 		param.name = 'sort_direction';
 		param.in = 'query';
 		param.description = 'Sort direction';
-		param.type = 'string';
+		param.schema = {};
+		param.schema.type = 'string';
 		param.required = false;
-		param.enum = [];
+		param.schema.enum = [];
 		params.push(param);
 	}
-	if (param.enum.indexOf(sortDirection.value)<0) {
-		param.enum.push(sortDirection.value);
+	if (param.schema.enum.indexOf(sortDirection.value)<0) {
+		param.schema.enum.push(sortDirection.value);
 	}
 
 	return s;
@@ -205,12 +224,13 @@ function swagSort(sort) {
 		param.name = 'sort';
 		param.in = 'query';
 		param.description = 'Sorts:\n';
-		param.type = 'string';
+		param.schema = {};
+		param.schema.type = 'string';
 		param.required = false;
-		param.enum = [];
+		param.schema.enum = [];
 		params.push(param);
 	}
-	param.enum.push(sort.name);
+	param.schema.enum.push(sort.name);
 	param.description += '* '+sort.name+': '+sort.title+'\n';
 }
 
@@ -292,15 +312,16 @@ function exportMixin(feed,mixin,mixinName,stable) {
 		param.name = 'mixin';
 		param.in = 'query';
 		param.description = 'Mixins:\n';
-		param.type = 'array';
-		param.collectionFormat = 'multi';
-		param.items = {};
-		param.items.type = 'string';
+		param.schema = {};
+		param.schema.type = 'array';
+		//param.collectionFormat = 'multi';
+		param.schema.items = {};
+		param.schema.items.type = 'string';
 		param.required = false;
-		param.enum = [];
+		param.schema.items.enum = [];
 		params.push(param);
 	}
-	param.enum.push(mixin.name);
+	param.schema.items.enum.push(mixin.name);
 	param.description += '* '+mixin.name+': '+mixin.title+'\n';
 
 	if (!stable) {
@@ -314,15 +335,16 @@ function exportMixin(feed,mixin,mixinName,stable) {
 			param.name = 'unstable_mixin';
 			param.in = 'query';
 			param.description = 'Unstable mixins:\n';
-			param.type = 'array';
-			param.collectionFormat = 'multi';
-			param.items = {};
-			param.items.type = 'string';
+			param.schema = {};
+			param.schema.type = 'array';
+			//param.collectionFormat = 'multi';
+			param.schema.items = {};
+			param.schema.items.type = 'string';
 			param.required = false;
-			param.enum = [];
+			param.schema.items.enum = [];
 			params.push(param);
 		}
-		param.enum.push(mixin.name);
+		param.schema.items.enum.push(mixin.name);
 		param.description += '* '+mixin.name+': '+mixin.title+'\n';
 	}
 
@@ -421,15 +443,16 @@ function exportFilter(feed,filter,filterName) {
 				param.name = filter.name;
 				param.in = 'query';
 				param.description = filter.title;
-				param.type = 'array';
-				param.collectionFormat = 'multi';
-				param.items = {};
-				param.items.type = 'string';
+				param.schema = {};
+				param.schema.type = 'array';
+				//param.collectionFormat = 'multi';
+				param.schema.items = {};
+				param.schema.items.type = 'string';
 				param.required = false;
-				param.enum = [];
+				param.schema.items.enum = [];
 				params.push(param);
 			}
-			param.enum.push(option.value);
+			param.schema.items.enum.push(option.value);
 
 			// TODO unstable filters
 
@@ -450,65 +473,66 @@ function exportFilter(feed,filter,filterName) {
 			param.name = filter.name;
 			param.in = 'query';
 			param.description = filter.title;
-			param.type = filter.type;
+			param.schema = {};
+			param.schema.type = filter.type;
 			if (filter.type == 'PID') {
-				param.type = 'string';
-				param.minLength = 8;
-				param.pattern = "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$";
+				param.schema.type = 'string';
+				param.schema.minLength = 8;
+				param.schema.pattern = "^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$";
 			}
 			if (filter.type == 'ID') {
-				param.type = 'string';
+				param.schema.type = 'string';
 			}
 			if (filter.type == 'datetime') {
-				param.type = 'string';
-				param.format = 'date-time';
+				param.schema.type = 'string';
+				param.schema.format = 'date-time';
 			}
 			if (filter.type == 'date') {
-				param.type = 'string';
-				param.format = 'date';
+				param.schema.type = 'string';
+				param.schema.format = 'date';
 			}
 			if (filter.type == 'character') {
-				param.type = 'string';
-				param.minLength = 1;
-				param.maxLength = 1;
+				param.schema.type = 'string';
+				param.schema.minLength = 1;
+				param.schema.maxLength = 1;
 			}
 			if (filter.default) {
-				param.default = filter.default;
-				if (param.type == 'integer') {
-					param.default = parseInt(filter.default,10);
+				param.schema.default = filter.default;
+				if (param.schema.type == 'integer') {
+					param.schema.default = parseInt(filter.default,10);
 				}
 			}
 			if (filter.min_value) {
-				param.minimum = filter.min_value;
+				param.schema.minimum = filter.min_value;
 			}
 			if (filter.max_value) {
-				param.maximum = filter.max_value;
+				param.schema.maximum = filter.max_value;
 			}
 			if (filter.multiple_values === true) {
-				param.items = {};
-				param.items.type = param.type;
-				param.type = 'array';
-				param.collectionFormat = 'multi';
-				if (param.default) {
-					param.items.default = param.default;
-					delete param.default;
+				param.schema.items = {};
+				param.schema.items.type = param.schema.type;
+				param.schema.type = 'array';
+				//param.collectionFormat = 'multi';
+				if (param.schema.default) {
+					param.schema.items.default = param.schema.default;
+					delete param.schema.default;
 				}
-				if (param.pattern) {
-					param.items.pattern = param.pattern;
-					delete param.pattern;
+				if (param.schema.pattern) {
+					param.schema.items.pattern = param.schema.pattern;
+					delete param.schema.pattern;
 				}
-				if (param.minLength) {
-					param.items.minLength = param.minLength;
-					delete param.minLength;
+				if (param.schema.minLength) {
+					param.schema.items.minLength = param.schema.minLength;
+					delete param.schema.minLength;
 				}
-				if (param.maxLength) {
-					param.items.maxLength = param.maxLength;
-					delete param.maxLength;
+				if (param.schema.maxLength) {
+					param.schema.items.maxLength = param.schema.maxLength;
+					delete param.schema.maxLength;
 				}
 			}
 			param.required = false;
 			if (filter.release_status == 'deprecated') {
-				param['x-deprecated'] = true;
+				param.deprecated = true;
 			}
 			params.push(param);
 		}
@@ -569,7 +593,7 @@ function processFeed(feed) {
 	cache.push(feedName+' : '+feedName+',\n');
 
 	var pathname = feed.href.replace('/nitro/api','');
-	var path = swagger.paths[pathname] = {};
+	var path = openapi.paths[pathname] = {};
 	path.get = {};
 	path.get.description = feed.title;
 	path.get.tags = ['feeds'];
@@ -613,13 +637,19 @@ function processFeed(feed) {
 	path.get.responses = {};
 	path.get.responses['200'] = {};
 	path.get.responses['200'].description = 'Nitro response';
-	path.get.responses['200'].schema = {};
-	path.get.responses['200'].schema['$ref'] = '#/definitions/nitro';
+	path.get.responses['200'].content = {};
+	path.get.responses['200'].content['application/json'] = {};
+	path.get.responses['200'].content['application/json'].schema = {};
+	path.get.responses['200'].content['application/json'].schema.$ref = '#/components/schemas/nitro';
+	path.get.responses['200'].content['application/xml'] = clone(path.get.responses['200'].content['application/json']);
 
 	path.get.responses.default = {};
 	path.get.responses.default.description = 'Unexpected error';
-	path.get.responses.default.schema = {};
-	path.get.responses.default.schema['$ref'] = '#/definitions/ErrorModel';
+	path.get.responses.default.content = {};
+	path.get.responses.default.content['application/json'] = {};
+	path.get.responses.default.content['application/json'].schema = {};
+	path.get.responses.default.content['application/json'].schema.$ref = '#/components/schemas/ErrorModel';
+	path.get.responses.default.content['application/xml'] = clone(path.get.responses.default.content['application/json']);
 
 	if (feed.release_status == 'deprecated') {
 		path.get.deprecated = true;
@@ -667,104 +697,6 @@ function processFeed(feed) {
 
 }
 
-//__________________________________________________________________
-function initSwagger() {
-	return JSON.parse(`{
-	  "swagger": "2.0",
-	  "info": {
-		"version": "1.0.0",
-		"title": "BBC Nitro API",
-		"x-logo": {
-			"url": "https://github.com/Mermade/bbcparse/blob/master/nitroApi/nitro-logo.png?raw=true"
-		},
-		"x-apiClientRegistration": {
-			"url": "https://developer.bbc.co.uk/user/register"
-		},
-		"x-origin": [
-			{
-				"url": "http://programmes.api.bbc.com/nitro/api",
-				"contentType": "application/json",
-				"converter": {
-					"url": "https://github.com/mermade/bbcparse",
-					"version": "1.0.0"
-				}
-			}
-		],
-		"description": "BBC Nitro is the BBC's application programming interface (API) for BBC Programmes Metadata.",
-		"termsOfService": "http://www.bbc.co.uk/terms/",
-		"contact": {
-		  "name": "Open Nitro Project",
-		  "email": "nitro@bbc.co.uk",
-		  "url": "http://developer.bbc.co.uk/"
-		},
-		"license": {
-		  "name": "Nitro Public License",
-		  "url": "https://developer.bbc.co.uk/nitropubliclicence/"
-		}
-	  },
-	  "externalDocs": {
-		"description": "Nitro for developers",
-		"url": "https://developer.bbc.co.uk/nitro"
-	  },
-	  "host": "bbc.co.uk",
-	  "basePath": "/nitro/api",
-	  "tags" : [{
-			"name" : "feeds",
-			"description" : "Nitro data feeds"
-		}, {
-			"name" : "schema",
-			"description" : "Nitro metadata"
-		}
-	  ],
-	  "schemes": [
-		"http",
-		"https"
-	  ],
-	  "consumes": [
-		"application/json"
-	  ],
-	  "produces": [
-		"application/json",
-		"application/xml"
-	  ],
-	  "paths": {
-	  },
-	  "definitions": {
-		"ErrorModel": {
-			"type": "object",
-			"properties": {
-				"fault": {
-					"type": "object",
-					"properties": {
-						"faultString": {
-							"type": "string"
-						},
-						"detail": {
-							"type": "object",
-							"properties": {
-								"errorcode": {
-									"type": "string"
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	  },
-      "securityDefinitions" : {
-		"api_key" : {
-			"type" : "apiKey",
-			"name" : "api_key",
-			"in" : "query"
-		}
-	  },
-	  "security": [{
-		  "api_key" : []
-	  }]
-	}`);
-}
-
 	/*
 	{ "fault": {
 		"faultstring": "Rate limit quota violation. Quota limit : 0 exceeded by 1. Total violation count : 1. Identifier : YOUR-API-KEY-HERE",
@@ -776,7 +708,6 @@ function initSwagger() {
 	/*
 	{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
 	*/
-
 
 //__________________________________________________________________
 function definePath(desc,id) {
@@ -792,72 +723,53 @@ function definePath(desc,id) {
 	path.get.responses['200'].description = 'Metadata response';
 	path.get.responses.default = {};
 	path.get.responses.default.description = 'Unexpected error';
-	path.get.responses.default.schema = {};
-	path.get.responses.default.schema['$ref'] = '#/definitions/ErrorModel';
+	path.get.responses.default.content = {};
+	path.get.responses.default.content['application/json'] = {};
+	path.get.responses.default.content['application/json'].schema = {};
+	path.get.responses.default.content['application/json'].schema.$ref = '#/components/schemas/ErrorModel';
+	path.get.responses.default.content['application/xml'] = clone(path.get.responses.default.content['application/json']);
 
 	return path;
 }
 
 //__________________________________________________________________
-function patchSwagger() {
+function patchopenapi() {
 
 	var debug = {};
 	debug.name = 'debug';
 	debug.in = 'query';
 	debug.description = 'Turn on debug information (undocumented)';
-	debug.type = 'boolean';
+	debug.schema = {};
+	debug.schema.type = 'boolean';
 	debug.required = false;
-	swagger.paths["/availabilities"].get.parameters.push(debug);
+	openapi.paths["/availabilities"].get.parameters.push(debug);
 
 	var embargoed = {};
 	embargoed.name = 'embargoed';
 	embargoed.in = 'query';
 	embargoed.description = 'Control return of embargoed items (undocumented)';
-	embargoed.type = 'string';
-	var e = ['include','exclude','only'];
-	embargoed.enum = e;
+	embargoed.schema = {};
+	embargoed.schema.type = 'string';
+	embargoed.schema.enum = ['include','exclude','only'];
 	embargoed.required = false;
-	swagger.paths["/programmes"].get.parameters.push(embargoed);
-	swagger.paths["/images"].get.parameters.push(embargoed);
-	swagger.paths["/groups"].get.parameters.push(embargoed);
-	swagger.paths["/versions"].get.parameters.push(embargoed);
+	openapi.paths["/programmes"].get.parameters.push(clone(embargoed));
+	openapi.paths["/images"].get.parameters.push(clone(embargoed));
+	openapi.paths["/groups"].get.parameters.push(clone(embargoed));
+	openapi.paths["/versions"].get.parameters.push(clone(embargoed));
 }
 
 //__________________________________________________________________
 function addRaw() {
-	swagger.tags = swagger.tags.concat(raw.tags);
+	openapi.tags = openapi.tags.concat(raw.tags);
 	for (var p in raw.paths) {
-		swagger.paths[p] = raw.paths[p];
-		swagger.paths[p].get.responses['200'].description = 'Nitro response';
-		swagger.paths[p].get.responses['200'].schema = {};
-		swagger.paths[p].get.responses['200'].schema['$ref'] = '#/definitions/nitro';
+		openapi.paths[p] = raw.paths[p];
+		openapi.paths[p].get.responses['200'].description = 'Nitro response';
+		openapi.paths[p].get.responses['200'].content = {};
+		openapi.paths[p].get.responses['200'].content['application/json'] = {};
+		openapi.paths[p].get.responses['200'].content['application/json'].schema = {};
+		openapi.paths[p].get.responses['200'].content['application/json'].schema.$ref = '#/components/schemas/nitro';
+		openapi.paths[p].get.responses['200'].content['application/xml'] = clone(openapi.paths[p].get.responses['200'].content['application/json']);
 	}
-}
-
-function recurse(obj,parent,callback,depthFirst) {
-	if (typeof obj != 'string') {
-		for (var key in obj) {
-			// skip loop if the property is from prototype
-			if (!obj.hasOwnProperty(key)) continue;
-
-			if (!depthFirst) callback(obj,parent,key);
-
-			var array = Array.isArray(obj);
-
-			if (typeof obj[key] === 'object') {
-				if (array) {
-					for (var i in obj[key]) {
-						recurse(obj[key][i],obj[key],callback);
-					}
-				}
-				recurse(obj[key],obj,callback);
-			}
-
-			if (depthFirst) callback(obj,parent,key);
-		}
-	}
-
-	return obj;
 }
 
 //__________________________________________________________________
@@ -876,31 +788,27 @@ function processXsd() {
 		return false;
 	}
 	else {
-		fs.writeFileSync('./nitroApi/nitro-schema.json',JSON.stringify(obj,null,2),'utf8');
+		fs.writeFileSync('./nitroApi/nitro-schema.yaml',yaml.safeDump(obj),'utf8');
 
-		recurse(obj,{},function(obj,parent,key){
-			if (key == 'anyOf') {
-				obj["x-anyOf"] = obj["anyOf"];
-				delete obj["anyOf"];
-				if (obj.additionalProperties === false) {
-					obj.additionalProperties = true;
-				}
+		var existing = openapi.components.schemas;
+		var root = obj.properties;
+		openapi.components.schemas = obj.definitions;
+		openapi.components.schemas.nitro = root.nitro;
+		openapi.components.schemas.nitro.additionalProperties = true; // cope with undefined 'items'
+		openapi.components.schemas.ErrorModel = existing.ErrorModel;
+		recurse(openapi.components.schemas,{},function(obj,key,state){
+			if ((key === '$ref') && (typeof obj.$ref === 'string') && (obj.$ref.startsWith('#/definitions/'))) {
+				obj.$ref = obj.$ref.replace('#/definitions/','#/components/schemas/');
 			}
 		});
 
-		var existing = swagger.definitions;
-		var root = obj.properties;
-		swagger.definitions = obj.definitions;
-		swagger.definitions.nitro = root.nitro;
-		swagger.definitions.nitro.additionalProperties = true; // cope with undefined 'items'
-		swagger.definitions.ErrorModel = existing.ErrorModel;
 		return true;
 	}
 }
 
 //__________________________________________________________________
 
-//https://github.com/swagger-api/swagger-spec/blob/master/versions/2.0.md
+//https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.1.md
 
 var canonical = JSON.stringify(api);
 
@@ -920,9 +828,9 @@ s.on('end', function() {
   digest = shasum.digest('hex');
 });
 
-swagger = initSwagger();
-swagger.host = host;
-swagger.info["x-origin"][0].converter.version = version;
+openapi = yrequire('nitroApi/nitro_openapi_header.yaml');
+openapi.servers = [ { url: 'https://'+host } ];
+openapi.info["x-origin"][0].converter.version = version;
 
 //api.feeds.feed.push(undocumented);
 
@@ -936,12 +844,12 @@ for (var f in api.feeds.feed) {
 }
 
 // these do not return the nitro object model
-swagger.paths['/'] = definePath('Get API definition','getAPI');
-swagger.paths['/schema'] = definePath('Get Schema definition','getXSD');
+openapi.paths['/'] = definePath('Get API definition','getAPI');
+openapi.paths['/schema'] = definePath('Get Schema definition','getXSD');
 
 var jsonSchemaOk = processXsd();
 
-patchSwagger();
+patchopenapi();
 addRaw();
 
 process.on('exit',function(){
@@ -957,17 +865,19 @@ process.on('exit',function(){
 	fs.closeSync(api_fh);
 
 	if (jsonSchemaOk) {
-		console.log('Validating swagger spec...');
-		var validate = ajv.compile(swaggerSchema);
-		validate(swagger);
+		console.log('Validating OpenAPI document...');
+		var validate = ajv.compile(openapiSchema);
+		validate(openapi);
 		var errors = validate.errors;
 		if (errors) {
 			console.log(errors);
+			let openapiStr = yaml.dump(openapi);
+			fs.writeFileSync('./nitroApi/openapi.err',openapiStr);
 		}
 		else {
-			console.log('Writing swagger spec');
-			var swaggerStr = JSON.stringify(swagger,null,'\t');
-			fs.writeFileSync('./nitroApi/swagger.json',swaggerStr);
+			console.log('Writing OpenAPI document');
+			let openapiStr = yaml.safeDump(openapi);
+			fs.writeFileSync('./nitroApi/openapi.yaml',openapiStr);
 		}
 	}
 	else {

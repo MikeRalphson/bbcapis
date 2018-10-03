@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  description: Nitro RAW
+  version: 1.0.0
+  title: Nitro RAW
+  contact: {}
+  license:
+    name: Nitro Public License
+    url: 'https://developer.bbc.co.uk/nitropubliclicence/'
+tags:
+  - name: Raw
+    description: Nitro Raw
+paths:
+  '/v1/brands/{pid}':
+    get:
+      tags:
+        - Raw
+      summary: Get raw brand
+      description: Get raw brand
+      operationId: Get_Raw_brand
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/v1/brands/{pid}/franchises/':
+    get:
+      tags:
+        - Raw
+      summary: Get raw brand franchise
+      description: Get raw brand franchises
+      operationId: Get_Raw_brand franchises
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/v1/episodes/{pid}':
+    get:
+      tags:
+        - Raw
+      summary: Get raw episode
+      description: Get raw episode
+      operationId: Get_Raw_episode
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/v1/episodes/{pid}/ancestors/':
+    get:
+      tags:
+        - Raw
+      summary: Get raw ancestors
+      description: Get raw ancestors
+      operationId: Get_Raw_ancestors
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/v1/episodes/{pid}/formats/':
+    get:
+      tags:
+        - Raw
+      summary: Get raw formats
+      description: Get raw formats
+      operationId: Get_Raw_formats
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/v1/episodes/{pid}/genre_groups/':
+    get:
+      tags:
+        - Raw
+      summary: Get raw genre groups
+      description: Get raw genre groups
+      operationId: Get_Raw_genre_groups
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/v1/images/{pid}':
+    get:
+      tags:
+        - Raw
+      summary: Get raw image
+      description: Get raw image
+      operationId: Get_Raw_image
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/v1/master_brands/{mbid}':
+    get:
+      tags:
+        - Raw
+      summary: Get raw masterbrand
+      description: Get raw masterbrand
+      operationId: Get_Raw_masterbrand
+      parameters:
+        - name: mbid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+  '/v1/promotions/{pid}':
+    get:
+      tags:
+        - Raw
+      summary: Get raw promotion
+      description: Get raw promotion
+      operationId: Get_Raw_promotion
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+servers:
+  - url: 'http://programmes.api.bbc.com/nitro/api'
+  - url: 'https://programmes.api.bbc.com/nitro/api'
