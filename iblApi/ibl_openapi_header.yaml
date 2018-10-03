@@ -1,0 +1,811 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  x-release: ''
+  title: BBC iPlayer Business Layer
+  description: The definitive iPlayer API.
+  x-logo:
+    url: 'http://static.bbci.co.uk/tviplayer/1.101.2/img/navigation/iplayer_pink.svg'
+    backgroundColor: '#FFFFFF'
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+  contact:
+    name: Open iBL Project
+    email: ibl-team@lists.forge.bbc.co.uk
+    url: 'http://developer.bbc.co.uk/'
+externalDocs:
+  description: BBC iPlayer documentation
+  url: 'http://smethur.st/posts/176135860'
+security:
+  - api_key: []
+paths:
+  '/programmes/{pid}':
+    get:
+      summary: Programme for a given pid.
+      description: Get the programme for a given programme identifier.
+      tags:
+        - Programmes (TLEOs)
+      operationId: Get_Programmes by parent PID_
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/initial_child_count'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/programmes/{pid}/episodes':
+    get:
+      summary: Child episodes for a given programme pid.
+      description: Get the child episodes belonging to a given programme identifier.
+      tags:
+        - Episodes
+      operationId: Get_Episodes by parent PID_
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/initial_child_count'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/episodes/{pid}':
+    get:
+      summary: Episode for a given pid.
+      description: Get the episode for a given episode identifier.
+      tags:
+        - Episodes
+      operationId: Get_Programme by PID_
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/mixin'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/atoz/{letter}/programmes':
+    get:
+      summary: Programmes by initial title character
+      description: Get the Programmes whose title begins with the given initial character.
+      tags:
+        - A to Z
+      operationId: Get_Programmes AtoZ search_
+      parameters:
+        - name: letter
+          in: path
+          required: true
+          description: 'Letter to search by, a to z or the string ''0-9'''
+          schema:
+            type: string
+            pattern: '[a-z](0-9)'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/initial_child_count'
+        - name: sort
+          in: query
+          required: true
+          description: The sort order of the results.
+          schema:
+            type: string
+            enum:
+              - title
+        - $ref: '#/components/parameters/sort_direction'
+        - $ref: '#/components/parameters/availability'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/episodes/{pid}/prerolls':
+    get:
+      summary: Get Trailers (pre-rolls)
+      description: Get Trailers (pre-rolls)
+      tags:
+        - Episodes
+      operationId: Get_Trailers (pre-rolls)_
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/episodes/{pid}/postrolls':
+    get:
+      summary: Get Follow-ups (post-rolls)
+      description: Get Follow-ups (post-rolls)
+      tags:
+        - Episodes
+      operationId: getPostRolls
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/episodes/{pid}/next':
+    get:
+      summary: Get Onward Journey
+      description: Get Onward Journey (next programme)
+      tags:
+        - Episodes
+      operationId: Get_Onward_Journey
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/clips/{pid}':
+    get:
+      summary: Get Clips
+      description: Get Clips
+      tags:
+        - Episodes
+      operationId: Get_Clips_
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /search-suggest:
+    get:
+      summary: Search-suggest
+      description: Search-suggest
+      tags:
+        - Search
+      operationId: Search-suggest_
+      parameters:
+        - $ref: '#/components/parameters/q'
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/channels/{channel}/schedule/{date}':
+    get:
+      summary: Get schedule by channel
+      description: Get schedule by channel
+      tags:
+        - Channels
+      operationId: Get_Schedule by channel_
+      parameters:
+        - $ref: '#/components/parameters/channel'
+        - name: date
+          in: path
+          required: true
+          description: 'The date to return the schedule for, yyyy-mm-dd format'
+          schema:
+            type: string
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/channels/{channel}/highlights':
+    get:
+      summary: List the highlights for a channel.
+      description: Get the editorial highlights of a given channel in TV & iPlayer.
+      tags:
+        - Channels
+      operationId: Get_Highlights by channel_
+      parameters:
+        - $ref: '#/components/parameters/channel'
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - name: live
+          in: query
+          required: false
+          description: Whether to include live programmes
+          schema:
+            type: boolean
+        - $ref: '#/components/parameters/mixin'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /search:
+    get:
+      summary: Search
+      description: Search
+      tags:
+        - Search
+      operationId: Search_
+      parameters:
+        - $ref: '#/components/parameters/q'
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /categories:
+    get:
+      summary: Get categories
+      description: Get the list of all the categories in TV & iPlayer.
+      tags:
+        - Categories
+      operationId: Get_Categories_
+      parameters:
+        - $ref: '#/components/parameters/lang'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/categories/{category}':
+    get:
+      summary: Get sub-categories
+      description: Get sub-categories
+      tags:
+        - Categories
+      operationId: Get_Sub-categories_
+      parameters:
+        - $ref: '#/components/parameters/category'
+        - $ref: '#/components/parameters/lang'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/categories/{category}/programmes':
+    get:
+      summary: List all the programmes for a category.
+      description: >-
+        Get the list of all the Programmes (TLEOs) for a given category in TV &
+        iPlayer.
+      tags:
+        - Programmes (TLEOs)
+      operationId: Get_Programmes by category_
+      parameters:
+        - $ref: '#/components/parameters/category'
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/categories/{category}/episodes':
+    get:
+      summary: List all the episodes for a category.
+      description: Get the list of all the episodes for a given category in TV & iPlayer.
+      tags:
+        - Episodes
+      operationId: Get_Episodes by category_
+      parameters:
+        - $ref: '#/components/parameters/category'
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - name: sort
+          in: query
+          required: false
+          description: The sort order of the results.
+          schema:
+            type: string
+            enum:
+              - recent
+              - popular
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/episodes/{pid}/recommendations':
+    get:
+      summary: Get programme recommendations
+      description: Get programme recommendations
+      tags:
+        - Episodes
+      operationId: Get_Programme recommendations_
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /status:
+    get:
+      summary: Get status
+      description: >-
+        Get the current iPlayer business layer status. This tells the caller the
+        status of the iPlayer data, but not necessarily the overall status of
+        the website. In the future it might include the status of the dependent
+        data services within the BBC.
+      tags:
+        - Metadata
+      operationId: Get_Status_
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /channels:
+    get:
+      summary: List all the channels.
+      description: Get the list of all the channels TV & iPlayer.
+      tags:
+        - Channels
+      operationId: Get_Channels_
+      parameters:
+        - name: region
+          in: query
+          required: false
+          description: The region to get the channels for.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/lang'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /groups/popular/episodes:
+    get:
+      summary: Get programmes popular
+      description: Get programmes popular
+      tags:
+        - Episodes
+      operationId: Get_Programmes popular_
+      parameters:
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/initial_child_count'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/sort_direction'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/mixin'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/groups/{pid}/episodes':
+    get:
+      summary: 'Get episodes by group, brand or series'
+      description: 'Get episodes by group, brand or series'
+      tags:
+        - Episodes
+      operationId: Get_Episodes by group_
+      parameters:
+        - $ref: '#/components/parameters/pid'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/initial_child_count'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/sort_direction'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/mixin'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/categories/{category}/highlights':
+    get:
+      summary: List the highlights for a category.
+      description: Get the editorial highlights of a given category in TV & iPlayer.
+      tags:
+        - Programmes (TLEOs)
+      operationId: Get_Highlights by category_
+      parameters:
+        - $ref: '#/components/parameters/category'
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/mixin'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/channels/{channel}/programmes':
+    get:
+      summary: Get programmes by channel
+      description: Get programmes by channel
+      tags:
+        - Programmes (TLEOs)
+      operationId: Get_Programmes by channel_
+      parameters:
+        - $ref: '#/components/parameters/channel'
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/per_page'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /regions:
+    get:
+      summary: List all regions
+      description: Get the list of all the regions TV & iPlayer.
+      tags:
+        - Regions
+      operationId: Get_Regions_
+      parameters:
+        - $ref: '#/components/parameters/lang'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /user/watching:
+    get:
+      summary: Get user watching
+      description: Get user watching
+      tags:
+        - User
+      operationId: Get_User watching_
+      parameters:
+        - $ref: '#/components/parameters/identity_cookie'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /schema/ibl.json:
+    get:
+      summary: Get schema
+      description: Get schema
+      tags:
+        - Metadata
+      operationId: Get_Schema_
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  '/channels/{channel}/broadcasts':
+    get:
+      summary: Get broadcasts by channel
+      description: Get broadcasts by channel
+      tags:
+        - Programmes (TLEOs)
+      operationId: Get_Broadcasts by channel_
+      parameters:
+        - $ref: '#/components/parameters/channel'
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/mixin'
+        - $ref: '#/components/parameters/per_page'
+        - name: from
+          in: query
+          required: false
+          description: 'Time to return results from, e.g. -3h'
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /user/purchases:
+    get:
+      summary: Get user store purchases
+      description: Get user store purchases
+      tags:
+        - User
+      operationId: Get_User store purchases_
+      parameters:
+        - $ref: '#/components/parameters/identity_cookie'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security:
+        - basic: []
+  /user/recommendations:
+    get:
+      summary: Get user store recommendations
+      description: Get user store recommendations
+      tags:
+        - User
+      operationId: Get_User store recommendations_
+      parameters:
+        - $ref: '#/components/parameters/identity_cookie'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+  /home/highlights:
+    get:
+      summary: Get programme highlights
+      description: Get programme highlights
+      tags:
+        - Programmes (TLEOs)
+      operationId: Get_Programme highlights_
+      parameters:
+        - $ref: '#/components/parameters/lang'
+        - $ref: '#/components/parameters/rights'
+        - $ref: '#/components/parameters/availability'
+        - $ref: '#/components/parameters/mixin'
+      responses:
+        '200':
+          description: Default response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ibl'
+      security: []
+servers:
+  - url: 'https://ibl.api.bbci.co.uk/ibl/v1'
+  - url: 'http://ibl.api.bbci.co.uk/ibl/v1'
+components:
+  parameters:
+    pid:
+      name: pid
+      in: path
+      required: true
+      description: The programme identifier.
+      schema:
+        type: string
+        minLength: 8
+        pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+    rights:
+      name: rights
+      in: query
+      required: true
+      description: The rights group to limit results to.
+      schema:
+        type: string
+        enum:
+          - mobile
+          - tv
+          - web
+        default: web
+    availability:
+      name: availability
+      in: query
+      required: true
+      description: 'Whether to return all, or available programmes'
+      schema:
+        type: string
+        enum:
+          - all
+          - available
+        default: available
+    initial_child_count:
+      name: initial_child_count
+      in: query
+      required: true
+      description: The depth to return child entities.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 4
+        default: 4
+    mixin:
+      name: mixin
+      in: query
+      required: false
+      description: Request additional data in the output
+      explode: true
+      schema:
+        type: array
+        items:
+          type: string
+        enum:
+          - live
+          - promotions
+    page:
+      name: page
+      in: query
+      required: true
+      description: The page index.
+      schema:
+        type: integer
+        format: int64
+    per_page:
+      name: per_page
+      in: query
+      required: true
+      description: The number of results to return.
+      schema:
+        type: integer
+        format: int64
+    sort_direction:
+      name: sort_direction
+      in: query
+      required: true
+      description: Whether to sort ascending or descending
+      schema:
+        type: string
+        enum:
+          - asc
+          - desc
+    q:
+      name: q
+      in: query
+      required: true
+      description: The term to search for.
+      schema:
+        type: string
+    lang:
+      name: lang
+      in: query
+      required: true
+      description: The language for any applicable localised strings.
+      schema:
+        type: string
+        enum:
+          - en
+          - cy
+          - ga
+          - gd
+          - pi
+    channel:
+      name: channel
+      in: path
+      required: true
+      description: The channel identifier to limit results to.
+      schema:
+        type: string
+    category:
+      name: category
+      in: path
+      required: true
+      description: The category identifier to return results from.
+      schema:
+        type: string
+    sort:
+      name: sort
+      in: query
+      required: true
+      description: The sort order of the results.
+      schema:
+        type: string
+    identity_cookie:
+      name: identity_cookie
+      in: query
+      required: true
+      description: The BBC-id cookie value
+      schema:
+        type: number
+        format: double
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: query
+    basic:
+      type: http
+      description: Used only by store purchases.
+      scheme: basic
+  schemas:
+    ibl: {}

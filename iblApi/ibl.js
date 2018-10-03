@@ -335,5 +335,6 @@ module.exports = {
   getUserPurchases : getUserPurchases,
   getUserRecommendations : getUserRecommendations,
   getHomeHighlights : getHomeHighlights,
-  host : 'ibl.api.bbci.co.uk'
+  host : 'ibl.api.bbci.co.uk',
+  servers : [{"url":"https://ibl.api.bbci.co.uk/ibl/v1"},{"url":"http://ibl.api.bbci.co.uk/ibl/v1"}]
 };

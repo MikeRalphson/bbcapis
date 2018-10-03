@@ -31,10 +31,12 @@
   },
   "homepage": "https://github.com/Mermade/bbcparse#readme",
   "dependencies": {
-    "ajv": "^4.8.2",
+    "ajv": "^5.5.2",
     "jgexml": "latest",
+    "js-yaml": "^3.12.0",
     "node-getopt": "^0.2.3",
-    "openapi2js": "latest",
-    "recursive-readdir": "^2.0.0"
+    "openapi2js": "^1.1.1",
+    "recursive-readdir": "^2.0.0",
+    "reftools": "^1.0.2"
   }
 }
