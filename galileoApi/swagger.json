@@ -1,0 +1,1482 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Api service that exposes some functionality to interact with other galileo components",
+    "version": "@project.version@-@project.release@",
+    "title": "Media Tools - Galileo Web Service",
+    "contact": {
+      "name": "BBC Media Tools",
+      "url": "https://confluence.dev.bbc.co.uk/display/mediatools/Contact",
+      "email": "D&EPlatformiBroadcast@bbc.co.uk"
+    }
+  },
+  "host": "galileo-ws.int.api.bbci.co.uk",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "image-publisher-controller",
+      "description": "Image Publisher Controller"
+    },
+    {
+      "name": "status-controller",
+      "description": "Status Controller"
+    },
+    {
+      "name": "message-controller",
+      "description": "Message Controller"
+    },
+    {
+      "name": "availability-controller",
+      "description": "Availability Controller"
+    },
+    {
+      "name": "Rekall",
+      "description": "Exposes Rekall QC copy (Preview) for publication and preview retrievals"
+    },
+    {
+      "name": "revoke-controller",
+      "description": "Revoke Controller"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "status-controller"
+        ],
+        "summary": "status",
+        "operationId": "statusUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/vnd.spring-boot.actuator.v1+json",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "principal",
+            "description": "principal",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Principal"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/v1/clip/{pid}/availability": {
+      "get": {
+        "tags": [
+          "availability-controller"
+        ],
+        "summary": "Indicates if there is an available ondemand for a Clip with the given pid",
+        "operationId": "isClipAvailableUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "pid",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AvailabilityDTO"
+            }
+          }
+        }
+      }
+    },
+    "/v1/clip/{programmeId}/revoke": {
+      "put": {
+        "tags": [
+          "revoke-controller"
+        ],
+        "summary": "revokeClip",
+        "operationId": "revokeClipUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "programmeId",
+            "in": "path",
+            "description": "programmeId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "header",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SSL_CLIENT_S_DN_EMAIL",
+            "in": "header",
+            "description": "SSL_CLIENT_S_DN_EMAIL",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/v1/episode/{pid}/availability": {
+      "get": {
+        "tags": [
+          "availability-controller"
+        ],
+        "summary": "Indicates if there is an available ondemand for a Episode with the given pid",
+        "operationId": "isEpisodeAvailableUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "pid",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AvailabilityDTO"
+            }
+          }
+        }
+      }
+    },
+    "/v1/episode/{programmeId}/revoke": {
+      "put": {
+        "tags": [
+          "revoke-controller"
+        ],
+        "summary": "revokeEpisode",
+        "operationId": "revokeEpisodeUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "programmeId",
+            "in": "path",
+            "description": "programmeId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "header",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SSL_CLIENT_S_DN_EMAIL",
+            "in": "header",
+            "description": "SSL_CLIENT_S_DN_EMAIL",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/v1/image": {
+      "post": {
+        "tags": [
+          "image-publisher-controller"
+        ],
+        "summary": "publish",
+        "operationId": "publishUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "message",
+            "description": "message",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImageMessage"
+            }
+          },
+          {
+            "in": "body",
+            "name": "errors",
+            "description": "errors",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/ImageMessage"
+            }
+          }
+        }
+      }
+    },
+    "/v1/image/{imagePid}": {
+      "put": {
+        "tags": [
+          "image-publisher-controller"
+        ],
+        "summary": "mediaReplacement",
+        "operationId": "mediaReplacementUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "imagePid",
+            "in": "path",
+            "description": "imagePid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "message",
+            "description": "message",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImageMessage"
+            }
+          },
+          {
+            "in": "body",
+            "name": "errors",
+            "description": "errors",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ImageMessage"
+            }
+          }
+        }
+      }
+    },
+    "/v1/message": {
+      "post": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "publishMessage",
+        "operationId": "publishMessageUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "message",
+            "description": "message",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GalileoPublishMessage"
+            }
+          }
+        }
+      }
+    },
+    "/v1/message/{activityId}": {
+      "get": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "getMessage",
+        "operationId": "getMessageUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "description": "activityId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/v1/rekall/find": {
+      "get": {
+        "tags": [
+          "Rekall"
+        ],
+        "summary": "Retrieves the record for a given S3 location stored in the Rekall Publication Store",
+        "operationId": "findUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "s3Location",
+            "required": false,
+            "type": "string",
+            "default": "s3://int-galileo-interface-mt-resources-inputbucket-i3g48dkvmuft/castaway/Big_Buck_Bunny_negative-1d532109-592c-4d56-8f14-c2af56411e71.mp4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "There is no record for the given s3 location"
+          }
+        }
+      }
+    },
+    "/v1/rekall/preview": {
+      "get": {
+        "tags": [
+          "Rekall"
+        ],
+        "summary": "Retrieves the Presigned Url for a given S3 location stored in the Rekall Publication Store",
+        "operationId": "getPreviewUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "s3Location",
+            "required": false,
+            "type": "string",
+            "default": "s3://int-galileo-interface-mt-resources-inputbucket-i3g48dkvmuft/castaway/Big_Buck_Bunny_negative-1d532109-592c-4d56-8f14-c2af56411e71.mp4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "There is not a non expired Presigned URL for the given s3 location"
+          },
+          "410": {
+            "description": "Presigned URL exists but it is expired"
+          }
+        }
+      }
+    },
+    "/v1/rekall/qccopy": {
+      "post": {
+        "tags": [
+          "Rekall"
+        ],
+        "summary": "Publish a QC Copy to the Rekall QC Copy Route",
+        "operationId": "publishRekallQcCopyUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "qcCopy",
+            "description": "qcCopy",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QcCopy"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/QcCopy"
+            }
+          }
+        }
+      }
+    },
+    "/v1/version/{pid}/availability": {
+      "get": {
+        "tags": [
+          "availability-controller"
+        ],
+        "summary": "Indicates if there is an available ondemand for a Version with the given pid",
+        "operationId": "isVersionAvailableUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "pid",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AvailabilityDTO"
+            }
+          }
+        }
+      }
+    },
+    "/v1/version/{versionId}/revoke": {
+      "put": {
+        "tags": [
+          "revoke-controller"
+        ],
+        "summary": "revokeVersion",
+        "operationId": "revokeVersionUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "versionId",
+            "in": "path",
+            "description": "versionId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "header",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SSL_CLIENT_S_DN_EMAIL",
+            "in": "header",
+            "description": "SSL_CLIENT_S_DN_EMAIL",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "partner_id": {
+          "type": "string"
+        },
+        "user_group_id": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      }
+    },
+    "Tracking": {
+      "type": "object",
+      "properties": {
+        "customer": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "activity_id": {
+          "type": "string"
+        },
+        "clip": {
+          "$ref": "#/definitions/Clip"
+        },
+        "contributions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Contribution"
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Image"
+          }
+        },
+        "news_hub": {
+          "$ref": "#/definitions/Syndication"
+        },
+        "podcast": {
+          "$ref": "#/definitions/Podcast"
+        },
+        "publisher": {
+          "type": "string"
+        },
+        "publisher_activity_id": {
+          "type": "string"
+        },
+        "related_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RelatedLink"
+          }
+        },
+        "significant_update": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/definitions/Status"
+        },
+        "syndication": {
+          "$ref": "#/definitions/Syndication"
+        },
+        "taggings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tagging"
+          }
+        },
+        "tags": {
+          "$ref": "#/definitions/Tags"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        },
+        "version": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "TagConcept": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "delete",
+            "edit",
+            "none",
+            "publish",
+            "version_only_publish"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "about",
+            "mentions"
+          ]
+        },
+        "url": {
+          "$ref": "#/definitions/URI"
+        }
+      }
+    },
+    "Contributor": {
+      "type": "object",
+      "properties": {
+        "family_name": {
+          "type": "string"
+        },
+        "given_name": {
+          "type": "string"
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Id"
+          }
+        },
+        "pid": {
+          "type": "string"
+        },
+        "presentation_name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "Image": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "delete",
+            "edit",
+            "none",
+            "publish",
+            "version_only_publish"
+          ]
+        },
+        "author": {
+          "type": "string"
+        },
+        "embargoed": {
+          "type": "boolean"
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Id"
+          }
+        },
+        "image_type": {
+          "type": "string",
+          "enum": [
+            "standard",
+            "portrait",
+            "podcast",
+            "store",
+            "letterbox",
+            "with_programme_logo"
+          ]
+        },
+        "mime_type": {
+          "type": "string",
+          "enum": [
+            "JPEG",
+            "GIF",
+            "PNG",
+            "SVG",
+            "TIFF"
+          ]
+        },
+        "pid": {
+          "type": "string"
+        },
+        "publication_type": {
+          "type": "string",
+          "enum": [
+            "media_replacement",
+            "image_publication"
+          ]
+        },
+        "relationship": {
+          "$ref": "#/definitions/Relationship"
+        },
+        "s3_location": {
+          "$ref": "#/definitions/URI"
+        },
+        "synopses": {
+          "$ref": "#/definitions/Synopses"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "QcCopy": {
+      "type": "object",
+      "properties": {
+        "message_version": {
+          "type": "string"
+        },
+        "qc_media": {
+          "$ref": "#/definitions/QcMedia"
+        },
+        "tracking": {
+          "$ref": "#/definitions/Tracking"
+        }
+      }
+    },
+    "URI": {
+      "type": "object",
+      "properties": {
+        "authority": {
+          "type": "string"
+        },
+        "fragment": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "query": {
+          "type": "string"
+        },
+        "scheme": {
+          "type": "string"
+        },
+        "scheme_specific_part": {
+          "type": "string"
+        },
+        "user_info": {
+          "type": "string"
+        }
+      }
+    },
+    "DateTime": {
+      "type": "object",
+      "properties": {
+        "chronology": {
+          "$ref": "#/definitions/Chronology"
+        },
+        "millis": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Clip": {
+      "type": "object",
+      "properties": {
+        "abstract_ondemand_pids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "delete",
+            "edit",
+            "none",
+            "publish",
+            "version_only_publish"
+          ]
+        },
+        "advertising_type": {
+          "type": "string",
+          "enum": [
+            "none",
+            "commercial"
+          ]
+        },
+        "alternate_id": {
+          "type": "string"
+        },
+        "aspect_ratio": {
+          "type": "string"
+        },
+        "asset": {
+          "$ref": "#/definitions/Asset"
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Asset"
+          }
+        },
+        "availability": {
+          "$ref": "#/definitions/Availability"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "clip_pid": {
+          "type": "string"
+        },
+        "clip_status": {
+          "$ref": "#/definitions/ClipStatus"
+        },
+        "duration_millis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "embargoed": {
+          "type": "boolean"
+        },
+        "embeddable": {
+          "type": "boolean"
+        },
+        "formats": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Id"
+          }
+        },
+        "info_labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "master_brand_id": {
+          "type": "string"
+        },
+        "media_type": {
+          "type": "string",
+          "enum": [
+            "audio_video",
+            "audio"
+          ]
+        },
+        "parent_pid": {
+          "type": "string"
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "PC",
+              "STB",
+              "MOBILE",
+              "CONSOLE",
+              "NODRM",
+              "PODCAST",
+              "DOWNLOAD",
+              "DOWNLOAD_DRM"
+            ]
+          }
+        },
+        "position": {
+          "type": "string"
+        },
+        "programme_type": {
+          "type": "string",
+          "enum": [
+            "CLIP",
+            "EPISODE"
+          ]
+        },
+        "rekall_id": {
+          "type": "string"
+        },
+        "revocation_status": {
+          "type": "string",
+          "enum": [
+            "revoked",
+            "reinstated"
+          ]
+        },
+        "revoke_version_types": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "rights_policy": {
+          "type": "string",
+          "enum": [
+            "seven_uk_audiovideo",
+            "seven_nonuk_audiovideo",
+            "seven_intl_audiovideo",
+            "forever_uk_audiovideo",
+            "forever_nonuk_audiovideo",
+            "forever_intl_audiovideo",
+            "thirty_uk_audiovideo",
+            "thirty_nonuk_audiovideo",
+            "thirty_intl_audiovideo"
+          ]
+        },
+        "syndication": {
+          "type": "boolean"
+        },
+        "synopses": {
+          "$ref": "#/definitions/Synopses"
+        },
+        "territories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "uk",
+              "nonuk"
+            ]
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "version_only_publish_hack": {
+          "type": "boolean"
+        },
+        "version_pid": {
+          "type": "string"
+        },
+        "version_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ImageMessage": {
+      "type": "object",
+      "properties": {
+        "image": {
+          "$ref": "#/definitions/Image"
+        },
+        "partner_id": {
+          "type": "string"
+        },
+        "publish_to_editorial_repo": {
+          "type": "boolean"
+        },
+        "user": {
+          "$ref": "#/definitions/User"
+        }
+      }
+    },
+    "RelatedLink": {
+      "type": "object",
+      "properties": {
+        "availability": {
+          "$ref": "#/definitions/Availability"
+        },
+        "external": {
+          "type": "boolean"
+        },
+        "synopses": {
+          "$ref": "#/definitions/Synopses"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "$ref": "#/definitions/URI"
+        }
+      }
+    },
+    "Asset": {
+      "type": "object",
+      "properties": {
+        "aspect_ratio": {
+          "type": "string"
+        },
+        "competition_warning": {
+          "type": "boolean"
+        },
+        "duration_millis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Id"
+          }
+        },
+        "map_id": {
+          "type": "string"
+        },
+        "media_file_size": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "profile_name": {
+          "type": "string"
+        },
+        "rekall_id": {
+          "type": "string"
+        },
+        "s3_location": {
+          "$ref": "#/definitions/URI"
+        },
+        "s3_output_location": {
+          "$ref": "#/definitions/URI"
+        },
+        "status": {
+          "type": "string"
+        },
+        "subtitle_s3_location": {
+          "type": "string"
+        },
+        "taggings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tagging"
+          }
+        },
+        "version_pid": {
+          "type": "string"
+        },
+        "version_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Chronology": {
+      "type": "object"
+    },
+    "AvailabilityDTO": {
+      "type": "object",
+      "properties": {
+        "is_house_kept": {
+          "type": "boolean"
+        },
+        "pid": {
+          "type": "string"
+        }
+      }
+    },
+    "ClipStatus": {
+      "type": "object",
+      "properties": {
+        "clip_status_code": {
+          "type": "string",
+          "enum": [
+            "ALL_COMPLETE",
+            "BASELINE_COMPLETE",
+            "BASELINE_ERROR",
+            "PENDING",
+            "ERROR",
+            "IN_PROGRESS"
+          ]
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Tags": {
+      "type": "object",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "pid": {
+          "type": "string"
+        },
+        "tag_concepts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TagConcept"
+          }
+        }
+      }
+    },
+    "GalileoPublishMessage": {
+      "type": "object",
+      "properties": {
+        "activity_id": {
+          "type": "string"
+        }
+      }
+    },
+    "Availability": {
+      "type": "object",
+      "properties": {
+        "end": {
+          "$ref": "#/definitions/DateTime"
+        },
+        "start": {
+          "$ref": "#/definitions/DateTime"
+        }
+      }
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "accepted": {
+          "$ref": "#/definitions/DateTime"
+        },
+        "code": {
+          "type": "string",
+          "enum": [
+            "COMPLETED_WITH_ERRORS",
+            "IN_PROGRESS_WITH_ERRORS",
+            "BAD_MESSAGE",
+            "ERROR",
+            "SUCCESS",
+            "NOT_STARTED",
+            "IN_PROGRESS",
+            "DUPLICATED"
+          ]
+        },
+        "last_updated": {
+          "$ref": "#/definitions/DateTime"
+        },
+        "message": {
+          "type": "string"
+        },
+        "reply_to": {
+          "$ref": "#/definitions/URI"
+        },
+        "started": {
+          "$ref": "#/definitions/DateTime"
+        },
+        "workflow": {
+          "$ref": "#/definitions/Workflow"
+        }
+      }
+    },
+    "Synopses": {
+      "type": "object"
+    },
+    "QcMedia": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "Podcast": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "PUBLISH"
+          ]
+        },
+        "content_disposition_filename": {
+          "type": "string"
+        },
+        "metadata": {
+          "$ref": "#/definitions/PodcastMetadata"
+        },
+        "pid": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "COMPLETE",
+            "ERROR"
+          ]
+        }
+      }
+    },
+    "Workflow": {
+      "type": "object",
+      "properties": {
+        "component_name": {
+          "type": "string",
+          "enum": [
+            "VERSION_PUBLISHER",
+            "TRANSCODE_SERVICE",
+            "MEDIA_DISTRIBUTOR",
+            "MEDIA_DISTRIBUTOR_SYNDICATION",
+            "MEDIA_ASSET_PUBLISHER",
+            "TAG_PUBLISHER",
+            "IMAGE_PUBLISHER",
+            "ROUTER",
+            "WS",
+            "SYNDICATION",
+            "SQUEAKER",
+            "REKALL",
+            "CONTRIBUTION_PUBLUSHER"
+          ]
+        },
+        "component_status": {
+          "type": "string",
+          "enum": [
+            "COMPLETE",
+            "ERROR",
+            "BAD_MESSAGE",
+            "IN_PROGRESS"
+          ]
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "PodcastImage": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/URI"
+        },
+        "pid": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "COVER_FRONT"
+          ]
+        }
+      }
+    },
+    "Relationship": {
+      "type": "object",
+      "properties": {
+        "pid": {
+          "type": "string"
+        },
+        "target_entity_pid": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "is_image_for",
+            "is_gallery_for",
+            "is_collection_for",
+            "is_alternate_image_for",
+            "is_thumbnail_for",
+            "iplayer_link_promotional_image_for",
+            "satisfies"
+          ]
+        }
+      }
+    },
+    "Tagging": {
+      "type": "object",
+      "properties": {
+        "namespace": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "target_object": {
+          "type": "string",
+          "enum": [
+            "PROGRAMME",
+            "VERSION"
+          ]
+        },
+        "target_pid": {
+          "type": "string"
+        }
+      }
+    },
+    "Id": {
+      "type": "object",
+      "properties": {
+        "authority": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "Syndication": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "START",
+            "STOP"
+          ]
+        },
+        "pid": {
+          "type": "string"
+        },
+        "syndication_status": {
+          "type": "string",
+          "enum": [
+            "COMPLETE",
+            "ERROR"
+          ]
+        }
+      }
+    },
+    "Contribution": {
+      "type": "object",
+      "properties": {
+        "contributor": {
+          "$ref": "#/definitions/Contributor"
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      }
+    },
+    "PodcastMetadata": {
+      "type": "object",
+      "properties": {
+        "album": {
+          "type": "string"
+        },
+        "artist": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "copyright": {
+          "type": "string"
+        },
+        "genre": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PodcastImage"
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "year": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

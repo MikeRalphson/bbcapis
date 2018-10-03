@@ -1,12 +1,14 @@
 'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
-var nitro = require('./nitroSdk');
-var api = require('./nitroApi/api.js');
+const nitro = require('./nitroSdk');
+const api = require('./nitroApi/api.js');
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 //_____________________________________________________________________________
-var config, apiKey, host;
+let config, apiKey, host;
 try {
 	config = require('./config.json');
 	apiKey = config.nitro.api_key;
@@ -16,7 +18,7 @@ catch (e) {
 	console.log('Please rename config.json.example to config.json and edit for your setup');
 	process.exit(2);
 }
-var query = nitro.newQuery();
+let query = nitro.newQuery();
 
 nitro.make_request(host,'/nitro/api',apiKey,query,{headers:{Accept: 'application/json'}},function(obj){
 	console.log('Nitro JSON API');
@@ -38,21 +40,29 @@ nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/schema/ibl.json','',query,{head
 	fs.writeFileSync('./iblApi/ibl.json',JSON.stringify(obj,null,2));
 	return false;
 });
-var iblKey = 'dummy';
+let iblKey = 'dummy';
 nitro.make_request('ibl.api.bbci.co.uk','/ibl/v1/status',iblKey,query,{},function(obj){
 	console.log('iBL status '+obj.status.service+' v'+obj.version+' r'+obj.status.release);
 	fs.writeFileSync('./iblApi/ibl_status.json',JSON.stringify(obj,null,2));
 	return false;
 });
+
 nitro.make_request('rms.api.bbc.co.uk','/docs/swagger.json','',query,{proto:'https'},function(obj){
 	console.log('RMS (BLUR/PULP) openapi.json');
 	fs.writeFileSync('./rmsApi/openapi.json',JSON.stringify(obj,null,2));
 	return false;
 });
+
+nitro.make_request('galileo.int.api.bbc.com','/v2/api-docs','',query,{proto:'https'},function(obj){
+	console.log('Galileo swagger.json');
+	fs.writeFileSync('./galileoApi/swagger.json',JSON.stringify(obj,null,2));
+	return false;
+});
+
 query.add(api.fProgrammesPartnerPid,'s0000024',true);
 query.add(api.fProgrammesPageSize,1);
 nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'application/json'}},function(obj){
-	var total = (typeof obj.nitro.results.total !== 'undefined') ? obj.nitro.results.total : obj.nitro.results.more_than+1;
+	let total = (typeof obj.nitro.results.total !== 'undefined') ? obj.nitro.results.total : obj.nitro.results.more_than+1;
 	if (total>0) {
 	  console.log('Internal programmes present');
 	}
@@ -60,7 +70,7 @@ nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'appl
 });
 query.add(api.fProgrammesEntityTypeClip);
 nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'application/json'}},function(obj){
-	var total = (typeof obj.nitro.results.total !== 'undefined') ? obj.nitro.results.total : obj.nitro.results.more_than+1;
+	let total = (typeof obj.nitro.results.total !== 'undefined') ? obj.nitro.results.total : obj.nitro.results.more_than+1;
 	if (total>0) {
 	  console.log('Internal clips present');
 	}
