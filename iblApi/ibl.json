@@ -1127,25 +1127,6 @@
         "parent_id": {
           "type": "string"
         },
-        "suppliers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "title"
-            ]
-          },
-          "additionalProperties": false
-        },
         "tleo_type": {
           "enum": [
             "episode",
@@ -1257,7 +1238,6 @@
         "guidance",
         "synopses",
         "versions",
-        "suppliers",
         "tleo_type",
         "categories",
         "master_brand",
@@ -1366,25 +1346,6 @@
         "master_brand": {
           "$ref": "#/definitions/master_brand"
         },
-        "suppliers": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "title": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "title"
-            ]
-          },
-          "additionalProperties": false
-        },
         "categories": {
           "type": "array",
           "items": {
@@ -1415,7 +1376,6 @@
         "lexical_sort_letter",
         "images",
         "master_brand",
-        "suppliers",
         "categories",
         "status",
         "count",
