@@ -5,7 +5,7 @@ dlInfo.js
 */
 
 var nitro = require('./nitroSdk');
-var xmlToJson = require('jgeXml/xml2json');
+var xmlToJson = require('jgexml/xml2json');
 
 var pid = process.argv[2]; // a version PID (vPID) e.g. b01r5278
 
