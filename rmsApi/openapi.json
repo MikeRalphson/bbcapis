@@ -241,6 +241,114 @@
         }
       }
     },
+    "/v2/experience/inline/listen/sign-in": {
+      "get": {
+        "summary": "Sign-in Inline Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience sign in page with Upsell at top\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/experience/inline/schedules/{service_id}": {
+      "get": {
+        "summary": "Schedules Inline Experience API by service id",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/PollService_id"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience for a service's broadcasts schedule\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/experience/inline/schedules/{service_id}/{date}": {
+      "get": {
+        "summary": "Schedules Inline Experience API of a service by date",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/PollService_id"
+          },
+          {
+            "$ref": "#/components/parameters/date"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience for selected date's & service broadcasts schedule\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/categories": {
       "get": {
         "summary": "List of categories",
@@ -942,13 +1050,54 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BroadcastSummary"
+                  "$ref": "#/components/schemas/PollBroadcastsSummaryResponse"
                 }
               }
             }
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/broadcasts/schedules/{service_id}/{date}": {
+      "get": {
+        "summary": "Broadcasts'schedule for a given date and service",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/PollService_id"
+          },
+          {
+            "$ref": "#/components/parameters/date"
+          }
+        ],
+        "tags": [
+          "Broadcasts"
+        ],
+        "description": "Broadcasts schedule for a given service and date which is in next 7 or 30 previous days\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BroadcastsSummaryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
           },
           "default": {
             "$ref": "#/components/responses/InternalServiceError"
@@ -5666,6 +5815,15 @@
         "example": "bbc_radio_one",
         "required": true
       },
+      "date": {
+        "name": "date",
+        "in": "path",
+        "description": "ISO 8601 Date yyyy-mm-dd.  Returns items in the given date",
+        "schema": {
+          "type": "string"
+        },
+        "required": false
+      },
       "CategoryKind": {
         "name": "kind",
         "in": "query",
@@ -6804,7 +6962,7 @@
             "type": "integer",
             "example": 0
           },
-          "results": {
+          "data": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Broadcast"
@@ -6816,7 +6974,7 @@
           "total",
           "limit",
           "offset",
-          "results"
+          "data"
         ]
       },
       "Broadcast": {
@@ -6916,6 +7074,40 @@
           "data"
         ]
       },
+      "PollBroadcastsSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "$schema": {
+            "type": "string",
+            "example": "https://rms.api.bbc.co.uk/docs/swagger.json#/definitions/PollBroadcastsSummaryResponse"
+          },
+          "total": {
+            "type": "integer",
+            "example": 5
+          },
+          "limit": {
+            "type": "integer",
+            "example": 5
+          },
+          "offset": {
+            "type": "integer",
+            "example": 0
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BroadcastSummary"
+            }
+          }
+        },
+        "required": [
+          "$schema",
+          "total",
+          "limit",
+          "offset",
+          "data"
+        ]
+      },
       "BroadcastSummary": {
         "type": "object",
         "properties": {
@@ -6948,6 +7140,10 @@
           },
           "image_url": {
             "type": "string"
+          },
+          "playable_item": {
+            "$ref": "#/components/schemas/PlayableItem",
+            "nullable": true
           }
         },
         "required": [
@@ -6960,7 +7156,8 @@
           "duration",
           "network",
           "titles",
-          "image_url"
+          "image_url",
+          "playable_item"
         ]
       },
       "ProgrammesResponse": {
@@ -10169,6 +10366,9 @@
             "minimum": 0,
             "example": 1590
           },
+          "guidance": {
+            "$ref": "#/components/schemas/PlayableItemGuidance"
+          },
           "has_guidance": {
             "type": "boolean"
           },
@@ -10191,16 +10391,21 @@
               "pending",
               "future"
             ]
+          },
+          "download": {
+            "$ref": "#/components/schemas/PlayableItemDownload"
           }
         },
         "required": [
           "type",
           "id",
           "duration",
+          "guidance",
           "has_guidance",
           "available_from_date",
           "available_to_date",
-          "status"
+          "status",
+          "download"
         ]
       },
       "Programme": {
