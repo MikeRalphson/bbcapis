@@ -843,6 +843,9 @@
                   "hd": {
                     "type": "boolean"
                   },
+                  "uhd": {
+                    "type": "boolean"
+                  },
                   "download": {
                     "type": "boolean"
                   },
@@ -987,6 +990,7 @@
                   "id",
                   "type",
                   "hd",
+                  "uhd",
                   "download",
                   "duration",
                   "kind",
@@ -2042,6 +2046,9 @@
               "hd": {
                 "type": "boolean"
               },
+              "uhd": {
+                "type": "boolean"
+              },
               "download": {
                 "type": "boolean"
               },
@@ -2186,6 +2193,7 @@
               "id",
               "type",
               "hd",
+              "uhd",
               "download",
               "duration",
               "kind",
@@ -2259,6 +2267,9 @@
           ]
         },
         "hd": {
+          "type": "boolean"
+        },
+        "uhd": {
           "type": "boolean"
         },
         "download": {
@@ -2405,6 +2416,7 @@
         "id",
         "type",
         "hd",
+        "uhd",
         "download",
         "duration",
         "kind",
