@@ -37,7 +37,7 @@ var validate = ajv.compile(jsonSchema);
 validate(schema);
 var errors = validate.errors;
 if (errors) {
-	console.log(errors);
+	console.warn(errors);
 }
 else {
 	console.log('Building OpenAPI document');
@@ -71,7 +71,7 @@ else {
 	validate(base);
 	var errors = validate.errors;
 	if (errors) {
-		console.log(errors);
+		console.warn(errors);
 		console.log('Writing openapi.err file');
 		fs.writeFileSync('./iblApi/openapi.err',yaml.safeDump(base));
 	}
