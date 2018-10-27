@@ -102,6 +102,44 @@
       ],
       "additionalProperties": false
     },
+    "programme_watching": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "number"
+        },
+        "per_page": {
+          "type": "number"
+        },
+        "count": {
+          "type": "number"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "anyof": [
+              {
+                "$ref": "#/definitions/episode"
+              },
+              {
+                "$ref": "#/definitions/watching"
+              }
+            ]
+          }
+        },
+        "programme": {
+          "$ref": "#/definitions/programme"
+        }
+      },
+      "required": [
+        "elements",
+        "page",
+        "per_page",
+        "count",
+        "programme"
+      ],
+      "additionalProperties": false
+    },
     "group_episodes": {
       "type": "object",
       "properties": {
@@ -457,6 +495,9 @@
         "rec_source": {
           "type": "string"
         },
+        "rec_feed": {
+          "type": "string"
+        },
         "rec_set": {
           "type": "string"
         }
@@ -733,6 +774,72 @@
         },
         "title": {
           "type": "string"
+        },
+        "tests": {
+          "type": "array",
+          "items": {
+            "test": {
+              "type": "object",
+              "required": [
+                "id",
+                "variants",
+                "status"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "variants": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "data"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "required": [
+                          "images"
+                        ],
+                        "properties": {
+                          "images": {
+                            "type": "object",
+                            "required": [
+                              "type",
+                              "standard"
+                            ],
+                            "properties": {
+                              "type": {
+                                "enum": [
+                                  "episode",
+                                  "episode_large"
+                                ]
+                              },
+                              "standard": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "status": {
+                  "type": {
+                    "enum": [
+                      "active"
+                    ]
+                  }
+                }
+              }
+            }
+          }
         },
         "original_title": {
           "type": "string"
@@ -1440,6 +1547,9 @@
           ]
         },
         "title": {
+          "type": "string"
+        },
+        "short_title": {
           "type": "string"
         },
         "group_type": {
@@ -2213,6 +2323,9 @@
           "type": "object",
           "properties": {
             "editorial": {
+              "type": "string"
+            },
+            "category": {
               "type": "string"
             }
           },

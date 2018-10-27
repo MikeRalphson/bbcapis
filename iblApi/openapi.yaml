@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: '1.0'
-  x-release: 1.0.0-407
+  x-release: 1.0.0-410
   title: BBC iPlayer Business Layer
   description: The definitive iPlayer API.
   x-logo:
@@ -903,6 +903,48 @@ components:
             - episode_large
         title:
           type: string
+        tests:
+          type: array
+          items:
+              type: object
+              required:
+                - id
+                - variants
+                - status
+              properties:
+                id:
+                  type: string
+                variants:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - id
+                      - data
+                    properties:
+                      id:
+                        type: string
+                      data:
+                        type: object
+                        required:
+                          - images
+                        properties:
+                          images:
+                            type: object
+                            required:
+                              - type
+                              - standard
+                            properties:
+                              type:
+                                enum:
+                                  - episode
+                                  - episode_large
+                              standard:
+                                type: string
+                status:
+                  type: string
+                  enum:
+                      - active
         original_title:
           type: string
         live:
@@ -1390,6 +1432,8 @@ components:
             - group
             - group_large
         title:
+          type: string
+        short_title:
           type: string
         group_type:
           enum:
@@ -1917,6 +1961,8 @@ components:
           type: object
           properties:
             editorial:
+              type: string
+            category:
               type: string
           additionalProperties: false
         master_brand:
