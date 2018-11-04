@@ -6,7 +6,11 @@ const host = process.argv[2];
 if (host) {
 	try {
 	let req = https.get('https://'+host+'/',function(res){
-		console.log(host,res.statusCode,res.headers["content-type"]);
+		let data = res.headers["content-type"];
+		if ((res.statusCode >= 300) && (res.statusCode < 400)) {
+			data = res.headers.location;
+		}
+		console.log(host,res.statusCode,data);
 	});
 	req.on('error',function(err){
 		console.log(host,err);
