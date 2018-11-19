@@ -927,6 +927,9 @@
             },
             "preview": {
               "type": "string"
+            },
+            "programme_small": {
+              "type": "string"
             }
           },
           "additionalProperties": false
