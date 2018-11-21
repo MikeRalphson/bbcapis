@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: '1.0'
-  x-release: 1.0.0-423
+  x-release: 1.0.0-424
   title: BBC iPlayer Business Layer
   description: The definitive iPlayer API.
   x-logo:
@@ -898,7 +898,6 @@ components:
         id:
           type: string
         type:
-          type: string
           enum:
             - episode
             - episode_large
@@ -907,6 +906,7 @@ components:
         tests:
           type: array
           items:
+              title: test
               type: object
               required:
                 - id
@@ -945,7 +945,7 @@ components:
                 status:
                   type: string
                   enum:
-                      - active
+                    - active
         original_title:
           type: string
         live:
@@ -1077,6 +1077,8 @@ components:
                       - id
                     additionalProperties: false
                   first_broadcast:
+                    type: string
+                  first_broadcast_date_time:
                     type: string
                   credits_start:
                     type: number
@@ -1913,6 +1915,8 @@ components:
                 additionalProperties: false
               first_broadcast:
                 type: string
+              first_broadcast_date_time:
+                type: string
               credits_start:
                 type: number
               service_id:
@@ -2067,6 +2071,8 @@ components:
             - id
           additionalProperties: false
         first_broadcast:
+          type: string
+        first_broadcast_date_time:
           type: string
         credits_start:
           type: number

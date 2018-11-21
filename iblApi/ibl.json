@@ -1036,6 +1036,9 @@
                   "first_broadcast": {
                     "type": "string"
                   },
+                  "first_broadcast_date_time": {
+                    "type": "string"
+                  },
                   "credits_start": {
                     "type": "number"
                   },
@@ -2252,6 +2255,9 @@
               "first_broadcast": {
                 "type": "string"
               },
+              "first_broadcast_date_time": {
+                "type": "string"
+              },
               "credits_start": {
                 "type": "number"
               },
@@ -2476,6 +2482,9 @@
           "additionalProperties": false
         },
         "first_broadcast": {
+          "type": "string"
+        },
+        "first_broadcast_date_time": {
           "type": "string"
         },
         "credits_start": {
