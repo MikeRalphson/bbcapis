@@ -31,7 +31,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Display the container details along with the playable items of the container\n",
+        "description": "Display the container details along with the playable items of the container <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -66,7 +66,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Non inline On Demand Experince which consist of display modules of Player and Playqueue.\n",
+        "description": "Non inline On Demand Experince which consist of display modules of Player and Playqueue. <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -98,7 +98,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Non inline Experience Stations API with Promoted and Local stations display module.\n",
+        "description": "Non inline Experience Stations API with Promoted and Local stations display module. <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -127,7 +127,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Non inline Sign in Experience page with Upsell\n",
+        "description": "Non inline Sign in Experience page with Upsell <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -156,7 +156,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Inline All stations Page Experience\n",
+        "description": "Inline All stations Page Experience <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -188,7 +188,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Inline Experience search results container and playable items as display modules\n",
+        "description": "Inline Experience search results container and playable items as display modules <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -223,7 +223,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Inline Sign in Experience page with Upsell\n",
+        "description": "Inline Sign in Experience page with Upsell <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -252,7 +252,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Inline Experience sign in page with Upsell at top\n",
+        "description": "Inline Experience sign in page with Upsell at top <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -284,7 +284,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Inline Experience for a service's broadcasts schedule\n",
+        "description": "Inline Experience for a service's broadcasts schedule <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -325,7 +325,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Inline Experience for selected date's & service broadcasts schedule\n",
+        "description": "Inline Experience for selected date's & service broadcasts schedule <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -369,7 +369,7 @@
         "tags": [
           "Categories"
         ],
-        "description": "Retrieve Categories\n",
+        "description": "Retrieve Categories <span>🎶</span> M83\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -404,7 +404,7 @@
         "tags": [
           "Categories"
         ],
-        "description": "Retrieve Categories by ID\n",
+        "description": "Retrieve Categories by ID <span>🎶</span> M83\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -445,7 +445,7 @@
         "tags": [
           "Categories"
         ],
-        "description": "Retrieve Categories\n",
+        "description": "Retrieve Categories <span>🎶</span> M83\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -480,7 +480,7 @@
         "tags": [
           "Categories"
         ],
-        "description": "Retrieve category\n",
+        "description": "Retrieve category <span>🎶</span> M83\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -521,7 +521,7 @@
         "tags": [
           "Categories"
         ],
-        "description": "Retrieve Sounds supported categories in container item form\n",
+        "description": "Retrieve Sounds supported categories in container item form <span>🎶</span> M83\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -556,7 +556,7 @@
         "tags": [
           "Categories"
         ],
-        "description": "Retrieve category container\n",
+        "description": "Retrieve category container <span>🎶</span> M83\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -606,7 +606,7 @@
         "tags": [
           "Networks"
         ],
-        "description": "All iPlayer Radio networks - contains business logic for masterbrand and service relationships\n",
+        "description": "All iPlayer Radio networks - contains business logic for masterbrand and service relationships <span>🎶</span> Half Japanese\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -647,7 +647,7 @@
         "tags": [
           "Networks"
         ],
-        "description": "Provides the list of all the v2 networks\n",
+        "description": "Provides the list of all the v2 networks <span>🎶</span> Green Day\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -682,7 +682,7 @@
         "tags": [
           "Networks"
         ],
-        "description": "Provides the list of all the playable networks\n",
+        "description": "Provides the list of all the playable networks <span>🎶</span> Green Day\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -720,7 +720,7 @@
         "tags": [
           "Networks"
         ],
-        "description": "Provides the V2 network by network ID.\n",
+        "description": "Provides the V2 network by network ID. <span>🎶</span> Green Day\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -755,7 +755,7 @@
         "tags": [
           "Networks"
         ],
-        "description": "Provides the network playable item by network ID.\n",
+        "description": "Provides the network playable item by network ID. <span>🎶</span> Green Day\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -790,7 +790,7 @@
         "tags": [
           "Services"
         ],
-        "description": "Retrieve list of tracks as playable items for a service\n",
+        "description": "Retrieve list of tracks as playable items for a service <span>🎶</span> Deftones\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -822,7 +822,7 @@
         "tags": [
           "Versions"
         ],
-        "description": "Retrieve list of on demand tracks as display items for a version id\n",
+        "description": "Retrieve list of on demand tracks as display items for a version id <span>🎶</span> Deftones\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -893,7 +893,7 @@
         "tags": [
           "Broadcasts"
         ],
-        "description": "All broadcasts\n",
+        "description": "All broadcasts <span>🎶</span> Guns & Roses\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -935,7 +935,7 @@
         "tags": [
           "Broadcasts"
         ],
-        "description": "Find broadcast by PID\n",
+        "description": "Find broadcast by PID <span>🎶</span> Guns & Roses\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1008,7 +1008,7 @@
         "tags": [
           "Broadcasts"
         ],
-        "description": "Broadcasts for the current day\n",
+        "description": "Broadcasts for the current day <span>🎶</span> Guns & Roses\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1043,7 +1043,7 @@
         "tags": [
           "Broadcasts"
         ],
-        "description": "Provide 5 upcoming broadcasts for a network service\n",
+        "description": "Provide 5 upcoming broadcasts for a network service <span>🎶</span> Guns & Roses\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1081,7 +1081,7 @@
         "tags": [
           "Broadcasts"
         ],
-        "description": "Broadcasts schedule for a given service and date which is in next 7 or 30 previous days\n",
+        "description": "Broadcasts schedule for a given service and date which is in next 7 or 30 previous days <span>🎶</span> Guns & Roses\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1122,7 +1122,7 @@
         "tags": [
           "Broadcasts"
         ],
-        "description": "Provide 5 upcoming broadcasts for a network service with personalised data\n",
+        "description": "Provide 5 upcoming broadcasts for a network service with personalised data <span>🎶</span> Guns & Roses\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1206,7 +1206,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of programmes.\nAccepts various filters and sorting methods.\n",
+        "description": "Provides a paginated list of programmes.\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1285,7 +1285,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of programmes (brands, series, episodes and clips).\nAccepts various filters and sorting methods.\n",
+        "description": "Provides a paginated list of programmes (brands, series, episodes and clips).\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1351,7 +1351,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods.\n",
+        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1414,7 +1414,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods.\n",
+        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1446,7 +1446,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Returns single programme details by a programme id\n",
+        "description": "Returns single programme details by a programme id <span>🎶</span> Nirvana\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1481,7 +1481,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Returns single container or playable item by a programme id\n",
+        "description": "Returns single container or playable item by a programme id <span>🎶</span> Nirvana\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1516,7 +1516,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Returns single playable item by a programme id\n",
+        "description": "Returns single playable item by a programme id <span>🎶</span> Nirvana\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1554,7 +1554,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "provides the list of playable items as playqueue based on the programme id\n",
+        "description": "provides the list of playable items as playqueue based on the programme id <span>🎶</span> Boyzone\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1590,7 +1590,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides search keywords results as list of playable items\n",
+        "description": "Provides search keywords results as list of playable items <span>🎶</span> The Seekers\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1625,7 +1625,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides search keywords results as list of playable and container items\n",
+        "description": "Provides search keywords results as list of playable and container items <span>🎶</span> The Seekers\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1660,7 +1660,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides search keywords results as list of playable items\n",
+        "description": "Provides search keywords results as list of playable items <span>🎶</span> The Seekers\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1695,7 +1695,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides search keywords results as list of container items\n",
+        "description": "Provides search keywords results as list of container items <span>🎶</span> The Seekers\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1730,7 +1730,7 @@
         "tags": [
           "Collections"
         ],
-        "description": "Collection container item for a collection pid\n",
+        "description": "Collection container item for a collection pid <span>🎶</span> Depeche Mode\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1771,7 +1771,7 @@
         "tags": [
           "Collections"
         ],
-        "description": "Playable Items from Collection\n",
+        "description": "Playable Items from Collection <span>🎶</span> Depeche Mode\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1812,7 +1812,7 @@
         "tags": [
           "Collections"
         ],
-        "description": "Container Items from Collection\n",
+        "description": "Container Items from Collection <span>🎶</span> Depeche Mode\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1882,7 +1882,7 @@
         "tags": [
           "Podcasts"
         ],
-        "description": "Retrieve all Podcasts\n",
+        "description": "Retrieve all Podcasts <span>🎶</span> Cast\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1917,7 +1917,7 @@
         "tags": [
           "Podcasts"
         ],
-        "description": "Retrieve featured podcasts\n",
+        "description": "Retrieve featured podcasts <span>🎶</span> Cast\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1955,7 +1955,7 @@
         "tags": [
           "Podcasts"
         ],
-        "description": "Retrieve data about the podcast with the supplied PID\n",
+        "description": "Retrieve data about the podcast with the supplied PID <span>🎶</span> Cast\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1996,7 +1996,7 @@
         "tags": [
           "Podcasts"
         ],
-        "description": "Retrieve all episodes for a specific podcast\n",
+        "description": "Retrieve all episodes for a specific podcast <span>🎶</span> Cast\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2037,7 +2037,7 @@
         "tags": [
           "Podcasts"
         ],
-        "description": "Retrieve all episodes for a specific podcast as Playable items\n",
+        "description": "Retrieve all episodes for a specific podcast as Playable items <span>🎶</span> Cast\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2178,7 +2178,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Retrieve Popular Episodes & Clips\n",
+        "description": "Retrieve Popular Episodes & Clips <span>🎶</span> Ash\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2284,7 +2284,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of programmes by PID (brand, series, episode and clip). Accepts various filters and sorting methods.\n",
+        "description": "Provides a paginated list of programmes by PID (brand, series, episode and clip). Accepts various filters and sorting methods. <span>🎶</span> Blur\n",
         "operationId": "getRadioProgrammes",
         "responses": {
           "200": {
@@ -2318,7 +2318,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Find programmes by PID (brand, series, episode and clip)\n",
+        "description": "Find programmes by PID (brand, series, episode and clip) <span>🎶</span> Blur\n",
         "operationId": "getRadioProgrammesByPid",
         "responses": {
           "200": {
@@ -2371,7 +2371,7 @@
         "tags": [
           "Personalised Activities"
         ],
-        "description": "Accepts the URN as body and start process write activity to UAS\n",
+        "description": "Accepts the URN as body and start process write activity to UAS <span>🎶</span> Stereophonics\n",
         "responses": {
           "202": {
             "$ref": "#/components/responses/TextResponse"
@@ -2402,7 +2402,7 @@
         "tags": [
           "Personalised Activities"
         ],
-        "description": "Accepts the URN and start process delete activity from UAS\n",
+        "description": "Accepts the URN and start process delete activity from UAS <span>🎶</span> Stereophonics\n",
         "responses": {
           "202": {
             "$ref": "#/components/responses/TextResponse"
@@ -2442,7 +2442,7 @@
         "tags": [
           "Collections"
         ],
-        "description": "Personalised Playable Items from Collection\n",
+        "description": "Personalised Playable Items from Collection <span>🎶</span> Depeche Mode\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2450,6 +2450,53 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/collections/{pid}/members/container": {
+      "get": {
+        "summary": "Personalised Collection Containers",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CollectionPid"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Collections"
+        ],
+        "description": "Personalised collection container item for a collection pid <span>🎶</span> Depeche Mode\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItem"
                 }
               }
             }
@@ -2480,7 +2527,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Non inline Listen page Experience API\n",
+        "description": "Non inline Listen page Experience API <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2518,7 +2565,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Inline Experience listen page API\n",
+        "description": "Inline Experience listen page API <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2556,7 +2603,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Non inline my sounds experience API\n",
+        "description": "Non inline my sounds experience API <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2591,7 +2638,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Inline My Sounds Experience API\n",
+        "description": "Inline My Sounds Experience API <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2632,7 +2679,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Personalised Inline Experience search results container and playable items as display modules\n",
+        "description": "Personalised Inline Experience search results container and playable items as display modules <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2676,7 +2723,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Non inline personalised On Demand Experince which consist of display modules of Player, Playqueue and Recommendations.\n",
+        "description": "Non inline personalised On Demand Experince which consist of display modules of Player, Playqueue and Recommendations. <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2717,7 +2764,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Display the container details along with the personalised playable items of the container\n",
+        "description": "Display the container details along with the personalised playable items of the container <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2758,7 +2805,7 @@
         "tags": [
           "Experience"
         ],
-        "description": "Personalised episode details feed which consist of Episode Details and Track List\n",
+        "description": "Personalised episode details feed which consist of Episode Details and Track List <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2850,7 +2897,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Accepts the play data & start processing write action to UAS\n",
+        "description": "Accepts the play data & start processing write action to UAS <span>🎶</span> Pendulum\n",
         "responses": {
           "202": {
             "$ref": "#/components/responses/TextResponse"
@@ -2887,7 +2934,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "provides list of play history in playable items for a user\n",
+        "description": "provides list of play history in playable items for a user <span>🎶</span> Oasis\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2928,7 +2975,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Returns list of programmes favourited by user\n",
+        "description": "Returns list of programmes favourited by user <span>🎶</span> Oasis\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2981,7 +3028,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Returns list of programmes followed by user\n",
+        "description": "Returns list of programmes followed by user <span>🎶</span> Oasis\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -3022,7 +3069,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Returns list of latest playable programmes from followed brands and series\n",
+        "description": "Returns list of latest playable programmes from followed brands and series <span>🎶</span> Oasis\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -3063,7 +3110,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Recommended Programmes from the Audience Platforms' Recomendations Service\n",
+        "description": "Recommended Programmes from the Audience Platforms' Recomendations Service <span>🎶</span> AC/DC\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -3101,7 +3148,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "provides the list of playable items as playqueue based on the programme id\n",
+        "description": "provides the list of playable items as playqueue based on the programme id <span>🎶</span> Boyzone\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -3173,7 +3220,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Provides a paginated list of personalised playable programmes (episodes and clips).\nAccepts various filters and sorting methods.\n",
+        "description": "Provides a paginated list of personalised playable programmes (episodes and clips).\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -3211,7 +3258,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Returns personalised single container or playable item by a programme id\n",
+        "description": "Returns personalised single container or playable item by a programme id <span>🎶</span> Nirvana\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -3252,7 +3299,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Returns single personalised playable item by a programme id\n",
+        "description": "Returns single personalised playable item by a programme id <span>🎶</span> Nirvana\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -3404,7 +3451,7 @@
         "tags": [
           "Radio"
         ],
-        "description": "Add User favourites\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "description": "Add User favourites\n\nN.B. Any HTML tags submitted in metadata will be removed <span>🎶</span> Suede\n",
         "operationId": "postPersonalisedRadioBatch",
         "responses": {
           "202": {
@@ -3485,7 +3532,7 @@
         "tags": [
           "Radio"
         ],
-        "description": "List of followed 'clips' or 'episode' items for a given iPlayer Radio user\n",
+        "description": "List of followed 'clips' or 'episode' items for a given iPlayer Radio user <span>🎶</span> Suede\n",
         "operationId": "getPersonalisedRadioFavouritesByType",
         "responses": {
           "200": {
@@ -3660,7 +3707,7 @@
         "tags": [
           "Radio"
         ],
-        "description": "Remove User favourite\n",
+        "description": "Remove User favourite <span>🎶</span> Suede\n",
         "operationId": "deletePersonalisedRadioByActivityTypeById",
         "responses": {
           "202": {
@@ -3799,7 +3846,7 @@
         "tags": [
           "Radio"
         ],
-        "description": "Add 'brand' or 'series' items to a users iPlayer Radio follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "description": "Add 'brand' or 'series' items to a users iPlayer Radio follows\n\nN.B. Any HTML tags submitted in metadata will be removed <span>🎶</span> Suede\n",
         "operationId": "postPersonalisedRadioFollowsBatch",
         "requestBody": {
           "description": "Action favourited or unfavourited",
@@ -3894,7 +3941,7 @@
         "tags": [
           "Radio"
         ],
-        "description": "List of followed 'brand' or 'series' items for a given iPlayer Radio user\n",
+        "description": "List of followed 'brand' or 'series' items for a given iPlayer Radio user <span>🎶</span> Suede\n",
         "operationId": "getPersonalisedRadioFollowsByType",
         "responses": {
           "200": {
@@ -4058,7 +4105,7 @@
         "tags": [
           "Radio"
         ],
-        "description": "Remove 'brand' or 'series' items from a users iPlayer Radio follows\n",
+        "description": "Remove 'brand' or 'series' items from a users iPlayer Radio follows <span>🎶</span> Suede\n",
         "operationId": "deletePersonalisedRadioFollowsByTypeById",
         "responses": {
           "202": {
@@ -4208,7 +4255,7 @@
         "tags": [
           "Music"
         ],
-        "description": "Add multiple tracks and/or clips to a BBC Music user's favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "description": "Add multiple tracks and/or clips to a BBC Music user's favourites.\n\nN.B. Any HTML tags submitted in metadata will be removed <span>🎶</span> Pulp\n",
         "responses": {
           "202": {
             "description": "OK",
@@ -4278,7 +4325,7 @@
         "tags": [
           "Music"
         ],
-        "description": "List of favourited tracks or clips for a given user for BBC Music.\n",
+        "description": "List of favourited tracks or clips for a given user for BBC Music. <span>🎶</span> Pulp\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4444,7 +4491,7 @@
         "tags": [
           "Music"
         ],
-        "description": "Delete track or clip from a BBC Music user favourites.\n",
+        "description": "Delete track or clip from a BBC Music user favourites. <span>🎶</span> Pulp\n",
         "responses": {
           "202": {
             "description": "OK",
@@ -4620,7 +4667,7 @@
         "tags": [
           "Music"
         ],
-        "description": "Add networks, categories, artists, playlists, networks, genres or services in a users follows\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
+        "description": "Add networks, categories, artists, playlists, networks, genres or services in a users follows <span>🎶</span> Pulp\n\nN.B. Any HTML tags submitted in metadata will be removed\n",
         "responses": {
           "202": {
             "description": "OK",
@@ -4730,7 +4777,7 @@
         "tags": [
           "Music"
         ],
-        "description": "List of followed networks, categories, artists, playlists, networks, genres, categories or services for a given BBC Music user.\n",
+        "description": "List of followed networks, categories, artists, playlists, networks, genres, categories or services for a given BBC Music user. <span>🎶</span> Pulp\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4939,7 +4986,7 @@
         "tags": [
           "Music"
         ],
-        "description": "Remove a single network, category, artist, playlist, network, genre or service entity is in a users follows\n",
+        "description": "Remove a single network, category, artist, playlist, network, genre or service entity is in a users follows <span>🎶</span> Pulp\n",
         "operationId": "deletePersonalisedMusicFollowsByTypeById",
         "responses": {
           "202": {
@@ -4987,7 +5034,7 @@
         "tags": [
           "Music Export"
         ],
-        "description": "Returns status of all previous third party export actions for a given BBC Music user.\n",
+        "description": "Returns status of all previous third party export actions for a given BBC Music user. <span>🎶</span> Pulp\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5083,7 +5130,7 @@
         "tags": [
           "Music Export"
         ],
-        "description": "Create Export Job for a user\n",
+        "description": "Create Export Job for a user <span>🎶</span> Pulp\n",
         "operationId": "postMusicExportJob",
         "responses": {
           "202": {
@@ -5160,7 +5207,7 @@
         "tags": [
           "Music Export"
         ],
-        "description": "Retrieves vendor and status specific tracks\n",
+        "description": "Retrieves vendor and status specific tracks <span>🎶</span> Pulp\n",
         "operationId": "getMusicExportTracks",
         "responses": {
           "200": {
@@ -5262,7 +5309,7 @@
         "tags": [
           "Music Export"
         ],
-        "description": "Remove export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
+        "description": "Remove export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user. <span>🎶</span> Pulp\n",
         "operationId": "deleteMusicPreferencesExport",
         "responses": {
           "202": {
@@ -5402,7 +5449,7 @@
         "tags": [
           "Music Export"
         ],
-        "description": "Remove Vendor specific export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user.\n",
+        "description": "Remove Vendor specific export preferences (e.g. 3rd party vendors, partner id's) for a given BBC Music user. <span>🎶</span> Pulp\n",
         "operationId": "deleteMusicPreferencesExportVendor",
         "responses": {
           "202": {
@@ -5443,7 +5490,7 @@
         "tags": [
           "Music"
         ],
-        "description": "List of Most Popular artists from BBC Music.\n",
+        "description": "List of Most Popular artists from BBC Music. <span>🎶</span> Lush\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5493,7 +5540,7 @@
         "tags": [
           "Music"
         ],
-        "description": "Popularity Artist By Id\n",
+        "description": "Popularity Artist By Id <span>🎶</span> Lush\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5543,7 +5590,7 @@
         "tags": [
           "Music"
         ],
-        "description": "List of Most Popular playlists from BBC Music.\n",
+        "description": "List of Most Popular playlists from BBC Music. <span>🎶</span> Lush\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5593,7 +5640,7 @@
         "tags": [
           "Music"
         ],
-        "description": "Popular playlist by Id\n",
+        "description": "Popular playlist by Id <span>🎶</span> Lush\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5649,7 +5696,7 @@
             "$ref": "#/components/parameters/limit"
           }
         ],
-        "description": "List of popular tracks for BBC Music. Filter by time, network, artist, playlist or programme.\n",
+        "description": "List of popular tracks for BBC Music. Filter by time, network, artist, playlist or programme. <span>🎶</span> Lush\n",
         "tags": [
           "Music"
         ],
@@ -5701,7 +5748,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "BBC Music Track Id - Used to get single resource score",
+            "description": "BBC Music Track Id - Used to get single resource score <span>🎶</span> Lush",
             "schema": {
               "type": "string"
             },
