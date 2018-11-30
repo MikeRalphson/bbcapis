@@ -1488,6 +1488,16 @@
         "count": {
           "type": "number"
         },
+        "programme_type": {
+          "enum": [
+            "narrative",
+            "sequential",
+            "self-contained",
+            "strand",
+            "event",
+            "magazine"
+          ]
+        },
         "initial_children": {
           "type": "array",
           "items": {
