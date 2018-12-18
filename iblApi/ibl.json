@@ -910,6 +910,9 @@
         "preview_id": {
           "type": "string"
         },
+        "slice_id": {
+          "type": "string"
+        },
         "synopses": {
           "type": "object",
           "properties": {
@@ -1257,8 +1260,7 @@
             "sequential",
             "self-contained",
             "strand",
-            "event",
-            "magazine"
+            "unclassified"
           ]
         },
         "categories": {
@@ -1494,8 +1496,7 @@
             "sequential",
             "self-contained",
             "strand",
-            "event",
-            "magazine"
+            "unclassified"
           ]
         },
         "initial_children": {
