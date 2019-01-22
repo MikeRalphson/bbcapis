@@ -460,6 +460,32 @@
       ],
       "additionalProperties": false
     },
+    "new_search": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/episode"
+              },
+              {
+                "$ref": "#/definitions/programme"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "results",
+        "query"
+      ],
+      "additionalProperties": false
+    },
     "watching": {
       "type": "object",
       "properties": {

@@ -1,0 +1,23 @@
+--- openapi.err	2019-01-22 13:10:08.634062141 +0000
++++ openapi.fixed	2019-01-22 13:10:03.462326152 +0000
+@@ -906,7 +906,6 @@
+         tests:
+           type: array
+           items:
+-            test:
+               type: object
+               required:
+                 - id
+@@ -943,9 +942,9 @@
+                               standard:
+                                 type: string
+                 status:
+-                  type:
+-                    enum:
+-                      - active
++                  type: 'string'
++                  enum:
++                    - active
+         original_title:
+           type: string
+         live:

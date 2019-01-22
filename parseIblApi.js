@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
+
 const ajv = require('ajv')({
 	allErrors: true,
 	verbose: true,
@@ -71,7 +73,7 @@ else {
 	validate(base);
 	var errors = validate.errors;
 	if (errors) {
-		console.warn(errors);
+		console.warn(util.inspect(errors,{depth:null, colors:true}));
 		console.log('Writing openapi.err file');
 		fs.writeFileSync('./iblApi/openapi.err',yaml.safeDump(base));
 	}
