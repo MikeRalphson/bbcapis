@@ -1414,7 +1414,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
+        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter<span>🎶</span> Blur\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1751,6 +1751,47 @@
         }
       }
     },
+    "/v2/collections/{pid}/members": {
+      "get": {
+        "summary": "Collection Members",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CollectionPid"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Collections"
+        ],
+        "description": "All member items from Collection <span>🎶</span> Depeche Mode\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/collections/{pid}/members/playable": {
       "get": {
         "summary": "Collection Playable Members",
@@ -1823,6 +1864,50 @@
                 }
               }
             }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/collections/{pid}/members/latest/playable": {
+      "get": {
+        "summary": "Collection Latest Playable Members",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CollectionPid"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Collections"
+        ],
+        "description": "Latest Playable Items from Collection <span>🎶</span> Depeche Mode\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
           },
           "404": {
             "$ref": "#/components/responses/Notfound"
@@ -2500,6 +2585,56 @@
                 }
               }
             }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/collections/{pid}/members/latest/playable": {
+      "get": {
+        "summary": "Personalised Collection Latest Playable Members",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CollectionPid"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Collections"
+        ],
+        "description": "Personalised Latest Playable Items from Collection <span>🎶</span> Depeche Mode\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -5985,7 +6120,10 @@
           "type": "string",
           "enum": [
             "available_from_date",
-            "-available_from_date"
+            "-available_from_date",
+            "sequential",
+            "-sequential",
+            "popular"
           ]
         },
         "required": false
