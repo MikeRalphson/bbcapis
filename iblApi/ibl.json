@@ -1939,7 +1939,8 @@
         "status": {
           "enum": [
             "current",
-            "next"
+            "next",
+            "ended"
           ]
         },
         "offset": {
