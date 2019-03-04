@@ -933,6 +933,15 @@
         "editorial_title": {
           "type": "string"
         },
+        "live_title": {
+          "type": "string"
+        },
+        "live_subtitle": {
+          "type": "string"
+        },
+        "event_group_id": {
+          "type": "string"
+        },
         "preview_id": {
           "type": "string"
         },
@@ -958,6 +967,9 @@
               "type": "string"
             },
             "programme_small": {
+              "type": "string"
+            },
+            "live": {
               "type": "string"
             }
           },
@@ -1609,7 +1621,8 @@
           "enum": [
             "tleo",
             "curated",
-            "automated"
+            "automated",
+            "event"
           ]
         },
         "stacked": {
