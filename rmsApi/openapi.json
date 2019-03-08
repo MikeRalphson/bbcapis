@@ -55,7 +55,7 @@
         }
       }
     },
-    "/v2/experience/playqueue/{pid}": {
+    "/v2/experience/player/{pid}": {
       "get": {
         "summary": "On Demand Page Experience",
         "parameters": [
@@ -93,76 +93,12 @@
         }
       }
     },
-    "/v2/experience/stations": {
-      "get": {
-        "summary": "Stations Page Experience",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/X-Experiments"
-          }
-        ],
-        "tags": [
-          "Experience"
-        ],
-        "description": "Non inline Experience Stations API with Promoted and Local stations display module. <span>🎶</span> Jimi Hendrix\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExperienceResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/v2/experience/listen/sign-in": {
-      "get": {
-        "summary": "Sign in Experience",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          }
-        ],
-        "tags": [
-          "Experience"
-        ],
-        "description": "Non inline Sign in Experience page with Upsell <span>🎶</span> Jimi Hendrix\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExperienceResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
     "/v2/experience/inline/stations": {
       "get": {
         "summary": "All stations Experience",
         "parameters": [
           {
             "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/X-Experiments"
           }
         ],
         "tags": [
@@ -265,6 +201,29 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "name": "module",
+            "in": "query",
+            "description": "Apply pagination for module",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "priority_brands",
+                "music_mixes",
+                "collections"
+              ]
+            },
+            "required": false
+          },
+          {
+            "$ref": "#/components/parameters/fallback"
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
@@ -815,7 +774,7 @@
           }
         ],
         "tags": [
-          "Services"
+          "Tracks"
         ],
         "description": "Retrieve list of tracks as playable items for a service <span>🎶</span> Deftones\n",
         "responses": {
@@ -847,7 +806,7 @@
           }
         ],
         "tags": [
-          "Versions"
+          "Tracks"
         ],
         "description": "Retrieve list of on demand tracks as display items for a version id <span>🎶</span> Deftones\n",
         "responses": {
@@ -2604,47 +2563,6 @@
         }
       }
     },
-    "/v2/my/experience/listen": {
-      "get": {
-        "summary": "Listen Page Experience",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/Authorization"
-          },
-          {
-            "$ref": "#/components/parameters/X-Experiments"
-          }
-        ],
-        "tags": [
-          "Experience"
-        ],
-        "description": "Non inline Listen page Experience API <span>🎶</span> Jimi Hendrix\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExperienceResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/Notfound"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
     "/v2/my/experience/inline/listen": {
       "get": {
         "summary": "Listen Page Inline Experience",
@@ -2654,6 +2572,31 @@
           },
           {
             "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "name": "module",
+            "in": "query",
+            "description": "Apply pagination for module",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "priority_brands",
+                "music_mixes",
+                "collections",
+                "recommendations",
+                "listen_later"
+              ]
+            },
+            "required": false
+          },
+          {
+            "$ref": "#/components/parameters/fallback"
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
@@ -2686,44 +2629,6 @@
         }
       }
     },
-    "/v2/my/experience/sounds": {
-      "get": {
-        "summary": "My Sounds Experience",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/Authorization"
-          },
-          {
-            "$ref": "#/components/parameters/X-Experiments"
-          }
-        ],
-        "tags": [
-          "Experience"
-        ],
-        "description": "Non inline my sounds experience API <span>🎶</span> Jimi Hendrix\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExperienceResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
     "/v2/my/experience/inline/sounds": {
       "get": {
         "summary": "My Sounds Inline Experience",
@@ -2733,6 +2638,29 @@
           },
           {
             "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "name": "module",
+            "in": "query",
+            "description": "Apply pagination for module",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "favourites",
+                "follows",
+                "latest"
+              ]
+            },
+            "required": false
+          },
+          {
+            "$ref": "#/components/parameters/fallback"
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
@@ -2812,7 +2740,7 @@
         }
       }
     },
-    "/v2/my/experience/playqueue/{pid}": {
+    "/v2/my/experience/player/{pid}": {
       "get": {
         "summary": "Personalised On Demand Page Experience",
         "parameters": [
@@ -6325,6 +6253,19 @@
           "enum": [
             "web",
             "mobile"
+          ]
+        }
+      },
+      "fallback": {
+        "name": "use_fallback",
+        "in": "query",
+        "description": "Fallback flag",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "enum": [
+            true,
+            false
           ]
         }
       }
@@ -11537,10 +11478,7 @@
       "name": "Networks"
     },
     {
-      "name": "Services"
-    },
-    {
-      "name": "Versions"
+      "name": "Tracks"
     },
     {
       "name": "Broadcasts"
@@ -11565,6 +11503,9 @@
       }
     },
     {
+      "name": "Experiments"
+    },
+    {
       "name": "Radio"
     },
     {
@@ -11572,9 +11513,6 @@
     },
     {
       "name": "Music Export"
-    },
-    {
-      "name": "Experiments"
     }
   ]
 }
