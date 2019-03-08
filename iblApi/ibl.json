@@ -884,6 +884,9 @@
             "standard": {
               "type": "string"
             },
+            "live": {
+              "type": "string"
+            },
             "programme_logo": {
               "type": "string"
             },
