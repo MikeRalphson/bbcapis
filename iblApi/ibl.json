@@ -628,14 +628,6 @@
         }
       }
     },
-    "autoplay": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/autoplay"
-      },
-      "minItems": 0,
-      "maxItems": 1
-    },
     "category": {
       "$ref": "#/definitions/category"
     },
@@ -940,6 +932,9 @@
           "type": "string"
         },
         "live_subtitle": {
+          "type": "string"
+        },
+        "slice_subtitle": {
           "type": "string"
         },
         "event_group_id": {
@@ -1413,33 +1408,6 @@
         "master_brand",
         "lexical_sort_letter",
         "requires_sign_in"
-      ],
-      "additionalProperties": false
-    },
-    "autoplay": {
-      "type": "object",
-      "properties": {
-        "episode": {
-          "$ref": "#/definitions/episode"
-        },
-        "type": {
-          "enum": [
-            "autoplay"
-          ]
-        },
-        "source": {
-          "enum": [
-            "precs",
-            "receng",
-            "next",
-            "watching"
-          ]
-        }
-      },
-      "required": [
-        "episode",
-        "type",
-        "source"
       ],
       "additionalProperties": false
     },
