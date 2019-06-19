@@ -829,6 +829,73 @@
         }
       }
     },
+    "/v2/services/{sid}/segments/latest": {
+      "get": {
+        "summary": "List of latest segments",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sid"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Tracks"
+        ],
+        "description": "Retrieve list of Music and Classical segments for a service <span>🎶</span> Deftones\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SegmentsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/versions/{vpid}/segments": {
+      "get": {
+        "summary": "List of on demand tracks",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/vpid"
+          }
+        ],
+        "tags": [
+          "Tracks"
+        ],
+        "description": "Retrieve list of on demand tracks as segments for a version id <span>🎶</span> Deftones\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SegmentsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/broadcasts": {
       "get": {
         "summary": "Broadcasts",
@@ -6271,6 +6338,201 @@
       }
     },
     "schemas": {
+      "CommercialLinks": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "commercial-music-service"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "example": "commercial-music-service-spotify"
+          },
+          "label": {
+            "type": "string",
+            "example": "Spotify"
+          },
+          "uri": {
+            "type": "string",
+            "example": "https://open.spotify.com/track/64PdDpMqGafC4axjVZc27T"
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "label",
+          "uri"
+        ]
+      },
+      "Segment": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "segment_item"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^([0-9|b-d|f-h|j-n|p-t|v-z]{8,}|[a-zA-Z0-9_]{1,})$",
+            "example": "b08vxtj4"
+          },
+          "urn": {
+            "type": "string",
+            "pattern": "^urn:bbc:radio:segment:[a-zA-Z0-9:_]{1,}$",
+            "example": "urn:bbc:radio:segment:music|classical:b08vxv2w"
+          },
+          "segment_type": {
+            "type": "string",
+            "example": "music|classical"
+          },
+          "titles": {
+            "$ref": "#/components/schemas/SegmentTitles"
+          },
+          "synopses": {
+            "$ref": "#/components/schemas/SegmentSynopses"
+          },
+          "image_url": {
+            "type": "string",
+            "example": "https://ichef.bbci.co.uk/images/ic/{recipe}/p054zzwj.jpg"
+          },
+          "offset": {
+            "$ref": "#/components/schemas/SegmentOffset"
+          },
+          "uris": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommercialLinks"
+            }
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "urn",
+          "segment_type",
+          "titles",
+          "synopses",
+          "image_url",
+          "offset",
+          "uris"
+        ]
+      },
+      "SegmentOffset": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "integer",
+            "example": 1023
+          },
+          "end": {
+            "type": "integer",
+            "example": 1185
+          },
+          "label": {
+            "type": "string",
+            "example": "1 Minute Ago"
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "label"
+        ]
+      },
+      "SegmentSynopses": {
+        "type": "object",
+        "properties": {
+          "short": {
+            "type": "string",
+            "example": "A discussion on the different ways of understanding the world around us."
+          },
+          "medium": {
+            "type": "string",
+            "nullable": true,
+            "example": "Discussion programme in which guests from different faith and non-faith"
+          },
+          "long": {
+            "type": "string",
+            "nullable": true,
+            "example": "debate the challenges of today's world."
+          }
+        },
+        "required": [
+          "short",
+          "medium",
+          "long"
+        ]
+      },
+      "SegmentTitles": {
+        "type": "object",
+        "properties": {
+          "primary": {
+            "type": "string",
+            "example": "Beyond Belief"
+          },
+          "secondary": {
+            "type": "string",
+            "nullable": true,
+            "example": "Public Grief"
+          },
+          "tertiary": {
+            "type": "string",
+            "nullable": true,
+            "example": "Lorem ipsum"
+          }
+        },
+        "required": [
+          "primary",
+          "secondary",
+          "tertiary"
+        ]
+      },
+      "SegmentsPaginatedResponse": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "example": 287365
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100,
+            "example": 30
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Segment"
+            }
+          }
+        },
+        "required": [
+          "total",
+          "limit",
+          "data"
+        ]
+      },
+      "SegmentsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Segment"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
       "PersonalisedCategoriesResponse": {
         "type": "object",
         "properties": {
