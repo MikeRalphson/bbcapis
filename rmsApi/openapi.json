@@ -93,6 +93,93 @@
         }
       }
     },
+    "/v2/experience/inline/categories": {
+      "get": {
+        "summary": "Categories Inline Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience categories index page <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/experience/inline/container/{urn}": {
+      "get": {
+        "summary": "Container Inline Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/urn"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Apply sort to Container programmes (for category urns only)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "latest",
+                "popular",
+                "title"
+              ]
+            },
+            "required": false
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience Container page. Brand, Series or Category <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/experience/inline/stations": {
       "get": {
         "summary": "All stations Experience",
@@ -1442,6 +1529,9 @@
             "$ref": "#/components/parameters/container"
           },
           {
+            "$ref": "#/components/parameters/tleoDistinct"
+          },
+          {
             "name": "type",
             "in": "query",
             "description": "Filter by programme type. Accepts comma separated values",
@@ -1893,6 +1983,35 @@
           },
           "404": {
             "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/experience/car": {
+      "get": {
+        "summary": "Index In-car Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Index In-car Experience <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceViewResponse"
+                }
+              }
+            }
           },
           "default": {
             "$ref": "#/components/responses/InternalServiceError"
@@ -2412,6 +2531,9 @@
         "summary": "Write Activity",
         "parameters": [
           {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
             "$ref": "#/components/parameters/Authorization"
           }
         ],
@@ -2459,6 +2581,9 @@
       "delete": {
         "summary": "Delete Activity",
         "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
           {
             "$ref": "#/components/parameters/Authorization"
           },
@@ -2623,6 +2748,99 @@
           },
           "404": {
             "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/experience/inline/categories": {
+      "get": {
+        "summary": "Personalised Categories Inline Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Personalised Inline Experience categories index page <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/experience/inline/container/{urn}": {
+      "get": {
+        "summary": "Personalised Container Inline Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/urn"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Apply sort to Container programmes (for category urns only)",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "latest",
+                "popular",
+                "title"
+              ]
+            },
+            "required": false
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Personalised Inline Experience Container page. Brand, Series or Category <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
           },
           "default": {
             "$ref": "#/components/responses/InternalServiceError"
@@ -2935,6 +3153,80 @@
           },
           "404": {
             "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/experience/car/browse": {
+      "get": {
+        "summary": "Browse page Inline Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience in-car browse page API <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/experience/experiment-attributes": {
+      "get": {
+        "summary": "<Temporary> User attributes per experiments",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Experience",
+          "Experiments"
+        ],
+        "description": "Temporary experiment attributes per user Experience <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceExperimentsAttributesResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "404": {
+              "$ref": "#/components/responses/Notfound"
+            },
+            "$ref": "#/components/responses/Unauthorized"
           },
           "default": {
             "$ref": "#/components/responses/InternalServiceError"
@@ -6032,7 +6324,9 @@
         "schema": {
           "type": "string",
           "enum": [
-            "promoted"
+            "promoted",
+            "speech",
+            "music"
           ]
         }
       },
@@ -6141,10 +6435,27 @@
             "available_from_date",
             "-available_from_date",
             "sequential",
-            "popular"
+            "chronological",
+            "-chronological",
+            "popular",
+            "title",
+            "-title"
           ]
         },
         "required": false
+      },
+      "tleoDistinct": {
+        "name": "tleoDistinct",
+        "in": "query",
+        "description": "Filter by latest playable items from distinct tleo containers",
+        "schema": {
+          "type": "boolean",
+          "enum": [
+            true,
+            false
+          ],
+          "required": false
+        }
       },
       "q": {
         "name": "q",
