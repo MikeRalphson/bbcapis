@@ -879,6 +879,9 @@
             "live": {
               "type": "string"
             },
+            "character_image": {
+              "type": "string"
+            },
             "programme_logo": {
               "type": "string"
             },
@@ -896,6 +899,9 @@
           "type": "boolean"
         },
         "signed": {
+          "type": "boolean"
+        },
+        "childrens": {
           "type": "boolean"
         },
         "audio_described": {
@@ -1296,7 +1302,8 @@
             "sequential",
             "self-contained",
             "strand",
-            "unclassified"
+            "unclassified",
+            "one-off"
           ]
         },
         "categories": {
@@ -1505,7 +1512,8 @@
             "sequential",
             "self-contained",
             "strand",
-            "unclassified"
+            "unclassified",
+            "one-off"
           ]
         },
         "initial_children": {

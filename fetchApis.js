@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const yaml = require('js-yaml');
 
 const nitro = require('./nitroSdk');
 const api = require('./nitroApi/api.js');
@@ -56,6 +57,12 @@ nitro.make_request('rms.api.bbc.co.uk','/docs/swagger.json','',query,{proto:'htt
 nitro.make_request('galileo.int.api.bbc.com','/v2/api-docs','',query,{proto:'https'},function(obj){
 	console.log('Galileo swagger.json');
 	fs.writeFileSync('./galileoApi/swagger.json',JSON.stringify(obj,null,2));
+	return false;
+});
+
+nitro.make_request('raw.githubusercontent.com','/bbc/simorgh/latest/data/schema.yaml','',query,{proto:'https',headers:{Accept:'text/x-yaml'}},function(obj){
+	console.log('Simorgh schema.yaml');
+	fs.writeFileSync('./simorghApi/openapi.yaml',obj);
 	return false;
 });
 
