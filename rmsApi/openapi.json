@@ -157,6 +157,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/hero_enabled"
           }
         ],
         "tags": [
@@ -1286,84 +1289,6 @@
         }
       }
     },
-    "/v2/programmes": {
-      "get": {
-        "summary": "Programmes",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/network"
-          },
-          {
-            "$ref": "#/components/parameters/networkUrlKey"
-          },
-          {
-            "$ref": "#/components/parameters/category"
-          },
-          {
-            "$ref": "#/components/parameters/container"
-          },
-          {
-            "name": "kind",
-            "in": "query",
-            "description": "Filter by provided query. E.g. 'tleo' returns top level objects, ie. brands, orphaned series, and orphaned episodes",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "tleo"
-              ]
-            },
-            "required": false
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Filter by programme type. Accepts comma separated values",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "brand",
-                "series",
-                "episode",
-                "clip",
-                "episode,clip"
-              ]
-            },
-            "required": false
-          },
-          {
-            "$ref": "#/components/parameters/sort"
-          },
-          {
-            "$ref": "#/components/parameters/offset"
-          },
-          {
-            "$ref": "#/components/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Programmes"
-        ],
-        "description": "Provides a paginated list of programmes.\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Programmes"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
     "/v2/programmes/items": {
       "get": {
         "summary": "Container & Playable Programmes",
@@ -1568,41 +1493,6 @@
                 }
               }
             }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/v2/programmes/{pid}": {
-      "get": {
-        "summary": "Single Programme By Pid",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/pid"
-          }
-        ],
-        "tags": [
-          "Programmes"
-        ],
-        "description": "Returns single programme details by a programme id <span>🎶</span> Nirvana\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Programme"
-                }
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/components/responses/Notfound"
           },
           "default": {
             "$ref": "#/components/responses/InternalServiceError"
@@ -2244,144 +2134,6 @@
         }
       }
     },
-    "/radio/popular": {
-      "get": {
-        "summary": "Popular Episodes & Clips",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/network"
-          },
-          {
-            "$ref": "#/components/parameters/networkUrlKey"
-          },
-          {
-            "$ref": "#/components/parameters/category"
-          },
-          {
-            "$ref": "#/components/parameters/container"
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Programme type required. Accepts comma separated values",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "episode",
-                "clip",
-                "episode,clip"
-              ]
-            },
-            "required": false
-          },
-          {
-            "name": "distinct",
-            "in": "query",
-            "description": "Filter by deduplication rule. E.g. 'tleo' returns programmes with distinct top level episode objects",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "tleo"
-              ]
-            },
-            "required": false
-          },
-          {
-            "name": "format",
-            "in": "query",
-            "description": "Filter by format. Accepts comma separated values",
-            "schema": {
-              "type": "string"
-            },
-            "required": false
-          },
-          {
-            "name": "group",
-            "in": "query",
-            "description": "Filter by group. Accepts comma separated values",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "tv",
-                "radio",
-                "tv,radio"
-              ]
-            },
-            "required": false
-          },
-          {
-            "name": "media_type",
-            "in": "query",
-            "description": "Filter by programme media type. Accepts comma separated values",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "audio",
-                "video",
-                "audio,video"
-              ]
-            },
-            "required": false
-          },
-          {
-            "name": "media_set",
-            "in": "query",
-            "description": "Filter by media set name. Accepts comma separated combinations of the following: pc,mobile-download,android-download-high,apple-ios-download-high,mobile-cellular-main,mobile-phone-main,iptv-all",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "pc",
-                "mobile-download",
-                "android-download-high",
-                "apple-ios-download-high",
-                "mobile-cellular-main",
-                "mobile-phone-main",
-                "iptv-all"
-              ]
-            },
-            "required": false
-          },
-          {
-            "name": "q",
-            "in": "query",
-            "description": "Search keyword",
-            "schema": {
-              "type": "string",
-              "example": "archers"
-            },
-            "required": false
-          },
-          {
-            "$ref": "#/components/parameters/offset"
-          },
-          {
-            "$ref": "#/components/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Programmes"
-        ],
-        "description": "Retrieve Popular Episodes & Clips <span>🎶</span> Ash\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PopularResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
     "/radio/programmes": {
       "get": {
         "deprecated": true,
@@ -2825,6 +2577,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/hero_enabled"
           }
         ],
         "tags": [
@@ -6276,6 +6031,16 @@
         },
         "required": false
       },
+      "hero_enabled": {
+        "name": "hero_enabled",
+        "in": "query",
+        "description": "Set to True for hero category response",
+        "schema": {
+          "type": "boolean",
+          "default": false
+        },
+        "required": false
+      },
       "BroadcastService": {
         "name": "service",
         "in": "query",
@@ -6428,12 +6193,14 @@
       "sort": {
         "name": "sort",
         "in": "query",
-        "description": "Sort by provided query. E.g. 'available_from_date' sorts in ascending order, and -available_from_date sorts in descending order",
+        "description": "Sort by provided query. E.g. 'available_from_date' sorts in ascending order, and '-available_from_date' sorts in descending order",
         "schema": {
           "type": "string",
           "enum": [
             "available_from_date",
             "-available_from_date",
+            "release_date",
+            "-release_date",
             "sequential",
             "chronological",
             "-chronological",
