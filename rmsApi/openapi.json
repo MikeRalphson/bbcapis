@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.2",
   "info": {
     "version": "2.0.0",
     "title": "Radio & Music Services",
@@ -3268,6 +3268,44 @@
           "Personalised Programmes"
         ],
         "description": "Recommended Programmes from the Audience Platforms' Recomendations Service <span>🎶</span> AC/DC\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/programmes/recommendations/baseline/playable": {
+      "get": {
+        "summary": "List of random recommended programmes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Personalised Programmes"
+        ],
+        "description": "Alternative and experimental Recommended Programmes from the Audience Platforms' Recomendations Service\n<span>🎶</span> AC/DC returning a random set of programmes\n",
         "responses": {
           "200": {
             "description": "OK",
