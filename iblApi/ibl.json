@@ -59,6 +59,9 @@
         "$ref": "#/definitions/region"
       }
     },
+    "region": {
+      "$ref": "#/definitions/region"
+    },
     "episodes": {
       "type": "array",
       "items": {
@@ -270,6 +273,37 @@
       },
       "required": [
         "category",
+        "page",
+        "count",
+        "per_page",
+        "elements"
+      ],
+      "additionalProperties": false
+    },
+    "channel_programmes": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "number"
+        },
+        "channel": {
+          "$ref": "#/definitions/channel"
+        },
+        "elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/programme"
+          }
+        },
+        "page": {
+          "type": "number"
+        },
+        "per_page": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "channel",
         "page",
         "count",
         "per_page",
@@ -1357,6 +1391,9 @@
         },
         "lexical_sort_letter": {
           "type": "string"
+        },
+        "numeric_tleo_position": {
+          "type": "number"
         },
         "release_date": {
           "type": "string"
