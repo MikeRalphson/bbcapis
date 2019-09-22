@@ -852,6 +852,76 @@
         }
       }
     },
+    "/v2/networks/{id}/promos": {
+      "get": {
+        "summary": "Network by ID",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/NetworkId"
+          }
+        ],
+        "tags": [
+          "Networks"
+        ],
+        "description": "Provides promos items for a network ID. <span>🎶</span> Green Day\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/networks/{id}/promos/playable": {
+      "get": {
+        "summary": "Network by ID",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/NetworkId"
+          }
+        ],
+        "tags": [
+          "Networks"
+        ],
+        "description": "Provides playable items by promos for a network ID. <span>🎶</span> Green Day\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/services/{sid}/tracks/latest/playable": {
       "get": {
         "summary": "List of recently playable tracks",
@@ -10570,6 +10640,9 @@
           "availability": {
             "$ref": "#/components/schemas/PlayableItemAvailability"
           },
+          "release": {
+            "$ref": "#/components/schemas/PlayableItemReleaseDate"
+          },
           "guidance": {
             "$ref": "#/components/schemas/PlayableItemGuidance"
           },
@@ -10755,6 +10828,22 @@
           "value",
           "label"
         ]
+      },
+      "PlayableItemReleaseDate": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "nullable": true,
+            "pattern": "^(\\d{4}-[0-1]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\dZ|)$",
+            "example": "2017-06-26T16:00:28Z"
+          },
+          "label": {
+            "type": "string",
+            "nullable": true,
+            "example": "26 Jun 2017"
+          }
+        }
       },
       "PlayableItemSynopses": {
         "type": "object",
