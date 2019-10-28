@@ -3623,6 +3623,44 @@
         }
       }
     },
+    "/v2/tagged/{mood}/playable": {
+      "get": {
+        "summary": "List of playable music mixes for mood",
+        "parameters": [
+          {
+            "name": "mood",
+            "in": "path",
+            "description": "A mood representing a collection of playable items, some examples are chill, feel_good and focus.",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "tags": [
+          "Mixes"
+        ],
+        "description": "For a given mood, provides a list of items curated by an external team to match that mood. <span>🎶</span> Tyga\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/my/radio/favourites": {
       "parameters": [
         {
