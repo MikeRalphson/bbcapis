@@ -340,6 +340,61 @@
         }
       }
     },
+    "/v2/experience/inline/play/{service_id}": {
+      "get": {
+        "summary": "Play Live Inline Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/PollService_id"
+          },
+          {
+            "$ref": "#/components/parameters/fallback"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "name": "module",
+            "in": "query",
+            "description": "Apply pagination for module",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "play (broadcast summary)",
+                "recent_tracks",
+                "network_promos"
+              ]
+            },
+            "required": false
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience Play Live page used for https://www.bbc.co.uk/sounds/play/live:<network_id> <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/experience/inline/schedules/{service_id}": {
       "get": {
         "summary": "Schedules Inline Experience API by service id",
@@ -2716,6 +2771,71 @@
           "Experience"
         ],
         "description": "Inline Experience listen page API <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/experience/inline/play/{service_id}": {
+      "get": {
+        "summary": "Personalised Play Inline Experience",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/PollService_id"
+          },
+          {
+            "$ref": "#/components/parameters/fallback"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "name": "module",
+            "in": "query",
+            "description": "Apply pagination for module",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "play (broadcast summary)",
+                "recent_tracks",
+                "network_promos",
+                "recommendations"
+              ]
+            },
+            "required": false
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Personalised Inline Experience Live Play page used for https://www.bbc.co.uk/sounds/play/live:<network_id> <span>🎶</span> Jimi Hendrix\n",
         "responses": {
           "200": {
             "description": "OK",
