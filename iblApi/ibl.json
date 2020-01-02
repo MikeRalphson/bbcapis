@@ -1906,11 +1906,16 @@
         "kind": {
           "enum": [
             "available_now",
+            "watch_now",
             "coming_soon",
+            "streaming_now_sounds",
             "other"
           ]
         },
         "version_id": {
+          "type": "string"
+        },
+        "message": {
           "type": "string"
         }
       },
@@ -1919,7 +1924,8 @@
         "type",
         "title",
         "kind",
-        "version_id"
+        "version_id",
+        "message"
       ],
       "additionalProperties": false
     },

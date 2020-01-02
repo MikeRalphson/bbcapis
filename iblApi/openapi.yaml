@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: '1.0'
-  x-release: 1.0.0-453
+  x-release: 1.0.0-460
   title: BBC iPlayer Business Layer
   description: The definitive iPlayer API.
   x-logo:
@@ -1640,9 +1640,13 @@ components:
         kind:
           enum:
             - available_now
+            - watch_now
             - coming_soon
+            - streaming_now_sounds
             - other
         version_id:
+          type: string
+        message:
           type: string
       required:
         - id
@@ -1650,6 +1654,7 @@ components:
         - title
         - kind
         - version_id
+        - message
       additionalProperties: false
     search_group:
       type: object
