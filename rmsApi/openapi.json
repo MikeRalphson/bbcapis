@@ -1443,6 +1443,12 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/PollService_id"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
           }
         ],
         "tags": [
@@ -1522,6 +1528,12 @@
           },
           {
             "$ref": "#/components/parameters/PollService_id"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
           }
         ],
         "tags": [
@@ -1844,6 +1856,12 @@
           },
           {
             "$ref": "#/components/parameters/pid"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
           }
         ],
         "tags": [
@@ -3733,6 +3751,12 @@
           },
           {
             "$ref": "#/components/parameters/pid"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
           }
         ],
         "tags": [
