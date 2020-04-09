@@ -1,0 +1,776 @@
+openapi: 3.0.0
+info:
+  description: |-
+    BBCiD Policy Service
+
+    - [Swagger UI](/swagger-ui)
+    - [ReDoc](/docs)
+  version: ${project.version}
+  title: User Policy API
+  x-logo:
+    url: images/logo.png
+tags:
+  - name: basic-api
+    description: Basic API endpoints (e.g. monitoring, service status)
+  - name: policy-evaluations
+    description: |
+      This group of endpoints assesses a user's elegibility for a policy (or all policies).
+servers:
+  - url: https://account-backend-gateway.int.api.bbci.co.uk
+    description: Integration environment
+  - url: https://account-backend-gateway.test.api.bbci.co.uk
+    description: Testing environment
+  - url: https://account-backend-gateway.stage.api.bbci.co.uk
+    description: Staging environment
+  - url: https://account-backend-gateway.api.bbci.co.uk
+    description: Production environment
+  - url: http://localhost:8082/
+    description: Local development (Spring Boot)
+paths:
+  /status:
+    get:
+      tags:
+        - basic-api
+      summary: Service status
+      description: |
+        Service health check
+
+        This is accessed directly (not via gateway) by the ELB.
+      operationId: status
+      responses:
+        "200":
+          $ref: '#/components/responses/Status200'
+        "503":
+          $ref: '#/components/responses/Status503'
+      deprecated: false
+  /users/{userId}/policy-evaluations:
+    get:
+      tags:
+        - policy-evaluations
+      security:
+        - bearerAuth: [ ]
+        - sslClientCert: [ ]
+      summary: Get all policy evaluations
+      description: |
+        Evaluate whether or not a user meets each policy. Include any failure reasons for all policies.
+
+        | Scenario | `data.policyResults.<policyName>` | `data.policyFailures.<policyName>.length` |
+        |----------|-----------------------------------|-------------------------------------------|
+        | Passed   | true                              | 0                                         |
+        | Failed   | false                             | >= 1                                      |
+      operationId: getAllPolicyEvaluations
+      parameters:
+        - $ref: "#/components/parameters/header_policyApiVersion"
+        - $ref: "#/components/parameters/header_subjectDn_REQUIRED"
+        - $ref: "#/components/parameters/path_userId_REQUIRED"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PolicyEvaluationsResponse"
+              examples:
+                allO18User:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsAllO18User"
+                allU18User:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsAllU18User"
+                allU16User:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsAllU16User"
+                allU13UserWithCommentsPermissionAllowed:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsAllU13UserWithCommentsPermissionAllowed"
+                allU13UserWithoutCommentsPermission:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsAllU13UserWithoutCommentsPermission"
+                allU13UserWithCommentsPermissionDenied:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsAllU13UserWithCommentsPermissionDenied"
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthenticated'
+        "403":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/UserNotFound'
+        "410":
+          $ref: '#/components/responses/Gone'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      deprecated: false
+    delete:
+      tags:
+        - policy-evaluations
+      security:
+        - sslClientCert: [ ]
+      summary: Purge cached evaluations
+      description: Delete any cached policy evaluations for a user
+      operationId: purgeCachedEvaluations
+      parameters:
+        - $ref: "#/components/parameters/header_subjectDn_REQUIRED"
+        - $ref: "#/components/parameters/path_userId_REQUIRED"
+      responses:
+        "204":
+          description: No content
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthenticated'
+        "403":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/UserNotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      deprecated: false
+  /users/{userId}/policy-evaluations/{policyName}:
+    get:
+      tags:
+        - policy-evaluations
+      security:
+        - bearerAuth: [ ]
+        - sslClientCert: [ ]
+      summary: Get one policy evaluation
+      description: |
+        Evaluate whether or not a user meets a specific policy. Include any failure reasons for that policy.
+
+        | Scenario | `data.policyResult` | `data.policyFailures.length` |
+        |----------|---------------------|------------------------------|
+        | Passed   | true                | 0                            |
+        | Failed   | false               | >= 1                         |
+      operationId: getSpecificPolicyEvaluation
+      parameters:
+        - $ref: "#/components/parameters/header_policyApiVersion"
+        - $ref: "#/components/parameters/header_subjectDn_REQUIRED"
+        - $ref: "#/components/parameters/path_userId_REQUIRED"
+        - $ref: "#/components/parameters/path_policyName_REQUIRED"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SpecificPolicyEvaluationResponse"
+              examples:
+                commentsU16User:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsCommentsU16User"
+                commentsO18User:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsCommentsO18User"
+                u16CommentsU16User:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsU16CommentsU16User"
+                u16CommentsO18User:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsU16CommentsO18User"
+                u16CommentsU13UserWithoutParentOrGuardian:
+                  $ref: "#/components/examples/ResponsePolicyEvaluationsU16CommentsU13UserWithoutParentOrGuardian"
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "401":
+          $ref: '#/components/responses/Unauthenticated'
+        "403":
+          $ref: '#/components/responses/Unauthorized'
+        "404":
+          $ref: '#/components/responses/UserNotFound'
+        "410":
+          $ref: '#/components/responses/Gone'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+      deprecated: false
+components:
+  examples:
+    ResponsePolicyEvaluationsAllO18User:
+      summary: Adult 18+, all policies
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:comments,u16Comments
+        data:
+          policyResults:
+            comments: true
+            u16Comments: false
+          policyFailures:
+            comments: [ ]
+            u16Comments:
+              - comparison: not in
+                name: AGE_TOO_OLD_OR_UNKNOWN
+                propertyPath: age.ageBracket
+                value: '["u13", "u16"]'
+        meta:
+          apiVersion: "1"
+    ResponsePolicyEvaluationsAllU18User:
+      summary: Child 16-17, all policies
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:comments,u16Comments
+        data:
+          policyResults:
+            comments: true
+            u16Comments: false
+          policyFailures:
+            comments: [ ]
+            u16Comments:
+              - comparison: not in
+                name: AGE_TOO_OLD_OR_UNKNOWN
+                propertyPath: age.ageBracket
+                value: '["u13", "u16"]'
+        meta:
+          apiVersion: "1"
+    ResponsePolicyEvaluationsAllU16User:
+      summary: Child 13-15, all policies
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:comments,u16Comments
+        data:
+          policyResults:
+            comments: false
+            u16Comments: true
+          policyFailures:
+            comments:
+              - comparison: not in
+                name: AGE_TOO_YOUNG_OR_UNKNOWN
+                propertyPath: age.ageBracket
+                value: '["u18", "o18"]'
+            u16Comments: [ ]
+        meta:
+          apiVersion: "1"
+    ResponsePolicyEvaluationsAllU13UserWithCommentsPermissionAllowed:
+      summary: Child <13 (with comments permission allowed), all policies
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:comments,u16Comments
+        data:
+          policyResults:
+            comments: false
+            u16Comments: true
+          policyFailures:
+            comments:
+              - comparison: not in
+                name: AGE_TOO_YOUNG_OR_UNKNOWN
+                propertyPath: age.ageBracket
+                value: '["u18", "o18"]'
+            u16Comments: [ ]
+        meta:
+          apiVersion: "1"
+          parentAssociation: linked
+    ResponsePolicyEvaluationsAllU13UserWithoutCommentsPermission:
+      summary: Child <13 (without comments permission), all policies
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:comments,u16Comments
+        data:
+          policyResults:
+            comments: false
+            u16Comments: false
+          policyFailures:
+            comments:
+              - comparison: not in
+                name: AGE_TOO_YOUNG_OR_UNKNOWN
+                propertyPath: age.ageBracket
+                value: '["u18", "o18"]'
+            u16Comments:
+              - comparison: equals
+                name: COMMENTS_PERMISSION_REQUIRED
+                propertyPath: permissions.allowComments
+                value: null
+        meta:
+          apiVersion: "1"
+          parentAssociation: linked
+    ResponsePolicyEvaluationsAllU13UserWithCommentsPermissionDenied:
+      summary: Child <13 (with comments permission denied), all policies
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:comments,u16Comments
+        data:
+          policyResults:
+            comments: false
+            u16Comments: false
+          policyFailures:
+            comments:
+              - comparison: not in
+                name: AGE_TOO_YOUNG_OR_UNKNOWN
+                propertyPath: age.ageBracket
+                value: '["u18", "o18"]'
+            u16Comments:
+              - comparison: equals
+                name: COMMENTS_PERMISSION_GRANTED_REQUIRED
+                propertyPath: permissions.allowComments
+                value: false
+        meta:
+          apiVersion: "1"
+          parentAssociation: linked
+    ResponsePolicyEvaluationsCommentsU16User:
+      summary: Child <16, comments policy
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:comments
+        data:
+          policyResult: false
+          policyFailures:
+            - comparison: not in
+              name: AGE_TOO_YOUNG_OR_UNKNOWN
+              propertyPath: age.ageBracket
+              value: '["u18", "o18"]'
+        meta:
+          apiVersion: "1"
+    ResponsePolicyEvaluationsCommentsO18User:
+      summary: Adult 18+, comments policy
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:comments
+        data:
+          policyResult: true
+          policyFailures: [ ]
+        meta:
+          apiVersion: "1"
+    ResponsePolicyEvaluationsU16CommentsU13UserWithoutCommentsPermissionWithoutDisplayName:
+      summary: Child <13 (without comments permission or display name), u16Comments policy
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:u16Comments
+        data:
+          policyResult: false
+          policyFailures:
+            - comparison: equals
+              name: COMMENTS_PERMISSION_REQUIRED
+              propertyPath: permissions.allowComments
+              value: null
+            - comparison: equals
+              name: DISPLAY_NAME_REQUIRED
+              propertyPath: displayName
+              value: null
+        meta:
+          apiVersion: "1"
+          parentAssociation: linked
+    ResponsePolicyEvaluationsU16CommentsU13UserWithoutParentOrGuardian:
+      summary: Child <13 (without parent or guardian), u16Comments policy
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:u16Comments
+        data:
+          policyResult: false
+          policyFailures:
+            - comparison: ==
+              name: CHILD_DOES_NOT_HAVE_GUARDIAN
+              propertyPath: guardianEmail
+              value: null
+        meta:
+          apiVersion: "1"
+    ResponsePolicyEvaluationsU16CommentsU16User:
+      summary: Child <16, u16Comments policy
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:u16Comments
+        data:
+          policyResult: false
+          policyFailures: [ ]
+        meta: { }
+    ResponsePolicyEvaluationsU16CommentsO18User:
+      summary: Adult 18+, u16Comments policy
+      value:
+        id: fe097dfa-dfa9-4eac-95f2-4a59f3d20536:u16Comments
+        data:
+          policyResult: true
+          policyFailures:
+            - comparison: ArrayList.contains
+              name: NOT_ACCEPTABLE_AGE
+              propertyPath: age.ageBracket
+              value: '["o18", "u18", "unknown"]'
+        meta:
+          apiVersion: "1"
+  parameters:
+    header_policyApiVersion:
+      name: x-bbc-policy-api-version
+      in: header
+      schema:
+        $ref: "#/components/schemas/PolicyApiVersion"
+    header_subjectDn_REQUIRED:
+      name: x-bbc-subject-dn
+      in: header
+      required: true
+      schema:
+        $ref: "#/components/schemas/SubjectDn"
+    path_userId_REQUIRED:
+      name: userId
+      in: path
+      required: true
+      schema:
+        $ref: "#/components/schemas/UserId"
+    path_policyName_REQUIRED:
+      name: policyName
+      in: path
+      required: true
+      schema:
+        $ref: "#/components/schemas/PolicyName"
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse400'
+          examples:
+            GenericBadRequest:
+              summary: Bad Request
+              value:
+                error: malformedRequest
+            HeaderMissingSubjectDn:
+              summary: Subject DN header missing
+              value:
+                error: Missing request header 'x-bbc-subject-dn' for method parameter of type String
+            PolicyVersionDoesNotExist:
+              summary: Version of policy does not exist
+              value:
+                error: policyVersionDoesNotExist
+            UserIdFormatUnacceptable:
+              summary: User ID is in the wrong format
+              value:
+                error: userIdFormatUnacceptable
+    BadRequestSinglePolicy:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse400'
+          examples:
+            GenericBadRequest:
+              summary: Bad Request
+              value:
+                error: malformedRequest
+            HeaderMissingSubjectDn:
+              summary: Subject DN header missing
+              value:
+                error: Missing request header 'x-bbc-subject-dn' for method parameter of type String
+            PolicyDoesNotExist:
+              summary: Policy does not exist
+              value:
+                error: policyDoesNotExist
+            PolicyVersionDoesNotExist:
+              summary: Version of policy does not exist
+              value:
+                error: policyVersionDoesNotExist
+            UserIdFormatUnacceptable:
+              summary: User ID is in the wrong format
+              value:
+                error: userIdFormatUnacceptable
+    Gone:
+      description: Gone
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse410'
+          examples:
+            PolicyVersionDoesNotExist:
+              summary: Version of policy does not exist
+              value:
+                error: policyVersionDoesNotExistAnymore
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse500'
+          examples:
+            GenericInternalServerError:
+              summary: Internal Server Error
+              value:
+                error: internalServerError
+            UserServiceClientError:
+              summary: User Service client error
+              value:
+                error: userServiceClientError
+    Status200:
+      description: Status Up or Unknown
+      content:
+        application/json:
+          schema:
+            required:
+              - status
+            properties:
+              status:
+                type: string
+                description: |
+                  Indication of the service status health.
+
+                  Possible values: `UP`, `UNKNOWN`
+          examples:
+            StatusOK:
+              summary: Service status up
+              value:
+                status: OK
+            StatusUnknown:
+              summary: Service status unknown
+              value:
+                status: UNKNOWN
+    Status503:
+      description: Status Down or Out Of Service
+      content:
+        application/json:
+          schema:
+            required:
+              - status
+            properties:
+              status:
+                type: string
+                description: |
+                  Indication of the service status health.
+
+                  Possible values: `DOWN`, `OUT_OF_SERVICE`
+          examples:
+            StatusOK:
+              summary: Service status down
+              value:
+                status: DOWN
+            StatusUnknown:
+              summary: Service status out of service
+              value:
+                status: OUT_OF_SERVICE
+    Unauthenticated:
+      description: Unauthenticated (no valid authentication was supplied)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse401'
+          examples:
+            InvalidToken:
+              summary: Bearer token supplied but invalid
+              value:
+                error: invalidToken
+            MissingToken:
+              summary: Bearer token not supplied
+              value:
+                error: missingToken
+    Unauthorized:
+      description: Unauthorized (authentication not sufficient for the requested resource)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse403'
+          examples:
+            NotWhitelistedCert:
+              summary: SSL client cert not whitelisted
+              value:
+                error: sslClientCertNotWhitelisted
+    UserNotFound:
+      description: User not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse404'
+          examples:
+            UserNotFound:
+              summary: User profile not found
+              value:
+                error: userNotFound
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+    ErrorResponse400:
+      type: object
+      properties:
+        error:
+          type: string
+          description: |
+            Some form of client-side error. This could be bad syntax, or a request with valid syntax but one or more invalid values.
+
+            <sub>RFC: https://tools.ietf.org/html/rfc7231#section-6.5.1</sub>
+          enum:
+            - malformedRequest
+            - policyDoesNotExist
+            - policyVersionDoesNotExist
+            - userIdFormatUnacceptable
+            - Missing request header 'x-bbc-subject-dn' for method parameter of type String
+    ErrorResponse401:
+      type: object
+      properties:
+        error:
+          type: string
+          description: |
+            A valid form of authentication was not supplied.
+
+            <sub>RFC: https://tools.ietf.org/html/rfc7235#section-3.1</sub>
+          enum:
+            - invalidToken
+            - missingToken
+            - unknown
+    ErrorResponse403:
+      type: object
+      properties:
+        error:
+          type: string
+          description: |
+            Authentication not sufficient for the requested resource.
+
+            <sub>RFC: https://tools.ietf.org/html/rfc7231#section-6.5.3</sub>
+          enum:
+            - sslClientCertNotWhitelisted
+            - unknown
+    ErrorResponse404:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The requested user was not found
+          enum:
+            - userNotFound
+    ErrorResponse410:
+      type: object
+      properties:
+        error:
+          type: string
+          description: |
+            Deprecated version (that no longer exists) was requested. This is permanent.
+
+            <sub>RFC: https://tools.ietf.org/html/rfc7231#section-6.5.9</sub>
+          enum:
+            - policyVersionDoesNotExistAnymore
+    ErrorResponse500:
+      type: object
+      properties:
+        error:
+          type: string
+          description: |
+            Something happened that prevented a good response, or more specific error
+            response, from being formed.
+          enum:
+            - internalServerError
+            - userServiceClientError
+            - userServiceConnectTimeout
+            - userServiceConnectionRefused
+            - userServiceReadTimeout
+            - userServiceUnknownHost
+    PolicyApiVersion:
+      type: string
+      example: "2"
+      description: |
+        The version of the policy/policies. Some policies have version-specific evaluations while others do not.
+        If an API version is not specified, the latest version will be used.
+
+        Available versions:
+        * 2
+
+        Deprecated versions:
+        * 1
+    PolicyEvaluationsResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: |
+            Combined string of the user ID, age bracket and policy version, used internally
+            as a cache key.
+            This is to facilitate cached responses to be returned in repeat requests,
+            and to allow easy cache-miss after age graduation.
+          example: "fe097dfa-dfa9-4eac-95f2-4a59f3d20536:u16:latest"
+        data:
+          type: object
+          properties:
+            policyResults:
+              type: object
+              description: A list of the policy evaluation results
+              properties:
+                comments:
+                  $ref: "#/components/schemas/PolicyResult"
+                u16comments:
+                  $ref: "#/components/schemas/PolicyResult"
+            policyFailures:
+              type: object
+              description: A list of the failures for each failed policy
+              properties:
+                comments:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/RuleViolation"
+                u16Comments:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/RuleViolation"
+        meta:
+          type: object
+          properties:
+            apiVersion:
+              type: string
+              description: The API version used
+            parentAssociation:
+              type: string
+              description: Status of the parent link
+    PolicyName:
+      type: string
+      description: >
+        The specific policy to evaluate
+          * comments
+          * content-uploads
+          * email-contact
+          * notifications
+          * playlists
+          * tv
+          * u16
+          * u16-comments
+          * uploads
+    PolicyResult:
+      type: boolean
+      description: Whether or not the user meets this policy's criteria
+    RuleViolation:
+      type: object
+      description: Details on the field/value that did not meet a policy rule
+      properties:
+        comparison:
+          type: string
+          description: The rule method/operator applied to this property
+        name:
+          type: string
+          description: A standardised name for this type of failure
+        propertyPath:
+          type: string
+          description: The user property causing the rule failure
+        value:
+          type: string
+          description: The value used to assess the property
+    SpecificPolicyEvaluationResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: |
+            Combined string of the user ID, age bracket and policy version, used internally
+            as a cache key.
+            This is to facilitate cached responses to be returned in repeat requests,
+            and to allow easy cache-miss after age graduation.
+          example: "fe097dfa-dfa9-4eac-95f2-4a59f3d20536:u16:latest"
+        data:
+          type: object
+          properties:
+            policyResult:
+              $ref: "#/components/schemas/PolicyResult"
+            policyFailures:
+              type: array
+              items:
+                $ref: "#/components/schemas/RuleViolation"
+        meta:
+          type: object
+          properties:
+            apiVersion:
+              type: string
+              description: The API version used
+            parentAssociation:
+              type: string
+              description: Status of the parent link
+    SubjectDn:
+      type: string
+      example: mail@mail.mail, CN=mail mail, OU=BBC, O=British Broadcasting Corporation, L=London, C=GB
+      description: |
+        **Automatically generated**
+        
+        The SubjectDN field value from the SSL client cert hitting the gateway. This is used to determine who/what is making the request.
+
+        Apache adds a header `SSLClientCertSubject` during the SSL handshake when the BBC-provided `/etc/httpd/conf.d/bbc-httpd-includes/https_vhost/set_request_headers.inc` is used (e.g. as part of RPM `cloud-httpd24-ssl-services-devs`). This header value is
+        then added as `x-bbc-subject-dn` in a custom plugin, `header`, at the gateway.
+    UserId:
+      type: string
+      example: fe097dfa-dfa9-4eac-95f2-4a59f3d20536
+      description: "User ID: UUID (v5+) *or* digits (v4)"
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        ### Client-server only
+        For requests originating from a client, the user access token is required to authenticate
+        that the request is associated with a currently authenticated user.
+
+        For server-to-server requests, this is not required.
+    sslClientCert:
+      type: http
+      scheme: SSL client cert (whitelisted)
+      description: |
+        ### Server-server only
+        Requests made directly to the Policy service will not require an access token, allowing
+        straightforward server-to-server request flow.
