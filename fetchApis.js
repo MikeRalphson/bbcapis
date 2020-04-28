@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const yaml = require('js-yaml');
 
 const nitro = require('./nitroSdk');
 const api = require('./nitroApi/api.js');

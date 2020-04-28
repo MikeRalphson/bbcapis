@@ -4,7 +4,7 @@ var fs = require('fs');
 var crypto = require('crypto');
 var stream = require('stream');
 
-const yaml = require('js-yaml');
+const yaml = require('yaml');
 
 var ajv = require('ajv')({
 	allErrors: true,
@@ -47,7 +47,7 @@ var params = [];
 
 function yrequire(filename) {
 	const s = fs.readFileSync(filename,'utf8');
-	return yaml.safeLoad(s,{json:true});
+	return yaml.parse(s);
 }
 
 //__________________________________________________________________
@@ -788,7 +788,7 @@ function processXsd() {
 		return false;
 	}
 	else {
-		fs.writeFileSync('./nitroApi/nitro-schema.yaml',yaml.safeDump(obj),'utf8');
+		fs.writeFileSync('./nitroApi/nitro-schema.yaml',yaml.stringify(obj),'utf8');
 
 		var existing = openapi.components.schemas;
 		var root = obj.properties;
@@ -871,12 +871,12 @@ process.on('exit',function(){
 		var errors = validate.errors;
 		if (errors) {
 			console.log(errors);
-			let openapiStr = yaml.dump(openapi);
+			let openapiStr = yaml.stringify(openapi);
 			fs.writeFileSync('./nitroApi/openapi.err',openapiStr);
 		}
 		else {
 			console.log('Writing OpenAPI document');
-			let openapiStr = yaml.safeDump(openapi);
+			let openapiStr = yaml.stringify(openapi);
 			fs.writeFileSync('./nitroApi/openapi.yaml',openapiStr);
 		}
 	}

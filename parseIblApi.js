@@ -8,7 +8,7 @@ const ajv = require('ajv')({
 	jsonPointers: true
 });
 const oa2js = require('openapi2js');
-const yaml = require('js-yaml');
+const yaml = require('yaml');
 const recurse = require('reftools/lib/recurse.js').recurse;
 
 const base = yrequire('./iblApi/ibl_openapi_header.yaml');
@@ -28,7 +28,7 @@ ajv._opts.defaultMeta = metaSchema.id;
 //____________________________________________________________________________
 function yrequire(filename) {
 	const s = fs.readFileSync(filename,'utf8');
-	return yaml.safeLoad(s,{json:true});
+	return yaml.parse(s);
 }
 
 //____________________________________________________________________________
@@ -75,11 +75,11 @@ else {
 	if (errors) {
 		console.warn(util.inspect(errors,{depth:null, colors:true}));
 		console.log('Writing openapi.err file');
-		fs.writeFileSync('./iblApi/openapi.err',yaml.safeDump(base));
+		fs.writeFileSync('./iblApi/openapi.err',yaml.stringify(base));
 	}
 	else {
 		console.log('Writing OpenAPI document');
-		fs.writeFileSync('./iblApi/openapi.yaml',yaml.safeDump(base));
+		fs.writeFileSync('./iblApi/openapi.yaml',yaml.stringify(base));
 		console.log('Writing JS API definitions');
 		oa2js.openAPI2js(base,'./iblApi/ibl.js');
 	}
