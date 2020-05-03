@@ -4,15 +4,16 @@ Lists Nitro categories, formats (known to the BBC as aggregations)
 
 */
 
-var http = require('http');
+const http = require('http');
+const https = require('https');
 
 function category_dump(obj) {
 	console.log('# Category list dump');
 	var first = true;
-	for (var i in obj.categories) {
-		c = obj.categories[i];
-		console.log(c.id+' '+c.type+' '+c.key+' = '+c.title);
-		if (c.type == 'genre' || c.type == 'format') {
+	for (var i in obj.results) {
+		c = obj.results[i];
+		console.log(c.id+' '+c.type+' '+c.pip_id+' = '+c.title);
+		if (c.category_type == 'genre' || c.category_type == 'format') {
 			for (var j in c.narrower) {
 				n = c.narrower[j];
 				console.log('  '+n.id+' '+n.type+' '+c.key+'/'+n.key+' = '+n.title);
@@ -29,8 +30,8 @@ function category_dump(obj) {
 
 function list_categories(path) {
 	var options = {
-	  hostname: 'clifton.api.bbci.co.uk'
-	  ,port: 80
+	  hostname: 'rms.api.bbc.co.uk'
+	  ,port: 443
 	  ,path: path
 	  ,method: 'GET'
 	  ,headers: { 'Content-Type': 'application/json' }
@@ -39,7 +40,7 @@ function list_categories(path) {
 	var list = '';
 	var cat;
 
-	var req = http.request(options, function(res) {
+	var req = https.request(options, function(res) {
 	  res.setEncoding('utf8');
 	  res.on('data', function (data) {
 		   list += data;
@@ -71,15 +72,17 @@ function list_categories(path) {
 //------------------------------------------------------------------------[main]
 
 // was http://polling.bbc.co.uk/radio/categories.json
-// http://clifton.api.bbci.co.uk/aps/programmes/genres.json
-// http://clifton.api.bbci.co.uk/aps/programmes/formats.json
+// was http://clifton.api.bbci.co.uk/aps/programmes/genres.json
+// was http://clifton.api.bbci.co.uk/aps/programmes/formats.json
+// https://rms.api.bbc.co.uk/categories
+// https://rms.api.bbc.co.uk/v2/categories/container
 
 var type = 'genre';
 if (process.argv.length>2) {
 	type = process.argv[2];
 }
 if (type.startsWith('genre')) {
-	list_categories('/aps/programmes/genres.json');
+	list_categories('/categories');
 }
 else if (type.startsWith('format')) {
 	list_categories('/aps/programmes/formats.json');
