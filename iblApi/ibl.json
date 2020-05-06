@@ -1157,24 +1157,48 @@
                   "events": {
                     "type": "array",
                     "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "system": {
+                              "type": "string"
+                            },
+                            "offset": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "system",
+                            "offset"
+                          ],
+                          "additionalProperties": false
                         },
-                        "system": {
-                          "type": "string"
-                        },
-                        "offset": {
-                          "type": "integer"
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "system": {
+                              "type": "string"
+                            },
+                            "time": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "system",
+                            "time"
+                          ],
+                          "additionalProperties": false
                         }
-                      },
-                      "required": [
-                        "name",
-                        "system",
-                        "offset"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
@@ -2370,24 +2394,48 @@
               "events": {
                 "type": "array",
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "system": {
+                          "type": "string"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "system",
+                        "offset"
+                      ],
+                      "additionalProperties": false
                     },
-                    "system": {
-                      "type": "string"
-                    },
-                    "offset": {
-                      "type": "integer"
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "system": {
+                          "type": "string"
+                        },
+                        "time": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "system",
+                        "time"
+                      ],
+                      "additionalProperties": false
                     }
-                  },
-                  "required": [
-                    "name",
-                    "system",
-                    "offset"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
@@ -2599,24 +2647,48 @@
         "events": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "system": {
+                    "type": "string"
+                  },
+                  "offset": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "name",
+                  "system",
+                  "offset"
+                ],
+                "additionalProperties": false
               },
-              "system": {
-                "type": "string"
-              },
-              "offset": {
-                "type": "integer"
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "system": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "system",
+                  "time"
+                ],
+                "additionalProperties": false
               }
-            },
-            "required": [
-              "name",
-              "system",
-              "offset"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
