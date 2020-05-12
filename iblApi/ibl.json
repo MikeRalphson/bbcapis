@@ -1822,6 +1822,29 @@
             "string",
             "null"
           ]
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "system": {
+                "type": "string"
+              },
+              "time": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "system",
+              "time"
+            ],
+            "additionalProperties": false
+          }
         }
       },
       "required": [
