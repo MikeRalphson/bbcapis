@@ -26,6 +26,7 @@
     "QuotaForAdminAPI": "CONFIGURED",
     "Logger": "CONFIGURED",
     "Agent": "CONFIGURED",
+    "ENVIRONMENT": "CONFIGURED",
     "IdTokenExchangeHeader": "bbc-identity-token"
   },
   "x-a127-services": {
@@ -34,7 +35,8 @@
       "options": {
         "aws": "CONFIGURED",
         "auth": "CONFIGURED",
-        "logger": "CONFIGURED"
+        "logger": "CONFIGURED",
+        "environment": "CONFIGURED"
       }
     },
     "oauth2": {
