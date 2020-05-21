@@ -921,6 +921,12 @@
             },
             "inherited_from": {
               "type": "string"
+            },
+            "promotional": {
+              "type": "string"
+            },
+            "promotional_with_logo": {
+              "type": "string"
             }
           },
           "required": [

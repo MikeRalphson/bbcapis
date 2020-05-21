@@ -2,6 +2,8 @@ package-lock.json
 img/
 dev/
 
+*.orig
+
 # Logs
 logs
 *.log
