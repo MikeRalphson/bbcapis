@@ -3,6 +3,7 @@ img/
 dev/
 
 *.orig
+mirrors
 
 # Logs
 logs
