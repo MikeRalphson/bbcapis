@@ -4010,6 +4010,35 @@
         }
       }
     },
+    "/v2/promos/single-item": {
+      "get": {
+        "summary": "List of Single Item Promos",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          }
+        ],
+        "tags": [
+          "Single Item Promo"
+        ],
+        "description": "Provides a list of the active single item promos <span>🌟</span> rms-promo-service\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleItemPromosResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/my/radio/favourites": {
       "parameters": [
         {
@@ -7011,7 +7040,14 @@
             "$ref": "#/components/schemas/SegmentTitles"
           },
           "synopses": {
-            "$ref": "#/components/schemas/SegmentSynopses"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SegmentSynopses"
+              },
+              {
+                "$ref": "#/components/schemas/NullValue"
+              }
+            ]
           },
           "image_url": {
             "type": "string",
@@ -9813,7 +9849,14 @@
             "type": "string"
           },
           "synopses": {
-            "$ref": "#/components/schemas/PodcastSynopses"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PodcastSynopses"
+              },
+              {
+                "$ref": "#/components/schemas/NullValue"
+              }
+            ]
           },
           "rss_url": {
             "type": "string"
@@ -10388,7 +10431,14 @@
             "$ref": "#/components/schemas/ContainerItemTitles"
           },
           "synopses": {
-            "$ref": "#/components/schemas/ContainerItemSynopses"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ContainerItemSynopses"
+              },
+              {
+                "$ref": "#/components/schemas/NullValue"
+              }
+            ]
           },
           "image_url": {
             "type": "string",
@@ -10917,7 +10967,14 @@
             "$ref": "#/components/schemas/DisplayItemTitles"
           },
           "synopses": {
-            "$ref": "#/components/schemas/DisplayItemSynopses"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/DisplayItemSynopses"
+              },
+              {
+                "$ref": "#/components/schemas/NullValue"
+              }
+            ]
           },
           "image_url": {
             "type": "string",
@@ -11050,7 +11107,14 @@
             "$ref": "#/components/schemas/PlayableItemTitles"
           },
           "synopses": {
-            "$ref": "#/components/schemas/PlayableItemSynopses"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PlayableItemSynopses"
+              },
+              {
+                "$ref": "#/components/schemas/NullValue"
+              }
+            ]
           },
           "image_url": {
             "type": "string",
@@ -11069,7 +11133,14 @@
             "$ref": "#/components/schemas/PlayableItemDownload"
           },
           "availability": {
-            "$ref": "#/components/schemas/PlayableItemAvailability"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PlayableItemAvailability"
+              },
+              {
+                "$ref": "#/components/schemas/NullValue"
+              }
+            ]
           },
           "release": {
             "$ref": "#/components/schemas/PlayableItemReleaseDate"
@@ -11366,7 +11437,14 @@
             "example": "Beyond Belief"
           },
           "synopses": {
-            "$ref": "#/components/schemas/PlayableItemSynopses"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PlayableItemSynopses"
+              },
+              {
+                "$ref": "#/components/schemas/NullValue"
+              }
+            ]
           },
           "activities": {
             "type": "array",
@@ -11474,6 +11552,17 @@
           "short",
           "long"
         ]
+      },
+      "NullValue": {
+        "type": "object",
+        "required": [
+          null
+        ],
+        "properties": {
+          "null": {
+            "type": "object"
+          }
+        }
       },
       "ErrorResponse": {
         "type": "object",
@@ -11802,7 +11891,14 @@
             "$ref": "#/components/schemas/PlayableItemTitles"
           },
           "synopses": {
-            "$ref": "#/components/schemas/PlayableItemSynopses"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PlayableItemSynopses"
+              },
+              {
+                "$ref": "#/components/schemas/NullValue"
+              }
+            ]
           },
           "images": {
             "type": "array",
@@ -11871,6 +11967,77 @@
           "limit",
           "offset",
           "data"
+        ]
+      },
+      "SingleItemPromosResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SingleItemPromo"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "SingleItemPromo": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "single_item_promo"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$",
+            "example": "d3157051-ac4c-43bc-9977-dc5b77cf7453"
+          },
+          "urn": {
+            "type": "string",
+            "pattern": "^urn:bbc:radio:single_item_promo:[0-9A-Fa-f]{8}(?:-[0-9A-Fa-f]{4}){3}-[0-9A-Fa-f]{12}$",
+            "example": "urn:bbc:radio:single_item_promo:d3157051-ac4c-43bc-9977-dc5b77cf7453"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "image_pid": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "start_time": {
+            "type": "string"
+          },
+          "end_time": {
+            "type": "string"
+          },
+          "item": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PlayableItem"
+              },
+              {
+                "$ref": "#/components/schemas/ContainerItem"
+              }
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "urn",
+          "title",
+          "item"
         ]
       },
       "V2Episode": {
