@@ -71,6 +71,12 @@ nitro.make_request('access.api.bbc.com','/api-docs','',query,{proto:'https',head
 	return false;
 });
 
+nitro.make_request('locator-service.test.api.bbci.co.uk','/v2/api-docs','',query,{proto:'https',headers:{Accept:'application/json'}},function(obj){
+	console.log('Locator API');
+	fs.writeFileSync('./locatorApi/swagger.json',JSON.stringify(obj,null,2));
+	return false;
+});
+
 query.add(api.fProgrammesPartnerPid,'s0000024',true);
 query.add(api.fProgrammesPageSize,1);
 nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'application/json'}},function(obj){

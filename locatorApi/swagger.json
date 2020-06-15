@@ -1,0 +1,1337 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Locator is a service that gives geospatial information. E.g. we can tell you what the lat/long is for a postcode, and then we can give you information about that Location. We also provide functionality for placename search and autocomplete as well as ReverseGeocoding and Bounding Box based queries.",
+    "version": "3.0",
+    "title": "Locator API",
+    "contact": {},
+    "license": {}
+  },
+  "host": "locator-service.test.api.bbci.co.uk",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Details",
+      "description": "Detail Endpoints"
+    },
+    {
+      "name": "Location Details",
+      "description": "Location Detail Endpoints"
+    },
+    {
+      "name": "Locations",
+      "description": "Location Endpoints"
+    }
+  ],
+  "paths": {
+    "/detail-types/{key}": {
+      "get": {
+        "tags": [
+          "Details"
+        ],
+        "summary": "Get Detail Types by Key",
+        "description": "Get a single detail type that is supported in Locator.",
+        "operationId": "detailTypesByKeyUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "key: Key of the detail type to return",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/custom-type"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/detail-types{?rs,st,type}": {
+      "get": {
+        "tags": [
+          "Details"
+        ],
+        "summary": "Get Detail Types",
+        "description": "Get the details types that are supported in Locator.",
+        "operationId": "detailTypesUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "rs",
+            "in": "query",
+            "description": "rows: The number of rows to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "st",
+            "in": "query",
+            "description": "start: The page of results to start at",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type: The types of detail-types supported.\n\nAREA = A shape, ingested from a shapefile\n\nLOCATION = A single point representing a Latitude/Longitude\n\nPATH = A line of points e.g. Olympic torch route",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "AREA",
+              "LOCATION",
+              "PATH"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/custom-type"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/details/{detailType}{?dv,eid,rs,st}": {
+      "get": {
+        "tags": [
+          "Details"
+        ],
+        "summary": "Get Details",
+        "description": "Get the details using the supplied parameters.",
+        "operationId": "getDetailsUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "detailType",
+            "in": "path",
+            "description": "detailType: Supported data types can be requested from the /detail-types endpoint",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "dv",
+            "in": "query",
+            "description": "data-version: Specify a specific version of the data",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "eid",
+            "in": "query",
+            "description": "external-id: ID for detail type that can be understood by an external system",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "rs",
+            "in": "query",
+            "description": "rows: The number of rows to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "st",
+            "in": "query",
+            "description": "start: The page of results to start at",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/details"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/locations/{locationId}/details/{detailTypes}{?buffer,dv,operation,redirect,rs,vv}": {
+      "get": {
+        "tags": [
+          "Location Details"
+        ],
+        "summary": "Intersecting Details",
+        "description": "The intersecting details endpoint allows you to find out detailed information about details that the requested location resides in. This could be TV regions, news regions, council areas etc.\n\nMultiple detail types can be requested by comma separating them in the URL.\n\n E.g. /locations/CF142FG/details/tv,radio?op=intersect",
+        "operationId": "intersectingDetailsUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "buffer",
+            "in": "query",
+            "description": "buffer: Buffer around the point to include in the intersect of requested detail types",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "detailTypes",
+            "in": "path",
+            "description": "detailTypes: Comma separated list of detail types, supported types can be requested from the /detail-types endpoint",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "dv",
+            "in": "query",
+            "description": "data-version: Specify a specific version of the data",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "locationId: Can be either a District, Geoname or Postcode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "operation",
+            "in": "query",
+            "description": "op: As details are generally shapefiles, you can perform one of two operations: intersect or nearest.",
+            "required": true,
+            "type": "string",
+            "default": "intersect",
+            "enum": [
+              "intersect",
+              "nearest"
+            ]
+          },
+          {
+            "name": "redirect",
+            "in": "query",
+            "description": "redirect: Whether Locator should check if a Geoname has been redirected",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "rs",
+            "in": "query",
+            "description": "rows: The number of rows to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "vv",
+            "in": "query",
+            "description": "vv: View version for the response",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              1,
+              2
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/detail"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/locations/{locationId}/details/{detailTypes}{?distance,dv,redirect,rs,vv}": {
+      "get": {
+        "tags": [
+          "Location Details"
+        ],
+        "summary": "Nearest Details",
+        "description": "The nearest details endpoint allows you to find out detailed information closest to the requested location. This could be TV regions, news regions, council areas etc.\n\nMultiple detail types can be requested by comma separating them in the URL.\n\n E.g. /locations/CF142FG/details/tv,radio",
+        "operationId": "defaultDetailsUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "detailTypes",
+            "in": "path",
+            "description": "detailTypes: Comma separated list of detail types, supported types can be requested from the /detail-types endpoint",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "distance",
+            "in": "query",
+            "description": "distance: Maximum distance to return from requested point",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "dv",
+            "in": "query",
+            "description": "data-version: Specify a specific version of the data",
+            "required": false,
+            "type": "number",
+            "format": "double",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "locationId: Can be either a District, Geoname or Postcode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "redirect",
+            "in": "query",
+            "description": "redirect: Whether Locator should check if a Geoname has been redirected",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "rs",
+            "in": "query",
+            "description": "rows: The number of rows to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "vv",
+            "in": "query",
+            "description": "vv: View version for the response",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              1,
+              2
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/detail"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/locations/{locationId}/details{?filter,redirect,vv}": {
+      "get": {
+        "tags": [
+          "Location Details"
+        ],
+        "summary": "Location Details",
+        "description": "Gets all location details for a location with a pre-defined details filter.",
+        "operationId": "locationDetailsUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "df: This filter parameter bundles various filters together.\n\ntorchrelay = Includes detail types, torchroute\n\ntravelnews = Includes intersecting detail types, news, travel-region, railstation, lightrail, travel-ferryport\n\nweather-warning = Includes nearest detail type, weather, and intersecting detail types, tv, traditional-county, gss-met-council, gss-region, gss-council",
+            "required": true,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "torchrelay",
+              "travelnews",
+              "weather-warning"
+            ]
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "locationId: Can be either a District, Geoname or Postcode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "redirect",
+            "in": "query",
+            "description": "redirect: Whether Locator should check if a Geoname has been redirected",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "vv",
+            "in": "query",
+            "description": "vv: View version for the response",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "enum": [
+              1,
+              2
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/detail"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/locations/{locationId}{?cc,filter,nogeo,pt,redirect}": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Location lookup",
+        "description": "This endpoint will tell you information about a specific location. The value of {locationId} can be a District, Postcode or Geoname.",
+        "operationId": "locationUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cc",
+            "in": "query",
+            "description": "countries: Filters results to a specific country",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "lf: This sets the attribute 'isWithinContext' allowing recipients to filter the results.\nThe parameter bundles various filters together:\n\ndomestic = UK places, airports and Settlements\n\ninternational = Worldwide places, Settlements, countries, airports",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "domestic",
+              "international"
+            ]
+          },
+          {
+            "name": "locationId",
+            "in": "path",
+            "description": "locationId: Can be either a District, Geoname or Postcode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "nogeo",
+            "in": "query",
+            "description": "nogeo: Return location without Geographic data. Simple means of checking if a location exists",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "pt",
+            "in": "query",
+            "description": "place-types: Filters results by place-type",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "redirect",
+            "in": "query",
+            "description": "redirect: Whether Locator should check if a Geoname has been redirected",
+            "required": false,
+            "type": "boolean",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/location"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/locations?auto=true{&cc,filter,order,pt,rs,search,st}": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Autocomplete",
+        "description": "This endpoint will allow you to search for a placename in Locator. We have both UK and worldwide coverage although the majority of places are UK based.",
+        "operationId": "autocompleteUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "auto",
+            "in": "query",
+            "description": "a: Whether to search for partial text term",
+            "required": true,
+            "type": "boolean",
+            "default": true,
+            "enum": [
+              "true"
+            ]
+          },
+          {
+            "name": "cc",
+            "in": "query",
+            "description": "countries: Filters results to a specific country",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "lf: This sets the attribute 'isWithinContext' allowing recipients to filter the results.\nThe parameter bundles various filters together:\n\ndomestic = UK places, airports and Settlements\n\ninternational = Worldwide places, Settlements, countries, airports",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "domestic",
+              "international"
+            ]
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "order: Specifies an order for the results to be in\n\nimportance = will place results in to an order which should be more relevant to the user. E.g. Countries are ranked highest, followed by capital cities, airports etc",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "importance",
+              "term"
+            ]
+          },
+          {
+            "name": "pt",
+            "in": "query",
+            "description": "place-types: Filters results by place-type",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "rs",
+            "in": "query",
+            "description": "rows: The number of rows to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search: Search for text term in index",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "st",
+            "in": "query",
+            "description": "start: The page of results to start at",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/locations"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/locations{?cats,cc,coords,filter,pt,rs,st}": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Bounding Box (Within Search)",
+        "description": "This endpoint will display all of the locations within a bounding box of the co-ordinates specified.",
+        "operationId": "withinUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cats",
+            "in": "query",
+            "description": "categories: Filter by category E.g. zoom_level_5",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "cc",
+            "in": "query",
+            "description": "countries: Filters results to a specific country",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "coords",
+            "in": "query",
+            "description": "coords: Coordinates of bounding box in the format 'topLeft,bottomRight' where both topLeft and bottomRight are in the format 'latiude:longitude'\n\nE.g. 51.545040:-3.299907,51.420178:-3.036235",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "lf: This sets the attribute 'isWithinContext' allowing recipients to filter the results.\nThe parameter bundles various filters together:\n\ndomestic = UK places, airports and Settlements\n\ninternational = Worldwide places, Settlements, countries, airports",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "domestic",
+              "international"
+            ]
+          },
+          {
+            "name": "pt",
+            "in": "query",
+            "description": "place-types: Filters results by place-type",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "rs",
+            "in": "query",
+            "description": "rows: The number of rows to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "st",
+            "in": "query",
+            "description": "start: The page of results to start at",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/location"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/locations{?cc,filter,latitude,longitude,pt,rs,st}": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Reverse Geocode",
+        "description": "This endpoint allows you to perform a reverse geocode, which is the process of taking a pair of co-ordinates and translating them to a place name.",
+        "operationId": "geocodeUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cc",
+            "in": "query",
+            "description": "countries: Filters results to a specific country",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "lf: This sets the attribute 'isWithinContext' allowing recipients to filter the results.\nThe parameter bundles various filters together:\n\ndomestic = UK places, airports and Settlements\n\ninternational = Worldwide places, Settlements, countries, airports",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "domestic",
+              "international"
+            ]
+          },
+          {
+            "name": "latitude",
+            "in": "query",
+            "description": "latitude: The angular distance of a place north or south of the earth's equator",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "description": "longitude: The angular distance of a place east or west of the Greenwich meridian",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pt",
+            "in": "query",
+            "description": "place-types: Filters results by place-type",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "rs",
+            "in": "query",
+            "description": "rows: The number of rows to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "st",
+            "in": "query",
+            "description": "start: The page of results to start at",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/location"
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/locations{?cc,filter,order,pt,rs,search,st}": {
+      "get": {
+        "tags": [
+          "Locations"
+        ],
+        "summary": "Place-name search",
+        "description": "This endpoint will allow you to search for a placename in Locator. We have both UK and worldwide coverage although the majority of places are UK based.",
+        "operationId": "searchUsingGET_7",
+        "produces": [
+          "*/*",
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cc",
+            "in": "query",
+            "description": "countries: Filters results to a specific country",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "lf: This sets the attribute 'isWithinContext' allowing recipients to filter the results.\nThe parameter bundles various filters together:\n\ndomestic = UK places, airports and Settlements\n\ninternational = Worldwide places, Settlements, countries, airports",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "domestic",
+              "international"
+            ]
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "order: Specifies an order for the results to be in\n\nimportance = will place results in to an order which should be more relevant to the user. E.g. Countries are ranked highest, followed by capital cities, airports etc",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "enum": [
+              "importance",
+              "term"
+            ]
+          },
+          {
+            "name": "pt",
+            "in": "query",
+            "description": "place-types: Filters results by place-type",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "rs",
+            "in": "query",
+            "description": "rows: The number of rows to return",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "description": "search: Search for text term in index",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "st",
+            "in": "query",
+            "description": "start: The page of results to start at",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "allowEmptyValue": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/locations"
+            }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "securityDefinitions": {
+    "API Key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "query"
+    }
+  },
+  "definitions": {
+    "ModelAndView": {
+      "type": "object",
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        },
+        "model": {
+          "type": "object"
+        },
+        "modelMap": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "reference": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "100",
+            "101",
+            "102",
+            "103",
+            "200",
+            "201",
+            "202",
+            "203",
+            "204",
+            "205",
+            "206",
+            "207",
+            "208",
+            "226",
+            "300",
+            "301",
+            "302",
+            "303",
+            "304",
+            "305",
+            "307",
+            "308",
+            "400",
+            "401",
+            "402",
+            "403",
+            "404",
+            "405",
+            "406",
+            "407",
+            "408",
+            "409",
+            "410",
+            "411",
+            "412",
+            "413",
+            "414",
+            "415",
+            "416",
+            "417",
+            "418",
+            "419",
+            "420",
+            "421",
+            "422",
+            "423",
+            "424",
+            "426",
+            "428",
+            "429",
+            "431",
+            "451",
+            "500",
+            "501",
+            "502",
+            "503",
+            "504",
+            "505",
+            "506",
+            "507",
+            "508",
+            "509",
+            "510",
+            "511"
+          ]
+        },
+        "view": {
+          "$ref": "#/definitions/View"
+        },
+        "viewName": {
+          "type": "string"
+        }
+      },
+      "title": "ModelAndView"
+    },
+    "View": {
+      "type": "object",
+      "properties": {
+        "contentType": {
+          "type": "string"
+        }
+      },
+      "title": "View"
+    },
+    "admin1": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Wales",
+          "description": "The name of this admin1"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2634895,
+          "description": "The id of this admin1"
+        },
+        "link": {
+          "type": "string",
+          "example": "locations/2634895",
+          "xml": {
+            "name": "link",
+            "attribute": true,
+            "wrapped": false
+          },
+          "description": "The link to this resource"
+        }
+      },
+      "title": "admin1",
+      "description": "View representation of an admin1 geoname."
+    },
+    "category": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "zoom_level_10",
+          "description": "The name of this category"
+        },
+        "data": {
+          "type": "object",
+          "example": {
+            "alignment": "1"
+          },
+          "description": "The metadata this category has",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "category",
+      "description": "View representation of a location category."
+    },
+    "custom-type": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "example": "AREA",
+          "description": "The type of this custom-type",
+          "enum": [
+            "AREA",
+            "PATH",
+            "LOCATION"
+          ]
+        },
+        "key": {
+          "type": "string",
+          "example": "gss-council",
+          "description": "The key for this custom-type"
+        }
+      },
+      "title": "custom-type",
+      "description": "The type that a key maps to"
+    },
+    "detail": {
+      "type": "object",
+      "properties": {
+        "detailType": {
+          "type": "string",
+          "example": "tv",
+          "description": "Key to identify what kind of detail this is"
+        },
+        "externalId": {
+          "type": "string",
+          "example": "bbc_one_wales",
+          "description": "ID for this detail type that can be understood by an external system"
+        },
+        "data": {
+          "type": "object",
+          "example": {
+            "name": "BBC One Wales",
+            "region": "Wales",
+            "parent": "bbc_one"
+          },
+          "description": "Optional metadata about this detail",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "example": 52.35646047132751,
+          "description": "The latitude of the centre of our location"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "example": -3.996106525598547,
+          "description": "The longitude of the centre of our location"
+        },
+        "distance": {
+          "type": "integer",
+          "format": "int64",
+          "example": 120595,
+          "description": "The distance from a specified point"
+        }
+      },
+      "title": "detail"
+    },
+    "details": {
+      "type": "object",
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "int64",
+          "example": 433,
+          "description": "The total number of results"
+        },
+        "details": {
+          "type": "array",
+          "description": "The list of details objects in our response",
+          "items": {
+            "$ref": "#/definitions/detail"
+          }
+        }
+      },
+      "title": "details"
+    },
+    "location": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": 3333241,
+          "description": "The identifier for this result"
+        },
+        "name": {
+          "type": "string",
+          "example": "Cardiff",
+          "description": "The name of this result"
+        },
+        "container": {
+          "type": "string",
+          "example": "Wales",
+          "description": "The container of this result"
+        },
+        "containerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 2634895,
+          "description": "containerId for this location"
+        },
+        "language": {
+          "type": "string",
+          "example": "en",
+          "description": "The language of this result"
+        },
+        "timezone": {
+          "type": "string",
+          "example": "Europe/London",
+          "description": "TZ database time zone sometimes referred to as the Olson code"
+        },
+        "country": {
+          "type": "string",
+          "example": "GB",
+          "description": "The ISO-3166 2-letter country code for this location"
+        },
+        "latitude": {
+          "type": "number",
+          "format": "double",
+          "example": 51.5,
+          "description": "The latitude of the centre of our location"
+        },
+        "longitude": {
+          "type": "number",
+          "format": "double",
+          "example": -3.16667,
+          "description": "The latitude of the centre of our location"
+        },
+        "placeType": {
+          "type": "string",
+          "example": "region",
+          "description": "The place type for this location"
+        },
+        "admin1": {
+          "$ref": "#/definitions/admin1"
+        },
+        "categories": {
+          "type": "array",
+          "description": "Categories for this location",
+          "items": {
+            "$ref": "#/definitions/category"
+          }
+        }
+      },
+      "title": "location"
+    },
+    "locations": {
+      "type": "object",
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "int64",
+          "example": 84,
+          "description": "The total number of Location objects that would match the search criteria"
+        },
+        "locations": {
+          "type": "array",
+          "description": "The list of Location objects in our response",
+          "items": {
+            "$ref": "#/definitions/location"
+          }
+        }
+      },
+      "title": "locations"
+    }
+  }
+}
