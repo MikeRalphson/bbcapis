@@ -1,0 +1,734 @@
+{
+  "info": {
+    "title": "PUP API 🐶",
+    "version": "0.5.0"
+  },
+  "basePath": "",
+  "securityDefinitions": {},
+  "swagger": "2.0",
+  "paths": {
+    "/api/v1/publish/status/{activityId}": {
+      "post": {
+        "tags": [
+          "Galileo",
+          "Publishing"
+        ],
+        "summary": "Checks the redis cluster for the most recent Galileo status message for a given activity ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "activityId",
+            "required": true,
+            "description": "The activity ID that was returned from a successful publish request"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "For a detailed description of the fields included in a Galileo status message please see the Message Definition section of the page located [here](https://confluence.dev.bbc.co.uk/display/mediatools/Galileo+User+Guide#GalileoUserGuide-ReceivingupdatesfromGalileo)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "description": "indicates a successful request for a status update"
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "activity_id": {
+                      "type": "string",
+                      "description": "The activity ID of the content being published."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 Not Found. This is returned if the activity ID is not present in the Redis cluster"
+          }
+        }
+      }
+    },
+    "/api/v1/publish": {
+      "post": {
+        "tags": [
+          "Galileo",
+          "Publishing"
+        ],
+        "summary": "send a publish request to the Galileo SQS Queue",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "video",
+            "type": "string",
+            "description": "The AWS S3 URL of the uploaded video asset that is to be published",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "thumbnail",
+            "type": "string",
+            "description": "The AWS S3 URL of the uploaded thumbnail asset that is to be published",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "title",
+            "type": "string",
+            "required": true,
+            "description": "Length must be < 128 characters"
+          },
+          {
+            "in": "formData",
+            "name": "shortSynopsis",
+            "type": "string",
+            "required": true,
+            "description": "Length must be < 90 characters"
+          },
+          {
+            "in": "formData",
+            "name": "allowAdvertising",
+            "type": "boolean"
+          },
+          {
+            "in": "formData",
+            "name": "embeddable",
+            "type": "boolean"
+          },
+          {
+            "in": "formData",
+            "name": "infoLabels",
+            "type": "array",
+            "description": "Array of grey bar warnings",
+            "example": [
+              "anachronistic_qualities",
+              "intermittent_sound"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "anachronistic_qualities",
+                "intermittent_sound",
+                "no_commentary",
+                "no_sound",
+                "phone_lines_closed",
+                "poor_picture_quality",
+                "poor_sound_quality"
+              ]
+            }
+          },
+          {
+            "in": "formData",
+            "name": "mediumSynopsis",
+            "type": "string",
+            "description": "Length must be < 180 characters"
+          },
+          {
+            "in": "formData",
+            "name": "scheduleEnd",
+            "type": "string",
+            "description": "An ISO 8601 formatted datetime string"
+          },
+          {
+            "in": "formData",
+            "name": "scheduleStart",
+            "type": "string",
+            "description": "An ISO 8601 formatted datetime string"
+          },
+          {
+            "in": "formData",
+            "name": "territories",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "uk",
+                "nonuk"
+              ]
+            }
+          },
+          {
+            "in": "formData",
+            "name": "warnings",
+            "type": "array",
+            "description": "Array of [Denton codes](https://confluence.dev.bbc.co.uk/display/WalTVPres/DENTON+CODES)",
+            "example": [
+              "V1",
+              "L3",
+              "D2"
+            ],
+            "items": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "enum": [
+                    true
+                  ]
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "activityId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "description": "A UUID representing the job in Galileo. Used to check for status updates from the Galileo messagee queue."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "enum": [
+                    false
+                  ]
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "S3 Location of the video file must be provided",
+                        "S3 Location of the thumbnail file must be provided",
+                        "Short synopsis must be provided",
+                        "Title must be provided"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/published/{pid}/revoke": {
+      "post": {
+        "tags": [
+          "Galileo",
+          "Published"
+        ],
+        "description": "Sends a clip revocation request to the [Galileo WS](https://confluence.dev.bbc.co.uk/display/ibroadcasttwo/Editing+existing+published+clips#Editingexistingpublishedclips-HowCastawayshouldusethis).",
+        "summary": "Removes all availabilities for a given clip and all of its versions. Please note that it can take up to 30 minutes for this change to become visible in PIPS.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "pid",
+            "required": true,
+            "description": "The PID of the clip to be revoked"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK - the request has been received and all availabilities for the clip and its versions will be rescinded.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "description": "indicates a successful request for the revocation request"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 Bad Request. This is returned if the PID parameter is badly formatted.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "description": "indicates a successful request for the revocation request"
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "PID not valid"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 Not Found. This is returned if the clip PID cannot be retrieved by Galileo",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "description": "indicates a successful request for the revocation request"
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "PID not found"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/search/programmes": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "summary": "Search for content within the Nitro API",
+        "description": "Search for content within the [Nitro API](https://confluence.dev.bbc.co.uk/display/nitro/Information+for+Clients)",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "term",
+            "required": true,
+            "type": "string",
+            "description": "A search term, or a programme PID if already known"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "description": "The page of the Nitro results to request for term. Ignored if searching by PID"
+          },
+          {
+            "in": "query",
+            "name": "entity_type",
+            "type": "array",
+            "description": "The type of results to search for term. Ignored if searching by PID",
+            "items": {
+              "type": "string",
+              "enum": [
+                "brand",
+                "episode",
+                "series"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "enum": [
+                    true
+                  ]
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "pid": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "image": {
+                            "type": "string",
+                            "description": "iChef URL of the associated image with the clip"
+                          },
+                          "shortSynopsis": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "brand",
+                              "episode",
+                              "series"
+                            ]
+                          },
+                          "ancestors": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "ancestor_type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "master_brand",
+                                    "brand",
+                                    "episode",
+                                    "series"
+                                  ]
+                                },
+                                "href": {
+                                  "type": "string",
+                                  "description": "Only present if ancestor_type === master_brand. The Nitro API href for the master_brand"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "weight": {
+                                  "type": "integer",
+                                  "description": "a value between 0 and 4 that informs the PUP UI on the correct display order for the ancestors"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "enum": [
+                    false
+                  ]
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "enum": [
+                        "Search term must be provided",
+                        "Page must be a number",
+                        "Entity type must be one of brand",
+                        "episode",
+                        "or series - or a combination thereof"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/upload/video": {
+      "post": {
+        "tags": [
+          "Video upload"
+        ],
+        "summary": "Initialise a multipart upload in the Galileo S3 Video bucket",
+        "parameters": [
+          {
+            "name": "Upload-Length",
+            "description": "The total size in bytes of the file to be uploaded",
+            "in": "header",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Upload-Metadata",
+            "description": "A string of the form `filename ${filename},filetype ${contentType}`. <br>The filename and filetype values must be Base64 encoded",
+            "example": "filetype YXBwbGljYXRpb24vbXhm, filename c2VxdWVuY2UubXhm",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "201 Created. Returns in the response headers the expected size of each file part, and the location to send upload parts",
+            "headers": {
+              "Part-Size": {
+                "type": "integer",
+                "description": "The expected size of each upload part in bytes",
+                "example": 5242880
+              },
+              "Location": {
+                "type": "string",
+                "description": "The relative path to the upload via the API. This url is where upload parts should be sent"
+              }
+            }
+          },
+          "400": {
+            "description": "A validation error occurred",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "description": "Boolean indicating the status of the request"
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "A string detailing the request validation error",
+                      "enum": [
+                        "Upload-Length header not set",
+                        "Upload-Length must be a positive integer",
+                        "Upload-Metadata header not set",
+                        "Upload-Metadata must include filetype and filename values"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/upload/video/{fileKey}": {
+      "patch": {
+        "tags": [
+          "Video upload"
+        ],
+        "summary": "Send a chunk of data for a previously initialised multipart file upload. Upload chunks are sent as binary data in the request body, which sadly Swagger 2.0 does not support.",
+        "consumes": [
+          "binary"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fileKey",
+            "type": "string",
+            "required": true,
+            "description": "The file key that was returned in the Location header when initialising the multipart upload",
+            "example": "1a96a000-5931-47a2-8539-e2899ac0840e_sequence.mxf"
+          },
+          {
+            "name": "Content-Type",
+            "description": "The content-type of the file that is being uploaded",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "application/mxf",
+              "video/mp4"
+            ]
+          },
+          {
+            "name": "Part-Size",
+            "description": "The size of the chunk of data that is being uploaded. This value should match the part-size header that was returned when initialising the upload, unless the Part-final flag is set.",
+            "in": "header",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Part-Number",
+            "description": "Starting from an index of 1, the index of this file chunk when split into chunks of Part-Size",
+            "in": "header",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "Part-Final",
+            "description": "A boolean value that indicates whether the chunk being uploaded contains the final bytes of the file - not necessarily the last chunk being uploaded. It lets the server know that this chunk is likely to be smaller than the specified chunk size.",
+            "in": "header",
+            "required": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "204 No Content. Indicates that the part has successfully uploaded to S3",
+            "headers": {
+              "Upload-Complete": {
+                "type": "boolean",
+                "description": "Boolean value indicating whether the multipart upload has been finalised in S3"
+              },
+              "Upload-Part-Numbers": {
+                "type": "string",
+                "description": "A comma separated list of all of the files part numbers that have been received by thex server",
+                "example": "1,3,6,7,8,11"
+              }
+            }
+          },
+          "400": {
+            "description": "A validation error occurred",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "description": "Boolean indicating the status of the request"
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "A string detailing the request validation error",
+                      "enum": [
+                        "Content-Type must be provided",
+                        "Content-Type must be one of application/mxf",
+                        "video/mp4",
+                        "Part-Size header must range between 0 and 5242880",
+                        "Part-Number header must be a number greater than 0",
+                        "Part-Final header should be true or false"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404 Not Found"
+          }
+        }
+      },
+      "head": {
+        "tags": [
+          "Video upload"
+        ],
+        "summary": "Get information regardling a multipart video upload",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "fileKey",
+            "type": "string",
+            "required": true,
+            "description": "The file key that was returned in the Location header when initialising the multipart upload",
+            "example": "1a96a000-5931-47a2-8539-e2899ac0840e_sequence.mxf"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "headers": {
+              "Upload-Offset": {
+                "type": "integer",
+                "description": "The number of bytes that have been successfully uploaded for the file so far."
+              },
+              "Upload-Length": {
+                "type": "integer",
+                "description": "The total number of bytes that the server is expecting in order to complete the upload"
+              },
+              "Upload-Part-Numbers": {
+                "type": "string",
+                "description": "The part numbers that have been successfully uploaded for the file so far. Omitted if no parts have been uploaded."
+              }
+            }
+          },
+          "404": {
+            "description": "404 Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/upload/thumbnail": {
+      "post": {
+        "tags": [
+          "Thumbnail upload"
+        ],
+        "summary": "Upload a thumbnail image to the Galileo S3 Thumbnail bucket",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "thumbnail",
+            "type": "file",
+            "description": "The file to be uploaded. Only supports JPEG or PNG images.",
+            "required": true
+          },
+          {
+            "in": "headers",
+            "name": "Content-Type",
+            "type": "string",
+            "description": "Must be set to multipart/form-data",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "description": "Indicates that the request was a success and the file uploaded successfully"
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "thumbnail": {
+                      "type": "string",
+                      "description": "The AWS S3 URL of the uploaded resource",
+                      "example": "https://live-galileo-interface-mt-resources-imageinbucket-1c75d9gp89b85.s3.eu-west-1.amazonaws.com/shortform/00_00_00_00_thumb-2019-03-25_05-30-11.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400 Bad Request",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "description": "Boolean indicating the status of the request"
+                },
+                "payload": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "A string detailing the validation error",
+                      "enum": [
+                        "Thumbnail images must be in JPEG or PNG format"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {},
+  "responses": {},
+  "parameters": {},
+  "tags": []
+}

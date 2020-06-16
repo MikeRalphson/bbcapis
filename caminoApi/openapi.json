@@ -1,0 +1,464 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/"
+    }
+  ],
+  "paths": {
+    "/api/amp/recommend": {
+      "parameters": [],
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "recSys",
+            "required": false,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "assetUri",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "userProfile",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Accept-Encoding",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "__amp_source_origin",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "getAmpRecommendations"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "apply"
+      }
+    },
+    "/api/amp/unhydrated/recommend": {
+      "parameters": [],
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "recSys",
+            "required": false,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "assetUri",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "userProfile",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Accept-Encoding",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "__amp_source_origin",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "getAmpUnhydratedRecommendations"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "apply"
+      }
+    },
+    "/api/identify": {
+      "parameters": [],
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "operatingSystem",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "referrer",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "deviceType",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "seenBefore",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "optimizelyVariant",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "browserName",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "assetUri",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "language",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Accept-Encoding",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "getUsersRecSys"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "apply"
+      }
+    },
+    "/api/recommend": {
+      "parameters": [],
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "recSys",
+            "required": false,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "assetUri",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "userProfile",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Accept-Encoding",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "getRecommendations"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "apply"
+      }
+    },
+    "/api/unhydrated/recommend": {
+      "parameters": [],
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "recSys",
+            "required": false,
+            "schema": {
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "assetUri",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "format": "int32",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "userProfile",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Accept-Encoding",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "getUnhydratedRecommendations"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "apply"
+      }
+    },
+    "/application.wadl": {
+      "parameters": [],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "getWadl"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "apply"
+      }
+    },
+    "/application.wadl/{path}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "getExternalGrammar"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "apply"
+      }
+    },
+    "/status": {
+      "parameters": [],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "status"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "apply"
+      }
+    },
+    "/status/version": {
+      "parameters": [],
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "version"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          }
+        },
+        "operationId": "apply"
+      }
+    }
+  }
+}
