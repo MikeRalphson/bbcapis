@@ -18,6 +18,10 @@
       "description": "Image Publisher Controller"
     },
     {
+      "name": "rules-controller",
+      "description": "Rules Controller V 2"
+    },
+    {
       "name": "status-controller",
       "description": "Status Controller"
     },
@@ -566,6 +570,531 @@
           }
         }
       }
+    },
+    "/v2/clip/{pid}/availability": {
+      "get": {
+        "tags": [
+          "availability-controller"
+        ],
+        "summary": "Indicates if there is an available ondemand for a Clip with the given pid",
+        "operationId": "isClipAvailableUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "pid",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AvailabilityDTO"
+            }
+          }
+        }
+      }
+    },
+    "/v2/clip/{programmeId}/revoke": {
+      "put": {
+        "tags": [
+          "revoke-controller"
+        ],
+        "summary": "revokeClip",
+        "operationId": "revokeClipUsingPUT_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "programmeId",
+            "in": "path",
+            "description": "programmeId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "header",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SSL_CLIENT_S_DN_EMAIL",
+            "in": "header",
+            "description": "SSL_CLIENT_S_DN_EMAIL",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/v2/episode/{pid}/availability": {
+      "get": {
+        "tags": [
+          "availability-controller"
+        ],
+        "summary": "Indicates if there is an available ondemand for a Episode with the given pid",
+        "operationId": "isEpisodeAvailableUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "pid",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AvailabilityDTO"
+            }
+          }
+        }
+      }
+    },
+    "/v2/episode/{programmeId}/revoke": {
+      "put": {
+        "tags": [
+          "revoke-controller"
+        ],
+        "summary": "revokeEpisode",
+        "operationId": "revokeEpisodeUsingPUT_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "programmeId",
+            "in": "path",
+            "description": "programmeId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "header",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SSL_CLIENT_S_DN_EMAIL",
+            "in": "header",
+            "description": "SSL_CLIENT_S_DN_EMAIL",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/v2/image": {
+      "post": {
+        "tags": [
+          "image-publisher-controller"
+        ],
+        "summary": "publish",
+        "operationId": "publishUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "message",
+            "description": "message",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImageMessage"
+            }
+          },
+          {
+            "in": "body",
+            "name": "errors",
+            "description": "errors",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/ImageMessage"
+            }
+          }
+        }
+      }
+    },
+    "/v2/image/{imagePid}": {
+      "put": {
+        "tags": [
+          "image-publisher-controller"
+        ],
+        "summary": "mediaReplacement",
+        "operationId": "mediaReplacementUsingPUT_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "imagePid",
+            "in": "path",
+            "description": "imagePid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "message",
+            "description": "message",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImageMessage"
+            }
+          },
+          {
+            "in": "body",
+            "name": "errors",
+            "description": "errors",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ImageMessage"
+            }
+          }
+        }
+      }
+    },
+    "/v2/message": {
+      "post": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "publishMessage",
+        "operationId": "publishMessageUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "message",
+            "description": "message",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/GalileoPublishMessage"
+            }
+          }
+        }
+      }
+    },
+    "/v2/message/{activityId}": {
+      "get": {
+        "tags": [
+          "message-controller"
+        ],
+        "summary": "getMessage",
+        "operationId": "getMessageUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "description": "activityId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/v2/rekall/find": {
+      "get": {
+        "tags": [
+          "Rekall"
+        ],
+        "summary": "Retrieves the record for a given S3 location stored in the Rekall Publication Store",
+        "operationId": "findUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "s3Location",
+            "required": false,
+            "type": "string",
+            "default": "s3://int-galileo-interface-mt-resources-inputbucket-i3g48dkvmuft/castaway/Big_Buck_Bunny_negative-1d532109-592c-4d56-8f14-c2af56411e71.mp4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "There is no record for the given s3 location"
+          }
+        }
+      }
+    },
+    "/v2/rekall/preview": {
+      "get": {
+        "tags": [
+          "Rekall"
+        ],
+        "summary": "Retrieves the Presigned Url for a given S3 location stored in the Rekall Publication Store",
+        "operationId": "getPreviewUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "s3Location",
+            "required": false,
+            "type": "string",
+            "default": "s3://int-galileo-interface-mt-resources-inputbucket-i3g48dkvmuft/castaway/Big_Buck_Bunny_negative-1d532109-592c-4d56-8f14-c2af56411e71.mp4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "404": {
+            "description": "There is not a non expired Presigned URL for the given s3 location"
+          },
+          "410": {
+            "description": "Presigned URL exists but it is expired"
+          }
+        }
+      }
+    },
+    "/v2/rekall/qccopy": {
+      "post": {
+        "tags": [
+          "Rekall"
+        ],
+        "summary": "Publish a QC Copy to the Rekall QC Copy Route",
+        "operationId": "publishRekallQcCopyUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "qcCopy",
+            "description": "qcCopy",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QcCopy"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/QcCopy"
+            }
+          }
+        }
+      }
+    },
+    "/v2/version/{pid}/availability": {
+      "get": {
+        "tags": [
+          "availability-controller"
+        ],
+        "summary": "Indicates if there is an available ondemand for a Version with the given pid",
+        "operationId": "isVersionAvailableUsingGET_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "pid",
+            "in": "path",
+            "description": "pid",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MabelDocument"
+            }
+          }
+        }
+      }
+    },
+    "/v2/version/{versionId}/revoke": {
+      "put": {
+        "tags": [
+          "revoke-controller"
+        ],
+        "summary": "revokeVersion",
+        "operationId": "revokeVersionUsingPUT_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "versionId",
+            "in": "path",
+            "description": "versionId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "header",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/v2/version/{versionPid}/rules": {
+      "get": {
+        "tags": [
+          "rules-controller"
+        ],
+        "summary": "rulesVersion",
+        "operationId": "rulesVersionUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "versionPid",
+            "in": "path",
+            "description": "versionPid",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "header",
+            "description": "username",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ScheduleDocumentV2"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -591,6 +1120,27 @@
         },
         "id": {
           "type": "string"
+        }
+      }
+    },
+    "MabelDocument": {
+      "type": "object",
+      "properties": {
+        "api_version": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "availability": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AvailabilityPayload"
+          }
+        },
+        "content_version_id": {
+          "type": "string"
+        },
+        "media_summary": {
+          "$ref": "#/definitions/MediaSummary"
         }
       }
     },
@@ -795,6 +1345,9 @@
         }
       }
     },
+    "ContentHierarchyId": {
+      "type": "object"
+    },
     "URI": {
       "type": "object",
       "properties": {
@@ -837,6 +1390,39 @@
         "millis": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "ScheduleDocumentV2": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "authorisation": {
+          "type": "string"
+        },
+        "content_hierarchy_id": {
+          "$ref": "#/definitions/ContentHierarchyId"
+        },
+        "last_modified": {
+          "type": "string"
+        },
+        "last_modified_by_end_user": {
+          "type": "string"
+        },
+        "last_modifying_system": {
+          "type": "string"
+        },
+        "rules_revision": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "scheduling_rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Rule"
+          }
         }
       }
     },
@@ -1061,6 +1647,26 @@
         }
       }
     },
+    "ConsumptionType": {
+      "type": "object",
+      "properties": {
+        "minimum_protection": {
+          "type": "string",
+          "enum": [
+            "NOPROT",
+            "OBFUSCATED",
+            "DRM_LEVEL_1"
+          ]
+        },
+        "transport": {
+          "type": "string",
+          "enum": [
+            "STREAMING",
+            "DOWNLOAD"
+          ]
+        }
+      }
+    },
     "RelatedLink": {
       "type": "object",
       "properties": {
@@ -1154,6 +1760,28 @@
     "Chronology": {
       "type": "object"
     },
+    "AvailablePeriod": {
+      "type": "object",
+      "properties": {
+        "available_duration": {
+          "type": "string"
+        },
+        "end_date_time": {
+          "type": "string"
+        },
+        "start_date_time": {
+          "type": "string"
+        },
+        "trigger_type": {
+          "type": "string",
+          "enum": [
+            "FIXED_TIME",
+            "STREAM_RELATIVE",
+            "BROADCAST_RELATIVE"
+          ]
+        }
+      }
+    },
     "AvailabilityDTO": {
       "type": "object",
       "properties": {
@@ -1204,14 +1832,6 @@
         }
       }
     },
-    "GalileoPublishMessage": {
-      "type": "object",
-      "properties": {
-        "activity_id": {
-          "type": "string"
-        }
-      }
-    },
     "Availability": {
       "type": "object",
       "properties": {
@@ -1220,6 +1840,14 @@
         },
         "start": {
           "$ref": "#/definitions/DateTime"
+        }
+      }
+    },
+    "GalileoPublishMessage": {
+      "type": "object",
+      "properties": {
+        "activity_id": {
+          "type": "string"
         }
       }
     },
@@ -1261,6 +1889,24 @@
     },
     "Synopses": {
       "type": "object"
+    },
+    "AvailabilityPayload": {
+      "type": "object",
+      "properties": {
+        "authorisation": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "statements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Availability"
+          }
+        }
+      }
     },
     "QcMedia": {
       "type": "object",
@@ -1349,6 +1995,247 @@
         }
       }
     },
+    "Territories": {
+      "type": "object",
+      "properties": {
+        "allow": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "AD",
+              "AE",
+              "AF",
+              "AG",
+              "AI",
+              "AL",
+              "AM",
+              "AN",
+              "AO",
+              "AQ",
+              "AR",
+              "AS",
+              "AT",
+              "AU",
+              "AW",
+              "AZ",
+              "BA",
+              "BB",
+              "BD",
+              "BE",
+              "BF",
+              "BG",
+              "BH",
+              "BI",
+              "BJ",
+              "BL",
+              "BM",
+              "BN",
+              "BO",
+              "BR",
+              "BS",
+              "BT",
+              "BW",
+              "BY",
+              "BZ",
+              "CA",
+              "CC",
+              "CD",
+              "CF",
+              "CG",
+              "CH",
+              "CI",
+              "CK",
+              "CL",
+              "CM",
+              "CN",
+              "CO",
+              "CR",
+              "CU",
+              "CV",
+              "CX",
+              "CY",
+              "CZ",
+              "DE",
+              "DJ",
+              "DK",
+              "DM",
+              "DZ",
+              "EC",
+              "EE",
+              "EG",
+              "ER",
+              "ES",
+              "ET",
+              "FI",
+              "FJ",
+              "FK",
+              "FM",
+              "FO",
+              "FR",
+              "GA",
+              "UK",
+              "GD",
+              "GE",
+              "GH",
+              "GI",
+              "GL",
+              "GM",
+              "GN",
+              "GQ",
+              "GR",
+              "GT",
+              "GU",
+              "GW",
+              "GY",
+              "HK",
+              "HN",
+              "HR",
+              "HT",
+              "HU",
+              "ID",
+              "IE",
+              "IL",
+              "IM",
+              "IN",
+              "IQ",
+              "IR",
+              "IS",
+              "IT",
+              "JM",
+              "JO",
+              "JP",
+              "KE",
+              "KG",
+              "KH",
+              "KI",
+              "KM",
+              "KN",
+              "KP",
+              "KR",
+              "KW",
+              "KY",
+              "KZ",
+              "LA",
+              "LB",
+              "LC",
+              "LI",
+              "LK",
+              "LR",
+              "LS",
+              "LT",
+              "LU",
+              "LV",
+              "LY",
+              "MA",
+              "MC",
+              "MD",
+              "ME",
+              "MF",
+              "MG",
+              "MH",
+              "MK",
+              "ML",
+              "MM",
+              "MN",
+              "MO",
+              "MP",
+              "MR",
+              "MS",
+              "MT",
+              "MU",
+              "MV",
+              "MW",
+              "MX",
+              "MY",
+              "MZ",
+              "NA",
+              "NC",
+              "NE",
+              "NG",
+              "NI",
+              "NL",
+              "NO",
+              "NP",
+              "NR",
+              "NU",
+              "NZ",
+              "OM",
+              "PA",
+              "PE",
+              "PF",
+              "PG",
+              "PH",
+              "PK",
+              "PL",
+              "PM",
+              "PN",
+              "PR",
+              "PT",
+              "PW",
+              "PY",
+              "QA",
+              "RO",
+              "RS",
+              "RU",
+              "RW",
+              "SA",
+              "SB",
+              "SC",
+              "SD",
+              "SE",
+              "SG",
+              "SH",
+              "SI",
+              "SK",
+              "SL",
+              "SM",
+              "SN",
+              "SO",
+              "SR",
+              "ST",
+              "SV",
+              "SY",
+              "SZ",
+              "TC",
+              "TD",
+              "TG",
+              "TH",
+              "TJ",
+              "TK",
+              "TL",
+              "TM",
+              "TN",
+              "TO",
+              "TR",
+              "TT",
+              "TV",
+              "TW",
+              "TZ",
+              "UA",
+              "UG",
+              "US",
+              "UY",
+              "UZ",
+              "VA",
+              "VC",
+              "VE",
+              "VG",
+              "VI",
+              "VN",
+              "WF",
+              "WS",
+              "YE",
+              "YT",
+              "ZA",
+              "ZM",
+              "ZW",
+              "NONUK"
+            ]
+          }
+        }
+      }
+    },
     "Relationship": {
       "type": "object",
       "properties": {
@@ -1429,6 +2316,62 @@
             "COMPLETE",
             "ERROR"
           ]
+        }
+      }
+    },
+    "Rule": {
+      "type": "object",
+      "properties": {
+        "available_period": {
+          "$ref": "#/definitions/AvailablePeriod"
+        },
+        "consumption_types": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConsumptionType"
+          }
+        },
+        "maximum_resolution": {
+          "type": "string",
+          "enum": [
+            "SD",
+            "HD",
+            "UHD",
+            "UNLIMITED"
+          ]
+        },
+        "platforms": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "PC",
+              "MOBILE",
+              "IPTV",
+              "MVOD_SKY"
+            ]
+          }
+        },
+        "territories": {
+          "$ref": "#/definitions/Territories"
+        }
+      }
+    },
+    "MediaSummary": {
+      "type": "object",
+      "properties": {
+        "available_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_sequence_stamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "maximum_resolution": {
+          "type": "string"
         }
       }
     },
