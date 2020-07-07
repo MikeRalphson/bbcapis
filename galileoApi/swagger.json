@@ -18,10 +18,6 @@
       "description": "Image Publisher Controller"
     },
     {
-      "name": "rules-controller",
-      "description": "Rules Controller V 2"
-    },
-    {
       "name": "status-controller",
       "description": "Status Controller"
     },
@@ -40,6 +36,10 @@
     {
       "name": "revoke-controller",
       "description": "Revoke Controller"
+    },
+    {
+      "name": "rules-controller",
+      "description": "Rules Controller"
     }
   ],
   "paths": {
@@ -115,7 +115,7 @@
         "tags": [
           "revoke-controller"
         ],
-        "summary": "revokeClip",
+        "summary": "Revokes all ondemands associated with all versions of the given clip pid in PIPs and ODSR and sends a stop (clip) syndication request to galileo",
         "operationId": "revokeClipUsingPUT",
         "consumes": [
           "application/json"
@@ -190,7 +190,7 @@
         "tags": [
           "revoke-controller"
         ],
-        "summary": "revokeEpisode",
+        "summary": "Revokes all ondemands associated with all versions of the given episode pid in PIPs and ODSRand sends a stop (clip) syndication request to galileo",
         "operationId": "revokeEpisodeUsingPUT",
         "consumes": [
           "application/json"
@@ -533,7 +533,7 @@
         "tags": [
           "revoke-controller"
         ],
-        "summary": "revokeVersion",
+        "summary": "Revokes all ondemands associated with given version pid in PIPs and ODSR and sends a stop (clip) syndication request to galileo",
         "operationId": "revokeVersionUsingPUT",
         "consumes": [
           "application/json"
@@ -571,431 +571,13 @@
         }
       }
     },
-    "/v2/clip/{pid}/availability": {
+    "/v1/{pid}/availability": {
       "get": {
         "tags": [
           "availability-controller"
         ],
-        "summary": "Indicates if there is an available ondemand for a Clip with the given pid",
-        "operationId": "isClipAvailableUsingGET_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "pid",
-            "in": "path",
-            "description": "pid",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/AvailabilityDTO"
-            }
-          }
-        }
-      }
-    },
-    "/v2/clip/{programmeId}/revoke": {
-      "put": {
-        "tags": [
-          "revoke-controller"
-        ],
-        "summary": "revokeClip",
-        "operationId": "revokeClipUsingPUT_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "programmeId",
-            "in": "path",
-            "description": "programmeId",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "username",
-            "in": "header",
-            "description": "username",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "SSL_CLIENT_S_DN_EMAIL",
-            "in": "header",
-            "description": "SSL_CLIENT_S_DN_EMAIL",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          }
-        }
-      }
-    },
-    "/v2/episode/{pid}/availability": {
-      "get": {
-        "tags": [
-          "availability-controller"
-        ],
-        "summary": "Indicates if there is an available ondemand for a Episode with the given pid",
-        "operationId": "isEpisodeAvailableUsingGET_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "pid",
-            "in": "path",
-            "description": "pid",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/AvailabilityDTO"
-            }
-          }
-        }
-      }
-    },
-    "/v2/episode/{programmeId}/revoke": {
-      "put": {
-        "tags": [
-          "revoke-controller"
-        ],
-        "summary": "revokeEpisode",
-        "operationId": "revokeEpisodeUsingPUT_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "*/*"
-        ],
-        "parameters": [
-          {
-            "name": "programmeId",
-            "in": "path",
-            "description": "programmeId",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "username",
-            "in": "header",
-            "description": "username",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "SSL_CLIENT_S_DN_EMAIL",
-            "in": "header",
-            "description": "SSL_CLIENT_S_DN_EMAIL",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          }
-        }
-      }
-    },
-    "/v2/image": {
-      "post": {
-        "tags": [
-          "image-publisher-controller"
-        ],
-        "summary": "publish",
-        "operationId": "publishUsingPOST_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "message",
-            "description": "message",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ImageMessage"
-            }
-          },
-          {
-            "in": "body",
-            "name": "errors",
-            "description": "errors",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/Errors"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created",
-            "schema": {
-              "$ref": "#/definitions/ImageMessage"
-            }
-          }
-        }
-      }
-    },
-    "/v2/image/{imagePid}": {
-      "put": {
-        "tags": [
-          "image-publisher-controller"
-        ],
-        "summary": "mediaReplacement",
-        "operationId": "mediaReplacementUsingPUT_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "imagePid",
-            "in": "path",
-            "description": "imagePid",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "message",
-            "description": "message",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ImageMessage"
-            }
-          },
-          {
-            "in": "body",
-            "name": "errors",
-            "description": "errors",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/Errors"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/ImageMessage"
-            }
-          }
-        }
-      }
-    },
-    "/v2/message": {
-      "post": {
-        "tags": [
-          "message-controller"
-        ],
-        "summary": "publishMessage",
-        "operationId": "publishMessageUsingPOST_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "message",
-            "description": "message",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Message"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/GalileoPublishMessage"
-            }
-          }
-        }
-      }
-    },
-    "/v2/message/{activityId}": {
-      "get": {
-        "tags": [
-          "message-controller"
-        ],
-        "summary": "getMessage",
-        "operationId": "getMessageUsingGET_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "activityId",
-            "in": "path",
-            "description": "activityId",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "/v2/rekall/find": {
-      "get": {
-        "tags": [
-          "Rekall"
-        ],
-        "summary": "Retrieves the record for a given S3 location stored in the Rekall Publication Store",
-        "operationId": "findUsingGET_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "url",
-            "in": "query",
-            "description": "s3Location",
-            "required": false,
-            "type": "string",
-            "default": "s3://int-galileo-interface-mt-resources-inputbucket-i3g48dkvmuft/castaway/Big_Buck_Bunny_negative-1d532109-592c-4d56-8f14-c2af56411e71.mp4"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "string"
-            }
-          },
-          "404": {
-            "description": "There is no record for the given s3 location"
-          }
-        }
-      }
-    },
-    "/v2/rekall/preview": {
-      "get": {
-        "tags": [
-          "Rekall"
-        ],
-        "summary": "Retrieves the Presigned Url for a given S3 location stored in the Rekall Publication Store",
-        "operationId": "getPreviewUsingGET_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "url",
-            "in": "query",
-            "description": "s3Location",
-            "required": false,
-            "type": "string",
-            "default": "s3://int-galileo-interface-mt-resources-inputbucket-i3g48dkvmuft/castaway/Big_Buck_Bunny_negative-1d532109-592c-4d56-8f14-c2af56411e71.mp4"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "string"
-            }
-          },
-          "404": {
-            "description": "There is not a non expired Presigned URL for the given s3 location"
-          },
-          "410": {
-            "description": "Presigned URL exists but it is expired"
-          }
-        }
-      }
-    },
-    "/v2/rekall/qccopy": {
-      "post": {
-        "tags": [
-          "Rekall"
-        ],
-        "summary": "Publish a QC Copy to the Rekall QC Copy Route",
-        "operationId": "publishRekallQcCopyUsingPOST_1",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "qcCopy",
-            "description": "qcCopy",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/QcCopy"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/QcCopy"
-            }
-          }
-        }
-      }
-    },
-    "/v2/version/{pid}/availability": {
-      "get": {
-        "tags": [
-          "availability-controller"
-        ],
-        "summary": "Indicates if there is an available ondemand for a Version with the given pid",
-        "operationId": "isVersionAvailableUsingGET_1",
+        "summary": "Returns the Mabel availability for a given PID, currently only version is supported",
+        "operationId": "availabilityUsingGET",
         "consumes": [
           "application/json"
         ],
@@ -1021,12 +603,12 @@
         }
       }
     },
-    "/v2/version/{versionId}/revoke": {
+    "/v1/{pid}/revoke": {
       "put": {
         "tags": [
           "revoke-controller"
         ],
-        "summary": "revokeVersion",
+        "summary": "Revoke any ODSR rules for any pid (version, episode, clip, series, brand or masterbrand)",
         "operationId": "revokeVersionUsingPUT_1",
         "consumes": [
           "application/json"
@@ -1036,9 +618,9 @@
         ],
         "parameters": [
           {
-            "name": "versionId",
+            "name": "pid",
             "in": "path",
-            "description": "versionId",
+            "description": "pid",
             "required": true,
             "type": "string"
           },
@@ -1057,12 +639,12 @@
         }
       }
     },
-    "/v2/version/{versionPid}/rules": {
+    "/v1/{pid}/rules": {
       "get": {
         "tags": [
           "rules-controller"
         ],
-        "summary": "rulesVersion",
+        "summary": "Get the ODSR rules for version, episode, clip, series, brand or masterbrand",
         "operationId": "rulesVersionUsingGET",
         "consumes": [
           "application/json"
@@ -1072,9 +654,9 @@
         ],
         "parameters": [
           {
-            "name": "versionPid",
+            "name": "pid",
             "in": "path",
-            "description": "versionPid",
+            "description": "pid",
             "required": true,
             "type": "string"
           },
