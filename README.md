@@ -1,6 +1,6 @@
 ### bbcapis - Nodejs-based utilities to document and consume BBC APIs, including Nitro
 
-[![Join the chat at https://gitter.im/Mermade/bbcparse](https://badges.gitter.im/Mermade/bbcparse.svg)](https://gitter.im/Mermade/bbcparse?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the Mermade Slack](https://img.shields.io/badge/Slack-Mermade-brightgreen)](https://join.slack.com/t/mermade/shared_invite/zt-g78g7xir-MLE_CTCcXCdfJfG3CJe9qA)
 [![Share on Twitter][twitter-image]][twitter-link]
 [![Follow on Twitter][twitterFollow-image]][twitterFollow-link]
 
@@ -47,6 +47,6 @@ nitro.make_request(host,path,api_key,query,options,function(obj){
 Generated [JSDoc](https://doclets.io/Mermade/bbcparse/master) courtesy of [doclets.io](http://doclets.io)
 
 [twitter-image]: https://img.shields.io/twitter/url/http/PermittedSoc.svg?style=social
-[twitter-link]: https://twitter.com/share?source=tweetbutton&text=BBC%20Nitro%20API%20parser%20Via%20%40PermittedSoc&url=https%3A%2F%2Fgithub.com%2FMermade%2Fbbcparse
+[twitter-link]: https://twitter.com/share?source=tweetbutton&text=BBC%20Nitro%20API%20parser%20Via%20%40PermittedSoc&url=https%3A%2F%2Fgithub.com%2FMermade%2Fbbcapis
 [twitterFollow-image]: https://img.shields.io/twitter/follow/PermittedSoc.svg?style=social
 [twitterFollow-link]: https://twitter.com/intent/follow?screen_name=PermittedSoc
