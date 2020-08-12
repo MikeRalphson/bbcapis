@@ -462,6 +462,66 @@
         }
       }
     },
+    "/v1/user/authenticate": {
+      "x-swagger-router-controller": "authenticate_controller",
+      "x-a127-apply": {
+        "x509": {}
+      },
+      "post": {
+        "summary": "Authenticate by `ckns_jwt` persistent cookie, issues new `ckns_session` session cookie",
+        "description": "Authenticate user via ckns_jwt cookie using BBCAuthentication tree.\nOnly currently supported in NMARealm realm, initally supports CABSI flow.\nDefaults service to BBCAuthentication and Realm to NMARealm.\n",
+        "operationId": "authenticate",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Authenticate"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/HeaderSSLClientCertSubject"
+          },
+          {
+            "$ref": "#/parameters/QueryRealm"
+          },
+          {
+            "$ref": "#/parameters/QueryService"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/Success200Authenticate"
+            },
+            "headers": {
+              "Set-Cookie": {
+                "description": "`ckns_session`: This is the short-lived user's session cookie which will be sent as a cookie during the REST call to this endpoint.\n",
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/Error401Authenticate"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/Error403"
+            }
+          },
+          "default": {
+            "description": "400 Bad Request (parameter missing)",
+            "schema": {
+              "$ref": "#/definitions/Error400SwaggerParamMissing"
+            }
+          }
+        }
+      }
+    },
     "/oidc/v1/user/authorise": {
       "x-swagger-router-controller": "openam_controller",
       "post": {
@@ -1959,6 +2019,14 @@
       "description": "The expected response type as defined on OpenID connect specification. Indicates which kind of oAuth flow would be used and what needs to be returned. Value can be 'code' for authorization grant, or 'id_token' if enabled for the client.",
       "required": true,
       "type": "string"
+    },
+    "QueryService": {
+      "name": "service",
+      "in": "query",
+      "description": "Points to the authentication chain.\nFor example, if client ID is 'timClient', then this value could be something directly associated like 'timClientService' but can also be any other existing service like 'AccountSignInService'.\nIt defines where the user will be redirected if there's no session.\n",
+      "required": false,
+      "type": "string",
+      "x-example": "timClientService"
     },
     "QueryServiceRequired": {
       "name": "service",
