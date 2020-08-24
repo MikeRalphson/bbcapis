@@ -29,6 +29,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -67,6 +70,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -102,6 +108,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -146,6 +155,9 @@
           },
           {
             "$ref": "#/components/parameters/tag-enabled"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           },
           {
             "name": "sort",
@@ -195,6 +207,9 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -230,6 +245,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -305,6 +323,9 @@
             "$ref": "#/components/parameters/limit"
           },
           {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          },
+          {
             "name": "module",
             "in": "query",
             "description": "Apply pagination for module",
@@ -369,6 +390,9 @@
             "$ref": "#/components/parameters/X-Experiments"
           },
           {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          },
+          {
             "name": "module",
             "in": "query",
             "description": "Apply pagination for module",
@@ -427,6 +451,9 @@
             "$ref": "#/components/parameters/X-Experiments"
           },
           {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          },
+          {
             "name": "module",
             "in": "query",
             "description": "Apply pagination for module",
@@ -474,6 +501,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -518,6 +548,9 @@
           },
           {
             "$ref": "#/components/parameters/date"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -537,6 +570,100 @@
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/experience/listen/sign-in": {
+      "get": {
+        "summary": "Provides a typical landing page with sign in upsell",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/pid"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Provides a typical landing page with sign in upsell. <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/experience/stations": {
+      "get": {
+        "summary": "Provides a list promoted and local stations",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/pid"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Provides promoted and local station display items <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
           },
           "404": {
             "$ref": "#/components/responses/Notfound"
@@ -1886,6 +2013,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -1913,74 +2043,10 @@
       }
     },
     "/v2/programmes/search/items/playable": {
-      "get": {
-        "summary": "Search Playable Programmes",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/q"
-          }
-        ],
-        "tags": [
-          "Programmes"
-        ],
-        "description": "Provides search keywords results as list of playable items <span>🎶</span> The Seekers\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
+      "$ref": "./v2/programmes/search/items/playable/get.yaml"
     },
     "/v2/programmes/search/items/container": {
-      "get": {
-        "summary": "Search Container Programmes",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/q"
-          }
-        ],
-        "tags": [
-          "Programmes"
-        ],
-        "description": "Provides search keywords results as list of container items <span>🎶</span> The Seekers\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContainerItemsResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
+      "$ref": "./v2/programmes/search/items/container/get.yaml"
     },
     "/v2/collections/{pid}/container": {
       "get": {
@@ -1991,6 +2057,9 @@
           },
           {
             "$ref": "#/components/parameters/CollectionPid"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2032,6 +2101,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2073,6 +2145,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2114,6 +2189,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2155,6 +2233,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2190,6 +2271,9 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -2685,6 +2769,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2732,6 +2819,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2779,6 +2869,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2823,6 +2916,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -2864,6 +2960,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           },
           {
             "name": "sort",
@@ -3002,6 +3101,9 @@
             "$ref": "#/components/parameters/X-Experiments"
           },
           {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          },
+          {
             "name": "module",
             "in": "query",
             "description": "Apply pagination for module",
@@ -3070,6 +3172,9 @@
             "$ref": "#/components/parameters/X-Experiments"
           },
           {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          },
+          {
             "name": "module",
             "in": "query",
             "description": "Apply pagination for module",
@@ -3127,6 +3232,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           },
           {
             "name": "module",
@@ -3191,6 +3299,9 @@
           },
           {
             "$ref": "#/components/parameters/q"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -3223,6 +3334,100 @@
         }
       }
     },
+    "/v2/my/experience/listen": {
+      "get": {
+        "summary": "Provides a signed in landing page",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/pid"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Provides a signed in landing page with listen live, priority brands, continue listening, music mixes, daily pics, recommendations etc. <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/experience/sounds": {
+      "get": {
+        "summary": "Provides a personalised latest list of playables",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/pid"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Provides a latest list of favourite shows, music mixes and podcasts <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/my/experience/player/{pid}": {
       "get": {
         "summary": "Personalised On Demand Page Experience",
@@ -3238,6 +3443,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -3282,6 +3490,9 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -3373,6 +3584,9 @@
           },
           {
             "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
           }
         ],
         "tags": [
@@ -3535,6 +3749,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -3576,6 +3793,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -3617,6 +3837,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           },
           {
             "name": "sort",
@@ -3670,6 +3893,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -3711,6 +3937,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -3749,6 +3978,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -3793,6 +4025,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -4013,6 +4248,9 @@
         "summary": "List of playable music mixes for mood",
         "parameters": [
           {
+            "$ref": "#/components/parameters/experience"
+          },
+          {
             "name": "mood",
             "in": "path",
             "description": "A mood representing a collection of playable items, some examples are chill, feel_good and focus.",
@@ -4052,12 +4290,56 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
           "Single Item Promo"
         ],
         "description": "Provides a list of the active single item promos <span>🌟</span> rms-promo-service\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleItemPromosResponse"
+                }
+              }
+            }
+          },
+          "502": {
+            "$ref": "#/components/responses/GatewayTimeout"
+          },
+          "504": {
+            "$ref": "#/components/responses/BadGateway"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/promos/single-item": {
+      "get": {
+        "summary": "List of Personalised Single Item Promos",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Single Item Promo"
+        ],
+        "description": "Provides a personalised list of the active single item promos <span>🌟</span> rms-promo-service\n",
         "responses": {
           "200": {
             "description": "OK",
