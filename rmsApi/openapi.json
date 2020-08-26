@@ -841,6 +841,9 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -876,6 +879,9 @@
           },
           {
             "$ref": "#/components/parameters/CategoryId"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2042,11 +2048,81 @@
         }
       }
     },
-    "/v2/programmes/search/items/playable": {
-      "$ref": "./v2/programmes/search/items/playable/get.yaml"
+    "/v2/programmes/search/playable": {
+      "get": {
+        "summary": "Search Playable Programmes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/q"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Provides search keywords results as list of playable items <span>🔎</span> The Seekers <span>🔎</span>\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
     },
-    "/v2/programmes/search/items/container": {
-      "$ref": "./v2/programmes/search/items/container/get.yaml"
+    "/v2/programmes/search/container": {
+      "get": {
+        "summary": "Search Container Programmes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/q"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Provides search keywords results as list of container items <span>🔎</span> The Seekers <span>🔎</span>\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItemsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
     },
     "/v2/collections/{pid}/container": {
       "get": {
