@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: "1.0"
-  x-release: 1.0.0-484
+  x-release: 1.0.0-487
   title: BBC iPlayer Business Layer
   description: The definitive iPlayer API.
   x-logo:
@@ -1046,7 +1046,26 @@ components:
                   download:
                     type: boolean
                   kind:
-                    type: string
+                    enum:
+                      - legal
+                      - editorial
+                      - technical-replacement
+                      - original
+                      - iplayer-version
+                      - lengthened
+                      - shortened
+                      - pre-watershed
+                      - post-watershed
+                      - warnings-higher
+                      - warnings-lower
+                      - warnings-none
+                      - duplication
+                      - open-subtitled
+                      - other
+                      - audio-described
+                      - signed
+                      - webcast
+                      - simulcast
                   duration:
                     type: object
                     properties:
@@ -1911,7 +1930,26 @@ components:
               download:
                 type: boolean
               kind:
-                type: string
+                enum:
+                  - legal
+                  - editorial
+                  - technical-replacement
+                  - original
+                  - iplayer-version
+                  - lengthened
+                  - shortened
+                  - pre-watershed
+                  - post-watershed
+                  - warnings-higher
+                  - warnings-lower
+                  - warnings-none
+                  - duplication
+                  - open-subtitled
+                  - other
+                  - audio-described
+                  - signed
+                  - webcast
+                  - simulcast
               duration:
                 type: object
                 properties:
@@ -2082,7 +2120,26 @@ components:
         download:
           type: boolean
         kind:
-          type: string
+          enum:
+            - legal
+            - editorial
+            - technical-replacement
+            - original
+            - iplayer-version
+            - lengthened
+            - shortened
+            - pre-watershed
+            - post-watershed
+            - warnings-higher
+            - warnings-lower
+            - warnings-none
+            - duplication
+            - open-subtitled
+            - other
+            - audio-described
+            - signed
+            - webcast
+            - simulcast
         duration:
           type: object
           properties:

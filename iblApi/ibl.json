@@ -1045,7 +1045,27 @@
                     "type": "boolean"
                   },
                   "kind": {
-                    "type": "string"
+                    "enum": [
+                      "legal",
+                      "editorial",
+                      "technical-replacement",
+                      "original",
+                      "iplayer-version",
+                      "lengthened",
+                      "shortened",
+                      "pre-watershed",
+                      "post-watershed",
+                      "warnings-higher",
+                      "warnings-lower",
+                      "warnings-none",
+                      "duplication",
+                      "open-subtitled",
+                      "other",
+                      "audio-described",
+                      "signed",
+                      "webcast",
+                      "simulcast"
+                    ]
                   },
                   "duration": {
                     "type": "object",
@@ -2305,7 +2325,27 @@
                 "type": "boolean"
               },
               "kind": {
-                "type": "string"
+                "enum": [
+                  "legal",
+                  "editorial",
+                  "technical-replacement",
+                  "original",
+                  "iplayer-version",
+                  "lengthened",
+                  "shortened",
+                  "pre-watershed",
+                  "post-watershed",
+                  "warnings-higher",
+                  "warnings-lower",
+                  "warnings-none",
+                  "duplication",
+                  "open-subtitled",
+                  "other",
+                  "audio-described",
+                  "signed",
+                  "webcast",
+                  "simulcast"
+                ]
               },
               "duration": {
                 "type": "object",
@@ -2558,7 +2598,27 @@
           "type": "boolean"
         },
         "kind": {
-          "type": "string"
+          "enum": [
+            "legal",
+            "editorial",
+            "technical-replacement",
+            "original",
+            "iplayer-version",
+            "lengthened",
+            "shortened",
+            "pre-watershed",
+            "post-watershed",
+            "warnings-higher",
+            "warnings-lower",
+            "warnings-none",
+            "duplication",
+            "open-subtitled",
+            "other",
+            "audio-described",
+            "signed",
+            "webcast",
+            "simulcast"
+          ]
         },
         "duration": {
           "type": "object",
