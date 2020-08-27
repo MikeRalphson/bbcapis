@@ -1122,6 +1122,9 @@
           },
           {
             "$ref": "#/components/parameters/NetworkId"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -1157,6 +1160,9 @@
           },
           {
             "$ref": "#/components/parameters/NetworkId"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -1230,6 +1236,9 @@
           },
           {
             "$ref": "#/components/parameters/NetworkId"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -2022,12 +2031,18 @@
           },
           {
             "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/context"
+          },
+          {
+            "$ref": "#/components/parameters/play_context"
           }
         ],
         "tags": [
           "Programmes"
         ],
-        "description": "provides the list of playable items as playqueue based on the programme id <span>🎶</span> Boyzone\n",
+        "description": "provides the list of playable items as play queue based on the programme id <span>🎶</span> Boyzone\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4083,6 +4098,135 @@
         }
       }
     },
+    "/v2/my/programmes/recommendations/music-mixes/playable": {
+      "get": {
+        "summary": "List of recommended music mix programmes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Personalised Programmes"
+        ],
+        "description": "Recommended music mixes from the Audience Platforms' Recomendations Service\n<span>🎶</span> AC/DC returning a set of playable items that are music mixes\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/programmes/search/container": {
+      "get": {
+        "summary": "Search Personalised Container Programmes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/q"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Provides personalised search keywords results as list of container items <span>🔎</span> The Seekers <span>🔎</span>\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItemsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/programmes/search/playable": {
+      "get": {
+        "summary": "Search Personalised Playable Programmes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/q"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Provides personalised search keywords results as list of playable items <span>🔎</span> The Seekers <span>🔎</span>\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/my/programmes/playqueue/{pid}": {
       "get": {
         "summary": "Play Queue",
@@ -4104,12 +4248,18 @@
           },
           {
             "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/context"
+          },
+          {
+            "$ref": "#/components/parameters/play_context"
           }
         ],
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "provides the list of playable items as playqueue based on the programme id <span>🎶</span> Boyzone\n",
+        "description": "provides the list of playable items as play queue based on the programme id <span>🎶</span> Boyzone\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4154,6 +4304,9 @@
           },
           {
             "$ref": "#/components/parameters/container"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           },
           {
             "name": "type",
@@ -4255,6 +4408,9 @@
           },
           {
             "$ref": "#/components/parameters/pid"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -7250,6 +7406,9 @@
             "$ref": "#/components/parameters/tleoDistinct"
           },
           {
+            "$ref": "#/components/parameters/experience"
+          },
+          {
             "name": "type",
             "in": "query",
             "description": "Filter by programme type. Accepts comma separated values",
@@ -7302,6 +7461,9 @@
           },
           {
             "$ref": "#/components/parameters/pids"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -7628,6 +7790,9 @@
             "$ref": "#/components/parameters/tleoDistinct"
           },
           {
+            "$ref": "#/components/parameters/experience"
+          },
+          {
             "name": "type",
             "in": "query",
             "description": "Filter by programme type. Accepts comma separated values",
@@ -7680,6 +7845,9 @@
           },
           {
             "$ref": "#/components/parameters/pids"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
@@ -7816,6 +7984,29 @@
           "example": "165.225.80.130,10.11.12.13"
         },
         "required": true
+      },
+      "context": {
+        "name": "context",
+        "in": "query",
+        "description": "Domain context to build play queue (not related to enclosing container), currently only supports \"favourites\"",
+        "schema": {
+          "type": "string"
+        },
+        "required": false,
+        "example": "favourites",
+        "enum": [
+          "favourites"
+        ]
+      },
+      "play_context": {
+        "name": "play_context",
+        "in": "query",
+        "description": "Container context to build play queue for containers, i.e. brand, collection, series",
+        "schema": {
+          "type": "string"
+        },
+        "required": false,
+        "example": "brand:p05hh4qy"
       },
       "X-international-experience-name": {
         "name": "X-international-experience-name",
