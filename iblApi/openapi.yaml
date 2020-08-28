@@ -5,7 +5,7 @@ info:
   title: BBC iPlayer Business Layer
   description: The definitive iPlayer API.
   x-logo:
-    url: https://twitter.com/BBCiPlayer/profile_image?size=original
+    url: 'https://avatars0.githubusercontent.com/u/828722?s=200&v=4'
     backgroundColor: "#FFFFFF"
   license:
     name: MIT
