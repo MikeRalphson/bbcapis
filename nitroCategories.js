@@ -14,9 +14,9 @@ function category_dump(obj) {
 		c = obj.results[i];
 		console.log(c.id+' '+c.type+' '+c.pip_id+' = '+c.title);
 		if (c.category_type == 'genre' || c.category_type == 'format') {
-			for (var j in c.narrower) {
-				n = c.narrower[j];
-				console.log('  '+n.id+' '+n.type+' '+c.key+'/'+n.key+' = '+n.title);
+			for (var j in c.child_categories) {
+				n = c.child_categories[j];
+				console.log('  '+n.id+' '+n.category_type+' '+c.pip_id+'/'+n.pip_id+' = '+n.title);
 				if (j.narrower && j.narrower.length>0) {
 					console.log('Recursive');
 				}
