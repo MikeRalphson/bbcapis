@@ -77,6 +77,12 @@ nitro.make_request('locator-service.test.api.bbci.co.uk','/v2/api-docs','',query
 	return false;
 });
 
+nitro.make_request('isl.britbox.co.uk','/api/spec','',query,{proto:'https',headers:{Accept:'application/json'}},function(obj){
+	console.log('BritBox API');
+	fs.writeFileSync('./britboxApi/swagger.json',JSON.stringify(obj,null,2));
+	return false;
+});
+
 query.add(api.fProgrammesPartnerPid,'s0000024',true);
 query.add(api.fProgrammesPageSize,1);
 nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'application/json'}},function(obj){
