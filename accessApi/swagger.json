@@ -3,7 +3,7 @@
   "info": {
     "title": "BBCiD-V5 OpenAM API Gateway",
     "version": "0.0.1",
-    "description": "# Overview\nThis component is a node/express based web app that uses Swagger to define the endpoint mapping (router:controller) to the custom JS controllers in api/controllers. The controller functions make calls to the OpenAM component.\n\n## API Documentation\nThe REST API documentation for this component is available in two interfaces:\n* [ReDoc](/redoc)\n  * **detailed** descriptions, examples, and schemas\n* [Swagger UI](/docs)\n  * **limited** descriptions, examples, and schemas\n  * includes interactive (Try It Out) request feature \n\n## Cert-based whitelisting\n* [IDV5 Whitelisting Flows](https://confluence.dev.bbc.co.uk/display/id/IDv5+APIs#IDv5APIs-IDv5WhitelistingFlows)\n* [Process, Location & Format](https://confluence.dev.bbc.co.uk/display/id/IDv5+Whitelisting)\n\n## Troubleshooting the spec file\nIf this spec file is modified and prevents the node app from running, you can use the following commands to diagnose the spec file.\n### yaml2json\nIf there is a YAML syntax error, yaml2json will show the unparseable YAML from the spec file. If the YAML is valid, it will just return the spec file converted to JSON.\n```\n$ node_modules/yamljs/bin/yaml2json api/swagger/swagger.yaml\n```\n### swagger-tools\nIt's possible to validate the Swagger spec file beyond pure YAML structure. The swagger-tools command will list the errors if any, or state that the spec file is valid.\n```\n$ node_modules/swagger-tools/bin/swagger-tools validate -v api/swagger/swagger.yaml\n```\n"
+    "description": "# Overview\nThis component is a node/express based web app that uses Swagger to define the endpoint mapping (router:controller) to the custom JS controllers in api/controllers. The controller functions make calls to the OpenAM component.\n\n## API Documentation\nThe REST API documentation for this component is available in two interfaces:\n* [ReDoc](/redoc)\n  * **detailed** descriptions, examples, and schemas\n* [Swagger UI](/docs)\n  * **limited** descriptions, examples, and schemas\n  * includes interactive (Try It Out) request feature\n\n## Cert-based whitelisting\n* [IDV5 Whitelisting Flows](https://confluence.dev.bbc.co.uk/display/id/IDv5+APIs#IDv5APIs-IDv5WhitelistingFlows)\n* [Process, Location & Format](https://confluence.dev.bbc.co.uk/display/id/IDv5+Whitelisting)\n\n## Troubleshooting the spec file\nIf this spec file is modified and prevents the node app from running, you can use the following commands to diagnose the spec file.\n### yaml2json\nIf there is a YAML syntax error, yaml2json will show the unparseable YAML from the spec file. If the YAML is valid, it will just return the spec file converted to JSON.\n```\n$ node_modules/yamljs/bin/yaml2json api/swagger/swagger.yaml\n```\n### swagger-tools\nIt's possible to validate the Swagger spec file beyond pure YAML structure. The swagger-tools command will list the errors if any, or state that the spec file is valid.\n```\n$ node_modules/swagger-tools/bin/swagger-tools validate -v api/swagger/swagger.yaml\n```\n"
   },
   "basePath": "/",
   "schemes": [
@@ -202,6 +202,12 @@
             "$ref": "#/parameters/HeaderSSLClientCertSubject"
           },
           {
+            "$ref": "#/parameters/HeaderAgentIP"
+          },
+          {
+            "$ref": "#/parameters/HeaderJourneyType"
+          },
+          {
             "$ref": "#/parameters/QueryRealm"
           }
         ],
@@ -213,7 +219,7 @@
             },
             "headers": {
               "Set-Cookie": {
-                "description": "`ckns_jwt`: This is the long-lived user's persistent cookie which will be sent as a cookie during the REST call to this endpoint. This needs to be saved with the same name under '.bbc.com' domain. e.g.\n```\nckns_jwt=eyAidHlwIjogIkpXRSIsICJhbGciOiAiSFMyNTYiIH0.ZXlBaWRIbHdJam9nSWtwWFZ...   \nlYSag; Domain=.bbc.com; Expires=Sun, 31-May-2020 15:10:22 GMT; Path=/; HttpOnly\n```\n",
+                "description": "`ckns_jwt`: This is the long-lived user's persistent cookie which will be sent as a cookie during the REST call to this endpoint. This needs to be saved with the same name under '.bbc.com' domain. e.g.\n```\nckns_jwt=eyAidHlwIjogIkpXRSIsICJhbGciOiAiSFMyNTYiIH0.ZXlBaWRIbHdJam9nSWtwWFZ...\nlYSag; Domain=.bbc.com; Expires=Sun, 31-May-2020 15:10:22 GMT; Path=/; HttpOnly\n```\n",
                 "type": "string"
               }
             }
@@ -259,6 +265,12 @@
             "$ref": "#/parameters/HeaderSSLClientCertSubject"
           },
           {
+            "$ref": "#/parameters/HeaderAgentIP"
+          },
+          {
+            "$ref": "#/parameters/HeaderJourneyType"
+          },
+          {
             "$ref": "#/parameters/HeaderX-OpenAM-UsernameRequired"
           },
           {
@@ -276,7 +288,7 @@
             },
             "headers": {
               "Set-Cookie": {
-                "description": "`ckns_jwt`: This is the long-lived user's persistent cookie which will be sent as a cookie during the REST call to this endpoint. This needs to be saved with the same name under '.bbc.com' domain. e.g.\n```\nckns_jwt=eyAidHlwIjogIkpXRSIsICJhbGciOiAiSFMyNTYiIH0.ZXlBaWRIbHdJam9nSWtwWFZ...   \nlYSag; Domain=.bbc.com; Expires=Sun, 31-May-2020 15:10:22 GMT; Path=/; HttpOnly\n```\n",
+                "description": "`ckns_jwt`: This is the long-lived user's persistent cookie which will be sent as a cookie during the REST call to this endpoint. This needs to be saved with the same name under '.bbc.com' domain. e.g.\n```\nckns_jwt=eyAidHlwIjogIkpXRSIsICJhbGciOiAiSFMyNTYiIH0.ZXlBaWRIbHdJam9nSWtwWFZ...\nlYSag; Domain=.bbc.com; Expires=Sun, 31-May-2020 15:10:22 GMT; Path=/; HttpOnly\n```\n",
                 "type": "string"
               }
             }
@@ -407,7 +419,7 @@
       },
       "post": {
         "summary": "Authenticate session validate",
-        "description": "This endpoint will check if the current session is valid or not.\n### 200 responses\n<details>\n  <summary>Example: Valid</summary>\n  <pre>\n    {\n      \"valid\":true,\n      \"uid\":\"&lt;user id&gt;\",\n      \"realm\":\"/\"\n    }\n  </pre>\n</details>\n<details>\n  <summary>Example: Failure: Invalid session</summary>\n  <pre>\n    {  \n      \"valid\":false\n    }\n  </pre>\n</details>\n\n### Testing\nComponent | Scenarios | Results\n----------|-----------|--------\nGateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeSessionValidate.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeSessionValidate-feature.html)\n",
+        "description": "This endpoint will check if the current session is valid or not.\n### 200 responses\n<details>\n  <summary>Example: Valid</summary>\n  <pre>\n    {\n      \"valid\":true,\n      \"uid\":\"&lt;user id&gt;\",\n      \"realm\":\"/\"\n    }\n  </pre>\n</details>\n<details>\n  <summary>Example: Failure: Invalid session</summary>\n  <pre>\n    {\n      \"valid\":false\n    }\n  </pre>\n</details>\n\n### Testing\nComponent | Scenarios | Results\n----------|-----------|--------\nGateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeSessionValidate.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeSessionValidate-feature.html)\n",
         "operationId": "sessionValidate",
         "produces": [
           "application/json"
@@ -540,6 +552,12 @@
         ],
         "parameters": [
           {
+            "$ref": "#/parameters/HeaderAgentIP"
+          },
+          {
+            "$ref": "#/parameters/HeaderJourneyType"
+          },
+          {
             "$ref": "#/parameters/QueryResponseTypeRequired"
           },
           {
@@ -600,6 +618,12 @@
           "Authorise"
         ],
         "parameters": [
+          {
+            "$ref": "#/parameters/HeaderAgentIP"
+          },
+          {
+            "$ref": "#/parameters/HeaderJourneyType"
+          },
           {
             "$ref": "#/parameters/QueryResponseTypeRequired"
           },
@@ -864,8 +888,8 @@
                 },
                 "user_code": {
                   "type": "string",
-                  "description": "The user_code generated will consist of the following characters\n* Character list: 234567abcdefhijkmnopqrstwxyz\n* Length: 8\n* Example : sexpest2\nThis character set is defined in the [CustomCodeGenerator](https://github.com/bbc/platform-bbcid/blob/master/openamservice/custom-components/CustomCodeGenerator/src/main/java/uk/co/bbc/CustomCodeGenerator.java#L35) custom component of our openamservice component.\n",
-                  "example": "sexpest2"
+                  "description": "The user_code generated will consist of the following characters\n* Character list: 234567abcdefhijkmnopqrstwxyz\n* Length: 8\n* There is no profanity check at present. 6 digit numeric pin will be used to fix it forward\n* Example : 67abcdef\nThis character set is defined in the [CustomCodeGenerator](https://github.com/bbc/platform-bbcid/blob/master/openamservice/custom-components/CustomCodeGenerator/src/main/java/uk/co/bbc/CustomCodeGenerator.java#L35) custom component of our openamservice component.\n",
+                  "example": "67abcdef"
                 },
                 "verification_url": {
                   "type": "string",
@@ -1871,10 +1895,10 @@
     "FormDataUserCode": {
       "name": "user_code",
       "in": "formData",
-      "description": "The user code to verify. The code input taken from the user (which is initially given by the device).\nThe user_code generated will consist of the following characters (This character set is custom-defined):\n* Allowable characters: 234567abcdefhijkmnopqrstwxyz\n* Length: 8\n",
+      "description": "The user code to verify. The code input taken from the user (which is initially given by the device).\nThe user_code generated will consist of the following characters (This character set is custom-defined):\n* Allowable characters: 234567abcdefhijkmnopqrstwxyz\n* Length: 8\n* There is no profanity check at present. 6 digit numeric pin will be used to fix it forward\n",
       "required": true,
       "type": "string",
-      "x-example": "sexpest2"
+      "x-example": "67abcdef"
     },
     "FormDataPKCECodeVerifier": {
       "name": "code_verifier",
@@ -1976,6 +2000,35 @@
       "required": true,
       "type": "string",
       "x-example": "idv5testuser"
+    },
+    "HeaderAgentIP": {
+      "name": "agent-ip",
+      "in": "header",
+      "description": "The end user's known ip address",
+      "required": false,
+      "type": "string",
+      "x-example": "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+    },
+    "HeaderJourneyType": {
+      "name": "journey-type",
+      "in": "header",
+      "description": "Journey reference for the originated call",
+      "required": false,
+      "type": "string",
+      "enum": [
+        "reAuthentication",
+        "signIn",
+        "register"
+      ],
+      "x-example": "signIn"
+    },
+    "HeaderDeviceId": {
+      "name": "device-id",
+      "in": "header",
+      "description": "Device unique fingerprint",
+      "required": false,
+      "type": "string",
+      "x-example": "DeviceUniqueFingerprint0110b"
     },
     "QueryClientIdRequired": {
       "name": "client_id",
