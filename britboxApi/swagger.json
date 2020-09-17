@@ -4365,7 +4365,7 @@
       "x-serviceId": "itvBt",
       "get": {
         "description": "Returns all the plans available for BT flow including additional description data.",
-        "operationId": "getPlans",
+        "operationId": "getPlansBT",
         "tags": [
           "bt"
         ],
@@ -4471,7 +4471,7 @@
           {
             "name": "id",
             "description": "User token provided by BT.",
-            "in": "request",
+            "in": "query",
             "required": true
           },
           {
@@ -4909,7 +4909,7 @@
       "x-serviceId": "itvEe",
       "get": {
         "description": "Returns all the plans available for EE flow including additional description data.",
-        "operationId": "getPlans",
+        "operationId": "getPlansEE",
         "tags": [
           "ee"
         ],
@@ -4962,7 +4962,7 @@
       "x-serviceId": "itvEe",
       "get": {
         "description": "Returns the plan description for EE flow including additional description data.",
-        "operationId": "getPlan",
+        "operationId": "getPlanEE",
         "tags": [
           "ee"
         ],
@@ -6196,7 +6196,7 @@
       "x-serviceId": "itvInfo",
       "get": {
         "description": "Redirects to corresponding Axis Item details page.",
-        "operationId": "getItem",
+        "operationId": "getItemItv",
         "tags": [
           "itv"
         ],
@@ -6545,7 +6545,7 @@
       "x-serviceId": "itvSubscription",
       "get": {
         "description": "Returns the plans available for specified payment platform.",
-        "operationId": "getPlans",
+        "operationId": "getPlansITV",
         "tags": [
           "itv"
         ],
@@ -6612,7 +6612,7 @@
       "x-serviceId": "itvProfile",
       "get": {
         "description": "Returns the ITV profile object.",
-        "operationId": "getProfile",
+        "operationId": "getProfileItv",
         "tags": [
           "itv"
         ],
@@ -6945,7 +6945,7 @@
       },
       "delete": {
         "description": "Cancel a plan subscription.\n\nA cancelled subscription will continue to be valid until the subscription\nexpiry date or next renewal date.\n",
-        "operationId": "cancelSubscription",
+        "operationId": "cancelSubscriptionItv",
         "tags": [
           "itv"
         ],
@@ -10330,7 +10330,7 @@
           "type": "string"
         },
         "showTitle": {
-          "descritpion": "The title of the show this item belongs to, if the item is a season or episode.",
+          "description": "The title of the show this item belongs to, if the item is a season or episode.",
           "type": "string"
         },
         "seasonId": {
