@@ -1268,6 +1268,44 @@
         }
       }
     },
+    "/v2/networks/services": {
+      "get": {
+        "summary": "List of services",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/supported"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Networks"
+        ],
+        "description": "Provides the list of all the v2 services from networks <span>🎶</span> Green Day\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServicesResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/services/{sid}/tracks/latest/playable": {
       "get": {
         "summary": "List of recently playable tracks",
@@ -3643,6 +3681,9 @@
           },
           {
             "$ref": "#/components/parameters/X-forwarded-for"
+          },
+          {
+            "$ref": "#/components/parameters/show_tracklist"
           }
         ],
         "tags": [
@@ -8103,6 +8144,19 @@
         },
         "required": false
       },
+      "show_tracklist": {
+        "name": "show_tracklist",
+        "in": "query",
+        "description": "Optional parameter to show tracklist data in an inline_display_module",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "enum": [
+            true,
+            false
+          ]
+        }
+      },
       "BroadcastService": {
         "name": "service",
         "in": "query",
@@ -8357,6 +8411,15 @@
         "name": "promoted",
         "in": "query",
         "description": "Promoted networks only",
+        "schema": {
+          "type": "boolean"
+        },
+        "required": false
+      },
+      "supported": {
+        "name": "supported",
+        "in": "query",
+        "description": "Filter services by supported/not-supported, no filter applied if not provided",
         "schema": {
           "type": "boolean"
         },
@@ -14035,6 +14098,51 @@
           "type",
           "id",
           "title"
+        ]
+      },
+      "ServiceGreenDay": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "pid": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "pid"
+        ]
+      },
+      "ServicesResponse": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceGreenDay"
+            }
+          }
+        },
+        "required": [
+          "total",
+          "limit",
+          "offset",
+          "data"
         ]
       }
     },
