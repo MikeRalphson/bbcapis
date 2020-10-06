@@ -211,9 +211,9 @@ function makeRequest(host,path,key,query,settings,callback,err){
 				}
 				catch (e) {
 					if (typeof err !== 'undefined') err(res.statusCode,list,settings.payload);
-					console.log(e);
-					console.log('Invalid JSON received:');
-					console.log(list);
+					console.warn(e);
+					console.warn('Invalid JSON received:');
+					console.warn(list);
 				}
 			}
 			else {
@@ -241,17 +241,17 @@ function makeRequest(host,path,key,query,settings,callback,err){
 			}
 		}
 		catch (e) {
-			console.log('Something went wrong parsing the response JSON');
-			console.log(e);
-			console.log(res.statusCode+' '+res.statusMessage);
-			console.log(res.headers);
+			console.warn('Something went wrong parsing the response JSON');
+			console.warn(e);
+			console.warn(res.statusCode+' '+res.statusMessage);
+			console.warn(res.headers);
 			debuglog('** '+list);
 		}
 	   });
 	}).setTimeout(settings.timeout);
 	req.on('error', function(e) {
 		if (typeof err !== 'undefined') err(500,e.message + ' ' +list,settings.payload)
-		else console.log(e.message);
+		else console.warn(host+path,e.message);
 	});
 	req.end();
 }
@@ -265,18 +265,18 @@ function log_fault(fault,res,query) {
 		}
 	}
 	*/
-	if (res) console.log('Fault: '+res.statusCode+' '+res.statusMessage);
-	if (query && query.toString()) console.log(query.querystring);
-	if (fault) console.log(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
+	if (res) console.warn('Fault: '+res.statusCode+' '+res.statusMessage);
+	if (query && query.toString()) console.warn(query.querystring);
+	if (fault) console.warn(fault.fault.detail.errorcode+': '+fault.fault.faultstring);
 }
 
 function log_error(error,res,query) {
 	/*
 	{"errors":{"error":{"code":"XDMP-EXTIME","message":"Time limit exceeded"}}}
 	*/
-	if (res) console.log('Error: '+res.statusCode+' '+res.statusMessage);
-	if (query && query.toString()) console.log(query.querystring);
-	if (error) console.log(error.errors.error.code+': '+error.errors.error.message);
+	if (res) console.warn('Error: '+res.statusCode+' '+res.statusMessage);
+	if (query && query.toString()) console.warn(query.querystring);
+	if (error) console.warn(error.errors.error.code+': '+error.errors.error.message);
 }
 
 module.exports = {
