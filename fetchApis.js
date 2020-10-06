@@ -53,7 +53,7 @@ nitro.make_request('rms.api.bbc.co.uk','/docs/swagger.json','',query,{proto:'htt
 	return false;
 });
 
-nitro.make_request('galileo.int.api.bbc.com','/v2/api-docs','',query,{proto:'https'},function(obj){
+nitro.make_request('galileo.api.bbc.com','/v2/api-docs','',query,{proto:'https'},function(obj){
 	console.log('Galileo swagger.json');
 	fs.writeFileSync('./galileoApi/swagger.json',JSON.stringify(obj,null,2));
 	return false;
@@ -92,6 +92,7 @@ nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'appl
 	}
 	return false;
 });
+
 query.add(api.fProgrammesEntityTypeClip);
 nitro.make_request(host,api.nitroProgrammes,apiKey,query,{headers:{Accept: 'application/json'}},function(obj){
 	let total = (typeof obj.nitro.results.total !== 'undefined') ? obj.nitro.results.total : obj.nitro.results.more_than+1;
