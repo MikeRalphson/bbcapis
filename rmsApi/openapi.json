@@ -4081,12 +4081,15 @@
           },
           {
             "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
           }
         ],
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Recommended Programmes from the Audience Platforms' Recomendations Service <span>🎶</span> AC/DC\n",
+        "description": "Recommended Programmes from the Audience Platforms' Recommendations Chassis <span>🎶</span> AC/DC\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4163,12 +4166,15 @@
           },
           {
             "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
           }
         ],
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Recommended music mixes from the Audience Platforms' Recomendations Service\n<span>🎶</span> AC/DC returning a set of playable items that are music mixes\n",
+        "description": "Recommended music mixes from the Audience Platforms' Recommendations Chassis\n<span>🎶</span> AC/DC returning a set of playable items that are music mixes\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -8126,9 +8132,9 @@
         }
       },
       "X-Experiments": {
-        "name": "x-experiments",
+        "name": "X-experiments",
         "in": "header",
-        "description": "experiment_name:variation",
+        "description": "experiment_name:variation,another_experiment_name:control",
         "schema": {
           "type": "string"
         },
