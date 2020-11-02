@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.205-ref-1-39-0",
+    "version": "3.730.217-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -4354,6 +4354,66 @@
           },
           "500": {
             "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    },
+    "/bt/plan/{token}": {
+      "x-serviceId": "itvBt",
+      "get": {
+        "description": "Returns all the plans available for BT flow including additional description data.",
+        "operationId": "getPlanByToken",
+        "tags": [
+          "bt"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "description": "The identifier of the user provided by BT in an initial URL.",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Available plan for current user.",
+            "schema": {
+              "$ref": "#/definitions/BtPlanListItem"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
             "schema": {
               "$ref": "#/definitions/ServiceError"
             }
