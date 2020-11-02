@@ -1476,6 +1476,39 @@
           }
         }
       }
+    },
+    "/v1/oauth/connect/bbc/jwk_uri": {
+      "x-swagger-router-controller": "openam_controller",
+      "get": {
+        "summary": "Get JWK URI for BBC Realm",
+        "description": "Get Oauth Jwk Information. Returns the OpenAM public key used to verify the signature of an Identity token, as per RFC https://tools.ietf.org/html/rfc7517\n### Testing\nComponent | Scenarios | Results\n----------|-----------|--------\nGateway | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeJWKURI.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeJWKURI-feature.html)\n",
+        "operationId": "jwkuri",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "JWK URI"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "examples": {
+              "application/json": {
+                "keys": [
+                  {
+                    "kty": "RSA",
+                    "kid": "af531224-ba3f-434d-8730-7b4bf9cfa820",
+                    "use": "sig",
+                    "alg": "RS256",
+                    "n": "AI0rWswJdTHoxwrfiLXrOve69KdDtKP7eGcfKDHklmNaZ7QM2mqOtvJOhfy6w9xCsg1MxAaTyF2dzNOO9nSUeIjYVoK0YVrC0cX8dsu2IJk3dNV4LBhtCwdY_fWkp2sgKTO5uoYYoG-hQ0a2rPjHYIZiaZun42PJ2dNTFGAo_aRfmLJSttyHFqmedDwWuo86SS-hBtZHf6nOBL4JQeixi7WIfyeeZJBav_z7qacca-w-Ss3xSQBEBfSJymttgF-quDR1sg3KWYgIn7w-0YJUeDSdGoK_vvH5AywQA2ocC8fIhCp_GufLJWRX4efUcBRmmYRKJTnsfbTe6bB51uqMiT8",
+                    "e": "AQAB"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
