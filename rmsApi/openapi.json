@@ -492,6 +492,64 @@
         }
       }
     },
+    "/v2/experience/inline/play/{container_urn}": {
+      "get": {
+        "summary": "Play On Demand Experience Container",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hide"
+          },
+          {
+            "$ref": "#/components/parameters/container_urn"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience Play On Demand response for container URNs which returns the first item of the specified container to play <span>🎶</span>\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found (or Container empty)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/Notfound"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/experience/inline/schedules/{service_id}": {
       "get": {
         "summary": "Schedules Inline Experience API by service id",
@@ -3332,6 +3390,50 @@
           "Experience"
         ],
         "description": "Personalised Inline Experience On Demand page used for https://www.bbc.co.uk/sounds/play/live:<programme_id> <span>🎶</span> Jimi Hendrix\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/experience/inline/play/{container_urn}": {
+      "get": {
+        "summary": "Personalised Play On Demand Experience Container",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/hide"
+          },
+          {
+            "$ref": "#/components/parameters/container_urn"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Personalised Inline Experience Play On Demand response for container URNs which returns the first item of the specified container to play <span>🎶</span>\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -8203,6 +8305,16 @@
           "type": "string"
         },
         "example": "p07ztdxh",
+        "required": true
+      },
+      "container_urn": {
+        "name": "container_urn",
+        "in": "path",
+        "description": "Container urn",
+        "schema": {
+          "type": "string"
+        },
+        "example": "urn:bbc:radio:brand:b006qnmr",
         "required": true
       },
       "date": {
