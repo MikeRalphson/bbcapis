@@ -1,11 +1,11 @@
 openapi: 3.0.0
 info:
   version: "1.0"
-  x-release: 1.0.0-487
+  x-release: 1.0.0-490
   title: BBC iPlayer Business Layer
   description: The definitive iPlayer API.
   x-logo:
-    url: 'https://avatars0.githubusercontent.com/u/828722?s=200&v=4'
+    url: https://avatars0.githubusercontent.com/u/828722?s=200&v=4
     backgroundColor: "#FFFFFF"
   license:
     name: MIT
@@ -967,6 +967,8 @@ components:
               type: string
             promotional_with_logo:
               type: string
+            portrait:
+              type: string
           required:
             - type
             - standard
@@ -1347,6 +1349,17 @@ components:
             additionalProperties: false
         promoted:
           type: boolean
+        requires_ab:
+          type: array
+          items:
+            type: string
+            enum:
+              - u13
+              - u16
+              - u18
+              - o18
+          minItems: 1
+          uniqueItems: true
       required:
         - id
         - type

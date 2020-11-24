@@ -927,6 +927,9 @@
             },
             "promotional_with_logo": {
               "type": "string"
+            },
+            "portrait": {
+              "type": "string"
             }
           },
           "required": [
@@ -1483,6 +1486,20 @@
         },
         "promoted": {
           "type": "boolean"
+        },
+        "requires_ab": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "u13",
+              "u16",
+              "u18",
+              "o18"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
         }
       },
       "required": [
