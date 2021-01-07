@@ -3,7 +3,7 @@
   "info": {
     "version": "2.0.0",
     "title": "Radio & Music Services",
-    "description": "We encapsulate Radio & Music business logic for iPlayer Radio and BBC Music products on all platforms. We add value by reliably providing the right blend of metadata needed by clients."
+    "description": "We encapsulate Radio & Music business logic for iPlayer Radio and BBC Music products on all platforms. We add value by reliably providing the right blend of metadata needed by clients. <br/><br/>For internal BBC use only."
   },
   "servers": [
     {
@@ -3823,7 +3823,7 @@
         }
       }
     },
-    "/v2/my/experience/playable/{urn}": {
+    "/v2/my/experience/playable/{episode_urn}": {
       "get": {
         "summary": "Personalised episode details",
         "parameters": [
@@ -3834,7 +3834,7 @@
             "$ref": "#/components/parameters/Authorization"
           },
           {
-            "$ref": "#/components/parameters/urn"
+            "$ref": "#/components/parameters/episode_urn"
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
@@ -3924,6 +3924,9 @@
       "get": {
         "summary": "<Temporary> User attributes per experiments",
         "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
           {
             "$ref": "#/components/parameters/X-API-Key"
           }
@@ -5969,6 +5972,16 @@
           "type": "string",
           "example": "urn:bbc:radio:series:b0b5dblt"
         },
+        "required": true
+      },
+      "episode_urn": {
+        "name": "episode_urn",
+        "in": "path",
+        "description": "Episode urn",
+        "schema": {
+          "type": "string"
+        },
+        "example": "urn:bbc:radio:episode:m000q4vw",
         "required": true
       },
       "pid": {
