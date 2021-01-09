@@ -71,7 +71,7 @@ nitro.make_request('access.api.bbc.com','/api-docs','',query,{proto:'https',head
 	return false;
 });
 
-nitro.make_request('locator-service.test.api.bbci.co.uk','/v2/api-docs','',query,{proto:'https',headers:{Accept:'application/json'}},function(obj){
+nitro.make_request('locator-service.api.bbci.co.uk','/v2/api-docs','',query,{proto:'https',headers:{Accept:'application/json'}},function(obj){
 	console.log('Locator API');
 	fs.writeFileSync('./locatorApi/swagger.json',JSON.stringify(obj,null,2));
 	return false;
