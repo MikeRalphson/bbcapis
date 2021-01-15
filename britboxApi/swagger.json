@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.217-ref-1-39-0",
+    "version": "3.730.228-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -4425,7 +4425,7 @@
       "x-serviceId": "itvBt",
       "get": {
         "description": "Returns all the plans available for BT flow including additional description data.",
-        "operationId": "getPlansBT",
+        "operationId": "getPlans",
         "tags": [
           "bt"
         ],
@@ -4531,7 +4531,7 @@
           {
             "name": "id",
             "description": "User token provided by BT.",
-            "in": "query",
+            "in": "request",
             "required": true
           },
           {
@@ -4969,7 +4969,7 @@
       "x-serviceId": "itvEe",
       "get": {
         "description": "Returns all the plans available for EE flow including additional description data.",
-        "operationId": "getPlansEE",
+        "operationId": "getPlans",
         "tags": [
           "ee"
         ],
@@ -5022,7 +5022,7 @@
       "x-serviceId": "itvEe",
       "get": {
         "description": "Returns the plan description for EE flow including additional description data.",
-        "operationId": "getPlanEE",
+        "operationId": "getPlan",
         "tags": [
           "ee"
         ],
@@ -6256,7 +6256,7 @@
       "x-serviceId": "itvInfo",
       "get": {
         "description": "Redirects to corresponding Axis Item details page.",
-        "operationId": "getItemItv",
+        "operationId": "getItem",
         "tags": [
           "itv"
         ],
@@ -6605,7 +6605,7 @@
       "x-serviceId": "itvSubscription",
       "get": {
         "description": "Returns the plans available for specified payment platform.",
-        "operationId": "getPlansITV",
+        "operationId": "getPlans",
         "tags": [
           "itv"
         ],
@@ -6672,7 +6672,7 @@
       "x-serviceId": "itvProfile",
       "get": {
         "description": "Returns the ITV profile object.",
-        "operationId": "getProfileItv",
+        "operationId": "getProfile",
         "tags": [
           "itv"
         ],
@@ -7005,7 +7005,7 @@
       },
       "delete": {
         "description": "Cancel a plan subscription.\n\nA cancelled subscription will continue to be valid until the subscription\nexpiry date or next renewal date.\n",
-        "operationId": "cancelSubscriptionItv",
+        "operationId": "cancelSubscription",
         "tags": [
           "itv"
         ],
@@ -7033,6 +7033,82 @@
         "responses": {
           "204": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/itv/purchase/{platform}/strong": {
+      "x-serviceId": "itvSubscription",
+      "post": {
+        "description": "Confirms purchase and returns the details of purchased subscription for specified payment platform.",
+        "operationId": "confirmPurchaseStrong",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the payment platform (stripe/itunes).",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details of a purchase request.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItvPurchaseStrongRequest"
+            }
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of purchased subscription.",
+            "schema": {
+              "$ref": "#/definitions/ItvPurchaseStrongResponse"
+            }
           },
           "400": {
             "description": "Bad request.",
@@ -7253,6 +7329,79 @@
             "schema": {
               "$ref": "#/definitions/ItvGetDiscountResponse"
             }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/itv/updatePayment/strong/{platform}": {
+      "x-serviceId": "itvSubscription",
+      "put": {
+        "description": "Change payment method details.",
+        "operationId": "updatePaymentMethodStrong",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the payment platform (stripe only is currently supported).",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details of change card details request.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItvUpdatePaymentStrongRequest"
+            }
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
           },
           "400": {
             "description": "Bad request.",
@@ -8438,7 +8587,7 @@
         "subscriptionCode",
         "profiles"
       ],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "id": {
           "description": "The id of the account.",
@@ -8447,10 +8596,6 @@
         "address": {
           "description": "The address details of the account holder.",
           "$ref": "#/definitions/Address"
-        },
-        "email": {
-          "description": "The email address belonging to the account.",
-          "type": "string"
         },
         "emailVerified": {
           "description": "Whether the email address has been verified.\n\nUsers who receive an emailed verification url click the link to verify their email address.\n",
@@ -8891,6 +9036,11 @@
         },
         "viewingWindowDaysBefore": {
           "description": "Number of available day schedules in the past.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "scheduleCacheMaxAgeMinutes": {
+          "description": "The maximum minutes of schedule cache time.",
           "type": "integer",
           "format": "int32"
         }
@@ -10194,7 +10344,7 @@
         "startDate",
         "endDate"
       ],
-      "additionalProperties": false,
+      "additionalProperties": true,
       "properties": {
         "id": {
           "type": "string"
@@ -10228,10 +10378,6 @@
         "blackout": {
           "description": "True if this schedule represents time when the channel is completely off air.",
           "type": "boolean"
-        },
-        "item": {
-          "description": "The item this schedule targets.",
-          "$ref": "#/definitions/ItemSummary"
         }
       }
     },
@@ -10390,7 +10536,7 @@
           "type": "string"
         },
         "showTitle": {
-          "description": "The title of the show this item belongs to, if the item is a season or episode.",
+          "descritpion": "The title of the show this item belongs to, if the item is a season or episode.",
           "type": "string"
         },
         "seasonId": {
@@ -11027,6 +11173,10 @@
         "switchingText": {
           "description": "The text to switch for.",
           "type": "string"
+        },
+        "savingLabel": {
+          "description": "The saving label.",
+          "type": "string"
         }
       }
     },
@@ -11122,6 +11272,55 @@
         }
       }
     },
+    "ItvPurchaseStrongRequest": {
+      "type": "object",
+      "required": [
+        "planId",
+        "profileToken",
+        "paymentMethodId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "planId": {
+          "description": "The identifier of the plan to purchase.",
+          "type": "string"
+        },
+        "profileToken": {
+          "description": "The ITV profile token.",
+          "type": "string"
+        },
+        "paymentMethodId": {
+          "description": "A paymentMethodId from Stripe.",
+          "type": "string"
+        },
+        "voucher": {
+          "description": "A coupon/voucher for a discount.",
+          "type": "string"
+        }
+      }
+    },
+    "ItvPurchaseStrongResponse": {
+      "x-emoji": "💰",
+      "type": "object",
+      "required": [
+        "planId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "planId": {
+          "description": "The identifier of subscription plan.",
+          "type": "string"
+        },
+        "subscriptionId": {
+          "description": "The identifier of subscription in payment system.",
+          "type": "string"
+        },
+        "customerId": {
+          "description": "The identifier of user in payment system.",
+          "type": "string"
+        }
+      }
+    },
     "ItvSubscriptionState": {
       "x-emoji": "💳",
       "type": "object",
@@ -11144,7 +11343,7 @@
           "description": "The array of entitlement objects.",
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/definitions/ItvEntitlement"
           }
         },
         "source": {
@@ -11157,6 +11356,24 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "ItvUpdatePaymentStrongRequest": {
+      "type": "object",
+      "required": [
+        "profileToken",
+        "paymentMethodId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "profileToken": {
+          "description": "The ITV profile token.",
+          "type": "string"
+        },
+        "paymentMethodId": {
+          "description": "The paymentMethodId from Stripe.",
+          "type": "string"
         }
       }
     },
@@ -11423,6 +11640,10 @@
           "description": "The text label for this nav entry.",
           "type": "string"
         },
+        "icon": {
+          "description": "The icon for this nav entry.",
+          "type": "string"
+        },
         "path": {
           "description": "The path this nav entry links to.\nMay be undefined if the nav entry is not clickable e.g. a nav heading.\nIf the value begins with `http` then it's an external url.\n",
           "type": "string"
@@ -11458,6 +11679,13 @@
       "properties": {
         "header": {
           "description": "The header navigation.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NavEntry"
+          }
+        },
+        "mobile": {
+          "description": "The mobile navigation.",
           "type": "array",
           "items": {
             "$ref": "#/definitions/NavEntry"
@@ -12578,79 +12806,80 @@
         "sections": {
           "description": "Preview sections",
           "type": "array",
-          "additionalProperties": false,
+          "items": {
+            "$ref": "#/definitions/SamsungPreviewSection"
+          }
+        }
+      }
+    },
+    "SamsungPreviewSection": {
+      "type": "object",
+      "required": [
+        "tiles"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "description": "Section title",
+          "type": "string"
+        },
+        "position": {
+          "description": "Section position. If specified, sections are shown in ascending position order.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "tiles": {
+          "description": "Tiles within the section",
+          "type": "array",
           "items": {
             "type": "object",
             "required": [
-              "tiles"
+              "image_url",
+              "image_ratio",
+              "action_data",
+              "is_playable"
             ],
             "additionalProperties": false,
             "properties": {
               "title": {
-                "description": "Section title",
+                "description": "Tile title",
                 "type": "string"
               },
+              "subtitle": {
+                "description": "Tile subtitle",
+                "type": "string"
+              },
+              "image_url": {
+                "description": "Thumbnail image URL",
+                "type": "string",
+                "format": "uri"
+              },
+              "image_ratio": {
+                "description": "Thumbnail image aspect ratio\n  \"16:9\"\n  \"4:3\"\n  \"1:1\" (default)\n  \"2:3\"\n  The thumbnail height is fixed at 250 px on presentation.\n",
+                "type": "string"
+              },
+              "action_data": {
+                "description": "Data to send to the application when the tile is clicked",
+                "type": "string"
+              },
+              "is_playable": {
+                "description": "If \"true\", a \"Play\" icon is shown over the thumbnail image",
+                "type": "boolean"
+              },
+              "display_from": {
+                "description": "Time to begin showing the tile",
+                "type": "string",
+                "format": "date-time"
+              },
+              "display_until": {
+                "description": "Time to stop showing the tile",
+                "type": "string",
+                "format": "date-time"
+              },
               "position": {
-                "description": "Section position. If specified, sections are shown in ascending position order.",
+                "description": "Section position. If specified, sections are shown in ascending position order",
                 "type": "integer",
                 "format": "int32"
-              },
-              "tiles": {
-                "description": "Tiles within the section",
-                "type": "array",
-                "additionalProperties": false,
-                "items": {
-                  "type": "object",
-                  "required": [
-                    "image_url",
-                    "image_ratio",
-                    "action_data",
-                    "is_playable"
-                  ],
-                  "additionalProperties": false,
-                  "properties": {
-                    "title": {
-                      "description": "Tile title",
-                      "type": "string"
-                    },
-                    "subtitle": {
-                      "description": "Tile subtitle",
-                      "type": "string"
-                    },
-                    "image_url": {
-                      "description": "Thumbnail image URL",
-                      "type": "string",
-                      "format": "uri"
-                    },
-                    "image_ratio": {
-                      "description": "Thumbnail image aspect ratio\n  \"16:9\"\n  \"4:3\"\n  \"1:1\" (default)\n  \"2:3\"\n  The thumbnail height is fixed at 250 px on presentation.\n",
-                      "type": "string"
-                    },
-                    "action_data": {
-                      "description": "Data to send to the application when the tile is clicked",
-                      "type": "string"
-                    },
-                    "is_playable": {
-                      "description": "If \"true\", a \"Play\" icon is shown over the thumbnail image",
-                      "type": "boolean"
-                    },
-                    "display_from": {
-                      "description": "Time to begin showing the tile",
-                      "type": "string",
-                      "format": "date-time"
-                    },
-                    "display_until": {
-                      "description": "Time to stop showing the tile",
-                      "type": "string",
-                      "format": "date-time"
-                    },
-                    "position": {
-                      "description": "Section position. If specified, sections are shown in ascending position order",
-                      "type": "integer",
-                      "format": "int32"
-                    }
-                  }
-                }
               }
             }
           }
