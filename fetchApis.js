@@ -65,9 +65,9 @@ nitro.make_request('raw.githubusercontent.com','/bbc/simorgh/latest/data/schema.
 	return false;
 });
 
-nitro.make_request('access.api.bbc.com','/api-docs','',query,{proto:'https',headers:{Accept:'application/json'}},function(obj){
+nitro.make_request('access.api.bbc.com','/swagger/swagger.yaml','',query,{proto:'https',headers:{Accept:'text/x-yaml'}},function(obj){
 	console.log('Access API');
-	fs.writeFileSync('./accessApi/swagger.json',JSON.stringify(obj,null,2));
+	fs.writeFileSync('./accessApi/swagger.yaml',obj);
 	return false;
 });
 

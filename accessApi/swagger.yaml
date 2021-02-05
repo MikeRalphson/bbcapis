@@ -1,0 +1,1761 @@
+swagger: "2.0"
+info:
+  title: BBCiD-V5 OpenAM API Gateway
+  version: "0.0.1"
+  description: |
+    # Overview
+    This component is a node/express based web app that uses Swagger to define the endpoint mapping (router:controller) to the custom JS controllers in api/controllers. The controller functions make calls to the OpenAM component.
+
+    ## API Documentation
+    The REST API documentation for this component is available in two interfaces:
+    * [ReDoc](/redoc)
+      * **detailed** descriptions, examples, and schemas
+    * [Swagger UI](/docs)
+      * **limited** descriptions, examples, and schemas
+      * includes interactive (Try It Out) request feature
+
+    ## Cert-based whitelisting
+    * [IDV5 Whitelisting Flows](https://confluence.dev.bbc.co.uk/display/id/IDv5+APIs#IDv5APIs-IDv5WhitelistingFlows)
+    * [Process, Location & Format](https://confluence.dev.bbc.co.uk/display/id/IDv5+Whitelisting)
+
+    ## Troubleshooting the spec file
+    If this spec file is modified and prevents the node app from running, you can use the following commands to diagnose the spec file.
+    ### yaml2json
+    If there is a YAML syntax error, yaml2json will show the unparseable YAML from the spec file. If the YAML is valid, it will just return the spec file converted to JSON.
+    ```
+    $ node_modules/yamljs/bin/yaml2json api/swagger/swagger.yaml
+    ```
+    ### swagger-tools
+    It's possible to validate the Swagger spec file beyond pure YAML structure. The swagger-tools command will list the errors if any, or state that the spec file is valid.
+    ```
+    $ node_modules/swagger-tools/bin/swagger-tools validate -v api/swagger/swagger.yaml
+    ```
+
+basePath: /
+schemes:
+  - https
+consumes:
+  - application/json
+  - application/xml
+produces:
+  - application/json
+  - application/xml
+
+x-a127-config:
+  Aws: &awsConfig CONFIGURED
+  Auth: &authConfig CONFIGURED
+  Keystore: &keystoreConfig CONFIGURED
+  CertificateAuthority: &certificateAuthority CONFIGURED
+  QuotaForUserAPI: &quotaForUserAPIConfig CONFIGURED
+  QuotaForAdminAPI: &quotaForAdminAPIConfig CONFIGURED
+  Logger: &logger CONFIGURED
+  Agent: &agent CONFIGURED
+  ENVIRONMENT: &environment CONFIGURED
+  IdTokenExchangeHeader: &idTokenExchangeHeader bbc-identity-token
+
+x-a127-services:
+  x509:
+    provider: bbcid-vertex-auth-x509
+    options:
+      aws: *awsConfig
+      auth: *authConfig
+      logger: *logger
+      environment: *environment
+
+  oauth2:
+    provider: bbcid-vertex-auth-oauth2
+    options:
+      aws: *awsConfig
+      auth: *authConfig
+      keystore: *keystoreConfig
+      ca: *certificateAuthority
+      agent: *agent
+      logger: *logger
+
+  analytics:
+    provider: bbcid-vertex-analytics-cloudwatch
+    options:
+      aws: *awsConfig
+      bufferSize: 1000
+      flushInterval: 60000
+      batchSize: 100
+      logger: *logger
+
+  header-validator:
+    provider: bbcid-vertex-validator-headers
+    options:
+      header: admin-id
+      condition: not-blank
+      logger: *logger
+
+  quotaForUserAPI:
+    provider: volos-quota-memory
+    options: *quotaForUserAPIConfig
+
+  quotaForAdminAPI:
+    provider: volos-quota-memory
+    options: *quotaForAdminAPIConfig
+
+tags:
+  - name: Access Token
+  - name: Authenticate
+  - name: Authorise
+  - name: Device Pin & Pair
+  - name: JWK URI
+  - name: Revoke Token (Stub)
+  - name: Status
+    description: Service status
+  - name: Sign Out
+  - name: User Info
+
+x-tagGroups:
+  - name: General
+    tags:
+      - JWK URI
+      - Status
+  - name: User/Device
+    tags:
+      - Access Token
+      - Authenticate
+      - Authorise
+      - Device Pin & Pair
+      - Revoke Token (Stub)
+      - Sign Out
+      - User Info
+
+paths:
+  /status:
+    x-swagger-router-controller: openam_controller
+    get:
+      summary: Status
+      description: Returns 200 ok status for healthcheck
+      operationId: getStatus
+      tags:
+        - Status
+      produces:
+        - text/plain
+      responses:
+        '200':
+          description: OK
+          examples:
+            text/plain: "Status: OK"
+        default:
+          description: Any other response is an error
+          schema:
+            $ref: '#/definitions/OpenResponse'
+    options:
+      summary: Status
+      description: Returns 200 ok status for healthcheck
+      operationId: optionsStatus
+      tags:
+        - Status
+      produces:
+        - text/plain
+      responses:
+        '200':
+          description: OK
+          examples:
+            text/plain: "Status: OK"
+        default:
+          description: Any other response is an error
+          schema:
+            $ref: '#/definitions/OpenResponse'
+
+  /v1/user/authenticate/email:
+    x-swagger-router-controller: openam_controller
+    x-a127-apply:
+      x509: {}
+    post:
+      summary: Authenticate by email
+      description: |
+        Authenticate user via email address and password.
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMAuth.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMAuth-feature.html)
+        Gateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeAuthenticate.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeAuthenticate-feature.html)
+      operationId: authenticateByEmail
+      produces:
+        - application/json
+      tags:
+        - Authenticate
+      parameters:
+        - $ref: '#/parameters/HeaderSSLClientCertSubject'
+        - $ref: '#/parameters/HeaderAgentIP'
+        - $ref: '#/parameters/HeaderJourneyType'
+        - $ref: '#/parameters/QueryRealm'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Success200Authenticate'
+          headers:
+            Set-Cookie:
+              description: |
+                `ckns_jwt`: This is the long-lived user's persistent cookie which will be sent as a cookie during the REST call to this endpoint. This needs to be saved with the same name under '.bbc.com' domain. e.g.
+                ```
+                ckns_jwt=eyAidHlwIjogIkpXRSIsICJhbGciOiAiSFMyNTYiIH0.ZXlBaWRIbHdJam9nSWtwWFZ...
+                lYSag; Domain=.bbc.com; Expires=Sun, 31-May-2020 15:10:22 GMT; Path=/; HttpOnly
+                ```
+              type: string
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error401Authenticate'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error403'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/user/authenticate/username:
+    x-swagger-router-controller: openam_controller
+    x-a127-apply:
+      x509: {}
+    post:
+      summary: Authenticate by username
+      description: |
+        Authenticate user via username and password
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMAuth.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMAuth-feature.html)
+        Gateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeAuthenticate.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeAuthenticate-feature.html)
+      operationId: authenticateByUsername
+      produces:
+        - application/json
+      tags:
+        - Authenticate
+      parameters:
+        - $ref: '#/parameters/HeaderSSLClientCertSubject'
+        - $ref: '#/parameters/HeaderAgentIP'
+        - $ref: '#/parameters/HeaderJourneyType'
+        - $ref: '#/parameters/HeaderX-OpenAM-UsernameRequired'
+        - $ref: '#/parameters/HeaderX-OpenAM-PasswordRequired'
+        - $ref: '#/parameters/QueryRealm'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Success200Authenticate'
+          headers:
+            Set-Cookie:
+              description: |
+                `ckns_jwt`: This is the long-lived user's persistent cookie which will be sent as a cookie during the REST call to this endpoint. This needs to be saved with the same name under '.bbc.com' domain. e.g.
+                ```
+                ckns_jwt=eyAidHlwIjogIkpXRSIsICJhbGciOiAiSFMyNTYiIH0.ZXlBaWRIbHdJam9nSWtwWFZ...
+                lYSag; Domain=.bbc.com; Expires=Sun, 31-May-2020 15:10:22 GMT; Path=/; HttpOnly
+                ```
+              type: string
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error401Authenticate'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error403'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/user/authenticate/sessionInfo:
+    x-swagger-router-controller: openam_controller
+    x-a127-apply:
+      x509: {}
+    post:
+      summary: Authenticate session info
+      description: |
+        This endpoint will check if the current session require re-authentication or not.
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Gateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeAuthLevel.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeAuthLevel-feature.html)
+      operationId: sessionInfo
+      produces:
+        - application/json
+      tags:
+        - Authenticate
+      parameters:
+        - $ref: '#/parameters/HeaderSSLClientCertSubject'
+        - $ref: '#/parameters/HeaderCknsSessionRequired'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Code200SuccessTrue'
+        '401':
+          description: Unauthorized. Invalid cknsSession
+          schema:
+            allOf:
+              - $ref: '#/definitions/Error401AM'
+              - properties:
+                  message:
+                    enum:
+                      - Access Denied
+        '403':
+          description: Forbidden (not whitelisted)
+          schema:
+            $ref: '#/definitions/Error403'
+        default:
+          description: 403 for level 0 session
+          schema:
+            allOf:
+              - $ref: '#/definitions/CodeSuccessMessage'
+              - properties:
+                  advices:
+                    type: object
+                    properties:
+                      AuthLevelConditionAdvice:
+                        type: array
+                        items:
+                          type: string
+                  code:
+                    enum:
+                      - 403
+                  message:
+                    enum:
+                      - Re-authentication required
+                  success:
+                    enum:
+                      - false
+
+  /v1/user/authenticate/sessionValidate:
+    x-swagger-router-controller: openam_controller
+    x-a127-apply:
+      x509: {}
+    post:
+      summary: Authenticate session validate
+      description: |
+        This endpoint will check if the current session is valid or not.
+        ### 200 responses
+        <details>
+          <summary>Example: Valid</summary>
+          <pre>
+            {
+              "valid":true,
+              "uid":"&lt;user id&gt;",
+              "realm":"/"
+            }
+          </pre>
+        </details>
+        <details>
+          <summary>Example: Failure: Invalid session</summary>
+          <pre>
+            {
+              "valid":false
+            }
+          </pre>
+        </details>
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Gateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeSessionValidate.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeSessionValidate-feature.html)
+      operationId: sessionValidate
+      produces:
+        - application/json
+      tags:
+        - Authenticate
+      parameters:
+        - $ref: '#/parameters/HeaderSSLClientCertSubject'
+        - $ref: '#/parameters/HeaderCknsSessionRequired'
+      responses:
+        '200':
+          description: Valid **or** invalid session
+          schema:
+            type: object
+            properties:
+              realm:
+                $ref: '#/definitions/Realm'
+              uid:
+                $ref: '#/definitions/UserId'
+              valid:
+                type: boolean
+        '400':
+          description: Validation failed. Invalid cknsSession
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+        '403':
+          description: Forbidden (not whitelisted)
+          schema:
+            $ref: '#/definitions/Error403'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/user/authenticate:
+    x-swagger-router-controller: authenticate_controller
+    x-a127-apply:
+      x509: {}
+    post:
+      summary: Authenticate by `ckns_jwt` persistent cookie, issues new `ckns_session` session cookie
+      description: |
+        Authenticate user via ckns_jwt cookie using BBCAuthentication tree.
+        Only currently supported in NMARealm realm, initally supports CABSI flow.
+        Defaults service to BBCAuthentication and Realm to NMARealm.
+      operationId: authenticate
+      produces:
+        - application/json
+      tags:
+        - Authenticate
+      parameters:
+        - $ref: '#/parameters/HeaderSSLClientCertSubject'
+        - $ref: '#/parameters/QueryRealm'
+        - $ref: '#/parameters/QueryService'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Success200Authenticate'
+          headers:
+            Set-Cookie:
+              description: |
+                `ckns_session`: This is the short-lived user's session cookie which will be sent as a cookie during the REST call to this endpoint.
+              type: string
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error401Authenticate'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error403'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /oidc/v1/user/authorise:
+    x-swagger-router-controller: openam_controller
+    post:
+      deprecated: true
+      summary: Authorise
+      description: OIDC Connect Authorize Grant
+      operationId: postAuthorise
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      tags:
+        - Authorise
+      parameters:
+        - $ref: '#/parameters/HeaderAgentIP'
+        - $ref: '#/parameters/HeaderJourneyType'
+        - $ref: '#/parameters/QueryResponseTypeRequired'
+        - $ref: '#/parameters/QueryRedirectUriRequired'
+        - $ref: '#/parameters/QueryScope'
+        - $ref: '#/parameters/QueryClientIdRequired'
+        - $ref: '#/parameters/QueryRealm'
+        - $ref: '#/parameters/QueryState'
+        - $ref: '#/parameters/QueryPKCECodeChallenge'
+        - $ref: '#/parameters/QueryPKCECodeChallengeMethod'
+      responses:
+        '301':
+          description: Moved Permanently (Redirect to sign-in page)
+        '302':
+          description: Found (Request forwarded to `request_uri`)
+        '400':
+          description: "Bad Request (`realm` was specified and one or more of the following was specified and failed the regex: `realm`, `client_id`, `service`, `redirect_uri`)"
+          schema:
+            $ref: '#/definitions/Error400AM'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+    get:
+      summary: Authorise
+      description: |
+        OIDC Connect Authorize Grant
+        There are three separate flows defined for this endpoint:
+        ### Endpoint Access without OpenAM Session (no ckns_session or ckns_jwt cookie) and no idToken header:
+        The intention is to redirect the user to the client's sign-in page (depending on the service parameter used by the client) where the user will enter their credentials.
+        ### Endpoint Access with valid OpenAM Session:
+        Since user already has a session, there will be no redirections to the sign-in page and the request will be forwarded to the redirect_uri as per oAuth/OIDC flows.
+        ### Endpoint access with idToken header. a.k.a OIDC Connect Id Token Bearer exchange.
+        An identity token issued for one trusted audience is exchanged for another identity token for a separate audience with potentially a restricted scope. The flow is similar to the oidc authorise flow, except the redirect chain is followed server side.
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMAuthorize.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMAuthorize-feature.html)
+        Gateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeAuthorize.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeAuthorize-feature.html)
+      externalDocs:
+        description: Sign-in Flows (iDv5)
+        url: https://confluence.dev.bbc.co.uk/pages/viewpage.action?pageId=112440513
+      operationId: getAuthorise
+      produces:
+        - application/json
+      tags:
+        - Authorise
+      parameters:
+        - $ref: '#/parameters/HeaderAgentIP'
+        - $ref: '#/parameters/HeaderJourneyType'
+        - $ref: '#/parameters/QueryResponseTypeRequired'
+        - $ref: '#/parameters/QueryRedirectUriRequired'
+        - $ref: '#/parameters/QueryScope'
+        - $ref: '#/parameters/QueryClientIdRequired'
+        - $ref: '#/parameters/QueryServiceRequired'
+        - $ref: '#/parameters/QueryRealm'
+        - $ref: '#/parameters/QueryState'
+        - $ref: '#/parameters/HeaderIdTokenExchange'
+        - $ref: '#/parameters/QueryPKCECodeChallenge'
+        - $ref: '#/parameters/QueryPKCECodeChallengeMethod'
+      responses:
+        '200':
+          description: Successful response in the case of the token exchange flow only
+          schema:
+            $ref: '#/definitions/Success200TokenExchange'
+        '301':
+          description: Moved Permanently (Redirect to sign-in page)
+          headers:
+            location:
+              type: string
+              description: e.g. https://access.int.api.bbc.com/oidc/v1/user/authoriseLogin?realm=%2F&service=AccountSigninservice&goto=https%3A%2F%2Faccess.int.api.bbc.com%2Foidc%2Fv1%2Fuser%2Fauthorise%3Fresponse_type%3Dcode%26redirect_uri%3Dhttp%253A%252F%252Flocalhost%26client_id%3Dtestclient1%26service%3DAccountSigninservice%26state%3Dabc%26nonce%3D1111111113333
+        '302':
+          description: Found (Request forwarded to `request_uri`)
+        '400':
+          description: "Bad Request (`realm` was specified and one or more of the following was specified and failed the regex: `realm`, `client_id`, `service`, `redirect_uri`)"
+          schema:
+            $ref: '#/definitions/Error400AM'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /oidc/v1/user/authoriseLogin:
+    x-swagger-router-controller: openam_controller
+    get:
+      summary: Authorise login
+      description: |
+        OIDC Connect Authorize Login redirect. This is called if the call to `authorise` found no `ckns_session` present.
+        Send authorizeLogin request to AM (/UI/Login).
+      externalDocs:
+        description: Sign-in Flows (iDv5)
+        url: https://confluence.dev.bbc.co.uk/pages/viewpage.action?pageId=112440513
+      operationId: authoriseLogin
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      tags:
+        - Authorise
+      parameters:
+        - $ref: '#/parameters/QueryGotoRequired'
+        - $ref: '#/parameters/QueryRealm'
+      responses:
+        '302':
+          description: Found (Request forwarded to `goto`)
+        '400':
+          description: "Bad Request (`realm` was specified and one or more of the following was specified and failed the regex: `realm`)"
+          schema:
+            $ref: '#/definitions/Error400AM'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/user/access_token:
+    x-swagger-router-controller: openam_controller
+    post:
+      summary: Get access token
+      description: |
+        Endpoint to retrieve new access_token after authorization grant code or token has been received.
+        `code` is required if `grant_type` is 'Authorization_code'.
+        `refresh_token` is required if `grant_type` is 'refresh_token'.
+        There are three different 400 response schemas each from swagger, openam-apigee and openam-service.
+        <details>
+          <summary>Example 400 response from openam-service</summary>
+          <pre>
+            {
+              "error_description":"Grant type is not supported: authorization_code",
+              "error":"unsupported_grant_type"
+            }
+          </pre>
+        </details>
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMAccessToken.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMAccessToken-feature.html)
+        Gateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeAccessToken.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeAccessToken-feature.html)
+      operationId: accessToken
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      tags:
+        - Access Token
+      parameters:
+        - $ref: '#/parameters/FormDataGrantTypeRequired'
+        - $ref: '#/parameters/FormDataRedirectUri'
+        - $ref: '#/parameters/FormDataClientSecretRequired'
+        - $ref: '#/parameters/FormDataClientIdRequired'
+        - $ref: '#/parameters/FormDataCode'
+        - $ref: '#/parameters/FormDataRefreshToken'
+        - $ref: '#/parameters/QueryRealm'
+        - $ref: '#/parameters/FormDataPKCECodeVerifier'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/OAuthToken'
+        '400':
+          description: "Bad Request (`realm`, `client_id`, `redirect_uri`, or 'profile_id' failed the respective regex test)"
+          schema:
+            $ref: '#/definitions/Error400AM'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /oidc/v1/user/access_token:
+    x-swagger-router-controller: openam_controller
+    post:
+      summary: Get access token (OIDC)
+      description: Get access token public version
+      operationId: accessTokenOidc
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      tags:
+        - Access Token
+      parameters:
+        - $ref: '#/parameters/FormDataGrantTypeRequired'
+        - $ref: '#/parameters/FormDataClientSecretRequired'
+        - $ref: '#/parameters/FormDataClientIdRequired'
+        - $ref: '#/parameters/FormDataRefreshToken'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/OAuthToken'
+        '400':
+          description: "Bad Request (`client_id` failed its regex test)"
+          schema:
+            $ref: '#/definitions/Error400AM'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /oidc/v1/device/generateCode:
+    x-swagger-router-controller: openam_controller
+    post:
+      summary: Get device code
+      description: |
+        This API is meant to be called by the device that wants to get user information (say TV).
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMGenerateDeviceCode.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMGenerateDeviceCode-feature.html)
+        Gateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeGenerateDeviceCode.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeGenerateDeviceCode-feature.html)
+      operationId: generateDeviceCode
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      tags:
+        - Device Pin & Pair
+      parameters:
+        - $ref: '#/parameters/FormDataClientIdDeviceRequired'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              device_code:
+                type: string
+                example: 42181c2e-7b32-46cb-92a3-da50652bfc10
+              expires_in:
+                $ref: '#/definitions/ExpiresIn'
+              interval:
+                type: integer
+                example: 30
+              user_code:
+                type: string
+                description: |
+                  The user_code generated will consist of the following characters
+                  * Character list: 234567abcdefhijkmnopqrstwxyz
+                  * Length: 8
+                  * There is no profanity check at present. 6 digit numeric pin will be used to fix it forward
+                  * Example : 67abcdef
+                  This character set is defined in the [CustomCodeGenerator](https://github.com/bbc/platform-bbcid/blob/master/openamservice/custom-components/CustomCodeGenerator/src/main/java/uk/co/bbc/CustomCodeGenerator.java#L35) custom component of our openamservice component.
+                example: 67abcdef
+              verification_url:
+                type: string
+                example: https://access.dev.api.bbc.com/bbcidv5/oauth2/device/user
+        '400':
+          description: Bad Request (Invalid Client)
+          schema:
+            $ref: '#/definitions/ErrorAMService'
+          examples:
+            application/json:
+              error: invalid_client
+              error_description: Client authentication failed
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/user/device/verifyCode:
+    x-swagger-router-controller: openam_controller
+    x-a127-apply:
+      x509: {}
+    post:
+      summary: Verify user code
+      description: |
+        This API is 2nd part of the backend journey for Pin & Pair and is meant to be called by the browser based clients (like IDv5 FrontEnd) on behalf of TV devices to check the user code shown on the device.
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMVerifyUserCode.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMVerifyUserCode-feature.html)
+        Gateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeVerifyUserCode.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeVerifyUserCode-feature.html)
+      operationId: verifyUserCode
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      tags:
+        - Device Pin & Pair
+      parameters:
+        - $ref: '#/parameters/HeaderCknsSessionRequired'
+        - $ref: '#/parameters/FormDataClientIdRequired'
+        - $ref: '#/parameters/FormDataUserCode'
+      responses:
+        '200':
+          description: Successful
+          schema:
+            allOf:
+              - $ref: '#/definitions/CodeMessage'
+              - properties:
+                  code:
+                    enum:
+                      - 200
+                  message:
+                    enum:
+                      - Code verified.
+        '400':
+          description: Bad Request
+          schema:
+            allOf:
+              - $ref: '#/definitions/CodeMessage'
+              - properties:
+                  code:
+                    enum:
+                      - 400
+                  message:
+                    enum:
+                      - Bad Request
+        '401':
+          description: Unauthorised
+          schema:
+            $ref: '#/definitions/Error401CodeMessage'
+        '403':
+          description: Forbidden (not whitelisted)
+          schema:
+            $ref: '#/definitions/Error403'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /oidc/v1/device/device_token:
+    x-swagger-router-controller: openam_controller
+    post:
+      summary: Get device token
+      description: |
+        This API is meant to be called by the device that wants to get user information (say TV).
+        This is the 3rd Backend API of the Pin & Pair journey.
+        This API is supposed to be polled at regular interval to see if user has verified the user_code. The access_token will be generated once the user verifies the code.
+        Scopes are an optional parameter in this API and need not be provided. Incase, they're provided, then care must be taken to ensure that the same scopes are sent in the subsequent Pin&Pair APIs.
+        ### Error responses
+        <details>
+          <summary>400 (Invalid Client)</summary>
+          <pre>
+            {
+              "error_description": "Client authentication failed",
+              "error": "invalid_client"
+            }
+          </pre>
+        </details>
+        <details>
+          <summary>400 (Too frequent polling)</summary>
+          <pre>
+            {
+              "error_description": "The polling interval has not elapsed since the last request",
+              "error": "slow_down"
+            }
+          </pre>
+        </details>
+        <details>
+          <summary>403 (Polling result before user verifies code)</summary>
+          <pre>
+            {
+              "error_description": "The user has not yet completed authorization",
+              "error": "authorization_pending"
+            }
+          </pre>
+        </details>
+        <details>
+          <summary>403 (User did not verify code before code expiry)</summary>
+          <pre>
+            {
+              "error_description": "The user has declined authorization",
+              "error": "authorization_declined"
+            }
+          </pre>
+        </details>
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMDeviceAccessToken.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMDeviceAccessToken-feature.html)
+        Gateway   | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeDeviceAccessToken.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeDeviceAccessToken-feature.html)
+      operationId: generateDeviceToken
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      tags:
+        - Device Pin & Pair
+      parameters:
+        - $ref: '#/parameters/FormDataClientIdDeviceRequired'
+        - $ref: '#/parameters/FormDataClientSecretRequired'
+        - $ref: '#/parameters/FormDataCodeDeviceRequired'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/OAuthToken'
+        '400':
+          description: Bad Request (Invalid Client)
+          schema:
+            $ref: '#/definitions/ErrorAMService'
+          examples:
+            application/json:
+              error: invalid_client
+              error_description: Client authentication failed
+        '403':
+          description: Forbidden (Polling result before user verifies code)
+          schema:
+            $ref: '#/definitions/ErrorAMService'
+          examples:
+            application/json:
+              error: authorization_pending
+              error_description: The user has not yet completed authorization
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/user/destroySession:
+    x-swagger-router-controller: openam_controller
+    get:
+      deprecated: true
+      summary: OIDC Sign Out
+      description: Terminate OIDC Token (id_token) from Backend
+      operationId: signOut
+      produces:
+        - application/json
+      tags:
+        - Sign Out
+      parameters:
+        - $ref: '#/parameters/QueryIdTokenHintRequired'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              sub:
+                type: string
+                format: uuid
+                example: 0009a520-3ae0-41cc-b16b-97c4958554b9
+              updated_at:
+                type: string
+                example: "1453114492"
+        '400':
+          description: Bad Request (Invalid access_token)
+          schema:
+            $ref: '#/definitions/ErrorAMService'
+          examples:
+            application/json:
+              error: server_error
+              error_description: Unable to get id_token meta data
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/user/signOut:
+    x-swagger-router-controller: openam_controller
+    delete:
+      summary: Single Sign Out
+      description: |
+        This endpoint can revoke all types of tokens. The caller of the API must ensure that all unexpired tokens that are available are included. That is:
+
+        * for FE on bbc.com: any of ckns_session, access token, refresh token, and identity token that are present
+        * for FE on bbc.co.uk: any of access token, refresh token, and identity token that are present
+        * for BBC Store: any of access token, refresh token, and identity token that are present
+        * for apps: any of access token, refresh token, and identity token that are present and not expired
+
+        Cookies or tokens that are known to be expired should not be included.
+        `clientId` is required when `accessToken` or `refreshToken` is provided.
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMRevokeToken.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMRevokeToken-feature.html)
+        Gateway | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeSingleSignOut.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeSingleSignOut-feature.html)
+      operationId: signOutByTokens
+      produces:
+        - application/json
+      tags:
+        - Sign Out
+      parameters:
+        - $ref: '#/parameters/HeaderIdToken'
+        - $ref: '#/parameters/HeaderAccessToken'
+        - $ref: '#/parameters/HeaderRefreshToken'
+        - $ref: '#/parameters/HeaderCknsSession'
+        - $ref: '#/parameters/HeaderClientId'
+        - $ref: '#/parameters/QueryRealm'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Code200SuccessTrue'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error401CodeMessageSuccess'
+
+  /oidc/v1/user/signOut:
+    x-swagger-router-controller: openam_controller
+    delete:
+      summary: Single Sign Out (OIDC)
+      description: |
+        This endpoint can revoke all types of tokens. The caller of the API must ensure that all unexpired tokens that are available are included. That is:
+
+        * for FE on bbc.com: any of ckns_session, access token, refresh token, and identity token that are present
+        * for FE on bbc.co.uk: any of access token, refresh token, and identity token that are present
+        * for BBC Store: any of access token, refresh token, and identity token that are present
+        * for apps: any of access token, refresh token, and identity token that are present and not expired
+
+        Cookies or tokens that are known to be expired should not be included.
+        `clientId` is required when `accessToken` or `refreshToken` is provided.
+      operationId: signOutByTokensOidc
+      produces:
+        - application/json
+      tags:
+        - Sign Out
+      parameters:
+        - $ref: '#/parameters/HeaderIdToken'
+        - $ref: '#/parameters/HeaderAccessToken'
+        - $ref: '#/parameters/HeaderRefreshToken'
+        - $ref: '#/parameters/HeaderCknsSession'
+        - $ref: '#/parameters/HeaderClientId'
+        - $ref: '#/parameters/QueryRealm'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Code200SuccessTrue'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error401CodeMessageSuccess'
+
+  /v1/user/tokenInfo:
+    x-swagger-router-controller: openam_controller
+    get:
+      summary: Get OIDC token Info
+      description: |
+        Used to return access_token information. Also can be used to see if `access_token` is valid or not.
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMTokenInfo.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMTokenInfo-feature.html)
+        Gateway | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeFetchTokenInfo.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeFetchTokenInfo-feature.html)
+      operationId: tokenInfo
+      produces:
+        - application/json
+      tags:
+        - Access Token
+      parameters:
+        - $ref: '#/parameters/HeaderSSLClientCertSubject'
+        - $ref: '#/parameters/HeaderAuthorizationRequired'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/OAuthToken'
+          examples:
+            application/json:
+              access_token: a722efa1-bb2e-49e8-a889-56255f34361c
+              uid: 0d5bb4a1-ffee-4f15-8afe-273825b2888c
+              mail: success+idv5beteam1testuddbun@simulator.amazonses.com
+              grant_type: authorization_code
+              openid: ''
+              scope:
+                - uid
+                - mail
+                - openid
+                - profile
+                - cn
+                - email
+              profile: ''
+              realm: "/"
+              cn: success+idv5beteam1testuddbun success+idv5beteam1testuddbun
+              token_type: Bearer
+              expires_in: 7199
+              email: ''
+        '400':
+          description: Bad Request (Invalid Access token)
+          schema:
+            $ref: '#/definitions/ErrorAMService'
+          examples:
+            application/json:
+              error: invalid_request
+              error_description: Access Token not valid
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/user/revokeToken:
+    x-swagger-router-controller: openam_controller
+    post:
+      deprecated: true
+      summary: Revoke token
+      description: Revoke user access token. This is a stub.
+      operationId: revokeToken
+      produces:
+        - application/json
+      tags:
+        - Revoke Token (Stub)
+      parameters:
+        - $ref: '#/parameters/HeaderAuthorizationRequired'
+      responses:
+        '200':
+          description: Stub
+          examples:
+            application/json:
+              success: true
+              message: This is a stub. User is not actually signed out
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/user/userInfo:
+    x-swagger-router-controller: openam_controller
+    x-a127-apply:
+      x509: {}
+    get:
+      summary: Get OIDC User Info
+      description: |
+        Used to return user attributes based on OpenID Connect specification.
+        Only limited information is available in this endpoint as part of OpenAM. Primarily UID is returned in the "sub" field and very limited number of DJ attributes can be returned (based on the scopes defined). Best for retrieving UID information of the user.
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Backend   | [Backend API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/OpenAMUserInfo.feature) | [Backend Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-7/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-OpenAMUserInfo-feature.html)
+        Gateway | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeFetchUserInfo.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeFetchUserInfo-feature.html)
+      operationId: userInfo
+      produces:
+        - application/json
+      tags:
+        - User Info
+      parameters:
+        - $ref: '#/parameters/HeaderSSLClientCertSubject'
+        - $ref: '#/parameters/HeaderAuthorizationRequired'
+        - $ref: '#/parameters/QueryRealm'
+      responses:
+        '200':
+          description: Successful response
+          examples:
+            application/json:
+              sub: 33a8556c-51b3-404a-ba74-8dcdd2e8b97e
+              updated_at: '1456689971'
+              name: success+idv5beteam1testcdrttv success+idv5beteam1testcdrttv
+              family_name: success+idv5beteam1testcdrttv
+              email: success+idv5beteam1testcdrttv@simulator.amazonses.com
+        '400':
+          description: Bad Request (Invalid Access token)
+          schema:
+            $ref: '#/definitions/ErrorAMService'
+          examples:
+            application/json:
+              error: server_error
+              error_description: Access Token not valid
+        '403':
+          description: Forbidden (not whitelisted)
+          schema:
+            $ref: '#/definitions/Error403'
+        default:
+          description: 400 Bad Request (parameter missing)
+          schema:
+            $ref: '#/definitions/Error400SwaggerParamMissing'
+
+  /v1/oauth/connect/jwk_uri:
+    x-swagger-router-controller: openam_controller
+    get:
+      summary: Get JWK URI
+      description: |
+        Get Oauth Jwk Information. Returns the OpenAM public key used to verify the signature of an Identity token, as per RFC https://tools.ietf.org/html/rfc7517
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Gateway | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeJWKURI.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeJWKURI-feature.html)
+      operationId: jwkuri
+      produces:
+        - application/json
+      tags:
+        - JWK URI
+      responses:
+        '200':
+          description: Successful response
+          examples:
+            application/json:
+              keys:
+              - kty: RSA
+                kid: af531224-ba3f-434d-8730-7b4bf9cfa820
+                use: sig
+                alg: RS256
+                n: AI0rWswJdTHoxwrfiLXrOve69KdDtKP7eGcfKDHklmNaZ7QM2mqOtvJOhfy6w9xCsg1MxAaTyF2dzNOO9nSUeIjYVoK0YVrC0cX8dsu2IJk3dNV4LBhtCwdY_fWkp2sgKTO5uoYYoG-hQ0a2rPjHYIZiaZun42PJ2dNTFGAo_aRfmLJSttyHFqmedDwWuo86SS-hBtZHf6nOBL4JQeixi7WIfyeeZJBav_z7qacca-w-Ss3xSQBEBfSJymttgF-quDR1sg3KWYgIn7w-0YJUeDSdGoK_vvH5AywQA2ocC8fIhCp_GufLJWRX4efUcBRmmYRKJTnsfbTe6bB51uqMiT8
+                e: AQAB
+
+  /v1/oauth/connect/nmarealm/jwk_uri:
+    x-swagger-router-controller: openam_controller
+    get:
+      summary: Get JWK URI for NMA Realm
+      description: |
+        Get Oauth Jwk Information. Returns the OpenAM public key used to verify the signature of an Identity token, as per RFC https://tools.ietf.org/html/rfc7517
+
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Gateway | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeJWKURI.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeJWKURI-feature.html)
+      operationId: jwkuri
+      produces:
+        - application/json
+      tags:
+        - JWK URI
+      responses:
+        '200':
+          description: Successful response
+          examples:
+            application/json:
+              keys:
+                - kty: RSA
+                  kid: af531224-ba3f-434d-8730-7b4bf9cfa820
+                  use: sig
+                  alg: RS256
+                  n: AI0rWswJdTHoxwrfiLXrOve69KdDtKP7eGcfKDHklmNaZ7QM2mqOtvJOhfy6w9xCsg1MxAaTyF2dzNOO9nSUeIjYVoK0YVrC0cX8dsu2IJk3dNV4LBhtCwdY_fWkp2sgKTO5uoYYoG-hQ0a2rPjHYIZiaZun42PJ2dNTFGAo_aRfmLJSttyHFqmedDwWuo86SS-hBtZHf6nOBL4JQeixi7WIfyeeZJBav_z7qacca-w-Ss3xSQBEBfSJymttgF-quDR1sg3KWYgIn7w-0YJUeDSdGoK_vvH5AywQA2ocC8fIhCp_GufLJWRX4efUcBRmmYRKJTnsfbTe6bB51uqMiT8
+                  e: AQAB
+
+  /v1/oauth/connect/bbc/jwk_uri:
+    x-swagger-router-controller: openam_controller
+    get:
+      summary: Get JWK URI for BBC Realm
+      description: |
+        Get Oauth Jwk Information. Returns the OpenAM public key used to verify the signature of an Identity token, as per RFC https://tools.ietf.org/html/rfc7517
+        ### Testing
+        Component | Scenarios | Results
+        ----------|-----------|--------
+        Gateway | [Gateway API Feature](https://github.com/bbc/platform-bbcid-tests/blob/master/platform-bbcid-consildated-cukes/resources/cucumber/ApigeeJWKURI.feature) | [Gateway Cucumber Report](https://bbcidv5-jenkins.int.cloud.bbc.co.uk/view/Github%20Test%20jobs/job/Github-IntegrationSuite-test-1/lastCompletedBuild/cucumber-html-reports/report-feature_cucumber-ApigeeJWKURI-feature.html)
+      operationId: jwkuri
+      produces:
+        - application/json
+      tags:
+        - JWK URI
+      responses:
+        '200':
+          description: Successful response
+          examples:
+            application/json:
+              keys:
+                - kty: RSA
+                  kid: af531224-ba3f-434d-8730-7b4bf9cfa820
+                  use: sig
+                  alg: RS256
+                  n: AI0rWswJdTHoxwrfiLXrOve69KdDtKP7eGcfKDHklmNaZ7QM2mqOtvJOhfy6w9xCsg1MxAaTyF2dzNOO9nSUeIjYVoK0YVrC0cX8dsu2IJk3dNV4LBhtCwdY_fWkp2sgKTO5uoYYoG-hQ0a2rPjHYIZiaZun42PJ2dNTFGAo_aRfmLJSttyHFqmedDwWuo86SS-hBtZHf6nOBL4JQeixi7WIfyeeZJBav_z7qacca-w-Ss3xSQBEBfSJymttgF-quDR1sg3KWYgIn7w-0YJUeDSdGoK_vvH5AywQA2ocC8fIhCp_GufLJWRX4efUcBRmmYRKJTnsfbTe6bB51uqMiT8
+                  e: AQAB
+
+#####################################################################
+# DEFINITIONS                                                       #
+# - reusable variables: typed variables with additional metadata    #
+# - reusable objects: structured objects containing typed variables #
+#                     with additional metadata                      #
+#####################################################################
+
+definitions:
+
+  ###################################
+  # definitions: reusable variables #
+  ###################################
+
+  ExpiresIn:
+    type: integer
+    format: int32
+    description: Number of seconds until expiry
+    example: 3600
+
+  HttpStatusCode:
+    type: integer
+    format: int32
+    description: HTTP status code
+
+  Realm:
+    type: string
+    description: The top realm for web and NMARealm for mobile apps. Mobile Apps have to set realm as NMARealm, SSO flow will fail otherwise.
+    example: NMARealm
+
+  Reason:
+    type: string
+    description: The overall reason for success/error
+
+  Token:
+    description: The encrypted token
+    type: string
+    example: AQIC5wM2LY4Sfcz-AGVWgvTjekS7hyD6zZafFhHajNNgL_s.*AAJTSQACMDIAAlNLABMtNDQ4NzE4NTE4MzgzODE4ODkzAAJTMQACMDE.*
+
+  UserId:
+    type: string
+    format: uuid
+    description: The id of the user
+    example: 502c8895-d756-4c8e-974b-1af0a7def829
+
+
+  #################################
+  # definitions: reusable objects #
+  #################################
+
+  Code200SuccessTrue:
+    allOf:
+      - $ref: '#/definitions/CodeSuccess'
+      - properties:
+          code:
+            enum:
+              - 200
+          success:
+            enum:
+              - true
+
+  CodeMessage:
+    type: object
+    properties:
+      code:
+        $ref: '#/definitions/HttpStatusCode'
+      message:
+        type: string
+
+  CodeMessageReason:
+    allOf:
+      - $ref: '#/definitions/CodeMessage'
+      - properties:
+          reason:
+            $ref: '#/definitions/Reason'
+
+  CodeSuccess:
+    type: object
+    properties:
+      code:
+        $ref: '#/definitions/HttpStatusCode'
+      success:
+        type: boolean
+
+  CodeSuccessMessage:
+    allOf:
+      - $ref: '#/definitions/CodeSuccess'
+      - properties:
+          message:
+            type: string
+
+  Error400AM:
+    allOf:
+      - $ref: '#/definitions/CodeMessageReason'
+      - properties:
+          code:
+            enum:
+              - 400
+          message:
+            # example used here as you can't have an empty string as an enum item
+            example: ""
+          reason:
+            enum:
+              - Bad Request
+
+  ErrorAMService:
+    type: object
+    properties:
+      error:
+        type: string
+        description: The type of error
+      error_description:
+        type: string
+        description: The error message
+
+  Error400SwaggerParamMissing:
+    type: object
+    properties:
+      code:
+        type: string
+        enum:
+          - REQUIRED
+      description:
+        type: string
+        enum:
+          - "Request validation failed: Parameter (<parameter name>) is required"
+      errorCode:
+        type: integer
+        enum:
+          - 400
+      failedValidation:
+        type: boolean
+        enum:
+          - true
+      paramName:
+        type: string
+        description: The name of the missing required parameter
+      path:
+        type: array
+        description: The element of the swagger config that failed validation, as an array of path components.
+        items:
+          type: string
+        example:
+          - paths
+          - </the/endpoint URI>
+          - <method (get|post|put|delete|options|etc.)>
+          - parameters
+          - <the index (zero-based) of the parameter in the swagger path operation>
+
+  Error401AM:
+    type: object
+    properties:
+      code:
+        allOf:
+          - $ref: '#/definitions/HttpStatusCode'
+          - enum:
+            - 401
+      message:
+        type: string
+      reason:
+        allOf:
+          - $ref: '#/definitions/Reason'
+          - enum:
+              - Unauthorized
+
+  Error401Authenticate:
+    allOf:
+      - $ref: '#/definitions/Error401AM'
+      - properties:
+          message:
+            enum:
+              - Authentication Failed!!
+
+  Error401CodeMessage:
+    allOf:
+      - $ref: '#/definitions/CodeMessage'
+      - properties:
+          code:
+            enum:
+              - 401
+          message:
+            enum:
+              - Unauthorised
+
+  Error401CodeMessageSuccess:
+    allOf:
+      - $ref: '#/definitions/Error401CodeMessage'
+      - properties:
+          success:
+            type: boolean
+            enum:
+              - false
+
+  Error403:
+    type: object
+    properties:
+      success:
+        type: boolean
+        enum:
+          - false
+      errors:
+        type: array
+        items:
+          type: object
+          properties:
+            message:
+              type: string
+              enum:
+                - Forbidden
+
+  OAuthToken: # TODO: check what this response schema is (should be from openam/oauth2/access_token)
+    required:
+      - access_token
+      - token_type
+      - expires_in
+    properties:
+      access_token:
+        type: string
+        example: c34711a7-bc08-40f5-b6a7-7ac91069d1bc
+      expires_in:
+        $ref: '#/definitions/ExpiresIn'
+      id_token:
+        type: string
+        example: eyAidHlwIjogIkpXVCIsICJhbGciOiAiUlMyNTYiLCAiY3R5IjogIkpXVCIsICJraWQiOiAiNjIwZTJmMDItNGNkYi00OTRhLWFkNWItMDQ5Y2JlNDI4NDNhIiB9.eyAidG9rZW5OYW1lIjogImlkX3Rva2VuIiwgImF6cCI6ICJBY2NvdW50IiwgInN1YiI6ICJhM2E1Y2JiNS0wN2MzLTQ1ODQtYTQ1NS0xOGYzMWQyMWFhNjQiLCAiYXRfaGFzaCI6ICJkd2RzRnItN3pUeG5VdlZhanVNRk1RIiwgImlzcyI6ICJodHRwOi8vaWR2NS1vYXMudGVzdC5hcGkuYmJjLmNvLnVrOjgwL2JiY2lkdjUvb2F1dGgyIiwgImlhdCI6IDE0NDg1MzUyNDQsICJhdXRoX3RpbWUiOiAxNDQ4NTM1MjQ0LCAiZXhwIjogMTQ0ODUzODg0NCwgInRva2VuVHlwZSI6ICJKV1RUb2tlbiIsICJyZWFsbSI6ICIvIiwgImF1ZCI6IFsgIkFjY291bnQiIF0sICJjX2hhc2giOiAiRmhzZU9uUXc3a0tuTEhtXzNiUVRHQSIsICJvcHMiOiAiNmE2N2NhMjEtMWIyMy00ZWMxLWI1MzgtMWQ4ODhkNWE5MmU4IiB9.Jl2t3ABEzxcVofAVGwuuP5YtjZjykTUV1Zg22wKX5KlTRih_mWwIO1muokB1S8yURjFflzNnNyt0fuo-PTRrm7W9lZVzVARtpcuxl3q5hSiVK15VclMnalY3IwHaANdya1K5TYT2z9Xa-8H6GhPUPE7WbgFOLYuHXsgw8sfbsFE
+      refresh_token:
+        type: string
+        example: 54967790-5099-46db-8304-79988f4b0c8c
+      scope:
+        type: string
+        example: uid openid
+      token_type:
+        type: string
+        example: Bearer
+
+  OpenResponse:
+    properties: {}
+
+  Success200Authenticate:
+    type: object
+    properties:
+      tokenId:
+        $ref: '#/definitions/Token'
+      successUrl:
+        type: string
+        example: /bbcidv5/console
+
+  Success200TokenExchange:
+    type: object
+    properties:
+      redirectUri:
+        type: string
+        example: "https://example.com/#id_token=123"
+        description: The original redirect URI with the grant appended
+
+#####################################################
+# parameters: reusable request parameters           #
+#             (body, formData, header, path, query) #
+#####################################################
+
+parameters:
+  FormDataClientIdRequired:
+    name: client_id
+    in: formData
+    description: Registered client name decided between client and provider.
+    required: true
+    type: string
+
+  FormDataClientIdDeviceRequired:
+    name: client_id
+    in: formData
+    description: The device client ID
+    required: true
+    type: string
+
+  FormDataClientSecretRequired:
+    name: client_secret
+    in: formData
+    description: Client specific secret shared by IDV5 Backend team
+    required: true
+    type: string
+
+  FormDataCode:
+    name: code
+    in: formData
+    description: The code to exchange for an access token. Required if `grant_type` is 'Authorization_code'
+    required: false
+    type: string
+
+  FormDataCodeDeviceRequired:
+    name: code
+    in: formData
+    description: The device code that was received in the generateCode API.
+    required: true
+    type: string
+
+  FormDataGrantTypeRequired:
+    name: grant_type
+    in: formData
+    description: The grant type as defined on OpenID connect specification. The OAuth2 grant type like 'Authorization_code' or 'refresh_token'
+    required: true
+    type: string
+    x-example: Authorization_code
+
+  FormDataRedirectUri:
+    name: redirect_uri
+    in: formData
+    description: The client's redirect URI as defined on OpenID connect specification. Required for authorization_code flow.
+    required: false
+    type: string
+
+  FormDataRefreshToken:
+    name: refresh_token
+    in: formData
+    description: The refresh token if `grant_type` is "refresh_token"
+    required: false
+    type: string
+
+  FormDataUserCode:
+    name: user_code
+    in: formData
+    description: |
+      The user code to verify. The code input taken from the user (which is initially given by the device).
+      The user_code generated will consist of the following characters (This character set is custom-defined):
+      * Allowable characters: 234567abcdefhijkmnopqrstwxyz
+      * Length: 8
+      * There is no profanity check at present. 6 digit numeric pin will be used to fix it forward
+    required: true
+    type: string
+    x-example: 67abcdef
+
+  FormDataPKCECodeVerifier:
+    name: code_verifier
+    in: formData
+    description: The code verifier if "code_verifier" was passed for authorization
+    required: false
+    type: string
+
+  HeaderAccessToken:
+    name: accessToken
+    in: header
+    description: The access_token JWT of the user
+    required: false
+    type: string
+    x-example: c72666d1-2631-4a64-b7f5-970c860c938a
+
+  HeaderAuthorizationRequired:
+    name: authorization
+    in: header
+    description: The authorization header containing the authorization access token as a bearer
+    required: true
+    type: string
+    format: Bearer <access token string>
+    x-example: Bearer eyAidHlwIjogIkpXVCIsICJhbG
+
+  HeaderCknsSession:
+    name: cknsSession
+    in: header
+    description: The ckns_session (SSOToken) cookie value of the user
+    type: string
+    x-example: AQklcmvklmbkldfmnkldnhmdklfghnm+sjkdnfhhuiwefn
+
+  HeaderCknsSessionRequired:
+    name: cknsSession
+    in: header
+    description: The ckns_session (SSOToken) cookie value of the user
+    required: true
+    type: string
+    x-example: AQklcmvklmbkldfmnkldnhmdklfghnm+sjkdnfhhuiwefn
+
+  HeaderClientId:
+    name: clientId
+    in: header
+    description: The OAuth client Id
+    required: false
+    type: string
+    x-example: iPlayerNMA
+
+  HeaderIdToken:
+    name: idToken
+    in: header
+    description: The id_token JWT of the user
+    type: string
+    x-example: eyAidHlwIjogI.........
+
+  HeaderIdTokenExchange:
+    name: *idTokenExchangeHeader
+    in: header
+    description: The id_token to be exchanged.
+    type: string
+    x-example: eyAidHlwIjogI.........
+
+  HeaderRefreshToken:
+    name: refreshToken
+    in: header
+    description: The refresh_token JWT of the user
+    required: false
+    type: string
+    x-example: c72666d1-2631-4a64-b7f5-970c860c938a
+
+  HeaderSSLClientCertSubject:
+    name: sslclientcertsubject
+    in: header
+    required: false
+    type: string
+    x-example: mail@mail.mail, CN=mail mail, OU=BBC, O=British Broadcasting Corporation, L=London, C=GB
+    description: The client certificate subject DN
+
+  HeaderX-OpenAM-PasswordRequired:
+    name: X-OpenAM-Password
+    in: header
+    description: The user password
+    required: true
+    type: string
+    x-example: AwesomePassword123
+
+  HeaderX-OpenAM-UsernameAsEmailRequired:
+    name: X-OpenAM-Username
+    in: header
+    description: The user email address
+    required: true
+    type: string
+    x-example: someone@mail.com
+
+  HeaderX-OpenAM-UsernameRequired:
+    name: X-OpenAM-Username
+    in: header
+    description: The username of the user
+    required: true
+    type: string
+    x-example: idv5testuser
+
+  HeaderAgentIP:
+    name: agent-ip
+    in: header
+    description: The end user's known ip address
+    required: false
+    type: string
+    x-example: 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+
+  HeaderJourneyType:
+    name: journey-type
+    in: header
+    description: Journey reference for the originated call
+    required: false
+    type: string
+    enum:
+      - reAuthentication
+      - signIn
+      - register
+    x-example: signIn
+
+  HeaderDeviceId:
+    name: device-id
+    in: header
+    description: Device unique fingerprint
+    required: false
+    type: string
+    x-example: DeviceUniqueFingerprint0110b
+
+  QueryClientIdRequired:
+    name: client_id
+    in: query
+    description: The client identifier. Registered client name decided between client and provider.
+    required: true
+    type: string
+
+  QueryGotoRequired:
+    name: goto
+    in: query
+    description: The redirect uri as defined on OpenID connect specification
+    required: true
+    type: string
+
+  QueryIdTokenHintRequired:
+    name: id_token_hint
+    in: query
+    description: The token hint
+    required: true
+    type: string
+
+  QueryRealm:
+    name: realm
+    in: query
+    description: The top realm for web and NMARealm for mobile apps. Mobile Apps have to set realm as NMARealm, SSO flow will fail otherwise.
+    required: false
+    type: string
+    x-example: NMARealm
+
+  QueryRedirectUriRequired:
+    name: redirect_uri
+    in: query
+    description: The redirect uri as defined on OpenID connect specification. URL to redirect with access token after user credentials are validated. This will consume the response from the authorize endpoint.
+    required: true
+    type: string
+
+  QueryResponseTypeRequired:
+    name: response_type
+    in: query
+    description: The expected response type as defined on OpenID connect specification. Indicates which kind of oAuth flow would be used and what needs to be returned. Value can be 'code' for authorization grant, or 'id_token' if enabled for the client.
+    required: true
+    type: string
+
+  QueryService:
+    name: service
+    in: query
+    description: |
+      Points to the authentication chain.
+      For example, if client ID is 'timClient', then this value could be something directly associated like 'timClientService' but can also be any other existing service like 'AccountSignInService'.
+      It defines where the user will be redirected if there's no session.
+    required: false
+    type: string
+    x-example: timClientService
+
+  QueryServiceRequired:
+    name: service
+    in: query
+    description: |
+      Points to the authentication chain.
+      For example, if client ID is 'timClient', then this value could be something directly associated like 'timClientService' but can also be any other existing service like 'AccountSignInService'.
+      It defines where the user will be redirected if there's no session.
+    required: true
+    type: string
+    format: <client_id>Service
+    x-example: timClientService
+
+  QueryScope:
+    name: scope
+    in: query
+    description: |
+      The value of the scope parameter is expressed as a list of space-delimited, case-sensitive strings.  The strings are defined by the authorization server.
+      String list can include one or more of the following values:
+      * implicit
+      * explicit
+      * uid
+      * openid
+      * pii
+      * vote
+    required: false
+    type: string
+    x-example: uid%20openid
+
+  QueryState:
+    name: state
+    in: query
+    description: Oauth specific property. Not used by backend (backend does not validate or use this parameter)
+    required: false
+    type: string
+
+  QueryPKCECodeChallenge:
+    name: code_challenge
+    in: query
+    description: The code challenege for PKCE clients.
+    required: false
+    type: string
+
+  QueryPKCECodeChallengeMethod:
+    name: code_challenge_method
+    in: query
+    description: The code challenege method for PKCE clients.
+    required: false
+    type: string
+    enum: [S256]
