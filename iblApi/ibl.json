@@ -916,9 +916,6 @@
             "character_image": {
               "type": "string"
             },
-            "programme_logo": {
-              "type": "string"
-            },
             "inherited_from": {
               "type": "string"
             },
