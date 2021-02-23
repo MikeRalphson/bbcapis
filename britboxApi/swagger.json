@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.228-ref-1-39-0",
+    "version": "3.730.239-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -11686,10 +11686,7 @@
         },
         "mobile": {
           "description": "The mobile navigation.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/NavEntry"
-          }
+          "$ref": "#/definitions/NavEntry"
         },
         "footer": {
           "description": "The footer navigation.",
@@ -12013,6 +12010,12 @@
           "type": "string"
         },
         "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "segments": {
           "type": "array",
           "items": {
             "type": "string"
@@ -12832,57 +12835,60 @@
           "description": "Tiles within the section",
           "type": "array",
           "items": {
-            "type": "object",
-            "required": [
-              "image_url",
-              "image_ratio",
-              "action_data",
-              "is_playable"
-            ],
-            "additionalProperties": false,
-            "properties": {
-              "title": {
-                "description": "Tile title",
-                "type": "string"
-              },
-              "subtitle": {
-                "description": "Tile subtitle",
-                "type": "string"
-              },
-              "image_url": {
-                "description": "Thumbnail image URL",
-                "type": "string",
-                "format": "uri"
-              },
-              "image_ratio": {
-                "description": "Thumbnail image aspect ratio\n  \"16:9\"\n  \"4:3\"\n  \"1:1\" (default)\n  \"2:3\"\n  The thumbnail height is fixed at 250 px on presentation.\n",
-                "type": "string"
-              },
-              "action_data": {
-                "description": "Data to send to the application when the tile is clicked",
-                "type": "string"
-              },
-              "is_playable": {
-                "description": "If \"true\", a \"Play\" icon is shown over the thumbnail image",
-                "type": "boolean"
-              },
-              "display_from": {
-                "description": "Time to begin showing the tile",
-                "type": "string",
-                "format": "date-time"
-              },
-              "display_until": {
-                "description": "Time to stop showing the tile",
-                "type": "string",
-                "format": "date-time"
-              },
-              "position": {
-                "description": "Section position. If specified, sections are shown in ascending position order",
-                "type": "integer",
-                "format": "int32"
-              }
-            }
+            "$ref": "#/definitions/SamsungPreviewSectionTile"
           }
+        }
+      }
+    },
+    "SamsungPreviewSectionTile": {
+      "type": "object",
+      "required": [
+        "image_url",
+        "image_ratio",
+        "action_data",
+        "is_playable"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "description": "Tile title",
+          "type": "string"
+        },
+        "subtitle": {
+          "description": "Tile subtitle",
+          "type": "string"
+        },
+        "image_url": {
+          "description": "Thumbnail image URL",
+          "type": "string",
+          "format": "uri"
+        },
+        "image_ratio": {
+          "description": "Thumbnail image aspect ratio\n  \"16:9\"\n  \"4:3\"\n  \"1:1\" (default)\n  \"2:3\"\n  The thumbnail height is fixed at 250 px on presentation.\n",
+          "type": "string"
+        },
+        "action_data": {
+          "description": "Data to send to the application when the tile is clicked",
+          "type": "string"
+        },
+        "is_playable": {
+          "description": "If \"true\", a \"Play\" icon is shown over the thumbnail image",
+          "type": "boolean"
+        },
+        "display_from": {
+          "description": "Time to begin showing the tile",
+          "type": "string",
+          "format": "date-time"
+        },
+        "display_until": {
+          "description": "Time to stop showing the tile",
+          "type": "string",
+          "format": "date-time"
+        },
+        "position": {
+          "description": "Section position. If specified, sections are shown in ascending position order",
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
