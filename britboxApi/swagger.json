@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.239-ref-1-39-0",
+    "version": "3.730.249-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -1010,6 +1010,78 @@
         ]
       }
     },
+    "/account/devices/authorization": {
+      "x-serviceId": "itvAuth",
+      "post": {
+        "description": "Authorize a device from a generated device authorization code.\n\nThis is the second step in the process of authorizing a device by pin code.\n\nFirstly the device must request a generated authorization code via the\n`/authorization/device/code` endpoint.\n\nThis endpoint then authorizes the device associated with the code to sign in\nto a user account. Typically this endpoint will be called from a page\npresented in the web app under the account section.\n\nOnce authorized, the device will then be able to sign in to that account\nvia the `/authorization/device` endpoint, without needing to provide the \ncredentials of the user.\n",
+        "operationId": "authorizeDevice",
+        "tags": [
+          "account"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The generated device authorization code.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeviceAuthorizationCode"
+            }
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
     "/account/devices/{id}": {
       "x-serviceId": "device",
       "get": {
@@ -1216,78 +1288,6 @@
           },
           "403": {
             "description": "Forbidden.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "404": {
-            "description": "Not found.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "default": {
-            "description": "Service error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          }
-        },
-        "security": [
-          {
-            "accountAuth": [
-              "Catalog"
-            ]
-          }
-        ]
-      }
-    },
-    "/account/devices/authorization": {
-      "x-serviceId": "itvAuth",
-      "post": {
-        "description": "Authorize a device from a generated device authorization code.\n\nThis is the second step in the process of authorizing a device by pin code.\n\nFirstly the device must request a generated authorization code via the\n`/authorization/device/code` endpoint.\n\nThis endpoint then authorizes the device associated with the code to sign in\nto a user account. Typically this endpoint will be called from a page\npresented in the web app under the account section.\n\nOnce authorized, the device will then be able to sign in to that account\nvia the `/authorization/device` endpoint, without needing to provide the \ncredentials of the user.\n",
-        "operationId": "authorizeDevice",
-        "tags": [
-          "account"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "description": "The generated device authorization code.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeviceAuthorizationCode"
-            }
-          },
-          {
-            "$ref": "#/parameters/FeatureFlags"
-          },
-          {
-            "$ref": "#/parameters/Language"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad request.",
             "schema": {
               "$ref": "#/definitions/ServiceError"
             }
@@ -7150,6 +7150,138 @@
         ]
       }
     },
+    "/itv/purchase/{platform}/withoffer": {
+      "x-serviceId": "itvSubscription",
+      "post": {
+        "description": "Confirms purchase and returns the details of purchased subscription for specified payment platform.",
+        "operationId": "confirmPurchaseWithOffer",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the payment platform (stripe/itunes).",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details of a purchase request.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItvPurchaseWithOfferRequest"
+            }
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of purchased subscription.",
+            "schema": {
+              "$ref": "#/definitions/ItvPurchaseWithOfferResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/itv/resubscribe/{platform}": {
+      "x-serviceId": "itvSubscription",
+      "post": {
+        "description": "Resubscription for a user.",
+        "operationId": "resubscribe",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "planId",
+            "description": "The id of the plan to renew.",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "platform",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the payment platform (stripe/itunes). Only stripe is currently supported.",
+            "required": true
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The response body is the updated plan information."
+          },
+          "401": {
+            "description": "Invalid Rocket token."
+          },
+          "404": {
+            "description": "Customer not found or no active subscription."
+          },
+          "406": {
+            "description": "Invalid ITV token."
+          },
+          "409": {
+            "description": "Customer not already set for cancellation."
+          },
+          "500": {
+            "description": "Third party API internal server error."
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
     "/itv/save-offer": {
       "x-serviceId": "itvSubscription",
       "get": {
@@ -7402,6 +7534,80 @@
         "responses": {
           "204": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/itv/voucher/{planId}/{voucherId}": {
+      "x-serviceId": "itvSubscription",
+      "get": {
+        "description": "Checks the provided coupon id for a user. Only Stripe platform is currently supported.",
+        "operationId": "getVoucherById",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "voucherId",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the voucher.",
+            "required": true
+          },
+          {
+            "name": "planId",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the plan.",
+            "required": true
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Avalable voucher, if any.",
+            "schema": {
+              "$ref": "#/definitions/ItvVoucher"
+            }
           },
           "400": {
             "description": "Bad request.",
@@ -11321,6 +11527,53 @@
         }
       }
     },
+    "ItvPurchaseWithOfferRequest": {
+      "type": "object",
+      "required": [
+        "planId",
+        "profileToken",
+        "paymentMethodId",
+        "couponId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "planId": {
+          "description": "The identifier of the plan to purchase.",
+          "type": "string"
+        },
+        "profileToken": {
+          "description": "The ITV profile token.",
+          "type": "string"
+        },
+        "paymentMethodId": {
+          "description": "A paymentMethodId from Stripe.",
+          "type": "string"
+        },
+        "couponId": {
+          "description": "A coupon/voucher for a discount. Can be retrieved from GET itv/voucher/{platform} endpoint",
+          "type": "string"
+        }
+      }
+    },
+    "ItvPurchaseWithOfferResponse": {
+      "x-emoji": "💰",
+      "type": "object",
+      "required": [
+        "id",
+        "offerType"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "The identifier of subscription plan.",
+          "type": "string"
+        },
+        "offerType": {
+          "description": "The identifier of subscription in payment system.",
+          "type": "string"
+        }
+      }
+    },
     "ItvSubscriptionState": {
       "x-emoji": "💳",
       "type": "object",
@@ -11432,14 +11685,9 @@
       "type": "object",
       "required": [
         "id",
-        "amountOff",
-        "percentOff",
-        "currency",
-        "duration",
-        "durationInMonths",
-        "valid",
-        "shortDescription",
-        "longDescription"
+        "offerType",
+        "display",
+        "links"
       ],
       "additionalProperties": false,
       "properties": {
@@ -11447,39 +11695,94 @@
           "description": "The coupon/voucher.",
           "type": "string"
         },
-        "amountOff": {
-          "description": "The absolute amount off.",
-          "type": "number",
-          "format": "float"
+        "offerType": {
+          "description": "The voucher offer type.",
+          "type": "string",
+          "enum": [
+            "stripe",
+            "talon one"
+          ]
+        },
+        "display": {
+          "description": "The display information for voucher.",
+          "$ref": "#/definitions/ItvVoucherDisplay"
+        },
+        "links": {
+          "description": "The links pointing to voucher url.",
+          "$ref": "#/definitions/ItvVoucherLinks"
+        }
+      }
+    },
+    "ItvVoucherDisplay": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "discountPrice": {
+          "description": "Discount price.",
+          "type": "string"
+        },
+        "shortDescription": {
+          "description": "Short description.",
+          "type": "string"
+        },
+        "longDescription": {
+          "description": "Long description.",
+          "type": "string"
+        },
+        "headlineLabel": {
+          "description": "Headline label.",
+          "type": "string"
         },
         "percentOff": {
-          "description": "The percentage off.",
+          "description": "Percent off.",
           "type": "number",
           "format": "float"
         },
         "currency": {
-          "description": "The currency of a given discount.",
+          "description": "Currency.",
           "type": "string"
         },
         "duration": {
-          "description": "The duration descriptor for a given discount.",
+          "description": "Duration.",
           "type": "string"
         },
         "durationInMonths": {
-          "description": "The duration in months for a given discount.",
-          "type": "integer",
-          "format": "int32"
+          "description": "Duration in months.",
+          "type": "number",
+          "format": "integer"
+        }
+      }
+    },
+    "ItvVoucherLinks": {
+      "type": "object",
+      "required": [
+        "self",
+        "redeem"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "self": {
+          "description": "Self link.",
+          "$ref": "#/definitions/ItvVoucherLinksHref"
         },
-        "valid": {
-          "description": "The coupon/voucher validity.",
-          "type": "boolean"
-        },
-        "shortDescription": {
-          "description": "The coupon/voucher short description.",
-          "type": "string"
-        },
-        "longDescription": {
-          "description": "The coupon/voucher long description.",
+        "redeem": {
+          "description": "Redeem link.",
+          "$ref": "#/definitions/ItvVoucherLinksHref"
+        }
+      }
+    },
+    "ItvVoucherLinksHref": {
+      "type": "object",
+      "required": [
+        "href"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "href": {
+          "description": "The voucher link.",
           "type": "string"
         }
       }
