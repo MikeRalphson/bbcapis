@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.252-ref-1-39-0",
+    "version": "3.730.253-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -12909,6 +12909,14 @@
         "languageCode": {
           "description": "The code of the preferred language for the profile.\nMust be a valid ISO language code e.g. \"en-US\" and must match the code of\none of the languages specified in the app config.\nSee https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes\n",
           "type": "string"
+        },
+        "heroWithAudio": {
+          "type": "boolean",
+          "description": "Gets the Hero row clip auto playback audio enabled"
+        },
+        "heroAutoplay": {
+          "type": "boolean",
+          "description": "Gets the Hero row clip auto playback enabled"
         }
       }
     },
@@ -12965,6 +12973,14 @@
         },
         "purchaseEnabled": {
           "description": "Whether the profile can make purchases with the account payment options.",
+          "type": "boolean"
+        },
+        "heroWithAudio": {
+          "description": "Sets the Hero row clip auto playback audio enabled",
+          "type": "boolean"
+        },
+        "heroAutoplay": {
+          "description": "Sets the Hero row clip auto playback enabled",
           "type": "boolean"
         },
         "segments": {
