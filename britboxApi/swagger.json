@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.253-ref-1-39-0",
+    "version": "3.730.267-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -1010,78 +1010,6 @@
         ]
       }
     },
-    "/account/devices/authorization": {
-      "x-serviceId": "itvAuth",
-      "post": {
-        "description": "Authorize a device from a generated device authorization code.\n\nThis is the second step in the process of authorizing a device by pin code.\n\nFirstly the device must request a generated authorization code via the\n`/authorization/device/code` endpoint.\n\nThis endpoint then authorizes the device associated with the code to sign in\nto a user account. Typically this endpoint will be called from a page\npresented in the web app under the account section.\n\nOnce authorized, the device will then be able to sign in to that account\nvia the `/authorization/device` endpoint, without needing to provide the \ncredentials of the user.\n",
-        "operationId": "authorizeDevice",
-        "tags": [
-          "account"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "description": "The generated device authorization code.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeviceAuthorizationCode"
-            }
-          },
-          {
-            "$ref": "#/parameters/FeatureFlags"
-          },
-          {
-            "$ref": "#/parameters/Language"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad request.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "404": {
-            "description": "Not found.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "default": {
-            "description": "Service error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          }
-        },
-        "security": [
-          {
-            "accountAuth": [
-              "Catalog"
-            ]
-          }
-        ]
-      }
-    },
     "/account/devices/{id}": {
       "x-serviceId": "device",
       "get": {
@@ -1288,6 +1216,78 @@
           },
           "403": {
             "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/account/devices/authorization": {
+      "x-serviceId": "itvAuth",
+      "post": {
+        "description": "Authorize a device from a generated device authorization code.\n\nThis is the second step in the process of authorizing a device by pin code.\n\nFirstly the device must request a generated authorization code via the\n`/authorization/device/code` endpoint.\n\nThis endpoint then authorizes the device associated with the code to sign in\nto a user account. Typically this endpoint will be called from a page\npresented in the web app under the account section.\n\nOnce authorized, the device will then be able to sign in to that account\nvia the `/authorization/device` endpoint, without needing to provide the \ncredentials of the user.\n",
+        "operationId": "authorizeDevice",
+        "tags": [
+          "account"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The generated device authorization code.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeviceAuthorizationCode"
+            }
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request.",
             "schema": {
               "$ref": "#/definitions/ServiceError"
             }
@@ -1931,7 +1931,7 @@
       }
     },
     "/account/profile/bookmarks": {
-      "x-serviceId": "bookmark",
+      "x-serviceId": "itvNightwatch",
       "get": {
         "description": "Get the map of bookmarked item ids (itemId => creationDate) under the active profile.",
         "operationId": "getBookmarks",
@@ -2010,7 +2010,7 @@
       }
     },
     "/account/profile/bookmarks/list": {
-      "x-serviceId": "bookmark",
+      "x-serviceId": "itvNightwatch",
       "get": {
         "description": "Returns the list of bookmarked items under the active profile.",
         "operationId": "getBookmarkList",
@@ -2118,7 +2118,7 @@
       }
     },
     "/account/profile/bookmarks/{itemId}": {
-      "x-serviceId": "bookmark",
+      "x-serviceId": "itvNightwatch",
       "get": {
         "description": "Get the bookmark for an item under the active profile.",
         "operationId": "getItemBookmark",
@@ -2492,7 +2492,7 @@
       }
     },
     "/account/profile/items/{itemId}/next": {
-      "x-serviceId": "continueWatching",
+      "x-serviceId": "itvNightwatch",
       "get": {
         "description": "Returns the next item to play given a source item id.\n\nFor an unwatched show it returns the first episode available to the account.\n\nFor a watched show it returns the last incompletely watched episode by the profile,\nor the episode that immediately follows the last completely watched episode \nor nothing.\n\nFor an episode it always returns the immediately following episode, if available to\nthe account, or nothing.\n\nIf the response does not contain a `next` property then no item was found.\n",
         "operationId": "getNextPlaybackItem",
@@ -2969,7 +2969,7 @@
       }
     },
     "/account/profile/watched": {
-      "x-serviceId": "watched",
+      "x-serviceId": "itvNightwatch",
       "get": {
         "description": "Get the map of watched item ids (itemId => last playhead position) under the active profile.",
         "operationId": "getWatched",
@@ -3129,7 +3129,7 @@
       }
     },
     "/account/profile/watched/list": {
-      "x-serviceId": "watched",
+      "x-serviceId": "itvNightwatch",
       "get": {
         "description": "Returns the list of watched items under the active profile.",
         "operationId": "getWatchedList",
@@ -3255,7 +3255,7 @@
       }
     },
     "/account/profile/watched/{itemId}": {
-      "x-serviceId": "watched",
+      "x-serviceId": "itvNightwatch",
       "get": {
         "description": "Get the watched status info for an item under the active profile.",
         "operationId": "getItemWatchedStatus",
@@ -5551,7 +5551,7 @@
       }
     },
     "/items/{itemId}/next": {
-      "x-serviceId": "continueWatching",
+      "x-serviceId": "itvNightwatch",
       "get": {
         "description": "Identical to GET /account/profile/items/{itemId}/next route but for users\nthat are not logged in i.e. this endpoint does not require authorisation\n",
         "operationId": "getAnonNextPlaybackItem",
@@ -6187,6 +6187,71 @@
         }
       }
     },
+    "/itv/items/clips": {
+      "x-serviceId": "itvItem",
+      "post": {
+        "description": "Get the media clip files associated with items.\n",
+        "operationId": "getItemsMediaClipFiles",
+        "tags": [
+          "content"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The item Axis ids joined string with comma.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItemDownloadableRequest"
+            }
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The item id with clip files",
+            "schema": {
+              "$ref": "#/definitions/ItemClipFilesList"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    },
     "/itv/items/downloadable": {
       "x-serviceId": "itvItem",
       "post": {
@@ -6198,7 +6263,7 @@
         "parameters": [
           {
             "name": "body",
-            "description": "The account credentials with requested token scope.",
+            "description": "The item Axis ids joined string with comma.",
             "in": "body",
             "required": true,
             "schema": {
@@ -7460,6 +7525,82 @@
             "description": "Avalable save offer plan, if any.",
             "schema": {
               "$ref": "#/definitions/ItvGetDiscountResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/itv/updateIntent/strong/{platform}": {
+      "x-serviceId": "itvSubscription",
+      "put": {
+        "description": "Change payment method details.",
+        "operationId": "updatePaymentMethodStrong",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the payment platform (stripe only is currently supported).",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details of change card details request.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItvUpdateIntentStrongRequest"
+            }
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItvUpdateIntentStrongResponse"
             }
           },
           "400": {
@@ -10204,6 +10345,119 @@
         }
       }
     },
+    "ItemClipFile": {
+      "x-emoji": "📀",
+      "type": "object",
+      "required": [
+        "name",
+        "deliveryType",
+        "url",
+        "drm",
+        "format",
+        "resolution",
+        "width",
+        "height",
+        "language"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "name": {
+          "description": "The name of the media file.",
+          "type": "string"
+        },
+        "deliveryType": {
+          "description": "The way in which the media file is delivered.",
+          "type": "string",
+          "enum": [
+            "Stream",
+            "Progressive",
+            "Download"
+          ]
+        },
+        "url": {
+          "description": "The url to access the media file.",
+          "type": "string",
+          "format": "uri"
+        },
+        "drm": {
+          "description": "The type of drm used to encrypt the media. 'None' if unencrypted.",
+          "type": "string"
+        },
+        "format": {
+          "description": "The format the media was encoded in.",
+          "type": "string"
+        },
+        "resolution": {
+          "description": "The resolution of the video media.",
+          "type": "string",
+          "enum": [
+            "SD",
+            "HD-720",
+            "HD-1080",
+            "HD-4K",
+            "External",
+            "Unknown"
+          ]
+        },
+        "width": {
+          "description": "The width of the video media.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "height": {
+          "description": "The height of the video media.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "channels": {
+          "description": "The number of audio channels.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "language": {
+          "description": "The language code for the media, e.g. 'en'.",
+          "type": "string"
+        }
+      }
+    },
+    "ItemClipFiles": {
+      "type": "object",
+      "required": [
+        "id",
+        "clips"
+      ],
+      "properties": {
+        "id": {
+          "description": "Unique identifier for an Item",
+          "type": "string"
+        },
+        "clips": {
+          "description": "Array of item clip file.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ItemClipFile"
+          }
+        }
+      }
+    },
+    "ItemClipFilesList": {
+      "x-emoji": "📚",
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "description": "A list of items with its clip files.",
+      "additionalProperties": false,
+      "properties": {
+        "items": {
+          "type": "array",
+          "description": "A list of items",
+          "items": {
+            "$ref": "#/definitions/ItemClipFiles"
+          }
+        }
+      }
+    },
     "ItemCustomMetadata": {
       "type": "object",
       "description": "Custom metadata associated with an item.",
@@ -11482,8 +11736,7 @@
       "type": "object",
       "required": [
         "planId",
-        "profileToken",
-        "paymentMethodId"
+        "profileToken"
       ],
       "additionalProperties": false,
       "properties": {
@@ -11502,15 +11755,16 @@
         "voucher": {
           "description": "A coupon/voucher for a discount.",
           "type": "string"
+        },
+        "paymentMethodFromToken": {
+          "description": "A paymentMethodFromToken.",
+          "type": "string"
         }
       }
     },
     "ItvPurchaseStrongResponse": {
       "x-emoji": "💰",
       "type": "object",
-      "required": [
-        "planId"
-      ],
       "additionalProperties": false,
       "properties": {
         "planId": {
@@ -11524,6 +11778,22 @@
         "customerId": {
           "description": "The identifier of user in payment system.",
           "type": "string"
+        },
+        "intentId": {
+          "description": "IntentId.",
+          "type": "string"
+        },
+        "intentType": {
+          "description": "intentType.",
+          "type": "string"
+        },
+        "clientSecret": {
+          "description": "clientSecret.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Status.",
+          "type": "string"
         }
       }
     },
@@ -11532,7 +11802,6 @@
       "required": [
         "planId",
         "profileToken",
-        "paymentMethodId",
         "couponId"
       ],
       "additionalProperties": false,
@@ -11552,24 +11821,40 @@
         "couponId": {
           "description": "A coupon/voucher for a discount. Can be retrieved from GET itv/voucher/{platform} endpoint",
           "type": "string"
+        },
+        "paymentMethodFromToken": {
+          "description": "A paymentMethodFromToken.",
+          "type": "string"
         }
       }
     },
     "ItvPurchaseWithOfferResponse": {
       "x-emoji": "💰",
       "type": "object",
-      "required": [
-        "id",
-        "offerType"
-      ],
       "additionalProperties": false,
       "properties": {
-        "id": {
-          "description": "The identifier of subscription plan.",
+        "subscriptionId": {
+          "description": "The identifier of subscription in payment system.",
           "type": "string"
         },
-        "offerType": {
-          "description": "The identifier of subscription in payment system.",
+        "customerId": {
+          "description": "The identifier of user in payment system.",
+          "type": "string"
+        },
+        "intentId": {
+          "description": "IntentId.",
+          "type": "string"
+        },
+        "intentType": {
+          "description": "intentType.",
+          "type": "string"
+        },
+        "clientSecret": {
+          "description": "clientSecret.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Status.",
           "type": "string"
         }
       }
@@ -11612,11 +11897,10 @@
         }
       }
     },
-    "ItvUpdatePaymentStrongRequest": {
+    "ItvUpdateIntentStrongRequest": {
       "type": "object",
       "required": [
-        "profileToken",
-        "paymentMethodId"
+        "profileToken"
       ],
       "additionalProperties": false,
       "properties": {
@@ -11626,6 +11910,54 @@
         },
         "paymentMethodId": {
           "description": "The paymentMethodId from Stripe.",
+          "type": "string"
+        },
+        "paymentMethodFromToken": {
+          "description": "A paymentMethodFromToken.",
+          "type": "string"
+        }
+      }
+    },
+    "ItvUpdateIntentStrongResponse": {
+      "x-emoji": "💰",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "intentId": {
+          "description": "IntentId.",
+          "type": "string"
+        },
+        "intentType": {
+          "description": "intentType.",
+          "type": "string"
+        },
+        "clientSecret": {
+          "description": "clientSecret.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Status.",
+          "type": "string"
+        }
+      }
+    },
+    "ItvUpdatePaymentStrongRequest": {
+      "type": "object",
+      "required": [
+        "profileToken"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "profileToken": {
+          "description": "The ITV profile token.",
+          "type": "string"
+        },
+        "paymentMethodId": {
+          "description": "The paymentMethodId from Stripe.",
+          "type": "string"
+        },
+        "paymentMethodFromToken": {
+          "description": "A paymentMethodFromToken.",
           "type": "string"
         }
       }
@@ -11753,6 +12085,15 @@
           "description": "Duration in months.",
           "type": "number",
           "format": "integer"
+        },
+        "initialCost": {
+          "description": "InitialCost.",
+          "type": "number",
+          "format": "float"
+        },
+        "savingLabel": {
+          "description": "SavingLabel.",
+          "type": "string"
         }
       }
     },
