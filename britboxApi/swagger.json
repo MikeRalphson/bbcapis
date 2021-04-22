@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.267-ref-1-39-0",
+    "version": "3.730.274-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -7320,7 +7320,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Success. The response body is the updated plan information."
+            "description": "Success. The response body is the updated plan information.",
+            "schema": {
+              "type": "object"
+            }
           },
           "401": {
             "description": "Invalid Rocket token."
@@ -7571,7 +7574,7 @@
       "x-serviceId": "itvSubscription",
       "put": {
         "description": "Change payment method details.",
-        "operationId": "updatePaymentMethodStrong",
+        "operationId": "updatePaymentIntentStrong",
         "tags": [
           "itv"
         ],
@@ -7597,8 +7600,7 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "OK",
+          "200": {
             "schema": {
               "$ref": "#/definitions/ItvUpdateIntentStrongResponse"
             }
@@ -11928,11 +11930,11 @@
           "type": "string"
         },
         "intentType": {
-          "description": "intentType.",
+          "description": "IntentType.",
           "type": "string"
         },
         "clientSecret": {
-          "description": "clientSecret.",
+          "description": "ClientSecret.",
           "type": "string"
         },
         "status": {
