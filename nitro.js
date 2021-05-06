@@ -16,9 +16,12 @@ var giUtils = require('./giUtils');
 var nitro = require('./nitroSdk');
 var api = require('./nitroApi/api');
 
-var red = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[31m';
-var green = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[32m';
-var normal = process.env.NODE_DISABLE_COLORS ? '' : '\x1b[0m';
+const colours = process.stdout.isTTY;
+if (process.env.NODE_DISABLE_COLORS) colours = false;
+
+var red = colours ? '\x1b[31m' : '';
+var green = colours ? '\x1b[32m' : '';
+var normal = colours ? '\x1b[0m' : '';
 
 var programme_cache = [];
 var download_history = [];
