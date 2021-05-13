@@ -712,7 +712,8 @@
           "enum": [
             "genre",
             "accessibility",
-            "national"
+            "national",
+            "childrens"
           ]
         },
         "child_episode_count": {
