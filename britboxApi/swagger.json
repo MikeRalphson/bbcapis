@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.276-ref-1-39-0",
+    "version": "3.730.279-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -7451,6 +7451,73 @@
         ]
       }
     },
+    "/itv/subscription/status/{platform}": {
+      "x-serviceId": "itvSubscription",
+      "get": {
+        "400": {
+          "description": "Bad request.",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
+          }
+        },
+        "404": {
+          "description": "Not found.",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
+          }
+        },
+        "415": {
+          "description": "Unsupported Media Type",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
+          }
+        },
+        "500": {
+          "description": "Internal server error.",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
+          }
+        },
+        "description": "Returns status of latest payment intent.",
+        "operationId": "getSubscriptionStatus",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "platform",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the payment platform (stripe/itunes).",
+            "required": true
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status of the latest payment intent",
+            "schema": {
+              "$ref": "#/definitions/ItvSubscriptionStatusResponse"
+            }
+          }
+        },
+        "default": {
+          "description": "Service error.",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
     "/itv/subscriptionstate": {
       "x-serviceId": "itvSubscription",
       "get": {
@@ -11859,6 +11926,10 @@
         "status": {
           "description": "Status.",
           "type": "string"
+        },
+        "paymentMethodId": {
+          "description": "Payment Method ID",
+          "type": "string"
         }
       }
     },
@@ -11897,6 +11968,19 @@
           "items": {
             "type": "string"
           }
+        }
+      }
+    },
+    "ItvSubscriptionStatusResponse": {
+      "type": "object",
+      "required": [
+        "is_active"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "is_active": {
+          "description": "Defines whether last payment intent was successful or not.",
+          "type": "boolean"
         }
       }
     },
