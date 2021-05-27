@@ -18,8 +18,6 @@ jobs:
     - uses: actions/setup-node@v1 # setup Node.js
       with:
         node-version: '14.x'
-    - name: Audit package-lock.json
-      run: npx package-lock-audit ./package-lock.json
     - name: Install deps
       run: npm i
     - name: update APIs
