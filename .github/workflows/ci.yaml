@@ -1,0 +1,34 @@
+name: ci
+
+# Author: @MikeRalphson
+# Issue : n/a
+# Desc  : This workflow runs a simple CI flow for a node.js project
+
+# run this on push to any branch and creation of pull-requests
+on:
+  schedule:
+    - cron: '0 18 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1 # checkout repo content
+    - uses: actions/setup-node@v1 # setup Node.js
+      with:
+        node-version: '14.x'
+    - name: Audit package-lock.json
+      run: npx package-lock-audit ./package-lock.json
+    - name: Install deps
+      run: npm i
+    - name: update APIs
+      run: ./update.sh
+    - name: 🚀 Deploy
+      run: |
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git add .
+        git diff-index --quiet HEAD || git commit -am "Auto-update APIs"
+        git push --all -f https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+

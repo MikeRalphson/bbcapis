@@ -3,30 +3,28 @@ info:
   version: 1.0.0
   title: BBC Nitro API
   x-logo:
-    url: >-
-      https://github.com/Mermade/bbcparse/blob/master/nitroApi/nitro-logo.png?raw=true
+    url: https://github.com/Mermade/bbcparse/blob/master/nitroApi/nitro-logo.png?raw=true
   x-apiClientRegistration:
-    url: 'https://developer.bbc.co.uk/user/register'
+    url: https://developer.bbc.co.uk/user/register
   x-origin:
-    - url: 'http://programmes.api.bbc.com/nitro/api'
+    - url: http://programmes.api.bbc.com/nitro/api
       contentType: application/json
       converter:
-        url: 'https://github.com/mermade/bbcparse'
+        url: https://github.com/mermade/bbcparse
         version: 1.3.1
-  description: >-
-    BBC Nitro is the BBC's application programming interface (API) for BBC
-    Programmes Metadata.
-  termsOfService: 'http://www.bbc.co.uk/terms/'
+  description: BBC Nitro is the BBC's application programming interface (API) for
+    BBC Programmes Metadata.
+  termsOfService: http://www.bbc.co.uk/terms/
   contact:
     name: Open Nitro Project
     email: nitro@bbc.co.uk
-    url: 'http://developer.bbc.co.uk/'
+    url: http://developer.bbc.co.uk/
   license:
     name: Nitro Public License
-    url: 'https://github.com/Mermade/bbcparse/wiki/Nitro-Public-License'
+    url: https://github.com/Mermade/bbcparse/wiki/Nitro-Public-License
 externalDocs:
   description: Nitro for developers
-  url: 'https://developer.bbc.co.uk/nitro'
+  url: https://developer.bbc.co.uk/nitro
 tags:
   - name: feeds
     description: Nitro data feeds
@@ -37,9 +35,8 @@ tags:
 paths:
   /programmes:
     get:
-      description: >-
-        Fetch metadata about Programmes (brands, series, episodes, clips). By
-        applying different filter restrictions this feed can be used in many
+      description: Fetch metadata about Programmes (brands, series, episodes, clips).
+        By applying different filter restrictions this feed can be used in many
         ways, for example to retrieve all series belonging to a brand, all the
         episodes and/or clips for a specific series, or any TLEO objects for a
         masterbrand. Other filters permit restricting to specific formats and/or
@@ -48,7 +45,7 @@ paths:
         your application.
       tags:
         - feeds
-      summary: 'Start here for programmes metadata: Brands, Series, Episodes and Clips'
+      summary: "Start here for programmes metadata: Brands, Series, Episodes and Clips"
       operationId: listProgrammes
       parameters:
         - name: sort
@@ -68,16 +65,13 @@ paths:
 
             * relevance: sort by weighting of search term (use with q parameter)
 
-            * scheduled_start: sort chronologically by scheduled start
-            time/date, ascending
+            * scheduled_start: sort chronologically by scheduled start time/date, ascending
 
             * strict_title: sort alphabetically by title, ascending
 
-            * title: sort by title librarian style (ignoring leading 'The', 'A',
-            etc), ascending
+            * title: sort by title librarian style (ignoring leading 'The', 'A', etc), ascending
 
-            * tree: sort by root pid and then preorder tree sort. Requires
-            entities to have release date.
+            * tree: sort by root pid and then preorder tree sort. Requires entities to have release date.
           schema:
             type: string
             enum:
@@ -106,27 +100,21 @@ paths:
           description: >
             Mixins:
 
-            * alternate_images: mixin to return the alternate images for a
-            programme
+            * alternate_images: mixin to return the alternate images for a programme
 
             * ancestor_titles: mixin to return ancestor programme titles
 
             * availability: mixin to return programme availability information
 
-            * available_simulcasts: mixin to return information about programmes
-            that are currently available as simulcasts
+            * available_simulcasts: mixin to return information about programmes that are currently available as simulcasts
 
-            * available_versions: mixin to return information about programmes
-            that are currently available on demand
+            * available_versions: mixin to return information about programmes that are currently available on demand
 
-            * available_webcasts: mixin to return information about programmes
-            that are currently available as webcasts
+            * available_webcasts: mixin to return information about programmes that are currently available as webcasts
 
-            * contributions: mixin to return information about contributors to a
-            programme
+            * contributions: mixin to return information about contributors to a programme
 
-            * duration: mixin to return original version duration in programme
-            concept entities
+            * duration: mixin to return original version duration in programme concept entities
 
             * genre_groupings: mixin to return list of genre groupings
 
@@ -136,19 +124,15 @@ paths:
 
             * is_embeddable: mixin to add embeddable information for a programme
 
-            * previous_next: mixin to return the programmes which appear before
-            and after a programme (as determined by the sort applied in the
-            request)
+            * previous_next: mixin to return the programmes which appear before and after a programme (as determined by the sort applied in the request)
 
             * programme_type: mixin to return the programme type
 
-            * related_links: mixin to return information about related links to
-            a programme
+            * related_links: mixin to return information about related links to a programme
 
             * titles: mixin to return ancestor programme titles
 
-            * versions_availability: mixin to return information about
-            programmes that are currently available
+            * versions_availability: mixin to return information about programmes that are currently available
           schema:
             type: array
             items:
@@ -180,8 +164,8 @@ paths:
             items:
               type: string
               enum:
-                - 'true'
-                - 'false'
+                - "true"
+                - "false"
           required: false
         - name: availability
           in: query
@@ -207,8 +191,7 @@ paths:
           required: false
         - name: availability_from
           in: query
-          description: >-
-            filter for subset of programmes that are available after or at the
+          description: filter for subset of programmes that are available after or at the
             specified datetime
           schema:
             type: string
@@ -217,9 +200,7 @@ paths:
           deprecated: true
         - name: availability_type
           in: query
-          description: >-
-            filter for a subset of programmes that are available for a given
-            type
+          description: filter for a subset of programmes that are available for a given type
           schema:
             type: array
             items:
@@ -236,7 +217,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: descendants_of
@@ -246,7 +227,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: duration
@@ -296,12 +277,11 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: initial_letter
           in: query
-          description: >-
-            filter for subset of programmes with title beginning with initial
+          description: filter for subset of programmes with title beginning with initial
             letter librarian style (ignoring leading 'The', 'An' (Welsh), etc)
             0-9 a-z
           schema:
@@ -311,8 +291,7 @@ paths:
           required: false
         - name: initial_letter_end
           in: query
-          description: >-
-            Programmes with (librarian) titles whose initial letter is
+          description: Programmes with (librarian) titles whose initial letter is
             equal/before given letter. Use with initial_letter_start for a range
           schema:
             type: string
@@ -321,8 +300,7 @@ paths:
           required: false
         - name: initial_letter_start
           in: query
-          description: >-
-            Programmes with (librarian) titles whose initial letter is
+          description: Programmes with (librarian) titles whose initial letter is
             equal/after given letter. Use with initial_letter_end for range.
           schema:
             type: string
@@ -331,8 +309,7 @@ paths:
           required: false
         - name: initial_letter_strict
           in: query
-          description: >-
-            filter for subset of programmes with title beginning with initial
+          description: filter for subset of programmes with title beginning with initial
             letter
           schema:
             type: array
@@ -343,14 +320,13 @@ paths:
           required: false
         - name: item
           in: query
-          description: >-
-            filter for subset of programmes with linked to versions which have
+          description: filter for subset of programmes with linked to versions which have
             the given item pids
           schema:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: master_brand
@@ -401,7 +377,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -412,7 +388,7 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: payment_type
@@ -429,13 +405,12 @@ paths:
           required: false
         - name: people
           in: query
-          description: >-
-            filter for subset of programmes with contributions by given people
+          description: filter for subset of programmes with contributions by given people
             PID
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: pid
           in: query
@@ -444,7 +419,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: promoted_for
@@ -455,8 +430,7 @@ paths:
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of programmes matching supplied keyword/phrase
+          description: filter for subset of programmes matching supplied keyword/phrase
             (boolean operators permitted)
           schema:
             type: string
@@ -493,19 +467,18 @@ paths:
             items:
               type: string
               enum:
-                - 'true'
-                - 'false'
+                - "true"
+                - "false"
           required: false
         - name: version
           in: query
-          description: >-
-            filter for subset of programmes with given PID as one of their
+          description: filter for subset of programmes with given PID as one of their
             versions
           schema:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: embargoed
@@ -519,33 +492,31 @@ paths:
               - only
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /availabilities:
     get:
-      description: >-
-        Discover details of on-demand availability for programmes and their
+      description: Discover details of on-demand availability for programmes and their
         versions
       tags:
         - feeds
-      summary: >-
-        Discover details of on-demand availability for programmes and their
+      summary: Discover details of on-demand availability for programmes and their
         versions
       operationId: listAvailability
       parameters:
@@ -554,8 +525,7 @@ paths:
           description: >
             Sorts:
 
-            * scheduled_start: sort chronologically by scheduled start
-            time/date, ascending
+            * scheduled_start: sort chronologically by scheduled start time/date, ascending
           schema:
             type: string
             enum:
@@ -587,7 +557,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: media_set
@@ -633,28 +603,27 @@ paths:
             type: boolean
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /broadcasts:
     get:
-      description: >-
-        Fetch metadata about linear Broadcasts and Services, allowing the
+      description: Fetch metadata about linear Broadcasts and Services, allowing the
         generation of Television and Radio schedules and other datasets for
         broadcast items. Use /schedules instead of this feed as it is more
         efficient. Broadcasts will be deprecated in the future.
@@ -668,8 +637,7 @@ paths:
           description: >
             Sorts:
 
-            * start_date: sort chronologically by scheduled start time/date,
-            ascending
+            * start_date: sort chronologically by scheduled start time/date, ascending
           schema:
             type: string
             enum:
@@ -706,20 +674,18 @@ paths:
           required: false
         - name: descendants_of
           in: query
-          description: >-
-            filter for subset of broadcasts that are descendants of the given
+          description: filter for subset of broadcasts that are descendants of the given
             programme PID
           schema:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: end_from
           in: query
-          description: >-
-            filter for subset of broadcasts that end on or later than the
+          description: filter for subset of broadcasts that end on or later than the
             specified datetime
           schema:
             type: string
@@ -727,8 +693,7 @@ paths:
           required: false
         - name: end_to
           in: query
-          description: >-
-            filter for subset of broadcasts that end on or earlier than the
+          description: filter for subset of broadcasts that end on or earlier than the
             specified datetime
           schema:
             type: string
@@ -736,8 +701,7 @@ paths:
           required: false
         - name: format
           in: query
-          description: >-
-            filter for subset of broadcasts that are classified in the given
+          description: filter for subset of broadcasts that are classified in the given
             format ID
           schema:
             type: array
@@ -746,8 +710,7 @@ paths:
           required: false
         - name: genre
           in: query
-          description: >-
-            filter for subset of broadcasts that are classified in the given
+          description: filter for subset of broadcasts that are classified in the given
             genre ID
           schema:
             type: array
@@ -769,7 +732,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: page
@@ -801,39 +764,35 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of broadcasts matching supplied keyword/phrase
+          description: filter for subset of broadcasts matching supplied keyword/phrase
             (boolean operators permitted)
           schema:
             type: string
           required: false
         - name: schedule_day
           in: query
-          description: >-
-            filter for subset of broadcasts that start on the specified day (BBC
-            time)
+          description: filter for subset of broadcasts that start on the specified day
+            (BBC time)
           schema:
             type: string
             format: date
           required: false
         - name: schedule_day_from
           in: query
-          description: >-
-            filter for subset of broadcasts that start on or after the specified
-            day (BBC time)
+          description: filter for subset of broadcasts that start on or after the
+            specified day (BBC time)
           schema:
             type: string
             format: date
           required: false
         - name: schedule_day_to
           in: query
-          description: >-
-            filter for subset of broadcasts that start on or before the
+          description: filter for subset of broadcasts that start on or before the
             specified day (BBC time)
           schema:
             type: string
@@ -849,8 +808,7 @@ paths:
           required: false
         - name: sid
           in: query
-          description: >-
-            filter for subset of broadcasts that are on the specified linear
+          description: filter for subset of broadcasts that are on the specified linear
             service
           schema:
             type: array
@@ -859,8 +817,7 @@ paths:
           required: false
         - name: start_from
           in: query
-          description: >-
-            filter for subset of broadcasts that start on or later than the
+          description: filter for subset of broadcasts that start on or later than the
             specified datetime
           schema:
             type: string
@@ -868,8 +825,7 @@ paths:
           required: false
         - name: start_to
           in: query
-          description: >-
-            filter for subset of broadcasts that start on or earlier than the
+          description: filter for subset of broadcasts that start on or earlier than the
             specified datetime
           schema:
             type: string
@@ -877,45 +833,42 @@ paths:
           required: false
         - name: version
           in: query
-          description: >-
-            filter for subset of broadcasts with given PID as their parent
+          description: filter for subset of broadcasts with given PID as their parent
             version
           schema:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /groups:
     get:
-      description: >-
-        Long-lived curated collections of programmes and more, including
+      description: Long-lived curated collections of programmes and more, including
         Collections, Seasons, Franchises and Galleries
       tags:
         - feeds
-      summary: >-
-        Find metadata for curated groups: seasons, collections, galleries or
-        franchises
+      summary: "Find metadata for curated groups: seasons, collections, galleries or
+        franchises"
       operationId: listGroups
       parameters:
         - name: sort
@@ -943,8 +896,7 @@ paths:
 
             * alternate_images: mixin to return the alternate images for a group
 
-            * group_for: mixin to return links to programme entities that group
-            belongs to
+            * group_for: mixin to return links to programme entities that group belongs to
 
             * images: mixin to add image information for a group
 
@@ -965,7 +917,7 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: for_programme
           in: query
@@ -973,7 +925,7 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: group
           in: query
@@ -981,7 +933,7 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: group_type
           in: query
@@ -998,13 +950,12 @@ paths:
           required: false
         - name: member
           in: query
-          description: >-
-            filter for subset of groups which contain an entity with the given
+          description: filter for subset of groups which contain an entity with the given
             pid as a member
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: page
           in: query
@@ -1029,7 +980,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -1040,25 +991,23 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: pid
           in: query
-          description: >-
-            filter for subset of seasons, collections, galleries or franchises
+          description: filter for subset of seasons, collections, galleries or franchises
             having given PID
           schema:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of groups matching supplied keyword/phrase
+          description: filter for subset of groups matching supplied keyword/phrase
             (boolean operators permitted)
           schema:
             type: string
@@ -1074,27 +1023,27 @@ paths:
               - only
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /images:
     get:
-      description: 'Find metadata for images, particularly those in galleries'
+      description: Find metadata for images, particularly those in galleries
       tags:
         - feeds
       summary: Find metadata for images
@@ -1127,7 +1076,7 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: image_type
           in: query
@@ -1149,7 +1098,7 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: is_image_for
           in: query
@@ -1157,7 +1106,7 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: page
           in: query
@@ -1182,7 +1131,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -1193,7 +1142,7 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: pid
@@ -1203,13 +1152,12 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of images matching supplied keyword/phrase
+          description: filter for subset of images matching supplied keyword/phrase
             (boolean operators permitted)
           schema:
             type: string
@@ -1225,30 +1173,30 @@ paths:
               - only
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /items:
     get:
-      description: 'Look inside programmes to find segments: chapters, tracks and more'
+      description: "Look inside programmes to find segments: chapters, tracks and more"
       tags:
         - feeds
-      summary: 'Look inside programmes to find segments: chapters, tracks and more'
+      summary: "Look inside programmes to find segments: chapters, tracks and more"
       operationId: listItems
       parameters:
         - name: sort
@@ -1274,16 +1222,13 @@ paths:
           description: >
             Mixins:
 
-            * contributions: mixin to return information about contributors to
-            items
+            * contributions: mixin to return information about contributors to items
 
             * images: mixin to add image information for an item
 
-            * offset: mixin to return programme segment offsets, works in
-            conjunction with programme filter
+            * offset: mixin to return programme segment offsets, works in conjunction with programme filter
 
-            * play_event: mixin to return programme segment events, works in
-            conjunction with programme or segment_event filters
+            * play_event: mixin to return programme segment events, works in conjunction with programme or segment_event filters
           schema:
             type: array
             items:
@@ -1296,8 +1241,7 @@ paths:
           required: false
         - name: authority
           in: query
-          description: >-
-            filter for subset of items that have an ID issued by the given
+          description: filter for subset of items that have an ID issued by the given
             authority
           schema:
             type: string
@@ -1353,7 +1297,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -1364,7 +1308,7 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: people
@@ -1380,7 +1324,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: programme
@@ -1389,13 +1333,12 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of items matching supplied keyword/phrase (boolean
-            operators permitted)
+          description: filter for subset of items matching supplied keyword/phrase
+            (boolean operators permitted)
           schema:
             type: string
           required: false
@@ -1406,24 +1349,24 @@ paths:
             type: string
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /master_brands:
     get:
       description: List all Master Brands
@@ -1493,7 +1436,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -1504,52 +1447,49 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of masterbrands matching supplied keyword/phrase
+          description: filter for subset of masterbrands matching supplied keyword/phrase
             (boolean operators permitted)
           schema:
             type: string
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /people:
     get:
-      description: >-
-        The People feed allows you to search for the people and groups that
+      description: The People feed allows you to search for the people and groups that
         contribute to programmes. This is the starting point for cast and crew
         credits, as well as finding contributors using external IDs (such as
         Wikipedia URLs)
       tags:
         - feeds
-      summary: 'Find the people behind and in programmes: cast, crew, guests and more'
+      summary: "Find the people behind and in programmes: cast, crew, guests and more"
       operationId: listPeople
       parameters:
         - name: authority
           in: query
-          description: >-
-            filter for subset of people that have an ID issued by the given
+          description: filter for subset of people that have an ID issued by the given
             authority
           schema:
             type: string
@@ -1562,8 +1502,8 @@ paths:
             items:
               type: string
               enum:
-                - 'true'
-                - 'false'
+                - "true"
+                - "false"
           required: false
         - name: id
           in: query
@@ -1602,7 +1542,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -1613,7 +1553,7 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: pid
@@ -1623,44 +1563,42 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: programme
           in: query
-          description: >-
-            filter for subset of people that have contributed to the given
+          description: filter for subset of people that have contributed to the given
             programme pid
           schema:
             type: string
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of people matching supplied keyword/phrase
+          description: filter for subset of people matching supplied keyword/phrase
             (boolean operators permitted)
           schema:
             type: string
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /pips:
     get:
       description: Look inside pips entities
@@ -1687,31 +1625,30 @@ paths:
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of programmes matching supplied keyword/phrase
+          description: filter for subset of programmes matching supplied keyword/phrase
             (boolean operators permitted)
           schema:
             type: string
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /programme_details:
     get:
       description: Exposes programme information for a single pid
@@ -1742,7 +1679,7 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: pid
           in: query
@@ -1750,32 +1687,31 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /promotions:
     get:
-      description: >-
-        Details of short-term editorially curated "promotions", for instance
-        those programmes featured on iPlayer today
+      description: Details of short-term editorially curated "promotions", for
+        instance those programmes featured on iPlayer today
       tags:
         - feeds
       summary: Discover metadata for content promotions
@@ -1786,8 +1722,7 @@ paths:
           description: >
             Mixins:
 
-            * related_links: mixin to return information about related links to
-            a promotion
+            * related_links: mixin to return information about related links to a promotion
           schema:
             type: array
             items:
@@ -1801,7 +1736,7 @@ paths:
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: page
           in: query
@@ -1826,7 +1761,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -1837,7 +1772,7 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: pid
@@ -1847,7 +1782,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: promoted_by
@@ -1868,8 +1803,7 @@ paths:
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of promotions matching supplied keyword/phrase
+          description: filter for subset of promotions matching supplied keyword/phrase
             (boolean operators permitted)
           schema:
             type: string
@@ -1885,31 +1819,30 @@ paths:
                 - current
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /schedules:
     get:
-      description: 'Dates, Times, Schedules: when and where are programmes being shown?'
+      description: "Dates, Times, Schedules: when and where are programmes being shown?"
       tags:
         - feeds
-      summary: >-
-        Build schedules and find metadata for TV and radio broadcasts and
+      summary: Build schedules and find metadata for TV and radio broadcasts and
         webcasts
       operationId: listSchedules
       parameters:
@@ -1918,8 +1851,7 @@ paths:
           description: >
             Sorts:
 
-            * start_date: sort chronologically by scheduled start time/date,
-            ascending
+            * start_date: sort chronologically by scheduled start time/date, ascending
           schema:
             type: string
             enum:
@@ -1952,8 +1884,7 @@ paths:
           required: false
         - name: authority
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that have given
+          description: filter for subset of broadcasts and webcasts that have given
             authority
           schema:
             type: array
@@ -1962,20 +1893,18 @@ paths:
           required: false
         - name: descendants_of
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that are descendants of
-            the given programme PID
+          description: filter for subset of broadcasts and webcasts that are descendants
+            of the given programme PID
           schema:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: end_from
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that end on or later
+          description: filter for subset of broadcasts and webcasts that end on or later
             than the specified datetime
           schema:
             type: string
@@ -1983,8 +1912,7 @@ paths:
           required: false
         - name: end_to
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that end on or earlier
+          description: filter for subset of broadcasts and webcasts that end on or earlier
             than the specified datetime
           schema:
             type: string
@@ -1992,8 +1920,7 @@ paths:
           required: false
         - name: format
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that are classified in
+          description: filter for subset of broadcasts and webcasts that are classified in
             the given format ID
           schema:
             type: array
@@ -2002,8 +1929,7 @@ paths:
           required: false
         - name: genre
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that are classified in
+          description: filter for subset of broadcasts and webcasts that are classified in
             the given genre ID
           schema:
             type: array
@@ -2012,18 +1938,16 @@ paths:
           required: false
         - name: group
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that have programmes in
-            the given group
+          description: filter for subset of broadcasts and webcasts that have programmes
+            in the given group
           schema:
             type: string
             minLength: 8
-            pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+            pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
           required: false
         - name: id
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that have given
+          description: filter for subset of broadcasts and webcasts that have given
             identifier
           schema:
             type: array
@@ -2040,14 +1964,13 @@ paths:
           required: false
         - name: item
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts with the given item
+          description: filter for subset of broadcasts and webcasts with the given item
             performed on it
           schema:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: page
@@ -2073,7 +1996,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -2084,13 +2007,12 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: people
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that have given
+          description: filter for subset of broadcasts and webcasts that have given
             contributor
           schema:
             type: string
@@ -2102,13 +2024,12 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts matching supplied
+          description: filter for subset of broadcasts and webcasts matching supplied
             keyword/phrase (boolean operators permitted)
           schema:
             type: string
@@ -2121,8 +2042,7 @@ paths:
           required: false
         - name: schedule_day
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that start on the
+          description: filter for subset of broadcasts and webcasts that start on the
             specified day (BBC time)
           schema:
             type: string
@@ -2130,8 +2050,7 @@ paths:
           required: false
         - name: schedule_day_from
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that start on or after
+          description: filter for subset of broadcasts and webcasts that start on or after
             the specified day (BBC time)
           schema:
             type: string
@@ -2139,17 +2058,15 @@ paths:
           required: false
         - name: schedule_day_to
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that start on or before
-            the specified day (BBC time)
+          description: filter for subset of broadcasts and webcasts that start on or
+            before the specified day (BBC time)
           schema:
             type: string
             format: date
           required: false
         - name: service_master_brand
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts with given service
+          description: filter for subset of broadcasts and webcasts with given service
             master brand
           schema:
             type: array
@@ -2158,8 +2075,7 @@ paths:
           required: false
         - name: sid
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that are on the
+          description: filter for subset of broadcasts and webcasts that are on the
             specified linear service
           schema:
             type: array
@@ -2168,8 +2084,7 @@ paths:
           required: false
         - name: start_from
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that start on or later
+          description: filter for subset of broadcasts and webcasts that start on or later
             than the specified datetime
           schema:
             type: string
@@ -2177,8 +2092,7 @@ paths:
           required: false
         - name: start_to
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts that start on or
+          description: filter for subset of broadcasts and webcasts that start on or
             earlier than the specified datetime
           schema:
             type: string
@@ -2186,40 +2100,38 @@ paths:
           required: false
         - name: version
           in: query
-          description: >-
-            filter for subset of broadcasts and webcasts with given PID as their
-            parent version
+          description: filter for subset of broadcasts and webcasts with given PID as
+            their parent version
           schema:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /services:
     get:
-      description: >-
-        The services feed exposes the linear broadcast "services" from PIPs.
-        These are the actual services which broadcast programmes (eg
+      description: The services feed exposes the linear broadcast "services" from
+        PIPs. These are the actual services which broadcast programmes (eg
         bbc_one_oxford is the service for BBC One in Oxford).
       tags:
         - feeds
@@ -2235,8 +2147,7 @@ paths:
           required: false
         - name: end_to
           in: query
-          description: >-
-            filter for subset of broadcasts that end on or earlier than the
+          description: filter for subset of broadcasts that end on or earlier than the
             specified datetime
           schema:
             type: string
@@ -2273,7 +2184,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -2284,13 +2195,12 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: q
           in: query
-          description: >-
-            filter for subset of services matching supplied keyword/phrase
+          description: filter for subset of services matching supplied keyword/phrase
             (boolean operators permitted)
           schema:
             type: string
@@ -2337,39 +2247,37 @@ paths:
             format: date-time
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /versions:
     get:
-      description: >-
-        The versions feed exposes editorial "Versions" of programmes. These are
-        concepts used to capture different presentations of an overall
+      description: 'The versions feed exposes editorial "Versions" of programmes.
+        These are concepts used to capture different presentations of an overall
         programme: for example, versions of a programme may include one with
         sign language, one with audio description, one edited for content and
         more. Versions are also important to understand for broadcasts: a linear
         broadcast or an ondemand is always of a specific version, not merely of
-        a programme.
+        a programme.'
       tags:
         - feeds
-      summary: >-
-        Metadata on editorial programme versions: original, signed,
-        audio-described, etc
+      summary: "Metadata on editorial programme versions: original, signed,
+        audio-described, etc"
       operationId: listVersions
       parameters:
         - name: availability
@@ -2389,13 +2297,12 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: media_set
           in: query
-          description: >-
-            filter for subset of versions with availability in the given media
+          description: filter for subset of versions with availability in the given media
             set
           schema:
             type: array
@@ -2425,7 +2332,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: partner_pid
@@ -2436,7 +2343,7 @@ paths:
             items:
               type: string
               default: s0000001
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: payment_type
@@ -2458,7 +2365,7 @@ paths:
             type: array
             items:
               type: string
-              pattern: '^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$'
+              pattern: ^([0-9,a-d,f-h,j-n,p-t,v-z]){8,}$
               minLength: 8
           required: false
         - name: embargoed
@@ -2472,24 +2379,24 @@ paths:
               - only
           required: false
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /:
     get:
       description: Get API definition
@@ -2499,17 +2406,17 @@ paths:
       operationId: getAPI
       parameters: []
       responses:
-        '200':
+        "200":
           description: Metadata response
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
   /schema:
     get:
       description: Get Schema definition
@@ -2519,18 +2426,18 @@ paths:
       operationId: getXSD
       parameters: []
       responses:
-        '200':
+        "200":
           description: Metadata response
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
+                $ref: "#/components/schemas/ErrorModel"
             application/xml:
               schema:
-                $ref: '#/components/schemas/ErrorModel'
-  '/v1/brands/{pid}':
+                $ref: "#/components/schemas/ErrorModel"
+  "/v1/brands/{pid}":
     get:
       tags:
         - Raw
@@ -2544,16 +2451,16 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
-  '/v1/brands/{pid}/franchises/':
+                $ref: "#/components/schemas/nitro"
+  "/v1/brands/{pid}/franchises/":
     get:
       tags:
         - Raw
@@ -2567,16 +2474,16 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
-  '/v1/episodes/{pid}':
+                $ref: "#/components/schemas/nitro"
+  "/v1/episodes/{pid}":
     get:
       tags:
         - Raw
@@ -2590,16 +2497,16 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
-  '/v1/episodes/{pid}/ancestors/':
+                $ref: "#/components/schemas/nitro"
+  "/v1/episodes/{pid}/ancestors/":
     get:
       tags:
         - Raw
@@ -2613,16 +2520,16 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
-  '/v1/episodes/{pid}/formats/':
+                $ref: "#/components/schemas/nitro"
+  "/v1/episodes/{pid}/formats/":
     get:
       tags:
         - Raw
@@ -2636,16 +2543,16 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
-  '/v1/episodes/{pid}/genre_groups/':
+                $ref: "#/components/schemas/nitro"
+  "/v1/episodes/{pid}/genre_groups/":
     get:
       tags:
         - Raw
@@ -2659,16 +2566,16 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
-  '/v1/images/{pid}':
+                $ref: "#/components/schemas/nitro"
+  "/v1/images/{pid}":
     get:
       tags:
         - Raw
@@ -2682,16 +2589,16 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
-  '/v1/master_brands/{mbid}':
+                $ref: "#/components/schemas/nitro"
+  "/v1/master_brands/{mbid}":
     get:
       tags:
         - Raw
@@ -2705,16 +2612,16 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
-  '/v1/promotions/{pid}':
+                $ref: "#/components/schemas/nitro"
+  "/v1/promotions/{pid}":
     get:
       tags:
         - Raw
@@ -2728,19 +2635,19 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: Nitro response
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
             application/xml:
               schema:
-                $ref: '#/components/schemas/nitro'
+                $ref: "#/components/schemas/nitro"
 security:
   - api_key: []
 servers:
-  - url: 'https://programmes.api.bbc.com'
+  - url: https://programmes.api.bbc.com
 components:
   securitySchemes:
     api_key:
@@ -2752,9 +2659,9 @@ components:
       type: object
       properties:
         previous:
-          $ref: '#/components/schemas/previous'
+          $ref: "#/components/schemas/previous"
         next:
-          $ref: '#/components/schemas/next'
+          $ref: "#/components/schemas/next"
       additionalProperties: false
     next:
       type: object
@@ -2776,47 +2683,47 @@ components:
       type: object
       properties:
         brand:
-          $ref: '#/components/schemas/brand'
+          $ref: "#/components/schemas/brand"
         series:
-          $ref: '#/components/schemas/series'
+          $ref: "#/components/schemas/series"
         episode:
-          $ref: '#/components/schemas/episode'
+          $ref: "#/components/schemas/episode"
         clip:
-          $ref: '#/components/schemas/clip'
+          $ref: "#/components/schemas/clip"
         broadcast:
-          $ref: '#/components/schemas/broadcast'
+          $ref: "#/components/schemas/broadcast"
         service:
-          $ref: '#/components/schemas/service'
+          $ref: "#/components/schemas/service"
         music:
-          $ref: '#/components/schemas/music'
+          $ref: "#/components/schemas/music"
         chapter:
-          $ref: '#/components/schemas/chapter'
+          $ref: "#/components/schemas/chapter"
         speech:
-          $ref: '#/components/schemas/speech'
+          $ref: "#/components/schemas/speech"
         highlight:
-          $ref: '#/components/schemas/highlight'
+          $ref: "#/components/schemas/highlight"
         other:
-          $ref: '#/components/schemas/other'
+          $ref: "#/components/schemas/other"
         contributor:
-          $ref: '#/components/schemas/contributor'
+          $ref: "#/components/schemas/contributor"
         availability:
-          $ref: '#/components/schemas/availability'
+          $ref: "#/components/schemas/availability"
         window:
-          $ref: '#/components/schemas/window'
+          $ref: "#/components/schemas/window"
         franchise:
-          $ref: '#/components/schemas/franchise'
+          $ref: "#/components/schemas/franchise"
         season:
-          $ref: '#/components/schemas/season'
+          $ref: "#/components/schemas/season"
         collection:
-          $ref: '#/components/schemas/collection'
+          $ref: "#/components/schemas/collection"
         gallery:
-          $ref: '#/components/schemas/gallery'
+          $ref: "#/components/schemas/gallery"
         promotion:
-          $ref: '#/components/schemas/promotion'
+          $ref: "#/components/schemas/promotion"
         master_brand:
-          $ref: '#/components/schemas/master_brand'
+          $ref: "#/components/schemas/master_brand"
         image:
-          $ref: '#/components/schemas/image'
+          $ref: "#/components/schemas/image"
         more_than:
           type: integer
         total:
@@ -2826,7 +2733,7 @@ components:
         page_size:
           type: integer
         version_group:
-          $ref: '#/components/schemas/version_group'
+          $ref: "#/components/schemas/version_group"
       required:
         - page
         - page_size
@@ -2835,39 +2742,39 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         start_time:
-          $ref: '#/components/schemas/start_time'
+          $ref: "#/components/schemas/start_time"
         end_time:
-          $ref: '#/components/schemas/end_time'
+          $ref: "#/components/schemas/end_time"
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         uri:
-          $ref: '#/components/schemas/uri'
+          $ref: "#/components/schemas/uri"
         priority:
-          $ref: '#/components/schemas/priority'
+          $ref: "#/components/schemas/priority"
         promoted_by:
-          $ref: '#/components/schemas/promoted_by'
+          $ref: "#/components/schemas/promoted_by"
         promoted_for:
-          $ref: '#/components/schemas/promoted_for'
+          $ref: "#/components/schemas/promoted_for"
         context:
-          $ref: '#/components/schemas/context'
+          $ref: "#/components/schemas/context"
         status:
-          $ref: '#/components/schemas/status'
+          $ref: "#/components/schemas/status"
         url:
-          $ref: '#/components/schemas/url'
+          $ref: "#/components/schemas/url"
         promotion_of:
-          $ref: '#/components/schemas/promotion_of'
+          $ref: "#/components/schemas/promotion_of"
         related_links:
-          $ref: '#/components/schemas/related_links'
+          $ref: "#/components/schemas/related_links"
       required:
         - pid
         - partner
@@ -2877,53 +2784,53 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         embargoed:
-          $ref: '#/components/schemas/embargoed'
+          $ref: "#/components/schemas/embargoed"
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         uri:
-          $ref: '#/components/schemas/uri'
+          $ref: "#/components/schemas/uri"
         franchises:
-          $ref: '#/components/schemas/franchises'
+          $ref: "#/components/schemas/franchises"
         items_for:
-          $ref: '#/components/schemas/items_for'
+          $ref: "#/components/schemas/items_for"
         expected_child_count:
-          $ref: '#/components/schemas/expected_child_count'
+          $ref: "#/components/schemas/expected_child_count"
         programme_formats:
-          $ref: '#/components/schemas/programme_formats'
+          $ref: "#/components/schemas/programme_formats"
         is_embeddable:
-          $ref: '#/components/schemas/is_embeddable'
+          $ref: "#/components/schemas/is_embeddable"
         related_links:
-          $ref: '#/components/schemas/related_links'
+          $ref: "#/components/schemas/related_links"
         genre_groupings:
-          $ref: '#/components/schemas/genre_groupings'
+          $ref: "#/components/schemas/genre_groupings"
         programme_type:
-          $ref: '#/components/schemas/programme_type'
+          $ref: "#/components/schemas/programme_type"
         image_link:
-          $ref: '#/components/schemas/image_link'
+          $ref: "#/components/schemas/image_link"
         release_date_group:
-          $ref: '#/components/schemas/release_date_group'
+          $ref: "#/components/schemas/release_date_group"
         master_brand_link:
-          $ref: '#/components/schemas/master_brand_link'
+          $ref: "#/components/schemas/master_brand_link"
         images_mixin:
-          $ref: '#/components/schemas/images_mixin'
+          $ref: "#/components/schemas/images_mixin"
         alternate_images_mixin:
-          $ref: '#/components/schemas/alternate_images_mixin'
+          $ref: "#/components/schemas/alternate_images_mixin"
         contributions_mixin:
-          $ref: '#/components/schemas/contributions_mixin'
+          $ref: "#/components/schemas/contributions_mixin"
         previous_next_mixin:
-          $ref: '#/components/schemas/previous_next_mixin'
+          $ref: "#/components/schemas/previous_next_mixin"
         availability_mixin:
-          $ref: '#/components/schemas/availability_mixin'
+          $ref: "#/components/schemas/availability_mixin"
       required:
         - pid
         - partner
@@ -2934,59 +2841,59 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         embargoed:
-          $ref: '#/components/schemas/embargoed'
+          $ref: "#/components/schemas/embargoed"
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         uri:
-          $ref: '#/components/schemas/uri'
+          $ref: "#/components/schemas/uri"
         series_of:
-          $ref: '#/components/schemas/series_of'
+          $ref: "#/components/schemas/series_of"
         ancestors:
-          $ref: '#/components/schemas/ancestors'
+          $ref: "#/components/schemas/ancestors"
         items_for:
-          $ref: '#/components/schemas/items_for'
+          $ref: "#/components/schemas/items_for"
         expected_child_count:
-          $ref: '#/components/schemas/expected_child_count'
+          $ref: "#/components/schemas/expected_child_count"
         programme_formats:
-          $ref: '#/components/schemas/programme_formats'
+          $ref: "#/components/schemas/programme_formats"
         is_embeddable:
-          $ref: '#/components/schemas/is_embeddable'
+          $ref: "#/components/schemas/is_embeddable"
         ancestors_titles:
-          $ref: '#/components/schemas/ancestors_titles'
+          $ref: "#/components/schemas/ancestors_titles"
         ancestor_titles:
-          $ref: '#/components/schemas/ancestor_titles'
+          $ref: "#/components/schemas/ancestor_titles"
         related_links:
-          $ref: '#/components/schemas/related_links'
+          $ref: "#/components/schemas/related_links"
         genre_groupings:
-          $ref: '#/components/schemas/genre_groupings'
+          $ref: "#/components/schemas/genre_groupings"
         programme_type:
-          $ref: '#/components/schemas/programme_type'
+          $ref: "#/components/schemas/programme_type"
         image_link:
-          $ref: '#/components/schemas/image_link'
+          $ref: "#/components/schemas/image_link"
         release_date_group:
-          $ref: '#/components/schemas/release_date_group'
+          $ref: "#/components/schemas/release_date_group"
         master_brand_link:
-          $ref: '#/components/schemas/master_brand_link'
+          $ref: "#/components/schemas/master_brand_link"
         images_mixin:
-          $ref: '#/components/schemas/images_mixin'
+          $ref: "#/components/schemas/images_mixin"
         alternate_images_mixin:
-          $ref: '#/components/schemas/alternate_images_mixin'
+          $ref: "#/components/schemas/alternate_images_mixin"
         contributions_mixin:
-          $ref: '#/components/schemas/contributions_mixin'
+          $ref: "#/components/schemas/contributions_mixin"
         previous_next_mixin:
-          $ref: '#/components/schemas/previous_next_mixin'
+          $ref: "#/components/schemas/previous_next_mixin"
         availability_mixin:
-          $ref: '#/components/schemas/availability_mixin'
+          $ref: "#/components/schemas/availability_mixin"
       required:
         - pid
         - partner
@@ -2997,73 +2904,73 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         embargoed:
-          $ref: '#/components/schemas/embargoed'
+          $ref: "#/components/schemas/embargoed"
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         uri:
-          $ref: '#/components/schemas/uri'
+          $ref: "#/components/schemas/uri"
         advertising_allowed:
-          $ref: '#/components/schemas/advertising_allowed'
+          $ref: "#/components/schemas/advertising_allowed"
         presentation_title:
-          $ref: '#/components/schemas/presentation_title'
+          $ref: "#/components/schemas/presentation_title"
         media_type:
-          $ref: '#/components/schemas/media_type'
+          $ref: "#/components/schemas/media_type"
         is_stacked:
-          $ref: '#/components/schemas/is_stacked'
+          $ref: "#/components/schemas/is_stacked"
         has_guidance:
-          $ref: '#/components/schemas/has_guidance'
+          $ref: "#/components/schemas/has_guidance"
         episode_of:
-          $ref: '#/components/schemas/episode_of'
+          $ref: "#/components/schemas/episode_of"
         genre_groups:
-          $ref: '#/components/schemas/genre_groups'
+          $ref: "#/components/schemas/genre_groups"
         ancestors:
-          $ref: '#/components/schemas/ancestors'
+          $ref: "#/components/schemas/ancestors"
         items_for:
-          $ref: '#/components/schemas/items_for'
+          $ref: "#/components/schemas/items_for"
         programme_formats:
-          $ref: '#/components/schemas/programme_formats'
+          $ref: "#/components/schemas/programme_formats"
         is_embeddable:
-          $ref: '#/components/schemas/is_embeddable'
+          $ref: "#/components/schemas/is_embeddable"
         ancestors_titles:
-          $ref: '#/components/schemas/ancestors_titles'
+          $ref: "#/components/schemas/ancestors_titles"
         ancestor_titles:
-          $ref: '#/components/schemas/ancestor_titles'
+          $ref: "#/components/schemas/ancestor_titles"
         related_links:
-          $ref: '#/components/schemas/related_links'
+          $ref: "#/components/schemas/related_links"
         genre_groupings:
-          $ref: '#/components/schemas/genre_groupings'
+          $ref: "#/components/schemas/genre_groupings"
         programme_type:
-          $ref: '#/components/schemas/programme_type'
+          $ref: "#/components/schemas/programme_type"
         image_link:
-          $ref: '#/components/schemas/image_link'
+          $ref: "#/components/schemas/image_link"
         release_date_group:
-          $ref: '#/components/schemas/release_date_group'
+          $ref: "#/components/schemas/release_date_group"
         master_brand_link:
-          $ref: '#/components/schemas/master_brand_link'
+          $ref: "#/components/schemas/master_brand_link"
         images_mixin:
-          $ref: '#/components/schemas/images_mixin'
+          $ref: "#/components/schemas/images_mixin"
         alternate_images_mixin:
-          $ref: '#/components/schemas/alternate_images_mixin'
+          $ref: "#/components/schemas/alternate_images_mixin"
         original_version_duration:
-          $ref: '#/components/schemas/original_version_duration'
+          $ref: "#/components/schemas/original_version_duration"
         contributions_mixin:
-          $ref: '#/components/schemas/contributions_mixin'
+          $ref: "#/components/schemas/contributions_mixin"
         previous_next_mixin:
-          $ref: '#/components/schemas/previous_next_mixin'
+          $ref: "#/components/schemas/previous_next_mixin"
         availability_mixin:
-          $ref: '#/components/schemas/availability_mixin'
+          $ref: "#/components/schemas/availability_mixin"
         versions_mixin:
-          $ref: '#/components/schemas/versions_mixin'
+          $ref: "#/components/schemas/versions_mixin"
       required:
         - pid
         - partner
@@ -3075,67 +2982,67 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         embargoed:
-          $ref: '#/components/schemas/embargoed'
+          $ref: "#/components/schemas/embargoed"
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         uri:
-          $ref: '#/components/schemas/uri'
+          $ref: "#/components/schemas/uri"
         caption:
-          $ref: '#/components/schemas/caption'
+          $ref: "#/components/schemas/caption"
         advertising_allowed:
-          $ref: '#/components/schemas/advertising_allowed'
+          $ref: "#/components/schemas/advertising_allowed"
         media_type:
-          $ref: '#/components/schemas/media_type'
+          $ref: "#/components/schemas/media_type"
         clip_of:
-          $ref: '#/components/schemas/clip_of'
+          $ref: "#/components/schemas/clip_of"
         genre_groups:
-          $ref: '#/components/schemas/genre_groups'
+          $ref: "#/components/schemas/genre_groups"
         ancestors:
-          $ref: '#/components/schemas/ancestors'
+          $ref: "#/components/schemas/ancestors"
         items_for:
-          $ref: '#/components/schemas/items_for'
+          $ref: "#/components/schemas/items_for"
         programme_formats:
-          $ref: '#/components/schemas/programme_formats'
+          $ref: "#/components/schemas/programme_formats"
         is_embeddable:
-          $ref: '#/components/schemas/is_embeddable'
+          $ref: "#/components/schemas/is_embeddable"
         ancestors_titles:
-          $ref: '#/components/schemas/ancestors_titles'
+          $ref: "#/components/schemas/ancestors_titles"
         ancestor_titles:
-          $ref: '#/components/schemas/ancestor_titles'
+          $ref: "#/components/schemas/ancestor_titles"
         related_links:
-          $ref: '#/components/schemas/related_links'
+          $ref: "#/components/schemas/related_links"
         genre_groupings:
-          $ref: '#/components/schemas/genre_groupings'
+          $ref: "#/components/schemas/genre_groupings"
         image_link:
-          $ref: '#/components/schemas/image_link'
+          $ref: "#/components/schemas/image_link"
         release_date_group:
-          $ref: '#/components/schemas/release_date_group'
+          $ref: "#/components/schemas/release_date_group"
         master_brand_link:
-          $ref: '#/components/schemas/master_brand_link'
+          $ref: "#/components/schemas/master_brand_link"
         images_mixin:
-          $ref: '#/components/schemas/images_mixin'
+          $ref: "#/components/schemas/images_mixin"
         alternate_images_mixin:
-          $ref: '#/components/schemas/alternate_images_mixin'
+          $ref: "#/components/schemas/alternate_images_mixin"
         original_version_duration:
-          $ref: '#/components/schemas/original_version_duration'
+          $ref: "#/components/schemas/original_version_duration"
         contributions_mixin:
-          $ref: '#/components/schemas/contributions_mixin'
+          $ref: "#/components/schemas/contributions_mixin"
         previous_next_mixin:
-          $ref: '#/components/schemas/previous_next_mixin'
+          $ref: "#/components/schemas/previous_next_mixin"
         availability_mixin:
-          $ref: '#/components/schemas/availability_mixin'
+          $ref: "#/components/schemas/availability_mixin"
         versions_mixin:
-          $ref: '#/components/schemas/versions_mixin'
+          $ref: "#/components/schemas/versions_mixin"
       required:
         - pid
         - partner
@@ -3147,43 +3054,43 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         service:
-          $ref: '#/components/schemas/serviceReference'
+          $ref: "#/components/schemas/serviceReference"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         published_time:
-          $ref: '#/components/schemas/published_time'
+          $ref: "#/components/schemas/published_time"
         tx_time:
-          $ref: '#/components/schemas/tx_time'
+          $ref: "#/components/schemas/tx_time"
         ids:
-          $ref: '#/components/schemas/ids'
+          $ref: "#/components/schemas/ids"
         is_blanked:
-          $ref: '#/components/schemas/is_blanked'
+          $ref: "#/components/schemas/is_blanked"
         is_repeat:
-          $ref: '#/components/schemas/is_repeat'
+          $ref: "#/components/schemas/is_repeat"
         is_audio_described:
-          $ref: '#/components/schemas/is_audio_described'
+          $ref: "#/components/schemas/is_audio_described"
         is_critical:
-          $ref: '#/components/schemas/is_critical'
+          $ref: "#/components/schemas/is_critical"
         is_simulcast:
-          $ref: '#/components/schemas/is_simulcast'
+          $ref: "#/components/schemas/is_simulcast"
         broadcast_of:
           type: array
           items:
-            $ref: '#/components/schemas/broadcast_of'
+            $ref: "#/components/schemas/broadcast_of"
         ancestors_titles:
-          $ref: '#/components/schemas/ancestors_titles'
+          $ref: "#/components/schemas/ancestors_titles"
         ancestor_titles:
-          $ref: '#/components/schemas/ancestor_titles'
+          $ref: "#/components/schemas/ancestor_titles"
         image_link:
-          $ref: '#/components/schemas/image_link'
+          $ref: "#/components/schemas/image_link"
         images_mixin:
-          $ref: '#/components/schemas/images_mixin'
+          $ref: "#/components/schemas/images_mixin"
       required:
         - pid
         - partner
@@ -3192,37 +3099,37 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         service:
-          $ref: '#/components/schemas/serviceReference'
+          $ref: "#/components/schemas/serviceReference"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         scheduled_time:
-          $ref: '#/components/schemas/scheduled_time'
+          $ref: "#/components/schemas/scheduled_time"
         accurate_programme_time:
-          $ref: '#/components/schemas/accurate_programme_time'
+          $ref: "#/components/schemas/accurate_programme_time"
         media_availability_time:
-          $ref: '#/components/schemas/media_availability_time'
+          $ref: "#/components/schemas/media_availability_time"
         ids:
-          $ref: '#/components/schemas/ids'
+          $ref: "#/components/schemas/ids"
         window_of:
           type: array
           items:
-            $ref: '#/components/schemas/window_of'
+            $ref: "#/components/schemas/window_of"
         scheduled_publication_rights:
-          $ref: '#/components/schemas/scheduled_publication_rights'
+          $ref: "#/components/schemas/scheduled_publication_rights"
         ancestors_titles:
-          $ref: '#/components/schemas/ancestors_titles'
+          $ref: "#/components/schemas/ancestors_titles"
         ancestor_titles:
-          $ref: '#/components/schemas/ancestor_titles'
+          $ref: "#/components/schemas/ancestor_titles"
         image_link:
-          $ref: '#/components/schemas/image_link'
+          $ref: "#/components/schemas/image_link"
         images_mixin:
-          $ref: '#/components/schemas/images_mixin'
+          $ref: "#/components/schemas/images_mixin"
       required:
         - pid
         - partner
@@ -3231,35 +3138,35 @@ components:
       type: object
       properties:
         sid:
-          $ref: '#/components/schemas/sid'
+          $ref: "#/components/schemas/sid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         ids:
-          $ref: '#/components/schemas/ids'
+          $ref: "#/components/schemas/ids"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         name:
-          $ref: '#/components/schemas/name'
+          $ref: "#/components/schemas/name"
         description:
-          $ref: '#/components/schemas/description'
+          $ref: "#/components/schemas/description"
         region:
-          $ref: '#/components/schemas/region'
+          $ref: "#/components/schemas/region"
         type:
-          $ref: '#/components/schemas/type'
+          $ref: "#/components/schemas/type"
         media_type:
-          $ref: '#/components/schemas/media_type'
+          $ref: "#/components/schemas/media_type"
         is_concrete:
-          $ref: '#/components/schemas/is_concrete'
+          $ref: "#/components/schemas/is_concrete"
         is_streamable:
-          $ref: '#/components/schemas/is_streamable'
+          $ref: "#/components/schemas/is_streamable"
         is_downloadable:
-          $ref: '#/components/schemas/is_downloadable'
+          $ref: "#/components/schemas/is_downloadable"
         date_range:
-          $ref: '#/components/schemas/date_range'
+          $ref: "#/components/schemas/date_range"
         master_brand_link:
-          $ref: '#/components/schemas/master_brand_link'
+          $ref: "#/components/schemas/master_brand_link"
       required:
         - sid
         - partner
@@ -3270,7 +3177,7 @@ components:
         offset_in:
           type: array
           items:
-            $ref: '#/components/schemas/offset_in'
+            $ref: "#/components/schemas/offset_in"
       additionalProperties: false
     play_events:
       type: object
@@ -3278,15 +3185,15 @@ components:
         play_event:
           type: array
           items:
-            $ref: '#/components/schemas/play_event'
+            $ref: "#/components/schemas/play_event"
       additionalProperties: false
     offset_in:
       type: object
       properties:
         programme:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         version:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         position:
           type: number
         offset:
@@ -3304,9 +3211,9 @@ components:
         title:
           type: string
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         offset:
           type: integer
         position:
@@ -3314,7 +3221,7 @@ components:
         played_in_links:
           type: array
           items:
-            $ref: '#/components/schemas/played_in_links'
+            $ref: "#/components/schemas/played_in_links"
       required:
         - pid
       additionalProperties: false
@@ -3322,7 +3229,7 @@ components:
       type: object
       properties:
         version_availability_mixin:
-          $ref: '#/components/schemas/version_availability_mixin'
+          $ref: "#/components/schemas/version_availability_mixin"
         available:
           type: integer
       required:
@@ -3333,7 +3240,7 @@ components:
       type: object
       properties:
         available_versions_element:
-          $ref: '#/components/schemas/available_versions_element'
+          $ref: "#/components/schemas/available_versions_element"
         available:
           type: integer
       required:
@@ -3344,7 +3251,7 @@ components:
       type: object
       properties:
         available_versions_element:
-          $ref: '#/components/schemas/available_versions_element'
+          $ref: "#/components/schemas/available_versions_element"
         available:
           type: integer
       required:
@@ -3355,7 +3262,7 @@ components:
       type: object
       properties:
         available_versions_element:
-          $ref: '#/components/schemas/available_versions_element'
+          $ref: "#/components/schemas/available_versions_element"
         available:
           type: integer
       required:
@@ -3370,7 +3277,7 @@ components:
           items:
             type: object
             properties:
-              '#text':
+              "#text":
                 type: string
               length:
                 type: string
@@ -3379,7 +3286,7 @@ components:
                 items:
                   type: object
                   properties:
-                    '#text':
+                    "#text":
                       type: string
                     length:
                       type: string
@@ -3394,7 +3301,7 @@ components:
           items:
             type: object
             properties:
-              '#text':
+              "#text":
                 type: string
               short_description:
                 type: string
@@ -3405,7 +3312,7 @@ components:
                 items:
                   type: object
                   properties:
-                    '#text':
+                    "#text":
                       type: string
                     short_description:
                       type: string
@@ -3418,25 +3325,25 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         ids:
-          $ref: '#/components/schemas/ids'
+          $ref: "#/components/schemas/ids"
         type:
-          $ref: '#/components/schemas/type'
+          $ref: "#/components/schemas/type"
         disambiguation:
-          $ref: '#/components/schemas/disambiguation'
+          $ref: "#/components/schemas/disambiguation"
         contributor_to:
           type: array
           items:
-            $ref: '#/components/schemas/contributor_to'
+            $ref: "#/components/schemas/contributor_to"
         href:
           type: string
         contributor_name:
-          $ref: '#/components/schemas/contributor_name'
+          $ref: "#/components/schemas/contributor_name"
       required:
         - pid
         - partner
@@ -3445,29 +3352,29 @@ components:
       type: object
       properties:
         status:
-          $ref: '#/components/schemas/status'
+          $ref: "#/components/schemas/status"
         revocation_status:
-          $ref: '#/components/schemas/revocation_status'
+          $ref: "#/components/schemas/revocation_status"
         availability_type:
-          $ref: '#/components/schemas/availability_type'
+          $ref: "#/components/schemas/availability_type"
         scheduled_time:
-          $ref: '#/components/schemas/scheduled_time'
+          $ref: "#/components/schemas/scheduled_time"
         media_availability_time:
-          $ref: '#/components/schemas/media_availability_time'
+          $ref: "#/components/schemas/media_availability_time"
         accurate_programme_time:
-          $ref: '#/components/schemas/accurate_programme_time'
+          $ref: "#/components/schemas/accurate_programme_time"
         actual_start:
-          $ref: '#/components/schemas/actual_start'
+          $ref: "#/components/schemas/actual_start"
         media_set:
           type: array
           items:
-            $ref: '#/components/schemas/media_set'
+            $ref: "#/components/schemas/media_set"
         availability_of:
           type: array
           items:
-            $ref: '#/components/schemas/availability_of'
+            $ref: "#/components/schemas/availability_of"
         availability-debug:
-          $ref: '#/components/schemas/availability-debug'
+          $ref: "#/components/schemas/availability-debug"
       required:
         - status
         - availability_type
@@ -3476,31 +3383,31 @@ components:
       type: object
       properties:
         mid:
-          $ref: '#/components/schemas/mid'
+          $ref: "#/components/schemas/mid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         name:
-          $ref: '#/components/schemas/name'
+          $ref: "#/components/schemas/name"
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         synopses:
           type: object
           properties:
             short:
-              $ref: '#/components/schemas/short'
+              $ref: "#/components/schemas/short"
             medium:
-              $ref: '#/components/schemas/medium'
+              $ref: "#/components/schemas/medium"
             long:
-              $ref: '#/components/schemas/long'
+              $ref: "#/components/schemas/long"
           additionalProperties: false
         url_key:
           type: string
         colour:
           type: string
         position:
-          $ref: '#/components/schemas/position'
+          $ref: "#/components/schemas/position"
         ident:
           type: string
         master_brand_date_range:
@@ -3519,15 +3426,15 @@ components:
             href:
               type: string
             pid:
-              $ref: '#/components/schemas/pid'
+              $ref: "#/components/schemas/pid"
           required:
             - href
             - pid
           additionalProperties: false
         image_link:
-          $ref: '#/components/schemas/image_link'
+          $ref: "#/components/schemas/image_link"
         images_mixin:
-          $ref: '#/components/schemas/images_mixin'
+          $ref: "#/components/schemas/images_mixin"
       required:
         - mid
         - partner
@@ -3538,23 +3445,23 @@ components:
         related_link:
           type: array
           items:
-            $ref: '#/components/schemas/related_link'
+            $ref: "#/components/schemas/related_link"
       additionalProperties: false
     related_link:
       type: object
       properties:
         type:
-          $ref: '#/components/schemas/type'
+          $ref: "#/components/schemas/type"
         uri:
-          $ref: '#/components/schemas/uri'
+          $ref: "#/components/schemas/uri"
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         position:
-          $ref: '#/components/schemas/position'
+          $ref: "#/components/schemas/position"
         is_external:
-          $ref: '#/components/schemas/is_external'
+          $ref: "#/components/schemas/is_external"
         availability:
           type: object
           properties:
@@ -3566,7 +3473,7 @@ components:
               format: date-time
           additionalProperties: false
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
       required:
         - pid
       additionalProperties: false
@@ -3578,7 +3485,7 @@ components:
         for_programme:
           type: array
           items:
-            $ref: '#/components/schemas/for_programme'
+            $ref: "#/components/schemas/for_programme"
       additionalProperties: false
     for_programme:
       type: object
@@ -3588,9 +3495,9 @@ components:
       additionalProperties: false
     pid:
       type: string
-      pattern: '([a-z0-9\.\-]+|.*PID.*)'
+      pattern: ([a-z0-9\.\-]+|.*PID.*)
     partner:
-      $ref: '#/components/schemas/pid'
+      $ref: "#/components/schemas/pid"
     updated_time:
       type: string
       format: date-time
@@ -3612,11 +3519,11 @@ components:
       type: object
       properties:
         short:
-          $ref: '#/components/schemas/short'
+          $ref: "#/components/schemas/short"
         medium:
-          $ref: '#/components/schemas/medium'
+          $ref: "#/components/schemas/medium"
         long:
-          $ref: '#/components/schemas/long'
+          $ref: "#/components/schemas/long"
       additionalProperties: false
     short:
       type: string
@@ -3663,6 +3570,7 @@ components:
       minLength: 4
       maxLength: 10
     media_type:
+      type: string
       enum:
         - Video
         - Audio
@@ -3675,22 +3583,22 @@ components:
           type: array
           minItems: 1
           items:
-            $ref: '#/components/schemas/format'
+            $ref: "#/components/schemas/format"
       required:
         - format
       additionalProperties: false
     format:
       type: object
       properties:
-        '#text':
+        "#text":
           type: string
         format_id:
           type: string
       additionalProperties: false
     genre_groupings:
-      $ref: '#/components/schemas/genreGroupingsType'
+      $ref: "#/components/schemas/genreGroupingsType"
     genre_groups:
-      $ref: '#/components/schemas/genreGroupsType'
+      $ref: "#/components/schemas/genreGroupsType"
     genre_group:
       type: object
       properties:
@@ -3700,7 +3608,7 @@ components:
             genre:
               type: array
               items:
-                $ref: '#/components/schemas/genre'
+                $ref: "#/components/schemas/genre"
           additionalProperties: false
         id:
           type: string
@@ -3712,7 +3620,7 @@ components:
     genre:
       type: object
       properties:
-        '#text':
+        "#text":
           type: string
         id:
           type: string
@@ -3720,33 +3628,33 @@ components:
           type: string
       additionalProperties: false
     music:
-      $ref: '#/components/schemas/item'
+      $ref: "#/components/schemas/item"
     speech:
-      $ref: '#/components/schemas/item'
+      $ref: "#/components/schemas/item"
     chapter:
-      $ref: '#/components/schemas/item'
+      $ref: "#/components/schemas/item"
     highlight:
-      $ref: '#/components/schemas/item'
+      $ref: "#/components/schemas/item"
     other:
-      $ref: '#/components/schemas/item'
+      $ref: "#/components/schemas/item"
     promotion_of:
-      $ref: '#/components/schemas/pidReference'
+      $ref: "#/components/schemas/pidReference"
     series_of:
-      $ref: '#/components/schemas/pidReference'
+      $ref: "#/components/schemas/pidReference"
     episode_of:
-      $ref: '#/components/schemas/pidReference'
+      $ref: "#/components/schemas/pidReference"
     clip_of:
-      $ref: '#/components/schemas/pidReference'
+      $ref: "#/components/schemas/pidReference"
     version_of:
-      $ref: '#/components/schemas/pidReference'
+      $ref: "#/components/schemas/pidReference"
     ancestors:
-      $ref: '#/components/schemas/reference'
+      $ref: "#/components/schemas/reference"
     franchises:
-      $ref: '#/components/schemas/reference'
+      $ref: "#/components/schemas/reference"
     item_of:
-      $ref: '#/components/schemas/reference'
+      $ref: "#/components/schemas/reference"
     items_for:
-      $ref: '#/components/schemas/reference'
+      $ref: "#/components/schemas/reference"
     promoted_by:
       type: string
     promoted_for:
@@ -3759,7 +3667,7 @@ components:
         href:
           type: string
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         result_type:
           type: string
       required:
@@ -3773,9 +3681,9 @@ components:
           type: object
           properties:
             pid:
-              $ref: '#/components/schemas/pid'
+              $ref: "#/components/schemas/pid"
             title:
-              $ref: '#/components/schemas/title'
+              $ref: "#/components/schemas/title"
           required:
             - pid
           additionalProperties: false
@@ -3786,9 +3694,9 @@ components:
             type: object
             properties:
               pid:
-                $ref: '#/components/schemas/pid'
+                $ref: "#/components/schemas/pid"
               title:
-                $ref: '#/components/schemas/title'
+                $ref: "#/components/schemas/title"
             required:
               - pid
             additionalProperties: false
@@ -3796,20 +3704,20 @@ components:
           type: object
           properties:
             pid:
-              $ref: '#/components/schemas/pid'
+              $ref: "#/components/schemas/pid"
             title:
-              $ref: '#/components/schemas/title'
+              $ref: "#/components/schemas/title"
             presentation_title:
-              $ref: '#/components/schemas/presentation_title'
+              $ref: "#/components/schemas/presentation_title"
             containers_title:
-              $ref: '#/components/schemas/containers_title'
+              $ref: "#/components/schemas/containers_title"
             brand:
               type: object
               properties:
                 pid:
-                  $ref: '#/components/schemas/pid'
+                  $ref: "#/components/schemas/pid"
                 title:
-                  $ref: '#/components/schemas/title'
+                  $ref: "#/components/schemas/title"
               required:
                 - pid
               additionalProperties: false
@@ -3820,9 +3728,9 @@ components:
                 type: object
                 properties:
                   pid:
-                    $ref: '#/components/schemas/pid'
+                    $ref: "#/components/schemas/pid"
                   title:
-                    $ref: '#/components/schemas/title'
+                    $ref: "#/components/schemas/title"
                 required:
                   - pid
                 additionalProperties: false
@@ -3830,13 +3738,13 @@ components:
               type: object
               properties:
                 pid:
-                  $ref: '#/components/schemas/pid'
+                  $ref: "#/components/schemas/pid"
                 title:
-                  $ref: '#/components/schemas/title'
+                  $ref: "#/components/schemas/title"
                 presentation_title:
-                  $ref: '#/components/schemas/presentation_title'
+                  $ref: "#/components/schemas/presentation_title"
                 containers_title:
-                  $ref: '#/components/schemas/containers_title'
+                  $ref: "#/components/schemas/containers_title"
               required:
                 - pid
               additionalProperties: false
@@ -3851,9 +3759,9 @@ components:
           type: object
           properties:
             pid:
-              $ref: '#/components/schemas/pid'
+              $ref: "#/components/schemas/pid"
             title:
-              $ref: '#/components/schemas/title'
+              $ref: "#/components/schemas/title"
           required:
             - pid
           additionalProperties: false
@@ -3864,9 +3772,9 @@ components:
             type: object
             properties:
               pid:
-                $ref: '#/components/schemas/pid'
+                $ref: "#/components/schemas/pid"
               title:
-                $ref: '#/components/schemas/title'
+                $ref: "#/components/schemas/title"
             required:
               - pid
             additionalProperties: false
@@ -3874,20 +3782,20 @@ components:
           type: object
           properties:
             pid:
-              $ref: '#/components/schemas/pid'
+              $ref: "#/components/schemas/pid"
             title:
-              $ref: '#/components/schemas/title'
+              $ref: "#/components/schemas/title"
             presentation_title:
-              $ref: '#/components/schemas/presentation_title'
+              $ref: "#/components/schemas/presentation_title"
             containers_title:
-              $ref: '#/components/schemas/containers_title'
+              $ref: "#/components/schemas/containers_title"
             brand:
               type: object
               properties:
                 pid:
-                  $ref: '#/components/schemas/pid'
+                  $ref: "#/components/schemas/pid"
                 title:
-                  $ref: '#/components/schemas/title'
+                  $ref: "#/components/schemas/title"
               required:
                 - pid
               additionalProperties: false
@@ -3898,9 +3806,9 @@ components:
                 type: object
                 properties:
                   pid:
-                    $ref: '#/components/schemas/pid'
+                    $ref: "#/components/schemas/pid"
                   title:
-                    $ref: '#/components/schemas/title'
+                    $ref: "#/components/schemas/title"
                 required:
                   - pid
                 additionalProperties: false
@@ -3908,13 +3816,13 @@ components:
               type: object
               properties:
                 pid:
-                  $ref: '#/components/schemas/pid'
+                  $ref: "#/components/schemas/pid"
                 title:
-                  $ref: '#/components/schemas/title'
+                  $ref: "#/components/schemas/title"
                 presentation_title:
-                  $ref: '#/components/schemas/presentation_title'
+                  $ref: "#/components/schemas/presentation_title"
                 containers_title:
-                  $ref: '#/components/schemas/containers_title'
+                  $ref: "#/components/schemas/containers_title"
               required:
                 - pid
               additionalProperties: false
@@ -3925,9 +3833,9 @@ components:
     expected_child_count:
       type: integer
     published_time:
-      $ref: '#/components/schemas/broadcastTime'
+      $ref: "#/components/schemas/broadcastTime"
     accurate_time:
-      $ref: '#/components/schemas/broadcastTime'
+      $ref: "#/components/schemas/broadcastTime"
     credits_time:
       type: object
       properties:
@@ -3940,7 +3848,7 @@ components:
       additionalProperties: false
     schedule_date:
       type: string
-      pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+      pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
     is_blanked:
       type: boolean
     is_repeat:
@@ -3964,14 +3872,14 @@ components:
           type: array
           minItems: 1
           items:
-            $ref: '#/components/schemas/id'
+            $ref: "#/components/schemas/id"
       required:
         - id
       additionalProperties: false
     id:
       type: object
       properties:
-        '#text':
+        "#text":
           type: string
         type:
           type: string
@@ -3985,14 +3893,14 @@ components:
           type: array
           minItems: 1
           items:
-            $ref: '#/components/schemas/identifier'
+            $ref: "#/components/schemas/identifier"
       required:
         - identifier
       additionalProperties: false
     identifier:
       type: object
       properties:
-        '#text':
+        "#text":
           type: string
         type:
           type: string
@@ -4000,14 +3908,14 @@ components:
           type: string
       additionalProperties: false
     broadcast_of:
-      $ref: '#/components/schemas/pidReference'
+      $ref: "#/components/schemas/pidReference"
     broadcaster:
       type: object
       properties:
         href:
           type: string
         sid:
-          $ref: '#/components/schemas/sid'
+          $ref: "#/components/schemas/sid"
         result_type:
           type: string
       required:
@@ -4018,7 +3926,7 @@ components:
     warning_text:
       type: object
       properties:
-        '#text':
+        "#text":
           type: string
         length:
           type: string
@@ -4026,7 +3934,7 @@ components:
     warning:
       type: object
       properties:
-        '#text':
+        "#text":
           type: string
         short_description:
           type: string
@@ -4039,17 +3947,17 @@ components:
         warning_text:
           type: array
           items:
-            $ref: '#/components/schemas/warning_text'
+            $ref: "#/components/schemas/warning_text"
         warning:
           type: array
           items:
-            $ref: '#/components/schemas/warning'
+            $ref: "#/components/schemas/warning"
       additionalProperties: false
     has_guidance:
       type: boolean
     sid:
       type: string
-      pattern: '[a-z0-9A-Z_\.\-]+'
+      pattern: "[a-z0-9A-Z_\\.\\-]+"
     mid:
       type: string
     name:
@@ -4073,7 +3981,7 @@ components:
     url:
       type: string
     date_range:
-      $ref: '#/components/schemas/dateRange'
+      $ref: "#/components/schemas/dateRange"
     tx_time:
       type: object
       properties:
@@ -4093,9 +4001,9 @@ components:
         feed:
           type: array
           items:
-            $ref: '#/components/schemas/feed'
+            $ref: "#/components/schemas/feed"
         deprecations:
-          $ref: '#/components/schemas/deprecations'
+          $ref: "#/components/schemas/deprecations"
         deployment_root:
           type: string
       additionalProperties: false
@@ -4103,13 +4011,13 @@ components:
       type: object
       properties:
         filters:
-          $ref: '#/components/schemas/filters'
+          $ref: "#/components/schemas/filters"
         sorts:
-          $ref: '#/components/schemas/sorts'
+          $ref: "#/components/schemas/sorts"
         mixins:
-          $ref: '#/components/schemas/mixins'
+          $ref: "#/components/schemas/mixins"
         deprecations:
-          $ref: '#/components/schemas/deprecations'
+          $ref: "#/components/schemas/deprecations"
         href:
           type: string
         name:
@@ -4119,7 +4027,7 @@ components:
         title:
           type: string
         release_status:
-          $ref: '#/components/schemas/release_status_type'
+          $ref: "#/components/schemas/release_status_type"
       required:
         - href
         - name
@@ -4132,9 +4040,9 @@ components:
         filter:
           type: array
           items:
-            $ref: '#/components/schemas/filter'
+            $ref: "#/components/schemas/filter"
         unstable_filters:
-          $ref: '#/components/schemas/unstable_filters'
+          $ref: "#/components/schemas/unstable_filters"
       additionalProperties: false
     sorts:
       type: object
@@ -4142,9 +4050,9 @@ components:
         sort:
           type: array
           items:
-            $ref: '#/components/schemas/sort'
+            $ref: "#/components/schemas/sort"
         unstable_sorts:
-          $ref: '#/components/schemas/unstable_sorts'
+          $ref: "#/components/schemas/unstable_sorts"
       additionalProperties: false
     mixins:
       type: object
@@ -4152,9 +4060,9 @@ components:
         mixin:
           type: array
           items:
-            $ref: '#/components/schemas/mixin'
+            $ref: "#/components/schemas/mixin"
         unstable_mixins:
-          $ref: '#/components/schemas/unstable_mixins'
+          $ref: "#/components/schemas/unstable_mixins"
       additionalProperties: false
     deprecations:
       type: object
@@ -4162,7 +4070,7 @@ components:
         deprecated:
           type: array
           items:
-            $ref: '#/components/schemas/deprecated'
+            $ref: "#/components/schemas/deprecated"
       additionalProperties: false
     filter:
       type: object
@@ -4170,19 +4078,19 @@ components:
         option:
           type: array
           items:
-            $ref: '#/components/schemas/option'
+            $ref: "#/components/schemas/option"
         prohibits:
           type: array
           items:
-            $ref: '#/components/schemas/prohibits'
+            $ref: "#/components/schemas/prohibits"
         deprecated:
           type: boolean
         deprecated_since:
           type: string
-          pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+          pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
         guaranteed_until:
           type: string
-          pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+          pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
         replaced_by:
           type: string
         max_value:
@@ -4200,7 +4108,7 @@ components:
         type:
           type: string
         release_status:
-          $ref: '#/components/schemas/release_status_type'
+          $ref: "#/components/schemas/release_status_type"
         required:
           type: boolean
         prefer:
@@ -4218,7 +4126,7 @@ components:
         filter:
           type: array
           items:
-            $ref: '#/components/schemas/filter'
+            $ref: "#/components/schemas/filter"
       additionalProperties: false
     unstable_mixins:
       type: object
@@ -4226,7 +4134,7 @@ components:
         mixin:
           type: array
           items:
-            $ref: '#/components/schemas/mixin'
+            $ref: "#/components/schemas/mixin"
       additionalProperties: false
     unstable_sorts:
       type: object
@@ -4234,7 +4142,7 @@ components:
         sort:
           type: array
           items:
-            $ref: '#/components/schemas/sort'
+            $ref: "#/components/schemas/sort"
       additionalProperties: false
     option:
       type: object
@@ -4246,7 +4154,7 @@ components:
         title:
           type: string
         release_status:
-          $ref: '#/components/schemas/release_status_type'
+          $ref: "#/components/schemas/release_status_type"
       required:
         - value
         - title
@@ -4301,7 +4209,7 @@ components:
         sort_direction:
           type: array
           items:
-            $ref: '#/components/schemas/sort_direction'
+            $ref: "#/components/schemas/sort_direction"
         name:
           type: string
         is_default:
@@ -4312,14 +4220,14 @@ components:
           type: boolean
         deprecated_since:
           type: string
-          pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+          pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
         guaranteed_until:
           type: string
-          pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+          pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
         replaced_by:
           type: string
         release_status:
-          $ref: '#/components/schemas/release_status_type'
+          $ref: "#/components/schemas/release_status_type"
       required:
         - name
         - title
@@ -4347,15 +4255,15 @@ components:
         dependency_on:
           type: array
           items:
-            $ref: '#/components/schemas/dependency_on'
+            $ref: "#/components/schemas/dependency_on"
         affected_by:
           type: array
           items:
-            $ref: '#/components/schemas/affected_by'
+            $ref: "#/components/schemas/affected_by"
         prohibits:
           type: array
           items:
-            $ref: '#/components/schemas/prohibits'
+            $ref: "#/components/schemas/prohibits"
         name:
           type: string
         href:
@@ -4366,14 +4274,14 @@ components:
           type: boolean
         deprecated_since:
           type: string
-          pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+          pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
         guaranteed_until:
           type: string
-          pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+          pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
         replaced_by:
           type: string
         release_status:
-          $ref: '#/components/schemas/release_status_type'
+          $ref: "#/components/schemas/release_status_type"
         depends_on:
           type: string
       required:
@@ -4389,7 +4297,7 @@ components:
           type: string
         deprecated_since:
           type: string
-          pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+          pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
         replaced_by:
           type: string
         replacement_type:
@@ -4455,6 +4363,7 @@ components:
     revocation_status:
       type: string
     availability_type:
+      type: string
       enum:
         - ondemand
         - simulcast
@@ -4483,7 +4392,7 @@ components:
         result_type:
           type: string
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         href:
           type: string
         type:
@@ -4494,23 +4403,23 @@ components:
         - href
       additionalProperties: false
     accurate_programme_time:
-      $ref: '#/components/schemas/dateRange'
+      $ref: "#/components/schemas/dateRange"
     media_availability_time:
-      $ref: '#/components/schemas/dateRange'
+      $ref: "#/components/schemas/dateRange"
     window_of:
-      $ref: '#/components/schemas/pidReference'
+      $ref: "#/components/schemas/pidReference"
     scheduled_publication_rights:
       type: object
       properties:
         publication_rights:
           type: array
           items:
-            $ref: '#/components/schemas/publication_rights'
+            $ref: "#/components/schemas/publication_rights"
       additionalProperties: false
     publication_rights:
       type: object
       properties:
-        '#text':
+        "#text":
           type: string
         territory:
           type: string
@@ -4522,13 +4431,13 @@ components:
           type: string
       additionalProperties: false
     franchise:
-      $ref: '#/components/schemas/group-body'
+      $ref: "#/components/schemas/group-body"
     season:
-      $ref: '#/components/schemas/group-body'
+      $ref: "#/components/schemas/group-body"
     collection:
-      $ref: '#/components/schemas/group-body'
+      $ref: "#/components/schemas/group-body"
     gallery:
-      $ref: '#/components/schemas/group-body'
+      $ref: "#/components/schemas/group-body"
     scheduled:
       type: object
       properties:
@@ -4542,23 +4451,24 @@ components:
     url_key:
       type: string
     embargoed:
+      type: string
       enum:
-        - 'true'
-        - 'false'
+        - "true"
+        - "false"
     advertising_allowed:
       type: string
-      pattern: '[a-z0-9_]+'
+      pattern: "[a-z0-9_]+"
     availability-debug:
       type: object
       properties:
         availability_of:
-          $ref: '#/components/schemas/pidReference'
+          $ref: "#/components/schemas/pidReference"
         service:
-          $ref: '#/components/schemas/serviceReference'
+          $ref: "#/components/schemas/serviceReference"
         territory:
           type: string
         media_profile_groups:
-          $ref: '#/components/schemas/media_profile_groups'
+          $ref: "#/components/schemas/media_profile_groups"
       required:
         - availability_of
       additionalProperties: false
@@ -4568,15 +4478,15 @@ components:
         media_profile_group:
           type: array
           items:
-            $ref: '#/components/schemas/media_profile_group'
+            $ref: "#/components/schemas/media_profile_group"
       additionalProperties: false
     media_profile_group:
       type: object
       properties:
-        '#text':
+        "#text":
           type: string
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         territory:
           type: string
         transport:
@@ -4590,24 +4500,24 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         embargoed:
-          $ref: '#/components/schemas/embargoed'
+          $ref: "#/components/schemas/embargoed"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         author:
           type: string
         shoot_date:
           type: string
           format: date-time
         source_asset:
-          $ref: '#/components/schemas/source_asset'
+          $ref: "#/components/schemas/source_asset"
         template_url:
           type: string
         type:
@@ -4621,11 +4531,11 @@ components:
       type: object
       properties:
         dimensions:
-          $ref: '#/components/schemas/dimensions'
+          $ref: "#/components/schemas/dimensions"
         size:
-          $ref: '#/components/schemas/size'
+          $ref: "#/components/schemas/size"
         focus_point:
-          $ref: '#/components/schemas/focus_point'
+          $ref: "#/components/schemas/focus_point"
         mime_type:
           type: string
         uri:
@@ -4650,7 +4560,7 @@ components:
       properties:
         x:
           type: integer
-        'y':
+        y:
           type: integer
       additionalProperties: false
     expr:
@@ -4661,15 +4571,16 @@ components:
       type: object
       properties:
         datum:
-          $ref: '#/components/schemas/datum'
+          $ref: "#/components/schemas/datum"
       additionalProperties: false
     error-name:
       type: string
     xquery-version:
+      type: string
       enum:
         - 1.0-ml
         - 0.9-ml
-        - '1.0'
+        - "1.0"
         - XSLT
       description: The XQuery language version.
     code:
@@ -4684,21 +4595,21 @@ components:
       type: object
       properties:
         code:
-          $ref: '#/components/schemas/code'
+          $ref: "#/components/schemas/code"
         error-name:
-          $ref: '#/components/schemas/error-name'
+          $ref: "#/components/schemas/error-name"
         xquery-version:
-          $ref: '#/components/schemas/xquery-version'
+          $ref: "#/components/schemas/xquery-version"
         message:
-          $ref: '#/components/schemas/message'
+          $ref: "#/components/schemas/message"
         format-string:
-          $ref: '#/components/schemas/format-string'
+          $ref: "#/components/schemas/format-string"
         retryable:
-          $ref: '#/components/schemas/retryable'
+          $ref: "#/components/schemas/retryable"
         expr:
-          $ref: '#/components/schemas/expr'
+          $ref: "#/components/schemas/expr"
         data:
-          $ref: '#/components/schemas/data'
+          $ref: "#/components/schemas/data"
       required:
         - code
         - error-name
@@ -4713,7 +4624,7 @@ components:
       type: object
       properties:
         error:
-          $ref: '#/components/schemas/error'
+          $ref: "#/components/schemas/error"
       additionalProperties: false
     caption:
       type: string
@@ -4729,54 +4640,54 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         ids:
-          $ref: '#/components/schemas/ids'
+          $ref: "#/components/schemas/ids"
         type:
           type: string
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         release_title:
-          $ref: '#/components/schemas/release_title'
+          $ref: "#/components/schemas/release_title"
         source_media:
-          $ref: '#/components/schemas/source_media'
+          $ref: "#/components/schemas/source_media"
         catalogue_number:
-          $ref: '#/components/schemas/catalogue_number'
+          $ref: "#/components/schemas/catalogue_number"
         record_label:
-          $ref: '#/components/schemas/record_label'
+          $ref: "#/components/schemas/record_label"
         publisher:
-          $ref: '#/components/schemas/publisher'
+          $ref: "#/components/schemas/publisher"
         music_code:
-          $ref: '#/components/schemas/music_code'
+          $ref: "#/components/schemas/music_code"
         track_number:
-          $ref: '#/components/schemas/track_number'
+          $ref: "#/components/schemas/track_number"
         track_side:
-          $ref: '#/components/schemas/track_side'
+          $ref: "#/components/schemas/track_side"
         recording_date:
-          $ref: '#/components/schemas/recording_date'
+          $ref: "#/components/schemas/recording_date"
         duration:
           type: number
           format: float
         item_of:
-          $ref: '#/components/schemas/item_of'
+          $ref: "#/components/schemas/item_of"
         offsets:
-          $ref: '#/components/schemas/offsets'
+          $ref: "#/components/schemas/offsets"
         play_events:
-          $ref: '#/components/schemas/play_events'
+          $ref: "#/components/schemas/play_events"
         snippet_url:
-          $ref: '#/components/schemas/snippet_url'
+          $ref: "#/components/schemas/snippet_url"
         images_mixin:
-          $ref: '#/components/schemas/images_mixin'
+          $ref: "#/components/schemas/images_mixin"
         contributions_mixin:
-          $ref: '#/components/schemas/contributions_mixin'
+          $ref: "#/components/schemas/contributions_mixin"
       required:
         - pid
         - partner
@@ -4787,17 +4698,17 @@ components:
         genre_group:
           type: array
           items:
-            $ref: '#/components/schemas/genre_group'
+            $ref: "#/components/schemas/genre_group"
       additionalProperties: false
     genreGroupsType:
       allOf:
-        - $ref: '#/components/schemas/deprecatedReferenceElement'
+        - $ref: "#/components/schemas/deprecatedReferenceElement"
         - type: object
           properties:
             genre_group:
               type: array
               items:
-                $ref: '#/components/schemas/genre_group'
+                $ref: "#/components/schemas/genre_group"
           additionalProperties: true
     pidReference:
       type: object
@@ -4805,7 +4716,7 @@ components:
         href:
           type: string
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         position:
           type: integer
         result_type:
@@ -4827,7 +4738,7 @@ components:
       additionalProperties: false
     reference:
       allOf:
-        - $ref: '#/components/schemas/referenceAttributes'
+        - $ref: "#/components/schemas/referenceAttributes"
         - type: object
           properties:
             href_deprecated:
@@ -4837,8 +4748,8 @@ components:
           additionalProperties: true
     deprecatedReferenceElement:
       allOf:
-        - $ref: '#/components/schemas/referenceAttributes'
-        - $ref: '#/components/schemas/deprecationAttributes'
+        - $ref: "#/components/schemas/referenceAttributes"
+        - $ref: "#/components/schemas/deprecationAttributes"
     dateRange:
       type: object
       properties:
@@ -4851,13 +4762,12 @@ components:
       additionalProperties: false
     broadcastTime:
       allOf:
-        - $ref: '#/components/schemas/dateRange'
+        - $ref: "#/components/schemas/dateRange"
         - type: object
           properties:
             duration:
               type: string
-              pattern: >-
-                ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
+              pattern: ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
           additionalProperties: true
     serviceReference:
       type: object
@@ -4877,35 +4787,35 @@ components:
       type: object
       properties:
         pid:
-          $ref: '#/components/schemas/pid'
+          $ref: "#/components/schemas/pid"
         identifiers:
-          $ref: '#/components/schemas/identifiers'
+          $ref: "#/components/schemas/identifiers"
         embargoed:
-          $ref: '#/components/schemas/embargoed'
+          $ref: "#/components/schemas/embargoed"
         partner:
-          $ref: '#/components/schemas/partner'
+          $ref: "#/components/schemas/partner"
         updated_time:
-          $ref: '#/components/schemas/updated_time'
+          $ref: "#/components/schemas/updated_time"
         ids:
-          $ref: '#/components/schemas/ids'
+          $ref: "#/components/schemas/ids"
         url_key:
-          $ref: '#/components/schemas/url_key'
+          $ref: "#/components/schemas/url_key"
         title:
-          $ref: '#/components/schemas/title'
+          $ref: "#/components/schemas/title"
         synopses:
-          $ref: '#/components/schemas/synopses'
+          $ref: "#/components/schemas/synopses"
         scheduled:
-          $ref: '#/components/schemas/scheduled'
+          $ref: "#/components/schemas/scheduled"
         for_programmes:
-          $ref: '#/components/schemas/for_programmes'
+          $ref: "#/components/schemas/for_programmes"
         related_links:
-          $ref: '#/components/schemas/related_links'
+          $ref: "#/components/schemas/related_links"
         master_brand_link:
-          $ref: '#/components/schemas/master_brand_link'
+          $ref: "#/components/schemas/master_brand_link"
         images_mixin:
-          $ref: '#/components/schemas/images_mixin'
+          $ref: "#/components/schemas/images_mixin"
         alternate_images_mixin:
-          $ref: '#/components/schemas/alternate_images_mixin'
+          $ref: "#/components/schemas/alternate_images_mixin"
       required:
         - pid
         - embargoed
@@ -4941,7 +4851,7 @@ components:
             type: object
             properties:
               status:
-                $ref: '#/components/schemas/status'
+                $ref: "#/components/schemas/status"
               version_types:
                 type: object
                 properties:
@@ -4979,7 +4889,7 @@ components:
                                   type: object
                                   properties:
                                     status:
-                                      $ref: '#/components/schemas/status'
+                                      $ref: "#/components/schemas/status"
                                     version_types:
                                       type: object
                                       properties:
@@ -5040,13 +4950,13 @@ components:
         versions:
           type: array
           items:
-            $ref: '#/components/schemas/versions'
+            $ref: "#/components/schemas/versions"
         available_versions:
-          $ref: '#/components/schemas/available_versions'
+          $ref: "#/components/schemas/available_versions"
         available_webcasts:
-          $ref: '#/components/schemas/available_webcasts'
+          $ref: "#/components/schemas/available_webcasts"
         available_simulcasts:
-          $ref: '#/components/schemas/available_simulcasts'
+          $ref: "#/components/schemas/available_simulcasts"
       additionalProperties: false
     version_availability_mixin:
       type: object
@@ -5058,8 +4968,7 @@ components:
             properties:
               duration:
                 type: string
-                pattern: >-
-                  ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
+                pattern: ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
               competition_warning:
                 type: string
               types:
@@ -5082,14 +4991,14 @@ components:
                       type: array
                       minItems: 1
                       items:
-                        $ref: '#/components/schemas/version_availability'
+                        $ref: "#/components/schemas/version_availability"
                   required:
                     - version_availability
                   additionalProperties: false
               pid:
-                $ref: '#/components/schemas/pid'
+                $ref: "#/components/schemas/pid"
               guidance_warnings:
-                $ref: '#/components/schemas/guidance_warnings'
+                $ref: "#/components/schemas/guidance_warnings"
               version:
                 type: array
                 items:
@@ -5097,8 +5006,7 @@ components:
                   properties:
                     duration:
                       type: string
-                      pattern: >-
-                        ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
+                      pattern: ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
                     competition_warning:
                       type: string
                     types:
@@ -5121,14 +5029,14 @@ components:
                             type: array
                             minItems: 1
                             items:
-                              $ref: '#/components/schemas/version_availability'
+                              $ref: "#/components/schemas/version_availability"
                         required:
                           - version_availability
                         additionalProperties: false
                     pid:
-                      $ref: '#/components/schemas/pid'
+                      $ref: "#/components/schemas/pid"
                     guidance_warnings:
-                      $ref: '#/components/schemas/guidance_warnings'
+                      $ref: "#/components/schemas/guidance_warnings"
                   required:
                     - types
                   additionalProperties: false
@@ -5151,7 +5059,7 @@ components:
             status:
               type: string
             available_media_sets:
-              $ref: '#/components/schemas/available_media_sets'
+              $ref: "#/components/schemas/available_media_sets"
             availability:
               type: object
               properties:
@@ -5164,7 +5072,7 @@ components:
                 status:
                   type: string
                 available_media_sets:
-                  $ref: '#/components/schemas/available_media_sets'
+                  $ref: "#/components/schemas/available_media_sets"
               required:
                 - available_media_sets
               additionalProperties: false
@@ -5185,8 +5093,7 @@ components:
             properties:
               duration:
                 type: string
-                pattern: >-
-                  ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
+                pattern: ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
               competition_warning:
                 type: boolean
               types:
@@ -5201,11 +5108,11 @@ components:
                         type: string
                   additionalProperties: false
               pid:
-                $ref: '#/components/schemas/pid'
+                $ref: "#/components/schemas/pid"
               guidance_warnings:
-                $ref: '#/components/schemas/guidance_warnings'
+                $ref: "#/components/schemas/guidance_warnings"
               available_mixins:
-                $ref: '#/components/schemas/available_mixins'
+                $ref: "#/components/schemas/available_mixins"
               version:
                 type: array
                 items:
@@ -5213,8 +5120,7 @@ components:
                   properties:
                     duration:
                       type: string
-                      pattern: >-
-                        ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
+                      pattern: ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
                     competition_warning:
                       type: boolean
                     types:
@@ -5229,11 +5135,11 @@ components:
                               type: string
                         additionalProperties: false
                     pid:
-                      $ref: '#/components/schemas/pid'
+                      $ref: "#/components/schemas/pid"
                     guidance_warnings:
-                      $ref: '#/components/schemas/guidance_warnings'
+                      $ref: "#/components/schemas/guidance_warnings"
                     available_mixins:
-                      $ref: '#/components/schemas/available_mixins'
+                      $ref: "#/components/schemas/available_mixins"
                   required:
                     - types
                   additionalProperties: false
@@ -5278,7 +5184,7 @@ components:
                   payment_type:
                     type: string
                   available_versions_media_sets:
-                    $ref: '#/components/schemas/available_versions_media_sets'
+                    $ref: "#/components/schemas/available_versions_media_sets"
                 required:
                   - available_versions_media_sets
                 additionalProperties: false
@@ -5318,7 +5224,7 @@ components:
                       payment_type:
                         type: string
                       available_versions_media_sets:
-                        $ref: '#/components/schemas/available_versions_media_sets'
+                        $ref: "#/components/schemas/available_versions_media_sets"
                     required:
                       - available_versions_media_sets
                     additionalProperties: false
@@ -5422,7 +5328,7 @@ components:
               items:
                 type: object
                 properties:
-                  '#text':
+                  "#text":
                     type: string
                   media_sets:
                     type: object
@@ -5433,7 +5339,7 @@ components:
                         items:
                           type: object
                           properties:
-                            '#text':
+                            "#text":
                               type: string
                           additionalProperties: false
                     required:
@@ -5511,16 +5417,16 @@ components:
           type: object
           properties:
             warning_texts:
-              $ref: '#/components/schemas/warning_texts'
+              $ref: "#/components/schemas/warning_texts"
             warning_items:
-              $ref: '#/components/schemas/warning_items'
+              $ref: "#/components/schemas/warning_items"
             warnings:
               type: object
               properties:
                 warning_texts:
-                  $ref: '#/components/schemas/warning_texts'
+                  $ref: "#/components/schemas/warning_texts"
                 warning_items:
-                  $ref: '#/components/schemas/warning_items'
+                  $ref: "#/components/schemas/warning_items"
               additionalProperties: false
           additionalProperties: false
       additionalProperties: false
@@ -5567,56 +5473,54 @@ components:
           type: object
           properties:
             pid:
-              $ref: '#/components/schemas/pid'
+              $ref: "#/components/schemas/pid"
             ids:
-              $ref: '#/components/schemas/ids'
+              $ref: "#/components/schemas/ids"
             identifiers:
-              $ref: '#/components/schemas/identifiers'
+              $ref: "#/components/schemas/identifiers"
             aspect_ratio:
               type: string
             competition_warning:
-              $ref: '#/components/schemas/competition_warning'
+              $ref: "#/components/schemas/competition_warning"
             duration:
               type: string
-              pattern: >-
-                ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
+              pattern: ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
             updated_time:
-              $ref: '#/components/schemas/updated_time'
+              $ref: "#/components/schemas/updated_time"
             warnings:
-              $ref: '#/components/schemas/warnings'
+              $ref: "#/components/schemas/warnings"
             version_of:
-              $ref: '#/components/schemas/version_of'
+              $ref: "#/components/schemas/version_of"
             version_types_with_id:
-              $ref: '#/components/schemas/version_types_with_id'
+              $ref: "#/components/schemas/version_types_with_id"
             types_with_id:
-              $ref: '#/components/schemas/types_with_id'
+              $ref: "#/components/schemas/types_with_id"
             version:
               type: object
               properties:
                 pid:
-                  $ref: '#/components/schemas/pid'
+                  $ref: "#/components/schemas/pid"
                 ids:
-                  $ref: '#/components/schemas/ids'
+                  $ref: "#/components/schemas/ids"
                 identifiers:
-                  $ref: '#/components/schemas/identifiers'
+                  $ref: "#/components/schemas/identifiers"
                 aspect_ratio:
                   type: string
                 competition_warning:
-                  $ref: '#/components/schemas/competition_warning'
+                  $ref: "#/components/schemas/competition_warning"
                 duration:
                   type: string
-                  pattern: >-
-                    ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
+                  pattern: ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
                 updated_time:
-                  $ref: '#/components/schemas/updated_time'
+                  $ref: "#/components/schemas/updated_time"
                 warnings:
-                  $ref: '#/components/schemas/warnings'
+                  $ref: "#/components/schemas/warnings"
                 version_of:
-                  $ref: '#/components/schemas/version_of'
+                  $ref: "#/components/schemas/version_of"
                 version_types_with_id:
-                  $ref: '#/components/schemas/version_types_with_id'
+                  $ref: "#/components/schemas/version_types_with_id"
                 types_with_id:
-                  $ref: '#/components/schemas/types_with_id'
+                  $ref: "#/components/schemas/types_with_id"
               required:
                 - pid
                 - updated_time
@@ -5638,7 +5542,7 @@ components:
             contributions_mixin_contribution:
               type: array
               items:
-                $ref: '#/components/schemas/contributions_mixin_contribution'
+                $ref: "#/components/schemas/contributions_mixin_contribution"
             href:
               type: string
             contributions:
@@ -5647,7 +5551,7 @@ components:
                 contributions_mixin_contribution:
                   type: array
                   items:
-                    $ref: '#/components/schemas/contributions_mixin_contribution'
+                    $ref: "#/components/schemas/contributions_mixin_contribution"
                 href:
                   type: string
               additionalProperties: false
@@ -5666,7 +5570,7 @@ components:
             credit_role:
               type: object
               properties:
-                '#text':
+                "#text":
                   type: string
                 id:
                   type: string
@@ -5674,14 +5578,14 @@ components:
             character_name:
               type: string
             contributions_mixin_contributor:
-              $ref: '#/components/schemas/contributions_mixin_contributor'
+              $ref: "#/components/schemas/contributions_mixin_contributor"
             contribution:
               type: object
               properties:
                 credit_role:
                   type: object
                   properties:
-                    '#text':
+                    "#text":
                       type: string
                     id:
                       type: string
@@ -5689,7 +5593,7 @@ components:
                 character_name:
                   type: string
                 contributions_mixin_contributor:
-                  $ref: '#/components/schemas/contributions_mixin_contributor'
+                  $ref: "#/components/schemas/contributions_mixin_contributor"
               additionalProperties: false
           required:
             - contribution
@@ -5704,20 +5608,20 @@ components:
           type: object
           properties:
             type:
-              $ref: '#/components/schemas/type'
+              $ref: "#/components/schemas/type"
             href:
               type: string
             contributions_mixin_contributor_name:
-              $ref: '#/components/schemas/contributions_mixin_contributor_name'
+              $ref: "#/components/schemas/contributions_mixin_contributor_name"
             contributor:
               type: object
               properties:
                 type:
-                  $ref: '#/components/schemas/type'
+                  $ref: "#/components/schemas/type"
                 href:
                   type: string
                 contributions_mixin_contributor_name:
-                  $ref: '#/components/schemas/contributions_mixin_contributor_name'
+                  $ref: "#/components/schemas/contributions_mixin_contributor_name"
               additionalProperties: false
           required:
             - contributor
@@ -5764,16 +5668,16 @@ components:
           type: object
           properties:
             previous:
-              $ref: '#/components/schemas/reference'
+              $ref: "#/components/schemas/reference"
             next:
-              $ref: '#/components/schemas/reference'
+              $ref: "#/components/schemas/reference"
             previous_next:
               type: object
               properties:
                 previous:
-                  $ref: '#/components/schemas/reference'
+                  $ref: "#/components/schemas/reference"
                 next:
-                  $ref: '#/components/schemas/reference'
+                  $ref: "#/components/schemas/reference"
               additionalProperties: false
           required:
             - previous_next
@@ -5786,13 +5690,13 @@ components:
       properties:
         release_date:
           type: string
-          pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+          pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
         release_year_month:
           type: string
-          pattern: '[0-9]{4}-[0-9]{2}'
+          pattern: "[0-9]{4}-[0-9]{2}"
         release_year:
           type: string
-          pattern: '[0-9]{4}'
+          pattern: "[0-9]{4}"
       additionalProperties: false
     master_brand_link:
       type: object
@@ -5803,7 +5707,7 @@ components:
             href:
               type: string
             mid:
-              $ref: '#/components/schemas/mid'
+              $ref: "#/components/schemas/mid"
             result_type:
               type: string
             master_brand:
@@ -5812,7 +5716,7 @@ components:
                 href:
                   type: string
                 mid:
-                  $ref: '#/components/schemas/mid'
+                  $ref: "#/components/schemas/mid"
                 result_type:
                   type: string
               required:
@@ -5837,10 +5741,9 @@ components:
           properties:
             duration:
               type: string
-              pattern: >-
-                ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
+              pattern: ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
             pid:
-              $ref: '#/components/schemas/pid'
+              $ref: "#/components/schemas/pid"
             href:
               type: string
             version:
@@ -5848,10 +5751,9 @@ components:
               properties:
                 duration:
                   type: string
-                  pattern: >-
-                    ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
+                  pattern: ^(-)?P(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)W)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?$
                 pid:
-                  $ref: '#/components/schemas/pid'
+                  $ref: "#/components/schemas/pid"
                 href:
                   type: string
               required:
@@ -5870,17 +5772,17 @@ components:
           type: object
           additionalProperties: false
           anyOf:
-            - $ref: '#/components/schemas/deprecationAttributes'
+            - $ref: "#/components/schemas/deprecationAttributes"
             - properties:
                 pid:
-                  $ref: '#/components/schemas/pid'
+                  $ref: "#/components/schemas/pid"
                 template_url:
                   type: string
                 image:
                   type: object
                   properties:
                     pid:
-                      $ref: '#/components/schemas/pid'
+                      $ref: "#/components/schemas/pid"
                     template_url:
                       type: string
                   required:
@@ -5991,6 +5893,7 @@ components:
         - alternate_images
       additionalProperties: false
     release_status_type:
+      type: string
       enum:
         - alpha
         - beta
@@ -6003,7 +5906,7 @@ components:
           type: boolean
         deprecated_since:
           type: string
-          pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$'
+          pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}.*$
         replaced_by:
           type: string
       required:
@@ -6014,17 +5917,17 @@ components:
     nitro:
       properties:
         pagination:
-          $ref: '#/components/schemas/pagination'
+          $ref: "#/components/schemas/pagination"
         results:
-          $ref: '#/components/schemas/results'
+          $ref: "#/components/schemas/results"
         filters:
-          $ref: '#/components/schemas/filters'
+          $ref: "#/components/schemas/filters"
         sorts:
-          $ref: '#/components/schemas/sorts'
+          $ref: "#/components/schemas/sorts"
         mixins:
-          $ref: '#/components/schemas/mixins'
+          $ref: "#/components/schemas/mixins"
         deprecations:
-          $ref: '#/components/schemas/deprecations'
+          $ref: "#/components/schemas/deprecations"
       additionalProperties: true
     ErrorModel:
       type: object
