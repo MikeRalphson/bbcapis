@@ -670,6 +670,38 @@
         }
       }
     },
+    "/v2/experience/inline/speech": {
+      "get": {
+        "summary": "Inline Speech Page (Podcasts)",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience for the Speech page <span>🎶</span>\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineSpeechResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/experience/listen/sign-in": {
       "get": {
         "summary": "Provides a typical landing page with sign in upsell",
@@ -3609,6 +3641,9 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/X-international-experience-name"
+          },
+          {
+            "$ref": "#/components/parameters/X-Experiments"
           }
         ],
         "tags": [
@@ -3622,6 +3657,38 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ExperienceInlineMusicResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/experience/inline/speech": {
+      "get": {
+        "summary": "Inline Personalised Speech Page (Podcasts)",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-international-experience-name"
+          }
+        ],
+        "tags": [
+          "Experience"
+        ],
+        "description": "Inline Experience for the Speech page <span>🎶</span>\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceInlineSpeechResponse"
                 }
               }
             }
@@ -4863,6 +4930,9 @@
             "$ref": "#/components/parameters/category"
           },
           {
+            "$ref": "#/components/parameters/allCategories"
+          },
+          {
             "$ref": "#/components/parameters/parent"
           },
           {
@@ -4907,7 +4977,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -4980,7 +5050,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5018,7 +5088,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5038,6 +5108,9 @@
         "parameters": [
           {
             "$ref": "#/components/parameters/category"
+          },
+          {
+            "$ref": "#/components/parameters/allCategories"
           },
           {
             "$ref": "#/components/parameters/experience"
@@ -5062,7 +5135,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5097,7 +5170,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5132,7 +5205,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsNextResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5204,7 +5277,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContainerItemsResponse"
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
                 }
               }
             }
@@ -5239,7 +5312,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContainerItemsResponse"
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
                 }
               }
             }
@@ -5277,7 +5350,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContainerItemsResponse"
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
                 }
               }
             }
@@ -5303,6 +5376,9 @@
           },
           {
             "$ref": "#/components/parameters/category"
+          },
+          {
+            "$ref": "#/components/parameters/allCategories"
           },
           {
             "$ref": "#/components/parameters/parent"
@@ -5349,7 +5425,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5387,7 +5463,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5428,7 +5504,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5453,6 +5529,9 @@
             "$ref": "#/components/parameters/category"
           },
           {
+            "$ref": "#/components/parameters/allCategories"
+          },
+          {
             "$ref": "#/components/parameters/experience"
           },
           {
@@ -5475,7 +5554,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5513,7 +5592,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsNextResponse"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5588,7 +5667,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContainerItemsResponse"
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
                 }
               }
             }
@@ -5623,7 +5702,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContainerItemsResponse"
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
                 }
               }
             }
@@ -5661,7 +5740,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ContainerItemsResponse"
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
                 }
               }
             }
@@ -6039,6 +6118,15 @@
         "name": "category",
         "in": "query",
         "description": "Filter by category id. Accepts comma separated values.",
+        "schema": {
+          "type": "string"
+        },
+        "required": false
+      },
+      "allCategories": {
+        "name": "all-categories",
+        "in": "query",
+        "description": "Filter by category id. Accepts comma separated values. Acts as an \"and\" between the categories specified",
         "schema": {
           "type": "string"
         },
@@ -9258,6 +9346,19 @@
             "items": {
               "$ref": "#/components/schemas/PlayableItemUri"
             }
+          },
+          "play_context": {
+            "type": "string"
+          },
+          "recommendation": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Recommendation"
+              },
+              {
+                "$ref": "#/components/schemas/NullValue"
+              }
+            ]
           }
         },
         "required": [
@@ -9275,7 +9376,8 @@
           "availability",
           "guidance",
           "activities",
-          "uris"
+          "uris",
+          "recommendation"
         ]
       },
       "PlayableItemsResponse": {
@@ -9650,6 +9752,18 @@
         "required": [
           "short",
           "long"
+        ]
+      },
+      "Recommendation": {
+        "type": "object",
+        "properties": {
+          "algorithm": {
+            "type": "string",
+            "nullable": false
+          }
+        },
+        "required": [
+          "algorithm"
         ]
       },
       "NullValue": {
