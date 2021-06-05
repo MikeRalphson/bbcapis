@@ -184,6 +184,8 @@ paths:
         - $ref: '#/parameters/HeaderSSLClientCertSubject'
         - $ref: '#/parameters/HeaderAgentIP'
         - $ref: '#/parameters/HeaderJourneyType'
+        - $ref: '#/parameters/HeaderX-OpenAM-UsernameAsEmailRequired'
+        - $ref: '#/parameters/HeaderX-OpenAM-PasswordRequired'
         - $ref: '#/parameters/QueryRealm'
       responses:
         '200':
@@ -199,6 +201,12 @@ paths:
                 lYSag; Domain=.bbc.com; Expires=Sun, 31-May-2020 15:10:22 GMT; Path=/; HttpOnly
                 ```
               type: string
+          examples:
+            application/json:
+              tokenId: '*AAJTSQACMDIABHR5cGUAA0pXVAACUzEAAjAx*eyJ0eXAiOiJKV1QiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2IiwiYWxnIjoiZGlyIn0..zRPsKWXOAnmoW5OYaRk3qA.uoYl6UMksf-o96rpLHQgje1b709MT7Un8viLPpzZR24c5I-WY6mxT8bSuOv534PfsTMgNrEC6cUMQu4RKAAX7ZLTLtiXL9kbZ_xuJoFSspJoT8vvNVpts7AMebiqW9fEkDutkFZrC-26gRu4M6MOkW47s6iMS-_KW_frtgPyxegfG2rPK8JnPY2bjbXA4eecjPgtUjlaMdsxeJKHaXZJG_wIWFhLBg31QolA-79QCc-KzhErZkcX4A_0vef29B8D3D_5Ikz6xSOxa4Lo3cNTa4yH0GPx5QRE51LZvyVajjhwIz3lzOxo9T593p2UZ3hEMv7KXIPvdtXNoEVO99I1FNgls0BuRqGhg9H67ejhEycdtGJdGsyKWmWI7Hkgg0dNGVeYmY_K7lAL-LfegyY9Bh7b34HUYrWuKxLYu8mVBzdy-Kt__hyb2ozmPfbebJnL1ijOa3XUevrql5VqhcHLXyCMoxxG9VvR7uUPlW6FXW-2NQA6pudysUywpkXpHdpuE7BWNOvlKP8ZqmSUucHLh-0DJNnm9VzaY_8tnzbPLWltpoaQkQ8PxXHHJ13ucBDrMWY3qmk3fP7lQWTh4zZRONoOoUhiZYchyGRUaeZvaqyDAXP61HfpLM1LO951L8-e4u2zrigW900icWaDy1wilEOmA75qtMC2_RRkfngmlK6nU5ajMNoceYMfGYtJ6NOjtn-VIcK9LGyddoQ4aabuUsjtZDqDrdlS_A7lfrVDoF5HLXxyKOJI3Jka98UoP17efkTVbPdUkfnAkOALlrY3LFy9RAtSNoRgILtj3myiqIIlsPZlbwgipUxbbuMCyqs2SG_nKLLk58NE5B8-VWkl2ezmBYXQVbb8pXq6DpdVvTkvInpkFD9FiG_JNcTRfJSkFUAb57nfFrdCCNWqdmpbDEn2siB6QlJng3s7i_QQbb3frM45uztKiaSBK_LlXzlcF3lPooL6IG9K5mBXE0klWM7B6a_0wqhHDTIgKUU5pp0Cn4mOpIso8Sp-DZwiafUfWiqJA4YhHUc1KC3nV1wJ-6S77JLmtExtpI_274kIEfmBVJUfrvPrPtsVCDhGxuJV9QwVvsl19ThRmwBRR86Z7jIOHFLWiUgloD0dAkwpa2xNlAGfX2X1RwZq7lHGPXw-aDqOxZb6IoQ73zCOUW1EHHKayWZ7HHFP-lst6pbBmf-S8ju8uZNbfrAJMPprnulsb96f95004qK9rFNN_5YmI4xEPNKOgemUJRTb59hM7v1D0s1HVACreu2TaBl-4pMZnvvYzuCZuJS1APHBoPz9GeZiBhlCtmeezDPpnrXb_BDOYAEsEMgYjCJxIJXBBHArxpcFhCwcjXaX9SX8ewTiWuuK5t2mlziXiMpSb1g22q6lcbQpYiNm86EnCa-X6okXVNyLMvEzoYOBD-vfHiPzOTErfmpIMzyUxb-GTbteV6Hr_O5Q18Hp7OCY9UjAeyOpJkf9FVyKALVV_oDWDXNcQz_e-uJ--nSLB2dodNwxX34sQ2DbEZpYX-E6SpxYJ0fILoMPG40kHX6GPA30blXf1v9JJAbqypQ6vw5DVw4iaZOnep51oVQ6x534jhJNPshjouIYSA91zpAQQ0LhQmJz7upxTyUtBbeG3MsK1-cptBuehVtJxsb774dPh98-sDDjkUUhSulT_35dguoJLxPjLZ399iAeqiVwUsPGdanVoIsuZSX98WqtVaZAjjCkRfLHn4K0LeQ26VWk9JCpwnJ2KsNuXSHHa-b4-eo0we3DglWWUZjlkbjfSIOPqvG_RgiL1UFH_JsrqqzUa9BrWat4-POSObD6Uf12l05-mx5bWtvIhX7zjD6loJ5ZB1tGJHueU-FJjnr91pQSXUJIAlMYkggZ_98PVTq7lL1WQNePyRMCXQyEdRWvFi4W4b0S6Hv1aWhyjJL3FT2jlUH9fQyAYVBDk3rZSTZ4XR87412WpX_Io9_v0B4F5P6FjcIcXbB5FfbcvuoePQPUO3Pw3aa7Djmoxtd4R9CSmQe1-d4t584jTN6A9J5OMeWRORGhKC2C596WsheRfiCh9O56bAPYgVByHavAp18dVE0ny4Q8rpIa7DxCBT1ynCsUvRdQQVaXzG3ecVyk5X-rI1KolWukIIko61eOFDUBctGPHP7CQ1GuUqHzKEZi-V2t55E4DxieG5T4rK4mnj0wJsBEnpGfgHbzEnYj2uM-1aaPEquAEf27ouM2c6xZrhsYBSUJse0q5Hy9nAhpy66gEIjnQSpp4mxIDzkVc4cP7p3UgexJ3iAHEyS6_aDbSCUFioe2so69LdNW4nzCpMb7JW_VJ70F0VTmBjrUrh91J0QlonwsfPmr4Or-wbJQmXXHXYd2P63asNzGY7TPZ5xpM2uMoX8Nag.F-M88VTad3kxUNr-AvE1cg'
+              successUrl: /bbcidv5/console
+              realm: /
+
         '401':
           description: Unauthorized
           schema:
@@ -397,9 +405,11 @@ paths:
     x-a127-apply:
       x509: {}
     post:
-      summary: Authenticate by `ckns_jwt` persistent cookie, issues new `ckns_session` session cookie
+      summary: Authenticate by cookie
       description: |
-        Authenticate user via ckns_jwt cookie using BBCAuthentication tree.
+        Authenticate by `ckns_jwt` persistent cookie using BBCAuthentication tree, issues new
+        `ckns_session` session cookie.
+        
         Only currently supported in NMARealm realm, initally supports CABSI flow.
         Defaults service to BBCAuthentication and Realm to NMARealm.
       operationId: authenticate
@@ -569,18 +579,96 @@ paths:
       summary: Get access token
       description: |
         Endpoint to retrieve new access_token after authorization grant code or token has been received.
-        `code` is required if `grant_type` is 'Authorization_code'.
+        `code` is required if `grant_type` is 'authorization_code'.
         `refresh_token` is required if `grant_type` is 'refresh_token'.
+
+        <details><summary>Expand: 200 response for User access token</summary><p>
+
+          When a normal (adult/child) User access token is requested, the resulting access_token
+          string value is a JWT that, when decoded, will contain a data payload that looks like
+          the following, where `sub` (standard Subject claim of an access token) is the User ID:
+
+          <pre>
+            {
+              "sub": "5c2b447b-0e01-4341-ae31-ce8194b361b6",
+              "cts": "OAUTH2_STATELESS_GRANT",
+              "auth_level": 0,
+              "auditTrackingId": "5d5837e4-c6b7-45fc-a102-9d71c8ea46cf-12371",
+              "iss": "https://access.int.api.bbc.com/bbcidv5/oauth2",
+              "tokenName": "access_token",
+              "token_type": "Bearer",
+              "authGrantId": "M3LgwzpvzXUSI5qm0naDxRchLw0",
+              "aud": "testClient1",
+              "nbf": 1619703101,
+              "grant_type": "authorization_code",
+              "scope": [
+                "explicit",
+                "implicit",
+                "pii",
+                "uid"
+              ],
+              "auth_time": 1619703059,
+              "realm": "/",
+              "exp": 1619710301,
+              "iat": 1619703101,
+              "expires_in": 7200,
+              "jti": "KbvGoQPbqw4jS0j9UOLqKKPONPM"
+            }
+          </pre>
+        
+        </p></details>
+
+        <details><summary>Expand: 200 response for Profile access token</summary><p>
+
+          When a Profile access token is requested, the resulting access_token string value is a JWT
+          that, when decoded, will contain a data payload that looks like the following, where `sub`
+          (standard Subject claim of an access token) is the Profile ID, and `profileAdminId`
+          (custom claim) is the User ID associated with this Profile, similar to a child User's
+          `parentId` for parent-child relationships.
+
+          <pre>
+            {
+              "sub": "bbd608b2-3474-4251-83c5-cfb20aef1af9",
+              "cts": "OAUTH2_STATELESS_GRANT",
+              "auth_level": 0,
+              "auditTrackingId": "5d5837e4-c6b7-45fc-a102-9d71c8ea46cf-23010",
+              "iss": "https://access.int.api.bbc.com/bbcidv5/oauth2",
+              "tokenName": "access_token",
+              "token_type": "Bearer",
+              "authGrantId": "0-D0BxP6U6C7noZyCD54ySA5EBY",
+              "aud": "testClient1",
+              "nbf": 1619703187,
+              "grant_type": "authorization_code",
+              "scope": [
+                "explicit",
+                "implicit",
+                "pii",
+                "uid"
+              ],
+              "auth_time": 1619703059,
+              "realm": "/",
+              "exp": 1619710387,
+              "iat": 1619703187,
+              "expires_in": 7200,
+              "jti": "VX980q37i0LJnf78kVE_JNvSDz4",
+              "profileAdminId": "5c2b447b-0e01-4341-ae31-ce8194b361b6"
+            }
+          </pre>
+
+        </p></details>
+
         There are three different 400 response schemas each from swagger, openam-apigee and openam-service.
-        <details>
-          <summary>Example 400 response from openam-service</summary>
+
+        <details><summary>Expand: 400 response from openam-service</summary><p>
+
           <pre>
             {
               "error_description":"Grant type is not supported: authorization_code",
               "error":"unsupported_grant_type"
             }
           </pre>
-        </details>
+
+        </p></details>
 
         ### Testing
         Component | Scenarios | Results
@@ -601,6 +689,7 @@ paths:
         - $ref: '#/parameters/FormDataClientIdRequired'
         - $ref: '#/parameters/FormDataCode'
         - $ref: '#/parameters/FormDataRefreshToken'
+        - $ref: '#/parameters/FormDataProfileId'
         - $ref: '#/parameters/QueryRealm'
         - $ref: '#/parameters/FormDataPKCECodeVerifier'
       responses:
@@ -621,7 +710,96 @@ paths:
     x-swagger-router-controller: openam_controller
     post:
       summary: Get access token (OIDC)
-      description: Get access token public version
+      description: |
+        Get access token public version (used only by Device auth flow)
+
+        <details><summary>Expand: 200 response for User access token</summary><p>
+
+          When a normal (adult/child) User access token is requested, the resulting access_token
+          string value is a JWT that, when decoded, will contain a data payload that looks like
+          the following, where `sub` (standard Subject claim of an access token) is the User ID:
+
+          <pre>
+            {
+              "sub": "5c2b447b-0e01-4341-ae31-ce8194b361b6",
+              "cts": "OAUTH2_STATELESS_GRANT",
+              "auth_level": 0,
+              "auditTrackingId": "5d5837e4-c6b7-45fc-a102-9d71c8ea46cf-12371",
+              "iss": "https://access.int.api.bbc.com/bbcidv5/oauth2",
+              "tokenName": "access_token",
+              "token_type": "Bearer",
+              "authGrantId": "M3LgwzpvzXUSI5qm0naDxRchLw0",
+              "aud": "testClient1",
+              "nbf": 1619703101,
+              "grant_type": "authorization_code",
+              "scope": [
+                "explicit",
+                "implicit",
+                "pii",
+                "uid"
+              ],
+              "auth_time": 1619703059,
+              "realm": "/",
+              "exp": 1619710301,
+              "iat": 1619703101,
+              "expires_in": 7200,
+              "jti": "KbvGoQPbqw4jS0j9UOLqKKPONPM"
+            }
+          </pre>
+        
+        </p></details>
+
+        <details><summary>Expand: 200 response for Profile access token</summary><p>
+
+          When a Profile access token is requested, the resulting access_token string value is a JWT
+          that, when decoded, will contain a data payload that looks like the following, where `sub`
+          (standard Subject claim of an access token) is the Profile ID, and `profileAdminId`
+          (custom claim) is the User ID associated with this Profile, similar to a child User's
+          `parentId` for parent-child relationships.
+
+          <pre>
+            {
+              "sub": "bbd608b2-3474-4251-83c5-cfb20aef1af9",
+              "cts": "OAUTH2_STATELESS_GRANT",
+              "auth_level": 0,
+              "auditTrackingId": "5d5837e4-c6b7-45fc-a102-9d71c8ea46cf-23010",
+              "iss": "https://access.int.api.bbc.com/bbcidv5/oauth2",
+              "tokenName": "access_token",
+              "token_type": "Bearer",
+              "authGrantId": "0-D0BxP6U6C7noZyCD54ySA5EBY",
+              "aud": "testClient1",
+              "nbf": 1619703187,
+              "grant_type": "authorization_code",
+              "scope": [
+                "explicit",
+                "implicit",
+                "pii",
+                "uid"
+              ],
+              "auth_time": 1619703059,
+              "realm": "/",
+              "exp": 1619710387,
+              "iat": 1619703187,
+              "expires_in": 7200,
+              "jti": "VX980q37i0LJnf78kVE_JNvSDz4",
+              "profileAdminId": "5c2b447b-0e01-4341-ae31-ce8194b361b6"
+            }
+          </pre>
+
+        </p></details>
+
+        There are three different 400 response schemas each from swagger, openam-apigee and openam-service.
+
+        <details><summary>Expand: 400 response from openam-service</summary><p>
+
+          <pre>
+            {
+              "error_description":"Grant type is not supported: authorization_code",
+              "error":"unsupported_grant_type"
+            }
+          </pre>
+
+        </p></details>
       operationId: accessTokenOidc
       produces:
         - application/json
@@ -634,6 +812,7 @@ paths:
         - $ref: '#/parameters/FormDataClientSecretRequired'
         - $ref: '#/parameters/FormDataClientIdRequired'
         - $ref: '#/parameters/FormDataRefreshToken'
+        - $ref: '#/parameters/FormDataProfileId'
       responses:
         '200':
           description: Successful response
@@ -981,9 +1160,89 @@ paths:
   /v1/user/tokenInfo:
     x-swagger-router-controller: openam_controller
     get:
-      summary: Get OIDC token Info
+      summary: Get token Info
       description: |
         Used to return access_token information. Also can be used to see if `access_token` is valid or not.
+
+        ### 200 responses
+        <details>
+          <summary>Example: User access token</summary>
+
+          The `sub` and `uid` token claims are the User id.
+
+          <pre>
+            {
+              "sub": "37555170-af6f-4f0d-9afd-3958c72ceaac",
+              "implicit": "",
+              "cts": "OAUTH2_STATELESS_GRANT",
+              "auth_level": 0,
+              "auditTrackingId": "4533d549-6338-48ab-be06-5c27176b9bf1-150252",
+              "iss": "https://access.int.api.bbc.com/bbcidv5/oauth2",
+              "tokenName": "access_token",
+              "token_type": "Bearer",
+              "authGrantId": "9QpCfBnxLz42kuVXa7zIeiuHz-A",
+              "access_token": "eyJ0eXAiOiJKV1QiLCJraWQiOiJQWk5LK3p4clNkZFl2TUN0b0o2U3hldEtNeTA9IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiIzNzU1NTE3MC1hZjZmLTRmMGQtOWFmZC0zOTU4YzcyY2VhYWMiLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiNDUzM2Q1NDktNjMzOC00OGFiLWJlMDYtNWMyNzE3NmI5YmYxLTE1MDI1MiIsImlzcyI6Imh0dHBzOi8vYWNjZXNzLmludC5hcGkuYmJjLmNvbS9iYmNpZHY1L29hdXRoMiIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6IjlRcENmQm54THo0Mmt1VlhhN3pJZWl1SHotQSIsImF1ZCI6InRlc3RDbGllbnQxIiwibmJmIjoxNjIxNTE0OTg3LCJncmFudF90eXBlIjoiYXV0aG9yaXphdGlvbl9jb2RlIiwic2NvcGUiOlsiZXhwbGljaXQiLCJpbXBsaWNpdCIsInBpaSIsInVpZCJdLCJhdXRoX3RpbWUiOjE2MjE1MTQ5ODIsInJlYWxtIjoiLyIsImV4cCI6MTYyMTUyMjE4NywiaWF0IjoxNjIxNTE0OTg3LCJleHBpcmVzX2luIjo3MjAwLCJqdGkiOiJKZ3ZRS1RLUi1nNVpuT0x1bnp4T2l2NGg0bjgifQ.LvVR8_rdxYC7HWGKykZe47fPSeOa-XJP4kLASFrnOnrKEAe5r5FuON6R8CzSCrdROtHT-HdGcpIlYU8ddzz4UA",
+              "explicit": "",
+              "aud": "testClient1",
+              "pii": "",
+              "uid": "37555170-af6f-4f0d-9afd-3958c72ceaac",
+              "nbf": 1621514987,
+              "grant_type": "authorization_code",
+              "scope": [
+                  "explicit",
+                  "implicit",
+                  "pii",
+                  "uid"
+              ],
+              "auth_time": 1621514982,
+              "realm": "/",
+              "exp": 1621522187,
+              "iat": 1621514987,
+              "expires_in": 7200,
+              "jti": "JgvQKTKR-g5ZnOLunzxOiv4h4n8"
+            }
+          </pre>
+        </details>
+
+        <details>
+          <summary>Example: Profile access token</summary>
+
+          The `sub` and `uid` token claims are the Profile id. The `profileAdminId` is the User id that "owns" this profile.
+
+          <pre>
+            {
+              "sub": "d0674124-89d8-4828-a967-ce0741cf173f",
+              "implicit": "",
+              "cts": "OAUTH2_STATELESS_GRANT",
+              "auth_level": 0,
+              "auditTrackingId": "4533d549-6338-48ab-be06-5c27176b9bf1-150453",
+              "profileAdminId": "37555170-af6f-4f0d-9afd-3958c72ceaac",
+              "iss": "https://access.int.api.bbc.com/bbcidv5/oauth2",
+              "tokenName": "access_token",
+              "token_type": "Bearer",
+              "authGrantId": "Ke8sa_GoNzIKnKHyW83RMRPACqM",
+              "access_token": "eyJ0eXAiOiJKV1QiLCJraWQiOiJQWk5LK3p4clNkZFl2TUN0b0o2U3hldEtNeTA9IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJkMDY3NDEyNC04OWQ4LTQ4MjgtYTk2Ny1jZTA3NDFjZjE3M2YiLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiNDUzM2Q1NDktNjMzOC00OGFiLWJlMDYtNWMyNzE3NmI5YmYxLTE1MDQ1MyIsImlzcyI6Imh0dHBzOi8vYWNjZXNzLmludC5hcGkuYmJjLmNvbS9iYmNpZHY1L29hdXRoMiIsInRva2VuTmFtZSI6ImFjY2Vzc190b2tlbiIsInRva2VuX3R5cGUiOiJCZWFyZXIiLCJhdXRoR3JhbnRJZCI6IktlOHNhX0dvTnpJS25LSHlXODNSTVJQQUNxTSIsImF1ZCI6InRlc3RDbGllbnQxIiwibmJmIjoxNjIxNTE1MjkzLCJncmFudF90eXBlIjoiYXV0aG9yaXphdGlvbl9jb2RlIiwic2NvcGUiOlsiZXhwbGljaXQiLCJpbXBsaWNpdCIsInBpaSIsInVpZCJdLCJhdXRoX3RpbWUiOjE2MjE1MTQ5ODIsInJlYWxtIjoiLyIsImV4cCI6MTYyMTUyMjQ5MywiaWF0IjoxNjIxNTE1MjkzLCJleHBpcmVzX2luIjo3MjAwLCJqdGkiOiJVOEVTTUdNenFQd1J0UlBEekM3MFh5RmVnRHMiLCJwcm9maWxlQWRtaW5JZCI6IjM3NTU1MTcwLWFmNmYtNGYwZC05YWZkLTM5NThjNzJjZWFhYyJ9.pbu9TxCVXFA3r1bh-_1fsPwKPIoGTt_oRoyiLSumRCm8TuYW8lJFEAi25HUEbRWvW__lgx31zYx5uTCxDrHvEA",
+              "explicit": "",
+              "aud": "testClient1",
+              "pii": "",
+              "uid": "d0674124-89d8-4828-a967-ce0741cf173f",
+              "nbf": 1621515293,
+              "grant_type": "authorization_code",
+              "scope": [
+                  "explicit",
+                  "implicit",
+                  "pii",
+                  "uid"
+              ],
+              "auth_time": 1621514982,
+              "realm": "/",
+              "exp": 1621522493,
+              "iat": 1621515293,
+              "expires_in": 7200,
+              "jti": "U8ESMGMzqPwRtRPDzC70XyFegDs"
+            }
+          </pre>
+        </details>
 
         ### Testing
         Component | Scenarios | Results
@@ -1005,7 +1264,7 @@ paths:
             $ref: '#/definitions/OAuthToken'
           examples:
             application/json:
-              access_token: a722efa1-bb2e-49e8-a889-56255f34361c
+              access_token: eyJ0eXAiOiJKV1QiLCJraWQiOiJQWk5LK3p4clNkZFl2TUN0b0o2U3hldEtNeTA9IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJiYmQ2MDhiMi0zNDc0LTQyNTEtODNjNS1jZmIyMGFlZjFhZjkiLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiZDdlZWVlNDMtNzJlZi00ZDBkLWI3MGUtOGJkM2JjNjU3MDcyLTQxMjgiLCJpc3MiOiJodHRwczovL2FjY2Vzcy5pbnQuYXBpLmJiYy5jb20vYmJjaWR2NS9vYXV0aDIiLCJ0b2tlbk5hbWUiOiJhY2Nlc3NfdG9rZW4iLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJRZjRUZGN4RzBRUkFzWGx2ejgtX0NuSXVCdnMiLCJhdWQiOiJ0ZXN0Q2xpZW50MSIsIm5iZiI6MTYxOTY5ODc2OSwiZ3JhbnRfdHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsInNjb3BlIjpbImV4cGxpY2l0IiwiaW1wbGljaXQiLCJwaWkiLCJ1aWQiXSwiYXV0aF90aW1lIjoxNjE5Njk4NzM3LCJyZWFsbSI6Ii8iLCJleHAiOjE2MTk3MDU5NjksImlhdCI6MTYxOTY5ODc2OSwiZXhwaXJlc19pbiI6NzIwMCwianRpIjoiTjR2ZUJPSXBFVThxLXAyMlVyQUI0dkRNYjlVIiwicHJvZmlsZUFkbWluSWQiOiI1YzJiNDQ3Yi0wZTAxLTQzNDEtYWUzMS1jZTgxOTRiMzYxYjYifQ.0sSj_GqpPByDgqzucKSVkdFXP4Ew9ecN39mmWYPhhAvpxI1BjOHkgs-1k5gRyDSLblmOMuHId97csdXYsP4sNg
               uid: 0d5bb4a1-ffee-4f15-8afe-273825b2888c
               mail: success+idv5beteam1testuddbun@simulator.amazonses.com
               grant_type: authorization_code
@@ -1031,10 +1290,39 @@ paths:
             application/json:
               error: invalid_request
               error_description: Access Token not valid
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorAMService'
+          examples:
+            application/json:
+              error: invalid_token
+              error_description: The access token provided is expired, revoked, malformed, or invalid for other reasons.
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorAMService'
+          examples:
+            application/json:
+              error: server_error
+              error_description: Internal Server Error (500) - The server encountered an unexpected condition which prevented it from fulfilling the request
         default:
           description: 400 Bad Request (parameter missing)
           schema:
             $ref: '#/definitions/Error400SwaggerParamMissing'
+          examples:
+            application/json:
+              code: REQUIRED
+              description: 'Request validation failed: Parameter (authorization) is required'
+              errorCode: 400
+              failedValidation: true
+              paramName: authorization
+              path:
+                - paths
+                - /v1/user/tokenInfo
+                - get
+                - parameters
+                - '1'
 
   /v1/user/revokeToken:
     x-swagger-router-controller: openam_controller
@@ -1415,7 +1703,8 @@ definitions:
     properties:
       access_token:
         type: string
-        example: c34711a7-bc08-40f5-b6a7-7ac91069d1bc
+        description: JWT
+        example: eyJ0eXAiOiJKV1QiLCJraWQiOiJQWk5LK3p4clNkZFl2TUN0b0o2U3hldEtNeTA9IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJiYmQ2MDhiMi0zNDc0LTQyNTEtODNjNS1jZmIyMGFlZjFhZjkiLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiZDdlZWVlNDMtNzJlZi00ZDBkLWI3MGUtOGJkM2JjNjU3MDcyLTQxMjgiLCJpc3MiOiJodHRwczovL2FjY2Vzcy5pbnQuYXBpLmJiYy5jb20vYmJjaWR2NS9vYXV0aDIiLCJ0b2tlbk5hbWUiOiJhY2Nlc3NfdG9rZW4iLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJRZjRUZGN4RzBRUkFzWGx2ejgtX0NuSXVCdnMiLCJhdWQiOiJ0ZXN0Q2xpZW50MSIsIm5iZiI6MTYxOTY5ODc2OSwiZ3JhbnRfdHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsInNjb3BlIjpbImV4cGxpY2l0IiwiaW1wbGljaXQiLCJwaWkiLCJ1aWQiXSwiYXV0aF90aW1lIjoxNjE5Njk4NzM3LCJyZWFsbSI6Ii8iLCJleHAiOjE2MTk3MDU5NjksImlhdCI6MTYxOTY5ODc2OSwiZXhwaXJlc19pbiI6NzIwMCwianRpIjoiTjR2ZUJPSXBFVThxLXAyMlVyQUI0dkRNYjlVIiwicHJvZmlsZUFkbWluSWQiOiI1YzJiNDQ3Yi0wZTAxLTQzNDEtYWUzMS1jZTgxOTRiMzYxYjYifQ.0sSj_GqpPByDgqzucKSVkdFXP4Ew9ecN39mmWYPhhAvpxI1BjOHkgs-1k5gRyDSLblmOMuHId97csdXYsP4sNg
       expires_in:
         $ref: '#/definitions/ExpiresIn'
       id_token:
@@ -1423,7 +1712,8 @@ definitions:
         example: eyAidHlwIjogIkpXVCIsICJhbGciOiAiUlMyNTYiLCAiY3R5IjogIkpXVCIsICJraWQiOiAiNjIwZTJmMDItNGNkYi00OTRhLWFkNWItMDQ5Y2JlNDI4NDNhIiB9.eyAidG9rZW5OYW1lIjogImlkX3Rva2VuIiwgImF6cCI6ICJBY2NvdW50IiwgInN1YiI6ICJhM2E1Y2JiNS0wN2MzLTQ1ODQtYTQ1NS0xOGYzMWQyMWFhNjQiLCAiYXRfaGFzaCI6ICJkd2RzRnItN3pUeG5VdlZhanVNRk1RIiwgImlzcyI6ICJodHRwOi8vaWR2NS1vYXMudGVzdC5hcGkuYmJjLmNvLnVrOjgwL2JiY2lkdjUvb2F1dGgyIiwgImlhdCI6IDE0NDg1MzUyNDQsICJhdXRoX3RpbWUiOiAxNDQ4NTM1MjQ0LCAiZXhwIjogMTQ0ODUzODg0NCwgInRva2VuVHlwZSI6ICJKV1RUb2tlbiIsICJyZWFsbSI6ICIvIiwgImF1ZCI6IFsgIkFjY291bnQiIF0sICJjX2hhc2giOiAiRmhzZU9uUXc3a0tuTEhtXzNiUVRHQSIsICJvcHMiOiAiNmE2N2NhMjEtMWIyMy00ZWMxLWI1MzgtMWQ4ODhkNWE5MmU4IiB9.Jl2t3ABEzxcVofAVGwuuP5YtjZjykTUV1Zg22wKX5KlTRih_mWwIO1muokB1S8yURjFflzNnNyt0fuo-PTRrm7W9lZVzVARtpcuxl3q5hSiVK15VclMnalY3IwHaANdya1K5TYT2z9Xa-8H6GhPUPE7WbgFOLYuHXsgw8sfbsFE
       refresh_token:
         type: string
-        example: 54967790-5099-46db-8304-79988f4b0c8c
+        description: JWT
+        example: eyJ0eXAiOiJKV1QiLCJraWQiOiJQWk5LK3p4clNkZFl2TUN0b0o2U3hldEtNeTA9IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiI1YzJiNDQ3Yi0wZTAxLTQzNDEtYWUzMS1jZTgxOTRiMzYxYjYiLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiYzI3NzE5MGQtYjYwOC00ZjE5LTlmYjQtNTEwMjFhMDFmZDg5LTIyMiIsImlzcyI6Imh0dHBzOi8vYWNjZXNzLmludC5hcGkuYmJjLmNvbS9iYmNpZHY1L29hdXRoMiIsInRva2VuTmFtZSI6InJlZnJlc2hfdG9rZW4iLCJhdXRoTW9kdWxlcyI6IlBlcnNpc3RlbnRDb29raWVNb2R1bGUiLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJuRXBOamtmMWF6cDM3UDZDaE1wQWxhR1ZqS2ciLCJhdWQiOiJ0ZXN0Q2xpZW50MSIsImFjciI6IjAiLCJuYmYiOjE2MTk2OTU4NDcsImdyYW50X3R5cGUiOiJhdXRob3JpemF0aW9uX2NvZGUiLCJzY29wZSI6WyJleHBsaWNpdCIsImltcGxpY2l0IiwicGlpIiwidWlkIl0sImF1dGhfdGltZSI6MTYxOTY5NTQ1NSwicmVhbG0iOiIvIiwiZXhwIjoxNjgyNzY3ODQ3LCJpYXQiOjE2MTk2OTU4NDcsImV4cGlyZXNfaW4iOjYzMDcyMDAwLCJqdGkiOiJsZGNFNGRtUWlaYkJqVGY2M1A2bDlSVTRBalUifQ.UDbvH4s5e8RnZgUKuTdmVoD7R3XWTHr1tEtqQFmmcdkM6wHke8CfjmTcHc6yIlg6REX9GVBWn0aVvbu1F4Ngqg
       scope:
         type: string
         example: uid openid
@@ -1437,6 +1727,8 @@ definitions:
   Success200Authenticate:
     type: object
     properties:
+      realm:
+        $ref: '#/definitions/Realm'
       tokenId:
         $ref: '#/definitions/Token'
       successUrl:
@@ -1481,7 +1773,7 @@ parameters:
   FormDataCode:
     name: code
     in: formData
-    description: The code to exchange for an access token. Required if `grant_type` is 'Authorization_code'
+    description: The code to exchange for an access token. Required if `grant_type` is 'authorization_code'
     required: false
     type: string
 
@@ -1495,10 +1787,10 @@ parameters:
   FormDataGrantTypeRequired:
     name: grant_type
     in: formData
-    description: The grant type as defined on OpenID connect specification. The OAuth2 grant type like 'Authorization_code' or 'refresh_token'
+    description: The grant type as defined on OpenID connect specification. The OAuth2 grant type like 'authorization_code' or 'refresh_token'
     required: true
     type: string
-    x-example: Authorization_code
+    x-example: authorization_code
 
   FormDataRedirectUri:
     name: redirect_uri
@@ -1534,13 +1826,20 @@ parameters:
     required: false
     type: string
 
+  FormDataProfileId:
+    name: profile_id
+    in: formData
+    description: The UUID of the profile user (when requesting a profile access token)
+    required: false
+    type: string
+
   HeaderAccessToken:
     name: accessToken
     in: header
     description: The access_token JWT of the user
     required: false
     type: string
-    x-example: c72666d1-2631-4a64-b7f5-970c860c938a
+    x-example: eyJ0eXAiOiJKV1QiLCJraWQiOiJQWk5LK3p4clNkZFl2TUN0b0o2U3hldEtNeTA9IiwiYWxnIjoiRVMyNTYifQ.eyJzdWIiOiJiYmQ2MDhiMi0zNDc0LTQyNTEtODNjNS1jZmIyMGFlZjFhZjkiLCJjdHMiOiJPQVVUSDJfU1RBVEVMRVNTX0dSQU5UIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiZDdlZWVlNDMtNzJlZi00ZDBkLWI3MGUtOGJkM2JjNjU3MDcyLTQxMjgiLCJpc3MiOiJodHRwczovL2FjY2Vzcy5pbnQuYXBpLmJiYy5jb20vYmJjaWR2NS9vYXV0aDIiLCJ0b2tlbk5hbWUiOiJhY2Nlc3NfdG9rZW4iLCJ0b2tlbl90eXBlIjoiQmVhcmVyIiwiYXV0aEdyYW50SWQiOiJRZjRUZGN4RzBRUkFzWGx2ejgtX0NuSXVCdnMiLCJhdWQiOiJ0ZXN0Q2xpZW50MSIsIm5iZiI6MTYxOTY5ODc2OSwiZ3JhbnRfdHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsInNjb3BlIjpbImV4cGxpY2l0IiwiaW1wbGljaXQiLCJwaWkiLCJ1aWQiXSwiYXV0aF90aW1lIjoxNjE5Njk4NzM3LCJyZWFsbSI6Ii8iLCJleHAiOjE2MTk3MDU5NjksImlhdCI6MTYxOTY5ODc2OSwiZXhwaXJlc19pbiI6NzIwMCwianRpIjoiTjR2ZUJPSXBFVThxLXAyMlVyQUI0dkRNYjlVIiwicHJvZmlsZUFkbWluSWQiOiI1YzJiNDQ3Yi0wZTAxLTQzNDEtYWUzMS1jZTgxOTRiMzYxYjYifQ.0sSj_GqpPByDgqzucKSVkdFXP4Ew9ecN39mmWYPhhAvpxI1BjOHkgs-1k5gRyDSLblmOMuHId97csdXYsP4sNg
 
   HeaderAuthorizationRequired:
     name: authorization
