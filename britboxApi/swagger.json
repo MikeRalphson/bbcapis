@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.281-ref-1-39-0",
+    "version": "3.730.283-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -2355,7 +2355,7 @@
       }
     },
     "/account/profile/continue-watching/list": {
-      "x-serviceId": "continueWatching",
+      "x-serviceId": "itvNightwatch",
       "get": {
         "description": "Returns a list of items which have been watched but not completed under the active\nprofile.\n\nMultiple episodes under the same show may be watched or in progress, however only a\nsingle item belonging to a particular show will be included in the returned list.\n\nThe next episode to continue watching for a particular show will be the most recent\nincompletely watched episode, or the next episode following the most recently\ncompletely watched episode. Based on the specified `show_item_type` type, either the next\nepisode, the season of the next episode, or the show will be included in the list.\n",
         "operationId": "getContinueWatchingList",
@@ -6859,6 +6859,117 @@
             ]
           }
         ]
+      }
+    },
+    "/itv/profile/recommendation/list": {
+      "x-serviceId": "itvRecommendation",
+      "get": {
+        "description": "Get the list of recommended items under the active profile.",
+        "operationId": "getRecommendedList",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "item_types",
+            "description": "List of item types to filter the recommendation list",
+            "in": "query",
+            "type": "array",
+            "collectionFormat": "csv",
+            "items": {
+              "description": "item type name",
+              "type": "string",
+              "minLength": 1
+            },
+            "example": {
+              "item_types": "show,movie"
+            }
+          },
+          {
+            "name": "page",
+            "description": "The page of items to load. Starts from page 1.",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "default": 1,
+            "minimum": 1
+          },
+          {
+            "name": "page_size",
+            "description": "The number of items to return in a page.",
+            "in": "query",
+            "type": "integer",
+            "format": "int32",
+            "default": 12,
+            "minimum": 1,
+            "maximum": 50
+          },
+          {
+            "$ref": "#/parameters/Device"
+          },
+          {
+            "$ref": "#/parameters/Subscription"
+          },
+          {
+            "$ref": "#/parameters/Segments"
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of items requested.",
+            "schema": {
+              "$ref": "#/definitions/ItemList"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "401": {
+            "description": "Invalid access token.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
       }
     },
     "/itv/profiletoken": {
