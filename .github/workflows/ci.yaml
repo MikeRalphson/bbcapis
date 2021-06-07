@@ -16,6 +16,7 @@ jobs:
     steps:
     - env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NITRO_KEY: ${{ secrets.NITRO_KEY }}
     - uses: actions/checkout@v1 # checkout repo content
     - uses: actions/setup-node@v1 # setup Node.js
       with:
@@ -23,7 +24,7 @@ jobs:
     - name: Install deps
       run: npm i
     - name: update APIs
-      run: ./update.sh ${{secrets.NITRO_KEY}}
+      run: ./update.sh ${NITRO_KEY}
     - name: 🚀 Deploy
       run: |
         git config user.name "${GITHUB_ACTOR}"
