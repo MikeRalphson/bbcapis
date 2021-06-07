@@ -14,6 +14,8 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
+    - env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/checkout@v1 # checkout repo content
     - uses: actions/setup-node@v1 # setup Node.js
       with:
@@ -28,5 +30,5 @@ jobs:
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git add .
         git diff-index --quiet HEAD || git commit -am "Auto-update APIs"
-        git push --all -f https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+        git push --all -f https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 

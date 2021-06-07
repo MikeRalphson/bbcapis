@@ -37,8 +37,14 @@ var version = require('./package.json').version;
 var apijs = './nitroApi/api.js';
 var api_fh = fs.openSync(apijs,'w');
 
-var config = require('./config.json');
-var host = config.nitro.host;
+var host;
+try {
+    var config = require('./config.json');
+    host = config.nitro.host;
+}
+catch (ex) {
+    host = 'programmes.api.bbc.com';
+}
 
 var cache = [];
 var seen = [];
