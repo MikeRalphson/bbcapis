@@ -31,5 +31,5 @@ jobs:
         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git add .
         git diff-index --quiet HEAD || git commit -am "Auto-update APIs"
-        git push --all -f https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+        git push --all -f https://Mermade:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
 
