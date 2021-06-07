@@ -1,5 +1,5 @@
 #!/bin/sh
-node fetchApis
+node fetchApis $1
 
 node parseNitroApi
 

@@ -21,7 +21,7 @@ jobs:
     - name: Install deps
       run: npm i
     - name: update APIs
-      run: ./update.sh
+      run: ./update.sh ${{secrets.NITRO_KEY}}
     - name: 🚀 Deploy
       run: |
         git config user.name "${GITHUB_ACTOR}"

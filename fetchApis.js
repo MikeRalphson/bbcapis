@@ -15,8 +15,14 @@ try {
 	host = config.nitro.host;
 }
 catch (e) {
-	console.log('Please rename config.json.example to config.json and edit for your setup');
-	process.exit(2);
+    if (process.argv[2]) {
+        apiKey = process.argv[2];
+        host = 'programmes.api.bbc.com';
+    }
+    else {
+	    console.log('Please rename config.json.example to config.json and edit for your setup');
+	    process.exit(2);
+    }
 }
 let query = nitro.newQuery();
 
