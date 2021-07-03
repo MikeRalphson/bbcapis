@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.283-ref-1-39-0",
+    "version": "3.730.291-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -6969,7 +6969,14 @@
               "$ref": "#/definitions/ServiceError"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "profileAuth": [
+              "Catalog"
+            ]
+          }
+        ]
       }
     },
     "/itv/profiletoken": {
@@ -7551,6 +7558,66 @@
           },
           "406": {
             "description": "Invalid Token/Customer Not Eligible for Offer."
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/itv/subscription/fullpricerenewal": {
+      "x-serviceId": "itvSubscription",
+      "get": {
+        "400": {
+          "description": "Bad request.",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
+          }
+        },
+        "404": {
+          "description": "Not found.",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
+          }
+        },
+        "415": {
+          "description": "Unsupported Media Type",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
+          }
+        },
+        "500": {
+          "description": "Internal server error.",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
+          }
+        },
+        "description": "Returns full price renewal state and reason for specific user.",
+        "operationId": "getFullPriceRenewal",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "full price renewal state and reason for specific user.",
+            "schema": {
+              "$ref": "#/definitions/ItvSubscriptionFullPriceRenewal"
+            }
+          }
+        },
+        "default": {
+          "description": "Service error.",
+          "schema": {
+            "$ref": "#/definitions/ServiceError"
           }
         },
         "security": [
@@ -12040,6 +12107,24 @@
         },
         "paymentMethodId": {
           "description": "Payment Method ID",
+          "type": "string"
+        }
+      }
+    },
+    "ItvSubscriptionFullPriceRenewal": {
+      "type": "object",
+      "required": [
+        "fullPriceRenewal",
+        "reason"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "fullPriceRenewal": {
+          "description": "full price renewal state.",
+          "type": "boolean"
+        },
+        "reason": {
+          "description": "reason of full price renewal state.",
           "type": "string"
         }
       }
