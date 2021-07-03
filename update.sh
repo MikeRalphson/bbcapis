@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 node fetchApis $1
 
 node parseNitroApi
