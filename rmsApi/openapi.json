@@ -1883,6 +1883,113 @@
         }
       }
     },
+    "/v2/programmes/container": {
+      "get": {
+        "summary": "Container Programmes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/network"
+          },
+          {
+            "$ref": "#/components/parameters/networkUrlKey"
+          },
+          {
+            "$ref": "#/components/parameters/category"
+          },
+          {
+            "$ref": "#/components/parameters/parent"
+          },
+          {
+            "$ref": "#/components/parameters/container"
+          },
+          {
+            "$ref": "#/components/parameters/type"
+          },
+          {
+            "$ref": "#/components/parameters/withAvailableType"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by programme type. Accepts comma separated values",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "brand",
+                "series"
+              ]
+            },
+            "required": false
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Provides a paginated list of container programmes (brand and series).\n<span>🎶</span> Beatles\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/programmes/container/pids": {
+      "get": {
+        "summary": "Batch Programme Containers By Pid",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/pids"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Returns requested container items by programme id <span>🎶</span> Beatles\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/programmes/items": {
       "get": {
         "summary": "Container & Playable Programmes",
@@ -2049,9 +2156,6 @@
           },
           {
             "$ref": "#/components/parameters/container"
-          },
-          {
-            "$ref": "#/components/parameters/tleoDistinct"
           },
           {
             "$ref": "#/components/parameters/experience"
@@ -4026,6 +4130,119 @@
         }
       }
     },
+    "/v2/my/programmes/container": {
+      "get": {
+        "summary": "Container Programmes",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/network"
+          },
+          {
+            "$ref": "#/components/parameters/networkUrlKey"
+          },
+          {
+            "$ref": "#/components/parameters/category"
+          },
+          {
+            "$ref": "#/components/parameters/parent"
+          },
+          {
+            "$ref": "#/components/parameters/container"
+          },
+          {
+            "$ref": "#/components/parameters/type"
+          },
+          {
+            "$ref": "#/components/parameters/withAvailableType"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter by programme type. Accepts comma separated values",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "brand",
+                "series"
+              ]
+            },
+            "required": false
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Provides a paginated list of container programmes (brand and series).\n<span>🎶</span> Beatles\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/programmes/container/pids": {
+      "get": {
+        "summary": "Batch Programme Containers By Pid",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/pids"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          }
+        ],
+        "tags": [
+          "Programmes"
+        ],
+        "description": "Returns requested container items by programme id <span>🎶</span> Beatles\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/my/programmes/plays": {
       "post": {
         "summary": "Write Play Event",
@@ -4939,9 +5156,6 @@
             "$ref": "#/components/parameters/container"
           },
           {
-            "$ref": "#/components/parameters/tleoDistinct"
-          },
-          {
             "$ref": "#/components/parameters/experience"
           },
           {
@@ -5239,7 +5453,10 @@
             "$ref": "#/components/parameters/container"
           },
           {
-            "$ref": "#/components/parameters/tleoDistinct"
+            "$ref": "#/components/parameters/type"
+          },
+          {
+            "$ref": "#/components/parameters/withAvailableType"
           },
           {
             "$ref": "#/components/parameters/experience"
@@ -5385,9 +5602,6 @@
           },
           {
             "$ref": "#/components/parameters/container"
-          },
-          {
-            "$ref": "#/components/parameters/tleoDistinct"
           },
           {
             "$ref": "#/components/parameters/experience"
@@ -5629,7 +5843,10 @@
             "$ref": "#/components/parameters/container"
           },
           {
-            "$ref": "#/components/parameters/tleoDistinct"
+            "$ref": "#/components/parameters/type"
+          },
+          {
+            "$ref": "#/components/parameters/withAvailableType"
           },
           {
             "$ref": "#/components/parameters/experience"
@@ -5832,13 +6049,13 @@
         "in": "query",
         "description": "Domain context to build play queue (not related to enclosing container), currently only supports \"favourites\"",
         "schema": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "favourites"
+          ]
         },
         "required": false,
-        "example": "favourites",
-        "enum": [
-          "favourites"
-        ]
+        "example": "favourites"
       },
       "play_context": {
         "name": "play_context",
@@ -6171,18 +6388,31 @@
         },
         "required": false
       },
-      "tleoDistinct": {
-        "name": "tleoDistinct",
+      "withAvailableType": {
+        "name": "withAvailableType",
         "in": "query",
-        "description": "Filter by latest playable items from distinct tleo containers",
+        "description": "With Available Type allows you to specify a type of container to return for available content. Currently only supported values are `episode`. It must be used in conjunction with the `type` query parameter, and the `type` query parameter must have value `brand`. This will return brands with available episodes.",
         "schema": {
-          "type": "boolean",
+          "type": "string",
           "enum": [
-            true,
-            false
+            "episode"
           ]
         },
-        "required": false
+        "required": false,
+        "example": "episode"
+      },
+      "type": {
+        "name": "type",
+        "in": "query",
+        "description": "When used in conjunction with the `withAvailableType` query parameter, specifies the container type to return for episodes.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "brand"
+          ]
+        },
+        "required": false,
+        "example": "brand"
       },
       "q": {
         "name": "q",
