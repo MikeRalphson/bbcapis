@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.293-ref-1-39-0",
+    "version": "3.730.297-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -7469,6 +7469,125 @@
         ]
       }
     },
+    "/itv/roku/plans": {
+      "x-serviceId": "itvRoku",
+      "get": {
+        "description": "Gets available Roku plans.",
+        "operationId": "getPlans",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of available Roku plans.",
+            "schema": {
+              "$ref": "#/definitions/RokuPlans"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    },
+    "/itv/roku/transaction/{transactionid}": {
+      "x-serviceId": "itvRoku",
+      "post": {
+        "description": "Sends request to execute specified transaction.",
+        "operationId": "executeTransaction",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "transactionid",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the Roku transaction (subscribe/upgrade/downgrade/cancellation).",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details of a transaction request.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItvRokuTransactionRequest"
+            }
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK."
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    },
     "/itv/save-offer": {
       "x-serviceId": "itvSubscription",
       "get": {
@@ -12111,6 +12230,19 @@
         }
       }
     },
+    "ItvRokuTransactionRequest": {
+      "type": "object",
+      "required": [
+        "profileToken"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "profileToken": {
+          "description": "The ITV profile token.",
+          "type": "string"
+        }
+      }
+    },
     "ItvSubscriptionFullPriceRenewal": {
       "type": "object",
       "required": [
@@ -13728,6 +13860,95 @@
         },
         "languageCode": {
           "description": "The code of the preferred language for the primary profile.\nMust be a valid ISO language code e.g. \"en-US\" and must match the code of\none of the languages specified in the app config.\nSee https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes\n",
+          "type": "string"
+        }
+      }
+    },
+    "RokuPlanListItem": {
+      "type": "object",
+      "required": [
+        "productCode",
+        "nickname",
+        "product",
+        "currency",
+        "amount",
+        "interval",
+        "intervalCount",
+        "trialPeriodDays",
+        "description",
+        "savingLabel"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "productCode": {
+          "description": "The identifier of a plan.",
+          "type": "string"
+        },
+        "nickname": {
+          "description": "The title of a plan.",
+          "type": "string"
+        },
+        "product": {
+          "description": "The product of a plan.",
+          "type": "string"
+        },
+        "currency": {
+          "description": "The currency a plan is offered in.",
+          "type": "string"
+        },
+        "amount": {
+          "description": "The price of a plan. If a free plan then undefined.",
+          "type": "number",
+          "format": "float"
+        },
+        "interval": {
+          "description": "The type of billing period used.",
+          "type": "string",
+          "enum": [
+            "day",
+            "week",
+            "month",
+            "year",
+            "none"
+          ]
+        },
+        "intervalCount": {
+          "description": "Given the `interval` this is how frequently it will run. e.g. every 2 weeks.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "trialPeriodDays": {
+          "description": "How many days a trial period runs for a plan. Only valid if `hasTrialPeriod` is true.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "description": "The textual description.",
+          "type": "string"
+        },
+        "savingLabel": {
+          "description": "NA.",
+          "type": "string"
+        }
+      }
+    },
+    "RokuPlans": {
+      "type": "object",
+      "required": [
+        "plans",
+        "termsAndConditions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "plans": {
+          "description": "The list of available plans.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RokuPlanListItem"
+          }
+        },
+        "termsAndConditions": {
+          "description": "Details of terms and conditions of the plan.",
           "type": "string"
         }
       }
