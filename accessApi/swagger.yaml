@@ -1159,6 +1159,8 @@ paths:
 
   /v1/user/tokenInfo:
     x-swagger-router-controller: openam_controller
+    x-a127-apply:
+      x509: { }
     get:
       summary: Get token Info
       description: |
