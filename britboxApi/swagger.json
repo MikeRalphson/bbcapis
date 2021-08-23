@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.297-ref-1-39-0",
+    "version": "3.730.300-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -1010,6 +1010,78 @@
         ]
       }
     },
+    "/account/devices/authorization": {
+      "x-serviceId": "itvAuth",
+      "post": {
+        "description": "Authorize a device from a generated device authorization code.\n\nThis is the second step in the process of authorizing a device by pin code.\n\nFirstly the device must request a generated authorization code via the\n`/authorization/device/code` endpoint.\n\nThis endpoint then authorizes the device associated with the code to sign in\nto a user account. Typically this endpoint will be called from a page\npresented in the web app under the account section.\n\nOnce authorized, the device will then be able to sign in to that account\nvia the `/authorization/device` endpoint, without needing to provide the \ncredentials of the user.\n",
+        "operationId": "authorizeDevice",
+        "tags": [
+          "account"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The generated device authorization code.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeviceAuthorizationCode"
+            }
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
     "/account/devices/{id}": {
       "x-serviceId": "device",
       "get": {
@@ -1216,78 +1288,6 @@
           },
           "403": {
             "description": "Forbidden.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "404": {
-            "description": "Not found.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "default": {
-            "description": "Service error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          }
-        },
-        "security": [
-          {
-            "accountAuth": [
-              "Catalog"
-            ]
-          }
-        ]
-      }
-    },
-    "/account/devices/authorization": {
-      "x-serviceId": "itvAuth",
-      "post": {
-        "description": "Authorize a device from a generated device authorization code.\n\nThis is the second step in the process of authorizing a device by pin code.\n\nFirstly the device must request a generated authorization code via the\n`/authorization/device/code` endpoint.\n\nThis endpoint then authorizes the device associated with the code to sign in\nto a user account. Typically this endpoint will be called from a page\npresented in the web app under the account section.\n\nOnce authorized, the device will then be able to sign in to that account\nvia the `/authorization/device` endpoint, without needing to provide the \ncredentials of the user.\n",
-        "operationId": "authorizeDevice",
-        "tags": [
-          "account"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "description": "The generated device authorization code.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeviceAuthorizationCode"
-            }
-          },
-          {
-            "$ref": "#/parameters/FeatureFlags"
-          },
-          {
-            "$ref": "#/parameters/Language"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad request.",
             "schema": {
               "$ref": "#/definitions/ServiceError"
             }
@@ -6068,6 +6068,66 @@
         ]
       }
     },
+    "/itv/entitlements/current": {
+      "x-serviceId": "itvSubscription",
+      "get": {
+        "description": "Returns current entitlement.",
+        "operationId": "getCurrentEntitlement",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current entitlement.",
+            "schema": {
+              "$ref": "#/definitions/ItvEntitlementCurrent"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
     "/itv/entitlements/history": {
       "x-serviceId": "itvSubscription",
       "get": {
@@ -6186,6 +6246,117 @@
             }
           }
         }
+      }
+    },
+    "/itv/googlepay/subscription": {
+      "x-serviceId": "itvSubscription",
+      "post": {
+        "description": "Get the list of recommended items under the active profile.",
+        "operationId": "googlePaySubscription",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Details of googlePay subscription request.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItvGooglePaySubscriptionRequest"
+            }
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "missing purchase token/subscription item in body, or subscription item undefined"
+          },
+          "401": {
+            "description": "Invalid or missing grant"
+          },
+          "409": {
+            "description": "Purchase token is already attached to a different user"
+          },
+          "415": {
+            "description": "wrong content-type"
+          },
+          "500": {
+            "description": "something bad has happened"
+          }
+        },
+        "security": [
+          {
+            "profileAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/itv/had/entitlements": {
+      "x-serviceId": "itvSubscription",
+      "get": {
+        "description": "Check whether the user has been previously entitled.",
+        "operationId": "checkPreviousEntitlements",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItvHadEntitlement"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
       }
     },
     "/itv/items/clips": {
@@ -11762,6 +11933,19 @@
         }
       }
     },
+    "ItvEntitlementCurrent": {
+      "type": "object",
+      "required": [
+        "source"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "description": "one of “itunes”, “stripe”, “amazon”, “google”",
+          "type": "string"
+        }
+      }
+    },
     "ItvEntitlementPlan": {
       "x-emoji": "💳",
       "type": "object",
@@ -11899,6 +12083,37 @@
         "initialCost": {
           "description": "The initial cost.",
           "type": "number"
+        }
+      }
+    },
+    "ItvGooglePaySubscriptionRequest": {
+      "type": "object",
+      "required": [
+        "purchaseToken",
+        "subscriptionItem"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "purchaseToken": {
+          "description": "the unique identifier for this purchase",
+          "type": "string"
+        },
+        "subscriptionItem": {
+          "description": "the SKU of the item from the play console",
+          "type": "string"
+        }
+      }
+    },
+    "ItvHadEntitlement": {
+      "type": "object",
+      "required": [
+        "hasHadEntitlements"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "hasHadEntitlements": {
+          "description": "whether the user has been previously entitlement",
+          "type": "boolean"
         }
       }
     },
