@@ -1925,6 +1925,9 @@
             "required": false
           },
           {
+            "$ref": "#/components/parameters/sort"
+          },
+          {
             "$ref": "#/components/parameters/offset"
           },
           {
@@ -1934,7 +1937,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of container programmes (brand and series).\n<span>🎶</span> Beatles\n",
+        "description": "Provides a paginated list of container programmes (brand and series).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter<span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -1990,154 +1993,6 @@
         }
       }
     },
-    "/v2/programmes/items": {
-      "get": {
-        "summary": "Container & Playable Programmes",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/network"
-          },
-          {
-            "$ref": "#/components/parameters/networkUrlKey"
-          },
-          {
-            "$ref": "#/components/parameters/category"
-          },
-          {
-            "$ref": "#/components/parameters/parent"
-          },
-          {
-            "$ref": "#/components/parameters/container"
-          },
-          {
-            "name": "kind",
-            "in": "query",
-            "description": "Filter by provided query. E.g. 'tleo' returns top level objects, ie. brands, orphaned series, and orphaned episodes",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "tleo"
-              ]
-            },
-            "required": false
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Filter by programme type. Accepts comma separated values",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "brand",
-                "series",
-                "episode",
-                "clip",
-                "brand,series",
-                "episode,clip"
-              ]
-            },
-            "required": false
-          },
-          {
-            "$ref": "#/components/parameters/offset"
-          },
-          {
-            "$ref": "#/components/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Programmes"
-        ],
-        "description": "Provides a paginated list of programmes (brands, series, episodes and clips).\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ItemsPaginatedResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/v2/programmes/items/playable": {
-      "get": {
-        "summary": "Playable Programmes",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/network"
-          },
-          {
-            "$ref": "#/components/parameters/networkUrlKey"
-          },
-          {
-            "$ref": "#/components/parameters/category"
-          },
-          {
-            "$ref": "#/components/parameters/parent"
-          },
-          {
-            "$ref": "#/components/parameters/container"
-          },
-          {
-            "$ref": "#/components/parameters/experience"
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Filter by programme type.",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "episode",
-                "clip"
-              ]
-            },
-            "required": false
-          },
-          {
-            "$ref": "#/components/parameters/sort"
-          },
-          {
-            "$ref": "#/components/parameters/offset"
-          },
-          {
-            "$ref": "#/components/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Programmes"
-        ],
-        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
     "/v2/programmes/playable": {
       "get": {
         "summary": "Playable Programmes",
@@ -2152,6 +2007,9 @@
             "$ref": "#/components/parameters/category"
           },
           {
+            "$ref": "#/components/parameters/allCategories"
+          },
+          {
             "$ref": "#/components/parameters/parent"
           },
           {
@@ -2186,7 +2044,7 @@
         "tags": [
           "Programmes"
         ],
-        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter<span>🎶</span> Blur\n",
+        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter<span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -2197,41 +2055,6 @@
                 }
               }
             }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/v2/programmes/{pid}/item": {
-      "get": {
-        "summary": "Single Container or Playable Programme By Pid",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/pid"
-          }
-        ],
-        "tags": [
-          "Programmes"
-        ],
-        "description": "Returns single container or playable item by a programme id <span>🎶</span> Nirvana\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Item"
-                }
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/components/responses/Notfound"
           },
           "default": {
             "$ref": "#/components/responses/InternalServiceError"
@@ -2248,25 +2071,25 @@
           },
           {
             "$ref": "#/components/parameters/pid"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
           }
         ],
         "tags": [
           "Programmes"
         ],
-        "description": "Returns single playable item by a programme id <span>🎶</span> Nirvana\n",
+        "description": "Returns single playable item by a programme id <span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItem"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
           },
           "404": {
             "$ref": "#/components/responses/Notfound"
@@ -4175,6 +3998,9 @@
             "required": false
           },
           {
+            "$ref": "#/components/parameters/sort"
+          },
+          {
             "$ref": "#/components/parameters/offset"
           },
           {
@@ -4182,9 +4008,9 @@
           }
         ],
         "tags": [
-          "Programmes"
+          "Personalised Programmes"
         ],
-        "description": "Provides a paginated list of container programmes (brand and series).\n<span>🎶</span> Beatles\n",
+        "description": "Provides a paginated list of personalised container programmes (brand and series).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter\n<span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4220,9 +4046,9 @@
           }
         ],
         "tags": [
-          "Programmes"
+          "Personalised Programmes"
         ],
-        "description": "Returns requested container items by programme id <span>🎶</span> Beatles\n",
+        "description": "Returns requested personalised container items by programme id <span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4392,7 +4218,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Returns list of programmes favourited by user <span>🎶</span> Oasis\n",
+        "description": "Returns list of personalised programmes favourited by user <span>🎶</span> Oasis\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4448,7 +4274,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Returns list of programmes followed by user <span>🎶</span> Oasis\n",
+        "description": "Returns list of personalised programmes followed by user <span>🎶</span> Oasis\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4492,7 +4318,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Returns list of latest playable programmes from followed brands and series <span>🎶</span> Oasis\n",
+        "description": "Returns list of latest personalised playable programmes from followed brands and series <span>🎶</span> Oasis\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4794,9 +4620,6 @@
         "summary": "Playable Programmes",
         "parameters": [
           {
-            "$ref": "#/components/parameters/Authorization"
-          },
-          {
             "$ref": "#/components/parameters/network"
           },
           {
@@ -4804,6 +4627,9 @@
           },
           {
             "$ref": "#/components/parameters/category"
+          },
+          {
+            "$ref": "#/components/parameters/allCategories"
           },
           {
             "$ref": "#/components/parameters/parent"
@@ -4815,9 +4641,12 @@
             "$ref": "#/components/parameters/experience"
           },
           {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
             "name": "type",
             "in": "query",
-            "description": "Filter by programme type.",
+            "description": "Filter by programme type. Accepts comma separated values",
             "schema": {
               "type": "string",
               "enum": [
@@ -4840,7 +4669,7 @@
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Provides a paginated list of personalised playable programmes (episodes and clips).\nAccepts various filters and sorting methods. <span>🎶</span> Blur\n",
+        "description": "Provides a paginated list of personalised playable programmes (episodes and clips).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter<span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -4861,47 +4690,6 @@
         }
       }
     },
-    "/v2/my/programmes/{pid}/item": {
-      "get": {
-        "summary": "Single Container or Playable Programme By Pid",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/Authorization"
-          },
-          {
-            "$ref": "#/components/parameters/pid"
-          }
-        ],
-        "tags": [
-          "Personalised Programmes"
-        ],
-        "description": "Returns personalised single container or playable item by a programme id <span>🎶</span> Nirvana\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Item"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/Notfound"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
     "/v2/my/programmes/{pid}/playable": {
       "get": {
         "summary": "Single Playable Programme By Pid",
@@ -4910,26 +4698,26 @@
             "$ref": "#/components/parameters/X-API-Key"
           },
           {
-            "$ref": "#/components/parameters/Authorization"
-          },
-          {
             "$ref": "#/components/parameters/pid"
           },
           {
             "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
           }
         ],
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Returns single personalised playable item by a programme id <span>🎶</span> Nirvana\n",
+        "description": "Returns personalised single playable item by a programme id <span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PlayableItem"
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
                 }
               }
             }
@@ -5133,76 +4921,7 @@
         }
       }
     },
-    "/workflow/programmes/playable": {
-      "get": {
-        "summary": "Playable Programmes",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/network"
-          },
-          {
-            "$ref": "#/components/parameters/networkUrlKey"
-          },
-          {
-            "$ref": "#/components/parameters/category"
-          },
-          {
-            "$ref": "#/components/parameters/allCategories"
-          },
-          {
-            "$ref": "#/components/parameters/parent"
-          },
-          {
-            "$ref": "#/components/parameters/container"
-          },
-          {
-            "$ref": "#/components/parameters/experience"
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Filter by programme type. Accepts comma separated values",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "episode",
-                "clip"
-              ]
-            },
-            "required": false
-          },
-          {
-            "$ref": "#/components/parameters/sort"
-          },
-          {
-            "$ref": "#/components/parameters/offset"
-          },
-          {
-            "$ref": "#/components/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Programmes - Internal Use"
-        ],
-        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter<span>🎶</span> Beatles\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/workflow/programmes/{pids}": {
+    "/v2/programmes/{pids}": {
       "get": {
         "summary": "Batch Programmes By Pid",
         "parameters": [
@@ -5217,7 +4936,7 @@
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Programmes"
         ],
         "description": "Returns requested programme items by programme id <span>🎶</span> Beatles\n",
         "responses": {
@@ -5240,7 +4959,7 @@
         }
       }
     },
-    "/workflow/programmes/playable/{pids}": {
+    "/v2/programmes/playable/{pids}": {
       "get": {
         "summary": "Batch Programme Playables By Pid",
         "parameters": [
@@ -5255,7 +4974,7 @@
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Programmes"
         ],
         "description": "Returns requested playable items by programme id <span>🎶</span> Beatles\n",
         "responses": {
@@ -5278,45 +4997,7 @@
         }
       }
     },
-    "/workflow/programmes/{pid}/playable": {
-      "get": {
-        "summary": "Single Playable Programme By Pid",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/pid"
-          },
-          {
-            "$ref": "#/components/parameters/experience"
-          }
-        ],
-        "tags": [
-          "Programmes - Internal Use"
-        ],
-        "description": "Returns single playable item by a programme id <span>🎶</span> Beatles\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "$ref": "#/components/responses/Notfound"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/workflow/programmes/tleo/playable": {
+    "/v2/programmes/tleo/playable": {
       "get": {
         "summary": "Playable Programmes By Tleo",
         "parameters": [
@@ -5340,7 +5021,7 @@
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Programmes"
         ],
         "description": "Provides a paginated list of playable programmes by tleo id (episodes and clips). <span>🎶</span> Beatles\n",
         "responses": {
@@ -5360,7 +5041,7 @@
         }
       }
     },
-    "/workflow/programmes/random/playable": {
+    "/v2/programmes/random/playable": {
       "get": {
         "summary": "Random Playable Programmes",
         "parameters": [
@@ -5375,7 +5056,7 @@
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Programmes"
         ],
         "description": "Provides a paginated list of random playable programmes (episodes and clips). <span>🎶</span> Beatles\n",
         "responses": {
@@ -5395,7 +5076,7 @@
         }
       }
     },
-    "/workflow/programmes/playable/next/{pids}": {
+    "/v2/programmes/playable/next/{pids}": {
       "get": {
         "summary": "Batch Playables And Their Next Playable By Pid",
         "parameters": [
@@ -5410,7 +5091,7 @@
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Programmes"
         ],
         "description": "Returns requested playable items and their playable item to follow by programme id <span>🎶</span> Beatles\n",
         "responses": {
@@ -5433,79 +5114,7 @@
         }
       }
     },
-    "/workflow/programmes/container": {
-      "get": {
-        "summary": "Container Programmes",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/network"
-          },
-          {
-            "$ref": "#/components/parameters/networkUrlKey"
-          },
-          {
-            "$ref": "#/components/parameters/category"
-          },
-          {
-            "$ref": "#/components/parameters/parent"
-          },
-          {
-            "$ref": "#/components/parameters/container"
-          },
-          {
-            "$ref": "#/components/parameters/type"
-          },
-          {
-            "$ref": "#/components/parameters/withAvailableType"
-          },
-          {
-            "$ref": "#/components/parameters/experience"
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Filter by programme type. Accepts comma separated values",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "brand",
-                "series"
-              ]
-            },
-            "required": false
-          },
-          {
-            "$ref": "#/components/parameters/sort"
-          },
-          {
-            "$ref": "#/components/parameters/offset"
-          },
-          {
-            "$ref": "#/components/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Programmes - Internal Use"
-        ],
-        "description": "Provides a paginated list of container programmes (brand and series).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter<span>🎶</span> Beatles\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/workflow/programmes/container/{pids}": {
+    "/v2/programmes/container/{pids}": {
       "get": {
         "summary": "Batch Programme Containers By Pid",
         "parameters": [
@@ -5520,7 +5129,7 @@
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Programmes"
         ],
         "description": "Returns requested container items by programme id <span>🎶</span> Beatles\n",
         "responses": {
@@ -5543,7 +5152,7 @@
         }
       }
     },
-    "/workflow/programmes/{pid}/container": {
+    "/v2/programmes/{pid}/container": {
       "get": {
         "summary": "Single Playable Programme By Pid",
         "parameters": [
@@ -5558,7 +5167,7 @@
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Programmes"
         ],
         "description": "Returns single container item by a programme id <span>🎶</span> Beatles\n",
         "responses": {
@@ -5581,79 +5190,7 @@
         }
       }
     },
-    "/workflow/my/programmes/playable": {
-      "get": {
-        "summary": "Playable Programmes",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/network"
-          },
-          {
-            "$ref": "#/components/parameters/networkUrlKey"
-          },
-          {
-            "$ref": "#/components/parameters/category"
-          },
-          {
-            "$ref": "#/components/parameters/allCategories"
-          },
-          {
-            "$ref": "#/components/parameters/parent"
-          },
-          {
-            "$ref": "#/components/parameters/container"
-          },
-          {
-            "$ref": "#/components/parameters/experience"
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Filter by programme type. Accepts comma separated values",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "episode",
-                "clip"
-              ]
-            },
-            "required": false
-          },
-          {
-            "$ref": "#/components/parameters/sort"
-          },
-          {
-            "$ref": "#/components/parameters/offset"
-          },
-          {
-            "$ref": "#/components/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Programmes - Internal Use"
-        ],
-        "description": "Provides a paginated list of playable programmes (episodes and clips).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter<span>🎶</span> Beatles\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/workflow/my/programmes/playable/{pids}": {
+    "/v2/my/programmes/playable/{pids}": {
       "get": {
         "summary": "Batch Programme Playables By Pid",
         "parameters": [
@@ -5665,12 +5202,15 @@
           },
           {
             "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Personalised Programmes"
         ],
-        "description": "Returns requested playable items by programme id <span>🎶</span> Beatles\n",
+        "description": "Returns requested personalised playable items by programme id <span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5694,48 +5234,7 @@
         }
       }
     },
-    "/workflow/my/programmes/{pid}/playable": {
-      "get": {
-        "summary": "Single Playable Programme By Pid",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/X-API-Key"
-          },
-          {
-            "$ref": "#/components/parameters/pid"
-          },
-          {
-            "$ref": "#/components/parameters/experience"
-          }
-        ],
-        "tags": [
-          "Programmes - Internal Use"
-        ],
-        "description": "Returns single playable item by a programme id <span>🎶</span> Beatles\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/Unauthorized"
-          },
-          "404": {
-            "$ref": "#/components/responses/Notfound"
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/workflow/my/programmes/tleo/playable": {
+    "/v2/my/programmes/tleo/playable": {
       "get": {
         "summary": "Playable Programmes By Tleo",
         "parameters": [
@@ -5756,10 +5255,13 @@
           },
           {
             "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Programmes"
         ],
         "description": "Provides a paginated list of playable programmes by tleo id (episodes and clips). <span>🎶</span> Beatles\n",
         "responses": {
@@ -5782,7 +5284,7 @@
         }
       }
     },
-    "/workflow/my/programmes/playable/next/{pids}": {
+    "/v2/my/programmes/playable/next/{pids}": {
       "get": {
         "summary": "Batch Playables And Their Next Playable By Pid",
         "parameters": [
@@ -5794,12 +5296,15 @@
           },
           {
             "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Personalised Programmes"
         ],
-        "description": "Returns requested playable items and their playable item to follow by programme id <span>🎶</span> Beatles\n",
+        "description": "Returns requested personalised playable items and their playable item to follow by programme id <span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5823,79 +5328,7 @@
         }
       }
     },
-    "/workflow/my/programmes/container": {
-      "get": {
-        "summary": "Container Programmes",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/network"
-          },
-          {
-            "$ref": "#/components/parameters/networkUrlKey"
-          },
-          {
-            "$ref": "#/components/parameters/category"
-          },
-          {
-            "$ref": "#/components/parameters/parent"
-          },
-          {
-            "$ref": "#/components/parameters/container"
-          },
-          {
-            "$ref": "#/components/parameters/type"
-          },
-          {
-            "$ref": "#/components/parameters/withAvailableType"
-          },
-          {
-            "$ref": "#/components/parameters/experience"
-          },
-          {
-            "name": "type",
-            "in": "query",
-            "description": "Filter by programme type. Accepts comma separated values",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "brand",
-                "series"
-              ]
-            },
-            "required": false
-          },
-          {
-            "$ref": "#/components/parameters/sort"
-          },
-          {
-            "$ref": "#/components/parameters/offset"
-          },
-          {
-            "$ref": "#/components/parameters/limit"
-          }
-        ],
-        "tags": [
-          "Programmes - Internal Use"
-        ],
-        "description": "Provides a paginated list of container programmes (brand and series).\nAccepts various filters and sorting methods. When sorting by popularity, this parameter only works with the category filter<span>🎶</span> Beatles\n",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ContainerItemsPaginatedResponse"
-                }
-              }
-            }
-          },
-          "default": {
-            "$ref": "#/components/responses/InternalServiceError"
-          }
-        }
-      }
-    },
-    "/workflow/my/programmes/container/{pids}": {
+    "/v2/my/programmes/container/{pids}": {
       "get": {
         "summary": "Batch Programme Containers By Pid",
         "parameters": [
@@ -5907,12 +5340,15 @@
           },
           {
             "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Personalised Programmes"
         ],
-        "description": "Returns requested container items by programme id <span>🎶</span> Beatles\n",
+        "description": "Returns requested personalised container items by programme id <span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5933,7 +5369,7 @@
         }
       }
     },
-    "/workflow/my/programmes/{pid}/container": {
+    "/v2/my/programmes/{pid}/container": {
       "get": {
         "summary": "Single Playable Programme By Pid",
         "parameters": [
@@ -5945,12 +5381,15 @@
           },
           {
             "$ref": "#/components/parameters/experience"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
           }
         ],
         "tags": [
-          "Programmes - Internal Use"
+          "Personalised Programmes"
         ],
-        "description": "Returns single container item by a programme id <span>🎶</span> Beatles\n",
+        "description": "Returns personalised single container item by a programme id <span>🎶</span> Beatles\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -11144,10 +10583,6 @@
     },
     {
       "name": "Programmes"
-    },
-    {
-      "name": "Programmes - Internal Use",
-      "description": "Programmes endpoints designed for internal use pre-migration, do not use them directly to query metadata for Sounds"
     },
     {
       "name": "Personalised Activities"
