@@ -4427,7 +4427,7 @@
         }
       }
     },
-    "/v2/my/programmes/recommendations/music-mixes/playable": {
+    "/v2/my/programmes/recommendations/{container-name}/playable": {
       "get": {
         "summary": "List of recommended music mix programmes",
         "parameters": [
@@ -4445,12 +4445,15 @@
           },
           {
             "$ref": "#/components/parameters/X-Experiments"
+          },
+          {
+            "$ref": "#/components/parameters/container-name"
           }
         ],
         "tags": [
           "Personalised Programmes"
         ],
-        "description": "Recommended music mixes from the Audience Platforms' Recommendations Chassis\n<span>🎶</span> AC/DC returning a set of playable items that are music mixes\n",
+        "description": "Recommended playable items within a given container provided by the Audience Platforms' Recommendations Chassis.\n\nThe default playable endpoint returns `for-you` items.\n\nExact supported feeds are based on configuration within ACDC, and so are subject to change.\n\nSupported values currently include\n<dl>\n  <dt>for-you</dt><dd>The default set of playable content, returned also when accessing the /v2/my/programmes/playable endpoint.</dd>\n  <dt>music-mixes</dt><dd>Recommended music mixes for you</dd>\n  <dt>thought-provoking</dt><dd>Recommended content in the thought provoking container for you</dd>\n  <dt>gripping-stories</dt><dd>Recommended content in the gripping stories container for you</dd>\n</dl>\n<span>🎶</span> AC/DC returning a set of playable items that are within the specified named container\n",
         "responses": {
           "200": {
             "description": "OK",
@@ -5697,6 +5700,16 @@
           "type": "string"
         },
         "example": "p00zddyq",
+        "required": true
+      },
+      "container-name": {
+        "name": "container-name",
+        "in": "path",
+        "description": "container name",
+        "schema": {
+          "type": "string"
+        },
+        "example": "for-you, music-mixes, thought-provoking",
         "required": true
       },
       "urn": {
