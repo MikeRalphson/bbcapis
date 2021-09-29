@@ -1227,6 +1227,12 @@
                         }
                       ]
                     }
+                  },
+                  "interactions": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/definitions/interaction"
+                    }
                   }
                 },
                 "required": [
@@ -2260,6 +2266,297 @@
       ],
       "additionalProperties": false
     },
+    "interaction": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "object",
+          "properties": {
+            "short": {
+              "enum": [
+                "Skip"
+              ]
+            },
+            "long": {
+              "enum": [
+                "Skip intro",
+                "Skip recap",
+                "Skip preview"
+              ]
+            }
+          },
+          "required": [
+            "short",
+            "long"
+          ],
+          "additionalProperties": false
+        },
+        "type": {
+          "enum": [
+            "skip"
+          ]
+        },
+        "subtype": {
+          "enum": [
+            "intro",
+            "recap",
+            "this-episode-preview",
+            "next-episode-teaser"
+          ]
+        },
+        "interaction_points": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "enum": [
+                      "show_from",
+                      "skip_to"
+                    ]
+                  },
+                  "offset": {
+                    "type": "number"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "title",
+        "type",
+        "subtype",
+        "interaction_points"
+      ],
+      "additionalProperties": false
+    },
+    "version": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "version",
+            "version_large"
+          ]
+        },
+        "hd": {
+          "type": "boolean"
+        },
+        "uhd": {
+          "type": "boolean"
+        },
+        "download": {
+          "type": "boolean"
+        },
+        "kind": {
+          "enum": [
+            "legal",
+            "editorial",
+            "technical-replacement",
+            "original",
+            "iplayer-version",
+            "lengthened",
+            "shortened",
+            "pre-watershed",
+            "post-watershed",
+            "warnings-higher",
+            "warnings-lower",
+            "warnings-none",
+            "duplication",
+            "open-subtitled",
+            "other",
+            "audio-described",
+            "signed",
+            "webcast",
+            "simulcast"
+          ]
+        },
+        "duration": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "text",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        "rrc": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string"
+            },
+            "description": {
+              "type": "object",
+              "properties": {
+                "small": {
+                  "type": "string"
+                },
+                "large": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "small",
+                "large"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "description"
+          ],
+          "additionalProperties": false
+        },
+        "guidance": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "text": {
+              "type": "object",
+              "properties": {
+                "small": {
+                  "type": "string"
+                },
+                "medium": {
+                  "type": "string"
+                },
+                "large": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false
+        },
+        "first_broadcast": {
+          "type": "string"
+        },
+        "first_broadcast_date_time": {
+          "type": "string"
+        },
+        "credits_start": {
+          "type": "number"
+        },
+        "service_id": {
+          "type": "string"
+        },
+        "availability": {
+          "type": "object",
+          "properties": {
+            "start": {
+              "type": "string"
+            },
+            "accurate_start": {
+              "type": "string"
+            },
+            "end": {
+              "type": "string"
+            },
+            "remaining": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "text"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "start"
+          ],
+          "additionalProperties": false
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "system": {
+                    "type": "string"
+                  },
+                  "offset": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "name",
+                  "system",
+                  "offset"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "system": {
+                    "type": "string"
+                  },
+                  "time": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "system",
+                  "time"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "interactions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/interaction"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "hd",
+        "uhd",
+        "download",
+        "duration",
+        "kind",
+        "availability"
+      ],
+      "additionalProperties": false
+    },
     "clip": {
       "type": "object",
       "properties": {
@@ -2521,6 +2818,12 @@
                     }
                   ]
                 }
+              },
+              "interactions": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/interaction"
+                }
               }
             },
             "required": [
@@ -2588,223 +2891,6 @@
         "synopses",
         "versions",
         "master_brand"
-      ],
-      "additionalProperties": false
-    },
-    "version": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "type": {
-          "enum": [
-            "version",
-            "version_large"
-          ]
-        },
-        "hd": {
-          "type": "boolean"
-        },
-        "uhd": {
-          "type": "boolean"
-        },
-        "download": {
-          "type": "boolean"
-        },
-        "kind": {
-          "enum": [
-            "legal",
-            "editorial",
-            "technical-replacement",
-            "original",
-            "iplayer-version",
-            "lengthened",
-            "shortened",
-            "pre-watershed",
-            "post-watershed",
-            "warnings-higher",
-            "warnings-lower",
-            "warnings-none",
-            "duplication",
-            "open-subtitled",
-            "other",
-            "audio-described",
-            "signed",
-            "webcast",
-            "simulcast"
-          ]
-        },
-        "duration": {
-          "type": "object",
-          "properties": {
-            "text": {
-              "type": "string"
-            },
-            "value": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "text",
-            "value"
-          ],
-          "additionalProperties": false
-        },
-        "rrc": {
-          "type": "object",
-          "properties": {
-            "url": {
-              "type": "string"
-            },
-            "description": {
-              "type": "object",
-              "properties": {
-                "small": {
-                  "type": "string"
-                },
-                "large": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "small",
-                "large"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "required": [
-            "description"
-          ],
-          "additionalProperties": false
-        },
-        "guidance": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "text": {
-              "type": "object",
-              "properties": {
-                "small": {
-                  "type": "string"
-                },
-                "medium": {
-                  "type": "string"
-                },
-                "large": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "required": [
-            "id"
-          ],
-          "additionalProperties": false
-        },
-        "first_broadcast": {
-          "type": "string"
-        },
-        "first_broadcast_date_time": {
-          "type": "string"
-        },
-        "credits_start": {
-          "type": "number"
-        },
-        "service_id": {
-          "type": "string"
-        },
-        "availability": {
-          "type": "object",
-          "properties": {
-            "start": {
-              "type": "string"
-            },
-            "accurate_start": {
-              "type": "string"
-            },
-            "end": {
-              "type": "string"
-            },
-            "remaining": {
-              "type": "object",
-              "properties": {
-                "text": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "text"
-              ],
-              "additionalProperties": false
-            }
-          },
-          "required": [
-            "start"
-          ],
-          "additionalProperties": false
-        },
-        "events": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "system": {
-                    "type": "string"
-                  },
-                  "offset": {
-                    "type": "integer"
-                  }
-                },
-                "required": [
-                  "name",
-                  "system",
-                  "offset"
-                ],
-                "additionalProperties": false
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "system": {
-                    "type": "string"
-                  },
-                  "time": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "name",
-                  "system",
-                  "time"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          }
-        }
-      },
-      "required": [
-        "id",
-        "type",
-        "hd",
-        "uhd",
-        "download",
-        "duration",
-        "kind",
-        "availability"
       ],
       "additionalProperties": false
     }

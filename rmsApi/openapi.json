@@ -7598,6 +7598,9 @@
       "PersonalisedRadioResponse": {
         "$ref": "./PersonalisedRadioResponse.yaml"
       },
+      "PersonalisedRadioErrorResponse": {
+        "$ref": "./PersonalisedRadioErrorResponse.yaml"
+      },
       "PersonalisedRadioActivity": {
         "$ref": "./PersonalisedRadioActivity.yaml"
       },
@@ -8104,6 +8107,56 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/InlineDisplayModule"
+            }
+          }
+        },
+        "required": [
+          "$schema",
+          "data"
+        ]
+      },
+      "ExperienceInlineSpeechResponse": {
+        "type": "object",
+        "properties": {
+          "$schema": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/HeaderModule"
+                },
+                {
+                  "$ref": "#/components/schemas/DisplayModule"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "$schema",
+          "data"
+        ]
+      },
+      "ExperienceInlineMusicResponse": {
+        "type": "object",
+        "properties": {
+          "$schema": {
+            "type": "string"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/HeaderModule"
+                },
+                {
+                  "$ref": "#/components/schemas/DisplayModule"
+                }
+              ]
             }
           }
         },
