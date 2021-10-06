@@ -2305,24 +2305,14 @@
           ]
         },
         "interaction_points": {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "enum": [
-                      "show_from",
-                      "skip_to"
-                    ]
-                  },
-                  "offset": {
-                    "type": "number"
-                  }
-                }
-              }
-            ]
+          "type": "object",
+          "properties": {
+            "show_from": {
+              "type": "number"
+            },
+            "skip_to": {
+              "type": "number"
+            }
           }
         }
       },
