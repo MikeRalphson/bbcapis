@@ -2313,7 +2313,12 @@
             "skip_to": {
               "type": "number"
             }
-          }
+          },
+          "required": [
+            "show_from",
+            "skip_to"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
