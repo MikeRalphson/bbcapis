@@ -2273,15 +2273,29 @@
           "type": "object",
           "properties": {
             "short": {
-              "enum": [
-                "Skip"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    "Skip"
+                  ]
+                }
               ]
             },
             "long": {
-              "enum": [
-                "Skip intro",
-                "Skip recap",
-                "Skip preview"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "enum": [
+                    "Skip intro",
+                    "Skip recap",
+                    "Skip preview"
+                  ]
+                }
               ]
             }
           },
@@ -2292,16 +2306,30 @@
           "additionalProperties": false
         },
         "type": {
-          "enum": [
-            "skip"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "enum": [
+                "skip"
+              ]
+            }
           ]
         },
         "subtype": {
-          "enum": [
-            "intro",
-            "recap",
-            "this-episode-preview",
-            "next-episode-teaser"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "enum": [
+                "intro",
+                "recap",
+                "this-episode-preview",
+                "next-episode-teaser"
+              ]
+            }
           ]
         },
         "interaction_points": {
