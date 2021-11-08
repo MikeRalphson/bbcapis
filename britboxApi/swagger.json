@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.312-ref-1-39-0",
+    "version": "3.730.317-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -7581,6 +7581,71 @@
         ]
       }
     },
+    "/itv/recommendations/config": {
+      "x-serviceId": "itvRecommendation",
+      "get": {
+        "description": "Get the list of reccomendation configurations.",
+        "operationId": "getRecommendationConfig",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of reccomendation configurations.",
+            "schema": {
+              "$ref": "#/definitions/ItvRecsConfigList"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "401": {
+            "description": "Invalid access token.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    },
     "/itv/resubscribe/{platform}": {
       "x-serviceId": "itvSubscription",
       "post": {
@@ -11505,6 +11570,11 @@
           "type": "integer",
           "format": "int32"
         },
+        "availableSpecialCount": {
+          "description": "The number of available specials in the item.",
+          "type": "integer",
+          "format": "int32"
+        },
         "seasonNumber": {
           "description": "The number of a season, if the item is a season.",
           "type": "integer",
@@ -12432,6 +12502,49 @@
         "paymentMethodId": {
           "description": "Payment Method ID",
           "type": "string"
+        }
+      }
+    },
+    "ItvRecsConfig": {
+      "x-emoji": "📚",
+      "type": "object",
+      "required": [
+        "segment",
+        "rec_id"
+      ],
+      "description": "Recommendation config.",
+      "additionalProperties": false,
+      "properties": {
+        "segment": {
+          "type": "string",
+          "description": "The segment of the recommendation"
+        },
+        "rec_id": {
+          "type": "string",
+          "description": "recommendation ID"
+        }
+      }
+    },
+    "ItvRecsConfigList": {
+      "x-emoji": "📚",
+      "type": "object",
+      "required": [
+        "default",
+        "mappings"
+      ],
+      "description": "A list of recommendation configs.",
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "type": "string",
+          "description": "The default recommendation id for fallback purpose"
+        },
+        "mappings": {
+          "type": "array",
+          "description": "A list of segmentation tags and recommendation IDs",
+          "items": {
+            "$ref": "#/definitions/ItvRecsConfig"
+          }
         }
       }
     },
