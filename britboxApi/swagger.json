@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.322-ref-1-39-0",
+    "version": "3.730.324-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -1010,6 +1010,92 @@
         ]
       }
     },
+    "/account/devices/{id}/name": {
+      "x-serviceId": "device",
+      "put": {
+        "description": "Rename a device",
+        "operationId": "renameDevice",
+        "tags": [
+          "account"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The unique identifier for this registered device e.g. serial number.",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "name",
+            "description": "The new name for the device.",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Device renamed."
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "401": {
+            "description": "Invalid access token.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
     "/account/devices/authorization": {
       "x-serviceId": "itvAuth",
       "post": {
@@ -1187,92 +1273,6 @@
         "responses": {
           "204": {
             "description": "Device deregistered."
-          },
-          "400": {
-            "description": "Bad request.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "401": {
-            "description": "Invalid access token.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "403": {
-            "description": "Forbidden.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "404": {
-            "description": "Not found.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "default": {
-            "description": "Service error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          }
-        },
-        "security": [
-          {
-            "accountAuth": [
-              "Catalog"
-            ]
-          }
-        ]
-      }
-    },
-    "/account/devices/{id}/name": {
-      "x-serviceId": "device",
-      "put": {
-        "description": "Rename a device",
-        "operationId": "renameDevice",
-        "tags": [
-          "account"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "description": "The unique identifier for this registered device e.g. serial number.",
-            "in": "path",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "name",
-            "description": "The new name for the device.",
-            "in": "query",
-            "type": "string",
-            "required": true
-          },
-          {
-            "$ref": "#/parameters/FeatureFlags"
-          },
-          {
-            "$ref": "#/parameters/Language"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Device renamed."
           },
           "400": {
             "description": "Bad request.",
@@ -2491,6 +2491,52 @@
         ]
       }
     },
+    "/account/profile/continue-watching/{itemId}": {
+      "x-serviceId": "itvNightwatch",
+      "delete": {
+        "description": "Excludes an item from continue-watching rail. Resume points remain in all other rails.\nTo undo save actual playback position using PUT /account/profile/watched/{itemId}.\n",
+        "operationId": "excludeFromContinueWatchingList",
+        "tags": [
+          "profile"
+        ],
+        "parameters": [
+          {
+            "name": "itemId",
+            "description": "The id of the item to be excluded.",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "$ref": "#/parameters/Segments"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Excluded."
+          },
+          "401": {
+            "description": "Unauthorized.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "profileAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
     "/account/profile/items/{itemId}/next": {
       "x-serviceId": "itvNightwatch",
       "get": {
@@ -2542,6 +2588,113 @@
         "responses": {
           "200": {
             "description": "The detail of the next item to play.",
+            "schema": {
+              "$ref": "#/definitions/NextPlaybackItem"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "401": {
+            "description": "Invalid access token.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "profileAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/account/profile/items/{itemId}/previous": {
+      "x-serviceId": "itvNightwatch",
+      "get": {
+        "description": "Returns the previous item to play given a source item id.\n\nFor episode/special it returns the previous episode/special from current season,\nor from previous nearest season where available episode/special is found.\nor nothing.\n\nIf the response does not contain a `previous` property then no item was found.\n",
+        "operationId": "getPreviousPlaybackItem",
+        "tags": [
+          "profile"
+        ],
+        "parameters": [
+          {
+            "name": "itemId",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the source item to base the previous item.\n",
+            "required": true
+          },
+          {
+            "name": "max_rating",
+            "in": "query",
+            "type": "string",
+            "description": "The maximum rating (inclusive) of an item returned, e.g. 'auoflc-pg'."
+          },
+          {
+            "name": "expand",
+            "description": "If no value is specified no dependencies are expanded.\n\nIf 'parent' is specified then only the direct parent will be expanded.\nFor example if an `Episode` then the `Season` would be included.\n\nIf 'ancestors' is specified then the full parent chain is expanded.\nFor example if an `Episode` then both the `Season` and `Show` would be included.\n",
+            "in": "query",
+            "type": "string",
+            "enum": [
+              "parent",
+              "ancestors"
+            ]
+          },
+          {
+            "$ref": "#/parameters/Device"
+          },
+          {
+            "$ref": "#/parameters/Subscription"
+          },
+          {
+            "$ref": "#/parameters/Segments"
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The detail of the previous item to play.",
             "schema": {
               "$ref": "#/definitions/NextPlaybackItem"
             }
