@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.326-ref-1-39-0",
+    "version": "3.730.332-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -2363,6 +2363,18 @@
           "profile"
         ],
         "parameters": [
+          {
+            "name": "cw_item_type",
+            "description": "Only items of mentioned item type will be returned for continue watching row.\n\nIf `episode` is specified, then only the next episodes to continue watching for\nshows will be returned.\n\nIf `program` is specified, then only programs will be returned.\n\nIf `movie` is specified, then only films will be returned\n\nThis parameter will be ignored if `cwi` featureFlag is not enabled\n",
+            "in": "query",
+            "type": "string",
+            "enum": [
+              "episode",
+              "program",
+              "movie"
+            ],
+            "default": "episode"
+          },
           {
             "name": "show_item_type",
             "description": "The item type to be returned for continue watching items belonging to a show.\n\nMultiple episodes under the same show may be watched or in progress, however only a\nsingle item belonging to a particular show will be included in the returned list.\n\nThe next episode to continue watching for a particular show will be the most recent\nincompletely watched episode, or the next episode following the most recently\ncompletely watched episode. Based on the specified `show_item_type` type, either the next\nepisode, the season of the next episode, or the show will be included in the list.\n\nIf `episode` is specified, then only the next episode to continue watching for a\nshow will be returned.\n\nIf `season` is specified, then only the season of the next episode will be returned.\n\nIf `show` is specified, then only the show of the next episode will be returned\n\nThe recommended value of this parameter should reflect the desitination the\nuser will be sent to when they select this item in the list. So if a user will\nbe sent to the show detail page then this should be `show` and you can use\nthe `include` parameter to get metadata about the episode or season if needed\n",
@@ -14849,7 +14861,7 @@
     },
     "FeatureFlags": {
       "name": "ff",
-      "description": "The set of opt in feature flags which cause breaking changes to responses.\n\nWhile Rocket APIs look to avoid breaking changes under the active major version, the formats of responses\nmay need to evolve over this time.\n\nThese feature flags allow clients to select which response formats they expect and avoid breaking\nclients as these formats evolve under the current major version.\n\n### Flags\n\n- `all` - Enable all flags. Useful for testing. _Don't use in production_.\n- `idp` - Dynamic item detail pages with schedulable rows.\n- `ldp` - Dynamic list detail pages with schedulable rows.\n- `hb` - Hubble formatted image urls.\n- `rpt` - Updated resume point threshold logic.\n- `cas` - \"Custom Asset Search\", inlcude `customAssets` in search results.\n- `lrl` - Do not pre-populate related list if more than `max_list_prefetch` down the page.\n- `cd` - Custom Destination support.\n- `sis` - Specials into show chainplay.\n\nSee the `feature-flags.md` for available flag details.\n",
+      "description": "The set of opt in feature flags which cause breaking changes to responses.\n\nWhile Rocket APIs look to avoid breaking changes under the active major version, the formats of responses\nmay need to evolve over this time.\n\nThese feature flags allow clients to select which response formats they expect and avoid breaking\nclients as these formats evolve under the current major version.\n\n### Flags\n\n- `all` - Enable all flags. Useful for testing. _Don't use in production_.\n- `idp` - Dynamic item detail pages with schedulable rows.\n- `ldp` - Dynamic list detail pages with schedulable rows.\n- `hb` - Hubble formatted image urls.\n- `rpt` - Updated resume point threshold logic.\n- `cas` - \"Custom Asset Search\", inlcude `customAssets` in search results.\n- `lrl` - Do not pre-populate related list if more than `max_list_prefetch` down the page.\n- `cd` - Custom Destination support.\n- `sis` - Specials into show chainplay.\n- `cwi` - Continue watching by item type.\n\nSee the `feature-flags.md` for available flag details.\n",
       "in": "query",
       "type": "array",
       "collectionFormat": "csv",
@@ -14864,7 +14876,8 @@
           "cas",
           "lrl",
           "cd",
-          "sis"
+          "sis",
+          "cwi"
         ]
       }
     },
