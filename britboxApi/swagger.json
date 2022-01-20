@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.332-ref-1-39-0",
+    "version": "3.730.339-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -1010,164 +1010,6 @@
         ]
       }
     },
-    "/account/devices/{id}/name": {
-      "x-serviceId": "device",
-      "put": {
-        "description": "Rename a device",
-        "operationId": "renameDevice",
-        "tags": [
-          "account"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "description": "The unique identifier for this registered device e.g. serial number.",
-            "in": "path",
-            "type": "string",
-            "required": true
-          },
-          {
-            "name": "name",
-            "description": "The new name for the device.",
-            "in": "query",
-            "type": "string",
-            "required": true
-          },
-          {
-            "$ref": "#/parameters/FeatureFlags"
-          },
-          {
-            "$ref": "#/parameters/Language"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Device renamed."
-          },
-          "400": {
-            "description": "Bad request.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "401": {
-            "description": "Invalid access token.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "403": {
-            "description": "Forbidden.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "404": {
-            "description": "Not found.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "default": {
-            "description": "Service error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          }
-        },
-        "security": [
-          {
-            "accountAuth": [
-              "Catalog"
-            ]
-          }
-        ]
-      }
-    },
-    "/account/devices/authorization": {
-      "x-serviceId": "itvAuth",
-      "post": {
-        "description": "Authorize a device from a generated device authorization code.\n\nThis is the second step in the process of authorizing a device by pin code.\n\nFirstly the device must request a generated authorization code via the\n`/authorization/device/code` endpoint.\n\nThis endpoint then authorizes the device associated with the code to sign in\nto a user account. Typically this endpoint will be called from a page\npresented in the web app under the account section.\n\nOnce authorized, the device will then be able to sign in to that account\nvia the `/authorization/device` endpoint, without needing to provide the \ncredentials of the user.\n",
-        "operationId": "authorizeDevice",
-        "tags": [
-          "account"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "description": "The generated device authorization code.",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeviceAuthorizationCode"
-            }
-          },
-          {
-            "$ref": "#/parameters/FeatureFlags"
-          },
-          {
-            "$ref": "#/parameters/Language"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad request.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "404": {
-            "description": "Not found.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "default": {
-            "description": "Service error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          }
-        },
-        "security": [
-          {
-            "accountAuth": [
-              "Catalog"
-            ]
-          }
-        ]
-      }
-    },
     "/account/devices/{id}": {
       "x-serviceId": "device",
       "get": {
@@ -1288,6 +1130,164 @@
           },
           "403": {
             "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/account/devices/{id}/name": {
+      "x-serviceId": "device",
+      "put": {
+        "description": "Rename a device",
+        "operationId": "renameDevice",
+        "tags": [
+          "account"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "The unique identifier for this registered device e.g. serial number.",
+            "in": "path",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "name",
+            "description": "The new name for the device.",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Device renamed."
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "401": {
+            "description": "Invalid access token.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "403": {
+            "description": "Forbidden.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/account/devices/authorization": {
+      "x-serviceId": "itvAuth",
+      "post": {
+        "description": "Authorize a device from a generated device authorization code.\n\nThis is the second step in the process of authorizing a device by pin code.\n\nFirstly the device must request a generated authorization code via the\n`/authorization/device/code` endpoint.\n\nThis endpoint then authorizes the device associated with the code to sign in\nto a user account. Typically this endpoint will be called from a page\npresented in the web app under the account section.\n\nOnce authorized, the device will then be able to sign in to that account\nvia the `/authorization/device` endpoint, without needing to provide the \ncredentials of the user.\n",
+        "operationId": "authorizeDevice",
+        "tags": [
+          "account"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The generated device authorization code.",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeviceAuthorizationCode"
+            }
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad request.",
             "schema": {
               "$ref": "#/definitions/ServiceError"
             }
@@ -4890,6 +4890,78 @@
             "schema": {
               "$ref": "#/definitions/ServiceError"
             }
+          }
+        }
+      }
+    },
+    "/diagnostic/heap-report": {
+      "x-serviceId": "diagnostic",
+      "post": {
+        "description": "Creates Heap report for a given rocket instance\n",
+        "operationId": "createHeapReport",
+        "tags": [
+          "heapReport"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "description": "The security key to prevent unathorized use of endpoint.",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/diagnostic/heap-snapshot": {
+      "x-serviceId": "diagnostic",
+      "post": {
+        "description": "Creates heap snapshot for a given rocket instance, snapshot is generated within /tmp directory \n",
+        "operationId": "createHeapSnapshot",
+        "tags": [
+          "heapSnapshot"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "description": "The security key to prevent unathorized use of endpoint.",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/diagnostic/report": {
+      "x-serviceId": "diagnostic",
+      "post": {
+        "description": "Creates diagnostic report for a given rocket instance\n",
+        "operationId": "createDiagnosticReport",
+        "tags": [
+          "diagnosticReport"
+        ],
+        "parameters": [
+          {
+            "name": "key",
+            "description": "The security key to prevent unathorized use of endpoint.",
+            "in": "query",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -11124,23 +11196,23 @@
       "x-emoji": "📀",
       "type": "object",
       "required": [
-        "name",
-        "deliveryType",
-        "url",
-        "drm",
-        "format",
-        "resolution",
-        "width",
-        "height",
-        "language"
+        "Name",
+        "DeliveryType",
+        "Url",
+        "Drm",
+        "FileFormat",
+        "Resolution",
+        "Width",
+        "Height",
+        "LanguageCode"
       ],
       "additionalProperties": true,
       "properties": {
-        "name": {
+        "Name": {
           "description": "The name of the media file.",
           "type": "string"
         },
-        "deliveryType": {
+        "DeliveryType": {
           "description": "The way in which the media file is delivered.",
           "type": "string",
           "enum": [
@@ -11149,20 +11221,20 @@
             "Download"
           ]
         },
-        "url": {
+        "Url": {
           "description": "The url to access the media file.",
           "type": "string",
           "format": "uri"
         },
-        "drm": {
+        "Drm": {
           "description": "The type of drm used to encrypt the media. 'None' if unencrypted.",
           "type": "string"
         },
-        "format": {
+        "FileFormat": {
           "description": "The format the media was encoded in.",
           "type": "string"
         },
-        "resolution": {
+        "Resolution": {
           "description": "The resolution of the video media.",
           "type": "string",
           "enum": [
@@ -11174,22 +11246,22 @@
             "Unknown"
           ]
         },
-        "width": {
+        "Width": {
           "description": "The width of the video media.",
           "type": "integer",
           "format": "int32"
         },
-        "height": {
+        "Height": {
           "description": "The height of the video media.",
           "type": "integer",
           "format": "int32"
         },
-        "channels": {
+        "Channels": {
           "description": "The number of audio channels.",
           "type": "integer",
           "format": "int32"
         },
-        "language": {
+        "LanguageCode": {
           "description": "The language code for the media, e.g. 'en'.",
           "type": "string"
         }
