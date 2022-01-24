@@ -2443,6 +2443,132 @@
         }
       }
     },
+    "/v2/curations/{pid}/container": {
+      "get": {
+        "summary": "Single Container Curation By Pid",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CurationPid"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Curations"
+        ],
+        "description": "Curation container item for a curation pid <span>🎶</span> Depeche Mode\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItem"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/curations/{pid}/members/container": {
+      "get": {
+        "summary": "Curation Container Members",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CurationPid"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Curations"
+        ],
+        "description": "Container Items from Curation <span>🎶</span> Depeche Mode\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItemsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/curations/{pid}/members/playable": {
+      "get": {
+        "summary": "Curation Playable Members",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CurationPid"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Curations"
+        ],
+        "description": "Playable Items from Curation <span>🎶</span> Depeche Mode\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
     "/v2/experience/car": {
       "get": {
         "summary": "Index In-car Experience",
@@ -3069,6 +3195,106 @@
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/curations/{pid}/members/container": {
+      "get": {
+        "summary": "Personalised Curation Containers",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CurationPid"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Curations"
+        ],
+        "description": "Personalised curations container item for a curation pid <span>🎶</span> Depeche Mode\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContainerItem"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "404": {
+            "$ref": "#/components/responses/Notfound"
+          },
+          "default": {
+            "$ref": "#/components/responses/InternalServiceError"
+          }
+        }
+      }
+    },
+    "/v2/my/curations/{pid}/members/playable": {
+      "get": {
+        "summary": "Personalised Curation Playable Members",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/X-API-Key"
+          },
+          {
+            "$ref": "#/components/parameters/CurationPid"
+          },
+          {
+            "$ref": "#/components/parameters/Authorization"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/experience"
+          }
+        ],
+        "tags": [
+          "Curations"
+        ],
+        "description": "Personalised Playable Items from Curation <span>🎶</span> Depeche Mode\n",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayableItemsPaginatedResponse"
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/Unauthorized"
@@ -4441,6 +4667,9 @@
             "$ref": "#/components/parameters/limit"
           },
           {
+            "$ref": "#/components/parameters/activitiesEnabled"
+          },
+          {
             "$ref": "#/components/parameters/experience"
           },
           {
@@ -5509,6 +5738,16 @@
         "required": false,
         "example": "brand:p05hh4qy"
       },
+      "activitiesEnabled": {
+        "name": "activitiesEnabled",
+        "in": "query",
+        "description": "Call The Beatles with personalisation enabled or not, which will control whether user activities are attached to playable items",
+        "schema": {
+          "type": "boolean"
+        },
+        "required": false,
+        "default": true
+      },
       "X-international-experience-name": {
         "name": "X-international-experience-name",
         "in": "header",
@@ -5700,6 +5939,16 @@
           "type": "string"
         },
         "example": "p00zddyq",
+        "required": true
+      },
+      "CurationPid": {
+        "name": "pid",
+        "in": "path",
+        "description": "Curation PID",
+        "schema": {
+          "type": "string"
+        },
+        "example": "p0965fj2",
         "required": true
       },
       "container-name": {
@@ -8342,7 +8591,7 @@
           "urn": {
             "type": "string",
             "pattern": "^urn:bbc:radio:[a-zA-Z0-9:_]{1,}$",
-            "example": "urn:bbc:radio:brand|series|collection|category:p03q8kd9"
+            "example": "urn:bbc:radio:brand|series|collection|category|curation:p03q8kd9"
           },
           "network": {
             "$ref": "#/components/schemas/ContainerItemNetwork"
@@ -10643,6 +10892,9 @@
     },
     {
       "name": "Collections"
+    },
+    {
+      "name": "Curations"
     },
     {
       "name": "Podcasts"
