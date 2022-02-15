@@ -5671,7 +5671,7 @@
       "X-API-Key": {
         "name": "X-API-Key",
         "in": "header",
-        "description": "API_KEY",
+        "description": "BBC API Key. This can be obtained from the developer portal. Please see <a href='https://confluence.dev.bbc.co.uk/display/RMServices/How+to+access+RMS'>the documentation</a> for more information.",
         "schema": {
           "type": "string"
         },
