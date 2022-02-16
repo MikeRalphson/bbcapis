@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.341-ref-1-39-0",
+    "version": "3.730.345-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -6235,6 +6235,156 @@
         ]
       }
     },
+    "/itv/content/item/{id}/related/trailers": {
+      "x-serviceId": "itvItem",
+      "get": {
+        "description": "Returns the list of related trailers to an item.",
+        "operationId": "getItemTrailers",
+        "tags": [
+          "itv/content"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the item to load.\n\nThe custom identifier of an item can be used here if the `use_custom_id` parameter is true.\n",
+            "required": true
+          },
+          {
+            "name": "max_rating",
+            "in": "query",
+            "type": "string",
+            "description": "The maximum rating (inclusive) of items returned, e.g. 'auoflc-pg'."
+          },
+          {
+            "name": "use_custom_id",
+            "description": "Set to true when passing a custom Id as the `id` path parameter.",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
+            "$ref": "#/parameters/Device"
+          },
+          {
+            "$ref": "#/parameters/Subscription"
+          },
+          {
+            "$ref": "#/parameters/Segments"
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of trailers associated with this item.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ItemSummary"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    },
+    "/itv/content/playlist/trailers": {
+      "x-serviceId": "itvItem",
+      "post": {
+        "description": "RW player from ITV can't handle direct content URL to play. This is to emulate the Playlist service ITV have for the trailers.\n\nThe expected token scope is Catalog.\n",
+        "operationId": "getPlaylistTrailers",
+        "tags": [
+          "itv/content"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Parameters for trailer playlist",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItvPlaylistTrailersRequest"
+            }
+          },
+          {
+            "$ref": "#/parameters/FeatureFlags"
+          },
+          {
+            "$ref": "#/parameters/Language"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ItvPlaylistResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        }
+      }
+    },
     "/itv/deleteaccount": {
       "x-serviceId": "itvGdpr",
       "post": {
@@ -6732,7 +6882,7 @@
         "description": "Redirects to corresponding Axis Item details page.",
         "operationId": "getItem",
         "tags": [
-          "itv"
+          "itv/content"
         ],
         "parameters": [
           {
@@ -9388,7 +9538,7 @@
         "description": "Returns public preview for Samsung based on the page '/samsung-preview' configured in PresentationManager.\nThere is a hard limit of max 40 items to be returned. It splits evenly items count into the page rows, remaining items are added into the first row.\n",
         "operationId": "getPublicPreview",
         "tags": [
-          "itv"
+          "itv/content"
         ],
         "parameters": [],
         "responses": {
@@ -12421,6 +12571,20 @@
         }
       }
     },
+    "ItvMediaFile": {
+      "x-emoji": "💳",
+      "type": "object",
+      "required": [
+        "Href"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Href": {
+          "description": "The additional playlist info.",
+          "type": "string"
+        }
+      }
+    },
     "ItvPinAuthRequest": {
       "type": "object",
       "required": [
@@ -12538,6 +12702,128 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/ItvPlanListItem"
+          }
+        }
+      }
+    },
+    "ItvPlaylist": {
+      "x-emoji": "💳",
+      "type": "object",
+      "required": [
+        "ItvVideo",
+        "ProductionId",
+        "VideoType",
+        "ContentBreaks"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ItvVideo": {
+          "description": "The additional playlist info.",
+          "type": "object",
+          "schema": {
+            "$ref": "#/definitions/ItvPlaylistVideo"
+          }
+        },
+        "ProductionId": {
+          "description": "The object with subscription payment details.",
+          "type": "string"
+        },
+        "VideoType": {
+          "description": "The object with subscription payment details.",
+          "type": "string"
+        },
+        "ContentBreaks": {
+          "description": "The object with subscription payment details.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ItvPlaylistAdditionalInfo": {
+      "x-emoji": "💳",
+      "type": "object",
+      "required": [
+        "TransactionId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "AdditionalInfo": {
+          "description": "The additional playlist info.",
+          "type": "string"
+        }
+      }
+    },
+    "ItvPlaylistResponse": {
+      "x-emoji": "💳",
+      "type": "object",
+      "required": [
+        "AdditionalInfo",
+        "Playlist"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "AdditionalInfo": {
+          "description": "The additional playlist info.",
+          "type": "object",
+          "schema": {
+            "$ref": "#/definitions/ItvPlaylistAdditionalInfo"
+          }
+        },
+        "Playlist": {
+          "description": "The object with subscription payment details.",
+          "type": "object",
+          "schema": {
+            "$ref": "#/definitions/ItvPlaylist"
+          }
+        }
+      }
+    },
+    "ItvPlaylistTrailersRequest": {
+      "type": "object",
+      "required": [
+        "url",
+        "customId"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "description": "New email address for account/profile.",
+          "type": "string"
+        },
+        "customId": {
+          "description": "The ITV profile token.",
+          "type": "string"
+        }
+      }
+    },
+    "ItvPlaylistVideo": {
+      "x-emoji": "💳",
+      "type": "object",
+      "required": [
+        "Duration",
+        "Base",
+        "MediaFiles"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Duration": {
+          "description": "The additional playlist info.",
+          "type": "string"
+        },
+        "Base": {
+          "description": "The object with subscription payment details.",
+          "type": "string"
+        },
+        "MediaFiles": {
+          "description": "The object with subscription payment details.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "schema": {
+              "$ref": "#/definitions/ItvMediaFile"
+            }
           }
         }
       }
