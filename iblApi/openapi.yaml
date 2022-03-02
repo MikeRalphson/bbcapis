@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: "1.0"
-  x-release: 1.0.0-561
+  x-release: 1.0.0-562
   title: BBC iPlayer Business Layer
   description: The definitive iPlayer API.
   x-logo:
