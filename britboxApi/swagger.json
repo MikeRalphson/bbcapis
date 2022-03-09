@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.345-ref-1-39-0",
+    "version": "3.730.348-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -6107,7 +6107,6 @@
           {
             "name": "body",
             "in": "body",
-            "type": "string",
             "description": "New email address & ITV profile token.",
             "required": true,
             "schema": {
@@ -6177,7 +6176,6 @@
           {
             "name": "body",
             "in": "body",
-            "type": "string",
             "description": "Updated marketing preferences & ITV profile token.",
             "required": true,
             "schema": {
@@ -6397,7 +6395,6 @@
           {
             "name": "body",
             "in": "body",
-            "type": "string",
             "description": "New email address & ITV profile token.",
             "required": true,
             "schema": {
@@ -6704,6 +6701,140 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/ItvHadEntitlement"
+            }
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/itv/inlife/redeem/voucher/{redeemPath}": {
+      "x-serviceId": "itvSubscription",
+      "post": {
+        "description": "Redeems in life voucher offer.",
+        "operationId": "redeemInlifeVoucher",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "redeemPath",
+            "in": "path",
+            "type": "string",
+            "description": "The redeem path could be retrieved from /itv/inlife/voucher/{voucherId} endpoint.",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Coupon/voucher.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ItvVoucherRequest"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success Status."
+          },
+          "400": {
+            "description": "Bad request.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "404": {
+            "description": "Not found.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "415": {
+            "description": "Unsupported Media Type",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          },
+          "default": {
+            "description": "Service error.",
+            "schema": {
+              "$ref": "#/definitions/ServiceError"
+            }
+          }
+        },
+        "security": [
+          {
+            "accountAuth": [
+              "Catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/itv/inlife/voucher/{voucherId}": {
+      "x-serviceId": "itvSubscription",
+      "get": {
+        "description": "Check Talon One for In-Life discounts (only Rolling Discount Offer or Upfront PaymentOffer are supported). Does NOT check for stripe coupons.",
+        "operationId": "getInLifeVoucherById",
+        "tags": [
+          "itv"
+        ],
+        "parameters": [
+          {
+            "name": "voucherId",
+            "in": "path",
+            "type": "string",
+            "description": "The identifier of the voucher.",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Avalable voucher, if any.",
+            "schema": {
+              "$ref": "#/definitions/ItvInlifeVoucher"
             }
           },
           "400": {
@@ -12568,6 +12699,103 @@
         "hasHadEntitlements": {
           "description": "whether the user has been previously entitlement",
           "type": "boolean"
+        }
+      }
+    },
+    "ItvInlifeVoucher": {
+      "x-emoji": "💰",
+      "type": "object",
+      "required": [
+        "id",
+        "offerType",
+        "display",
+        "links"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "The coupon/voucher.",
+          "type": "string"
+        },
+        "offerType": {
+          "description": "The voucher offer type.",
+          "type": "string",
+          "enum": [
+            "talon one"
+          ]
+        },
+        "display": {
+          "description": "The display information for voucher.",
+          "$ref": "#/definitions/ItvInlifeVoucherDisplay"
+        },
+        "links": {
+          "description": "The links pointing to voucher url.",
+          "$ref": "#/definitions/ItvVoucherLinks"
+        }
+      }
+    },
+    "ItvInlifeVoucherDisplay": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "description": "Type.",
+          "type": "string"
+        },
+        "discountPrice": {
+          "description": "Discount price.",
+          "type": "string"
+        },
+        "amountOff": {
+          "description": "Amount off.",
+          "type": "string"
+        },
+        "percentOff": {
+          "description": "Percent off.",
+          "type": "number",
+          "format": "float"
+        },
+        "currency": {
+          "description": "Currency.",
+          "type": "string"
+        },
+        "durationInMonths": {
+          "description": "Duration in months.",
+          "type": "number",
+          "format": "integer"
+        },
+        "description": {
+          "description": "Description.",
+          "type": "string"
+        },
+        "termsAndConditions": {
+          "description": "Terms and conditions.",
+          "type": "string"
+        },
+        "trialDays": {
+          "description": "Trial days.",
+          "type": "number",
+          "format": "integer"
+        },
+        "duration": {
+          "description": "Duration.",
+          "type": "string"
+        },
+        "headlineLabel": {
+          "description": "Headline label.",
+          "type": "string"
+        },
+        "initialCost": {
+          "description": "InitialCost.",
+          "type": "number",
+          "format": "float"
+        },
+        "savingLabel": {
+          "description": "SavingLabel.",
+          "type": "string"
         }
       }
     },
