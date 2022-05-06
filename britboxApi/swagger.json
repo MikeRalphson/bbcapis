@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.730.362-ref-1-39-0",
+    "version": "3.730.350-ref-1-39-0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -5871,75 +5871,6 @@
             }
           }
         }
-      }
-    },
-    "/itv/billing-summary": {
-      "x-serviceId": "itvSubscription",
-      "post": {
-        "description": "Gets a billing summary for a given user profile.",
-        "operationId": "getBillingSummary",
-        "tags": [
-          "itv"
-        ],
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Details of a purchase request.",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ItvBillingSummaryRequest"
-            }
-          },
-          {
-            "$ref": "#/parameters/Language"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Details of billing summary.",
-            "schema": {
-              "$ref": "#/definitions/ItvBillingSummary"
-            }
-          },
-          "400": {
-            "description": "Bad request.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "404": {
-            "description": "Not found.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "415": {
-            "description": "Unsupported Media Type",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "500": {
-            "description": "Internal server error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          },
-          "default": {
-            "description": "Service error.",
-            "schema": {
-              "$ref": "#/definitions/ServiceError"
-            }
-          }
-        },
-        "security": [
-          {
-            "accountAuth": [
-              "Catalog"
-            ]
-          }
-        ]
       }
     },
     "/itv/billinghistory/{platform}": {
@@ -12351,118 +12282,6 @@
       }
     },
     "ItvBillingHistoryRequest": {
-      "type": "object",
-      "required": [
-        "profileToken"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "profileToken": {
-          "description": "The ITV profile token.",
-          "type": "string"
-        }
-      }
-    },
-    "ItvBillingSummary": {
-      "x-emoji": "💰",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "current": {
-          "description": "The current billing details item.",
-          "x-emoji": "💰",
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "startDate": {
-              "description": "The date of activation.",
-              "type": "string",
-              "format": "date-time"
-            },
-            "endDate": {
-              "description": "The date of end of the current billing.",
-              "type": "string",
-              "format": "date-time"
-            },
-            "amount": {
-              "description": "Cost of the item.",
-              "type": "integer",
-              "format": "int32"
-            },
-            "isTrial": {
-              "description": "Is the item in trial?",
-              "type": "boolean"
-            },
-            "description": {
-              "description": "The textation of the current billing.",
-              "type": "string"
-            }
-          }
-        },
-        "next": {
-          "description": "The next billing details item.",
-          "x-emoji": "💰",
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "startDate": {
-              "description": "The date of activation.",
-              "type": "string",
-              "format": "date-time"
-            },
-            "endDate": {
-              "description": "The date of end of the current billing.",
-              "type": "string",
-              "format": "date-time"
-            },
-            "amount": {
-              "description": "Cost of the item.",
-              "type": "integer",
-              "format": "int32"
-            },
-            "isTrial": {
-              "description": "Is the item in trial?",
-              "type": "boolean"
-            },
-            "description": {
-              "description": "The textation of the current billing.",
-              "type": "string"
-            }
-          }
-        }
-      }
-    },
-    "ItvBillingSummaryItem": {
-      "x-emoji": "💰",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "startDate": {
-          "description": "The date of activation.",
-          "type": "string",
-          "format": "date-time"
-        },
-        "endDate": {
-          "description": "The date of end of the current billing.",
-          "type": "string",
-          "format": "date-time"
-        },
-        "amount": {
-          "description": "Cost of the item.",
-          "type": "integer",
-          "format": "int32"
-        },
-        "isTrial": {
-          "description": "Is the item in trial?",
-          "type": "boolean"
-        },
-        "description": {
-          "description": "The textation of the current billing.",
-          "type": "string"
-        }
-      }
-    },
-    "ItvBillingSummaryRequest": {
       "type": "object",
       "required": [
         "profileToken"
