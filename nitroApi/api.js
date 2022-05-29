@@ -395,6 +395,7 @@ const fProgrammesPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fProgrammesPageSize = 'page_size';
@@ -555,6 +556,7 @@ const fAvailabilityPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fAvailabilityPageSize = 'page_size';
@@ -657,6 +659,7 @@ const fBroadcastsPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fBroadcastsPageSize = 'page_size';
@@ -806,6 +809,7 @@ const fGroupsPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fGroupsPageSize = 'page_size';
@@ -922,6 +926,7 @@ const fImagesPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fImagesPageSize = 'page_size';
@@ -1043,6 +1048,7 @@ const fItemsPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fItemsPageSize = 'page_size';
@@ -1118,6 +1124,7 @@ const fMasterbrandsPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fMasterbrandsPageSize = 'page_size';
@@ -1186,6 +1193,7 @@ const fPeoplePage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fPeoplePageSize = 'page_size';
@@ -1234,6 +1242,7 @@ const fPipsPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fPipsPageSize = 'page_size';
@@ -1257,6 +1266,7 @@ const fProgrammedetailsPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fProgrammedetailsPageSize = 'page_size';
@@ -1282,6 +1292,7 @@ const mPromotionsRelatedLinks = 'mixin=related_links';
 /**
 * filter for subset of promotions belonging to a given context
 * type = PID
+* multiple_values = false
 */
 const fPromotionsContext = 'context';
 /**
@@ -1295,6 +1306,7 @@ const fPromotionsPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fPromotionsPageSize = 'page_size';
@@ -1443,6 +1455,7 @@ const fSchedulesPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fSchedulesPageSize = 'page_size';
@@ -1555,6 +1568,7 @@ const fServicesPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fServicesPageSize = 'page_size';
@@ -1686,6 +1700,7 @@ const fVersionsPage = 'page';
 * number of results in each page
 * type = integer
 * default = 10
+* min_value = 0
 * max_value = 300
 */
 const fVersionsPageSize = 'page_size';
@@ -1732,7 +1747,7 @@ const xVersionsEmbargoedInclude = 'embargoed=include';
 const xVersionsEmbargoedExclude = 'embargoed=exclude';
 const xVersionsEmbargoedOnly = 'embargoed=only';
 const xVersionsEmbargoed= 'embargoed';
-const apiHash = '0de47baba96b8fa0ab8543d8a68d3e15167c1da6f6aeec501946cc8ee11c8ab2';
+const apiHash = 'cb1391c8100d05ca54466f6ad8131bb5588a9a77212f13e5f5aaaa6058e2e595';
 
 module.exports = {
 nitroProgrammes : nitroProgrammes,
