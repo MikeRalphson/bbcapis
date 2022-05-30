@@ -31,7 +31,7 @@
               "name": "availability",
               "type": "string",
               "title": "filter for subset of programmes that have availability",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported",
               "option": [
                 {
@@ -52,7 +52,7 @@
               "name": "availability",
               "type": "daytime_duration",
               "title": "filter for programmes that will become available within given duration",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -78,7 +78,7 @@
               "type": "datetime",
               "title": "filter for subset of programmes that are available after or at the specified datetime",
               "release_status": "deprecated",
-              "deprecated": "true",
+              "deprecated": true,
               "deprecated_since": "2014-01-22"
             },
             {
@@ -88,7 +88,7 @@
               "release_status": "supported",
               "default": "ondemand",
               "depends_on": "availability",
-              "multiple_values": "true",
+              "multiple_values": true,
               "option": [
                 {
                   "value": "ondemand",
@@ -108,14 +108,14 @@
               "name": "children_of",
               "type": "PID",
               "title": "filter for subset of programmes that have PID as immediate parent",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "descendants_of",
               "type": "PID",
               "title": "filter for subset of programmes that have PID as ancestor",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -145,7 +145,7 @@
               "name": "entity_type",
               "type": "string",
               "title": "filter for subset of programmes that have given entity type",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported",
               "option": [
                 {
@@ -174,14 +174,14 @@
               "name": "format",
               "type": "string",
               "title": "filter for subset of programmes with format",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "genre",
               "type": "string",
               "title": "filter for subset of programmes with genre",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -212,21 +212,21 @@
               "name": "initial_letter_strict",
               "type": "character",
               "title": "filter for subset of programmes with title beginning with initial letter",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "item",
               "type": "PID",
               "title": "filter for subset of programmes with linked to versions which have the given item pids",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "master_brand",
               "type": "string",
               "title": "filter for subset of programmes with master_brand",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -257,7 +257,7 @@
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -265,8 +265,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -275,7 +275,7 @@
               "type": "PID",
               "title": "filter for programmes by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -283,7 +283,7 @@
               "type": "PID",
               "title": "filter for programmes by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
@@ -318,7 +318,7 @@
               "name": "pid",
               "type": "PID",
               "title": "filter for subset of programmes having given PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -390,7 +390,7 @@
               "name": "version",
               "type": "PID",
               "title": "filter for subset of programmes with given PID as one of their versions",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             }
           ]
@@ -639,7 +639,7 @@
               "name": "genre_groups",
               "title": "mixin to return list of genre groups",
               "release_status": "deprecated",
-              "deprecated": "true",
+              "deprecated": true,
               "deprecated_since": "2015-03-19",
               "replaced_by": "genre_groupings",
               "href": "/nitro/api/programmes?mixin=genre_groups",
@@ -693,7 +693,7 @@
               "name": "titles",
               "title": "mixin to return ancestor programme titles",
               "release_status": "deprecated",
-              "deprecated": "true",
+              "deprecated": true,
               "deprecated_since": "2013-11-14",
               "replaced_by": "ancestor_titles",
               "href": "/nitro/api/programmes?mixin=titles"
@@ -774,21 +774,21 @@
               "name": "descendants_of",
               "type": "PID",
               "title": "filter for subset of availabilities that have PID as ancestor",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "media_set",
               "type": "string",
               "title": "filter for subset of availabilities with media set",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -796,8 +796,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -861,14 +861,14 @@
               "name": "authority",
               "type": "string",
               "title": "filter for subset of broadcasts that have given authority",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "descendants_of",
               "type": "PID",
               "title": "filter for subset of broadcasts that are descendants of the given programme PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -887,35 +887,35 @@
               "name": "format",
               "type": "string",
               "title": "filter for subset of broadcasts that are classified in the given format ID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "genre",
               "type": "string",
               "title": "filter for subset of broadcasts that are classified in the given genre ID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "id",
               "type": "string",
               "title": "filter for subset of broadcasts that have given identifier",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "item",
               "type": "PID",
               "title": "filter for subset of broadcasts with the given item performed on it",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -923,8 +923,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -938,7 +938,7 @@
               "name": "pid",
               "type": "PID",
               "title": "filter for subset of broadcasts having given PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -969,14 +969,14 @@
               "name": "service_master_brand",
               "type": "string",
               "title": "filter for subset of broadcasts with given service master brand",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "sid",
               "type": "string",
               "title": "filter for subset of broadcasts that are on the specified linear service",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -995,7 +995,7 @@
               "name": "version",
               "type": "PID",
               "title": "filter for subset of broadcasts with given PID as their parent version",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             }
           ]
@@ -1072,7 +1072,7 @@
               "name": "group_type",
               "type": "string",
               "title": "filter for subset of groups that have the given group type",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported",
               "option": [
                 {
@@ -1107,7 +1107,7 @@
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -1115,8 +1115,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -1125,7 +1125,7 @@
               "type": "PID",
               "title": "filter for groups by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -1133,14 +1133,14 @@
               "type": "PID",
               "title": "filter for groups by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
               "name": "pid",
               "type": "PID",
               "title": "filter for subset of seasons, collections, galleries or franchises having given PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -1222,7 +1222,7 @@
               "name": "image_type",
               "type": "string",
               "title": "filter for images by type",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported",
               "option": [
                 {
@@ -1288,7 +1288,7 @@
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -1296,8 +1296,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -1306,7 +1306,7 @@
               "type": "PID",
               "title": "filter for images by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -1314,14 +1314,14 @@
               "type": "PID",
               "title": "filter for images by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
               "name": "pid",
               "type": "PID",
               "title": "filter for subset of images having given PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -1386,7 +1386,7 @@
               "name": "id",
               "type": "ID",
               "title": "filter for subset of items having given ID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -1398,7 +1398,7 @@
             {
               "name": "item_type",
               "type": "string",
-              "multiple_values": "true",
+              "multiple_values": true,
               "title": "filter for specific type(s) of items",
               "release_status": "supported",
               "option": [
@@ -1433,7 +1433,7 @@
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -1441,8 +1441,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -1451,7 +1451,7 @@
               "type": "PID",
               "title": "filter for items by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -1459,7 +1459,7 @@
               "type": "PID",
               "title": "filter for items by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
@@ -1472,7 +1472,7 @@
               "name": "pid",
               "type": "PID",
               "title": "filter for subset of items matching one of the given PIDs",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -1528,7 +1528,7 @@
               "title": "mixin to return programme segment offsets, works in conjunction with programme filter",
               "depends_on": "programme",
               "release_status": "deprecated",
-              "deprecated": "true",
+              "deprecated": true,
               "deprecated_since": "2014-05-06",
               "replaced_by": "play_event"
             },
@@ -1570,14 +1570,14 @@
               "name": "mid",
               "type": "string",
               "title": "filter for subset of masterbrands that have given identifier",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -1585,8 +1585,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -1595,7 +1595,7 @@
               "type": "PID",
               "title": "filter for masterbrands by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -1603,7 +1603,7 @@
               "type": "PID",
               "title": "filter for masterbrands by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
@@ -1673,7 +1673,7 @@
               "name": "id",
               "type": "ID",
               "title": "filter for subset of people having given ID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -1686,7 +1686,7 @@
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -1694,8 +1694,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -1704,7 +1704,7 @@
               "type": "PID",
               "title": "filter for people by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -1712,14 +1712,14 @@
               "type": "PID",
               "title": "filter for people by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
               "name": "pid",
               "type": "PID",
               "title": "filter for subset of people having given PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -1749,7 +1749,7 @@
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -1757,8 +1757,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -1783,7 +1783,7 @@
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -1791,8 +1791,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -1806,7 +1806,7 @@
               "name": "pid",
               "type": "PID",
               "title": "Filter for programme information for the provided PID",
-              "required": "true",
+              "required": true,
               "release_status": "supported"
             }
           ]
@@ -1824,14 +1824,14 @@
               "name": "context",
               "type": "PID",
               "title": "filter for subset of promotions belonging to a given context",
-              "multiple_values": "false",
+              "multiple_values": false,
               "release_status": "supported"
             },
             {
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -1839,8 +1839,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -1849,7 +1849,7 @@
               "type": "PID",
               "title": "filter for promotions by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -1857,28 +1857,28 @@
               "type": "PID",
               "title": "filter for promotions by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
               "name": "pid",
               "type": "PID",
               "title": "filter for subset of promotions having given PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "promoted_by",
               "type": "string",
               "title": "filter for subset of promotions having given promoted by",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "promoted_for",
               "type": "string",
               "title": "filter for subset of promotions having given promoted for",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -1921,14 +1921,14 @@
               "name": "authority",
               "type": "string",
               "title": "filter for subset of broadcasts and webcasts that have given authority",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "descendants_of",
               "type": "PID",
               "title": "filter for subset of broadcasts and webcasts that are descendants of the given programme PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -1947,14 +1947,14 @@
               "name": "format",
               "type": "string",
               "title": "filter for subset of broadcasts and webcasts that are classified in the given format ID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "genre",
               "type": "string",
               "title": "filter for subset of broadcasts and webcasts that are classified in the given genre ID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -1967,28 +1967,28 @@
               "name": "id",
               "type": "string",
               "title": "filter for subset of broadcasts and webcasts that have given identifier",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "id_type",
               "type": "string",
               "title": "filter for subset of broadcasts and webcasts that have given id type",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "item",
               "type": "PID",
               "title": "filter for subset of broadcasts and webcasts with the given item performed on it",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -1996,8 +1996,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -2006,7 +2006,7 @@
               "type": "PID",
               "title": "filter for broadcasts and webcasts by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -2014,7 +2014,7 @@
               "type": "PID",
               "title": "filter for broadcasts and webcasts by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
@@ -2027,7 +2027,7 @@
               "name": "pid",
               "type": "PID",
               "title": "filter for subset of broadcasts and webcasts having given PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -2064,14 +2064,14 @@
               "name": "service_master_brand",
               "type": "string",
               "title": "filter for subset of broadcasts and webcasts with given service master brand",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "sid",
               "type": "string",
               "title": "filter for subset of broadcasts and webcasts that are on the specified linear service",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -2090,7 +2090,7 @@
               "name": "version",
               "type": "PID",
               "title": "filter for subset of broadcasts and webcasts with given PID as their parent version",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             }
           ]
@@ -2178,13 +2178,13 @@
               "type": "string",
               "title": "filter for services by masterbrand MID",
               "release_status": "supported",
-              "multiple_values": "true"
+              "multiple_values": true
             },
             {
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -2192,8 +2192,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -2202,7 +2202,7 @@
               "type": "PID",
               "title": "filter for services by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -2210,7 +2210,7 @@
               "type": "PID",
               "title": "filter for services by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
@@ -2223,7 +2223,7 @@
               "name": "service_type",
               "type": "string",
               "title": "filter for specified type of linear services",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported",
               "option": [
                 {
@@ -2282,7 +2282,7 @@
               "name": "sid",
               "type": "string",
               "title": "filter for specified linear service",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
@@ -2323,21 +2323,21 @@
               "name": "descendants_of",
               "type": "PID",
               "title": "filter for subset of versions having given programme PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "media_set",
               "type": "string",
               "title": "filter for subset of versions with availability in the given media set",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             },
             {
               "name": "page",
               "type": "integer",
               "title": "which page of results to return",
-              "min_value": "1",
+              "min_value": 1,
               "default": "1",
               "release_status": "supported"
             },
@@ -2345,8 +2345,8 @@
               "name": "page_size",
               "type": "integer",
               "title": "number of results in each page",
-              "min_value": "0",
-              "max_value": "300",
+              "min_value": 0,
+              "max_value": 300,
               "default": "10",
               "release_status": "supported"
             },
@@ -2355,7 +2355,7 @@
               "type": "PID",
               "title": "filter for versions by partner ID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "prefer": "partner_pid"
             },
             {
@@ -2363,7 +2363,7 @@
               "type": "PID",
               "title": "filter for versions by partner PID",
               "release_status": "supported",
-              "multiple_values": "true",
+              "multiple_values": true,
               "default": "s0000001"
             },
             {
@@ -2392,7 +2392,7 @@
               "name": "pid",
               "type": "PID",
               "title": "filter for subset of versions having given PID",
-              "multiple_values": "true",
+              "multiple_values": true,
               "release_status": "supported"
             }
           ]
