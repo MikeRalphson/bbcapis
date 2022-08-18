@@ -3,6 +3,6 @@
   "schema": "/ibl/v1/schema/ibl.json",
   "status": {
     "service": "ibl-nibl",
-    "release": "1.0.0-829"
+    "release": "1.0.0-834"
   }
 }
