@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Rocket Services",
-    "version": "3.732.1",
+    "version": "3.734.0",
     "description": "An Orchestration Layer that takes ISL services and packages them in a more targeted way for front-end applications.\nThis in turn makes client integration easier and reduces the complexity and size of front-end applications.\n\nRocket is also customisable - allowing UI engineers to ‘remix’ the existing back-end services into something that\nbest suits the application they are developing.\n"
   },
   "basePath": "/api",
@@ -8303,7 +8303,7 @@
       "x-serviceId": "itvRoku",
       "get": {
         "description": "Gets available Roku plans.",
-        "operationId": "getPlans",
+        "operationId": "getRokuPlans",
         "tags": [
           "itv"
         ],
@@ -13112,6 +13112,9 @@
           "items": {
             "$ref": "#/definitions/ItvPlanListItem"
           }
+        },
+        "terms": {
+          "type": "string"
         }
       }
     },
@@ -13772,15 +13775,10 @@
     "ItvVoucherLinks": {
       "type": "object",
       "required": [
-        "self",
         "redeem"
       ],
-      "additionalProperties": true,
+      "additionalProperties": false,
       "properties": {
-        "self": {
-          "description": "Self link.",
-          "$ref": "#/definitions/ItvVoucherLinksHref"
-        },
         "redeem": {
           "description": "Redeem link.",
           "$ref": "#/definitions/ItvVoucherLinksHref"
