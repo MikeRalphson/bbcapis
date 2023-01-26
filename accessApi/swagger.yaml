@@ -895,7 +895,7 @@ paths:
     post:
       summary: Verify user code
       description: |
-        This API is 2nd part of the backend journey for Pin & Pair and is meant to be called by the browser based clients (like IDv5 FrontEnd) on behalf of TV devices to check the user code shown on the device.
+        This API is 2nd part of the backend journey for Pin & Pair and is meant to be called by the browser based clients (like IDv5 FrontEnd) on behalf of TV devices to check the user code shown on the device. This API will reject any code not made of 6 numeric digits. This corresponds with the fact that OpenAM will not generate any code that is not 6 numeric digits.
 
         ### Testing
         Component | Scenarios | Results
